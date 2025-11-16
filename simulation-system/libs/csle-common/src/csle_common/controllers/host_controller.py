@@ -70,11 +70,13 @@ class HostController:
         o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd,
                                                 conn=emulation_env_config.get_connection(ip=ip))
 
+        # Extract container name for logging
+        container = emulation_env_config.containers_config.get_container_from_ip(ip)
+        alt_str = ""
+        if container is not None:
+            alt_str = f"{container.get_ips()[0]}, {container.get_full_name()}"
+
         if constants.COMMANDS.SEARCH_HOST_MANAGER not in str(o):
-            container = emulation_env_config.containers_config.get_container_from_ip(ip)
-            alt_str = ""
-            if container is not None:
-                alt_str = f"{container.get_ips()[0]}, {container.get_full_name()}"
             logger.info(f"Host manager is not running on: {ip} ({alt_str}), starting it. Output of {cmd} "
                         f"was: {str(o)}, err output was: {str(e)}")
 
@@ -94,7 +96,7 @@ class HostController:
                                                     conn=emulation_env_config.get_connection(ip=ip))
             time.sleep(10)
         else:
-            logger.info(f"Host manager is already running on: {ip}. Output of {cmd} was: {str(o)}, "
+            logger.info(f"Host manager is already running on: {ip} ({alt_str}). Output of {cmd} was: {str(o)}, "
                         f"err output was: {str(e)}")
 
     @staticmethod

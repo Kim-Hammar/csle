@@ -3,6 +3,7 @@ Constants for csle-common
 """
 from typing import Union
 import re
+import json
 from csle_common.dao.emulation_config.config import Config
 
 
@@ -30,8 +31,22 @@ class GRPC_SERVERS:
     OSSEC_IDS_MANAGER_PORT = 50047
     SNORT_IDS_MANAGER_PORT = 50048
     HOST_MANAGER_PORT = 50049
+    SERVICE_CONFIG_JSON = json.dumps({
+        "methodConfig": [{
+            # An empty "name" list means this policy applies to all methods.
+            "name": [{}],
+            "retryPolicy": {
+                "maxAttempts": 5,  # Try a total of 5 times
+                "initialBackoff": "0.1s",  # Start with a 100ms delay
+                "maxBackoff": "10s",  # Maximum delay is 10 seconds
+                "backoffMultiplier": 2,  # Double the delay each time
+                "retryableStatusCodes": ["UNAVAILABLE"],
+            },
+        }]
+    })
     GRPC_OPTIONS = [('grpc.max_message_length', 100000000), ('grpc.max_send_message_length', 100000000),
-                    ('grpc.max_receive_message_length', 100000000)]
+                    ('grpc.max_receive_message_length', 100000000), ('grpc.enable_retries', 1),
+                    ('grpc.service_config', SERVICE_CONFIG_JSON)]
 
 
 class CONFIG_FILE:
