@@ -116,11 +116,14 @@ class TestHostControllerSuite:
         emulation_env_config.host_manager_config.host_manager_log_dir = ("/var/log/host_manager")
         emulation_env_config.host_manager_config.host_manager_log_file = ("host_manager.log")
         emulation_env_config.host_manager_config.host_manager_max_workers = 4
+        containers_config = MagicMock()
+        emulation_env_config.containers_config = containers_config
+        containers_config.get_container_from_ip.return_value = None
         logger = MagicMock(spec=logging.Logger)
         ip = "172.17.0.1"
         HostController.start_host_manager(emulation_env_config, ip, logger)
         mock_connect_admin.assert_called_once_with(emulation_env_config=emulation_env_config, ip=ip)
-        mock_sleep.assert_called_once_with(5)
+        mock_sleep.assert_called_once_with(10)
 
     @patch("csle_common.controllers.host_controller.HostController.stop_host_manager")
     def test_stop_host_managers(self, mock_stop_host_manager) -> None:

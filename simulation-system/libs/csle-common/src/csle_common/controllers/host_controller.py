@@ -71,8 +71,12 @@ class HostController:
                                                 conn=emulation_env_config.get_connection(ip=ip))
 
         if constants.COMMANDS.SEARCH_HOST_MANAGER not in str(o):
-            logger.info(f"Host manager is not running on: {ip}, starting it. Output of {cmd} was: {str(o)}, "
-                        f"err output was: {str(e)}")
+            container = emulation_env_config.containers_config.get_container_from_ip(ip)
+            alt_str = ""
+            if container is not None:
+                alt_str = f"{container.get_ips()[0]}, {container.get_full_name()}"
+            logger.info(f"Host manager is not running on: {ip} ({alt_str}), starting it. Output of {cmd} "
+                        f"was: {str(o)}, err output was: {str(e)}")
 
             # Stop old background job if running
             cmd = (constants.COMMANDS.SUDO + constants.COMMANDS.SPACE_DELIM + constants.COMMANDS.PKILL +
@@ -88,7 +92,7 @@ class HostController:
                 emulation_env_config.host_manager_config.host_manager_max_workers)
             o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd,
                                                     conn=emulation_env_config.get_connection(ip=ip))
-            time.sleep(5)
+            time.sleep(10)
         else:
             logger.info(f"Host manager is already running on: {ip}. Output of {cmd} was: {str(o)}, "
                         f"err output was: {str(e)}")

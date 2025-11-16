@@ -83,7 +83,7 @@ class TrafficController:
                         f"{node_traffic_config.docker_gw_bridge_ip} ({node_traffic_config.ip}), with cmd:{cmd}")
             o, e, _ = EmulationUtil.execute_ssh_cmd(
                 cmd=cmd, conn=emulation_env_config.get_connection(ip=node_traffic_config.docker_gw_bridge_ip))
-            time.sleep(2)
+            time.sleep(10)
 
     @staticmethod
     def stop_traffic_managers(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
@@ -251,7 +251,7 @@ class TrafficController:
                 f"Client manager was not running on container:"
                 f" {emulation_env_config.traffic_config.client_population_config.docker_gw_bridge_ip} "
                 f"({emulation_env_config.traffic_config.client_population_config.ip}), started it")
-            time.sleep(5)
+            time.sleep(10)
             # If client manager was started we need to first start the client population
             TrafficController.start_client_population(emulation_env_config=emulation_env_config,
                                                       physical_server_ip=physical_server_ip, logger=logger)
@@ -260,8 +260,8 @@ class TrafficController:
             ip=emulation_env_config.traffic_config.client_population_config.docker_gw_bridge_ip,
             port=emulation_env_config.traffic_config.client_population_config.client_manager_port,
             logger=logger)
-        time.sleep(5)
         if not client_dto.producer_active:
+            time.sleep(5)
             # Open a gRPC session
             with grpc.insecure_channel(
                     f'{emulation_env_config.traffic_config.client_population_config.docker_gw_bridge_ip}:'
@@ -346,7 +346,7 @@ class TrafficController:
             # Stop the client population if it is already running
             if client_dto.client_process_active:
                 csle_collector.client_manager.query_clients.stop_clients(stub)
-                time.sleep(2)
+                time.sleep(5)
 
             # Start the client population
             time_step_len = emulation_env_config.traffic_config.client_population_config.client_time_step_len_seconds
