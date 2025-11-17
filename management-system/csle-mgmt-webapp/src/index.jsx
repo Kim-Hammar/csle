@@ -1,19 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { StrictMode } from 'react';
+import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import App from './App.jsx';
 
-const alertOptions = {
-    position: "middle",
-    timeout: 5000,
-    offset: '40px',
-    transition: 'scale'
-}
-ReactDOM.render(
-    <React.StrictMode>
-            <App/>
-    </React.StrictMode>,
-    document.getElementById('root')
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <StrictMode>
+      <App />
+  </StrictMode>
 );
-reportWebVitals();

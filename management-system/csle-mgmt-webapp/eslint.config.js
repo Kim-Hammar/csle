@@ -1,11 +1,20 @@
-import eslint from '@eslint/js';
-import globals from 'globals';
-import pluginN from 'eslint-plugin-n';
-import pluginPromise from 'eslint-plugin-promise';
-import pluginReact from 'eslint-plugin-react';
-import eslintConfigPrettier from 'eslint-config-prettier';
+import eslint from '@eslint/js'
+import globals from 'globals'
+import pluginN from 'eslint-plugin-n'
+import pluginPromise from 'eslint-plugin-promise'
+import pluginReact from 'eslint-plugin-react'
+import eslintConfigPrettier from 'eslint-config-prettier'
 
 export default [
+  {
+    ignores: ['node_modules/', 'dist/', 'build/']
+  },
+  eslint.configs.recommended,
+  pluginN.configs['flat/recommended-module'],
+  pluginPromise.configs['flat/recommended'],
+  pluginReact.configs.flat.recommended,
+  pluginReact.configs.flat['jsx-runtime'],
+
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -22,29 +31,16 @@ export default [
       },
     },
     plugins: {
-      'react': pluginReact,
-      'n': pluginN,
-      'promise': pluginPromise,
+      react: pluginReact,
+      n: pluginN,
+      promise: pluginPromise,
     },
     settings: {
       react: {
         version: 'detect',
       },
     },
-    ignores: [
-      "node_modules/",
-      "build/",
-      "dist/",
-      "public/",
-      "vite.config.js"
-    ]
   },
-  eslint.configs.recommended,
-  pluginN.configs['flat/recommended-script'],
-  pluginPromise.configs['flat/recommended'],
-  {
-    ...pluginReact.configs.flat.recommended,
-    ...pluginReact.configs.flat['jsx-runtime'],
-  },
+
   eslintConfigPrettier,
-];
+]
