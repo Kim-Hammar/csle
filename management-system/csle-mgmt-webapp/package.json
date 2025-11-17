@@ -1,6 +1,6 @@
 {
   "name": "csle_mgmt_webapp",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
@@ -55,21 +55,18 @@
     ]
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.38.0",
+    "@eslint/js": "^9.39.1",
     "@testing-library/react": "^14.0.0",
-    "ajv": "^8.17.1",
-    "eslint": "^8.28.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-n": "^15.5.1",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-react": "^7.31.11",
-    "globals": "^16.4.0",
-    "prettier": "^2.8.0",
     "@vitejs/plugin-react": "^4.6.0",
+    "ajv": "^8.17.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-n": "^17.23.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.5.0",
+    "prettier": "^2.8.0",
     "vite": "^7.0.0"
   }
 }
