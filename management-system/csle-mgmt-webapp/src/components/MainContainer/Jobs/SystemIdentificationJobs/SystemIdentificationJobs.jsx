@@ -1,4 +1,4 @@
-import React, {useState, createRef, useCallback, useEffect} from 'react';
+import {useState, createRef, useCallback, useEffect} from 'react';
 import './SystemIdentificationJobs.css';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
@@ -12,7 +12,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Select from 'react-select'
 import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
-import SystemIdentificationJob from "./SystemIdentificationJob/SystemIdentificationJob";
+import SystemIdentificationJob from "./SystemIdentificationJob/SystemIdentificationJob.jsx";
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
@@ -100,7 +100,7 @@ const SystemIdentificationJobs = (props) => {
                 if(response === null) {
                     return
                 }
-                const systemIdentificationJobsIds = response.map((id_obj, index) => {
+                const systemIdentificationJobsIds = response.map((id_obj) => {
                     var lbl = ""
                     if (id_obj.running) {
                         lbl = `ID: ${id_obj.id}, emulation: ${id_obj.emulation} (running)`
@@ -400,7 +400,7 @@ const SystemIdentificationJobs = (props) => {
         }
     }
 
-    const runningSystemIdentificationJobsChange = (event) => {
+    const runningSystemIdentificationJobsChange = () => {
         var filteredSIJobsIds = null
         if (!showOnlyRunningSystemIdentificationJobs) {
             filteredSIJobsIds = filteredSystemIdentificationJobsIds.filter(job => {

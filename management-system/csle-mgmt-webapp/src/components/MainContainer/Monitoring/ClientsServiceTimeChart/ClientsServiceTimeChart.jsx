@@ -69,9 +69,7 @@ const ClientsServiceTimeChart = React.memo((props) => {
         }
     }
 )
-
+ClientsServiceTimeChart.displayName = 'ClientsServiceTimeChart'
 ClientsServiceTimeChart.propTypes = {};
-
 ClientsServiceTimeChart.defaultProps = {};
-
 export default ClientsServiceTimeChart;

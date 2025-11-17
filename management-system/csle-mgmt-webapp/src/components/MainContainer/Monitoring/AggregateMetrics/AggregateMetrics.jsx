@@ -1,17 +1,17 @@
 import React from 'react';
 import './AggregateMetrics.css';
-import SnortAlertsChart from "../SnortAlertsChart/SnortAlertsChart";
-import OssecAlertsChart from "../OssecAlertsChart/OssecAlertsChart";
+import SnortAlertsChart from "../SnortAlertsChart/SnortAlertsChart.jsx";
+import OssecAlertsChart from "../OssecAlertsChart/OssecAlertsChart.jsx";
 import Spinner from 'react-bootstrap/Spinner'
-import CpuAndMemoryUtilizationChart from "../CpuAndMemoryUtilizationChart/CpuAndMemoryUtilizationChart";
-import NetworkChart from "../NetworkChart/NetworkChart";
-import BlockIOChart from "../BlockIOChart/BlockIOChart";
-import ClientsChart from "../ClientsChart/ClientsChart";
-import ClientsArrivalRateChart from "../ClientsArrivalRateChart/ClientsArrivalRateChart";
-import ClientsServiceTimeChart from "../ClientsServiceTimeChart/ClientsServiceTimeChart";
-import LoginsChart from "../LoginsChart/LoginsChart";
-import ConnectionsChart from "../ConnectionsChart/ConnectionsChart";
-import PidsChart from "../PidsChart/PidsChart";
+import CpuAndMemoryUtilizationChart from "../CpuAndMemoryUtilizationChart/CpuAndMemoryUtilizationChart.jsx";
+import NetworkChart from "../NetworkChart/NetworkChart.jsx";
+import BlockIOChart from "../BlockIOChart/BlockIOChart.jsx";
+import ClientsChart from "../ClientsChart/ClientsChart.jsx";
+import ClientsArrivalRateChart from "../ClientsArrivalRateChart/ClientsArrivalRateChart.jsx";
+import ClientsServiceTimeChart from "../ClientsServiceTimeChart/ClientsServiceTimeChart.jsx";
+import LoginsChart from "../LoginsChart/LoginsChart.jsx";
+import ConnectionsChart from "../ConnectionsChart/ConnectionsChart.jsx";
+import PidsChart from "../PidsChart/PidsChart.jsx";
 
 /**
  * Component containing plots of aggregate metrics
@@ -119,7 +119,7 @@ const AggregateMetrics = React.memo((props) => {
         }
     }
 )
-
+AggregateMetrics.displayName = 'AggregateMetrics'
 AggregateMetrics.propTypes = {};
 AggregateMetrics.defaultProps = {};
 export default AggregateMetrics;

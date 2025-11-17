@@ -76,8 +76,7 @@ const CpuAndMemoryUtilizationChart = React.memo((props) => {
         }
     }
 )
+CpuAndMemoryUtilizationChart.displayName = 'CpuAndMemoryUtilizationChart'
 CpuAndMemoryUtilizationChart.propTypes = {};
-
 CpuAndMemoryUtilizationChart.defaultProps = {};
-
 export default CpuAndMemoryUtilizationChart;

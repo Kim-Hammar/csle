@@ -1,4 +1,3 @@
-import React from 'react';
 import './NotFound.css';
 
 
@@ -12,7 +11,5 @@ const NotFound = () => (
 );
 
 NotFound.propTypes = {};
-
 NotFound.defaultProps = {};
-
 export default NotFound;

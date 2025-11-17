@@ -70,9 +70,7 @@ const ClientsChart = React.memo((props) => {
         }
     }
 )
-
+ClientsChart.displayName = 'ClientsChart'
 ClientsChart.propTypes = {};
-
 ClientsChart.defaultProps = {};
-
 export default ClientsChart;

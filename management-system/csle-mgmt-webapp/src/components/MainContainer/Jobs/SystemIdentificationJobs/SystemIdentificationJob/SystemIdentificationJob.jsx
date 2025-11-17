@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import {useState, useCallback} from 'react';
 import './SystemIdentificationJob.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
@@ -128,7 +128,7 @@ const SystemIdentificationJob = (props) => {
 
     const parseLogs = (logs) => {
         var lines = logs.logs.split("\n")
-        var data = lines.map((line, index) => {
+        var data = lines.map((line) => {
             var parts = line.split(/,(.*)/)
             var date = parts[0]
             var content = parts[1]

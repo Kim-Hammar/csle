@@ -79,8 +79,7 @@ const ReceivedBytesChart = React.memo((props) => {
         }
     }
 )
+ReceivedBytesChart.displayName = 'ReceivedBytesChart'
 ReceivedBytesChart.propTypes = {};
-
 ReceivedBytesChart.defaultProps = {};
-
 export default ReceivedBytesChart;

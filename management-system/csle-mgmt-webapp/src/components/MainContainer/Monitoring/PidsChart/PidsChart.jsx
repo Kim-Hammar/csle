@@ -70,8 +70,7 @@ const PidsChart = React.memo((props) => {
         }
     }
 )
+PidsChart.displayName = 'PidsChart'
 PidsChart.propTypes = {};
-
 PidsChart.defaultProps = {};
-
 export default PidsChart;

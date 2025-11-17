@@ -79,6 +79,7 @@ const ReceivedCRCErrorsChart = React.memo((props) => {
         }
     }
 )
+ReceivedCRCErrorsChart.displayName = 'ReceivedCRCErrorsChart'
 ReceivedCRCErrorsChart.propTypes = {};
 ReceivedCRCErrorsChart.defaultProps = {};
 export default ReceivedCRCErrorsChart;

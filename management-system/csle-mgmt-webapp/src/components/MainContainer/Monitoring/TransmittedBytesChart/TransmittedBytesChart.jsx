@@ -79,6 +79,7 @@ const TransmittedBytesChart = React.memo((props) => {
         }
     }
 )
+TransmittedBytesChart.displayName = 'TransmittedBytesChart'
 TransmittedBytesChart.propTypes = {};
 TransmittedBytesChart.defaultProps = {};
 export default TransmittedBytesChart;

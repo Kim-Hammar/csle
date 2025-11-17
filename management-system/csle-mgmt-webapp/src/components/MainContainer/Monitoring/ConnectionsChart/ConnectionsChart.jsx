@@ -73,8 +73,7 @@ const ConnectionsChart = React.memo((props) => {
         }
     }
 )
+ConnectionsChart.displayName = 'ConnectionsChart'
 ConnectionsChart.propTypes = {};
-
 ConnectionsChart.defaultProps = {};
-
 export default ConnectionsChart;

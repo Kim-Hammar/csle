@@ -69,9 +69,7 @@ const ClientsArrivalRateChart = React.memo((props) => {
         }
     }
 )
-
+ClientsArrivalRateChart.displayName = 'ClientsArrivalRateChart'
 ClientsArrivalRateChart.propTypes = {};
-
 ClientsArrivalRateChart.defaultProps = {};
-
 export default ClientsArrivalRateChart;

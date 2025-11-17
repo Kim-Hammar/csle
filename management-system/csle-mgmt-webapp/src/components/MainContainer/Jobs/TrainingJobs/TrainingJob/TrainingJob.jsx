@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import {useState, useCallback} from 'react';
 import './TrainingJob.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
@@ -6,7 +6,7 @@ import Table from 'react-bootstrap/Table'
 import Accordion from 'react-bootstrap/Accordion';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import MetricPlot from "../../../TrainingResults/Experiment/MetricPlot/MetricPlot";
+import MetricPlot from "../../../TrainingResults/Experiment/MetricPlot/MetricPlot.jsx";
 import Collapse from 'react-bootstrap/Collapse'
 import Spinner from 'react-bootstrap/Spinner'
 import getAgentTypeStr from '../../../../Common/getAgentTypeStr'
@@ -145,7 +145,7 @@ const TrainingJob = (props) => {
 
     const parseLogs = (logs) => {
         var lines = logs.logs.split("\n")
-        var data = lines.map((line, index) => {
+        var data = lines.map((line) => {
             var parts = line.split(/,(.*)/)
             var date = parts[0]
             var content = parts[1]

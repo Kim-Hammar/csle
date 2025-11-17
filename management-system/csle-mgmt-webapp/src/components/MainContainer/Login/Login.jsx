@@ -1,11 +1,11 @@
-import React, {useState, useCallback} from 'react';
+import {useState, useCallback} from 'react';
 import toast from 'react-hot-toast';
 import './Login.css';
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Tooltip from 'react-bootstrap/Tooltip';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import ChangeUserDataForm from "./ChangeUserDataForm/ChangeUserDataForm";
+import ChangeUserDataForm from "./ChangeUserDataForm/ChangeUserDataForm.jsx";
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import {

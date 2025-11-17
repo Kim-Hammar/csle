@@ -79,6 +79,7 @@ const TransmittedDroppedChart = React.memo((props) => {
         }
     }
 )
+TransmittedDroppedChart.displayName = 'TransmittedDroppedChart'
 TransmittedDroppedChart.propTypes = {};
 TransmittedDroppedChart.defaultProps = {};
 export default TransmittedDroppedChart;

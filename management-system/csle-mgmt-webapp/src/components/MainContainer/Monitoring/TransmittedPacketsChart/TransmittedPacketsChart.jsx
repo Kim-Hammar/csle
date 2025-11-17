@@ -79,8 +79,7 @@ const TransmittedPacketsChart = React.memo((props) => {
         }
     }
 )
+TransmittedPacketsChart.displayName = 'TransmittedPacketsChart'
 TransmittedPacketsChart.propTypes = {};
-
 TransmittedPacketsChart.defaultProps = {};
-
 export default TransmittedPacketsChart;

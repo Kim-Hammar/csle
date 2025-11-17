@@ -78,8 +78,7 @@ const ReceivedPacketsChart = React.memo((props) => {
         }
     }
 )
+ReceivedPacketsChart.displayName = 'ReceivedPacketsChart'
 ReceivedPacketsChart.propTypes = {};
-
 ReceivedPacketsChart.defaultProps = {};
-
 export default ReceivedPacketsChart;

@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import './Jobs.css';
 import Select from 'react-select'
-import TrainingJobs from "./TrainingJobs/TrainingJobs";
-import SystemIdentificationJobs from "./SystemIdentificationJobs/SystemIdentificationJobs";
-import DataCollectionJobs from "./DataCollectionJobs/DataCollectionJobs";
+import TrainingJobs from "./TrainingJobs/TrainingJobs.jsx";
+import SystemIdentificationJobs from "./SystemIdentificationJobs/SystemIdentificationJobs.jsx";
+import DataCollectionJobs from "./DataCollectionJobs/DataCollectionJobs.jsx";
 
 /**
  * The component representing the /jobs-page

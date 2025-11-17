@@ -79,8 +79,7 @@ const NumCollisionsChart = React.memo((props) => {
         }
     }
 )
+NumCollisionsChart.displayName = 'NumCollisionsChart'
 NumCollisionsChart.propTypes = {};
-
 NumCollisionsChart.defaultProps = {};
-
 export default NumCollisionsChart;

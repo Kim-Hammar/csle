@@ -1,6 +1,6 @@
 import React from 'react';
 import './SnortMetrics.css';
-import SnortAlertsChart from "../SnortAlertsChart/SnortAlertsChart";
+import SnortAlertsChart from "../SnortAlertsChart/SnortAlertsChart.jsx";
 import Spinner from 'react-bootstrap/Spinner'
 
 /**
@@ -33,7 +33,7 @@ const SnortMetrics = React.memo((props) => {
         }
     }
 )
-
+SnortMetrics.displayName = 'SnortMetrics'
 SnortMetrics.propTypes = {};
 SnortMetrics.defaultProps = {};
 export default SnortMetrics;

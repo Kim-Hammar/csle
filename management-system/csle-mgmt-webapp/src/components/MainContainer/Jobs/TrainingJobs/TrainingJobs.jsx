@@ -1,4 +1,4 @@
-import React, {useState, createRef, useCallback, useEffect} from 'react';
+import {useState, createRef, useCallback, useEffect} from 'react';
 import './TrainingJobs.css';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
@@ -13,7 +13,7 @@ import Select from 'react-select'
 import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import TrainingJob from "./TrainingJob/TrainingJob";
+import TrainingJob from "./TrainingJob/TrainingJob.jsx";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 import serverIp from "../../../Common/serverIp";
@@ -101,7 +101,7 @@ const TrainingJobs = (props) => {
                 if(response === null) {
                     return
                 }
-                const trainingJobsIds = response.map((id_obj, index) => {
+                const trainingJobsIds = response.map((id_obj) => {
                     var lbl = ""
                     if (id_obj.running) {
                         lbl = `ID: ${id_obj.id}, simulation: ${id_obj.simulation}`
@@ -377,7 +377,7 @@ const TrainingJobs = (props) => {
         return (searchVal === "" || job_id_obj.label.toLowerCase().indexOf(searchVal.toLowerCase()) !== -1);
     }
 
-    const searchTrainingJobChange = (event) => {
+    const searchTrainingJobChange = () => {
         var searchVal = event.target.value
         const filteredTJobIds = trainingJobsIds.filter(job => {
             return trainingJobSearchFilter(job, searchVal)

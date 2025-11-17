@@ -73,8 +73,7 @@ const BlockIOChart = React.memo((props) => {
         }
     }
 )
+BlockIOChart.displayName = 'BlockIOChart'
 BlockIOChart.propTypes = {};
-
 BlockIOChart.defaultProps = {};
-
 export default BlockIOChart;

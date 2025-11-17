@@ -78,8 +78,7 @@ const FlowDurationChart = React.memo((props) => {
         }
     }
 )
+FlowDurationChart.displayName = 'FlowDurationChart'
 FlowDurationChart.propTypes = {};
-
 FlowDurationChart.defaultProps = {};
-
 export default FlowDurationChart;

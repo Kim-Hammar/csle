@@ -1,14 +1,14 @@
 import React from 'react';
 import './ContainerMetrics.css';
 import Spinner from 'react-bootstrap/Spinner'
-import CpuAndMemoryUtilizationChart from "../CpuAndMemoryUtilizationChart/CpuAndMemoryUtilizationChart";
-import NetworkChart from "../NetworkChart/NetworkChart";
-import BlockIOChart from "../BlockIOChart/BlockIOChart";
-import PidsChart from "../PidsChart/PidsChart";
-import LoginsChart from "../LoginsChart/LoginsChart";
-import ConnectionsChart from "../ConnectionsChart/ConnectionsChart";
-import OssecAlertsChart from "../OssecAlertsChart/OssecAlertsChart";
-import SnortAlertsChart from "../SnortAlertsChart/SnortAlertsChart";
+import CpuAndMemoryUtilizationChart from "../CpuAndMemoryUtilizationChart/CpuAndMemoryUtilizationChart.jsx";
+import NetworkChart from "../NetworkChart/NetworkChart.jsx";
+import BlockIOChart from "../BlockIOChart/BlockIOChart.jsx";
+import PidsChart from "../PidsChart/PidsChart.jsx";
+import LoginsChart from "../LoginsChart/LoginsChart.jsx";
+import ConnectionsChart from "../ConnectionsChart/ConnectionsChart.jsx";
+import OssecAlertsChart from "../OssecAlertsChart/OssecAlertsChart.jsx";
+import SnortAlertsChart from "../SnortAlertsChart/SnortAlertsChart.jsx";
 
 /**
  * Component containing a plot showing a number of container-specific plots
@@ -91,7 +91,7 @@ const ContainerMetrics = React.memo((props) => {
         )
     }
 })
-
+ContainerMetrics.displayName = 'ContainerMetrics'
 ContainerMetrics.propTypes = {};
 ContainerMetrics.defaultProps = {};
 export default ContainerMetrics;

@@ -1,7 +1,7 @@
 import './MainContainer.css';
-import Header from "./Header/Header";
+import Header from "./Header/Header.jsx";
 import {Outlet} from "react-router-dom";
-import Footer from "./Footer/Footer";
+import Footer from "./Footer/Footer.jsx";
 
 /**
  * Container component containing the main components of the page

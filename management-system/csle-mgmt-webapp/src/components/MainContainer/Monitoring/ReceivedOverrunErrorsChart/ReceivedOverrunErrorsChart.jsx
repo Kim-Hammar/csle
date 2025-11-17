@@ -78,6 +78,7 @@ const ReceivedOverrunErrorsChart = React.memo((props) => {
         }
     }
 )
+ReceivedOverrunErrorsChart.displayName = 'ReceivedOverrunErrorsChart'
 ReceivedOverrunErrorsChart.propTypes = {};
 ReceivedOverrunErrorsChart.defaultProps = {};
 export default ReceivedOverrunErrorsChart;

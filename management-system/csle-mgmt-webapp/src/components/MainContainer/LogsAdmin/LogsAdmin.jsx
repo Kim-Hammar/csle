@@ -1,8 +1,7 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import './LogsAdmin.css';
 import {useNavigate} from "react-router-dom";
 import toast from 'react-hot-toast';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Select from 'react-select'
 import Card from 'react-bootstrap/Card';
@@ -162,7 +161,7 @@ const LogsAdmin = (props) => {
             })
             .then(response => {
                 setLoadingCsleLogFiles(false)
-                const csleLogFiles = response.logs.map((id_obj, index) => {
+                const csleLogFiles = response.logs.map((id_obj) => {
                     return {
                         value: id_obj,
                         label: id_obj
@@ -462,7 +461,7 @@ const LogsAdmin = (props) => {
             .catch(error => console.log("error:" + error))
     }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
-    const fetchServerCluster = useCallback((path) => {
+    const fetchServerCluster = useCallback(() => {
         fetch(
             `${API_BASE_URL}/${CLUSTER_STATUS_RESOURCE}`
             + `?${TOKEN_QUERY_PARAM}=${props.sessionData.token}`,
@@ -483,7 +482,7 @@ const LogsAdmin = (props) => {
                 return res.json()
             })
             .then(response => {
-                const serverClusterIPIds = response.map((id_obj, index) => {
+                const serverClusterIPIds = response.map((id_obj) => {
                     return {
                         value: id_obj,
                         label: `IP:${id_obj.ip}`

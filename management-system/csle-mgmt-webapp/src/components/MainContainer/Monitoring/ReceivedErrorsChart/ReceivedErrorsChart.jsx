@@ -79,6 +79,7 @@ const ReceivedErrorsChart = React.memo((props) => {
         }
     }
 )
+ReceivedErrorsChart.displayName = 'ReceivedErrorsChart'
 ReceivedErrorsChart.propTypes = {};
 ReceivedErrorsChart.defaultProps = {};
 export default ReceivedErrorsChart;

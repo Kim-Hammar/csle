@@ -1,14 +1,14 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import "rc-slider/assets/index.css";
 import './Monitoring.css';
 import Select from 'react-select'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal'
-import ContainerMetrics from "./ContainerMetrics/ContainerMetrics";
-import AggregateMetrics from "./AggregateMetrics/AggregateMetrics";
-import OpenFlowSwitchesStats from "./OpenFlowSwitchesStats/OpenFlowSwitchesStats";
-import SnortMetrics from "./SnortMetrics/SnortMetrics";
+import ContainerMetrics from "./ContainerMetrics/ContainerMetrics.jsx";
+import AggregateMetrics from "./AggregateMetrics/AggregateMetrics.jsx";
+import OpenFlowSwitchesStats from "./OpenFlowSwitchesStats/OpenFlowSwitchesStats.jsx";
+import SnortMetrics from "./SnortMetrics/SnortMetrics.jsx";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import DataCollection from './MonitoringSetup.png'
@@ -148,7 +148,7 @@ const Monitoring = (props) => {
                 setMonitoringData(response)
                 setLoadingMonitoringData(false)
                 var openFlowSwitchesOptions = []
-                openFlowSwitchesOptions = Object.keys(response.openflow_port_avg_metrics_per_switch).map((dpid, index) => {
+                openFlowSwitchesOptions = Object.keys(response.openflow_port_avg_metrics_per_switch).map((dpid) => {
                     return {
                         value: dpid,
                         label: dpid
@@ -160,7 +160,7 @@ const Monitoring = (props) => {
                 }
 
                 var snortIdsOptions = []
-                snortIdsOptions = Object.keys(response.snort_alert_metrics_per_ids).map((snort_ids_ip, index) => {
+                snortIdsOptions = Object.keys(response.snort_alert_metrics_per_ids).map((snort_ids_ip) => {
                     return {
                         value: snort_ids_ip,
                         label: snort_ids_ip
@@ -203,7 +203,7 @@ const Monitoring = (props) => {
                 setLoadingSelectedEmulationExecution(false)
                 if (response !== null && response !== undefined) {
                     const containerOptions = response.emulation_env_config.containers_config.containers.map(
-                        (c, index) => {
+                        (c) => {
                             return {
                                 value: c,
                                 label: c.full_name_str
@@ -453,7 +453,7 @@ const Monitoring = (props) => {
                 if(response === null) {
                     return
                 }
-                const emulationExecutionIds = response.map((id_obj, index) => {
+                const emulationExecutionIds = response.map((id_obj) => {
                     return {
                         value: id_obj,
                         label: `ID: ${id_obj.id}, emulation: ${id_obj.emulation}`

@@ -79,7 +79,7 @@ const SnortAlertsChart = React.memo((props) => {
         }
     }
 )
-
+SnortAlertsChart.displayName = 'SnortAlertsChart'
 SnortAlertsChart.propTypes = {};
 SnortAlertsChart.defaultProps = {};
 export default SnortAlertsChart;

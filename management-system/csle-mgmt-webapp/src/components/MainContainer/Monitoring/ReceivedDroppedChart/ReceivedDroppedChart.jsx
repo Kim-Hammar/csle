@@ -79,6 +79,7 @@ const ReceivedDroppedChart = React.memo((props) => {
         }
     }
 )
+ReceivedDroppedChart.displayName = 'ReceivedDroppedChart'
 ReceivedDroppedChart.propTypes = {};
 ReceivedDroppedChart.defaultProps = {};
 export default ReceivedDroppedChart;

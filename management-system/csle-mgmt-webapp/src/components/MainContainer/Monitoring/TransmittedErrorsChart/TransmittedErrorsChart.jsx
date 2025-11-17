@@ -78,6 +78,7 @@ const TransmittedErrorsChart = React.memo((props) => {
         }
     }
 )
+TransmittedErrorsChart.displayName = 'TransmittedErrorsChart'
 TransmittedErrorsChart.propTypes = {};
 TransmittedErrorsChart.defaultProps = {};
 export default TransmittedErrorsChart;

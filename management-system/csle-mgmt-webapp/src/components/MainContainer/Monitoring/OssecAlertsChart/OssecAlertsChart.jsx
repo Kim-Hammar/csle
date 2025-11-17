@@ -78,7 +78,7 @@ const OssecAlertsChart = React.memo((props) => {
         }
     }
 )
-
+OssecAlertsChart.displayName = 'OssecAlertsChart'
 OssecAlertsChart.propTypes = {};
 OssecAlertsChart.defaultProps = {};
 export default OssecAlertsChart;

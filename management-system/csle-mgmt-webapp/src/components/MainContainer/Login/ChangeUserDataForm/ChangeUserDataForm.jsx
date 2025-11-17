@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import {useState, useCallback} from 'react';
 import toast from 'react-hot-toast';
 import './ChangeUserDataForm.css';
 import {useNavigate} from "react-router-dom";
@@ -53,7 +53,7 @@ const ChangeUserDataForm = (props) => {
                 }
                 return res.json()
             })
-            .then(response => {
+            .then(() => {
                 var sessionData = {
                     "token" : props.sessionData.token,
                     "username": username,

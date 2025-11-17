@@ -79,8 +79,7 @@ const FlowPriorityChart = React.memo((props) => {
         }
     }
 )
+FlowPriorityChart.displayName = 'FlowPriorityChart'
 FlowPriorityChart.propTypes = {};
-
 FlowPriorityChart.defaultProps = {};
-
 export default FlowPriorityChart;

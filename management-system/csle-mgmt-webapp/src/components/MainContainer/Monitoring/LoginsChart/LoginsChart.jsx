@@ -73,8 +73,7 @@ const LoginsChart = React.memo((props) => {
         }
     }
 )
+LoginsChart.displayName = 'LoginsChart'
 LoginsChart.propTypes = {};
-
 LoginsChart.defaultProps = {};
-
 export default LoginsChart;

@@ -1,21 +1,21 @@
 import React from 'react';
 import './OpenFlowSwitchesStats.css';
 import Spinner from 'react-bootstrap/Spinner'
-import ReceivedBytesChart from "../ReceivedBytesChart/ReceivedBytesChart";
-import ReceivedPacketsChart from "../ReceivedPacketsChart/ReceivedPacketsChart";
-import TransmittedBytesChart from "../TransmittedBytesChart/TransmittedBytesChart";
-import TransmittedPacketsChart from "../TransmittedPacketsChart/TransmittedPacketsChart";
-import NumCollisionsChart from "../NumCollisionsChart/NumCollisionsChart.js";
-import ReceivedCRCErrorsChart from "../ReceivedCRCErrorsChart/ReceivedCRCErrorsChart.js";
-import ReceivedErrorsChart from "../ReceivedErrorsChart/ReceivedErrorsChart.js";
-import ReceivedDroppedChart from "../ReceivedDroppedChart/ReceivedDroppedChart.js";
-import ReceivedFrameErrorsChart from "../ReceivedFrameErrorsChart/ReceivedFrameErrorsChart.js";
-import ReceivedOverrunErrorsChart from "../ReceivedOverrunErrorsChart/ReceivedOverrunErrorsChart.js";
-import TransmittedDroppedChart from "../TransmittedDroppedChart/TransmittedDroppedChart.js";
-import TransmittedErrorsChart from "../TransmittedErrorsChart/TransmittedErrorsChart.js";
-import FlowDurationChart from "../FlowDurationChart/FlowDurationChart";
-import FlowPriorityChart from "../FlowPriorityChart/FlowPriorityChart";
-import NumFlowsChart from "../NumFlowsChart/NumFlowsChart";
+import ReceivedBytesChart from "../ReceivedBytesChart/ReceivedBytesChart.jsx";
+import ReceivedPacketsChart from "../ReceivedPacketsChart/ReceivedPacketsChart.jsx";
+import TransmittedBytesChart from "../TransmittedBytesChart/TransmittedBytesChart.jsx";
+import TransmittedPacketsChart from "../TransmittedPacketsChart/TransmittedPacketsChart.jsx";
+import NumCollisionsChart from "../NumCollisionsChart/NumCollisionsChart.jsx";
+import ReceivedCRCErrorsChart from "../ReceivedCRCErrorsChart/ReceivedCRCErrorsChart.jsx";
+import ReceivedErrorsChart from "../ReceivedErrorsChart/ReceivedErrorsChart.jsx";
+import ReceivedDroppedChart from "../ReceivedDroppedChart/ReceivedDroppedChart.jsx";
+import ReceivedFrameErrorsChart from "../ReceivedFrameErrorsChart/ReceivedFrameErrorsChart.jsx";
+import ReceivedOverrunErrorsChart from "../ReceivedOverrunErrorsChart/ReceivedOverrunErrorsChart.jsx";
+import TransmittedDroppedChart from "../TransmittedDroppedChart/TransmittedDroppedChart.jsx";
+import TransmittedErrorsChart from "../TransmittedErrorsChart/TransmittedErrorsChart.jsx";
+import FlowDurationChart from "../FlowDurationChart/FlowDurationChart.jsx";
+import FlowPriorityChart from "../FlowPriorityChart/FlowPriorityChart.jsx";
+import NumFlowsChart from "../NumFlowsChart/NumFlowsChart.jsx";
 
 
 /**
@@ -166,7 +166,7 @@ const OpenFlowSwitchesStats = React.memo((props) => {
         )
     }
 })
-
+OpenFlowSwitchesStats.displayName = 'OpenFlowSwitchesStats'
 OpenFlowSwitchesStats.propTypes = {};
 OpenFlowSwitchesStats.defaultProps = {};
 export default OpenFlowSwitchesStats;

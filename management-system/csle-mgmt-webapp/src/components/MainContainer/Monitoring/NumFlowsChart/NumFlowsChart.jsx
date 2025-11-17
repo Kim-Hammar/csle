@@ -79,6 +79,7 @@ const NumFlowsChart = React.memo((props) => {
         }
     }
 )
+NumFlowsChart.displayName = 'NumFlowsChart'
 NumFlowsChart.propTypes = {};
 NumFlowsChart.defaultProps = {};
 export default NumFlowsChart;

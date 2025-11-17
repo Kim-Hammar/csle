@@ -74,8 +74,7 @@ const NetworkChart = React.memo((props) => {
         }
     }
 )
+NetworkChart.displayName = 'NetworkChart'
 NetworkChart.propTypes = {};
-
 NetworkChart.defaultProps = {};
-
 export default NetworkChart;
