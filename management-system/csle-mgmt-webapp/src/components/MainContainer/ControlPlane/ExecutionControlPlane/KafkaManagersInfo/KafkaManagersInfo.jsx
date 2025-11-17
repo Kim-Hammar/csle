@@ -1,11 +1,10 @@
-import React from 'react';
 import './KafkaManagersInfo.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
-import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton";
-import LogsButton from "../LogsButton/LogsButton";
+import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton.jsx";
+import LogsButton from "../LogsButton/LogsButton.jsx";
 import convertListToCommaSeparatedString from "../../../../Common/convertListToCommaSeparatedString";
 import {KAFKA_MANAGER_SUBRESOURCE, KAFKA_SUBRESOURCE} from "../../../../Common/constants";
 import KafkaImg from "./../../../Emulations/Emulation/Kafka.png"

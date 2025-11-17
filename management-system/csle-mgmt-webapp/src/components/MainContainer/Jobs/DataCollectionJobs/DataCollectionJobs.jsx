@@ -1,4 +1,4 @@
-import React, {useState, createRef, useCallback, useEffect} from 'react';
+import {useState, createRef, useCallback, useEffect} from 'react';
 import './DataCollectionJobs.css';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
@@ -13,7 +13,7 @@ import Select from 'react-select'
 import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import DataCollectionJob from "./DataCollectionJob/DataCollectionJob";
+import DataCollectionJob from "./DataCollectionJob/DataCollectionJob.jsx";
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 import serverIp from "../../../Common/serverIp";
@@ -101,7 +101,7 @@ const DataCollectionJobs = (props) => {
                 if(response === null) {
                     return
                 }
-                const dataCollectionJobIds = response.map((id_obj, index) => {
+                const dataCollectionJobIds = response.map((id_obj) => {
                     var lbl = ""
                     if (id_obj.running) {
                         lbl = `ID: ${id_obj.id}, emulation: ${id_obj.emulation} (running)`
@@ -129,7 +129,7 @@ const DataCollectionJobs = (props) => {
             .catch(error => console.log("error:" + error))
     }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJob]);
 
-    const runningDataCollectionJobsChange = (event) => {
+    const runningDataCollectionJobsChange = () => {
         var filteredDCJobsIds = null
         if (!showOnlyRunningDataCollectionJobs) {
             filteredDCJobsIds = filteredDataCollectionJobsIds.filter(job => {

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, useRef} from 'react'
+import {useState, useEffect, useCallback, useRef} from 'react'
 import './CreateEmulation.css'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
@@ -10,40 +10,33 @@ import {
     CREATE_EMULATION_RESOURCE,
     LOGIN_PAGE_RESOURCE,
     TOKEN_QUERY_PARAM,
-    CONTAINERS_OS,
-    DEFAULT_INTERFACE_CONFIG
+    CONTAINERS_OS
 } from '../../Common/constants'
 import serverIp from "../../Common/serverIp"
 import serverPort from "../../Common/serverPort"
 import {useNavigate} from "react-router-dom"
 import toast from 'react-hot-toast';
-import AddServices from "./AddServices/AddServices";
-import AddInterfaces from "./AddInterfaces/AddInterfaces"
-import AddUsers from './AddUsers/AddUsers'
-import AddContainerGeneral from './AddContainerGeneral/AddContainerGeneral'
-import AddEmulationGeneral from './AddEmulationGeneral/AddEmulationGeneral'
-import AddVulns from './AddVulns/AddVulns'
+import AddServices from "./AddServices/AddServices.jsx";
+import AddInterfaces from "./AddInterfaces/AddInterfaces.jsx"
+import AddUsers from './AddUsers/AddUsers.jsx'
+import AddContainerGeneral from './AddContainerGeneral/AddContainerGeneral.jsx'
+import AddEmulationGeneral from './AddEmulationGeneral/AddEmulationGeneral.jsx'
+import AddVulns from './AddVulns/AddVulns.jsx'
 
 /**
  * Component representing the /create-emulation-page
  */
 const CreateEmulation = (props) => {
 
-    // State variables
     const [generalInfoOpen, setGeneralInfoOpen] = useState(false)
     const [containerOpen, setContainerOpen] = useState(false)
     const ip = serverIp
     const port = serverPort
     const navigate = useNavigate()
     const setSessionData = props.setSessionData
-    const [filteredImages, setFilteredImages] = useState([])
-    const [loading, setLoading] = useState([])
     const [idsEnabled, setIdsEnabled] = useState(true)
-    const [images, setImages] = useState([])
-    const [selectedImage, setSelectedImage] = useState('')
     const [containers, setContainers] = useState([])
     const [showPopup, setShowPopup] = useState(false)
-    const [newUser, setNewUser] = useState({userName: '', pw: '', root: "false"})
     const [newVulnCredentials, setNewVulnCredentials] = useState({vulnCredUsername: 'username', vulnCredPw: 'password',
         vulnCredRoot: "false"})
     const inputUserNameRef = useRef(null)
@@ -58,7 +51,6 @@ const CreateEmulation = (props) => {
     const [levelValue, setLevelValue] = useState('')
     const [versionValue, setVersionValue] = useState('')
     const [timeStepLengthValue, setTimeStepLengthValue] = useState('')
-    const [newService, setNewService] = useState({name: '', protocol: '0', port: '', serviceIp: ''})
     const inputServiceProtocolRef = useRef(null)
     const inputServicePortRef = useRef(null)
     const inputServiceIpRef = useRef(null)
@@ -67,7 +59,6 @@ const CreateEmulation = (props) => {
     const [shouldFocusServicePort, setShouldFocusServicePort] = useState(false)
     const [shouldFocusServiceIp, setShouldFocusServiceIp] = useState(false)
     const [shouldFocusServiceName, setShouldFocusServiceName] = useState(false)
-    const [newInterface, setNewInterface] = useState(DEFAULT_INTERFACE_CONFIG)
     const inputNameRef = useRef(null)
     const inputIPRef = useRef(null)
     const inputSubnetMaskRef = useRef(null)
@@ -1680,7 +1671,7 @@ const CreateEmulation = (props) => {
                                   </div>
 
                                   {containers.map((container, index) => (
-                                    <Accordion defaultActiveKey={index}>
+                                    <Accordion defaultActiveKey={index} key={index}>
                                         <card className="subCard">
                                             <Card.Header>
                                                 <Button

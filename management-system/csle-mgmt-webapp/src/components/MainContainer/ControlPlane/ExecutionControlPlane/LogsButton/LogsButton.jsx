@@ -1,4 +1,3 @@
-import React from 'react';
 import './LogsButton.css';
 import Button from 'react-bootstrap/Button'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';

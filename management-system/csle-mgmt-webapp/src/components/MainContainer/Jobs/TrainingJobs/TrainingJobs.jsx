@@ -403,7 +403,7 @@ const TrainingJobs = (props) => {
         }
     }
 
-    const runningTrainingJobsChange = (event) => {
+    const runningTrainingJobsChange = () => {
         var filteredTJobIds = null
         if (!showOnlyRunningTrainingJobs) {
             filteredTJobIds = filteredTrainingJobsIds.filter(job => {

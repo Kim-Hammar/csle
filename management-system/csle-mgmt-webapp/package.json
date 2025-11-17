@@ -38,7 +38,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
-    "dev": "vite"
+    "dev": "vite",
+    "test": "vitest"
   },
   "browserslist": {
     "production": [
@@ -64,7 +65,9 @@
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
+    "jsdom": "^27.0.1",
     "prettier": "^2.8.0",
-    "vite": "^7.0.0"
+    "vite": "^7.0.0",
+    "vitest": "^3.2.4"
   }
 }

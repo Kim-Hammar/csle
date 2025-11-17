@@ -1,11 +1,10 @@
-import React from 'react';
 import './ClientManagersInfo.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
-import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton";
-import LogsButton from "../LogsButton/LogsButton";
+import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton.jsx";
+import LogsButton from "../LogsButton/LogsButton.jsx";
 import {
     CLIENT_PRODUCER_SUBRESOURCE,
     CLIENT_MANAGER_SUBRESOURCE,

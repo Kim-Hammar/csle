@@ -1,13 +1,12 @@
-import React from 'react';
 import './ContainersInfo.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
 import getIps from "../../../../Common/getIps";
-import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton";
-import LogsButton from "../LogsButton/LogsButton";
-import ShellButton from "../ShellButton/ShellButton";
+import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton.jsx";
+import LogsButton from "../LogsButton/LogsButton.jsx";
+import ShellButton from "../ShellButton/ShellButton.jsx";
 import DockerImg from "./../../../Emulations/Emulation/Docker.png"
 import {CONTAINER_SUBRESOURCE, STOP_ALL_PROPERTY, START_ALL_PROPERTY} from "../../../../Common/constants";
 

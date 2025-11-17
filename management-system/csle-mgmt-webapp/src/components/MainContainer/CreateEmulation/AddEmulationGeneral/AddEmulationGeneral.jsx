@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import FormControl from 'react-bootstrap/FormControl';
 import Table from 'react-bootstrap/Table'
 import Select from 'react-select'

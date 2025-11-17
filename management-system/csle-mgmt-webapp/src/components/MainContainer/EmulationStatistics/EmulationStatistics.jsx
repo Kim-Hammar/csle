@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Spinner from 'react-bootstrap/Spinner'
@@ -6,13 +6,13 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import Select from 'react-select'
-import ConditionalHistogramDistribution from "./ConditionalHistogramDistribution/ConditionalHistogramDistribution";
+import ConditionalHistogramDistribution from "./ConditionalHistogramDistribution/ConditionalHistogramDistribution.jsx";
 import './EmulationStatistics.css';
 import DataCollection from './DataCollection.png'
 import Collapse from 'react-bootstrap/Collapse'
 import Card from 'react-bootstrap/Card';
 import Table from 'react-bootstrap/Table'
-import fileDownload from 'react-file-download'
+import { saveAs } from 'file-saver'
 import {useDebouncedCallback} from 'use-debounce';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
@@ -111,7 +111,7 @@ const EmulationStatistics = (props) => {
                 setLoadingSelectedEmulationStatistic(false)
                 if (response !== null && response !== undefined && !(Object.keys(response).length === 0)) {
                     const conditionalOptions = Object.keys(response.conditionals_counts).map(
-                        (conditionalName, index) => {
+                        (conditionalName) => {
                             return {
                                 value: conditionalName,
                                 label: conditionalName
@@ -120,7 +120,7 @@ const EmulationStatistics = (props) => {
                     setConditionals(conditionalOptions)
                     setSelectedConditionals([conditionalOptions[0]])
                     const metricOptions = Object.keys(response.conditionals_counts[Object.keys(
-                        response.conditionals_counts)[0]]).map((metricName, index) => {
+                        response.conditionals_counts)[0]]).map((metricName) => {
                         return {
                             value: metricName,
                             label: metricName
@@ -275,7 +275,7 @@ const EmulationStatistics = (props) => {
                 if (response === null) {
                     return
                 }
-                const statisticsIds = response.map((id_obj, index) => {
+                const statisticsIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID:${id_obj.id}, emulation: ${id_obj.emulation}`
@@ -955,8 +955,8 @@ const EmulationStatistics = (props) => {
                                                     <tr key={conditionalPair.conditional_1 + "-" +
                                                         conditionalPair.conditional_2 + "-" + index}>
                                                         <td>Kullback-Leibler divergence between conditional
-                                                            "{conditionalPair.conditional_1}" and
-                                                            "{conditionalPair.conditional_2}"
+                                                            &quot;{conditionalPair.conditional_1}&quot; and
+                                                            &quot;{conditionalPair.conditional_2}&quot;
                                                         </td>
                                                         <td>{props.selectedEmulationStatistic.conditionals_kl_divergences[conditionalPair.conditional_1][conditionalPair.conditional_2][props.selectedMetric.label]}</td>
                                                     </tr>
@@ -966,7 +966,12 @@ const EmulationStatistics = (props) => {
                                                 <td>Data</td>
                                                 <td>
                                                     <Button variant="link" className="dataDownloadLink"
-                                                            onClick={() => fileDownload(JSON.stringify(props.selectedEmulationStatistic), "config.json")}>
+                                                            onClick={() => {
+                                                                const blob = new Blob(
+                                                                  [JSON.stringify(props.selectedEmulationStatistic)],
+                                                                  { type: 'application/json;charset=utf-8' })
+                                                                saveAs(blob, 'config.json')
+                                                            }}>
                                                         data.json
                                                     </Button>
                                                 </td>

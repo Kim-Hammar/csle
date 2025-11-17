@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import {useState, useCallback} from 'react';
 import {useNavigate} from "react-router-dom";
 import './ExecutionControlPlane.css';
 import Card from 'react-bootstrap/Card';
@@ -7,18 +7,18 @@ import Accordion from 'react-bootstrap/Accordion';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
 import parseLogs from "../../../Common/parseLogs";
-import LogsModal from "./LogsModal/LogsModal";
-import ContainersInfo from "./ContainersInfo/ContainersInfo";
-import ActiveNetworksInfo from "./ActiveNetworksInfo/ActiveNetworksInfo";
-import ClientManagersInfo from "./ClientManagersInfo/ClientManagersInfo";
-import DockerStatsManagersInfo from "./DockerStatsManagersInfo/DockerStatsManagersInfo";
-import HostManagersInfo from "./HostManagersInfo/HostManagersInfo";
-import KafkaManagersInfo from "./KafkaManagersInfo/KafkaManagersInfo";
-import OSSECIDSManagersInfo from "./OSSECIDSManagersInfo/OSSECIDSManagersInfo";
-import SnortIDSManagersInfo from "./SnortIDSManagersInfo/SnortIDSManagersInfo";
-import ElkManagersInfo from "./ElkManagersInfo/ElkManagersInfo";
-import RyuManagersInfo from "./RyuManagersInfo/RyuManagersInfo";
-import TrafficManagersInfo from "./TrafficManagersInfo/TrafficManagersInfo";
+import LogsModal from "./LogsModal/LogsModal.jsx";
+import ContainersInfo from "./ContainersInfo/ContainersInfo.jsx";
+import ActiveNetworksInfo from "./ActiveNetworksInfo/ActiveNetworksInfo.jsx";
+import ClientManagersInfo from "./ClientManagersInfo/ClientManagersInfo.jsx";
+import DockerStatsManagersInfo from "./DockerStatsManagersInfo/DockerStatsManagersInfo.jsx";
+import HostManagersInfo from "./HostManagersInfo/HostManagersInfo.jsx";
+import KafkaManagersInfo from "./KafkaManagersInfo/KafkaManagersInfo.jsx";
+import OSSECIDSManagersInfo from "./OSSECIDSManagersInfo/OSSECIDSManagersInfo.jsx";
+import SnortIDSManagersInfo from "./SnortIDSManagersInfo/SnortIDSManagersInfo.jsx";
+import ElkManagersInfo from "./ElkManagersInfo/ElkManagersInfo.jsx";
+import RyuManagersInfo from "./RyuManagersInfo/RyuManagersInfo.jsx";
+import TrafficManagersInfo from "./TrafficManagersInfo/TrafficManagersInfo.jsx";
 import {
     API_BASE_URL,
     CLIENT_MANAGER_SUBRESOURCE,

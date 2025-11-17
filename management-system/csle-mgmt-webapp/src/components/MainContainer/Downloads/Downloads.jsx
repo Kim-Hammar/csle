@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import './Downloads.css';
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -13,7 +13,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {useNavigate} from "react-router-dom";
-import fileDownload from 'react-file-download'
+import { saveAs } from 'file-saver'
 import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
@@ -436,7 +436,13 @@ const Downloads = (props) => {
                 <td>
                     {props.tracesDataset.file_format},
                     <Button className="downloadLink" variant="link"
-                            onClick={() => fileDownload(JSON.stringify(props.tracesDataset.data_schema), "schema.json")}>
+                            onClick={() => {
+                                const blob = new Blob(
+                                  [JSON.stringify(props.tracesDataset.data_schema)],
+                                  { type: 'application/json;charset=utf-8' })
+                                saveAs(blob, 'schema.json')
+                            }}
+                    >
                         schema.json
                     </Button>
                 </td>

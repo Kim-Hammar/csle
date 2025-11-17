@@ -1,4 +1,3 @@
-import React from 'react';
 import './Footer.css';
 import CDISLogo from "./cdis_logo.png";
 import KTHLogo from "./kth_logo.png";

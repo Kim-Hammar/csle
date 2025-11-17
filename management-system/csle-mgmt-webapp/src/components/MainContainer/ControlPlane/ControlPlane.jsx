@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, createRef} from 'react';
+import {useState, useEffect, useCallback, createRef} from 'react';
 import "rc-slider/assets/index.css";
 import './ControlPlane.css';
 import Select from 'react-select'
@@ -11,7 +11,7 @@ import ControlPlaneImg from './ControlPlane.png'
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
-import ExecutionControlPlane from "./ExecutionControlPlane/ExecutionControlPlane";
+import ExecutionControlPlane from "./ExecutionControlPlane/ExecutionControlPlane.jsx";
 import Accordion from 'react-bootstrap/Accordion';
 import {useDebouncedCallback} from 'use-debounce';
 import {useNavigate} from "react-router-dom";
@@ -207,7 +207,7 @@ const ControlPlane = (props) => {
                 if (response === null) {
                     return
                 }
-                const emulationExecutionIds = response.map((id_obj, index) => {
+                const emulationExecutionIds = response.map((id_obj) => {
                     return {
                         value: id_obj,
                         label: `ID:${id_obj.id}, emulation: ${id_obj.emulation}`

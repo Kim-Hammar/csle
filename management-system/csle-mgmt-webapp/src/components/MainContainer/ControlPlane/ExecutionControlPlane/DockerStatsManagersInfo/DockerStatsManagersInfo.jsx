@@ -1,11 +1,10 @@
-import React from 'react';
 import './DockerStatsManagersInfo.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
-import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton";
-import LogsButton from "../LogsButton/LogsButton";
+import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton.jsx";
+import LogsButton from "../LogsButton/LogsButton.jsx";
 import {DOCKER_STATS_MANAGER_SUBRESOURCE, DOCKER_STATS_MONITOR_SUBRESOURCE} from "../../../../Common/constants";
 import DockerImg from "./../../../Emulations/Emulation/Docker.png"
 /**

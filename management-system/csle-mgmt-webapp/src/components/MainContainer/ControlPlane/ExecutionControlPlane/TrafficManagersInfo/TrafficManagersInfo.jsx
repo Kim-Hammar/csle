@@ -1,11 +1,10 @@
-import React from 'react';
 import './TrafficManagersInfo.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
-import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton";
-import LogsButton from "../LogsButton/LogsButton";
+import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton.jsx";
+import LogsButton from "../LogsButton/LogsButton.jsx";
 import {
     TRAFFIC_MANAGER_SUBRESOURCE,
     TRAFFIC_GENERATOR_SUBRESOURCE,

@@ -1,6 +1,10 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import {useEffect, useState, useCallback} from 'react';
 import './ContainerTerminal.css';
-import {Terminal} from 'xterm';
+import '@xterm/xterm/css/xterm.css';
+import {Terminal} from '@xterm/xterm';
+import {FitAddon} from '@xterm/addon-fit';
+import {WebLinksAddon} from '@xterm/addon-web-links';
+import {SearchAddon} from '@xterm/addon-search';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -15,9 +19,6 @@ import FormControl from 'react-bootstrap/FormControl';
 import {useDebouncedCallback} from 'use-debounce';
 import ContainerTerminalImg from './ContainerTerminal.png'
 import io from 'socket.io-client';
-import {FitAddon} from 'xterm-addon-fit';
-import {WebLinksAddon} from 'xterm-addon-web-links';
-import {SearchAddon} from 'xterm-addon-search';
 import {useNavigate} from "react-router-dom";
 import {useLocation} from "react-router-dom";
 import toast from 'react-hot-toast';
@@ -205,7 +206,7 @@ const ContainerTerminal = (props) => {
                     return
                 }
                 setSelectedEmulationExecutionInfo(response)
-                const rContainerIds = response.running_containers.map((id_obj, index) => {
+                const rContainerIds = response.running_containers.map((id_obj) => {
                     return {
                         value: id_obj,
                         label: id_obj.full_name_str
@@ -262,7 +263,7 @@ const ContainerTerminal = (props) => {
                         It can for example be used to restart services or to setup new user accounts.
 
                         The browser communicates with the backend over a websocket, which in turn communicates with the
-                        container over an SSH tunnel, whose' output is piped through the websocket.
+                        container over an SSH tunnel, whose output is piped through the websocket.
                     </p>
                     <div className="text-center">
                         <img src={ContainerTerminalImg} alt="Container Terminal Setup"
@@ -300,7 +301,7 @@ const ContainerTerminal = (props) => {
                 if (response === null) {
                     return
                 }
-                const emulationExecutionIds = response.map((id_obj, index) => {
+                const emulationExecutionIds = response.map((id_obj) => {
                     return {
                         value: id_obj,
                         label: `ID:${id_obj.id}, emulation: ${id_obj.emulation}`

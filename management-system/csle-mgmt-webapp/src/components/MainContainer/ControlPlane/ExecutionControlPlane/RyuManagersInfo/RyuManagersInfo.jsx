@@ -1,11 +1,10 @@
-import React from 'react';
 import './RyuManagersInfo.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
-import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton";
-import LogsButton from "../LogsButton/LogsButton";
+import SpinnerOrButton from "../SpinnerOrButton/SpinnerOrButton.jsx";
+import LogsButton from "../LogsButton/LogsButton.jsx";
 import RyuImg from './Ryu.png'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -22,7 +21,7 @@ const RyuManagersInfo = (props) => {
 
     const renderRyuTooltip = (props) => {
         return (<Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
-            View Ryu's web interface
+            View Ryu&apos;s web interface
         </Tooltip>)
     }
 

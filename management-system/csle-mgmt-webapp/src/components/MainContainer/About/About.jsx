@@ -1,4 +1,3 @@
-import React from 'react';
 import './About.css';
 import Arch from './arch.png'
 

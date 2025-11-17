@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import './Emulation.css';
 import Card from 'react-bootstrap/Card';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
-import fileDownload from 'react-file-download'
+import { saveAs } from 'file-saver'
 import Spinner from 'react-bootstrap/Spinner'
 import Accordion from 'react-bootstrap/Accordion';
 import Collapse from 'react-bootstrap/Collapse'
@@ -319,7 +319,7 @@ const Emulation = (props) => {
     };
 
 
-    const SpinnerOrStatus = (props) => {
+    const SpinnerOrStatus = () => {
         if (loading) {
             if (emulation.name.running) {
                 return (
@@ -453,7 +453,13 @@ const Emulation = (props) => {
                                             <td>Configuration</td>
                                             <td>
                                                 <Button variant="link" className="dataDownloadLink"
-                                                        onClick={() => fileDownload(JSON.stringify(emulation), "config.json")}>
+                                                        onClick={() => {
+                                                            const blob = new Blob(
+                                                              [JSON.stringify(emulation)],
+                                                              { type: 'application/json;charset=utf-8' })
+                                                            saveAs(blob, 'config.json')
+                                                        }}
+                                                >
                                                     config.json
                                                 </Button>
                                             </td>
@@ -561,8 +567,8 @@ const Emulation = (props) => {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {emulation.flags_config.node_flag_configs.map((flag_config, index) =>
-                                            flag_config.flags.map((flag, index) =>
+                                        {emulation.flags_config.node_flag_configs.map((flag_config) =>
+                                            flag_config.flags.map((flag) =>
                                                 <tr key={flag_config.ip + "-" + flag.id}>
                                                     <td>{flag_config.ip}</td>
                                                     <td>{flag_config.docker_gw_bridge_ip}</td>
@@ -607,8 +613,8 @@ const Emulation = (props) => {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {emulation.users_config.users_configs.map((user_config, index) =>
-                                            user_config.users.map((user, index) =>
+                                        {emulation.users_config.users_configs.map((user_config) =>
+                                            user_config.users.map((user) =>
                                                 <tr key={user_config.ip + "-" + user.username}>
                                                     <td>{user_config.ip}</td>
                                                     <td>{user_config.docker_gw_bridge_ip}</td>
@@ -650,7 +656,7 @@ const Emulation = (props) => {
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {emulation.services_config.services_configs.map((service_config, index) =>
+                                        {emulation.services_config.services_configs.map((service_config) =>
                                             service_config.services.map((service, index) =>
                                                 <tr key={service_config.ip + "-" + service.name + "-" + index}>
                                                     <td>{service_config.ip}</td>
@@ -794,7 +800,7 @@ const Emulation = (props) => {
                                         <tbody>
                                         {emulation.resources_config.node_resources_configurations.filter(rc => (rc !== null && rc !== undefined &&
                                             rc.ips_and_network_configs !== null
-                                            && rc.ips_and_network_configs !== undefined)).map((rc, index) => {
+                                            && rc.ips_and_network_configs !== undefined)).map((rc) => {
                                             return rc.ips_and_network_configs.filter((rc_net) =>
                                                 rc_net !== null && rc_net !== undefined).map((rc_net, index) => {
                                                     return (<tr key={rc_net[0] + "-" + index}>

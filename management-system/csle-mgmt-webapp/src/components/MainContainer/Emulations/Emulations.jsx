@@ -1,8 +1,8 @@
-import React, {useState, useEffect, createRef, useCallback} from 'react';
+import {useState, useEffect, createRef, useCallback} from 'react';
 import './Emulations.css';
 import Accordion from 'react-bootstrap/Accordion';
 import Spinner from 'react-bootstrap/Spinner'
-import Emulation from "./Emulation/Emulation";
+import Emulation from "./Emulation/Emulation.jsx";
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -100,7 +100,7 @@ const Emulations = (props) => {
                 if (response === null) {
                     return
                 }
-                const emulationIds = response.map((id_obj, index) => {
+                const emulationIds = response.map((id_obj) => {
                     var lbl = ""
                     if (!id_obj.running) {
                         lbl = "ID: " + id_obj.id + ", name: " + id_obj.emulation
@@ -553,7 +553,7 @@ const Emulations = (props) => {
         }
     }
 
-    const runningEmulationsChange = (event) => {
+    const runningEmulationsChange = () => {
         var filteredEmsIds = null
         if (!showOnlyRunningEmulations) {
             filteredEmsIds = filteredEmulationsIds.filter(emIdObj => {
