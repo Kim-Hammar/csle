@@ -11,7 +11,7 @@ import Collapse from 'react-bootstrap/Collapse'
 import Spinner from 'react-bootstrap/Spinner'
 import getAgentTypeStr from '../../../../Common/getAgentTypeStr'
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../../../Common/serverIp";
 import serverPort from "../../../../Common/serverPort";
 import {
@@ -35,7 +35,6 @@ const TrainingJob = (props) => {
 
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -53,7 +52,7 @@ const TrainingJob = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -65,7 +64,7 @@ const TrainingJob = (props) => {
                 setLogs(parseLogs(response))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.job.log_file_path, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.job.log_file_path, props.sessionData.token, setSessionData]);
 
     const renderRemoveTrainingJobTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props} className="toolTipRefresh">

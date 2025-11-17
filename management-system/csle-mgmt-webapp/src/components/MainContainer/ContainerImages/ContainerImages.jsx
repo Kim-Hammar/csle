@@ -12,7 +12,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import {useDebouncedCallback} from 'use-debounce';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import formatBytes from "../../Common/formatBytes";
@@ -32,7 +32,6 @@ const ContainerImages = (props) => {
     const [showInfoModal, setShowInfoModal] = useState(false);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -53,7 +52,7 @@ const ContainerImages = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -69,7 +68,7 @@ const ContainerImages = (props) => {
                 setLoading(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData, setSessionData]);
 
     useEffect(() => {
         setLoading(true)

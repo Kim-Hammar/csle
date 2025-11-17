@@ -20,7 +20,7 @@ import {WebLinksAddon} from 'xterm-addon-web-links';
 import {SearchAddon} from 'xterm-addon-search';
 import {useNavigate} from "react-router-dom";
 import {useLocation} from "react-router-dom";
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import {
     LOGIN_PAGE_RESOURCE,
     TOKEN_QUERY_PARAM,
@@ -72,7 +72,6 @@ const ContainerTerminal = (props) => {
     term.loadAddon(webLinksAddon);
     term.loadAddon(searchAddon);
     const navigate = useNavigate();
-    const alert = useAlert();
     const setSessionData = props.setSessionData
     const location = useLocation()
 
@@ -89,7 +88,7 @@ const ContainerTerminal = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -104,7 +103,7 @@ const ContainerTerminal = (props) => {
                 setLoadingSelectedEmulationExecution(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, alert, props.sessionData.token, setSessionData]);
+    }, [ip, port, navigate, toast, props.sessionData.token, setSessionData]);
 
     const renderRefreshExecutionsTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
@@ -194,7 +193,7 @@ const ContainerTerminal = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -232,7 +231,7 @@ const ContainerTerminal = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error)),
-        [ip, navigate, port, alert, props.sessionData.token, setSessionData, location.state]);
+        [ip, navigate, port, toast, props.sessionData.token, setSessionData, location.state]);
 
     const renderRefreshTerminalTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
@@ -290,7 +289,7 @@ const ContainerTerminal = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -339,7 +338,7 @@ const ContainerTerminal = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchSelectedExecution,
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchSelectedExecution,
         fetchExecutionInfo, location.state]);
 
     const setupConnection = (containerIp, physical_host) => {
@@ -362,7 +361,7 @@ const ContainerTerminal = (props) => {
         });
 
         socket.on(WS_CONNECT_ERROR, () => {
-            alert.show("Websocket connection failed. You are not authorized to setup a connection.")
+            toast.error("Websocket connection failed. You are not authorized to setup a connection.")
             navigate(`/${LOGIN_PAGE_RESOURCE}`);
             socket.disconnect()
         });

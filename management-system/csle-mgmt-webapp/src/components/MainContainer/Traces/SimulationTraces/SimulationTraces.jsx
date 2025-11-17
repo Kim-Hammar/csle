@@ -15,7 +15,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {useNavigate} from "react-router-dom";
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
 import MarkovImg from './../../Simulations/Markov.png'
@@ -41,7 +41,6 @@ const SimulationTraces = (props) => {
     const [filteredSimulationTracesIds, setFilteredSimulationTracesIds] = useState([]);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
     const wrapper = createRef();
@@ -59,7 +58,7 @@ const SimulationTraces = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -74,7 +73,7 @@ const SimulationTraces = (props) => {
                 setLoadingSelectedSimulationTrace(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchSimulationTracesIds = useCallback(() => {
         fetch(
@@ -89,7 +88,7 @@ const SimulationTraces = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -118,7 +117,7 @@ const SimulationTraces = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchSimulationTrace, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchSimulationTrace, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeSimulationTraceRequest = useCallback((simulation_trace_id) => {
         fetch(
@@ -133,7 +132,7 @@ const SimulationTraces = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -147,7 +146,7 @@ const SimulationTraces = (props) => {
                 fetchSimulationTracesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [fetchSimulationTracesIds, ip, navigate, port, alert, props.sessionData.token, setSessionData]);
+    }, [fetchSimulationTracesIds, ip, navigate, port, toast, props.sessionData.token, setSessionData]);
 
     const removeSimulationTrace = (simulationTrace) => {
         setLoadingSimulationTraces(true)
@@ -169,7 +168,7 @@ const SimulationTraces = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -183,7 +182,7 @@ const SimulationTraces = (props) => {
                 fetchSimulationTracesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchSimulationTracesIds, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchSimulationTracesIds, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeAllSimulationTraces = () => {
         setLoadingSimulationTraces(true)

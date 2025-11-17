@@ -15,7 +15,7 @@ import {
 import './RecoveryAI.css'
 import 'react-confirm-alert/src/react-confirm-alert.css'
 import { useNavigate } from 'react-router-dom'
-import { useAlert } from 'react-alert'
+import toast from 'react-hot-toast';
 import RecoveryAIPic from './RecoveryAI.png'
 import {
   LOGIN_PAGE_RESOURCE,
@@ -112,7 +112,6 @@ const RecoveryAI = (props) => {
   const jsonPreRef = useRef(null)
 
   const setSessionData = props.setSessionData
-  const alert = useAlert()
   const navigate = useNavigate()
   const abortRef = useRef(null)
 
@@ -160,7 +159,7 @@ const RecoveryAI = (props) => {
       }
       downloadJson(dataToDownload, 'incident_report.json')
     } else {
-      alert.error('Could not find incident report data to download.')
+      toast.error('Could not find incident report data to download.')
     }
   }
 
@@ -178,14 +177,14 @@ const RecoveryAI = (props) => {
       }
       downloadJson(dataToDownload, 'recovery_plan.json')
     } else {
-      alert.error('No recovery plan data available to download.')
+      toast.error('No recovery plan data available to download.')
     }
   }
 
   const handleFetchExample = () => {
     const token = props.sessionData?.token || sessionStorage.getItem('token')
     if (!token) {
-      alert.show('Session token expired. Please login again.')
+      toast.show('Session token expired. Please login again.')
       navigate(`/${LOGIN_PAGE_RESOURCE}`)
       return
     }
@@ -194,13 +193,13 @@ const RecoveryAI = (props) => {
     fetch(url)
       .then((res) => {
         if (res.status === 401) {
-          alert.show('Session token expired. Please login again.')
+          toast.show('Session token expired. Please login again.')
           setSessionData(null)
           navigate(`/${LOGIN_PAGE_RESOURCE}`)
           return null
         }
         if (!res.ok) {
-          alert.error(`Failed to fetch example (status ${res.status})`)
+          toast.error(`Failed to fetch example (status ${res.status})`)
           return null
         }
         return res.json()
@@ -211,7 +210,7 @@ const RecoveryAI = (props) => {
         setNetworkLogs(data.networkLogs || '')
       })
       .catch(() => {
-        alert.error('Unable to connect to the Recovery AI service')
+        toast.error('Unable to connect to the Recovery AI service')
       })
       .finally(() => setLoadingExample(false))
   }
@@ -225,7 +224,7 @@ const RecoveryAI = (props) => {
 
     const token = props.sessionData?.token || sessionStorage.getItem('token')
     if (!token) {
-      alert.show('Session token expired. Please login again.')
+      toast.show('Session token expired. Please login again.')
       navigate(`/${LOGIN_PAGE_RESOURCE}`)
       return
     }
@@ -253,13 +252,13 @@ const RecoveryAI = (props) => {
     })
       .then((res) => {
         if (res.status === 401) {
-          alert.show('Session token expired. Please login again.')
+          toast.show('Session token expired. Please login again.')
           setSessionData(null)
           navigate(`/${LOGIN_PAGE_RESOURCE}`)
           return null
         }
         if (!res.ok) {
-          alert.error(`Recovery AI returned status ${res.status}`)
+          toast.error(`Recovery AI returned status ${res.status}`)
           setIsProcessing(false)
           return null
         }
@@ -358,14 +357,14 @@ const RecoveryAI = (props) => {
 
         pump().catch((err) => {
           if (err.name !== 'AbortError') {
-            alert.error('Connection to Recovery AI lost')
+            toast.error('Connection to Recovery AI lost')
             setIsProcessing(false)
           }
         })
       })
       .catch((error) => {
         if (error.name !== 'AbortError') {
-          alert.error('Unable to connect to Recovery AI service')
+          toast.error('Unable to connect to Recovery AI service')
           setIsProcessing(false)
         }
       })

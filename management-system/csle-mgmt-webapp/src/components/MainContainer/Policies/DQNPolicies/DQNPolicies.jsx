@@ -17,7 +17,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import DQNPolicy from "./DQNPolicy/DQNPolicy";
 import {
     API_BASE_URL,
@@ -43,7 +43,6 @@ const DQNPolicies = (props) => {
     const ip = serverIp
     const port = serverPort
     const setSessionData = props.setSessionData
-    const alert = useAlert();
     const navigate = useNavigate();
     const wrapper = createRef();
 
@@ -61,7 +60,7 @@ const DQNPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -76,7 +75,7 @@ const DQNPolicies = (props) => {
                 setLoadingDQNPolicy(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchDQNPoliciesIds = useCallback(() => {
         fetch(
@@ -91,7 +90,7 @@ const DQNPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -121,7 +120,7 @@ const DQNPolicies = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchDQNPolicy, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchDQNPolicy, ip, navigate, port, props.sessionData.token, setSessionData]);
 
 
     const removeDQNPoliciesRequest = useCallback((dqn_policy_id) => {
@@ -137,7 +136,7 @@ const DQNPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -151,7 +150,7 @@ const DQNPolicies = (props) => {
                 fetchDQNPoliciesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchDQNPoliciesIds]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchDQNPoliciesIds]);
 
     const removeAllDQNPoliciesConfirm = () => {
         confirmAlert({
@@ -264,7 +263,7 @@ const DQNPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -278,7 +277,7 @@ const DQNPolicies = (props) => {
                 fetchDQNPoliciesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchDQNPoliciesIds]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchDQNPoliciesIds]);
 
     const removeDQNPolicy = (dqnPolicy) => {
         setLoadingDQNPolicies(true)

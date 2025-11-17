@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import './Login.css';
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -23,7 +23,6 @@ const Login = (props) => {
     const [showEditModal, setShowEditModal] = useState(false);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const setSessionData = props.setSessionData
 
     const loginUser = useCallback((credentials) => {
@@ -39,7 +38,7 @@ const Login = (props) => {
         )
             .then(res => {
                 if (!res.ok) {
-                    alert.show("Login failed. Wrong username and password combination.")
+                    toast.error("Login failed. Wrong username and password combination.")
                     return null
                 } else {
                     return res.json()
@@ -51,7 +50,7 @@ const Login = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, setSessionData]);
+    }, [toast, ip, port, setSessionData]);
 
     const loginFormSubmit = async (event) => {
         event.preventDefault()
@@ -60,7 +59,7 @@ const Login = (props) => {
             "password": password
         }
         if (username === "" || password === "") {
-            alert.show("Username or password cannot be empty")
+            toast.error("Username or password cannot be empty")
         } else {
             loginUser(credentials)
         }

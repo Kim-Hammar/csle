@@ -15,7 +15,7 @@ import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import TrainingJob from "./TrainingJob/TrainingJob";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
 import {
@@ -42,7 +42,6 @@ const TrainingJobs = (props) => {
     const [trainingJobsSearchString, setTrainingJobsSearchString] = useState("");
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
     const wrapper = createRef();
@@ -61,7 +60,7 @@ const TrainingJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -76,7 +75,7 @@ const TrainingJobs = (props) => {
                 setLoadingSelectedTrainingJob(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const fetchTrainingJobsIds = useCallback(() => {
         fetch(
@@ -91,7 +90,7 @@ const TrainingJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -130,7 +129,7 @@ const TrainingJobs = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchTrainingJob]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchTrainingJob]);
 
     const removeTrainingJobRequest = useCallback((training_job_id) => {
         fetch(
@@ -145,7 +144,7 @@ const TrainingJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -160,7 +159,7 @@ const TrainingJobs = (props) => {
                 fetchTrainingJobsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchTrainingJobsIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchTrainingJobsIds]);
 
     const removeAllTrainingJobsRequest = useCallback(() => {
         fetch(
@@ -175,7 +174,7 @@ const TrainingJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -190,7 +189,7 @@ const TrainingJobs = (props) => {
                 fetchTrainingJobsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchTrainingJobsIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchTrainingJobsIds]);
 
     const removeTrainingJob = (job) => {
         setTrainingJobsLoading(true)
@@ -315,7 +314,7 @@ const TrainingJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -330,7 +329,7 @@ const TrainingJobs = (props) => {
                 fetchTrainingJobsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchTrainingJobsIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchTrainingJobsIds]);
 
 
     const stopTrainingJob = (job) => {
@@ -352,7 +351,7 @@ const TrainingJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -367,7 +366,7 @@ const TrainingJobs = (props) => {
                 fetchTrainingJobsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchTrainingJobsIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchTrainingJobsIds]);
 
     const startTrainingJob = (job) => {
         setTrainingJobsLoading(true)

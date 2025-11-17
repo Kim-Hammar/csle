@@ -16,7 +16,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {useNavigate} from "react-router-dom";
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import {
@@ -43,7 +43,6 @@ const Emulations = (props) => {
     const [searchString, setSearchString] = useState("");
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -60,7 +59,7 @@ const Emulations = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -75,7 +74,7 @@ const Emulations = (props) => {
                 setLoadingSelectedEmulation(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const fetchEmulationIds = useCallback(() => {
         fetch(
@@ -90,7 +89,7 @@ const Emulations = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -127,7 +126,7 @@ const Emulations = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchEmulation, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchEmulation, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeEmulationRequest = useCallback((emulationId) => {
         fetch(
@@ -144,7 +143,7 @@ const Emulations = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -158,7 +157,7 @@ const Emulations = (props) => {
                 fetchEmulationIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchEmulationIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchEmulationIds]);
 
     const removeEmulationExecutionRequest = useCallback((emulation_id, execution_id) => {
         fetch(
@@ -173,7 +172,7 @@ const Emulations = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -192,7 +191,7 @@ const Emulations = (props) => {
                 fetchEmulation(id_obj)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchEmulation]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchEmulation]);
 
     const startOrStopEmulationRequest = useCallback((emulation_id) => {
         fetch(
@@ -207,7 +206,7 @@ const Emulations = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -226,7 +225,7 @@ const Emulations = (props) => {
                 fetchEmulation(id_obj)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchEmulation]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchEmulation]);
 
     const removeAllEmulationsRequest = useCallback(() => {
         fetch(
@@ -241,7 +240,7 @@ const Emulations = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -255,7 +254,7 @@ const Emulations = (props) => {
                 fetchEmulationIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchEmulationIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchEmulationIds]);
 
     const removeEmulation = (emulation) => {
         setLoading(true)

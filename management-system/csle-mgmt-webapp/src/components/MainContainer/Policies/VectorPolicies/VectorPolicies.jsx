@@ -17,7 +17,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import {
     API_BASE_URL,
     HTTP_REST_DELETE,
@@ -42,7 +42,6 @@ const VectorPolicies = (props) => {
     const ip = serverIp
     const port = serverPort
     const setSessionData = props.setSessionData
-    const alert = useAlert();
     const navigate = useNavigate();
     const wrapper = createRef();
 
@@ -60,7 +59,7 @@ const VectorPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -75,7 +74,7 @@ const VectorPolicies = (props) => {
                 setLoadingVectorPolicy(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchVectorPoliciesIds = useCallback(() => {
         fetch(
@@ -90,7 +89,7 @@ const VectorPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -120,7 +119,7 @@ const VectorPolicies = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchVectorPolicy]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchVectorPolicy]);
 
     const removeVectorPoliciesRequest = useCallback((vector_policy_id) => {
         fetch(
@@ -135,7 +134,7 @@ const VectorPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -149,7 +148,7 @@ const VectorPolicies = (props) => {
                 fetchVectorPoliciesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchVectorPoliciesIds]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchVectorPoliciesIds]);
 
     const removeAllVectorPoliciesRequest = useCallback(() => {
         fetch(
@@ -164,7 +163,7 @@ const VectorPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -178,7 +177,7 @@ const VectorPolicies = (props) => {
                 fetchVectorPoliciesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port,  navigate, props.sessionData.token, setSessionData, fetchVectorPoliciesIds]);
+    }, [toast, ip, port,  navigate, props.sessionData.token, setSessionData, fetchVectorPoliciesIds]);
 
     const removeVectorPolicy = (vectorPolicy) => {
         setLoadingVectorPolicies(true)

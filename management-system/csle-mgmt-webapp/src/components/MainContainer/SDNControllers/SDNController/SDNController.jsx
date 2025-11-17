@@ -9,7 +9,7 @@ import Collapse from 'react-bootstrap/Collapse'
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
 import {useNavigate} from "react-router-dom";
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import {
     HTTP_PREFIX,
     API_BASE_URL,
@@ -40,7 +40,6 @@ const SDNController = (props) => {
     const [portsOpen, setPortsOpen] = useState(false);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -59,7 +58,7 @@ const SDNController = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -71,7 +70,7 @@ const SDNController = (props) => {
                 setLocalSdnControllerWebApiPort(response[SDN_CONTROLLER_LOCAL_PORT])
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, alert, navigate, props.sessionData.token, setSessionData]);
+    }, [ip, port, toast, navigate, props.sessionData.token, setSessionData]);
 
     useEffect(() => {
         fetchSwitches(props.execution.emulation_env_config.name, props.execution.ip_first_octet)

@@ -18,7 +18,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import {
     HTTP_PREFIX,
     HTTP_REST_DELETE,
@@ -44,7 +44,6 @@ const MultiThresholdPolicies = (props) => {
     const ip = serverIp
     const port = serverPort
     const setSessionData = props.setSessionData
-    const alert = useAlert();
     const navigate = useNavigate();
     const wrapper = createRef();
 
@@ -61,7 +60,7 @@ const MultiThresholdPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -76,7 +75,7 @@ const MultiThresholdPolicies = (props) => {
                 setLoadingMultiThresholdPolicy(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchMultiThresholdPoliciesIds = useCallback(() => {
         fetch(
@@ -91,7 +90,7 @@ const MultiThresholdPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -121,7 +120,7 @@ const MultiThresholdPolicies = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchMultiThresholdPolicy]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchMultiThresholdPolicy]);
 
     const removeMultiThresholdPoliciesRequest = useCallback((multi_threshold_policy_id) => {
         fetch(
@@ -136,7 +135,7 @@ const MultiThresholdPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -150,7 +149,7 @@ const MultiThresholdPolicies = (props) => {
                 fetchMultiThresholdPoliciesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchMultiThresholdPoliciesIds]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchMultiThresholdPoliciesIds]);
 
     const removeAllMultiThresholdPoliciesRequest = useCallback(() => {
         fetch(
@@ -165,7 +164,7 @@ const MultiThresholdPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -179,7 +178,7 @@ const MultiThresholdPolicies = (props) => {
                 fetchMultiThresholdPoliciesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchMultiThresholdPoliciesIds]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchMultiThresholdPoliciesIds]);
 
     const removeMultiThresholdPolicy = (multiThresholdPolicy) => {
         setLoadingMultiThresholdPolicies(true)

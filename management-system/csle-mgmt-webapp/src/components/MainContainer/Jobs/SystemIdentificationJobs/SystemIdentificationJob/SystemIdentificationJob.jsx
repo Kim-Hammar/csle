@@ -9,7 +9,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Collapse from 'react-bootstrap/Collapse'
 import Spinner from 'react-bootstrap/Spinner'
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../../../Common/serverIp";
 import serverPort from "../../../../Common/serverPort";
 import {
@@ -30,7 +30,6 @@ const SystemIdentificationJob = (props) => {
     const [logs, setLogs] = useState(null);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -87,7 +86,7 @@ const SystemIdentificationJob = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -99,7 +98,7 @@ const SystemIdentificationJob = (props) => {
                 setLogs(parseLogs(response))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.job.log_file_path, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.job.log_file_path, props.sessionData.token, setSessionData]);
 
     const startOrStopButton = () => {
         if (props.job.running) {

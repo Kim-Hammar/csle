@@ -20,7 +20,7 @@ import Form from 'react-bootstrap/Form';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {useNavigate} from "react-router-dom";
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import fetchProgress from 'fetch-progress';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
@@ -68,7 +68,6 @@ const EmulationStatistics = (props) => {
     const animationDuration = 5
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -97,7 +96,7 @@ const EmulationStatistics = (props) => {
                 }))
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -141,7 +140,7 @@ const EmulationStatistics = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, alert, props.sessionData.token, setSessionData]);
+    }, [ip, port, navigate, toast, props.sessionData.token, setSessionData]);
 
     const resetState = () => {
         setEmulationStatisticIds([])
@@ -265,7 +264,7 @@ const EmulationStatistics = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -303,7 +302,7 @@ const EmulationStatistics = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, alert, props.sessionData.token, setSessionData, fetchEmulationStatistic]);
+    }, [ip, port, navigate, toast, props.sessionData.token, setSessionData, fetchEmulationStatistic]);
 
     useEffect(() => {
         setLoading(true)
@@ -333,7 +332,7 @@ const EmulationStatistics = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -347,7 +346,7 @@ const EmulationStatistics = (props) => {
                 fetchEmulationStatisticsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, alert, props.sessionData.token, setSessionData, fetchEmulationStatisticsIds]);
+    }, [ip, port, navigate, toast, props.sessionData.token, setSessionData, fetchEmulationStatisticsIds]);
 
     const removeStatistic = (stat) => {
         setLoading(true)

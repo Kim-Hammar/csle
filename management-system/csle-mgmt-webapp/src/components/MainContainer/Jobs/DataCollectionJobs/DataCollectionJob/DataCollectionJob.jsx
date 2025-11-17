@@ -9,7 +9,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Collapse from 'react-bootstrap/Collapse'
 import Spinner from 'react-bootstrap/Spinner'
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import convertListToCommaSeparatedString from "../../../../Common/convertListToCommaSeparatedString";
 import serverPort from "../../../../Common/serverPort";
 import {
@@ -31,7 +31,6 @@ const DataCollectionJob = (props) => {
     const [loadingLogs, setLoadingLogs] = useState(false);
     const [logs, setLogs] = useState(null);
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -80,7 +79,7 @@ const DataCollectionJob = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -92,7 +91,7 @@ const DataCollectionJob = (props) => {
                 setLogs(parseLogs(response))
             })
             .catch(error => console.log("error:" + error))
-    }, [navigate, alert, port, props.job.log_file_path, props.sessionData.token, setSessionData,
+    }, [navigate, toast, port, props.job.log_file_path, props.sessionData.token, setSessionData,
         props.job.physical_host_ip]);
 
     const getMaxSteps = () => {

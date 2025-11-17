@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import './SystemAdmin.css';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import Button from 'react-bootstrap/Button'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -25,7 +25,6 @@ const SystemAdmin = (props) => {
     const [loading, setLoading] = useState(true);
     const ip = serverIp;
     const port = serverPort;
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -75,7 +74,7 @@ const SystemAdmin = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -88,7 +87,7 @@ const SystemAdmin = (props) => {
                 setLoading(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, alert, navigate, port, props.sessionData.token, setSessionData]);
+    }, [ip, toast, navigate, port, props.sessionData.token, setSessionData]);
 
     const refresh = useCallback(() => {
         setLoading(true)
@@ -109,13 +108,13 @@ const SystemAdmin = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
                 }
                 if(res.status === 400) {
-                    alert.show("Invalid request, could not update configuration")
+                    toast.error("Invalid request, could not update configuration")
                     return null
                 }
                 return res.json()
@@ -124,7 +123,7 @@ const SystemAdmin = (props) => {
                 refresh()
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, alert, navigate, port, refresh, props.sessionData.token, setSessionData]);
+    }, [ip, toast, navigate, port, refresh, props.sessionData.token, setSessionData]);
 
 
     const renderRefreshTooltip = (props) => (

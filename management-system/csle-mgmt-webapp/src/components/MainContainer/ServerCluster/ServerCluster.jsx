@@ -12,7 +12,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import './ServerCluster.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {useNavigate} from "react-router-dom";
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import getBoolStr from "../../Common/getBoolStr";
@@ -44,7 +44,6 @@ const ServerCluster = (props) => {
     const [loadingEntities, setLoadingEntities] = useState([]);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -80,7 +79,7 @@ const ServerCluster = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -93,7 +92,7 @@ const ServerCluster = (props) => {
                 setFilteredServerCluster(response)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const startOrStopGrafanaRequest = useCallback((node_ip) => {
         fetch(
@@ -109,7 +108,7 @@ const ServerCluster = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -125,7 +124,7 @@ const ServerCluster = (props) => {
                 setFilteredServerCluster(response)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
 
 
     const startOrStopNginxRequest = useCallback((node_ip) => {
@@ -142,7 +141,7 @@ const ServerCluster = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -158,7 +157,7 @@ const ServerCluster = (props) => {
                 setFilteredServerCluster(response)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
 
     const startOrStopDockerRequest = useCallback((node_ip) => {
         fetch(
@@ -174,7 +173,7 @@ const ServerCluster = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -190,7 +189,7 @@ const ServerCluster = (props) => {
                 setFilteredServerCluster(response)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
 
     const startOrStopPostgreSQLRequest = useCallback((node_ip) => {
         fetch(
@@ -206,7 +205,7 @@ const ServerCluster = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -222,7 +221,7 @@ const ServerCluster = (props) => {
                 setFilteredServerCluster(response)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
 
     const startOrStopFlaskRequest = useCallback((node_ip) => {
         fetch(
@@ -238,7 +237,7 @@ const ServerCluster = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -254,7 +253,7 @@ const ServerCluster = (props) => {
                 setFilteredServerCluster(response)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
 
     const startOrStopPgAdminRequest = useCallback((node_ip) => {
         fetch(
@@ -270,7 +269,7 @@ const ServerCluster = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -286,7 +285,7 @@ const ServerCluster = (props) => {
                 setFilteredServerCluster(response)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
 
     const startOrStopcAdvisorRequest = useCallback((node_ip) => {
         fetch(
@@ -302,7 +301,7 @@ const ServerCluster = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -318,7 +317,7 @@ const ServerCluster = (props) => {
                 setFilteredServerCluster(response)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
 
     const startOrStopNodeExporterRequest = useCallback((node_ip) => {
         fetch(
@@ -334,7 +333,7 @@ const ServerCluster = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -350,7 +349,7 @@ const ServerCluster = (props) => {
                 setFilteredServerCluster(response)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
 
     const startOrStopPrometheusRequest = useCallback((node_ip) => {
         fetch(
@@ -366,7 +365,7 @@ const ServerCluster = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -382,7 +381,7 @@ const ServerCluster = (props) => {
                 setFilteredServerCluster(response)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, removeLoadingEntity]);
 
     const startOrStopGrafana = (node_ip) => {
         addLoadingEntity(node_ip + "-grafana")

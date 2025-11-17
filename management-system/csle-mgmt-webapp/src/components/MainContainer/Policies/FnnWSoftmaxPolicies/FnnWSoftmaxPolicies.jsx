@@ -18,7 +18,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import {
     API_BASE_URL,
     HTTP_REST_DELETE,
@@ -44,7 +44,6 @@ const FnnWSoftmaxPolicies = (props) => {
     const ip = serverIp
     const port = serverPort
     const setSessionData = props.setSessionData
-    const alert = useAlert();
     const navigate = useNavigate();
     const wrapper = createRef();
 
@@ -62,7 +61,7 @@ const FnnWSoftmaxPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -77,7 +76,7 @@ const FnnWSoftmaxPolicies = (props) => {
                 setLoadingFnnWSoftmaxPolicy(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchFnnWSoftmaxPoliciesIds = useCallback(() => {
         fetch(
@@ -92,7 +91,7 @@ const FnnWSoftmaxPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -122,7 +121,7 @@ const FnnWSoftmaxPolicies = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchFnnWSoftmaxPolicy]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchFnnWSoftmaxPolicy]);
 
     const removeFnnWSoftmaxPoliciesRequest = useCallback((fnn_w_softmax_policy_id) => {
         fetch(
@@ -137,7 +136,7 @@ const FnnWSoftmaxPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -151,7 +150,7 @@ const FnnWSoftmaxPolicies = (props) => {
                 fetchFnnWSoftmaxPoliciesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchFnnWSoftmaxPoliciesIds]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchFnnWSoftmaxPoliciesIds]);
 
     const removeAllFnnWSoftmaxPoliciesRequest = useCallback(() => {
         fetch(
@@ -166,7 +165,7 @@ const FnnWSoftmaxPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -180,7 +179,7 @@ const FnnWSoftmaxPolicies = (props) => {
                 fetchFnnWSoftmaxPoliciesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchFnnWSoftmaxPoliciesIds]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchFnnWSoftmaxPoliciesIds]);
 
     const removeFnnWSoftmaxPolicy = (fnnWSoftmaxPolicy) => {
         setLoadingFnnWSoftmaxPolicies(true)

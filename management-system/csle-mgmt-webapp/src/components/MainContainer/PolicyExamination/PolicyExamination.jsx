@@ -26,7 +26,7 @@ import PolicyAndBeliefChart from "./PolicyAndBeliefChart/PolicyAndBeliefChart";
 import DeltaAlertsLineChart from "./DeltaAlertsLineChart/DeltaAlertsLineChart";
 import Select from 'react-select'
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import {API_BASE_URL, HTTP_REST_GET, LOGIN_PAGE_RESOURCE,
@@ -81,7 +81,6 @@ const PolicyExamination = (props) => {
     const fullRange = true
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const animation = true
     const animationDuration = evolutionSpeedOptions[0]
@@ -163,7 +162,7 @@ const PolicyExamination = (props) => {
         })
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -190,7 +189,7 @@ const PolicyExamination = (props) => {
                 setLoading(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, updateFoundNodes]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, updateFoundNodes]);
 
     useEffect(() => {
         setLoading(true)

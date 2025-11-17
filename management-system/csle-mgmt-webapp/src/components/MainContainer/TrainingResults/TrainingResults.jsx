@@ -16,7 +16,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import {API_BASE_URL, HTTP_REST_DELETE, HTTP_REST_GET,
@@ -37,7 +37,6 @@ const TrainingResults = (props) => {
 
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -54,7 +53,7 @@ const TrainingResults = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -69,7 +68,7 @@ const TrainingResults = (props) => {
                 setLoadingSelectedExperiment(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
 
     const fetchExperiments = useCallback(() => {
@@ -85,7 +84,7 @@ const TrainingResults = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -115,7 +114,7 @@ const TrainingResults = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchExperiment, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchExperiment, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeExperimentRequest = useCallback((experiment_id) => {
         fetch(
@@ -130,7 +129,7 @@ const TrainingResults = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -144,7 +143,7 @@ const TrainingResults = (props) => {
                 fetchExperiments()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchExperiments, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchExperiments, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeAllExperimentsRequest = useCallback(() => {
         fetch(
@@ -159,7 +158,7 @@ const TrainingResults = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -173,7 +172,7 @@ const TrainingResults = (props) => {
                 fetchExperiments()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchExperiments, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchExperiments, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeExperiment = (experiment) => {
         setLoading(true)

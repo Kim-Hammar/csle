@@ -14,7 +14,7 @@ import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import {useNavigate} from "react-router-dom";
 import fileDownload from 'react-file-download'
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import {API_BASE_URL, HTTP_REST_DELETE, HTTP_REST_GET, LOGIN_PAGE_RESOURCE,
@@ -38,7 +38,6 @@ const Downloads = (props) => {
     const [loadingStatisticsDatasets, setLoadingStatisticsDatasets] = useState(true);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -77,7 +76,7 @@ const Downloads = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -91,7 +90,7 @@ const Downloads = (props) => {
                 fetchTracesDatasets()
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, fetchTracesDatasets, setSessionData, alert]);
+    }, [ip, port, navigate, fetchTracesDatasets, setSessionData, toast]);
 
     const removeTracesDatasetRequest = useCallback((tracesDataset) => {
         fetch(
@@ -106,7 +105,7 @@ const Downloads = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -120,7 +119,7 @@ const Downloads = (props) => {
                 fetchTracesDatasets()
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, fetchTracesDatasets, setSessionData, alert]);
+    }, [ip, port, navigate, fetchTracesDatasets, setSessionData, toast]);
 
 
     const refreshTracesDatasets = () => {
@@ -578,7 +577,7 @@ const Downloads = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -592,7 +591,7 @@ const Downloads = (props) => {
                 fetchStatisticsDatasets()
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, alert, setSessionData, fetchStatisticsDatasets]);
+    }, [ip, port, navigate, toast, setSessionData, fetchStatisticsDatasets]);
 
     const removeStatisticsDatasetRequest = useCallback((statisticsDataset) => {
         fetch(
@@ -607,7 +606,7 @@ const Downloads = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -621,7 +620,7 @@ const Downloads = (props) => {
                 fetchStatisticsDatasets()
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, alert, setSessionData, fetchStatisticsDatasets]);
+    }, [ip, port, navigate, toast, setSessionData, fetchStatisticsDatasets]);
 
 
     const refreshStatisticsDatasets = () => {

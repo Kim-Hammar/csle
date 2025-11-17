@@ -20,7 +20,7 @@ import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import getSystemModelTypeStr from "../../Common/getSystemModelTypeStr";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import {
@@ -59,7 +59,6 @@ const SystemModels = (props) => {
     const animationDuration = 0
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -193,7 +192,7 @@ const SystemModels = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -232,7 +231,7 @@ const SystemModels = (props) => {
 
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const fetchMCMCSystemModel = useCallback((model_id_obj) => {
         fetch(
@@ -247,7 +246,7 @@ const SystemModels = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -283,7 +282,7 @@ const SystemModels = (props) => {
 
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const fetchGPSystemModel = useCallback((model_id_obj) => {
         fetch(
@@ -298,7 +297,7 @@ const SystemModels = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -338,7 +337,7 @@ const SystemModels = (props) => {
 
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
 
     const fetchGaussianMixtureSystemModel = useCallback((model_id_obj) => {
@@ -354,7 +353,7 @@ const SystemModels = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -393,7 +392,7 @@ const SystemModels = (props) => {
 
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, navigate, port, alert, props.sessionData.token, setSessionData]);
+    }, [ip, navigate, port, toast, props.sessionData.token, setSessionData]);
 
 
     const fetchSystemModelsIds = useCallback(() => {
@@ -409,7 +408,7 @@ const SystemModels = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -452,7 +451,7 @@ const SystemModels = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchEmpiricalSystemModel, fetchGPSystemModel, fetchGaussianMixtureSystemModel,
+    }, [toast, fetchEmpiricalSystemModel, fetchGPSystemModel, fetchGaussianMixtureSystemModel,
         fetchMCMCSystemModel, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     useEffect(() => {
@@ -474,7 +473,7 @@ const SystemModels = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -488,7 +487,7 @@ const SystemModels = (props) => {
                 fetchSystemModelsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchSystemModelsIds, navigate, port, ip, props.sessionData.token, setSessionData]);
+    }, [toast, fetchSystemModelsIds, navigate, port, ip, props.sessionData.token, setSessionData]);
 
     const removeEmpiricalSystemModelRequest = useCallback((model_id) => {
         fetch(
@@ -503,7 +502,7 @@ const SystemModels = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -517,7 +516,7 @@ const SystemModels = (props) => {
                 fetchSystemModelsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchSystemModelsIds, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchSystemModelsIds, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeMCMCSystemModelRequest = useCallback((model_id) => {
         fetch(
@@ -532,7 +531,7 @@ const SystemModels = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -546,7 +545,7 @@ const SystemModels = (props) => {
                 fetchSystemModelsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchSystemModelsIds, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchSystemModelsIds, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeGpSystemModelRequest = useCallback((model_id) => {
         fetch(
@@ -561,7 +560,7 @@ const SystemModels = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -575,7 +574,7 @@ const SystemModels = (props) => {
                 fetchSystemModelsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchSystemModelsIds, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchSystemModelsIds, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeModel = (model) => {
         setLoading(true)

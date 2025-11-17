@@ -15,7 +15,7 @@ import {confirmAlert} from 'react-confirm-alert';
 import SystemIdentificationJob from "./SystemIdentificationJob/SystemIdentificationJob";
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
 import {
@@ -42,7 +42,6 @@ const SystemIdentificationJobs = (props) => {
     const [showOnlyRunningSystemIdentificationJobs, setShowOnlyRunningSystemIdentificationJobs] = useState(false);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
     const wrapper = createRef();
@@ -60,7 +59,7 @@ const SystemIdentificationJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -75,7 +74,7 @@ const SystemIdentificationJobs = (props) => {
                 setLoadingSelectedSystemIdentificationJob(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const fetchSystemIdentificationJobsIds = useCallback(() => {
         fetch(
@@ -90,7 +89,7 @@ const SystemIdentificationJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -127,7 +126,7 @@ const SystemIdentificationJobs = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchSystemIdentificationJob]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchSystemIdentificationJob]);
 
     const removeSystemIdentificationJobRequest = useCallback((system_identification_job_id) => {
         fetch(
@@ -142,7 +141,7 @@ const SystemIdentificationJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -157,7 +156,7 @@ const SystemIdentificationJobs = (props) => {
                 fetchSystemIdentificationJobsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchSystemIdentificationJobsIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchSystemIdentificationJobsIds]);
 
     const removeAllSystemIdentificationJobsRequest = useCallback(() => {
         fetch(
@@ -172,7 +171,7 @@ const SystemIdentificationJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -187,7 +186,7 @@ const SystemIdentificationJobs = (props) => {
                 fetchSystemIdentificationJobsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchSystemIdentificationJobsIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchSystemIdentificationJobsIds]);
 
     const removeSystemIdentificationJob = (job) => {
         setSystemIdentificationJobsLoading(true)
@@ -313,7 +312,7 @@ const SystemIdentificationJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -328,7 +327,7 @@ const SystemIdentificationJobs = (props) => {
                 fetchSystemIdentificationJobsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchSystemIdentificationJobsIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchSystemIdentificationJobsIds]);
 
     const stopSystemIdentificationJob = (job) => {
         setSystemIdentificationJobsLoading(true)
@@ -349,7 +348,7 @@ const SystemIdentificationJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -364,7 +363,7 @@ const SystemIdentificationJobs = (props) => {
                 fetchSystemIdentificationJobsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchSystemIdentificationJobsIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchSystemIdentificationJobsIds]);
 
     const startSystemIdentificationJob = (job) => {
         setSystemIdentificationJobsLoading(true)

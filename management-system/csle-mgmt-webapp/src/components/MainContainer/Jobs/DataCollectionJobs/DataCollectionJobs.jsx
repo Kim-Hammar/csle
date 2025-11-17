@@ -15,7 +15,7 @@ import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import DataCollectionJob from "./DataCollectionJob/DataCollectionJob";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
 import {
@@ -42,7 +42,6 @@ const DataCollectionJobs = (props) => {
     const [dataCollectionJobsSearchString, setDataCollectionJobsSearchString] = useState("");
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
     const wrapper = createRef();
@@ -60,7 +59,7 @@ const DataCollectionJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -75,7 +74,7 @@ const DataCollectionJobs = (props) => {
                 setLoadingSelectedDataCollectionJob(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
 
     const fetchDataCollectionJobIds = useCallback(() => {
@@ -91,7 +90,7 @@ const DataCollectionJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -128,7 +127,7 @@ const DataCollectionJobs = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJob]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJob]);
 
     const runningDataCollectionJobsChange = (event) => {
         var filteredDCJobsIds = null
@@ -213,7 +212,7 @@ const DataCollectionJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -228,7 +227,7 @@ const DataCollectionJobs = (props) => {
                 fetchDataCollectionJobIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJobIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJobIds]);
 
     const removeAllDataCollectionJobsRequest = useCallback(() => {
         fetch(
@@ -243,7 +242,7 @@ const DataCollectionJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -258,7 +257,7 @@ const DataCollectionJobs = (props) => {
                 fetchDataCollectionJobIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJobIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJobIds]);
 
     const removeDataCollectionJob = (job) => {
         setDataCollectionJobsLoading(true)
@@ -384,7 +383,7 @@ const DataCollectionJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -399,7 +398,7 @@ const DataCollectionJobs = (props) => {
                 fetchDataCollectionJobIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJobIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJobIds]);
 
     const stopDataCollectionJob = (job) => {
         setDataCollectionJobsLoading(true)
@@ -420,7 +419,7 @@ const DataCollectionJobs = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -435,7 +434,7 @@ const DataCollectionJobs = (props) => {
                 fetchDataCollectionJobIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJobIds]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchDataCollectionJobIds]);
 
     const startDataCollectionJob = (job) => {
         setDataCollectionJobsLoading(true)

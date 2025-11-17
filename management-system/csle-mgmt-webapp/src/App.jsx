@@ -28,7 +28,7 @@ import ServerCluster from "./components/MainContainer/ServerCluster/ServerCluste
 import ContainerTerminal from "./components/MainContainer/ContainerTerminal/ContainerTerminal";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import useSession from "./components/MainContainer/SessionManagement/useSession";
-import { useAlert } from "react-alert";
+import toast, { Toaster } from 'react-hot-toast';
 import {
     LOGIN_PAGE_RESOURCE,
     EMULATIONS_PAGE_RESOURCE,
@@ -63,7 +63,6 @@ function App() {
      * @constructor
      */
     const {sessionData, setSessionData} = useSession();
-    const alert = useAlert();
 
     const ProtectedRoute = ({
                                 user,
@@ -71,7 +70,7 @@ function App() {
                                 children,
                             }) => {
         if (!sessionData) {
-            alert.show("Only logged in users can access this page")
+            toast.error("Only logged in users can access this page")
             return <Navigate to={redirectPath} replace/>;
         }
         return children;
@@ -79,6 +78,10 @@ function App() {
 
     return (
         <div className="App container-fluid">
+            <Toaster
+              position="top-center"
+              reverseOrder={false}
+            />
             <div className="row">
                 <div className="col-sm-12">
                     <BrowserRouter>

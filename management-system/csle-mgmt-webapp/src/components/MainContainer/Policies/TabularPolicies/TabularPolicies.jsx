@@ -18,7 +18,7 @@ import TabularPolicyImg from './TabularPolicyImg.png'
 import TabularPolicy from "./TabularPolicy/TabularPolicy";
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import {
     API_BASE_URL,
     HTTP_REST_DELETE,
@@ -44,7 +44,6 @@ const TabularPolicies = (props) => {
     const ip = serverIp
     const port = serverPort
     const setSessionData = props.setSessionData
-    const alert = useAlert();
     const navigate = useNavigate();
     const wrapper = createRef();
 
@@ -62,7 +61,7 @@ const TabularPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -77,7 +76,7 @@ const TabularPolicies = (props) => {
                 setLoadingTabularPolicy(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchTabularPoliciesIds = useCallback(() => {
         fetch(
@@ -92,7 +91,7 @@ const TabularPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -122,7 +121,7 @@ const TabularPolicies = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchTabularPolicy]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchTabularPolicy]);
 
 
     const removeTabularPoliciesRequest = useCallback((tabular_policy_id) => {
@@ -138,7 +137,7 @@ const TabularPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -152,7 +151,7 @@ const TabularPolicies = (props) => {
                 fetchTabularPoliciesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchTabularPoliciesIds]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchTabularPoliciesIds]);
 
     const removeAllTabularPoliciesRequest = useCallback(() => {
         fetch(
@@ -167,7 +166,7 @@ const TabularPolicies = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -181,7 +180,7 @@ const TabularPolicies = (props) => {
                 fetchTabularPoliciesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchTabularPoliciesIds]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchTabularPoliciesIds]);
 
     const removeTabularPolicy = (tabularPolicy) => {
         setLoadingTabularPolicies(true)

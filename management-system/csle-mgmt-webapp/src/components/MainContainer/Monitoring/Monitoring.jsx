@@ -17,7 +17,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import {useDebouncedCallback} from 'use-debounce';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import {
@@ -117,7 +117,6 @@ const Monitoring = (props) => {
     const [selectedSnortIds, setSelectedSnortIds] = useState(null);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -135,7 +134,7 @@ const Monitoring = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -173,7 +172,7 @@ const Monitoring = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error)),
-        [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+        [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const fetchSelectedExecution = useCallback((id_obj) => {
         fetch(
@@ -189,7 +188,7 @@ const Monitoring = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -218,7 +217,7 @@ const Monitoring = (props) => {
 
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchMonitoringData,
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchMonitoringData,
         windowLength.value]);
 
     const animationDurationUpdate = (selectedObj) => {
@@ -443,7 +442,7 @@ const Monitoring = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -475,7 +474,7 @@ const Monitoring = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, fetchSelectedExecution]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, fetchSelectedExecution]);
 
 
     const SelectedExecutionView = (props) => {

@@ -16,7 +16,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import {API_BASE_URL, HTTP_REST_DELETE, HTTP_REST_GET,
@@ -36,7 +36,6 @@ const Simulations = (props) => {
     const [loadingSelectedSimulation, setLoadingSelectedSimulation] = useState(true);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -53,7 +52,7 @@ const Simulations = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -68,7 +67,7 @@ const Simulations = (props) => {
                 setLoadingSelectedSimulation(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const fetchSimulationsIds = useCallback(() => {
         fetch(
@@ -83,7 +82,7 @@ const Simulations = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -113,7 +112,7 @@ const Simulations = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, navigate, fetchSimulation, port, alert, props.sessionData.token, setSessionData]);
+    }, [ip, navigate, fetchSimulation, port, toast, props.sessionData.token, setSessionData]);
 
     const removeAllSimulationsRequest = useCallback(() => {
         fetch(
@@ -128,7 +127,7 @@ const Simulations = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -142,7 +141,7 @@ const Simulations = (props) => {
                 fetchSimulationsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchSimulationsIds, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchSimulationsIds, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     useEffect(() => {
         setLoading(true);
@@ -163,7 +162,7 @@ const Simulations = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -177,7 +176,7 @@ const Simulations = (props) => {
                 fetchSimulationsIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchSimulationsIds, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchSimulationsIds, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeSimulation = (simulation) => {
         setLoading(true)

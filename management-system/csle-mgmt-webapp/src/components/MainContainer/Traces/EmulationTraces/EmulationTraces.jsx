@@ -15,7 +15,7 @@ import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
 import TraceImg from './TracesLoop.png'
@@ -41,7 +41,6 @@ const EmulationTraces = (props) => {
     const [filteredEmulationTracesIds, setFilteredEmulationTracesIds] = useState([]);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
     const wrapper = createRef();
@@ -59,7 +58,7 @@ const EmulationTraces = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -74,7 +73,7 @@ const EmulationTraces = (props) => {
                 setLoadingSelectedEmulationTrace(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchEmulationTracesIds = useCallback(() => {
         fetch(
@@ -89,7 +88,7 @@ const EmulationTraces = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -118,7 +117,7 @@ const EmulationTraces = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchEmulationTrace, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchEmulationTrace, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeEmulationTraceRequest = useCallback((emulation_trace_id) => {
         fetch(
@@ -133,7 +132,7 @@ const EmulationTraces = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -147,7 +146,7 @@ const EmulationTraces = (props) => {
                 fetchEmulationTracesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchEmulationTracesIds, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchEmulationTracesIds, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const removeAllEmulationTracesRequest = useCallback(() => {
         fetch(
@@ -162,7 +161,7 @@ const EmulationTraces = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -176,7 +175,7 @@ const EmulationTraces = (props) => {
                 fetchEmulationTracesIds()
             })
             .catch(error => console.log("error:" + error))
-    }, [fetchEmulationTracesIds, ip, navigate, port, alert, props.sessionData.token, setSessionData]);
+    }, [fetchEmulationTracesIds, ip, navigate, port, toast, props.sessionData.token, setSessionData]);
 
     const removeEmulationTrace = (emulationTrace) => {
         setLoadingEmulationTraces(true)

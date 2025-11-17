@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import './LogsAdmin.css';
 import {useNavigate} from "react-router-dom";
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 import Tooltip from 'react-bootstrap/Tooltip';
 import Select from 'react-select'
@@ -79,7 +79,6 @@ const LogsAdmin = (props) => {
     const [showInfoModal, setShowInfoModal] = useState(false);
     const ip = serverIp;
     const port = serverPort;
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -97,7 +96,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -109,7 +108,7 @@ const LogsAdmin = (props) => {
                 setSelectedCsleLogFileData(parseLogs(response.logs.split("\n")))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchStatsManagerLogs = useCallback((node_ip) => {
         fetch(
@@ -125,7 +124,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -137,7 +136,7 @@ const LogsAdmin = (props) => {
                 setStatsManagerLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
 
     const fetchCsleLogFiles = useCallback((node_ip) => {
@@ -154,7 +153,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -180,7 +179,7 @@ const LogsAdmin = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchLogFile]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchLogFile]);
 
     const fetchPrometheusLogs = useCallback((node_ip) => {
         fetch(
@@ -196,7 +195,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -208,7 +207,7 @@ const LogsAdmin = (props) => {
                 setPrometheusLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchNodeExporterLogs = useCallback((node_ip) => {
         fetch(
@@ -224,7 +223,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -236,7 +235,7 @@ const LogsAdmin = (props) => {
                 setNodeExporterLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchCAdvisorLogs = useCallback((node_ip) => {
         fetch(
@@ -252,7 +251,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -264,7 +263,7 @@ const LogsAdmin = (props) => {
                 setCAdvisorLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchPgAdminLogs = useCallback((node_ip) => {
         fetch(
@@ -280,7 +279,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -292,7 +291,7 @@ const LogsAdmin = (props) => {
                 setPgAdminLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchGrafanaLogs = useCallback((node_ip) => {
         fetch(
@@ -308,7 +307,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -320,7 +319,7 @@ const LogsAdmin = (props) => {
                 setGrafanaLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
 
     const fetchNginxLogs = useCallback((node_ip) => {
@@ -337,7 +336,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -349,7 +348,7 @@ const LogsAdmin = (props) => {
                 setNginxLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchPostgresqlLogs = useCallback((node_ip) => {
         fetch(
@@ -365,7 +364,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -377,7 +376,7 @@ const LogsAdmin = (props) => {
                 setPostgresqlLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchFlaskLogs = useCallback((node_ip) => {
         fetch(
@@ -393,7 +392,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -405,7 +404,7 @@ const LogsAdmin = (props) => {
                 setFlaskLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchClusterManagerLogs = useCallback((node_ip) => {
         fetch(
@@ -421,7 +420,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -433,7 +432,7 @@ const LogsAdmin = (props) => {
                 setClusterManagerLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchDockerLogs = useCallback((node_ip) => {
         fetch(
@@ -449,7 +448,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -461,7 +460,7 @@ const LogsAdmin = (props) => {
                 setDockerLogs(parseLogs(response.logs))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData]);
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData]);
 
     const fetchServerCluster = useCallback((path) => {
         fetch(
@@ -476,7 +475,7 @@ const LogsAdmin = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -524,7 +523,7 @@ const LogsAdmin = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchStatsManagerLogs,
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchStatsManagerLogs,
         fetchNodeExporterLogs, fetchPrometheusLogs, fetchCAdvisorLogs, fetchPgAdminLogs, fetchGrafanaLogs,
         fetchCsleLogFiles, fetchNginxLogs, fetchFlaskLogs, fetchPostgresqlLogs, fetchDockerLogs,
         fetchClusterManagerLogs]);

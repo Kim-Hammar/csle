@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import './Register.css';
 import serverIp from "../../Common/serverIp";
@@ -24,7 +24,6 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
 
     const createUser = useCallback((userConfiguration) => {
@@ -41,9 +40,9 @@ const Register = () => {
             .then(res => {
                 if(res.status === 400 || res.status === 409) {
                     if(res.status === 400) {
-                        alert.show("Registration failed. Username or password cannot be empty")
+                        toast.error("Registration failed. Username or password cannot be empty")
                     } else {
-                        alert.show("A user with that username already exists")
+                        toast.error("A user with that username already exists")
                     }
                     return null
                 } else {
@@ -52,7 +51,7 @@ const Register = () => {
             })
             .then(response => {
                 if(response !== null) {
-                    alert.show("Registration successful")
+                    toast.success("Registration successful")
                     setUsername("")
                     setPassword("")
                     setUsername("")
@@ -64,7 +63,7 @@ const Register = () => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, navigate, ip, port]);
+    }, [toast, navigate, ip, port]);
 
     const formSubmit = async (event) => {
         event.preventDefault()
@@ -78,7 +77,7 @@ const Register = () => {
             "admin": false
         }
         if (username === "" || password === "") {
-            alert.show("Username or password cannot be empty")
+            toast.error("Username or password cannot be empty")
         } else {
             createUser(userConfiguration)
         }

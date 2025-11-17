@@ -15,7 +15,7 @@ import ExecutionControlPlane from "./ExecutionControlPlane/ExecutionControlPlane
 import Accordion from 'react-bootstrap/Accordion';
 import {useDebouncedCallback} from 'use-debounce';
 import {useNavigate} from "react-router-dom";
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import {
@@ -40,7 +40,6 @@ const ControlPlane = (props) => {
     const [showInfoModal, setShowInfoModal] = useState(false);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -57,7 +56,7 @@ const ControlPlane = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -72,7 +71,7 @@ const ControlPlane = (props) => {
                 setLoadingSelectedEmulationExecution(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, alert, props.sessionData.token, setSessionData]);
+    }, [ip, port, navigate, toast, props.sessionData.token, setSessionData]);
 
     const renderRefreshTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
@@ -128,7 +127,7 @@ const ControlPlane = (props) => {
     )
         .then(res => {
             if (res.status === 401) {
-                alert.show("Session token expired. Please login again.")
+                toast.error("Session token expired. Please login again.")
                 setSessionData(null)
                 navigate(`/${LOGIN_PAGE_RESOURCE}`);
                 return null
@@ -143,7 +142,7 @@ const ControlPlane = (props) => {
             setLoadingSelectedEmulationExecutionInfo(false)
         })
         .catch(error => console.log("error:" + error)),
-        [ip, navigate, port, alert, props.sessionData.token, setSessionData]);
+        [ip, navigate, port, toast, props.sessionData.token, setSessionData]);
 
 
     const renderInfoTooltip = (props) => (
@@ -197,7 +196,7 @@ const ControlPlane = (props) => {
         )
             .then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -230,7 +229,7 @@ const ControlPlane = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, port, navigate, props.sessionData.token, setSessionData, fetchSelectedExecution,
+    }, [toast, ip, port, navigate, props.sessionData.token, setSessionData, fetchSelectedExecution,
         fetchExecutionInfo]);
 
     const wrapper = createRef();

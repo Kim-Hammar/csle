@@ -14,7 +14,7 @@ import getAgentTypeStr from '../../../Common/getAgentTypeStr'
 import getPlayerTypeStr from '../../../Common/getPlayerTypeStr'
 import getDateStr from "../../../Common/getDateStr";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
 import {API_BASE_URL, HTTP_REST_POST, LOGIN_PAGE_RESOURCE,
@@ -36,7 +36,6 @@ const Experiment = (props) => {
 
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -55,7 +54,7 @@ const Experiment = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -67,7 +66,7 @@ const Experiment = (props) => {
                 setLogs(parseLogs(response))
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData, props.experiment.log_file_path]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, props.experiment.log_file_path]);
 
     const renderRemoveExperimentTooltip = (props) => (
         <Tooltip id="button-tooltip" {...props} className="toolTipRefresh">

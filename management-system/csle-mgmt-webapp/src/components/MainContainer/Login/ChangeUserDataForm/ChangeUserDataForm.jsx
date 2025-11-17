@@ -1,5 +1,5 @@
 import React, {useState, useCallback} from 'react';
-import {useAlert} from "react-alert";
+import toast from 'react-hot-toast';
 import './ChangeUserDataForm.css';
 import {useNavigate} from "react-router-dom";
 import serverIp from "../../../Common/serverIp";
@@ -27,7 +27,6 @@ const ChangeUserDataForm = (props) => {
     const admin = props.sessionData.admin
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -43,13 +42,13 @@ const ChangeUserDataForm = (props) => {
             }
         ).then(res => {
                 if (res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
                 }
                 if (res.status === 400) {
-                    alert.show("Invalid request, could not update user")
+                    toast.error("Invalid request, could not update user")
                     return null
                 }
                 return res.json()
@@ -66,10 +65,10 @@ const ChangeUserDataForm = (props) => {
                     "admin": admin
                 }
                 setSessionData(sessionData)
-                alert.show("User data updated successfully")
+                toast.success("User data updated successfully")
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, alert, setSessionData, admin, email, firstName, lastName, navigate, organization,
+    }, [ip, port, toast, setSessionData, admin, email, firstName, lastName, navigate, organization,
         props.sessionData.token, token, userId, username]);
 
 
@@ -87,7 +86,7 @@ const ChangeUserDataForm = (props) => {
             "salt": ""
         }
         if (username === "" || password === "") {
-            alert.show("Username or password cannot be empty")
+            toast.error("Username or password cannot be empty")
         } else {
             updateUser(userConfiguration)
         }

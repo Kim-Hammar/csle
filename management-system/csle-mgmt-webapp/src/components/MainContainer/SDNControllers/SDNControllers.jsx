@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form';
 import Select from 'react-select'
 import {useDebouncedCallback} from 'use-debounce';
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "react-alert";
+import toast from 'react-hot-toast';
 import serverIp from "../../Common/serverIp";
 import serverPort from "../../Common/serverPort";
 import {
@@ -44,7 +44,6 @@ const SDNControllers = (props) => {
         setFilteredEmulationExecutionWithSdnControllerIds] = useState([]);
     const ip = serverIp
     const port = serverPort
-    const alert = useAlert();
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -62,7 +61,7 @@ const SDNControllers = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -77,7 +76,7 @@ const SDNControllers = (props) => {
                 setLoadingSelectedEmulationExecution(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
 
     const fetchEmulationExecutionsWithSdnControllersIds = useCallback(() => {
         fetch(
@@ -92,7 +91,7 @@ const SDNControllers = (props) => {
         )
             .then(res => {
                 if(res.status === 401) {
-                    alert.show("Session token expired. Please login again.")
+                    toast.error("Session token expired. Please login again.")
                     setSessionData(null)
                     navigate(`/${LOGIN_PAGE_RESOURCE}`);
                     return null
@@ -122,7 +121,8 @@ const SDNControllers = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [alert, fetchEmulationExecutionWithSdnController, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [toast, fetchEmulationExecutionWithSdnController, ip, navigate, port,
+              props.sessionData.token, setSessionData]);
 
     useEffect(() => {
         setLoading(true)
