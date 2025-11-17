@@ -31,6 +31,13 @@ export default [
         version: 'detect',
       },
     },
+    ignores: [
+      "node_modules/",
+      "build/",
+      "dist/",
+      "public/",
+      "vite.config.js"
+    ]
   },
   eslint.configs.recommended,
   pluginN.configs['flat/recommended-script'],
