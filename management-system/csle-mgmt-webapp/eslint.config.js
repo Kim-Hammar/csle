@@ -22,25 +22,31 @@ export default [
       sourceType: 'module',
       parserOptions: {
         ecmaFeatures: {
-          jsx: true,
-        },
+          jsx: true
+        }
       },
       globals: {
         ...globals.browser,
-        ...globals.node,
-      },
+        ...globals.node
+      }
     },
     plugins: {
       react: pluginReact,
       n: pluginN,
-      promise: pluginPromise,
+      promise: pluginPromise
     },
     settings: {
       react: {
-        version: 'detect',
-      },
+        version: 'detect'
+      }
     },
+    rules: {
+      'n/no-unsupported-features/node-builtins': 'off',
+      'react/prop-types': 'off',
+      'promise/always-return': 'off',
+      'promise/no-nesting': 'off',
+    }
   },
 
-  eslintConfigPrettier,
+  eslintConfigPrettier
 ]

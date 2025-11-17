@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import './ObservationFunction.css';
-import ObservationFunctionHistogram from "../ObservationFunctionHistogram/ObservationFunctionHistogram";
+import ObservationFunctionHistogram from "../ObservationFunctionHistogram/ObservationFunctionHistogram.jsx";
 import Select from 'react-select'
 
 /**

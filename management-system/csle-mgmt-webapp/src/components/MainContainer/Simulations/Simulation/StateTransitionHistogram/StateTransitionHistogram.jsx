@@ -72,6 +72,7 @@ const StateTransitionHistogram = React.memo((props) => {
         }
     }
 )
+StateTransitionHistogram.displayName = 'StateTransitionHistogram'
 StateTransitionHistogram.propTypes = {};
 StateTransitionHistogram.defaultProps = {};
 export default StateTransitionHistogram;

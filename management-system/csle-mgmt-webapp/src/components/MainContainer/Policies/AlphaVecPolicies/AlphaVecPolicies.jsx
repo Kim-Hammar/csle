@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useEffect, createRef} from 'react';
+import {useState, useCallback, useEffect, createRef} from 'react';
 import './AlphaVecPolicies.css';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
@@ -17,7 +17,7 @@ import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
-import AlphaVecPolicy from "./AlphaVecPolicy/AlphaVecPolicy";
+import AlphaVecPolicy from "./AlphaVecPolicy/AlphaVecPolicy.jsx";
 import PWLCValueFun from './PWLCValueFun.png'
 import {
     ALPHA_VEC_POLICIES_RESOURCE,
@@ -101,7 +101,7 @@ const AlphaVecPolicies = (props) => {
                 if(response === null) {
                     return
                 }
-                const alphavecPoliciesIds = response.map((id_obj, index) => {
+                const alphavecPoliciesIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, simulation: ${id_obj.simulation}`

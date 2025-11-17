@@ -72,6 +72,7 @@ const ObservationFunctionHistogram = React.memo((props) => {
         }
     }
 )
+ObservationFunctionHistogram.displayName = 'ObservationFunctionHistogram'
 ObservationFunctionHistogram.propTypes = {};
 ObservationFunctionHistogram.defaultProps = {};
 export default ObservationFunctionHistogram;

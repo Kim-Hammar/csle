@@ -1,4 +1,4 @@
-import React, {useState, useCallback, createRef, useEffect} from 'react';
+import {useState, useCallback, createRef, useEffect} from 'react';
 import './DQNPolicies.css';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
@@ -18,7 +18,7 @@ import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
-import DQNPolicy from "./DQNPolicy/DQNPolicy";
+import DQNPolicy from "./DQNPolicy/DQNPolicy.jsx";
 import {
     API_BASE_URL,
     HTTP_REST_DELETE,
@@ -101,7 +101,7 @@ const DQNPolicies = (props) => {
                 if(response === null) {
                     return
                 }
-                const dqnPoliciesIds = response.map((id_obj, index) => {
+                const dqnPoliciesIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, simulation: ${id_obj.simulation}`

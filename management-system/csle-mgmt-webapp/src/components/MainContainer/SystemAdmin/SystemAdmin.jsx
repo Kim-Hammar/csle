@@ -1,262 +1,325 @@
-import React, {useState, useEffect, useCallback} from 'react';
-import './SystemAdmin.css';
-import { useNavigate } from "react-router-dom";
-import toast from 'react-hot-toast';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import Button from 'react-bootstrap/Button'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-import Spinner from 'react-bootstrap/Spinner'
-import BootstrapTable from 'react-bootstrap-table-next';
-import cellEditFactory from 'react-bootstrap-table2-editor';
-import { Type } from 'react-bootstrap-table2-editor';
-import serverIp from "../../Common/serverIp";
-import serverPort from "../../Common/serverPort";
-import {API_BASE_URL, HTTP_REST_GET, HTTP_REST_PUT, CONFIG_RESOURCE,
-    TOKEN_QUERY_PARAM, LOGIN_PAGE_RESOURCE} from "../../Common/constants";
+import { useState, useEffect, useCallback } from 'react'
+import PropTypes from 'prop-types'
+import './SystemAdmin.css'
+import { useNavigate } from 'react-router-dom'
+import toast from 'react-hot-toast'
+import {
+  Button,
+  OverlayTrigger,
+  Tooltip,
+  Spinner,
+  Table,
+  Form
+} from 'react-bootstrap'
+import {
+  API_BASE_URL,
+  HTTP_REST_GET,
+  HTTP_REST_PUT,
+  CONFIG_RESOURCE,
+  TOKEN_QUERY_PARAM,
+  LOGIN_PAGE_RESOURCE
+} from '../../Common/constants'
 
 
 /**
  * Component representing the /system-admin-page
  */
-const SystemAdmin = (props) => {
-    const [parametersConfig, setParametersConfig] = useState([]);
-    const [clusterConfig, setClusterConfig] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const ip = serverIp;
-    const port = serverPort;
-    const navigate = useNavigate();
-    const setSessionData = props.setSessionData
+const SystemAdmin = ({ setSessionData, sessionData }) => {
+  const [parametersConfig, setParametersConfig] = useState([])
+  const [clusterConfig, setClusterConfig] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [editParamKey, setEditParamKey] = useState(null)
+  const [tempParamValue, setTempParamValue] = useState('')
+  const [editClusterKey, setEditClusterKey] = useState(null)
+  const [tempClusterData, setTempClusterData] = useState({})
+  const navigate = useNavigate()
 
-    const parameterConfigColumns = [
-        {
-            dataField: 'param',
-            text: 'Parameter'
-        },
-        {
-            dataField: 'value',
-            text: 'Value'
+  const fetchConfig = useCallback(() => {
+    fetch(
+      `${API_BASE_URL}/${CONFIG_RESOURCE}`
+      + `?${TOKEN_QUERY_PARAM}=${sessionData.token}`,
+      {
+        method: HTTP_REST_GET,
+        headers: new Headers({
+          Accept: 'application/vnd.github.cloak-preview'
+        })
+      }
+    )
+      .then(res => {
+        if (res.status === 401) {
+          toast.error('Session token expired. Please login again.')
+          setSessionData(null)
+          navigate(`/${LOGIN_PAGE_RESOURCE}`)
+          return null
         }
-    ];
-
-    const clusterConfigColumns = [
-        {
-            dataField: 'ip',
-            text: 'IP'
-        },
-        {
-            dataField: 'leader',
-            text: 'Leader',
-            editor: {
-                type: Type.SELECT,
-                options: [{
-                    value: 'true',
-                    label: 'true'
-                }, {
-                    value: 'false',
-                    label: 'false'
-                }
-                ]
-            }
+        return res.json()
+      })
+      .then(response => {
+        if (response) {
+          setParametersConfig(response.parameters || [])
+          // Guard against missing cluster_config
+          if (response.cluster_config && response.cluster_config.cluster_nodes) {
+            setClusterConfig(response.cluster_config.cluster_nodes)
+          }
+          setLoading(false)
         }
-    ];
+      })
+      .catch(error => console.log('error:' + error))
+  }, [navigate, sessionData.token, setSessionData])
 
-    const fetchConfig = useCallback(() => {
-        fetch(
-            `${API_BASE_URL}/${CONFIG_RESOURCE}`
-            + `?${TOKEN_QUERY_PARAM}=${props.sessionData.token}`,
-            {
-                method: HTTP_REST_GET,
-                headers: new Headers({
-                    Accept: "application/vnd.github.cloak-preview"
-                })
-            }
-        )
-            .then(res => {
-                if(res.status === 401) {
-                    toast.error("Session token expired. Please login again.")
-                    setSessionData(null)
-                    navigate(`/${LOGIN_PAGE_RESOURCE}`);
-                    return null
-                }
-                return res.json()
-            })
-            .then(response => {
-                setParametersConfig(response.parameters)
-                setClusterConfig(response.cluster_config.cluster_nodes)
-                setLoading(false)
-            })
-            .catch(error => console.log("error:" + error))
-    }, [ip, toast, navigate, port, props.sessionData.token, setSessionData]);
+  const refresh = useCallback(() => {
+    setLoading(true)
+    setEditParamKey(null)
+    setEditClusterKey(null)
+    fetchConfig()
+  }, [fetchConfig])
 
-    const refresh = useCallback(() => {
-        setLoading(true)
-        fetchConfig()
-    }, [fetchConfig])
-
-    const updateConfig = useCallback((config) => {
-        fetch(
-            `${API_BASE_URL}/${CONFIG_RESOURCE}`
-            + `?${TOKEN_QUERY_PARAM}=${props.sessionData.token}`,
-            {
-                method: HTTP_REST_PUT,
-                headers: new Headers({
-                    Accept: "application/vnd.github.cloak-preview"
-                }),
-                body: JSON.stringify({config: config})
-            }
-        )
-            .then(res => {
-                if(res.status === 401) {
-                    toast.error("Session token expired. Please login again.")
-                    setSessionData(null)
-                    navigate(`/${LOGIN_PAGE_RESOURCE}`);
-                    return null
-                }
-                if(res.status === 400) {
-                    toast.error("Invalid request, could not update configuration")
-                    return null
-                }
-                return res.json()
-            })
-            .then(response => {
-                refresh()
-            })
-            .catch(error => console.log("error:" + error))
-    }, [ip, toast, navigate, port, refresh, props.sessionData.token, setSessionData]);
-
-
-    const renderRefreshTooltip = (props) => (
-        <Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
-            Reload simulations from the backend
-        </Tooltip>
-    );
-
-    const ConfigTableOrSpinner = (props) => {
-        if (!props.loading && props.config.length === 0) {
-            return (
-                <div>
-                    <span className="emptyText">No configuration is available</span>
-                    <OverlayTrigger
-                        placement="top"
-                        delay={{show: 0, hide: 0}}
-                        overlay={renderRefreshTooltip}
-                    >
-                        <Button variant="button" onClick={refresh}>
-                            <i className="fa fa-refresh refreshButton" aria-hidden="true"/>
-                        </Button>
-                    </OverlayTrigger>
-                </div>
-            )
+  const updateConfig = useCallback((configObj) => {
+    fetch(
+      `${API_BASE_URL}/${CONFIG_RESOURCE}`
+      + `?${TOKEN_QUERY_PARAM}=${sessionData.token}`,
+      {
+        method: HTTP_REST_PUT,
+        headers: new Headers({
+          Accept: 'application/vnd.github.cloak-preview'
+        }),
+        body: JSON.stringify({ config: configObj })
+      }
+    )
+      .then(res => {
+        if (res.status === 401) {
+          toast.error('Session token expired. Please login again.')
+          setSessionData(null)
+          navigate(`/${LOGIN_PAGE_RESOURCE}`)
+          return null
         }
-        if (props.loading) {
-            return (
-                <div>
-                    <span className="spinnerLabel"> Fetching configuration... </span>
-                    <Spinner animation="border" role="status" className="dropdownSpinner">
-                        <span className="visually-hidden"></span>
-                    </Spinner>
-                </div>)
-        } else {
-            return (
-                <div className="configTable">
-                    <BootstrapTable
-                        keyField="id"
-                        data={ props.config }
-                        columns={ parameterConfigColumns }
-                        cellEdit={ cellEditFactory({ mode: 'click' }) }
-                    />
-                </div>
-            )
+        if (res.status === 400) {
+          toast.error('Invalid request, could not update configuration')
+          return null
         }
+        return res.json()
+      })
+      .then(() => {
+        toast.success('Configuration saved successfully')
+        refresh()
+      })
+      .catch(error => console.log('error:' + error))
+  }, [navigate, refresh, sessionData.token, setSessionData])
+
+  const handleParamEditStart = (row) => {
+    setEditParamKey(row.param)
+    setTempParamValue(row.value)
+  }
+
+  const handleParamSaveLocal = () => {
+    const updatedParams = parametersConfig.map(p =>
+      p.param === editParamKey ? { ...p, value: tempParamValue } : p
+    )
+    setParametersConfig(updatedParams)
+    setEditParamKey(null)
+  }
+
+  const handleClusterEditStart = (row) => {
+    setEditClusterKey(row.ip)
+    setTempClusterData({ ...row })
+  }
+
+  const handleClusterChange = (e) => {
+    const { name, value } = e.target
+    const finalValue = name === 'leader' ? (value === 'true') : value
+
+    setTempClusterData(prev => ({
+      ...prev,
+      [name]: finalValue
+    }))
+  }
+
+  const handleClusterSaveLocal = () => {
+    const updatedCluster = clusterConfig.map(node =>
+      node.ip === editClusterKey ? tempClusterData : node
+    )
+    setClusterConfig(updatedCluster)
+    setEditClusterKey(null)
+  }
+
+  const saveConfig = () => {
+    var clusterConfigObj = {
+      'cluster_nodes': clusterConfig
     }
+    var configObj = {}
+    configObj['cluster_config'] = clusterConfigObj
+    configObj['parameters'] = parametersConfig
 
+    updateConfig(configObj)
+  }
 
-    const ClusterConfigTableOrSpinner = (props) => {
-        if (!props.loading && props.config.length === 0) {
-            return (
-                <div>
-                    <span className="emptyText">No cluster configuration is available</span>
-                    <OverlayTrigger
-                        placement="top"
-                        delay={{show: 0, hide: 0}}
-                        overlay={renderRefreshTooltip}
-                    >
-                        <Button variant="button" onClick={refresh}>
-                            <i className="fa fa-refresh refreshButton" aria-hidden="true"/>
-                        </Button>
-                    </OverlayTrigger>
-                </div>
-            )
-        }
-        if (props.loading) {
-            return (
-                <div>
-                    <span className="spinnerLabel"> Fetching configuration... </span>
-                    <Spinner animation="border" role="status" className="dropdownSpinner">
-                        <span className="visually-hidden"></span>
-                    </Spinner>
-                </div>)
-        } else {
-            return (
-                <div className="configTable">
-                    <BootstrapTable
-                        keyField="id"
-                        data={ props.config }
-                        columns={ clusterConfigColumns }
-                        cellEdit={ cellEditFactory({ mode: 'click' }) }
-                    />
-                </div>
-            )
-        }
+  const handleKeyDown = (e, saveFunc, cancelFunc) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      saveFunc()
     }
-
-    const saveConfig = () => {
-        var clusterConfigObj = {
-            "cluster_nodes" : clusterConfig
-        }
-        var configObj = {}
-        configObj["cluster_config"] = clusterConfigObj
-        configObj["parameters"] = parametersConfig
-        updateConfig(configObj)
+    if (e.key === 'Escape') {
+      cancelFunc()
     }
+  }
 
-    useEffect(() => {
-        setLoading(true);
-        fetchConfig()
-    }, [fetchConfig]);
+  useEffect(() => {
+    setLoading(true)
+    fetchConfig()
+  }, [fetchConfig])
 
-    return (
-        <div className="Admin">
-            <h3> System Configuration (click in a cell to edit, press enter to save)
-                <button type="submit" className="btn btn-primary btn-sm saveUsersBtn" onClick={saveConfig}>
-                    Save
-                </button>
-            </h3>
-            <div className="row">
-                <div className="col-sm-1"></div>
-                <div className="col-sm-10">
-                    <ConfigTableOrSpinner config={parametersConfig} loading={loading} />
-                </div>
-                <div className="col-sm-1"></div>
+  const renderRefreshTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
+      Reload configuration from backend
+    </Tooltip>
+  )
+
+  return (
+    <div className="Admin">
+      <h3> System Configuration (Click value to edit, Enter to confirm, Save to persist)
+        <Button className="btn btn-primary btn-sm saveUsersBtn ms-2" onClick={saveConfig}>
+          Save All
+        </Button>
+      </h3>
+      <div className="row">
+        <div className="col-sm-1"></div>
+        <div className="col-sm-10">
+          {loading ? (
+            <div className="text-center">
+              <span className="spinnerLabel"> Fetching configuration... </span>
+              <Spinner animation="border" role="status" size="sm" />
             </div>
-
-            <h3> Cluster Configuration (click in a cell to edit, press enter to save)
-                <button type="submit" className="btn btn-primary btn-sm saveUsersBtn" onClick={saveConfig}>
-                    Save
-                </button>
-            </h3>
-            <div className="row">
-                <div className="col-sm-1"></div>
-                <div className="col-sm-10">
-                    <ClusterConfigTableOrSpinner config={clusterConfig} loading={loading} />
-                </div>
-                <div className="col-sm-1"></div>
+          ) : (
+            <div className="configTable table-responsive">
+              {parametersConfig.length === 0 ? (
+                <div className="emptyText">No parameters available</div>
+              ) : (
+                <Table striped bordered hover>
+                  <thead>
+                  <tr>
+                    <th>Parameter</th>
+                    <th>Value</th>
+                    <th style={{ width: '100px' }}>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {parametersConfig.map((row) => (
+                    <tr key={row.param}>
+                      <td>{row.param}</td>
+                      <td>
+                        {editParamKey === row.param ? (
+                          <Form.Control
+                            type="text"
+                            size="sm"
+                            value={tempParamValue}
+                            onChange={(e) => setTempParamValue(e.target.value)}
+                            onKeyDown={(e) => handleKeyDown(e, handleParamSaveLocal, () => setEditParamKey(null))}
+                            autoFocus
+                          />
+                        ) : (
+                          <span onClick={() => handleParamEditStart(row)}
+                                style={{ cursor: 'pointer', display: 'block', minHeight: '20px' }}>
+                                                            {row.value}
+                                                        </span>
+                        )}
+                      </td>
+                      <td>
+                        {editParamKey === row.param ? (
+                          <Button variant="success" size="sm" onClick={handleParamSaveLocal}>OK</Button>
+                        ) : (
+                          <Button variant="outline-primary" size="sm"
+                                  onClick={() => handleParamEditStart(row)}>Edit</Button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                  </tbody>
+                </Table>
+              )}
             </div>
+          )}
         </div>
-    );
+        <div className="col-sm-1"></div>
+      </div>
+
+      <h3 className="mt-4"> Cluster Configuration (Click value to edit, Enter to confirm)
+        <Button className="btn btn-primary btn-sm saveUsersBtn ms-2" onClick={saveConfig}>
+          Save All
+        </Button>
+      </h3>
+      <div className="row">
+        <div className="col-sm-1"></div>
+        <div className="col-sm-10">
+          {loading ? (
+            <div className="text-center"><Spinner animation="border" size="sm" /></div>
+          ) : (
+            <div className="configTable table-responsive">
+              {clusterConfig.length === 0 ? (
+                <div>
+                  <span className="emptyText">No cluster configuration available</span>
+                  <OverlayTrigger placement="top" overlay={renderRefreshTooltip}>
+                    <Button variant="link" onClick={refresh}><i className="fa fa-refresh" /></Button>
+                  </OverlayTrigger>
+                </div>
+              ) : (
+                <Table striped bordered hover>
+                  <thead>
+                  <tr>
+                    <th>IP</th>
+                    <th>Leader</th>
+                    <th style={{ width: '100px' }}>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {clusterConfig.map((row) => (
+                    <tr key={row.ip}>
+                      <td>{row.ip}</td>
+                      <td>
+                        {editClusterKey === row.ip ? (
+                          <Form.Select
+                            size="sm"
+                            name="leader"
+                            value={String(tempClusterData.leader)}
+                            onChange={handleClusterChange}
+                            onKeyDown={(e) => handleKeyDown(e, handleClusterSaveLocal, () => setEditClusterKey(null))}
+                          >
+                            <option value="true">true</option>
+                            <option value="false">false</option>
+                          </Form.Select>
+                        ) : (
+                          <span onClick={() => handleClusterEditStart(row)}
+                                style={{ cursor: 'pointer', display: 'block' }}>
+                                                            {String(row.leader)}
+                                                        </span>
+                        )}
+                      </td>
+                      <td>
+                        {editClusterKey === row.ip ? (
+                          <Button variant="success" size="sm" onClick={handleClusterSaveLocal}>OK</Button>
+                        ) : (
+                          <Button variant="outline-primary" size="sm"
+                                  onClick={() => handleClusterEditStart(row)}>Edit</Button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                  </tbody>
+                </Table>
+              )}
+            </div>
+          )}
+        </div>
+        <div className="col-sm-1"></div>
+      </div>
+    </div>
+  )
 }
 
-SystemAdmin.propTypes = {};
-SystemAdmin.defaultProps = {};
-export default SystemAdmin;
+SystemAdmin.propTypes = {
+  setSessionData: PropTypes.func.isRequired,
+  sessionData: PropTypes.shape({
+    token: PropTypes.string.isRequired
+  }).isRequired
+}
+
+export default SystemAdmin

@@ -1,4 +1,4 @@
-import React, {useState, useCallback, createRef, useEffect} from 'react';
+import {useState, useCallback, createRef, useEffect} from 'react';
 import './LinearThresholdPolicies.css';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
@@ -7,7 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner';
 import Accordion from 'react-bootstrap/Accordion';
-import LinearThresholdPolicy from "./LinearThresholdPolicy/LinearThresholdPolicy";
+import LinearThresholdPolicy from "./LinearThresholdPolicy/LinearThresholdPolicy.jsx";
 import Modal from 'react-bootstrap/Modal'
 import ThresholdPolicyImg from './ThresholdPolicy.png'
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -101,7 +101,7 @@ const LinearThresholdPolicies = (props) => {
                 if(response === null) {
                     return
                 }
-                const linearThresholdPoliciesIds = response.map((id_obj, index) => {
+                const linearThresholdPoliciesIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, simulation: ${id_obj.simulation}`

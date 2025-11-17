@@ -69,6 +69,7 @@ const RewardFunctionPlot = React.memo((props) => {
         }
     }
 )
+RewardFunctionPlot.displayName = 'RewardFunctionPlot'
 RewardFunctionPlot.propTypes = {};
 RewardFunctionPlot.defaultProps = {};
 export default RewardFunctionPlot;

@@ -1,4 +1,4 @@
-import React, {useState, useCallback, createRef, useEffect} from 'react';
+import {useState, useCallback, createRef, useEffect} from 'react';
 import './FnnWSoftmaxPolicies.css';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
@@ -10,7 +10,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import Modal from 'react-bootstrap/Modal'
 import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button'
-import FnnWSoftmaxPolicy from "./FnnWSoftmaxPolicy/FnnWSoftmaxPolicy";
+import FnnWSoftmaxPolicy from "./FnnWSoftmaxPolicy/FnnWSoftmaxPolicy.jsx";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import NeuralNetworkPolicies from './../NeuralNetworkPolicies.png'
 import Select from 'react-select'
@@ -102,7 +102,7 @@ const FnnWSoftmaxPolicies = (props) => {
                 if(response === null) {
                     return
                 }
-                const fnnWSoftmaxPoliciesIds = response.map((id_obj, index) => {
+                const fnnWSoftmaxPoliciesIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, simulation: ${id_obj.simulation}`

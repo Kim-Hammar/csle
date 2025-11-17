@@ -1,215 +1,281 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import './UserAdmin.css';
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
-import Button from 'react-bootstrap/Button'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
-import Spinner from 'react-bootstrap/Spinner'
-import BootstrapTable from 'react-bootstrap-table-next';
-import cellEditFactory from 'react-bootstrap-table2-editor';
-import { Type } from 'react-bootstrap-table2-editor';
-import serverIp from "../../Common/serverIp";
-import serverPort from "../../Common/serverPort";
-import {API_BASE_URL, HTTP_REST_GET, HTTP_REST_PUT, LOGIN_PAGE_RESOURCE, TOKEN_QUERY_PARAM,
-    USERS_RESOURCE} from "../../Common/constants";
+import {
+    Button,
+    OverlayTrigger,
+    Tooltip,
+    Spinner,
+    Table,
+    Form
+} from 'react-bootstrap';
 
+import {
+    API_BASE_URL,
+    HTTP_REST_GET,
+    HTTP_REST_PUT,
+    LOGIN_PAGE_RESOURCE,
+    TOKEN_QUERY_PARAM,
+    USERS_RESOURCE
+} from "../../Common/constants";
 
 /**
  * Component representing the /user-admin-page
  */
-const UserAdmin = (props) => {
+const UserAdmin = ({ setSessionData, sessionData }) => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
-    const ip = serverIp;
-    const port = serverPort;
+    const [editId, setEditId] = useState(null);
+    const [editFormData, setEditFormData] = useState({});
     const navigate = useNavigate();
-    const setSessionData = props.setSessionData
-
-    const usersColumns = [
-        {
-        dataField: 'id',
-        text: 'ID'
-        },
-        {
-            dataField: 'username',
-            text: 'Username'
-        },
-        {
-            dataField: 'first_name',
-            text: 'First name'
-        },
-        {
-            dataField: 'last_name',
-            text: 'Last name'
-        },
-        {
-            dataField: 'email',
-            text: 'E-mail'
-        },
-        {
-            dataField: 'organization',
-            text: 'Organization'
-        },
-        {
-            dataField: 'admin',
-            text: 'Admin',
-            editor: {
-                type: Type.SELECT,
-                options: [{
-                    value: 'true',
-                    label: 'true'
-                }, {
-                    value: 'false',
-                    label: 'false'
-                }
-                ]
-            }
-        },
-        {
-            dataField: 'password',
-            text: 'Password'
-        }
-    ];
 
     const fetchUsers = useCallback(() => {
         fetch(
-            `${API_BASE_URL}/${USERS_RESOURCE}`
-            + `?${TOKEN_QUERY_PARAM}=${props.sessionData.token}`,
-            {
-                method: HTTP_REST_GET,
-                headers: new Headers({
-                    Accept: "application/vnd.github.cloak-preview"
-                })
-            }
+          `${API_BASE_URL}/${USERS_RESOURCE}`
+          + `?${TOKEN_QUERY_PARAM}=${sessionData.token}`,
+          {
+              method: HTTP_REST_GET,
+              headers: new Headers({
+                  Accept: "application/vnd.github.cloak-preview"
+              })
+          }
         )
-            .then(res => {
-                if(res.status === 401) {
-                    toast.error("Session token expired. Please login again.")
-                    setSessionData(null)
-                    navigate(`/${LOGIN_PAGE_RESOURCE}`);
-                    return null
-                }
-                return res.json()
-            })
-            .then(response => {
-                setUsers(response)
-                setLoading(false)
-            })
-            .catch(error => console.log("error:" + error))
-    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
+          .then(res => {
+              if (res.status === 401) {
+                  toast.error("Session token expired. Please login again.");
+                  setSessionData(null);
+                  navigate(`/${LOGIN_PAGE_RESOURCE}`);
+                  return null;
+              }
+              return res.json();
+          })
+          .then(response => {
+              if (response) {
+                  setUsers(response);
+                  setLoading(false);
+              }
+          })
+          .catch(error => console.log("error:" + error));
+    }, [navigate, sessionData.token, setSessionData]);
 
     const refresh = useCallback(() => {
-        setLoading(true)
-        fetchUsers()
-    }, [fetchUsers])
+        setLoading(true);
+        setEditId(null);
+        fetchUsers();
+    }, [fetchUsers]);
 
     const updateUser = useCallback((user) => {
-        fetch(
-            `${API_BASE_URL}/${USERS_RESOURCE}/${user.id}`
-            + `?${TOKEN_QUERY_PARAM}=${props.sessionData.token}`,
-            {
-                method: HTTP_REST_PUT,
-                headers: new Headers({
-                    Accept: "application/vnd.github.cloak-preview"
-                }),
-                body: JSON.stringify({user: user})
-            }
+        return fetch(
+          `${API_BASE_URL}/${USERS_RESOURCE}/${user.id}`
+          + `?${TOKEN_QUERY_PARAM}=${sessionData.token}`,
+          {
+              method: HTTP_REST_PUT,
+              headers: new Headers({
+                  Accept: "application/vnd.github.cloak-preview"
+              }),
+              body: JSON.stringify({ user: user })
+          }
         )
-            .then(res => {
-                if(res.status === 401) {
-                    toast.error("Session token expired. Please login again.")
-                    setSessionData(null)
-                    navigate(`/${LOGIN_PAGE_RESOURCE}`);
-                    return null
-                }
-                if(res.status === 400) {
-                    toast.error("Invalid request, could not update users")
-                    return null
-                }
-                return res.json()
-            })
-            .then(response => {
-                refresh()
-            })
-            .catch(error => console.log("error:" + error))
-    }, [toast, ip, navigate, port, refresh, props.sessionData.token, setSessionData]);
+          .then(res => {
+              if (res.status === 401) {
+                  toast.error("Session token expired. Please login again.");
+                  setSessionData(null);
+                  navigate(`/${LOGIN_PAGE_RESOURCE}`);
+                  return null;
+              }
+              if (res.status === 400) {
+                  toast.error("Invalid request, could not update users");
+                  return null;
+              }
+              return res.json();
+          })
+          .catch(error => console.log("error:" + error));
+    }, [navigate, sessionData.token, setSessionData]);
 
-    const renderRefreshTooltip = (props) => (
-        <Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
-            Reload simulations from the backend
-        </Tooltip>
-    );
+    const handleEditClick = (user) => {
+        setEditId(user.id);
+        setEditFormData(user);
+    };
 
-    const UsersTableOrSpinner = (props) => {
-        if (!props.loading && props.users.length === 0) {
-            return (
-                <div>
-                    <span className="emptyText">No users are available</span>
-                    <OverlayTrigger
-                        placement="top"
-                        delay={{show: 0, hide: 0}}
-                        overlay={renderRefreshTooltip}
-                    >
-                        <Button variant="button" onClick={refresh}>
-                            <i className="fa fa-refresh refreshButton" aria-hidden="true"/>
-                        </Button>
-                    </OverlayTrigger>
-                </div>
-            )
+    const handleEditChange = (e) => {
+        const { name, value } = e.target;
+        setEditFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleEditSubmit = (e) => {
+        e.preventDefault();
+
+        const updatedUsers = users.map((u) =>
+          u.id === editId ? editFormData : u
+        );
+        setUsers(updatedUsers);
+        setEditId(null);
+    };
+
+    const handleCancelEdit = () => {
+        setEditId(null);
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            handleEditSubmit(e);
         }
-        if (props.loading) {
-            return (
-                <div>
-                    <span className="spinnerLabel"> Fetching users... </span>
-                    <Spinner animation="border" role="status" className="dropdownSpinner">
-                        <span className="visually-hidden"></span>
-                    </Spinner>
-                </div>)
-        } else {
-            return (
-                <div className="usersTable">
-                    <BootstrapTable
-                        keyField="id"
-                        data={ props.users }
-                        columns={ usersColumns }
-                        cellEdit={ cellEditFactory({ mode: 'click' }) }
-                    />
-                </div>
-            )
+        if (e.key === 'Escape') {
+            handleCancelEdit();
         }
-    }
+    };
 
     const saveUsers = () => {
-        for (let i = 0; i < users.length; i++) {
-            updateUser(users[i])
-        }
-    }
+        setLoading(true);
+        const updatePromises = users.map(user => updateUser(user));
+
+        Promise.all(updatePromises)
+          .then(() => {
+              toast.success("All users updated successfully");
+              refresh();
+          })
+          .catch(() => {
+              toast.error("Some updates failed");
+              setLoading(false);
+          });
+    };
 
     useEffect(() => {
         setLoading(true);
-        fetchUsers()
+        fetchUsers();
     }, [fetchUsers]);
 
+    const renderRefreshTooltip = (props) => (
+      <Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
+          Reload simulations from the backend
+      </Tooltip>
+    );
+
     return (
-        <div className="Admin">
-            <h3> User administration (click in a cell to edit, press enter to save)
-                <button type="submit" className="btn btn-primary btn-sm saveUsersBtn" onClick={saveUsers}>
-                    Save
-                </button>
-            </h3>
-            <div className="row">
-                <div className="col-sm-1"></div>
-                <div className="col-sm-10">
-                    <UsersTableOrSpinner users={users} loading={loading} />
-                </div>
-                <div className="col-sm-1"></div>
-            </div>
-        </div>
+      <div className="Admin">
+          <h3> User administration (Click a row to edit, Enter to confirm local change, Save to persist)
+              <Button
+                variant="primary"
+                size="sm"
+                className="saveUsersBtn ms-2"
+                onClick={saveUsers}
+                disabled={loading}
+              >
+                  {loading ? 'Saving...' : 'Save All Changes'}
+              </Button>
+          </h3>
+
+          <div className="row">
+              <div className="col-sm-1"></div>
+              <div className="col-sm-10">
+
+                  {/* Loading Spinner */}
+                  {loading && (
+                    <div>
+                        <span className="spinnerLabel"> Fetching users... </span>
+                        <Spinner animation="border" role="status" className="dropdownSpinner">
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
+                    </div>
+                  )}
+
+                  {/* Empty State */}
+                  {!loading && users.length === 0 && (
+                    <div>
+                        <span className="emptyText">No users are available</span>
+                        <OverlayTrigger
+                          placement="top"
+                          delay={{ show: 0, hide: 0 }}
+                          overlay={renderRefreshTooltip}
+                        >
+                            <Button variant="button" onClick={refresh}>
+                                <i className="fa fa-refresh refreshButton" aria-hidden="true" />
+                            </Button>
+                        </OverlayTrigger>
+                    </div>
+                  )}
+
+                  {/* Custom Table */}
+                  {!loading && users.length > 0 && (
+                    <div className="usersTable table-responsive">
+                        <Table striped bordered hover>
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>E-mail</th>
+                                <th>Organization</th>
+                                <th>Admin</th>
+                                <th>Password</th>
+                                <th style={{width: '80px'}}>Edit</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {users.map((user) => (
+                              <tr key={user.id} onKeyDown={editId === user.id ? handleKeyDown : null}>
+                                  {/* ID (Read Only) */}
+                                  <td>{user.id}</td>
+
+                                  {/* Editable Columns */}
+                                  {editId === user.id ? (
+                                    <>
+                                        <td><Form.Control size="sm" name="username" value={editFormData.username} onChange={handleEditChange} /></td>
+                                        <td><Form.Control size="sm" name="first_name" value={editFormData.first_name} onChange={handleEditChange} /></td>
+                                        <td><Form.Control size="sm" name="last_name" value={editFormData.last_name} onChange={handleEditChange} /></td>
+                                        <td><Form.Control size="sm" name="email" value={editFormData.email} onChange={handleEditChange} /></td>
+                                        <td><Form.Control size="sm" name="organization" value={editFormData.organization} onChange={handleEditChange} /></td>
+                                        <td>
+                                            <Form.Select size="sm" name="admin" value={editFormData.admin} onChange={handleEditChange}>
+                                                <option value="true">true</option>
+                                                <option value="false">false</option>
+                                            </Form.Select>
+                                        </td>
+                                        <td><Form.Control size="sm" name="password" value={editFormData.password} onChange={handleEditChange} /></td>
+                                        <td>
+                                            <Button variant="success" size="sm" onClick={handleEditSubmit}>Ok</Button>
+                                        </td>
+                                    </>
+                                  ) : (
+                                    /* Read Only Mode */
+                                    <>
+                                        <td onClick={() => handleEditClick(user)}>{user.username}</td>
+                                        <td onClick={() => handleEditClick(user)}>{user.first_name}</td>
+                                        <td onClick={() => handleEditClick(user)}>{user.last_name}</td>
+                                        <td onClick={() => handleEditClick(user)}>{user.email}</td>
+                                        <td onClick={() => handleEditClick(user)}>{user.organization}</td>
+                                        <td onClick={() => handleEditClick(user)}>{String(user.admin)}</td>
+                                        <td onClick={() => handleEditClick(user)}>********</td>
+                                        <td>
+                                            <Button variant="outline-primary" size="sm" onClick={() => handleEditClick(user)}>
+                                                Edit
+                                            </Button>
+                                        </td>
+                                    </>
+                                  )}
+                              </tr>
+                            ))}
+                            </tbody>
+                        </Table>
+                    </div>
+                  )}
+
+              </div>
+              <div className="col-sm-1"></div>
+          </div>
+      </div>
     );
 }
 
-UserAdmin.propTypes = {};
-UserAdmin.defaultProps = {};
+UserAdmin.propTypes = {
+    setSessionData: PropTypes.func.isRequired,
+    sessionData: PropTypes.object.isRequired
+};
+
 export default UserAdmin;

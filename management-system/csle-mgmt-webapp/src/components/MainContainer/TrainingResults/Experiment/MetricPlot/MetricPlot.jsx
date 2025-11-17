@@ -76,6 +76,7 @@ const MetricPlot = React.memo((props) => {
         }
     }
 )
-MetricPlot.propTypes = {};
-MetricPlot.defaultProps = {};
-export default MetricPlot;
+MetricPlot.displayName = "MetricPlot"
+MetricPlot.propTypes = {}
+MetricPlot.defaultProps = {}
+export default MetricPlot

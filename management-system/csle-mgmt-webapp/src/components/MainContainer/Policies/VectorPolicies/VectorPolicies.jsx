@@ -1,8 +1,8 @@
-import React, {useState, useCallback, createRef, useEffect} from 'react';
+import {useState, useCallback, createRef, useEffect} from 'react';
 import './VectorPolicies.css';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
-import VectorPolicy from "./VectorPolicy/VectorPolicy";
+import VectorPolicy from "./VectorPolicy/VectorPolicy.jsx";
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
@@ -100,7 +100,7 @@ const VectorPolicies = (props) => {
                 if(response === null) {
                     return
                 }
-                const vectorPoliciesIds = response.map((id_obj, index) => {
+                const vectorPoliciesIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, simulation: ${id_obj.simulation}`

@@ -1,9 +1,9 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import {useEffect, useState, useCallback} from 'react';
 import './SDNController.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
-import fileDownload from 'react-file-download'
+import { saveAs } from 'file-saver'
 import Accordion from 'react-bootstrap/Accordion';
 import Collapse from 'react-bootstrap/Collapse'
 import serverIp from "../../../Common/serverIp";
@@ -254,7 +254,13 @@ const SDNController = (props) => {
                                             <td>{switchDesc.aggflows.packet_count}</td>
                                             <td>
                                                 <Button variant="link" className="dataDownloadLink"
-                                                        onClick={() => fileDownload(JSON.stringify(switchDesc), switchDesc.dpid + ".json")}>
+                                                        onClick={() => {
+                                                            const blob = new Blob(
+                                                              [JSON.stringify(switchDesc)],
+                                                              { type: 'application/json;charset=utf-8' })
+                                                            saveAs(blob, switchDesc.dpid + ".json")
+                                                        }}
+                                                >
                                                     {switchDesc.dpid}.json
                                                 </Button>
                                             </td>

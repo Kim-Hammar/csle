@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import {useState, useCallback} from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import './Register.css';

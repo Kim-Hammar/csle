@@ -108,6 +108,5 @@ const DeltaAlertsLineChart = React.memo((props) => {
         }
     }
 )
-DeltaAlertsLineChart.propTypes = {};
-DeltaAlertsLineChart.defaultProps = {};
+DeltaAlertsLineChart.displayName = 'DeltaAlertsLineChart'
 export default DeltaAlertsLineChart;

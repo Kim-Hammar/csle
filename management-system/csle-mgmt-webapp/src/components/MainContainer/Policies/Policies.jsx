@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import './Policies.css';
 import Select from 'react-select'
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import AlphaVecPolicies from "./AlphaVecPolicies/AlphaVecPolicies";
-import DQNPolicyComponent from "./DQNPolicies/DQNPolicies";
-import PPOPolicies from "./PPOPolicies/PPOPolicies";
-import MultiThresholdPolicyComponent from "./MultiThresholdPolicies/MultiThresholdPolicies";
-import LinearThresholdPolicyComponent from "./LinearThresholdPolicies/LinearThresholdPolicies";
-import VectorPolicies from "./VectorPolicies/VectorPolicies";
-import FnnWSoftmaxPolicies from "./FnnWSoftmaxPolicies/FnnWSoftmaxPolicies";
-import TabularPolicies from "./TabularPolicies/TabularPolicies";
+import AlphaVecPolicies from "./AlphaVecPolicies/AlphaVecPolicies.jsx";
+import DQNPolicyComponent from "./DQNPolicies/DQNPolicies.jsx";
+import PPOPolicies from "./PPOPolicies/PPOPolicies.jsx";
+import MultiThresholdPolicyComponent from "./MultiThresholdPolicies/MultiThresholdPolicies.jsx";
+import LinearThresholdPolicyComponent from "./LinearThresholdPolicies/LinearThresholdPolicies.jsx";
+import VectorPolicies from "./VectorPolicies/VectorPolicies.jsx";
+import FnnWSoftmaxPolicies from "./FnnWSoftmaxPolicies/FnnWSoftmaxPolicies.jsx";
+import TabularPolicies from "./TabularPolicies/TabularPolicies.jsx";
 
 /**
  * Component representing the /policies page

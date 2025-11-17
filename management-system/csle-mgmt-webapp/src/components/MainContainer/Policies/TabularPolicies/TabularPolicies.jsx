@@ -1,4 +1,4 @@
-import React, {useState, useCallback, createRef, useEffect} from 'react';
+import {useState, useCallback, createRef, useEffect} from 'react';
 import './TabularPolicies.css';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
@@ -15,7 +15,7 @@ import Select from 'react-select'
 import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import TabularPolicyImg from './TabularPolicyImg.png'
-import TabularPolicy from "./TabularPolicy/TabularPolicy";
+import TabularPolicy from "./TabularPolicy/TabularPolicy.jsx";
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
@@ -102,7 +102,7 @@ const TabularPolicies = (props) => {
                 if(response === null) {
                     return
                 }
-                const tabularPoliciesIds = response.map((id_obj, index) => {
+                const tabularPoliciesIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, simulation: ${id_obj.simulation}`

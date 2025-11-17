@@ -1,8 +1,8 @@
-import React, {useState, useEffect, createRef, useCallback} from 'react';
+import {useState, useEffect, createRef, useCallback} from 'react';
 import './SDNControllers.css';
 import Accordion from 'react-bootstrap/Accordion';
 import Spinner from 'react-bootstrap/Spinner'
-import SDNController from "./SDNController/SDNController";
+import SDNController from "./SDNController/SDNController.jsx";
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -102,7 +102,7 @@ const SDNControllers = (props) => {
                 if(response === null) {
                     return
                 }
-                const emulationExecutionIds = response.map((id_obj, index) => {
+                const emulationExecutionIds = response.map((id_obj) => {
                     return {
                         value: id_obj,
                         label: `ID: ${id_obj.id}, emulation: ${id_obj.emulation}`

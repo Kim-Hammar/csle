@@ -112,10 +112,5 @@ const PolicyAndBeliefChart = React.memo((props) => {
         }
     }
 )
-PolicyAndBeliefChart.propTypes =
-    {}
-;
-PolicyAndBeliefChart.defaultProps =
-    {}
-;
+PolicyAndBeliefChart.displayName = 'PolicyAndBeliefChart'
 export default PolicyAndBeliefChart;

@@ -16,7 +16,7 @@ import {
     MCMC_SYSTEM_MODEL_TYPE_INT, EMPIRICAL_SYSTEM_MODEL_TYPE, GAUSSIAN_MIXTURE_SYSTEM_MODEL_TYPE, MCMC_SYSTEM_MODEL_TYPE
 } from "../../../Common/constants";
 
-const getConditionals = (systemModel, selectedConditionals, selectedMetric) => {
+const getConditionals = (systemModel, selectedConditionals) => {
     if(systemModel.model_type === MCMC_SYSTEM_MODEL_TYPE_INT) {
         var posteriors = []
         for (let i = 0; i < systemModel.posteriors.length; i++) {
@@ -153,6 +153,7 @@ const ConditionalHistogramDistribution = React.memo((props) => {
         }
     }
 )
+ConditionalHistogramDistribution.displayName = 'ConditionalHistogramDistribution'
 ConditionalHistogramDistribution.propTypes = {};
 ConditionalHistogramDistribution.defaultProps = {};
 export default ConditionalHistogramDistribution;

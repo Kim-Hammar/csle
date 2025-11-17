@@ -1,32 +1,40 @@
-import React from 'react';
-import {Handle} from 'react-flow-renderer';
+import { Handle, Position } from 'reactflow';
+import PropTypes from 'prop-types';
 import './Client.css';
 import workstation from './workstation.png';
 
 const clientStyles = {
-    background: '#FFFF',
-    color: '#000000',
-    padding: 0,
-    display: 'inline-block',
-    position: 'relative'
+  background: '#FFFF',
+  color: '#000000',
+  padding: 0,
+  display: 'inline-block',
+  position: 'relative'
 };
 
 /**
  * Component representing a client in the network animation in the policy examination page
  */
 const Client = ({ data }) => {
-    return (
-        <div style={clientStyles} className="clientPopulation">
-            <div className="largeFont">{data.text}</div>
-            <img src={workstation} className="rounded float-left" alt="client" height="30%" width="30%"/>
-            <img src={workstation} className="rounded float-left" alt="client" height="30%" width="30%"/>
-            <img src={workstation} className="rounded float-left" alt="client" height="30%" width="30%"/>
-            <Handle type="source" position="bottom" style={{ borderRadius: 0 }} />
-        </div>
-    );
+  return (
+    <div style={clientStyles} className="clientPopulation">
+      <div className="largeFont">{data.text}</div>
+      <img src={workstation} className="rounded float-left" alt="client" height="30%" width="30%"/>
+      <img src={workstation} className="rounded float-left" alt="client" height="30%" width="30%"/>
+      <img src={workstation} className="rounded float-left" alt="client" height="30%" width="30%"/>
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        style={{ borderRadius: 0 }}
+      />
+    </div>
+  );
 };
 
+Client.propTypes = {
+  data: PropTypes.shape({
+    text: PropTypes.string
+  }).isRequired
+};
 
-Client.propTypes = {};
 Client.defaultProps = {};
 export default Client;

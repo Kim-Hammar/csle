@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import Table from 'react-bootstrap/Table'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -66,7 +66,7 @@ const ServerCluster = (props) => {
         setLoadingEntities(newLoadingEntities)
     }
 
-    const fetchServerCluster = useCallback((path) => {
+    const fetchServerCluster = useCallback(() => {
         fetch(
             `${API_BASE_URL}/${CLUSTER_STATUS_RESOURCE}`
             + `?${TOKEN_QUERY_PARAM}=${props.sessionData.token}`,
@@ -461,9 +461,9 @@ const ServerCluster = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                     <p className="modalText">
-                        The management system of CSLE is a distributed system that consist of N >=1 physical servers
+                        The management system of CSLE is a distributed system that consist of N physical servers
                         connected through an IP network.
-                        One of the servers is designated to be the "leader" and the other servers are "workers"
+                        One of the servers is designated to be the leader and the other servers are workers
                         Workers can perform local management actions but not actions that affect the overall system
                         state.
                         These actions are routed to the leader, which applies them sequentially to ensure

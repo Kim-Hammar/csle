@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   InputGroup,
   FormControl,
@@ -190,7 +190,7 @@ const RecoveryAI = (props) => {
     }
     const url = `${API_BASE_URL}/${RECOVERY_AI_RESOURCE}/${RECOVERY_AI_EXAMPLE_RESOURCE}?${TOKEN_QUERY_PARAM}=${token}`
     setLoadingExample(true)
-    fetch(url)
+    return fetch(url)
       .then((res) => {
         if (res.status === 401) {
           toast.show('Session token expired. Please login again.')
@@ -208,6 +208,7 @@ const RecoveryAI = (props) => {
         if (!data) return
         setSystemDescription(data.systemDescription || '')
         setNetworkLogs(data.networkLogs || '')
+        return null
       })
       .catch(() => {
         toast.error('Unable to connect to the Recovery AI service')
@@ -347,7 +348,7 @@ const RecoveryAI = (props) => {
                   JSON.parse(jsonBuffer.current)
                   processJson(jsonBuffer.current, reasoningForCurrentStep)
                   reasoningForCurrentStep = ''
-                } catch (e) {
+                } catch {
                   // Not a complete JSON object yet, continue buffering
                 }
               }
@@ -474,7 +475,9 @@ const RecoveryAI = (props) => {
     )
   }
 
-  const renderTooltip = (text) => (props) => <Tooltip {...props}>{text}</Tooltip>
+  const renderTooltip = (text) => function CustomTooltip(props) {
+    return <Tooltip {...props}>{text}</Tooltip>;
+  };
 
   const StreamingUI = ({ reasoningRef, jsonRef }) => (
     <>
@@ -520,7 +523,7 @@ const RecoveryAI = (props) => {
         designed to help analysts respond to cyber incidents by generating
         actionable recovery plans. To use the tool, provide a brief description
         of your system and paste in relevant network logs. Then click the
-        <strong> "Generate Recovery Plan"</strong> button to receive a detailed
+        <strong> Generate Recovery Plan</strong> button to receive a detailed
         recovery plan based on the provided data.
         <OverlayTrigger placement="top" delay={{ show: 0, hide: 0 }}
                         overlay={renderTooltip('More information about Recovery AI')}>

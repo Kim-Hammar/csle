@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback, createRef} from 'react';
+import {useState, useEffect, useCallback, createRef} from 'react';
 import './Simulations.css';
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -7,7 +7,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Accordion from 'react-bootstrap/Accordion';
 import Spinner from 'react-bootstrap/Spinner'
 import MarkovChain from './Markov.png'
-import Simulation from "./Simulation/Simulation";
+import Simulation from "./Simulation/Simulation.jsx";
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
@@ -93,7 +93,7 @@ const Simulations = (props) => {
                 if(response === null) {
                     return
                 }
-                const simulationIds = response.map((id_obj, index) => {
+                const simulationIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, name: ${id_obj.simulation}`

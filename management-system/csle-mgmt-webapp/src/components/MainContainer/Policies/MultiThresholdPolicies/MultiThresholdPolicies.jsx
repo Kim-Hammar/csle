@@ -1,4 +1,4 @@
-import React, {useState, useCallback, createRef, useEffect} from 'react';
+import {useState, useCallback, createRef, useEffect} from 'react';
 import './MultiThresholdPolicies.css';
 import serverIp from "../../../Common/serverIp";
 import serverPort from "../../../Common/serverPort";
@@ -7,7 +7,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner';
 import Accordion from 'react-bootstrap/Accordion';
-import MultiThresholdPolicy from "./MultiThresholdPolicy/MultiThresholdPolicy";
+import MultiThresholdPolicy from "./MultiThresholdPolicy/MultiThresholdPolicy.jsx";
 import Modal from 'react-bootstrap/Modal'
 import ThresholdPolicyImg from './ThresholdPolicy.png'
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -20,7 +20,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
 import {
-    HTTP_PREFIX,
     HTTP_REST_DELETE,
     HTTP_REST_GET,
     LOGIN_PAGE_RESOURCE,
@@ -101,7 +100,7 @@ const MultiThresholdPolicies = (props) => {
                 if(response === null) {
                     return
                 }
-                const multiThresholdPoliciesIds = response.map((id_obj, index) => {
+                const multiThresholdPoliciesIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, simulation: ${id_obj.simulation}`

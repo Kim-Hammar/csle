@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import './RewardFunction.css';
-import RewardFunctionPlot from "../RewardFunctionPlot/RewardFunctionPlot";
+import RewardFunctionPlot from "../RewardFunctionPlot/RewardFunctionPlot.jsx";
 import Select from 'react-select'
 
 

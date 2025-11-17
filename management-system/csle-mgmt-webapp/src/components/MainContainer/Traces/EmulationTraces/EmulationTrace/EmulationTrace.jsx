@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Accordion from 'react-bootstrap/Accordion';
@@ -14,7 +14,7 @@ import convertListToCommaSeparatedString from "../../../../Common/convertListToC
  * Component representing the /emulation-traces/id resource
  */
 const EmulationTrace = (props) => {
-    const defMachines = props.emulationTrace.initial_defender_observation_state.machines.map((machine, index) => {
+    const defMachines = props.emulationTrace.initial_defender_observation_state.machines.map((machine) => {
         return {
             value: machine,
             label: `IPs: ${machine.ips.join(', ')}`
@@ -26,7 +26,7 @@ const EmulationTrace = (props) => {
     const [attackerObservationsOpen, setAttackerObservationsOpen] = useState(false);
     const [defenderObservationsOpen, setDefenderObservationsOpen] = useState(false);
     const [selectedDefenderMachine, setSelectedDefenderMachine] = useState(defMachines[0]);
-    const [defenderMachines, setDefenderMachines] = useState(defMachines);
+    const [defenderMachines] = useState(defMachines);
 
     const updateSelectedDefenderMachine = (selectedDefMachine) => {
         setSelectedDefenderMachine(selectedDefMachine)

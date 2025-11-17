@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import './TransitionProbabilities.css';
-import StateTransitionHistogram from "../StateTransitionHistogram/StateTransitionHistogram";
+import StateTransitionHistogram from "../StateTransitionHistogram/StateTransitionHistogram.jsx";
 import Select from 'react-select'
 
 /**
@@ -46,7 +46,7 @@ const TransitionProbabilities = (props) => {
         return (
             <div>
                 <h5 className="semiTitle">
-                    Transition probabilities P(s'|a1,a2,s,l)
+                    Transition probabilities P(s&apos;|a1,a2,s,l)
                 </h5>
                 <h5 className="semiTitle">
                     a1:

@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useCallback, createRef} from 'react';
+import {useState, useEffect, useCallback, createRef} from 'react';
 import Modal from 'react-bootstrap/Modal'
 import Accordion from 'react-bootstrap/Accordion';
 import Spinner from 'react-bootstrap/Spinner'
 import Button from 'react-bootstrap/Button'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import Experiment from "./Experiment/Experiment";
+import Experiment from "./Experiment/Experiment.jsx";
 import './TrainingResults.css';
 import TrainingEnv from './RL_training_env.png'
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -17,8 +17,6 @@ import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
-import serverIp from "../../Common/serverIp";
-import serverPort from "../../Common/serverPort";
 import {API_BASE_URL, HTTP_REST_DELETE, HTTP_REST_GET,
     LOGIN_PAGE_RESOURCE, TOKEN_QUERY_PARAM, EXPERIMENTS_RESOURCE, IDS_QUERY_PARAM} from "../../Common/constants";
 
@@ -34,9 +32,6 @@ const TrainingResults = (props) => {
     const [loadingSelectedExperiment, setLoadingSelectedExperiment] = useState(true);
     const [showInfoModal, setShowInfoModal] = useState(false);
     const [filteredExperimentsIds, setFilteredExperimentsIds] = useState([]);
-
-    const ip = serverIp
-    const port = serverPort
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -68,7 +63,7 @@ const TrainingResults = (props) => {
                 setLoadingSelectedExperiment(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [toast, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [navigate, props.sessionData.token, setSessionData]);
 
 
     const fetchExperiments = useCallback(() => {
@@ -95,7 +90,7 @@ const TrainingResults = (props) => {
                 if(response === null) {
                     return
                 }
-                const experimentIds = response.map((id_obj, index) => {
+                const experimentIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, simulation: ${id_obj.simulation}, emulation: ${id_obj.emulation}`
@@ -114,7 +109,7 @@ const TrainingResults = (props) => {
                 }
             })
             .catch(error => console.log("error:" + error))
-    }, [toast, fetchExperiment, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [fetchExperiment, navigate, props.sessionData.token, setSessionData]);
 
     const removeExperimentRequest = useCallback((experiment_id) => {
         fetch(
@@ -143,7 +138,7 @@ const TrainingResults = (props) => {
                 fetchExperiments()
             })
             .catch(error => console.log("error:" + error))
-    }, [toast, fetchExperiments, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [fetchExperiments, navigate, props.sessionData.token, setSessionData]);
 
     const removeAllExperimentsRequest = useCallback(() => {
         fetch(
@@ -172,7 +167,7 @@ const TrainingResults = (props) => {
                 fetchExperiments()
             })
             .catch(error => console.log("error:" + error))
-    }, [toast, fetchExperiments, ip, navigate, port, props.sessionData.token, setSessionData]);
+    }, [fetchExperiments, navigate, props.sessionData.token, setSessionData]);
 
     const removeExperiment = (experiment) => {
         setLoading(true)

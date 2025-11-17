@@ -1,4 +1,4 @@
-import React, {useState, createRef, useCallback, useEffect} from 'react';
+import {useState, createRef, useCallback, useEffect} from 'react';
 import './EmulationTraces.css';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
@@ -10,7 +10,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Select from 'react-select'
-import EmulationTrace from "./EmulationTrace/EmulationTrace";
+import EmulationTrace from "./EmulationTrace/EmulationTrace.jsx";
 import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -99,7 +99,7 @@ const EmulationTraces = (props) => {
                 if(response === null) {
                     return
                 }
-                const emulationTracesIds = response.map((id_obj, index) => {
+                const emulationTracesIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, emulation: ${id_obj.emulation}`

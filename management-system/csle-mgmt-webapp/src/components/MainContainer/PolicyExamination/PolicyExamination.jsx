@@ -1,29 +1,30 @@
-import React, {useState, useCallback, useEffect} from 'react';
+import {useState, useCallback, useEffect} from 'react';
 import './PolicyExamination.css';
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import ReactFlow, {
     ReactFlowProvider
-} from 'react-flow-renderer';
+} from 'reactflow';
+import 'reactflow/dist/style.css';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import PolicyExaminationSystem from './Architecture.png'
-import ApplicationServer from "./AttackerNetwork/ApplicationServer/ApplicationServer";
-import ApplicationServerNotFound from "./AttackerNetwork/ApplicationServerNotFound/ApplicationServerNotFound";
-import ApplicationServerCompromised from "./AttackerNetwork/ApplicationServerCompromised/ApplicationServerCompromised";
-import Gateway from "./AttackerNetwork/Gateway/Gateway";
-import Client from "./AttackerNetwork/Client/Client";
-import Attacker from "./AttackerNetwork/Attacker/Attacker";
-import AttackerNotStarted from "./AttackerNetwork/AttackerNotStarted/AttackerNotStarted";
-import Defender from "./AttackerNetwork/Defender/Defender";
-import IDS from "./AttackerNetwork/IDS/IDS";
-import Firewall from "./AttackerNetwork/Firewall/Firewall";
-import Switch from "./AttackerNetwork/Switch/Switch";
-import SwitchNotFound from "./AttackerNetwork/SwitchNotFound/SwitchNotFound";
+import ApplicationServer from "./AttackerNetwork/ApplicationServer/ApplicationServer.jsx";
+import ApplicationServerNotFound from "./AttackerNetwork/ApplicationServerNotFound/ApplicationServerNotFound.jsx";
+import ApplicationServerCompromised from "./AttackerNetwork/ApplicationServerCompromised/ApplicationServerCompromised.jsx";
+import Gateway from "./AttackerNetwork/Gateway/Gateway.jsx";
+import Client from "./AttackerNetwork/Client/Client.jsx";
+import Attacker from "./AttackerNetwork/Attacker/Attacker.jsx";
+import AttackerNotStarted from "./AttackerNetwork/AttackerNotStarted/AttackerNotStarted.jsx";
+import Defender from "./AttackerNetwork/Defender/Defender.jsx";
+import IDS from "./AttackerNetwork/IDS/IDS.jsx";
+import Firewall from "./AttackerNetwork/Firewall/Firewall.jsx";
+import Switch from "./AttackerNetwork/Switch/Switch.jsx";
+import SwitchNotFound from "./AttackerNetwork/SwitchNotFound/SwitchNotFound.jsx";
 import getElements from './getElements';
 import Spinner from 'react-bootstrap/Spinner'
-import PolicyAndBeliefChart from "./PolicyAndBeliefChart/PolicyAndBeliefChart";
-import DeltaAlertsLineChart from "./DeltaAlertsLineChart/DeltaAlertsLineChart";
+import PolicyAndBeliefChart from "./PolicyAndBeliefChart/PolicyAndBeliefChart.jsx";
+import DeltaAlertsLineChart from "./DeltaAlertsLineChart/DeltaAlertsLineChart.jsx";
 import Select from 'react-select'
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
@@ -84,8 +85,11 @@ const PolicyExamination = (props) => {
     const navigate = useNavigate();
     const animation = true
     const animationDuration = evolutionSpeedOptions[0]
-    const rawElements = getElements({x: 0, y: 0})
-    const [elements, setElements] = useState(rawElements);
+
+    const rawElements = getElements()
+    const [nodes, setNodes] = useState(rawElements.filter(e => !e.source));
+    const [edges, setEdges] = useState(rawElements.filter(e => e.source));
+
     const height = 745
     const nodeTypes = {
         applicationServer: ApplicationServer,
@@ -137,58 +141,85 @@ const PolicyExamination = (props) => {
         if (!attacker_found_nodes.includes("defender")) {
             attacker_found_nodes.push("defender")
         }
-        setElements((els) => els.map((e, index) => {
-            e.isHidden = ((!attacker_found_nodes.includes(e.id)) && !(attacker_found_nodes.includes(e.source)
-                    && attacker_found_nodes.includes(e.target)) && !(attacker_found_nodes.includes(e.source)
-                    && (e.target.includes("notfound" || e.target.includes("notstarted"))))
-                && !((e.source !== undefined && (e.source.includes("notfound") ||
-                            e.source.includes("notstarted")) &&
-                        !attacker_found_nodes.includes(e.source)) &&
-                    (e.target.includes("notfound" || e.target.includes("notstarted")))) &&
-                !(e.id.includes("notfound")) && !(e.id.includes("notstarted") &&
-                    !attacker_found_nodes.includes("attacker")) && !(e.id.includes("compromised") &&
-                    attacker_compromised_nodes.includes(e.id.replace("_compromised", ""))));
-            return e;
-        }))
+
+        const isHidden = (e) => {
+            const target = e.target || "";
+            const source = e.source || "";
+            const id = e.id || "";
+
+            const isSourceFound = attacker_found_nodes.includes(source);
+            const isTargetFound = attacker_found_nodes.includes(target);
+            const isIdFound = attacker_found_nodes.includes(id);
+
+            const targetIsGhost = target.includes("notfound") || target.includes("notstarted");
+            const sourceIsGhost = source.includes("notfound") || source.includes("notstarted");
+            const idIsGhost = id.includes("notfound");
+            const idIsNotStarted = id.includes("notstarted");
+
+            if (isIdFound) return false;
+
+            if (isSourceFound && isTargetFound) return false;
+
+            if (isSourceFound && targetIsGhost) return false;
+
+            if (sourceIsGhost && !isSourceFound && targetIsGhost) return false;
+
+            if (idIsGhost) return true;
+
+            if (idIsNotStarted && !attacker_found_nodes.includes("attacker")) return true;
+
+            if (id.includes("compromised") && attacker_compromised_nodes.includes(id.replace("_compromised", ""))) return false;
+
+            return true;
+        }
+
+        setNodes((nds) => nds.map((n) => {
+            return { ...n, hidden: isHidden(n) };
+        }));
+
+        setEdges((eds) => eds.map((e) => {
+            return { ...e, hidden: isHidden(e) };
+        }));
+
     }, [])
 
     const fetchTraces = useCallback(() => {
         fetch(`${API_BASE_URL}/${EMULATION_SIMULATION_TRACES_RESOURCE}`
-            + `?${TOKEN_QUERY_PARAM}=${props.sessionData.token}`, {
+          + `?${TOKEN_QUERY_PARAM}=${props.sessionData.token}`, {
             method: HTTP_REST_GET,
             headers: new Headers({
                 Accept: "application/vnd.github.cloak-preview"
             })
         })
-            .then(res => {
-                if(res.status === 401) {
-                    toast.error("Session token expired. Please login again.")
-                    setSessionData(null)
-                    navigate(`/${LOGIN_PAGE_RESOURCE}`);
-                    return null
-                }
-                return res.json()
-            })
-            .then(response => {
-                if(response === null) {
-                    return
-                }
-                if (response.length > 0) {
-                    const tracesOptions = response.map((trace, index) => {
-                        return {
-                            value: trace,
-                            label: `Trace ${index}`
-                        }
-                    })
-                    setTraces(tracesOptions);
-                    setActiveTrace(tracesOptions[0])
-                    setL(initialL)
-                    setT(initialT)
-                    updateFoundNodes(response[0], initialL, initialT)
-                }
-                setLoading(false)
-            })
-            .catch(error => console.log("error:" + error))
+          .then(res => {
+              if(res.status === 401) {
+                  toast.error("Session token expired. Please login again.")
+                  setSessionData(null)
+                  navigate(`/${LOGIN_PAGE_RESOURCE}`);
+                  return null
+              }
+              return res.json()
+          })
+          .then(response => {
+              if(response === null) {
+                  return
+              }
+              if (response.length > 0) {
+                  const tracesOptions = response.map((trace, index) => {
+                      return {
+                          value: trace,
+                          label: `Trace ${index}`
+                      }
+                  })
+                  setTraces(tracesOptions);
+                  setActiveTrace(tracesOptions[0])
+                  setL(initialL)
+                  setT(initialT)
+                  updateFoundNodes(response[0], initialL, initialT)
+              }
+              setLoading(false)
+          })
+          .catch(error => console.log("error:" + error))
     }, [toast, ip, navigate, port, props.sessionData.token, setSessionData, updateFoundNodes]);
 
     useEffect(() => {
@@ -236,7 +267,7 @@ const PolicyExamination = (props) => {
 
     const updateTrace = (trace) => {
         if (activeTrace === null || activeTrace === undefined ||
-            trace.value.name !== activeTrace.value.name) {
+          trace.value.name !== activeTrace.value.name) {
             setActiveTrace(trace)
         }
     }
@@ -244,26 +275,26 @@ const PolicyExamination = (props) => {
     const SelectTraceDropdownOrSpinner = (props) => {
         if (props.loading || props.activeTrace === null || props.traces.length === 0) {
             return (
-                <Spinner animation="border" role="status" className="dropdownSpinner">
-                    <span className="visually-hidden"></span>
-                </Spinner>)
+              <Spinner animation="border" role="status" className="dropdownSpinner">
+                  <span className="visually-hidden"></span>
+              </Spinner>)
         } else {
             return (
-                <div className="conditionalDist inline-block selectEmulation">
-                    <div className="conditionalDist inline-block" style={{width: "300px"}}>
-                        <Select
-                            style={{display: 'inline-block'}}
-                            value={props.activeTrace}
-                            defaultValue={props.activeTrace}
-                            options={props.traces}
-                            onChange={updateTrace}
-                            placeholder="Select a trace"
-                        />
-                    </div>
-                    <div className="conditionalDist inline-block windowLengthDropdown">
-                        t={props.t}
-                    </div>
-                </div>
+              <div className="conditionalDist inline-block selectEmulation">
+                  <div className="conditionalDist inline-block" style={{width: "300px"}}>
+                      <Select
+                        style={{display: 'inline-block'}}
+                        value={props.activeTrace}
+                        defaultValue={props.activeTrace}
+                        options={props.traces}
+                        onChange={updateTrace}
+                        placeholder="Select a trace"
+                      />
+                  </div>
+                  <div className="conditionalDist inline-block windowLengthDropdown">
+                      t={props.t}
+                  </div>
+              </div>
             )
         }
     }
@@ -279,10 +310,10 @@ const PolicyExamination = (props) => {
 
     const InfoModal = (props) => {
         return (<Modal
-            {...props}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
+          {...props}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter" className="modalTitle">
@@ -301,7 +332,7 @@ const PolicyExamination = (props) => {
                 </p>
                 <div className="text-center">
                     <img src={PolicyExaminationSystem} alt="A system for interactive examination of
-                        learned security policies" className="img-fluid"/>
+                      learned security policies" className="img-fluid"/>
                 </div>
             </Modal.Body>
             <Modal.Footer className="modalFooter">
@@ -311,24 +342,24 @@ const PolicyExamination = (props) => {
     }
 
     return (
-        <div className="policyExamination" onKeyDown={handleKeyPress} tabIndex={0}>
-            <h3 className="managementTitle"> Policy Examination </h3>
-            <h4>Emulation trace:
-                <span className="infoPolicyExp">
+      <div className="policyExamination" onKeyDown={handleKeyPress} tabIndex={0}>
+          <h3 className="managementTitle"> Policy Examination </h3>
+          <h4>Emulation trace:
+              <span className="infoPolicyExp">
                     <OverlayTrigger
-                        placement="right"
-                        delay={{show: 0, hide: 0}}
-                        overlay={renderRefreshTooltip()}
+                      placement="right"
+                      delay={{show: 0, hide: 0}}
+                      overlay={renderRefreshTooltip()}
                     >
                         <Button variant="button" onClick={refresh}>
                             <i className="fa fa-refresh refreshButton3" aria-hidden="true"/>
                         </Button>
                     </OverlayTrigger>
                     <OverlayTrigger
-                        placement="top"
-                        delay={{show: 0, hide: 0}}
-                        overlay={renderInfoTooltip}
-                        className="overLayInfo"
+                      placement="top"
+                      delay={{show: 0, hide: 0}}
+                      overlay={renderInfoTooltip}
+                      className="overLayInfo"
                     >
                         <Button variant="button" onClick={() => setShowInfoModal(true)}>
                             <i className="infoButton2 fa fa-info-circle" aria-hidden="true"/>
@@ -336,63 +367,63 @@ const PolicyExamination = (props) => {
                     </OverlayTrigger>
                     <InfoModal show={showInfoModal} onHide={() => setShowInfoModal(false)}/>
                 </span>
-                <SelectTraceDropdownOrSpinner activeTrace={activeTrace} animationDuration={animationDuration}
-                                              traces={traces} loading={loading} t={t}/>
-            </h4>
-            <div className="Demo">
-                <div className="row contentRow policyRow">
-                    <div className="col-sm-6">
-                        <h4 className="cardTitle">
-                            The Defender's View
-                        </h4>
-                        <div className="pChart">
-                            <PolicyAndBeliefChart activeTrace={activeTrace} t={t}
-                                                  fullDomain={fullDomain} fullRange={fullRange}
-                                                  animation={animation} animationDuration={animationDuration}
-                                                  animationDurationFactor={animiationDurationFactor}/>
-                        </div>
-                        <DeltaAlertsLineChart className="deltaAlertsRow"
-                                              activeTrace={activeTrace} t={t} fullDomain={fullDomain}
-                                              fullRange={fullRange}
-                                              animation={animation} animationDuration={animationDuration}
-                                              animationDurationFactor={animiationDurationFactor}/>
-                    </div>
-                    <div className="col-sm-6 attackersView">
-                        <h4 className="cardTitle">
-                            The Attacker's View
-                        </h4>
-                        <div className="DefenderObservations row justify-content-center card">
-                            <div className="card-header cardHeader"><h4>
-                                Intrusion state
-                            </h4></div>
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="Network col-sm-12">
-                                        {/*<h4 className="attackerNetworkTitle"> IT Infrastructure Status </h4>*/}
-                                        <div className="layoutflow netTopology">
-                                            <ReactFlowProvider>
-                                                <ReactFlow
-                                                    style={{height: height}}
-                                                    elements={elements}
-                                                    onLoad={onLoad}
-                                                    nodesDraggable={false}
-                                                    nodesConnectable={false}
-                                                    paneMoveable={false}
-                                                    defaultZoom={0.85}
-                                                    minZoom={0.85}
-                                                    maxZoom={1}
-                                                    nodeTypes={nodeTypes}
-                                                />
-                                            </ReactFlowProvider>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>);
+              <SelectTraceDropdownOrSpinner activeTrace={activeTrace} animationDuration={animationDuration}
+                                            traces={traces} loading={loading} t={t}/>
+          </h4>
+          <div className="Demo">
+              <div className="row contentRow policyRow">
+                  <div className="col-sm-6">
+                      <h4 className="cardTitle">
+                          The Defender&apos;s View
+                      </h4>
+                      <div className="pChart">
+                          <PolicyAndBeliefChart activeTrace={activeTrace} t={t}
+                                                fullDomain={fullDomain} fullRange={fullRange}
+                                                animation={animation} animationDuration={animationDuration}
+                                                animationDurationFactor={animiationDurationFactor}/>
+                      </div>
+                      <DeltaAlertsLineChart className="deltaAlertsRow"
+                                            activeTrace={activeTrace} t={t} fullDomain={fullDomain}
+                                            fullRange={fullRange}
+                                            animation={animation} animationDuration={animationDuration}
+                                            animationDurationFactor={animiationDurationFactor}/>
+                  </div>
+                  <div className="col-sm-6 attackersView">
+                      <h4 className="cardTitle">
+                          The Attacker&apos;s View
+                      </h4>
+                      <div className="DefenderObservations row justify-content-center card">
+                          <div className="card-header cardHeader"><h4>
+                              Intrusion state
+                          </h4></div>
+                          <div className="card-body">
+                              <div className="row">
+                                  <div className="Network col-sm-12">
+                                      <div className="layoutflow netTopology">
+                                          <ReactFlowProvider>
+                                              <ReactFlow
+                                                style={{height: height}}
+                                                nodes={nodes}
+                                                edges={edges}
+                                                onInit={onLoad}
+                                                nodesDraggable={false}
+                                                nodesConnectable={false}
+                                                panOnDrag={false}
+                                                defaultViewport={{ x: 0, y: 0, zoom: 0.85 }}
+                                                minZoom={0.85}
+                                                maxZoom={1}
+                                                nodeTypes={nodeTypes}
+                                              />
+                                          </ReactFlowProvider>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>);
 }
 
 PolicyExamination.propTypes = {};

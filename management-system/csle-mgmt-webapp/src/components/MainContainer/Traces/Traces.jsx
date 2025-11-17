@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import Select from 'react-select'
 import './Traces.css';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import EmulationTraces from "./EmulationTraces/EmulationTraces";
-import SimulationTraces from "./SimulationTraces/SimulationTraces";
+import EmulationTraces from "./EmulationTraces/EmulationTraces.jsx";
+import SimulationTraces from "./SimulationTraces/SimulationTraces.jsx";
 
 /**
  * Component representing the /traces-page

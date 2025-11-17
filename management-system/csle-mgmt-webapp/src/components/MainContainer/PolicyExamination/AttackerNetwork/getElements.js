@@ -8,7 +8,7 @@ import getWindowDimensions from "./getDimensions";
 /**
  * Gets the list of nodes
  */
-const getNodes = (base_position = {x: 0, y: 0}) => {
+const getNodes = () => {
     const dimensions = getWindowDimensions()
     const attackerBaseY=dimensions.height+500
     const attackerBaseX=0
@@ -469,8 +469,8 @@ const getEdges = (edgeType = 'smoothstep') => {
 /**
  * Gets the list of elements (nodes and edges)
  */
-const getElements = (xy, traces, activeTrace, t) => {
-    const nodes = getNodes(xy)
+const getElements = () => {
+    const nodes = getNodes()
     const edges = getEdges()
     const elements = nodes.concat(edges)
     return elements

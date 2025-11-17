@@ -1,4 +1,4 @@
-import React, {useState, createRef, useCallback, useEffect} from 'react';
+import {useState, createRef, useCallback, useEffect} from 'react';
 import './SimulationTraces.css';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
@@ -10,7 +10,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import Button from 'react-bootstrap/Button'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Select from 'react-select'
-import SimulationTrace from "./SimulationTrace/SimulationTrace";
+import SimulationTrace from "./SimulationTrace/SimulationTrace.jsx";
 import {useDebouncedCallback} from 'use-debounce';
 import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -99,7 +99,7 @@ const SimulationTraces = (props) => {
                 if (response === null) {
                     return
                 }
-                const simulationTracesIds = response.map((id_obj, index) => {
+                const simulationTracesIds = response.map((id_obj) => {
                     return {
                         value: id_obj.id,
                         label: `ID: ${id_obj.id}, simulation: ${id_obj.simulation}`

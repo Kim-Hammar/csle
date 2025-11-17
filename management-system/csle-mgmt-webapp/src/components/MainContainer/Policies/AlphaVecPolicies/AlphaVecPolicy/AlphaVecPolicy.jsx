@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import './AlphaVecPolicy.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
@@ -11,7 +11,7 @@ import getAgentTypeStr from '../../../../Common/getAgentTypeStr'
 import getPlayerTypeStr from '../../../../Common/getPlayerTypeStr'
 
 /**
- * Component representing the /policies/id page for an alphavector policy
+ * Component representing the /policies/id page for an alpha-vector policy
  */
 const AlphaVecPolicy = (props) => {
     const [generalInfoOpen, setGeneralInfoOpen] = useState(false);
