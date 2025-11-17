@@ -34,6 +34,21 @@ import {API_BASE_URL, HTTP_REST_GET, LOGIN_PAGE_RESOURCE,
     EMULATION_SIMULATION_TRACES_RESOURCE, TOKEN_QUERY_PARAM} from "../../Common/constants";
 
 
+const nodeTypes = {
+    applicationServer: ApplicationServer,
+    gateway: Gateway,
+    client: Client,
+    attacker: Attacker,
+    attackerNotStarted: AttackerNotStarted,
+    defender: Defender,
+    applicationServerNotFound: ApplicationServerNotFound,
+    ids: IDS,
+    switch: Switch,
+    switchNotFound: SwitchNotFound,
+    applicationServerCompromised: ApplicationServerCompromised,
+    firewall: Firewall
+};
+
 /**
  * Component representing the /policy-examination-page
  */
@@ -91,20 +106,6 @@ const PolicyExamination = (props) => {
     const [edges, setEdges] = useState(rawElements.filter(e => e.source));
 
     const height = 745
-    const nodeTypes = {
-        applicationServer: ApplicationServer,
-        gateway: Gateway,
-        client: Client,
-        attacker: Attacker,
-        attackerNotStarted: AttackerNotStarted,
-        defender: Defender,
-        applicationServerNotFound: ApplicationServerNotFound,
-        ids: IDS,
-        switch: Switch,
-        switchNotFound: SwitchNotFound,
-        applicationServerCompromised: ApplicationServerCompromised,
-        firewall: Firewall
-    };
     const setSessionData = props.setSessionData
 
     const updateFoundNodes = useCallback((trace, l, t) => {

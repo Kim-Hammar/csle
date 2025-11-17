@@ -15,8 +15,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import {useNavigate} from "react-router-dom";
 import { saveAs } from 'file-saver'
 import toast from 'react-hot-toast';
-import serverIp from "../../Common/serverIp";
-import serverPort from "../../Common/serverPort";
 import {API_BASE_URL, HTTP_REST_DELETE, HTTP_REST_GET, LOGIN_PAGE_RESOURCE,
     STATISTICS_DATASETS_RESOURCE, TRACES_DATASETS_RESOURCE, TOKEN_QUERY_PARAM} from "../../Common/constants";
 
@@ -36,8 +34,6 @@ const Downloads = (props) => {
     const [statisticsDatasets, setStatisticsDatasets] = useState([]);
     const [filteredStatisticsDatasets, setFilteredStatisticsDatasets] = useState([]);
     const [loadingStatisticsDatasets, setLoadingStatisticsDatasets] = useState(true);
-    const ip = serverIp
-    const port = serverPort
     const navigate = useNavigate();
     const setSessionData = props.setSessionData
 
@@ -60,7 +56,7 @@ const Downloads = (props) => {
                 setLoadingTracesDatasets(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port]);
+    }, []);
 
 
     const removeAllTracesDatasetsRequest = useCallback(() => {
@@ -90,7 +86,7 @@ const Downloads = (props) => {
                 fetchTracesDatasets()
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, fetchTracesDatasets, setSessionData, toast]);
+    }, [navigate, fetchTracesDatasets, setSessionData, toast]);
 
     const removeTracesDatasetRequest = useCallback((tracesDataset) => {
         fetch(
@@ -119,7 +115,7 @@ const Downloads = (props) => {
                 fetchTracesDatasets()
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, fetchTracesDatasets, setSessionData, toast]);
+    }, [navigate, fetchTracesDatasets, setSessionData, toast]);
 
 
     const refreshTracesDatasets = () => {
@@ -550,9 +546,9 @@ const Downloads = (props) => {
     );
 
     const fetchStatisticsDatasets = useCallback(() => {
-        fetch('/statistics-datasets',
+        fetch(`${API_BASE_URL}/${STATISTICS_DATASETS_RESOURCE}`,
             {
-                method: "GET",
+                method: HTTP_REST_GET,
                 headers: new Headers({
                     Accept: "application/vnd.github.cloak-preview"
                 })
@@ -567,7 +563,7 @@ const Downloads = (props) => {
                 setLoadingStatisticsDatasets(false)
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port]);
+    }, []);
 
 
     const removeAllStatisticsDatasetsRequest = useCallback(() => {
@@ -597,7 +593,7 @@ const Downloads = (props) => {
                 fetchStatisticsDatasets()
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, toast, setSessionData, fetchStatisticsDatasets]);
+    }, [navigate, toast, setSessionData, fetchStatisticsDatasets]);
 
     const removeStatisticsDatasetRequest = useCallback((statisticsDataset) => {
         fetch(
@@ -626,7 +622,7 @@ const Downloads = (props) => {
                 fetchStatisticsDatasets()
             })
             .catch(error => console.log("error:" + error))
-    }, [ip, port, navigate, toast, setSessionData, fetchStatisticsDatasets]);
+    }, [navigate, toast, setSessionData, fetchStatisticsDatasets]);
 
 
     const refreshStatisticsDatasets = () => {
@@ -855,7 +851,7 @@ const Downloads = (props) => {
                             <tr>
                                 <td>Download link</td>
                                 <td>
-                                    <a href={"/statistics-datasets/" + props.statisticsDataset.id + "?download=true"}
+                                    <a href={`${API_BASE_URL}/${STATISTICS_DATASETS_RESOURCE}/` + props.statisticsDataset.id + "?download=true"}
                                        download>
                                         {props.statisticsDataset.name}.{props.statisticsDataset.file_format}
                                     </a>
@@ -999,7 +995,7 @@ const Downloads = (props) => {
                             {props.statisticsDatasets.map((statisticsDataset, index) =>
                                 <tr className="statisticsDatasetsTable" key={statisticsDataset.id + "-" + index}>
                                     <td>
-                                        <a href={"/statistics-datasets/" + statisticsDataset.id + "?download=true"}
+                                        <a href={`${API_BASE_URL}/${STATISTICS_DATASETS_RESOURCE}` + statisticsDataset.id + "?download=true"}
                                            download>
                                             {statisticsDataset.name}.{statisticsDataset.file_format}
                                         </a>

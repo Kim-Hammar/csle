@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react'
-import PropTypes from 'prop-types'
 import './SystemAdmin.css'
 import { useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
@@ -276,7 +275,8 @@ const SystemAdmin = ({ setSessionData, sessionData }) => {
                       <td>{row.ip}</td>
                       <td>
                         {editClusterKey === row.ip ? (
-                          <Form.Select
+                          <Form.Control
+                            as="select"
                             size="sm"
                             name="leader"
                             value={String(tempClusterData.leader)}
@@ -285,7 +285,7 @@ const SystemAdmin = ({ setSessionData, sessionData }) => {
                           >
                             <option value="true">true</option>
                             <option value="false">false</option>
-                          </Form.Select>
+                          </Form.Control>
                         ) : (
                           <span onClick={() => handleClusterEditStart(row)}
                                 style={{ cursor: 'pointer', display: 'block' }}>
@@ -313,13 +313,6 @@ const SystemAdmin = ({ setSessionData, sessionData }) => {
       </div>
     </div>
   )
-}
-
-SystemAdmin.propTypes = {
-  setSessionData: PropTypes.func.isRequired,
-  sessionData: PropTypes.shape({
-    token: PropTypes.string.isRequired
-  }).isRequired
 }
 
 export default SystemAdmin

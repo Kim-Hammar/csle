@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
 import './UserAdmin.css';
 import { useNavigate } from "react-router-dom";
 import toast from 'react-hot-toast';
@@ -174,17 +173,15 @@ const UserAdmin = ({ setSessionData, sessionData }) => {
               <div className="col-sm-1"></div>
               <div className="col-sm-10">
 
-                  {/* Loading Spinner */}
                   {loading && (
                     <div>
                         <span className="spinnerLabel"> Fetching users... </span>
                         <Spinner animation="border" role="status" className="dropdownSpinner">
-                            <span className="visually-hidden">Loading...</span>
+                            <span className="visually-hidden"></span>
                         </Spinner>
                     </div>
                   )}
 
-                  {/* Empty State */}
                   {!loading && users.length === 0 && (
                     <div>
                         <span className="emptyText">No users are available</span>
@@ -200,7 +197,6 @@ const UserAdmin = ({ setSessionData, sessionData }) => {
                     </div>
                   )}
 
-                  {/* Custom Table */}
                   {!loading && users.length > 0 && (
                     <div className="usersTable table-responsive">
                         <Table striped bordered hover>
@@ -220,10 +216,7 @@ const UserAdmin = ({ setSessionData, sessionData }) => {
                             <tbody>
                             {users.map((user) => (
                               <tr key={user.id} onKeyDown={editId === user.id ? handleKeyDown : null}>
-                                  {/* ID (Read Only) */}
                                   <td>{user.id}</td>
-
-                                  {/* Editable Columns */}
                                   {editId === user.id ? (
                                     <>
                                         <td><Form.Control size="sm" name="username" value={editFormData.username} onChange={handleEditChange} /></td>
@@ -232,10 +225,16 @@ const UserAdmin = ({ setSessionData, sessionData }) => {
                                         <td><Form.Control size="sm" name="email" value={editFormData.email} onChange={handleEditChange} /></td>
                                         <td><Form.Control size="sm" name="organization" value={editFormData.organization} onChange={handleEditChange} /></td>
                                         <td>
-                                            <Form.Select size="sm" name="admin" value={editFormData.admin} onChange={handleEditChange}>
-                                                <option value="true">true</option>
-                                                <option value="false">false</option>
-                                            </Form.Select>
+                                          <Form.Control
+                                            as="select"
+                                            size="sm"
+                                            name="admin"
+                                            value={editFormData.admin}
+                                            onChange={handleEditChange}
+                                          >
+                                            <option value="true">true</option>
+                                            <option value="false">false</option>
+                                          </Form.Control>
                                         </td>
                                         <td><Form.Control size="sm" name="password" value={editFormData.password} onChange={handleEditChange} /></td>
                                         <td>
@@ -243,7 +242,6 @@ const UserAdmin = ({ setSessionData, sessionData }) => {
                                         </td>
                                     </>
                                   ) : (
-                                    /* Read Only Mode */
                                     <>
                                         <td onClick={() => handleEditClick(user)}>{user.username}</td>
                                         <td onClick={() => handleEditClick(user)}>{user.first_name}</td>
@@ -272,10 +270,5 @@ const UserAdmin = ({ setSessionData, sessionData }) => {
       </div>
     );
 }
-
-UserAdmin.propTypes = {
-    setSessionData: PropTypes.func.isRequired,
-    sessionData: PropTypes.object.isRequired
-};
 
 export default UserAdmin;
