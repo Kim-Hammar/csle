@@ -216,7 +216,8 @@ def serve(port: int = 50045, log_dir: str = "/", max_workers: int = 10,
         ElkManagerServicer(), server)
     server.add_insecure_port(f'[::]:{port}')
     server.start()
-    logging.info(f"ElkManager Server Started, Listening on port: {port}")
+    logging.info(f"ElkManager Server Started, Listening on port: {port}, num workers: {max_workers}, "
+                 f"log file: {log_file_name}")
     server.wait_for_termination()
 
 

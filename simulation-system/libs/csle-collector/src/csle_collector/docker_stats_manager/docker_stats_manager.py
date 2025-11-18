@@ -187,7 +187,8 @@ def serve(port: int = 50046, log_dir: str = "/var/log/csle/", max_workers: int =
         DockerStatsManagerServicer(), server)
     server.add_insecure_port(f'[::]:{port}')
     server.start()
-    logging.info(f"DockerStatsManager Server Started, Listening on port: {port}, max workers: {max_workers}")
+    logging.info(f"DockerStatsManager Server Started, Listening on port: {port}, max workers: {max_workers}, "
+                 f"log file: {log_file_name}")
     server.wait_for_termination()
 
 

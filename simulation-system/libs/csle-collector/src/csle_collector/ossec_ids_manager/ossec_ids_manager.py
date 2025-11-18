@@ -190,7 +190,8 @@ def serve(port: int = 50047, log_dir: str = "/", max_workers: int = 10,
         OSSECIdsManagerServicer(), server)
     server.add_insecure_port(f'[::]:{port}')
     server.start()
-    logging.info(f"OSSECIdsManager Server Started, Listening on port: {port}")
+    logging.info(f"OSSECIdsManager Server Started, Listening on port: {port}, num workers: {max_workers}, "
+                 f"log file: {log_file_name}")
     server.wait_for_termination()
 
 

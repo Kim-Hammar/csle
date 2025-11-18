@@ -243,7 +243,8 @@ def serve(port: int = 50044, log_dir: str = "/", log_file_name: str = "client_ma
         ClientManagerServicer(), server)
     server.add_insecure_port(f'[::]:{port}')
     server.start()
-    logging.info(f"ClientManager Server Started, Listening on port: {port}, number of workers: {max_workers}")
+    logging.info(f"ClientManager Server Started, Listening on port: {port}, number of workers: {max_workers}, "
+                 f"log file: {log_file_name}")
     server.wait_for_termination()
 
 
