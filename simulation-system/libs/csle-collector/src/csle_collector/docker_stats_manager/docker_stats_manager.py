@@ -4,7 +4,6 @@ import logging
 from concurrent import futures
 import grpc
 import socket
-import threading
 import csle_collector.docker_stats_manager.docker_stats_manager_pb2_grpc
 import csle_collector.docker_stats_manager.docker_stats_manager_pb2
 import csle_collector.constants.constants as constants
@@ -24,22 +23,14 @@ class DockerStatsManagerServicer(csle_collector.docker_stats_manager.docker_stat
         Initializes the server
         """
         file_name = constants.LOG_FILES.DOCKER_STATS_MANAGER_LOG_FILE
-        log_directory = constants.LOG_FILES.DOCKER_STATS_MANAGER_LOG_DIR
-        logfile = os.path.join(log_directory, file_name)
+        dir = constants.LOG_FILES.DOCKER_STATS_MANAGER_LOG_DIR
+        logfile = os.path.join(dir, file_name)
         logging.basicConfig(filename=logfile, level=logging.INFO)
-
-        self.lock = threading.Lock()
         self.docker_stats_monitor_threads: List[DockerStatsThread] = []
         self.hostname = socket.gethostname()
-
-        try:
-            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-                s.connect(("8.8.8.8", 80))
-                self.ip = s.getsockname()[0]
-        except Exception as e:
-            logging.error(f"Could not determine IP address, defaulting to localhost. Error: {e}")
-            self.ip = "127.0.0.1"
-
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(("8.8.8.8", 80))
+        self.ip = s.getsockname()[0]
         logging.info(f"Setting up DockerStatsManager, hostname: {self.hostname}, ip: {self.ip}")
 
     def get_docker_stats_monitor_threads(self) -> List[DockerStatsThread]:
@@ -49,49 +40,6 @@ class DockerStatsManagerServicer(csle_collector.docker_stats_manager.docker_stat
         :return: the list of Docker stats monitor threads
         """
         return self.docker_stats_monitor_threads
-
-    def _prune_and_get_active_threads(self) -> List[DockerStatsThread]:
-        """
-        Helper to remove stopped/dead threads from the list and return the active ones.
-        Must be called while holding self.lock.
-
-        :return: List of active DockerStatsThreads
-        """
-        active_threads = []
-        for dsmt in self.docker_stats_monitor_threads:
-            if dsmt.is_alive() and not dsmt.stopped:
-                active_threads.append(dsmt)
-            else:
-                # Ensure the thread knows it should be stopped
-                dsmt.stopped = True
-
-        self.docker_stats_monitor_threads = active_threads
-        return active_threads
-
-    def _get_monitor_dto(self) -> csle_collector.docker_stats_manager.docker_stats_manager_pb2.DockerStatsMonitorDTO:
-        """
-        Helper to construct the DTO based on current active threads.
-        Must be called while holding self.lock.
-
-        :return: a clients DTO with the state of the docker stats manager
-        """
-        active_threads = self._prune_and_get_active_threads()
-
-        emulations = []
-        emulation_executions = []
-
-        for dsmt in active_threads:
-            emulations.append(dsmt.emulation)
-            emulation_executions.append(dsmt.execution_first_ip_octet)
-
-        emulations = list(set(emulations))
-        emulation_executions = list(set(emulation_executions))
-
-        return csle_collector.docker_stats_manager.docker_stats_manager_pb2.DockerStatsMonitorDTO(
-            num_monitors=len(active_threads),
-            emulations=emulations,
-            emulation_executions=emulation_executions
-        )
 
     def getDockerStatsMonitorStatus(
             self, request: csle_collector.docker_stats_manager.docker_stats_manager_pb2.GetDockerStatsMonitorStatusMsg,
@@ -104,8 +52,24 @@ class DockerStatsManagerServicer(csle_collector.docker_stats_manager.docker_stat
         :param context: the gRPC context
         :return: a clients DTO with the state of the docker stats manager
         """
-        with self.lock:
-            return self._get_monitor_dto()
+        new_docker_stats_monitor_threads = []
+        emulations = []
+        emulation_executions = []
+        docker_stats_monitor_threads = self.get_docker_stats_monitor_threads()
+        for dsmt in docker_stats_monitor_threads:
+            if dsmt.is_alive() and not dsmt.stopped:
+                new_docker_stats_monitor_threads.append(dsmt)
+                emulations.append(dsmt.emulation)
+                emulation_executions.append(dsmt.execution_first_ip_octet)
+            else:
+                dsmt.stopped = True
+        emulations = list(set(emulations))
+        emulation_executions = list(set(emulation_executions))
+        self.docker_stats_monitor_threads = new_docker_stats_monitor_threads
+        docker_stats_monitor_dto = csle_collector.docker_stats_manager.docker_stats_manager_pb2.DockerStatsMonitorDTO(
+            num_monitors=len(new_docker_stats_monitor_threads), emulations=emulations,
+            emulation_executions=emulation_executions)
+        return docker_stats_monitor_dto
 
     def stopDockerStatsMonitor(
             self, request: csle_collector.docker_stats_manager.docker_stats_manager_pb2.StopDockerStatsMonitorMsg,
@@ -119,15 +83,25 @@ class DockerStatsManagerServicer(csle_collector.docker_stats_manager.docker_stat
         """
         logging.info(f"Stopping the docker stats monitor for emulation:{request.emulation}")
 
-        with self.lock:
-            # Mark target threads as stopped
-            for dsmt in self.docker_stats_monitor_threads:
-                if (dsmt.emulation == request.emulation and
-                        dsmt.execution_first_ip_octet == request.execution_first_ip_octet):
-                    dsmt.stopped = True
-
-            # Prune list and return status
-            return self._get_monitor_dto()
+        new_docker_stats_monitor_threads = []
+        emulations = []
+        emulation_executions = []
+        docker_stats_monitor_threads = self.get_docker_stats_monitor_threads()
+        for dsmt in docker_stats_monitor_threads:
+            if dsmt.emulation == request.emulation \
+                    and dsmt.execution_first_ip_octet == request.execution_first_ip_octet:
+                dsmt.stopped = True
+            else:
+                if dsmt.is_alive() and not dsmt.stopped:
+                    new_docker_stats_monitor_threads.append(dsmt)
+                    emulations.append(dsmt.emulation)
+                    emulation_executions.append(dsmt.execution_first_ip_octet)
+        self.docker_stats_monitor_threads = new_docker_stats_monitor_threads
+        emulations = list(set(emulations))
+        emulation_executions = list(set(emulation_executions))
+        return csle_collector.docker_stats_manager.docker_stats_manager_pb2.DockerStatsMonitorDTO(
+            num_monitors=len(new_docker_stats_monitor_threads), emulations=emulations,
+            emulation_executions=emulation_executions)
 
     def startDockerStatsMonitor(
             self, request: csle_collector.docker_stats_manager.docker_stats_manager_pb2.StartDockerStatsMonitorMsg,
@@ -142,31 +116,30 @@ class DockerStatsManagerServicer(csle_collector.docker_stats_manager.docker_stat
         """
         logging.info(f"Starting the docker stats monitor for emulation:{request.emulation}")
 
-        with self.lock:
-            # Stop any existing thread with the same name to prevent duplicates
-            for dsmt in self.docker_stats_monitor_threads:
-                if (dsmt.emulation == request.emulation and
-                        dsmt.execution_first_ip_octet == request.execution_first_ip_octet):
-                    logging.info(f"Found existing thread for {request.emulation}, stopping it before restart.")
-                    dsmt.stopped = True
-
-            # Prune dead threads before adding new one
-            self._prune_and_get_active_threads()
-
-            # Create and start new thread
-            docker_stats_monitor_thread = DockerStatsThread(
-                list(request.containers),
-                request.emulation,
-                request.execution_first_ip_octet,
-                request.kafka_ip,
-                request.stats_queue_maxsize,
-                request.time_step_len_seconds,
-                request.kafka_port
-            )
-            docker_stats_monitor_thread.start()
-            self.docker_stats_monitor_threads.append(docker_stats_monitor_thread)
-
-            return self._get_monitor_dto()
+        # Stop any existing thread with the same name
+        new_docker_stats_monitor_threads = []
+        emulations = []
+        emulation_executions = []
+        docker_stats_monitor_threads = self.get_docker_stats_monitor_threads()
+        for dsmt in docker_stats_monitor_threads:
+            if dsmt.is_alive() and not dsmt.stopped:
+                new_docker_stats_monitor_threads.append(dsmt)
+                emulations.append(dsmt.emulation)
+                emulation_executions.append(dsmt.execution_first_ip_octet)
+        docker_stats_monitor_thread = DockerStatsThread(list(request.containers), request.emulation,
+                                                        request.execution_first_ip_octet, request.kafka_ip,
+                                                        request.stats_queue_maxsize, request.time_step_len_seconds,
+                                                        request.kafka_port)
+        docker_stats_monitor_thread.start()
+        new_docker_stats_monitor_threads.append(docker_stats_monitor_thread)
+        emulations.append(request.emulation)
+        emulation_executions.append(request.execution_first_ip_octet)
+        emulations = list(set(emulations))
+        emulation_executions = list(set(emulation_executions))
+        self.docker_stats_monitor_threads = new_docker_stats_monitor_threads
+        return csle_collector.docker_stats_manager.docker_stats_manager_pb2.DockerStatsMonitorDTO(
+            num_monitors=len(new_docker_stats_monitor_threads), emulations=emulations,
+            emulation_executions=emulation_executions)
 
 
 def serve(port: int = 50046, log_dir: str = "/var/log/csle/", max_workers: int = 10,
@@ -187,7 +160,7 @@ def serve(port: int = 50046, log_dir: str = "/var/log/csle/", max_workers: int =
         DockerStatsManagerServicer(), server)
     server.add_insecure_port(f'[::]:{port}')
     server.start()
-    logging.info(f"DockerStatsManager Server Started, Listening on port: {port}, max workers: {max_workers}, "
+    logging.info(f"DockerStatsManager Server Started, Listening on port: {port}, num workers: {max_workers}, "
                  f"log file: {log_file_name}")
     server.wait_for_termination()
 
