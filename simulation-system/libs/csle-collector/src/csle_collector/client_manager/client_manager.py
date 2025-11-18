@@ -1,7 +1,7 @@
 from typing import Union
-import time
 import logging
 import grpc
+import threading
 from concurrent import futures
 from csle_collector.client_manager.dao.client import Client
 from csle_collector.client_manager.threads.arrival_thread import ArrivalThread
@@ -24,6 +24,7 @@ class ClientManagerServicer(csle_collector.client_manager.client_manager_pb2_grp
         """
         self.arrival_thread: Union[None, ArrivalThread] = None
         self.producer_thread: Union[None, ProducerThread] = None
+        self.lock = threading.RLock()
         logging.basicConfig(filename=f"{constants.LOG_FILES.CLIENT_MANAGER_LOG_DIR}"
                                      f"{constants.LOG_FILES.CLIENT_MANAGER_LOG_FILE}", level=logging.INFO)
 
@@ -33,7 +34,8 @@ class ClientManagerServicer(csle_collector.client_manager.client_manager_pb2_grp
 
         :return: The arrival thread if it is initialized, otherwise None
         """
-        return self.arrival_thread
+        with self.lock:
+            return self.arrival_thread
 
     def get_producer_thread(self) -> Union[None, ProducerThread]:
         """
@@ -41,7 +43,8 @@ class ClientManagerServicer(csle_collector.client_manager.client_manager_pb2_grp
 
         :return: The producer thread if it is initialized, otherwise None
         """
-        return self.producer_thread
+        with self.lock:
+            return self.producer_thread
 
     def getClients(self, request: csle_collector.client_manager.client_manager_pb2.GetClientsMsg,
                    context: grpc.ServicerContext) -> csle_collector.client_manager.client_manager_pb2.ClientsDTO:
@@ -53,22 +56,25 @@ class ClientManagerServicer(csle_collector.client_manager.client_manager_pb2_grp
         :return: a clients DTO with the state of the clients
         """
         logging.info("Getting client information")
+        logging.info("Getting client information")
         num_clients = 0
         clients_time_step_len_seconds = 0.0
         producer_time_step_len_seconds = 0.0
-        arrival_thread = self.get_arrival_thread()
-        producer_thread = self.get_producer_thread()
 
-        client_process_active = False
-        if arrival_thread is not None:
-            num_clients = len(arrival_thread.client_threads)
-            client_process_active = True
-            clients_time_step_len_seconds = arrival_thread.time_step_len_seconds
+        with self.lock:
+            arrival_thread = self.get_arrival_thread()
+            producer_thread = self.get_producer_thread()
 
-        producer_active = False
-        if producer_thread is not None:
-            producer_active = True
-            producer_time_step_len_seconds = producer_thread.time_step_len_seconds
+            client_process_active = False
+            if arrival_thread is not None:
+                num_clients = len(arrival_thread.client_threads)
+                client_process_active = True
+                clients_time_step_len_seconds = arrival_thread.time_step_len_seconds
+
+            producer_active = False
+            if producer_thread is not None:
+                producer_active = True
+                producer_time_step_len_seconds = producer_thread.time_step_len_seconds
 
         clients_dto = csle_collector.client_manager.client_manager_pb2.ClientsDTO(
             num_clients=num_clients, client_process_active=client_process_active, producer_active=producer_active,
@@ -89,19 +95,20 @@ class ClientManagerServicer(csle_collector.client_manager.client_manager_pb2_grp
 
         clients_time_step_len_seconds = 0.0
         producer_time_step_len_seconds = 0.0
-        producer_thread = self.get_producer_thread()
-        arrival_thread = self.get_producer_thread()
 
-        if arrival_thread is not None:
-            clients_time_step_len_seconds = arrival_thread.time_step_len_seconds
-            arrival_thread.stopped = True
-            time.sleep(1)
-        self.arrival_thread = None
+        with self.lock:
+            producer_thread = self.get_producer_thread()
+            arrival_thread = self.get_arrival_thread()
 
-        producer_active = False
-        if producer_thread is not None:
-            producer_active = True
-            producer_time_step_len_seconds = producer_thread.time_step_len_seconds
+            if arrival_thread is not None:
+                clients_time_step_len_seconds = arrival_thread.time_step_len_seconds
+                arrival_thread.stopped = True
+            self.arrival_thread = None
+
+            producer_active = False
+            if producer_thread is not None:
+                producer_active = True
+                producer_time_step_len_seconds = producer_thread.time_step_len_seconds
 
         return csle_collector.client_manager.client_manager_pb2.ClientsDTO(
             num_clients=0, client_process_active=False, producer_active=producer_active,
@@ -127,22 +134,23 @@ class ClientManagerServicer(csle_collector.client_manager.client_manager_pb2_grp
                      f"workflow services: {list(map(lambda x: str(x), workflows_config.workflow_services))},"
                      f"\n commands: {workflows_config.commands()}")
         producer_time_step_len_seconds = 0
-        arrival_thread = self.get_arrival_thread()
-        producer_thread = self.get_producer_thread()
-        if arrival_thread is not None:
-            arrival_thread.stopped = True
-            time.sleep(1)
-        if request.time_step_len_seconds <= 0:
-            request.time_step_len_seconds = 1
-        arrival_thread = ArrivalThread(time_step_len_seconds=request.time_step_len_seconds, clients=clients,
-                                       workflows_config=workflows_config)
-        arrival_thread.start()
-        self.arrival_thread = arrival_thread
-        clients_time_step_len_seconds = request.time_step_len_seconds
-        producer_active = False
-        if producer_thread is not None:
-            producer_active = True
-            producer_time_step_len_seconds = producer_thread.time_step_len_seconds
+
+        with self.lock:
+            arrival_thread = self.get_arrival_thread()
+            producer_thread = self.get_producer_thread()
+            if arrival_thread is not None:
+                arrival_thread.stopped = True
+            if request.time_step_len_seconds <= 0:
+                request.time_step_len_seconds = 1
+            arrival_thread = ArrivalThread(time_step_len_seconds=request.time_step_len_seconds, clients=clients,
+                                           workflows_config=workflows_config)
+            arrival_thread.start()
+            self.arrival_thread = arrival_thread
+            clients_time_step_len_seconds = request.time_step_len_seconds
+            producer_active = False
+            if producer_thread is not None:
+                producer_active = True
+                producer_time_step_len_seconds = producer_thread.time_step_len_seconds
         clients_dto = csle_collector.client_manager.client_manager_pb2.ClientsDTO(
             num_clients=0, client_process_active=True, producer_active=producer_active,
             clients_time_step_len_seconds=int(clients_time_step_len_seconds),
@@ -159,30 +167,28 @@ class ClientManagerServicer(csle_collector.client_manager.client_manager_pb2_grp
         :return: a clients DTO with the state of the clients
         """
         clients_time_step_len_seconds = 0.0
-        producer_thread = self.get_producer_thread()
-        arrival_thread = self.get_arrival_thread()
-        logging.info(f"Starting producer, time-step len:{request.time_step_len_seconds}s, "
-                     f"arrival_thread: {arrival_thread}")
-
-        time.sleep(5)
-        if producer_thread is not None:
-            producer_thread.stopped = True
-            time.sleep(1)
-        if request.time_step_len_seconds <= 0:
-            request.time_step_len_seconds = 1
-        if arrival_thread is None:
-            raise ValueError("Cannot start producer if the arrival thread is not started")
-        producer_thread = ProducerThread(arrival_thread=arrival_thread,
-                                         time_step_len_seconds=request.time_step_len_seconds,
-                                         ip=request.ip, port=request.port)
-        producer_thread.start()
-        self.producer_thread = producer_thread
-        client_process_active = False
-        num_clients = 0
-        if arrival_thread is not None:
-            num_clients = len(arrival_thread.client_threads)
-            client_process_active = True
-            clients_time_step_len_seconds = arrival_thread.time_step_len_seconds
+        with self.lock:
+            producer_thread = self.get_producer_thread()
+            arrival_thread = self.get_arrival_thread()
+            logging.info(f"Starting producer, time-step len:{request.time_step_len_seconds}s, "
+                         f"arrival_thread: {arrival_thread}")
+            if producer_thread is not None:
+                producer_thread.stopped = True
+            if request.time_step_len_seconds <= 0:
+                request.time_step_len_seconds = 1
+            if arrival_thread is None:
+                raise ValueError("Cannot start producer if the arrival thread is not started")
+            producer_thread = ProducerThread(arrival_thread=arrival_thread,
+                                             time_step_len_seconds=request.time_step_len_seconds,
+                                             ip=request.ip, port=request.port)
+            producer_thread.start()
+            self.producer_thread = producer_thread
+            client_process_active = False
+            num_clients = 0
+            if arrival_thread is not None:
+                num_clients = len(arrival_thread.client_threads)
+                client_process_active = True
+                clients_time_step_len_seconds = arrival_thread.time_step_len_seconds
         clients_dto = csle_collector.client_manager.client_manager_pb2.ClientsDTO(
             num_clients=num_clients, client_process_active=client_process_active, producer_active=True,
             clients_time_step_len_seconds=int(clients_time_step_len_seconds),
@@ -200,19 +206,19 @@ class ClientManagerServicer(csle_collector.client_manager.client_manager_pb2_grp
         """
         logging.info("Stopping producer")
         clients_time_step_len_seconds = 0.0
-        producer_thread = self.get_producer_thread()
-        arrival_thread = self.get_arrival_thread()
 
-        if producer_thread is not None:
-            producer_thread.stopped = True
-            time.sleep(1)
-        self.producer_thread = None
-        client_process_active = False
-        num_clients = 0
-        if arrival_thread is not None:
-            num_clients = len(arrival_thread.client_threads)
-            client_process_active = True
-            clients_time_step_len_seconds = arrival_thread.time_step_len_seconds
+        with self.lock:
+            producer_thread = self.get_producer_thread()
+            arrival_thread = self.get_arrival_thread()
+            if producer_thread is not None:
+                producer_thread.stopped = True
+            self.producer_thread = None
+            client_process_active = False
+            num_clients = 0
+            if arrival_thread is not None:
+                num_clients = len(arrival_thread.client_threads)
+                client_process_active = True
+                clients_time_step_len_seconds = arrival_thread.time_step_len_seconds
         clients_dto = csle_collector.client_manager.client_manager_pb2.ClientsDTO(
             num_clients=num_clients, client_process_active=client_process_active, producer_active=False,
             clients_time_step_len_seconds=int(clients_time_step_len_seconds), producer_time_step_len_seconds=0)
@@ -241,6 +247,5 @@ def serve(port: int = 50044, log_dir: str = "/", log_file_name: str = "client_ma
     server.wait_for_termination()
 
 
-# Program entrypoint
 if __name__ == '__main__':
     serve()

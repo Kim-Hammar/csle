@@ -2,6 +2,8 @@ from typing import List
 import threading
 import time
 import subprocess
+import shlex
+import logging
 
 
 class ClientThread(threading.Thread):
@@ -27,7 +29,15 @@ class ClientThread(threading.Thread):
         :return: None
         """
         for cmd in self.commands:
-            p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-            p.communicate()
-            p.wait()
+            args = shlex.split(cmd)
+            try:
+                p = subprocess.Popen(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=False)
+                p.communicate(timeout=10)
+                p.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                logging.warning(f"[Client] command {cmd} timed out. Killing process.")
+                p.kill()
+                p.communicate()
+            except Exception as e:
+                logging.error(f"[Client] Error executing command {cmd}: {e}")
             time.sleep(self.time_step_len_seconds)

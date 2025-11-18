@@ -276,7 +276,7 @@ class GRPC_WORKERS:
     """
     Constants related to the number of GRPC workers
     """
-    DEFAULT_MAX_NUM_WORKERS = 10
+    DEFAULT_MAX_NUM_WORKERS = 100
 
 
 class TRAFFIC_GENERATOR:

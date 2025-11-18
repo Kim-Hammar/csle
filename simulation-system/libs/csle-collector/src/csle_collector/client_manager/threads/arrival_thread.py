@@ -36,6 +36,7 @@ class ArrivalThread(threading.Thread):
         self.workflows_config = workflows_config
         self.stopped = False
         self.rate = 0.0
+        self.MAX_CONCURRENT_CLIENTS = 1000
         logging.info(f"Starting arrival thread, num client types:{len(self.clients)}, "
                      f"num workflows: {len(self.workflows_config.workflow_markov_chains)}")
 
@@ -121,11 +122,14 @@ class ArrivalThread(threading.Thread):
         :return: None
         """
         while not self.stopped:
-            new_client_threads = []
-            for ct in self.client_threads:
-                if ct.is_alive():
-                    new_client_threads.append(ct)
-            self.client_threads = new_client_threads
+            self.client_threads = [ct for ct in self.client_threads if ct.is_alive()]
+
+            if len(self.client_threads) > self.MAX_CONCURRENT_CLIENTS:
+                logging.warning(f"Max clients reached ({len(self.client_threads)}). Skipping arrival step. "
+                                f"The maximum allowed concurrent clients is {self.MAX_CONCURRENT_CLIENTS}")
+                time.sleep(self.time_step_len_seconds)
+                continue
+
             self.t += 1
             num_new_clients = 0
             for c in self.clients:
