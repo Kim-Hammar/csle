@@ -48,17 +48,17 @@ class ClientThread(threading.Thread):
                 if p:
                     try:
                         os.killpg(os.getpgid(p.pid), signal.SIGKILL)
-                    except:
+                    except Exception:
                         pass
             finally:
                 if p:
                     try:
                         p.wait(timeout=1)
-                    except:
+                    except Exception:
                         try:
                             os.killpg(os.getpgid(p.pid), signal.SIGKILL)
                             p.wait()
-                        except:
+                        except Exception:
                             pass
             jitter = random.uniform(0, 1.0)
             time.sleep(self.time_step_len_seconds + jitter)
