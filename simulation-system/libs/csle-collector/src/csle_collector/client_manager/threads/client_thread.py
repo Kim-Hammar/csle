@@ -4,7 +4,7 @@ import time
 import subprocess
 import os
 import signal
-import logging
+import random
 
 
 class ClientThread(threading.Thread):
@@ -22,6 +22,7 @@ class ClientThread(threading.Thread):
         threading.Thread.__init__(self)
         self.commands = commands
         self.time_step_len_seconds = time_step_len_seconds
+        self.daemon = True
 
     def run(self) -> None:
         """
@@ -29,19 +30,35 @@ class ClientThread(threading.Thread):
 
         :return: None
         """
+        time.sleep(random.uniform(0, 2.0))
         for cmd in self.commands:
+            p = None
             try:
-                p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True,
-                                     start_new_session=True)
+                p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                                     shell=True, start_new_session=True)
                 p.communicate(timeout=15)
-            except subprocess.TimeoutExpired:
-                logging.warning(f"[Client] command {cmd} timed out. Killing process group.")
-                try:
-                    os.killpg(os.getpgid(p.pid), signal.SIGKILL)
-                    p.communicate()  # Clean up resources
-                except Exception as kill_err:
-                    logging.error(f"Failed to kill process group: {kill_err}")
 
-            except Exception as e:
-                logging.error(f"[Client] Error executing command {cmd}: {e}")
-            time.sleep(self.time_step_len_seconds)
+            except subprocess.TimeoutExpired:
+                if p:
+                    try:
+                        os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+                    except (ProcessLookupError, OSError):
+                        pass
+            except Exception:
+                if p:
+                    try:
+                        os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+                    except:
+                        pass
+            finally:
+                if p:
+                    try:
+                        p.wait(timeout=1)
+                    except:
+                        try:
+                            os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+                            p.wait()
+                        except:
+                            pass
+            jitter = random.uniform(0, 1.0)
+            time.sleep(self.time_step_len_seconds + jitter)
