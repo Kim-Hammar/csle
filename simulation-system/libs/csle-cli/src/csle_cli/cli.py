@@ -3094,9 +3094,11 @@ def run_image(image: str, name: str, create_network: bool = True, version: str =
     """
     from csle_common.controllers.emulation_env_controller import EmulationEnvController
     try:
-        EmulationEnvController.run_container(image=image, name=name, create_network=create_network, version=version)
+        EmulationEnvController.run_container(image=image, name=name, create_network=create_network, version=version,
+                                             logger=logging.getLogger())
         return True
-    except Exception:
+    except Exception as e:
+        click.secho(f"Error running image {image}: {str(e)}", fg="red", bold=True)
         return False
 
 
