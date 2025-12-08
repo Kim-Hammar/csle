@@ -3141,8 +3141,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
     """
     ovs_config = OVSConfig(switch_configs=[
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_1-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_1-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.41",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",

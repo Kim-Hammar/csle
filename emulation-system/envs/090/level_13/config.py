@@ -16776,8 +16776,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
     """
     ovs_config = OVSConfig(switch_configs=[
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_1-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_1-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.21",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16786,8 +16785,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_2-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_2-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.22",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16796,8 +16794,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_3-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_3-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.29",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16806,8 +16803,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_4-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_4-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.30",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16816,8 +16812,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_5-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_5-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.31",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16826,8 +16821,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_6-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_6-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.32",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16836,8 +16830,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_7-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_7-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.33",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16846,8 +16839,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_8-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_8-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.10.34",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16856,8 +16848,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_9-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_9-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.35",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16866,8 +16857,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_10-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_10-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.10.36",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16876,8 +16866,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_11-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_11-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.9.37",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16886,8 +16875,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_12-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_12-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.11.38",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16896,8 +16884,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_13-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_13-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.9.39",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16906,8 +16893,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_14-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_14-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.11.40",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16916,8 +16902,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_15-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_15-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.12.41",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16926,8 +16911,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_16-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_16-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.13.42",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16936,8 +16920,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_17-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_17-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.14.43",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16946,8 +16929,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_18-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_18-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.15.44",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16956,8 +16938,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_19-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_19-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.16.45",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16966,8 +16947,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_20-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_20-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.17.46",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16976,8 +16956,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_21-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_21-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.18.47",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16986,8 +16965,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_22-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_22-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.19.48",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -16996,8 +16974,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_23-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_23-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.28.3",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
@@ -17006,8 +16983,7 @@ def default_ovs_config(network_id: int, level: int, version: str) -> OVSConfig:
             openflow_protocols=[constants.OPENFLOW.OPENFLOW_V_1_3]
         ),
         OvsSwitchConfig(
-            container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_24-{constants.CSLE.LEVEL}{level}",
+            container_name=f"{constants.CONTAINER_IMAGES.OVS_1}_24-{constants.CSLE.LEVEL}{level}",
             ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.28.12",
             controller_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
                           f"{ryu_constants.RYU.NETWORK_ID_THIRD_OCTET}.{ryu_constants.RYU.NETWORK_ID_FOURTH_OCTET}",
