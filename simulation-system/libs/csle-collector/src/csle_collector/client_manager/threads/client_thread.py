@@ -2,9 +2,9 @@ from typing import List
 import threading
 import time
 import subprocess
+import random
 import os
 import signal
-import random
 
 
 class ClientThread(threading.Thread):
@@ -30,35 +30,53 @@ class ClientThread(threading.Thread):
 
         :return: None
         """
-        time.sleep(random.uniform(0, 2.0))
+        # Jitter start time to desynchronize threads immediately upon creation
+        time.sleep(random.uniform(0, 5.0))
+
         for cmd in self.commands:
+            # Small random delay to prevent threads hitting the OS process table lock simultaneously.
+            time.sleep(random.uniform(0, 0.5))
+
             p = None
             try:
-                p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
-                                     shell=True, start_new_session=True)
+                p = subprocess.Popen(
+                    cmd,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    shell=True,
+                    start_new_session=True
+                )
                 p.communicate(timeout=15)
 
             except subprocess.TimeoutExpired:
-                if p:
-                    try:
-                        os.killpg(os.getpgid(p.pid), signal.SIGKILL)
-                    except (ProcessLookupError, OSError):
-                        pass
+                self._kill_and_reap(p)
+
             except Exception:
-                if p:
-                    try:
-                        os.killpg(os.getpgid(p.pid), signal.SIGKILL)
-                    except Exception:
-                        pass
+                self._kill_and_reap(p)
+
             finally:
-                if p:
-                    try:
-                        p.wait(timeout=1)
-                    except Exception:
-                        try:
-                            os.killpg(os.getpgid(p.pid), signal.SIGKILL)
-                            p.wait()
-                        except Exception:
-                            pass
+                if p and p.poll() is None:
+                    self._kill_and_reap(p)
+
+            # Add jitter o keep threads desynchronized
             jitter = random.uniform(0, 1.0)
             time.sleep(self.time_step_len_seconds + jitter)
+
+    def _kill_and_reap(self, p: subprocess.Popen) -> None:
+        """
+        Robustly kills a process group and waits for it, avoiding infinite hangs.
+
+        :param p: the process group to kill
+        :return: None
+        """
+        if p is None:
+            return
+        try:
+            if p.poll() is None:
+                os.killpg(os.getpgid(p.pid), signal.SIGKILL)
+        except (ProcessLookupError, OSError):
+            pass
+        try:
+            p.wait(timeout=1.0)
+        except subprocess.TimeoutExpired:
+            pass
