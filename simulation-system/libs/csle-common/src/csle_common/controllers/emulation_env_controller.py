@@ -476,9 +476,9 @@ class EmulationEnvController:
             sub_net_id = random.randint(2, 254)
             host_id = random.randint(2, 254)
             net_name = f"csle_custom_net_{name}_{net_id}"
-            ip = f"55.{net_id}.{sub_net_id}.{host_id}"
+            ip = f"10.{net_id}.{sub_net_id}.{host_id}"
             ContainerController.create_network(
-                name=net_name, subnetmask=f"55.{net_id}.0.0/16", existing_network_names=[], logger=logger)
+                name=net_name, subnetmask=f"10.{net_id}.0.0/16", existing_network_names=[], logger=logger)
             cmd = f"docker container run -dt --name csle_{name}-{version.replace('.', '')} " \
                   f"--hostname={name} " \
                   f"-e TZ=Europe/Stockholm " \

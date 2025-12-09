@@ -1,6 +1,7 @@
 from typing import Union
 import logging
 import grpc
+import sys
 import threading
 from concurrent import futures
 from csle_collector.client_manager.dao.client import Client
@@ -234,6 +235,8 @@ def serve(port: int = 50044, log_dir: str = "/", log_file_name: str = "client_ma
     :param max_workers: the maximum number of GRPC workers
     :return: None
     """
+    # Reduce GIL contention
+    sys.setswitchinterval(0.1)
     constants.LOG_FILES.CLIENT_MANAGER_LOG_DIR = log_dir
     constants.LOG_FILES.CLIENT_MANAGER_LOG_FILE = log_file_name
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))

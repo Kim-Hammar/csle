@@ -27,7 +27,8 @@ VERSION=0.9.0
     pull_blank_ubuntu_20 pull_blank_ubuntu_22 pull_blank_ubuntu_24 \
     pull_pengine_exploit_base cve_2014_0160_base pull_cve_2014_0160_base \
     pull_ovs_base pull_ryu_base pull_elk_base spark_base rm_spark_base push_spark_base pull_spark_base \
-    pull_web_dvwa_base push_web_dvwa_base rm_web_cvwa_base web_dvwa_base
+    pull_web_dvwa_base push_web_dvwa_base rm_web_cvwa_base web_dvwa_base \
+    pull_5g_core_base push_5g_core_base rm_5g_core_base 5g_core_base
 
 all: build
 
@@ -110,6 +111,9 @@ elk_base:
 web_dvwa_base:
 	docker build . --no-cache -f ./docker_files/web_dvwa_base/docker/Dockerfile -t $(DOCKERHUB_USER)/csle_web_dvwa_base:$(VERSION)
 
+5g_core_base:
+	docker build . --no-cache -f ./docker_files/5g_core_base/docker/Dockerfile -t $(DOCKERHUB_USER)/csle_5g_core_base:$(VERSION)
+
 # Targets for removing all of the base images
 rm_kali_base:
 	-docker rmi $(DOCKERHUB_USER)/csle_kali_base:$(VERSION)
@@ -188,6 +192,9 @@ rm_elk_base:
 
 rm_web_dvwa_base:
 	-docker rmi $(DOCKERHUB_USER)/csle_web_dvwa_base:$(VERSION)
+
+rm_5g_core_base:
+	-docker rmi $(DOCKERHUB_USER)/csle_5g_core_base:$(VERSION)
 
 # Targets for pushing all of the base images to DockerHub
 push_kali_base:
@@ -268,6 +275,9 @@ push_elk_base:
 push_web_dvwa_base:
 	-docker push $(DOCKERHUB_USER)/csle_web_dvwa_base:$(VERSION)
 
+push_5g_core_base:
+	-docker push $(DOCKERHUB_USER)/csle_5g_core_base:$(VERSION)
+
 # Targets for pulling all of the base images from DockerHub
 pull_kali_base:
 	-docker pull $(DOCKERHUB_USER)/csle_kali_base:$(VERSION)
@@ -347,6 +357,9 @@ pull_elk_base:
 pull_web_dvwa_base:
 	-docker pull $(DOCKERHUB_USER)/csle_web_dvwa_base:$(VERSION)
 
+pull_5g_core_base:
+	-docker pull $(DOCKERHUB_USER)/csle_5g_core_base:$(VERSION)
+
 # Build all of the base images sequentially
 build:
 	docker build . --no-cache -f ./docker_files/kali_base/docker/Dockerfile -t $(DOCKERHUB_USER)/csle_kali_base:$(VERSION)
@@ -375,6 +388,7 @@ build:
 	docker build . --no-cache -f ./docker_files/elk_base/docker/Dockerfile -t $(DOCKERHUB_USER)/csle_elk_base:$(VERSION)
 	docker build . --no-cache -f ./docker_files/spark_base/docker/Dockerfile -t $(DOCKERHUB_USER)/csle_spark_base:$(VERSION)
 	docker build . --no-cache -f ./docker_files/blank_ubuntu_24/docker/Dockerfile -t $(DOCKERHUB_USER)/csle_blank_ubuntu_24:$(VERSION)
+	docker build . --no-cache -f ./docker_files/5g_core_base/docker/Dockerfile -t $(DOCKERHUB_USER)/csle_5g_core_base:$(VERSION)
 
 # Remove all base images
 rm_image:
@@ -404,6 +418,7 @@ rm_image:
 	-docker rmi $(DOCKERHUB_USER)/csle_elk_base:$(VERSION)
 	-docker rmi $(DOCKERHUB_USER)/csle_spark_base:$(VERSION)
 	-docker rmi $(DOCKERHUB_USER)/csle_blank_ubuntu_24:$(VERSION)
+	-docker rmi $(DOCKERHUB_USER)/csle_5g_core_base:$(VERSION)
 
 
 # Push all base images
@@ -434,6 +449,7 @@ push:
 	-docker push $(DOCKERHUB_USER)/csle_elk_base:$(VERSION)
 	-docker push $(DOCKERHUB_USER)/csle_spark_base:$(VERSION)
 	-docker push $(DOCKERHUB_USER)/csle_blank_ubuntu_24:$(VERSION)
+	-docker push $(DOCKERHUB_USER)/csle_5g_core_base:$(VERSION)
 
 
 # Pull all base images
@@ -464,3 +480,4 @@ pull:
 	-docker pull $(DOCKERHUB_USER)/csle_elk_base:$(VERSION)
 	-docker pull $(DOCKERHUB_USER)/csle_spark_base:$(VERSION)
 	-docker pull $(DOCKERHUB_USER)/csle_blank_ubuntu_24:$(VERSION)
+	-docker pull $(DOCKERHUB_USER)/csle_5g_core_base:$(VERSION)
