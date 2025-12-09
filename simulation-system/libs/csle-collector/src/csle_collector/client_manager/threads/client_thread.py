@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional, Any
 import threading
 import time
 import subprocess
@@ -62,7 +62,7 @@ class ClientThread(threading.Thread):
             jitter = random.uniform(0, 1.0)
             time.sleep(self.time_step_len_seconds + jitter)
 
-    def _kill_and_reap(self, p: subprocess.Popen) -> None:
+    def _kill_and_reap(self, p: Optional[subprocess.Popen[Any]]) -> None:
         """
         Robustly kills a process group and waits for it, avoiding infinite hangs.
 

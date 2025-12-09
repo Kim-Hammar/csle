@@ -98,6 +98,7 @@ class CONTAINER_IMAGES:
     PENGINE_EXPLOIT_1 = "csle_pengine_exploit_1"
     CVE_2014_0160_1 = "csle_cve_2014_0160_1"
     SPARK_1 = "csle_spark_1"
+    FIVE_G_CORE_1 = "5g_core_1"
     SNORT_IDS_IMAGES = [ROUTER_2]
     OVS_IMAGES = [OVS_1]
     SPARK_IMAGES = [SPARK_1]
@@ -144,7 +145,8 @@ class CONTAINER_OS:
     FTP_2_OS = "ubuntu"
     PENGINE_EXPLOIT_1_OS = "ubuntu"
     CVE_2014_0160_1_OS = "debian"
-    SPARK_1_OS = "spark"
+    SPARK_1_OS = "ubuntu"
+    FIVE_G_CORE_1_OS = "ubuntu"
 
 
 class RENDERING:

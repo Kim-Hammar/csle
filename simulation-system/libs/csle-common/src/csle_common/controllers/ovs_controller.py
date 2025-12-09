@@ -90,8 +90,6 @@ class OVSController:
                         f"container IP: {ovs_sw.ip}")
             EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ovs_sw.docker_gw_bridge_ip)
 
-
-
             bridge_name = constants.OVS.DEFAULT_BRIDGE_NAME
             cmd = f"{constants.COMMANDS.SUDO} {constants.OVS.OVS_VSCTL} set bridge {bridge_name} " \
                   f"protocols={','.join(ovs_sw.openflow_protocols)}"
