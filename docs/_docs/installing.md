@@ -651,7 +651,7 @@ Listing 61: Commands to add Docker's official GPG key to Ubuntu's package manage
 Next, install Docker and `openvswitch` by running the commands:
 ```bash
 sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io openvswitch-switch
+sudo apt-get install docker-ce docker-ce-cli containerd.io openvswitch-switch openvswitch-common
 sudo groupadd docker
 sudo usermod -aG docker $USER
 ```

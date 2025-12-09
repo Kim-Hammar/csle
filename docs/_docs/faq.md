@@ -76,3 +76,7 @@ permalink: /docs/faq/
 **Q: How can I contact the maintainers of CSLE?**
 
 **A:** Contact us via the <a href="https://github.com/Kim-Hammar/csle/issues">GitHub issues page</a>
+
+**Q: When I try to start an emulation involving OVS switches, the start command gets stuck. How to fix it?**
+
+**A:** This is likely because you have updated your operating system's kernel, which caused the openvswitch module to be removed. Run the command `lsmod | grep openvswitch` to verify that the module exists in the kernel. If it does not exist, run the command `sudo apt install openvswitch-switch openvswitch-common`.
