@@ -236,7 +236,7 @@ def serve(port: int = 50044, log_dir: str = "/", log_file_name: str = "client_ma
     :return: None
     """
     # Reduce GIL contention
-    sys.setswitchinterval(0.1)
+    sys.setswitchinterval(0.2)
     constants.LOG_FILES.CLIENT_MANAGER_LOG_DIR = log_dir
     constants.LOG_FILES.CLIENT_MANAGER_LOG_FILE = log_file_name
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
