@@ -66,8 +66,12 @@ class HostController:
         EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ip)
 
         # Check if host_manager is already running
-        status = HostController.get_host_monitor_thread_status_by_port_and_ip(
-            ip=ip, port=emulation_env_config.host_manager_config.host_manager_port, timeout=5)
+        status = None
+        try:
+            status = HostController.get_host_monitor_thread_status_by_port_and_ip(
+                ip=ip, port=emulation_env_config.host_manager_config.host_manager_port, timeout=5)
+        except Exception:
+            pass
         cmd = (constants.COMMANDS.PS_AUX + " | " + constants.COMMANDS.GREP +
                constants.COMMANDS.SPACE_DELIM + constants.TRAFFIC_COMMANDS.HOST_MANAGER_FILE_NAME)
         o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd,
@@ -80,8 +84,14 @@ class HostController:
             alt_str = f"{container.get_ips()[0]}, {container.get_full_name()}"
 
         if constants.COMMANDS.SEARCH_HOST_MANAGER not in str(o):
+            status_str = "-"
+            if status is not None:
+                status_str = (f"Monitor running: {status.monitor_running}, filebeat running: {status.filebeat_running},"
+                              f" packetbeat running: {status.packetbeat_running}, "
+                              f"metricbeat running: {status.metricbeat_running}, "
+                              f"heartbeat running: {status.heartbeat_running}")
             logger.info(f"Host manager is not running on: {ip} ({alt_str}), starting it. Output of {cmd} "
-                        f"was: {str(o)}, err output was: {str(e)}, status: {status}")
+                        f"was: {str(o)}, err output was: {str(e)}, status: {status_str}")
 
             # Stop old background job if running
             cmd = (constants.COMMANDS.SUDO + constants.COMMANDS.SPACE_DELIM + constants.COMMANDS.PKILL +
