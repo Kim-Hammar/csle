@@ -6,6 +6,7 @@ from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvCo
 from csle_common.dao.emulation_config.host_managers_info import HostManagersInfo
 from csle_common.dao.emulation_config.node_container_config import NodeContainerConfig
 import csle_common.constants.constants as constants
+import csle_collector.constants.constants as collector_constants
 import csle_collector.host_manager.host_manager_pb2_grpc
 import csle_collector.host_manager.host_manager_pb2
 import csle_collector.host_manager.query_host_manager
@@ -65,6 +66,8 @@ class HostController:
         EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ip)
 
         # Check if host_manager is already running
+        status = HostController.get_host_monitor_thread_status_by_port_and_ip(
+            ip=ip, port=emulation_env_config.host_manager_config.host_manager_port, timeout=5)
         cmd = (constants.COMMANDS.PS_AUX + " | " + constants.COMMANDS.GREP +
                constants.COMMANDS.SPACE_DELIM + constants.TRAFFIC_COMMANDS.HOST_MANAGER_FILE_NAME)
         o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd,
@@ -78,7 +81,7 @@ class HostController:
 
         if constants.COMMANDS.SEARCH_HOST_MANAGER not in str(o):
             logger.info(f"Host manager is not running on: {ip} ({alt_str}), starting it. Output of {cmd} "
-                        f"was: {str(o)}, err output was: {str(e)}")
+                        f"was: {str(o)}, err output was: {str(e)}, status: {status}")
 
             # Stop old background job if running
             cmd = (constants.COMMANDS.SUDO + constants.COMMANDS.SPACE_DELIM + constants.COMMANDS.PKILL +
@@ -721,6 +724,8 @@ class HostController:
                     options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
                 stub = csle_collector.host_manager.host_manager_pb2_grpc.HostManagerStub(channel)
                 csle_collector.host_manager.query_host_manager.start_filebeat(stub=stub)
+        else:
+            logger.info(f"Filebeat is already running on {ips[0]}.")
 
     @staticmethod
     def start_packetbeat(emulation_env_config: EmulationEnvConfig, ips: List[str],
@@ -751,6 +756,8 @@ class HostController:
                     options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
                 stub = csle_collector.host_manager.host_manager_pb2_grpc.HostManagerStub(channel)
                 csle_collector.host_manager.query_host_manager.start_packetbeat(stub=stub)
+        else:
+            logger.info(f"Packetbeat is already running on {ips[0]}.")
 
     @staticmethod
     def start_metricbeat(emulation_env_config: EmulationEnvConfig, ips: List[str],
@@ -781,6 +788,8 @@ class HostController:
                     options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
                 stub = csle_collector.host_manager.host_manager_pb2_grpc.HostManagerStub(channel)
                 csle_collector.host_manager.query_host_manager.start_metricbeat(stub=stub)
+        else:
+            logger.info(f"Metricbeat is already running on {ips[0]}.")
 
     @staticmethod
     def start_heartbeat(emulation_env_config: EmulationEnvConfig, ips: List[str],
@@ -812,6 +821,8 @@ class HostController:
                     options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
                 stub = csle_collector.host_manager.host_manager_pb2_grpc.HostManagerStub(channel)
                 csle_collector.host_manager.query_host_manager.start_heartbeat(stub=stub)
+        else:
+            logger.info(f"Heartbeat is already running on {ips[0]}.")
 
     @staticmethod
     def start_sparks(emulation_env_config: EmulationEnvConfig, physical_server_ip: str, logger: logging.Logger) -> None:
@@ -1219,7 +1230,8 @@ class HostController:
         return statuses
 
     @staticmethod
-    def get_host_monitor_thread_status_by_port_and_ip(ip: str, port: int) -> \
+    def get_host_monitor_thread_status_by_port_and_ip(ip: str, port: int,
+                                                      timeout: int = collector_constants.GRPC.TIMEOUT_SECONDS) -> \
             csle_collector.host_manager.host_manager_pb2.HostStatusDTO:
         """
         A method that sends a request to the HostManager on a specific container
@@ -1227,12 +1239,13 @@ class HostController:
 
         :param ip: the ip of the container
         :param port: the port of the host manager
+        :param timeout: the timeout of the GRPC query
         :return: the status of the host manager
         """
         # Open a gRPC session
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_collector.host_manager.host_manager_pb2_grpc.HostManagerStub(channel)
-            status = csle_collector.host_manager.query_host_manager.get_host_status(stub=stub)
+            status = csle_collector.host_manager.query_host_manager.get_host_status(stub=stub, timeout=timeout)
             return status
 
     @staticmethod
