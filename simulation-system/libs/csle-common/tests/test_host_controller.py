@@ -94,18 +94,24 @@ class TestHostControllerSuite:
         mock_start_host_manager.assert_called()
         assert mock_start_host_manager.call_count == 5
 
+    @patch("csle_common.controllers.host_controller.HostController.get_host_monitor_thread_status_by_port_and_ip")
     @patch("csle_common.util.emulation_util.EmulationUtil.connect_admin")
     @patch("csle_common.util.emulation_util.EmulationUtil.execute_ssh_cmd")
     @patch("time.sleep", return_value=None)
-    def test_start_host_manager(self, mock_sleep, mock_execute_ssh_cmd, mock_connect_admin) -> None:
+    def test_start_host_manager(self, mock_sleep, mock_execute_ssh_cmd, mock_connect_admin,
+                                mock_get_host_monitor_thread_status) -> None:
         """
         Test start_host_manager
 
         :param mock_sleep: mock sleep
         :param mock_execute_ssh_cmd: mock execute_ssh_cmd
         :param mock_connect_admin: mock connect_admin
+        :param mock_get_host_monitor_thread_status: mock get_host_monitor_thread_status
         :return: None
         """
+        host_monitor_dto = MagicMock()
+        host_monitor_dto.monitor_running = False
+        mock_get_host_monitor_thread_status.return_value = host_monitor_dto
         mock_connect_admin.return_value = None
         mock_execute_ssh_cmd.return_value = ("output", "error", 0)
         emulation_env_config = MagicMock(spec=EmulationEnvConfig)
@@ -1030,10 +1036,11 @@ class TestHostControllerSuite:
         mock_HostManagerStub.return_value = mock_stub
         ip = "172.17.0.2"
         port = 12345
-        result = HostController.get_host_monitor_thread_status_by_port_and_ip(ip, port)
+        timeout = 5
+        result = HostController.get_host_monitor_thread_status_by_port_and_ip(ip=ip, port=port, timeout=timeout)
         mock_insecure_channel.assert_called_once_with(f"{ip}:{port}", options=constants.GRPC_SERVERS.GRPC_OPTIONS)
         mock_HostManagerStub.assert_called_once_with(mock_channel)
-        mock_get_host_status.assert_called_once_with(stub=mock_stub)
+        mock_get_host_status.assert_called_once_with(stub=mock_stub, timeout=timeout)
         assert result == status_mock
 
     def test_get_host_managers_ips(self) -> None:
