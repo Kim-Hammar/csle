@@ -706,6 +706,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         MetastoreFacade.update_emulation_execution(emulation_execution=execution,
                                                    ip_first_octet=execution.ip_first_octet,
                                                    emulation=execution.emulation_name)
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def attachContainersInExecutionToNetworks(
@@ -731,6 +732,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         MetastoreFacade.update_emulation_execution(emulation_execution=execution,
                                                    ip_first_octet=execution.ip_first_octet,
                                                    emulation=execution.emulation_name)
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def installLibraries(
@@ -752,6 +754,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         EmulationEnvController.install_csle_collector_and_ryu_libraries(
             emulation_env_config=execution.emulation_env_config, physical_server_ip=GeneralUtil.get_host_ip(),
             logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def applyKafkaConfig(
@@ -773,6 +776,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         EmulationEnvController.apply_kafka_config(emulation_env_config=execution.emulation_env_config,
                                                   physical_server_ip=GeneralUtil.get_host_ip(),
                                                   logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startSdnController(
@@ -794,6 +798,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         SDNControllerManager.start_ryu(emulation_env_config=execution.emulation_env_config,
                                        physical_server_ip=GeneralUtil.get_host_ip(),
                                        logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def applyResourceConstraints(
@@ -815,6 +820,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         ResourceConstraintsController.apply_resource_constraints(emulation_env_config=execution.emulation_env_config,
                                                                  physical_server_ip=GeneralUtil.get_host_ip(),
                                                                  logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def createOvsSwitches(
@@ -836,6 +842,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         OVSController.create_virtual_switches_on_container(
             containers_config=execution.emulation_env_config.containers_config,
             physical_server_ip=GeneralUtil.get_host_ip(), logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def pingExecution(
@@ -857,6 +864,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         EmulationEnvController.ping_all(emulation_env_config=execution.emulation_env_config,
                                         physical_server_ip=GeneralUtil.get_host_ip(),
                                         logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def configureOvs(
@@ -878,6 +886,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         logging.info(f"Found execution with id: {request.ipFirstOctet}, applying the configuration")
         OVSController.apply_ovs_config(emulation_env_config=execution.emulation_env_config,
                                        physical_server_ip=GeneralUtil.get_host_ip(), logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startSdnControllerMonitor(
@@ -899,6 +908,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         SDNControllerManager.start_ryu_monitor(emulation_env_config=execution.emulation_env_config,
                                                physical_server_ip=GeneralUtil.get_host_ip(),
                                                logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def createUsers(
@@ -920,6 +930,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         UsersController.create_users(emulation_env_config=execution.emulation_env_config,
                                      physical_server_ip=GeneralUtil.get_host_ip(),
                                      logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def createVulnerabilities(
@@ -941,6 +952,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         VulnerabilitiesController.create_vulns(emulation_env_config=execution.emulation_env_config,
                                                physical_server_ip=GeneralUtil.get_host_ip(),
                                                logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def createFlags(
@@ -962,6 +974,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         FlagsController.create_flags(emulation_env_config=execution.emulation_env_config,
                                      physical_server_ip=GeneralUtil.get_host_ip(),
                                      logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def createTopology(
@@ -983,6 +996,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         TopologyController.create_topology(emulation_env_config=execution.emulation_env_config,
                                            physical_server_ip=GeneralUtil.get_host_ip(),
                                            logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startTrafficManagers(
@@ -1004,6 +1018,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         TrafficController.start_traffic_managers(emulation_env_config=execution.emulation_env_config,
                                                  physical_server_ip=GeneralUtil.get_host_ip(),
                                                  logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startTrafficGenerators(
@@ -1025,6 +1040,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         TrafficController.start_internal_traffic_generators(emulation_env_config=execution.emulation_env_config,
                                                             physical_server_ip=GeneralUtil.get_host_ip(),
                                                             logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startClientPopulation(
@@ -1046,6 +1062,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         TrafficController.start_client_population(emulation_env_config=execution.emulation_env_config,
                                                   physical_server_ip=GeneralUtil.get_host_ip(),
                                                   logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startKafkaClientProducer(
@@ -1067,6 +1084,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         TrafficController.start_client_producer(emulation_env_config=execution.emulation_env_config,
                                                 physical_server_ip=GeneralUtil.get_host_ip(),
                                                 logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopKafkaClientProducer(
@@ -1088,6 +1106,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         TrafficController.stop_client_producer(emulation_env_config=execution.emulation_env_config,
                                                physical_server_ip=GeneralUtil.get_host_ip(),
                                                logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startSnortIdses(
@@ -1109,6 +1128,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         SnortIDSController.start_snort_idses(emulation_env_config=execution.emulation_env_config,
                                              physical_server_ip=GeneralUtil.get_host_ip(),
                                              logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startSnortIdsesMonitorThreads(
@@ -1130,6 +1150,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         SnortIDSController.start_snort_idses_monitor_threads(emulation_env_config=execution.emulation_env_config,
                                                              physical_server_ip=GeneralUtil.get_host_ip(),
                                                              logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startOssecIdses(
@@ -1151,6 +1172,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         OSSECIDSController.start_ossec_idses(emulation_env_config=execution.emulation_env_config,
                                              physical_server_ip=GeneralUtil.get_host_ip(),
                                              logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startOssecIdsesMonitorThreads(
@@ -1172,6 +1194,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         OSSECIDSController.start_ossec_idses_monitor_threads(emulation_env_config=execution.emulation_env_config,
                                                              physical_server_ip=GeneralUtil.get_host_ip(),
                                                              logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startElkStack(
@@ -1193,6 +1216,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         ELKController.start_elk_stack(emulation_env_config=execution.emulation_env_config,
                                       physical_server_ip=GeneralUtil.get_host_ip(),
                                       logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startHostManagers(
@@ -1214,6 +1238,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.start_host_monitor_threads(emulation_env_config=execution.emulation_env_config,
                                                   physical_server_ip=GeneralUtil.get_host_ip(),
                                                   logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def applyFileBeatsConfig(
@@ -1235,6 +1260,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.config_filebeats(emulation_env_config=execution.emulation_env_config,
                                         physical_server_ip=GeneralUtil.get_host_ip(),
                                         logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def applyPacketBeatsConfig(
@@ -1256,6 +1282,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.config_packetbeats(emulation_env_config=execution.emulation_env_config,
                                           physical_server_ip=GeneralUtil.get_host_ip(),
                                           logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def applyMetricBeatsConfig(
@@ -1277,6 +1304,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.config_metricbeats(emulation_env_config=execution.emulation_env_config,
                                           physical_server_ip=GeneralUtil.get_host_ip(),
                                           logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def applyHeartBeatsConfig(
@@ -1298,6 +1326,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.config_heartbeats(emulation_env_config=execution.emulation_env_config,
                                          physical_server_ip=GeneralUtil.get_host_ip(),
                                          logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startFilebeats(
@@ -1320,6 +1349,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                                        initial_start=request.initialStart,
                                        physical_server_ip=GeneralUtil.get_host_ip(),
                                        logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startPacketbeats(
@@ -1342,6 +1372,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                                          initial_start=request.initialStart,
                                          physical_server_ip=GeneralUtil.get_host_ip(),
                                          logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startMetricbeats(
@@ -1364,6 +1395,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                                          initial_start=request.initialStart,
                                          physical_server_ip=GeneralUtil.get_host_ip(),
                                          logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startHeartbeats(
@@ -1386,6 +1418,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                                         initial_start=request.initialStart,
                                         physical_server_ip=GeneralUtil.get_host_ip(),
                                         logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startDockerStatsManagerThread(
@@ -1407,6 +1440,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         ContainerController.start_docker_stats_thread(execution=execution,
                                                       physical_server_ip=GeneralUtil.get_host_ip(),
                                                       logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.ServiceStatusDTO(running=True)
 
     def stopAllExecutionsOfEmulation(
@@ -1447,6 +1481,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                                                            physical_server_ip=GeneralUtil.get_host_ip(),
                                                            execution_id=execution.ip_first_octet,
                                                            logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopAllExecutions(
@@ -1523,6 +1558,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                                                          physical_server_ip=GeneralUtil.get_host_ip(),
                                                          execution_id=execution.ip_first_octet,
                                                          logger=logging.getLogger(), leader=leader)
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startTrafficManager(
@@ -1547,8 +1583,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             TrafficController.start_traffic_manager(emulation_env_config=execution.emulation_env_config,
                                                     node_traffic_config=node_traffic_config,
                                                     logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopTrafficManager(
@@ -1573,8 +1611,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             TrafficController.stop_traffic_manager(emulation_env_config=execution.emulation_env_config,
                                                    node_traffic_config=node_traffic_config,
                                                    logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopTrafficManagers(
@@ -1596,6 +1636,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         TrafficController.stop_traffic_managers(emulation_env_config=execution.emulation_env_config,
                                                 physical_server_ip=GeneralUtil.get_host_ip(),
                                                 logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startClientManager(
@@ -1618,8 +1659,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 == GeneralUtil.get_host_ip():
             TrafficController.start_client_manager(emulation_env_config=execution.emulation_env_config,
                                                    logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopClientManager(
@@ -1642,8 +1685,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 == GeneralUtil.get_host_ip():
             TrafficController.stop_client_manager(emulation_env_config=execution.emulation_env_config,
                                                   logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopClientPopulation(
@@ -1666,8 +1711,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 == GeneralUtil.get_host_ip():
             TrafficController.stop_client_population(emulation_env_config=execution.emulation_env_config,
                                                      logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def getNumActiveClients(
@@ -1689,9 +1736,9 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 GeneralUtil.get_host_ip():
             clients_dto = TrafficController.get_num_active_clients(emulation_env_config=execution.emulation_env_config,
                                                                    logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_client_dto_to_get_num_clients_dto(clients_dto=clients_dto)
         else:
-
             return ClusterManagerUtil.get_empty_get_num_clients_dto()
 
     def stopTrafficGenerators(
@@ -1713,6 +1760,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         TrafficController.stop_internal_traffic_generators(emulation_env_config=execution.emulation_env_config,
                                                            physical_server_ip=GeneralUtil.get_host_ip(),
                                                            logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startTrafficGenerator(
@@ -1740,6 +1788,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                                                                node_traffic_config=node_traffic_config,
                                                                logger=logging.getLogger(),
                                                                container=node_container_config)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -1766,8 +1815,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             TrafficController.stop_internal_traffic_generator(emulation_env_config=execution.emulation_env_config,
                                                               node_traffic_config=node_traffic_config,
                                                               logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def getClientManagersInfo(
@@ -1791,7 +1842,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             client_managers_dto = TrafficController.get_client_managers_info(
                 emulation_env_config=execution.emulation_env_config, logger=logging.getLogger(),
                 active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config))
-
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_client_info_dto(client_managers_dto=client_managers_dto)
         else:
             return ClusterManagerUtil.get_empty_client_managers_info_dto()
@@ -1816,6 +1867,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
                 physical_host_ip=GeneralUtil.get_host_ip()
             )
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_traffic_info_dto(traffic_managers_dto=traffic_managers_dto)
         else:
             return ClusterManagerUtil.get_empty_traffic_managers_info_dto()
@@ -2046,6 +2098,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         ContainerController.create_networks(containers_config=execution.emulation_env_config.containers_config,
                                             logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopDockerStatsManagerThread(
@@ -2067,6 +2120,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         ContainerController.stop_docker_stats_thread(execution=execution,
                                                      physical_server_ip=GeneralUtil.get_host_ip(),
                                                      logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def getDockerStatsManagerStatus(
@@ -2136,6 +2190,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
                 physical_host_ip=GeneralUtil.get_host_ip()
             )
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_docker_info_dto(docker_stats_managers_dto=docker_stats_managers_dto)
         else:
             return ClusterManagerUtil.get_empty_docker_managers_info_dto()
@@ -2158,6 +2213,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.elk_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             ELKController.stop_elk_manager(emulation_env_config=execution.emulation_env_config,
                                            logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -2180,6 +2236,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.elk_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             ELKController.start_elk_manager(emulation_env_config=execution.emulation_env_config,
                                             logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -2202,6 +2259,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.elk_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             elk_dto = ELKController.get_elk_status(emulation_env_config=execution.emulation_env_config,
                                                    logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_elk_dto(elk_dto=elk_dto)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.ElkStatusDTO(
@@ -2225,6 +2283,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.elk_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             ELKController.stop_elk_stack(emulation_env_config=execution.emulation_env_config,
                                          logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -2247,6 +2306,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.elk_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             ELKController.start_elastic(emulation_env_config=execution.emulation_env_config,
                                         logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -2269,6 +2329,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.elk_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             ELKController.stop_elastic(emulation_env_config=execution.emulation_env_config,
                                        logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -2291,6 +2352,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.elk_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             ELKController.start_kibana(emulation_env_config=execution.emulation_env_config,
                                        logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -2313,6 +2375,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.elk_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             ELKController.stop_kibana(emulation_env_config=execution.emulation_env_config,
                                       logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -2335,6 +2398,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.elk_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             ELKController.start_logstash(emulation_env_config=execution.emulation_env_config,
                                          logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -2357,6 +2421,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.elk_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             ELKController.stop_logstash(emulation_env_config=execution.emulation_env_config,
                                         logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -2380,6 +2445,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 emulation_env_config=execution.emulation_env_config, logger=logging.getLogger(),
                 active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
                 physical_host_ip=GeneralUtil.get_host_ip())
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_elk_info_dto(elk_managers_dto=elk_managers_dto)
         else:
             return ClusterManagerUtil.get_empty_elk_managers_info_dto()
@@ -2402,6 +2468,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         EmulationEnvController.start_containers_of_execution(emulation_execution=execution,
                                                              physical_host_ip=GeneralUtil.get_host_ip())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def runContainer(
@@ -2440,6 +2507,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         EmulationEnvController.start_containers_of_execution(emulation_execution=execution,
                                                              physical_host_ip=GeneralUtil.get_host_ip())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startHostManager(
@@ -2462,10 +2530,12 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             HostController.start_host_manager(emulation_env_config=execution.emulation_env_config,
                                               ip=container_config.docker_gw_bridge_ip, logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             logging.info(f"Container with ip: {request.containerIp} not found in execution "
                          f"with id: {request.ipFirstOctet} of emulation {request.emulation}")
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopHostManagers(
@@ -2486,6 +2556,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         HostController.stop_host_managers(emulation_env_config=execution.emulation_env_config,
                                           physical_host_ip=GeneralUtil.get_host_ip())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopHostManager(
@@ -2508,8 +2579,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             HostController.stop_host_manager(emulation_env_config=execution.emulation_env_config,
                                              ip=container_config.docker_gw_bridge_ip)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startHostMonitorThreads(
@@ -2531,6 +2604,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.start_host_monitor_threads(emulation_env_config=execution.emulation_env_config,
                                                   physical_server_ip=GeneralUtil.get_host_ip(),
                                                   logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopFilebeats(
@@ -2552,6 +2626,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.stop_filebeats(emulation_env_config=execution.emulation_env_config,
                                       physical_server_ip=GeneralUtil.get_host_ip(),
                                       logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopPacketbeats(
@@ -2573,6 +2648,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.stop_packetbeats(emulation_env_config=execution.emulation_env_config,
                                         physical_server_ip=GeneralUtil.get_host_ip(),
                                         logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopMetricbeats(
@@ -2594,6 +2670,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.stop_metricbeats(emulation_env_config=execution.emulation_env_config,
                                         physical_server_ip=GeneralUtil.get_host_ip(),
                                         logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopHeartbeats(
@@ -2615,6 +2692,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.stop_heartbeats(emulation_env_config=execution.emulation_env_config,
                                        physical_server_ip=GeneralUtil.get_host_ip(),
                                        logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startHostMonitorThread(
@@ -2638,8 +2716,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             HostController.start_host_monitor_thread(emulation_env_config=execution.emulation_env_config,
                                                      ip=container_config.docker_gw_bridge_ip,
                                                      logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startFilebeat(
@@ -2664,8 +2744,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             HostController.start_filebeat(emulation_env_config=execution.emulation_env_config,
                                           ips=[container_config.docker_gw_bridge_ip],
                                           logger=logging.getLogger(), initial_start=request.initialStart)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startPacketbeat(
@@ -2690,8 +2772,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             HostController.start_packetbeat(emulation_env_config=execution.emulation_env_config,
                                             ips=[container_config.docker_gw_bridge_ip], logger=logging.getLogger(),
                                             initial_start=request.initialStart)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startMetricbeat(
@@ -2716,8 +2800,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             HostController.start_metricbeat(emulation_env_config=execution.emulation_env_config,
                                             ips=[container_config.docker_gw_bridge_ip],
                                             logger=logging.getLogger(), initial_start=request.initialStart)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startHeartbeat(
@@ -2742,8 +2828,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             HostController.start_heartbeat(emulation_env_config=execution.emulation_env_config,
                                            ips=[container_config.docker_gw_bridge_ip], logger=logging.getLogger(),
                                            initial_start=request.initialStart)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopFilebeat(
@@ -2766,8 +2854,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             HostController.stop_filebeat(emulation_env_config=execution.emulation_env_config,
                                          ip=container_config.docker_gw_bridge_ip, logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopPacketbeat(
@@ -2790,8 +2880,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             HostController.stop_packetbeat(emulation_env_config=execution.emulation_env_config,
                                            ip=container_config.docker_gw_bridge_ip, logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopMetricbeat(
@@ -2814,8 +2906,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             HostController.stop_metricbeat(emulation_env_config=execution.emulation_env_config,
                                            ip=container_config.docker_gw_bridge_ip, logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopHeartbeat(
@@ -2838,8 +2932,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             HostController.stop_heartbeat(emulation_env_config=execution.emulation_env_config,
                                           ip=container_config.docker_gw_bridge_ip, logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def applyFileBeatConfig(
@@ -2863,8 +2959,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             HostController.config_filebeat(emulation_env_config=execution.emulation_env_config,
                                            container=container_config,
                                            logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def applyPacketBeatConfig(
@@ -2887,8 +2985,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             HostController.config_packetbeat(emulation_env_config=execution.emulation_env_config,
                                              container=container_config, logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def applyMetricBeatConfig(
@@ -2911,8 +3011,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None and container_config.physical_host_ip == GeneralUtil.get_host_ip():
             HostController.config_metricbeat(emulation_env_config=execution.emulation_env_config,
                                              container=container_config, logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def applyHeartBeatConfig(
@@ -2935,8 +3037,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None and container_config.physical_host_ip == GeneralUtil.get_host_ip():
             HostController.config_heartbeat(emulation_env_config=execution.emulation_env_config,
                                             container=container_config, logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def getHostMonitorThreadsStatuses(
@@ -2960,12 +3064,11 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                                                                  logger=logging.getLogger())
             host_manager_statuses = list(
                 map(lambda x: ClusterManagerUtil.convert_host_status_to_host_manager_status_dto(x), host_statuses))
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.HostManagerStatusesDTO(
                 hostManagerStatuses=host_manager_statuses)
         else:
-            return csle_cluster.cluster_manager.cluster_manager_pb2.HostManagerStatusesDTO(
-                hostManagerStatuses=[]
-            )
+            return csle_cluster.cluster_manager.cluster_manager_pb2.HostManagerStatusesDTO(hostManagerStatuses=[])
 
     def getHostManagersInfo(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.GetHostManagersInfoMsg,
@@ -2987,6 +3090,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
                 physical_host_ip=GeneralUtil.get_host_ip()
             )
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_host_info_dto(host_managers_dto=host_managers_dto)
         else:
             return ClusterManagerUtil.get_empty_host_managers_info_dto()
@@ -3008,6 +3112,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is not None and \
                 execution.emulation_env_config.kafka_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             KafkaController.stop_kafka_manager(emulation_env_config=execution.emulation_env_config)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -3029,6 +3134,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is not None and \
                 execution.emulation_env_config.kafka_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             KafkaController.start_kafka_manager(emulation_env_config=execution.emulation_env_config)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -3051,6 +3157,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.kafka_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             KafkaController.create_topics(emulation_env_config=execution.emulation_env_config,
                                           logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -3072,6 +3179,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is not None and \
                 execution.emulation_env_config.kafka_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             kafka_dto = KafkaController.get_kafka_status(emulation_env_config=execution.emulation_env_config)
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_kafka_dto_to_kafka_status_dto(kafka_dto=kafka_dto)
         else:
             return ClusterManagerUtil.get_empty_kafka_dto()
@@ -3094,6 +3202,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.kafka_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             KafkaController.stop_kafka_server(emulation_env_config=execution.emulation_env_config,
                                               logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -3116,6 +3225,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 execution.emulation_env_config.kafka_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             KafkaController.start_kafka_server(emulation_env_config=execution.emulation_env_config,
                                                logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -3139,6 +3249,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 emulation_env_config=execution.emulation_env_config, logger=logging.getLogger(),
                 active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
                 physical_host_ip=GeneralUtil.get_host_ip())
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_kafka_info_dto(kafka_managers_info_dto=kafka_managers_info_dto)
         else:
             return ClusterManagerUtil.get_empty_kafka_managers_info_dto()
@@ -3160,6 +3271,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is not None:
             OSSECIDSController.stop_ossec_idses(emulation_env_config=execution.emulation_env_config,
                                                 physical_host_ip=GeneralUtil.get_host_ip())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -3183,6 +3295,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         OSSECIDSController.start_ossec_idses(emulation_env_config=execution.emulation_env_config,
                                              physical_server_ip=GeneralUtil.get_host_ip(),
                                              logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopOSSECIDS(
@@ -3205,6 +3318,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             OSSECIDSController.stop_ossec_ids(emulation_env_config=execution.emulation_env_config,
                                               ip=container_config.docker_gw_bridge_ip)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -3229,6 +3343,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             OSSECIDSController.start_ossec_ids(emulation_env_config=execution.emulation_env_config,
                                                ip=container_config.docker_gw_bridge_ip)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -3251,6 +3366,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         OSSECIDSController.start_ossec_idses_managers(emulation_env_config=execution.emulation_env_config,
                                                       physical_server_ip=GeneralUtil.get_host_ip())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopOSSECIDSManagers(
@@ -3271,6 +3387,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         OSSECIDSController.stop_ossec_idses_managers(emulation_env_config=execution.emulation_env_config,
                                                      physical_server_ip=GeneralUtil.get_host_ip())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startOSSECIDSManager(
@@ -3293,8 +3410,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             OSSECIDSController.start_ossec_ids_manager(emulation_env_config=execution.emulation_env_config,
                                                        ip=container_config.docker_gw_bridge_ip)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopOSSECIDSManager(
@@ -3317,8 +3436,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             OSSECIDSController.stop_ossec_ids_manager(emulation_env_config=execution.emulation_env_config,
                                                       ip=container_config.docker_gw_bridge_ip)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startOSSECIDSMonitorThread(
@@ -3341,8 +3462,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             OSSECIDSController.start_ossec_ids_monitor_thread(emulation_env_config=execution.emulation_env_config,
                                                               ip=container_config.docker_gw_bridge_ip)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopOSSECIDSMonitorThread(
@@ -3365,8 +3488,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             OSSECIDSController.stop_ossec_ids_monitor_thread(emulation_env_config=execution.emulation_env_config,
                                                              ip=container_config.docker_gw_bridge_ip)
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopOSSECIDSMonitorThreads(
@@ -3387,6 +3512,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         OSSECIDSController.stop_ossec_idses_monitor_threads(
             emulation_env_config=execution.emulation_env_config, physical_server_ip=GeneralUtil.get_host_ip())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def getOSSECIDSMonitorThreadStatuses(
@@ -3410,13 +3536,12 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             status_dtos = list(
                 map(lambda x: ClusterManagerUtil.convert_ossec_ids_monitor_dto_to_ossec_ids_status_dto(x),
                     status_dtos))
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OSSECIdsMonitorThreadStatusesDTO(
-                ossecIDSStatuses=status_dtos
-            )
+                ossecIDSStatuses=status_dtos)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OSSECIdsMonitorThreadStatusesDTO(
-                ossecIDSStatuses=[]
-            )
+                ossecIDSStatuses=[])
 
     def getOSSECIdsManagersInfo(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.GetOSSECIDSManagersInfoMsg,
@@ -3437,6 +3562,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 emulation_env_config=execution.emulation_env_config, logger=logging.getLogger(),
                 active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
                 physical_host_ip=GeneralUtil.get_host_ip())
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_ossec_info_dto(ossec_ids_managers_info_dto=ossec_ids_managers_info_dto)
         else:
             return ClusterManagerUtil.get_empty_ossec_managers_info_dto()
@@ -3460,8 +3586,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution.emulation_env_config.sdn_controller_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             SDNControllerManager.start_ryu_manager(emulation_env_config=execution.emulation_env_config,
                                                    logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopRyuManager(
@@ -3483,8 +3611,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution.emulation_env_config.sdn_controller_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             SDNControllerManager.stop_ryu_manager(emulation_env_config=execution.emulation_env_config,
                                                   logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def getRyuStatus(
@@ -3507,8 +3637,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 GeneralUtil.get_host_ip():
             status_dto = SDNControllerManager.get_ryu_status(emulation_env_config=execution.emulation_env_config,
                                                              logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_ryu_dto_to_ryu_status_dto(status_dto)
         else:
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.get_empty_ryu_manager_status_dto()
 
     def startRyu(
@@ -3530,6 +3662,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 GeneralUtil.get_host_ip():
             SDNControllerManager.start_ryu(emulation_env_config=execution.emulation_env_config,
                                            physical_server_ip=GeneralUtil.get_host_ip(), logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
@@ -3553,8 +3686,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution.emulation_env_config.sdn_controller_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             SDNControllerManager.stop_ryu(emulation_env_config=execution.emulation_env_config,
                                           logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def getRyuManagersInfo(
@@ -3576,6 +3711,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 emulation_env_config=execution.emulation_env_config, logger=logging.getLogger(),
                 active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
                 physical_server_ip=GeneralUtil.get_host_ip())
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_ryu_info_dto(ryu_managers_info_dto=ryu_managers_info_dto)
         else:
             return ClusterManagerUtil.get_empty_ryu_managers_info_dto()
@@ -3599,6 +3735,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         SnortIDSController.stop_snort_idses(
             emulation_env_config=execution.emulation_env_config, physical_server_ip=GeneralUtil.get_host_ip(),
             logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def getSnortIdsMonitorThreadStatuses(
@@ -3623,6 +3760,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             status_dtos = list(
                 map(lambda x: ClusterManagerUtil.convert_snort_ids_monitor_dto_to_snort_ids_status_dto(x),
                     status_dtos))
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.SnortIdsMonitorThreadStatusesDTO(
                 snortIDSStatuses=status_dtos)
         else:
@@ -3648,6 +3786,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         SnortIDSController.stop_snort_idses_monitor_threads(
             emulation_env_config=execution.emulation_env_config, physical_server_ip=GeneralUtil.get_host_ip(),
             logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopSnortIds(
@@ -3671,8 +3810,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             SnortIDSController.stop_snort_ids(emulation_env_config=execution.emulation_env_config,
                                               ip=container_config.docker_gw_bridge_ip,
                                               logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopSnortIdsMonitorThread(
@@ -3696,8 +3837,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             SnortIDSController.stop_snort_idses_monitor_thread(emulation_env_config=execution.emulation_env_config,
                                                                ip=container_config.docker_gw_bridge_ip,
                                                                logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startSnortIds(
@@ -3721,8 +3864,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             SnortIDSController.start_snort_ids(emulation_env_config=execution.emulation_env_config,
                                                ip=container_config.docker_gw_bridge_ip,
                                                logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startSnortIdsMonitorThread(
@@ -3746,8 +3891,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             SnortIDSController.start_snort_idses_monitor_thread(emulation_env_config=execution.emulation_env_config,
                                                                 ip=container_config.docker_gw_bridge_ip,
                                                                 logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startSnortIdsMonitorThreads(
@@ -3769,6 +3916,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         SnortIDSController.start_snort_idses_monitor_threads(emulation_env_config=execution.emulation_env_config,
                                                              physical_server_ip=GeneralUtil.get_host_ip(),
                                                              logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startSnortIdsManagers(
@@ -3790,6 +3938,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         SnortIDSController.start_snort_managers(emulation_env_config=execution.emulation_env_config,
                                                 physical_server_ip=GeneralUtil.get_host_ip(),
                                                 logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopSnortIdsManagers(
@@ -3811,6 +3960,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         SnortIDSController.stop_snort_managers(emulation_env_config=execution.emulation_env_config,
                                                physical_server_ip=GeneralUtil.get_host_ip(),
                                                logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def startSnortIdsManager(
@@ -3835,8 +3985,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             SnortIDSController.start_snort_manager(emulation_env_config=execution.emulation_env_config,
                                                    ip=container_config.docker_gw_bridge_ip,
                                                    logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopSnortIdsManager(
@@ -3860,8 +4012,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             SnortIDSController.stop_snort_manager(emulation_env_config=execution.emulation_env_config,
                                                   ip=container_config.docker_gw_bridge_ip,
                                                   logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopSnortIdsMonitorThreads(
@@ -3883,6 +4037,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         SnortIDSController.stop_snort_idses_monitor_threads(emulation_env_config=execution.emulation_env_config,
                                                             physical_server_ip=GeneralUtil.get_host_ip(),
                                                             logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def getSnortIdsManagersInfo(
@@ -3904,6 +4059,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                 emulation_env_config=execution.emulation_env_config, logger=logging.getLogger(),
                 active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
                 physical_server_ip=GeneralUtil.get_host_ip())
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_snort_info_dto(snort_ids_managers_info_dto=snort_ids_managers_info_dto)
         else:
             return ClusterManagerUtil.get_empty_snort_managers_info_dto()
@@ -3925,6 +4081,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is not None:
             execution_info_dto = EmulationEnvController.get_execution_info(
                 execution=execution, logger=logging.getLogger(), physical_server_ip=GeneralUtil.get_host_ip())
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_execution_info_dto(execution_info_dto=execution_info_dto)
         else:
             return ClusterManagerUtil.get_empty_execution_info_dto()
@@ -3973,6 +4130,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is None:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         ClusterManagerUtil.create_kibana_tunnel(execution=execution, logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def createRyuTunnel(
@@ -3992,6 +4150,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is None:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         ClusterManagerUtil.create_ryu_tunnel(execution=execution, logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def removeRyuTunnel(
@@ -4011,6 +4170,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is None:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         ClusterManagerUtil.remove_ryu_tunnel(execution=execution)
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def removeKibanaTunnel(
@@ -4030,6 +4190,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is None:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         ClusterManagerUtil.remove_kibana_tunnel(execution=execution)
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopHostMonitorThreads(
@@ -4051,6 +4212,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.stop_host_monitor_threads(emulation_env_config=execution.emulation_env_config,
                                                  physical_host_ip=GeneralUtil.get_host_ip(),
                                                  logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopHostMonitorThread(
@@ -4074,8 +4236,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             HostController.stop_host_monitor_thread(emulation_env_config=execution.emulation_env_config,
                                                     ip=container_config.docker_gw_bridge_ip,
                                                     logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startRyuMonitor(
@@ -4098,8 +4262,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             SDNControllerManager.start_ryu_monitor(emulation_env_config=execution.emulation_env_config,
                                                    physical_server_ip=GeneralUtil.get_host_ip(),
                                                    logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopRyuMonitor(
@@ -4121,8 +4287,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution.emulation_env_config.sdn_controller_config.container.physical_host_ip == GeneralUtil.get_host_ip():
             SDNControllerManager.stop_ryu_monitor(emulation_env_config=execution.emulation_env_config,
                                                   logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def getRyuManagerLogs(
@@ -4529,6 +4697,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             time_series = ReadEmulationStatisticsUtil.read_all(emulation_env_config=execution.emulation_env_config,
                                                                time_window_minutes=request.minutes,
                                                                logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return ClusterManagerUtil.convert_emulation_metrics_time_series_dto(time_series_dto=time_series)
 
     def startSparkServer(
@@ -4551,8 +4720,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None and container_config.physical_host_ip == GeneralUtil.get_host_ip():
             HostController.start_spark(emulation_env_config=execution.emulation_env_config,
                                        ips=[container_config.docker_gw_bridge_ip], logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def stopSparkServer(
@@ -4575,8 +4746,10 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None and container_config.physical_host_ip == GeneralUtil.get_host_ip():
             HostController.stop_spark(emulation_env_config=execution.emulation_env_config,
                                       ips=[container_config.docker_gw_bridge_ip], logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
+            execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
     def startSparkServers(
@@ -4598,6 +4771,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         HostController.start_sparks(emulation_env_config=execution.emulation_env_config,
                                     physical_server_ip=GeneralUtil.get_host_ip(),
                                     logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def stopSparkServers(
@@ -4618,6 +4792,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         HostController.stop_sparks(emulation_env_config=execution.emulation_env_config,
                                    physical_server_ip=GeneralUtil.get_host_ip(), logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
     def checkPid(
