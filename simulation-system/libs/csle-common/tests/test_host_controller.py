@@ -109,9 +109,7 @@ class TestHostControllerSuite:
         :param mock_get_host_monitor_thread_status: mock get_host_monitor_thread_status
         :return: None
         """
-        host_monitor_dto = MagicMock()
-        host_monitor_dto.monitor_running = False
-        mock_get_host_monitor_thread_status.return_value = host_monitor_dto
+        mock_get_host_monitor_thread_status.return_value = None
         mock_connect_admin.return_value = None
         mock_execute_ssh_cmd.return_value = ("output", "error", 0)
         emulation_env_config = MagicMock(spec=EmulationEnvConfig)
@@ -127,9 +125,17 @@ class TestHostControllerSuite:
         containers_config.get_container_from_ip.return_value = None
         logger = MagicMock(spec=logging.Logger)
         ip = "172.17.0.1"
+        # First call, should start it
         HostController.start_host_manager(emulation_env_config, ip, logger)
+        host_monitor_dto = MagicMock()
+        host_monitor_dto.monitor_running = False
+        mock_get_host_monitor_thread_status.return_value = host_monitor_dto
+        # Second call, should not start it
+        HostController.start_host_manager(emulation_env_config, ip, logger)
+
+        # Assert only started once
         mock_connect_admin.assert_called_once_with(emulation_env_config=emulation_env_config, ip=ip)
-        mock_sleep.assert_called_once_with(10)
+        mock_sleep.assert_called_once_with(2)
 
     @patch("csle_common.controllers.host_controller.HostController.stop_host_manager")
     def test_stop_host_managers(self, mock_stop_host_manager) -> None:

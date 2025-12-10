@@ -7,6 +7,7 @@ import csle_collector.ryu_manager.ryu_manager_pb2
 import csle_collector.ryu_manager.query_ryu_manager
 import csle_collector.ryu_manager.ryu_manager_util
 import csle_common.constants.constants as constants
+import csle_collector.constants.constants as collector_constants
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
 from csle_common.dao.emulation_config.ryu_managers_info import RyuManagersInfo
 from csle_common.util.emulation_util import EmulationUtil
@@ -29,26 +30,35 @@ class SDNControllerManager:
         if emulation_env_config.sdn_controller_config is None:
             raise ValueError(f"Cannot start ryu manager for emulation without an SDN config. "
                              f"Emulation: {emulation_env_config.name}")
-        # Connect
-        EmulationUtil.connect_admin(emulation_env_config=emulation_env_config,
-                                    ip=emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip,
-                                    create_producer=False)
-
         # Check if ryu_manager is already running
-        cmd = (constants.COMMANDS.PS_AUX + " | " + constants.COMMANDS.GREP + constants.COMMANDS.SPACE_DELIM +
-               constants.TRAFFIC_COMMANDS.RYU_MANAGER_FILE_NAME)
-        o, e, _ = EmulationUtil.execute_ssh_cmd(
-            cmd=cmd,
-            conn=emulation_env_config.get_connection(
-                ip=emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip))
-        logger.info(f"Ryu manager running?, cmd: {cmd}, out:{o.decode()}, err: {e.decode()}")
+        status = None
+        not_running = False
+        try:
+            status = SDNControllerManager.get_ryu_status_by_port_and_ip(
+                ip=emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip,
+                port=emulation_env_config.sdn_controller_config.manager_port, timeout=5)
+        except Exception:
+            not_running = True
+        status_str = ""
+        if status is None:
+            not_running = True
+        else:
+            status_str = (f"ryu_running: {status.ryu_running}, monitor_running: {status.monitor_running}, "
+                          f"port: {status.port}, web_port: {status.web_port}, controller: {status.controller}, "
+                          f"kafka_ip: {status.kafka_ip}, kafka_port: {status.kafka_port}, "
+                          f"time_step_len: {status.time_step_len}")
 
-        if constants.COMMANDS.SEARCH_RYU_MANAGER not in str(o):
+        if not_running:
             logger.info(
                 f"Starting ryu manager on node: "
                 f"{emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip} "
                 f"({emulation_env_config.sdn_controller_config.container.get_ips()}, "
                 f"{emulation_env_config.sdn_controller_config.container.get_full_name()})")
+
+            # Connect
+            EmulationUtil.connect_admin(emulation_env_config=emulation_env_config,
+                                        ip=emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip,
+                                        create_producer=False)
 
             # Stop old background job if running
             cmd = (constants.COMMANDS.SUDO + constants.COMMANDS.SPACE_DELIM + constants.COMMANDS.PKILL +
@@ -70,6 +80,13 @@ class SDNControllerManager:
                     ip=emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip))
             logger.info(f"Starting the Ryu manager, cmd: {cmd}, out:{o.decode()}, err: {e.decode()}")
             time.sleep(2)
+        else:
+            logger.info(
+                f"Ryu manager was already running on node: "
+                f"{emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip} "
+                f"({emulation_env_config.sdn_controller_config.container.get_ips()}, "
+                f"{emulation_env_config.sdn_controller_config.container.get_full_name()}). "
+                f"Status: {status_str}")
 
     @staticmethod
     def stop_ryu_manager(emulation_env_config: EmulationEnvConfig, logger: logging.Logger) -> None:
@@ -124,18 +141,20 @@ class SDNControllerManager:
         return ryu_dto
 
     @staticmethod
-    def get_ryu_status_by_port_and_ip(ip: str, port: int) -> csle_collector.ryu_manager.ryu_manager_pb2.RyuDTO:
+    def get_ryu_status_by_port_and_ip(ip: str, port: int, timeout: int = collector_constants.GRPC.TIMEOUT_SECONDS) \
+            -> csle_collector.ryu_manager.ryu_manager_pb2.RyuDTO:
         """
         Method for querying the RyuManager about the status of the Ryu SDN controller
 
         :param ip: the ip where the RyuManager is running
         :param port: the port the RyuManager is listening to
+        :param timeout: the timeout of the GRPC query
         :return: an RyuDTO with the status
         """
         # Open a gRPC session
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_collector.ryu_manager.ryu_manager_pb2_grpc.RyuManagerStub(channel)
-            ryu_dto = csle_collector.ryu_manager.query_ryu_manager.get_ryu_status(stub)
+            ryu_dto = csle_collector.ryu_manager.query_ryu_manager.get_ryu_status(stub, timeout=timeout)
             return ryu_dto
 
     @staticmethod

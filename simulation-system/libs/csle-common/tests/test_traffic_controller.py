@@ -90,7 +90,6 @@ class TestTrafficControllerSuite:
         node_traffic_config.traffic_manager_log_file = "traffic.log"
         node_traffic_config.traffic_manager_max_workers = 4
         mock_execute_ssh_cmd.side_effect = [
-            (b"", b"", 0),  # Output for checking if traffic_manager is running
             (b"", b"", 0),  # Output for stopping old background job
             (b"", b"", 0),  # Output for starting the traffic_manager
         ]
@@ -98,9 +97,6 @@ class TestTrafficControllerSuite:
             emulation_env_config=self.emulation_env_config, node_traffic_config=node_traffic_config, logger=self.logger
         )
         mock_connect_admin.assert_called()
-        check_cmd = (constants.COMMANDS.PS_AUX + " | " + constants.COMMANDS.GREP + constants.COMMANDS.SPACE_DELIM
-                     + constants.TRAFFIC_COMMANDS.TRAFFIC_MANAGER_FILE_NAME)
-        mock_execute_ssh_cmd.assert_any_call(cmd=check_cmd, conn=self.emulation_env_config.get_connection.return_value)
         stop_cmd = (constants.COMMANDS.SUDO + constants.COMMANDS.SPACE_DELIM + constants.COMMANDS.PKILL
                     + constants.COMMANDS.SPACE_DELIM + constants.TRAFFIC_COMMANDS.TRAFFIC_MANAGER_FILE_NAME)
         mock_execute_ssh_cmd.assert_any_call(cmd=stop_cmd, conn=self.emulation_env_config.get_connection.return_value)

@@ -5,11 +5,11 @@ import logging
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
 from csle_common.dao.emulation_config.kafka_managers_info import KafkaManagersInfo
 import csle_common.constants.constants as constants
+import csle_collector.constants.constants as collector_constants
 import csle_collector.kafka_manager.kafka_manager_pb2_grpc
 import csle_collector.kafka_manager.kafka_manager_pb2
 import csle_collector.kafka_manager.query_kafka_server
 import csle_collector.kafka_manager.kafka_manager_util
-import csle_collector.constants.constants as collector_constants
 from csle_common.util.emulation_util import EmulationUtil
 from csle_common.logging.log import Logger
 
@@ -27,23 +27,27 @@ class KafkaController:
         :param emulation_env_config: the emulation env config
         :return: None
         """
-
-        # Connect
-        EmulationUtil.connect_admin(emulation_env_config=emulation_env_config,
-                                    ip=emulation_env_config.kafka_config.container.docker_gw_bridge_ip,
-                                    create_producer=False)
-
         # Check if kafka_manager is already running
-        cmd = (constants.COMMANDS.PS_AUX + " | " + constants.COMMANDS.GREP + constants.COMMANDS.SPACE_DELIM +
-               constants.TRAFFIC_COMMANDS.KAFKA_MANAGER_FILE_NAME)
-        o, e, _ = EmulationUtil.execute_ssh_cmd(
-            cmd=cmd,
-            conn=emulation_env_config.get_connection(
-                ip=emulation_env_config.kafka_config.container.docker_gw_bridge_ip))
-
-        if constants.COMMANDS.SEARCH_KAFKA_MANAGER not in str(o):
+        status = None
+        not_running = False
+        try:
+            status = KafkaController.get_kafka_status_by_port_and_ip(
+                ip=emulation_env_config.kafka_config.container.docker_gw_bridge_ip,
+                port=emulation_env_config.kafka_config.kafka_manager_port, timeout=5)
+        except Exception:
+            not_running = True
+        status_str = ""
+        if status is None:
+            not_running = True
+        else:
+            status_str = f"running: {status.running}, topics: {status.topics}"
+        if not_running:
             Logger.__call__().get_logger().info(f"Starting the Kafka manager on node "
                                                 f"{emulation_env_config.kafka_config.container.docker_gw_bridge_ip}")
+            # Connect
+            EmulationUtil.connect_admin(emulation_env_config=emulation_env_config,
+                                        ip=emulation_env_config.kafka_config.container.docker_gw_bridge_ip,
+                                        create_producer=False)
 
             # Stop old background job if running
             cmd = (constants.COMMANDS.SUDO + constants.COMMANDS.SPACE_DELIM + constants.COMMANDS.PKILL +
@@ -64,6 +68,10 @@ class KafkaController:
                 conn=emulation_env_config.get_connection(
                     ip=emulation_env_config.kafka_config.container.docker_gw_bridge_ip))
             time.sleep(2)
+        else:
+            Logger.__call__().get_logger().info(f"The Kafka manager is already running on node "
+                                                f"{emulation_env_config.kafka_config.container.docker_gw_bridge_ip}. "
+                                                f"Status: {status_str}")
 
     @staticmethod
     def stop_kafka_manager(emulation_env_config: EmulationEnvConfig) -> None:
@@ -144,19 +152,21 @@ class KafkaController:
         return kafka_dto
 
     @staticmethod
-    def get_kafka_status_by_port_and_ip(ip: str, port: int) -> \
-            csle_collector.kafka_manager.kafka_manager_pb2.KafkaDTO:
+    def get_kafka_status_by_port_and_ip(
+            ip: str, port: int, timeout: int = collector_constants.GRPC.TIMEOUT_SECONDS) -> (
+            csle_collector.kafka_manager.kafka_manager_pb2.KafkaDTO):
         """
         Method for querying the KafkaManager about the status of the Kafka server
 
         :param ip: the ip where the KafkaManager is running
         :param port: the port the KafkaManager is listening to
+        :param timeout: int = collector_constants.GRPC.TIMEOUT_SECONDS
         :return: a KafkaDTO with the status of the server
         """
         # Open a gRPC session
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_collector.kafka_manager.kafka_manager_pb2_grpc.KafkaManagerStub(channel)
-            kafka_dto = csle_collector.kafka_manager.query_kafka_server.get_kafka_status(stub)
+            kafka_dto = csle_collector.kafka_manager.query_kafka_server.get_kafka_status(stub, timeout=timeout)
             return kafka_dto
 
     @staticmethod

@@ -16,7 +16,7 @@ class TestSnortIdsControllerSuite:
 
         :return: None
         """
-        logger = MagicMock()
+        self.logger = MagicMock()
         constants.CONTAINER_IMAGES.SNORT_IDS_IMAGES = ["container1", "container2"]
         container1 = MagicMock()
         container1.name = "container1"
@@ -37,7 +37,6 @@ class TestSnortIdsControllerSuite:
         emulation_env_config.execution_id = "12345"
         emulation_env_config.level = "1"
         self.emulation_env_config = emulation_env_config
-        self.logger = logger
 
     @patch("csle_common.controllers.snort_ids_controller.SnortIDSController.start_snort_ids")
     def test_start_snort_idses(self, mock_start_snort_ids) -> None:

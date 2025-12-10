@@ -3270,7 +3270,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                                                             emulation_name=request.emulation)
         if execution is not None:
             OSSECIDSController.stop_ossec_idses(emulation_env_config=execution.emulation_env_config,
-                                                physical_host_ip=GeneralUtil.get_host_ip())
+                                                physical_host_ip=GeneralUtil.get_host_ip(), logger=logging.getLogger())
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
@@ -3317,7 +3317,8 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
         if container_config is not None:
             OSSECIDSController.stop_ossec_ids(emulation_env_config=execution.emulation_env_config,
-                                              ip=container_config.docker_gw_bridge_ip)
+                                              ip=container_config.docker_gw_bridge_ip,
+                                              logger=logging.getLogger())
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
@@ -3342,7 +3343,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
         if container_config is not None:
             OSSECIDSController.start_ossec_ids(emulation_env_config=execution.emulation_env_config,
-                                               ip=container_config.docker_gw_bridge_ip)
+                                               ip=container_config.docker_gw_bridge_ip, logger=logging.getLogger())
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
@@ -3365,7 +3366,8 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is None:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         OSSECIDSController.start_ossec_idses_managers(emulation_env_config=execution.emulation_env_config,
-                                                      physical_server_ip=GeneralUtil.get_host_ip())
+                                                      physical_server_ip=GeneralUtil.get_host_ip(),
+                                                      logger=logging.getLogger())
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
@@ -3386,7 +3388,8 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is None:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         OSSECIDSController.stop_ossec_idses_managers(emulation_env_config=execution.emulation_env_config,
-                                                     physical_server_ip=GeneralUtil.get_host_ip())
+                                                     physical_server_ip=GeneralUtil.get_host_ip(),
+                                                     logger=logging.getLogger())
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
@@ -3409,7 +3412,8 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
         if container_config is not None:
             OSSECIDSController.start_ossec_ids_manager(emulation_env_config=execution.emulation_env_config,
-                                                       ip=container_config.docker_gw_bridge_ip)
+                                                       ip=container_config.docker_gw_bridge_ip,
+                                                       logger=logging.getLogger())
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
@@ -3435,7 +3439,8 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
         if container_config is not None:
             OSSECIDSController.stop_ossec_ids_manager(emulation_env_config=execution.emulation_env_config,
-                                                      ip=container_config.docker_gw_bridge_ip)
+                                                      ip=container_config.docker_gw_bridge_ip,
+                                                      logger=logging.getLogger())
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
@@ -3461,7 +3466,8 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
         if container_config is not None:
             OSSECIDSController.start_ossec_ids_monitor_thread(emulation_env_config=execution.emulation_env_config,
-                                                              ip=container_config.docker_gw_bridge_ip)
+                                                              ip=container_config.docker_gw_bridge_ip,
+                                                              logger=logging.getLogger())
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
@@ -3487,7 +3493,8 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
         if container_config is not None:
             OSSECIDSController.stop_ossec_ids_monitor_thread(emulation_env_config=execution.emulation_env_config,
-                                                             ip=container_config.docker_gw_bridge_ip)
+                                                             ip=container_config.docker_gw_bridge_ip,
+                                                             logger=logging.getLogger())
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:
@@ -3511,7 +3518,8 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is None:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         OSSECIDSController.stop_ossec_idses_monitor_threads(
-            emulation_env_config=execution.emulation_env_config, physical_server_ip=GeneralUtil.get_host_ip())
+            emulation_env_config=execution.emulation_env_config, physical_server_ip=GeneralUtil.get_host_ip(),
+            logger=logging.getLogger())
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
@@ -3532,7 +3540,8 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
                                                             emulation_name=request.emulation)
         if execution is not None:
             status_dtos = OSSECIDSController.get_ossec_idses_monitor_threads_statuses(
-                emulation_env_config=execution.emulation_env_config, physical_server_ip=GeneralUtil.get_host_ip())
+                emulation_env_config=execution.emulation_env_config, physical_server_ip=GeneralUtil.get_host_ip(),
+                logger=logging.getLogger())
             status_dtos = list(
                 map(lambda x: ClusterManagerUtil.convert_ossec_ids_monitor_dto_to_ossec_ids_status_dto(x),
                     status_dtos))

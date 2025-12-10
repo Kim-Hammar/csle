@@ -62,20 +62,22 @@ class HostController:
         :param logger: the logger to use for logging
         :return: None
         """
-        # Connect
-        EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ip)
-
         # Check if host_manager is already running
         status = None
+        not_running = False
         try:
             status = HostController.get_host_monitor_thread_status_by_port_and_ip(
                 ip=ip, port=emulation_env_config.host_manager_config.host_manager_port, timeout=5)
         except Exception:
-            pass
-        cmd = (constants.COMMANDS.PS_AUX + " | " + constants.COMMANDS.GREP +
-               constants.COMMANDS.SPACE_DELIM + constants.TRAFFIC_COMMANDS.HOST_MANAGER_FILE_NAME)
-        o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd,
-                                                conn=emulation_env_config.get_connection(ip=ip))
+            not_running = True
+        status_str = ""
+        if status is None:
+            not_running = True
+        else:
+            status_str = (f"Monitor running: {status.monitor_running}, filebeat running: {status.filebeat_running},"
+                          f" packetbeat running: {status.packetbeat_running}, "
+                          f"metricbeat running: {status.metricbeat_running}, "
+                          f"heartbeat running: {status.heartbeat_running}")
 
         # Extract container name for logging
         container = emulation_env_config.containers_config.get_container_from_ip(ip)
@@ -83,15 +85,10 @@ class HostController:
         if container is not None:
             alt_str = f"{container.get_ips()[0]}, {container.get_full_name()}"
 
-        if constants.COMMANDS.SEARCH_HOST_MANAGER not in str(o):
-            status_str = "-"
-            if status is not None:
-                status_str = (f"Monitor running: {status.monitor_running}, filebeat running: {status.filebeat_running},"
-                              f" packetbeat running: {status.packetbeat_running}, "
-                              f"metricbeat running: {status.metricbeat_running}, "
-                              f"heartbeat running: {status.heartbeat_running}")
-            logger.info(f"Host manager is not running on: {ip} ({alt_str}), starting it. Output of {cmd} "
-                        f"was: {str(o)}, err output was: {str(e)}, status: {status_str}")
+        if not_running:
+            logger.info(f"Host manager is not running on: {ip} ({alt_str}), starting it.")
+            # Connect
+            EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ip)
 
             # Stop old background job if running
             cmd = (constants.COMMANDS.SUDO + constants.COMMANDS.SPACE_DELIM + constants.COMMANDS.PKILL +
@@ -107,10 +104,9 @@ class HostController:
                 emulation_env_config.host_manager_config.host_manager_max_workers)
             o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd,
                                                     conn=emulation_env_config.get_connection(ip=ip))
-            time.sleep(10)
+            time.sleep(2)
         else:
-            logger.info(f"Host manager is already running on: {ip} ({alt_str}). Output of {cmd} was: {str(o)}, "
-                        f"err output was: {str(e)}")
+            logger.info(f"Host manager is already running on: {ip} ({alt_str}). Status: {status_str}")
 
     @staticmethod
     def stop_host_managers(emulation_env_config: EmulationEnvConfig, physical_host_ip: str) -> None:
