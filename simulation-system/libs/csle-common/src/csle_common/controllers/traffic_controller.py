@@ -39,7 +39,6 @@ class TrafficController:
         for node_traffic_config in emulation_env_config.traffic_config.node_traffic_configs:
             if node_traffic_config.physical_host_ip != physical_server_ip:
                 continue
-            # Connect
             TrafficController.start_traffic_manager(emulation_env_config=emulation_env_config,
                                                     node_traffic_config=node_traffic_config,
                                                     logger=logger)

@@ -4,7 +4,7 @@ import csle_collector.host_manager.host_manager_pb2_grpc
 import csle_collector.host_manager.query_host_manager
 
 if __name__ == '__main__':
-    ip = "172.18.0.36"
+    ip = "172.18.0.6"
     port = 50049
 
     with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
