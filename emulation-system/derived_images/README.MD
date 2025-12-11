@@ -142,7 +142,11 @@ generate containers for emulating various network infrastructures.
 - `cloud_ran_du_1` ([cloud_ran_du_1](./cloud_ran_du_1)): an image with srsRAN distributed unit (DU)
     - OS: Ubuntu:22.
     - Inherits from `cloud_ran_base`.
-    - Services: srsRAN DU, SSH.  
+    - Services: srsRAN DU, SSH.
+- `cloud_ran_cu_1` ([cloud_ran_cu_1](./cloud_ran_cu_1)): an image with srsRAN centralized unit (CU)
+    - OS: Ubuntu:22.
+    - Inherits from `cloud_ran_base`.
+    - Services: srsRAN CU, SSH.
 
 ## Useful commands
 
@@ -187,6 +191,7 @@ make kafka_1 # Build kafka_1
 make spark_1 # Build spark_1
 make 5g_core_1 # Build 5g_core_1
 make cloud_ran_du_1 # Build cloud_ran_du_1
+make cloud_ran_cu_1 # Build cloud_ran_cu_1
 
 make rm_samba_1 # Remove samba_1
 make rm_shellshock_1 # Remove shellshock_1
@@ -222,6 +227,7 @@ make rm_kafka_1 # Remove kafka_1
 make rm_spark_1 # Remove spark_1
 make rm_5g_core_1 # Remove 5g_core_1
 make rm_cloud_ran_du_1 # Remove cloud_ran_du_1
+make rm_cloud_ran_cu_1 # Remove cloud_ran_cu_1
 
 make push_samba_1 # Push samba_1 to DockerHub
 make push_shellshock_1 # Push shellshock_1 to DockerHub
@@ -256,6 +262,7 @@ make push_kafka_1 # Push kafka_1 to DockerHub
 make push_spark_1 # Push spark_1 to DockerHub
 make push_5g_core_1 # Push 5g_core_1 to DockerHub
 make push_cloud_ran_du_1 # Push cloud_ran_du_1 to DockerHub
+make push_cloud_ran_cu_1 # Push cloud_ran_cu_1 to DockerHub
 
 make pull_samba_1 # pull samba_1 from DockerHub
 make pull_shellshock_1 # pull shellshock_1 from DockerHub
@@ -290,6 +297,7 @@ make pull_kafka_1 # pull kafka_1 from DockerHub
 make pull_spark_1 # pull spark_1 from DockerHub
 make pull_5g_core_1 # pull 5g_core_1 from DockerHub
 make pull_cloud_ran_du_1 # pull cloud_ran_du_1 from DockerHub
+make pull_cloud_ran_cu_1 # pull cloud_ran_cu_1 from DockerHub
 
 docker container ls --all # list all running containers
 docker image ls --all # list all images
