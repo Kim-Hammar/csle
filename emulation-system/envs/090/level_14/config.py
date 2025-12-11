@@ -2207,9 +2207,8 @@ def default_topology_config(network_id: int) -> TopologyConfig:
                 )
             ),
             DefaultNetworkFirewallConfig(
-                ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
-                   f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}.41",
-                default_gw=None,
+                ip=None,
+                default_gw=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.2.10",
                 default_input=constants.FIREWALL.ACCEPT,
                 default_output=constants.FIREWALL.ACCEPT,
                 default_forward=constants.FIREWALL.ACCEPT,

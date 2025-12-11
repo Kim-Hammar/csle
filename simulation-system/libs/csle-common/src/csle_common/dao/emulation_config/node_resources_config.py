@@ -1,4 +1,4 @@
-from typing import List, Tuple, Dict, Any
+from typing import List, Tuple, Dict, Any, Sequence, Optional
 from csle_common.dao.emulation_config.node_network_config import NodeNetworkConfig
 from csle_common.util.general_util import GeneralUtil
 from csle_base.json_serializable import JSONSerializable
@@ -11,7 +11,7 @@ class NodeResourcesConfig(JSONSerializable):
 
     def __init__(self, container_name: str,
                  num_cpus: int, available_memory_gb: int,
-                 ips_and_network_configs: List[Tuple[str, NodeNetworkConfig]],
+                 ips_and_network_configs: Sequence[Tuple[str, Optional[NodeNetworkConfig]]],
                  docker_gw_bridge_ip: str = "", physical_host_ip: str = "",
                  disk_space_gb: int = 100):
         """
