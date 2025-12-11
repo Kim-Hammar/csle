@@ -369,6 +369,7 @@ class EmulationEnvController:
                   f"-e TZ=Europe/Stockholm " \
                   f"--label emulation={emulation_env_config.name} --network=none --publish-all=true " \
                   f"--memory={container_resources.available_memory_gb}G --cpus={container_resources.num_cpus} " \
+                  f"--storage-opt size={container_resources.disk_space_gb}G " \
                   f"--restart={c.restart_policy} --cap-add NET_ADMIN --cap-add=SYS_NICE --privileged " \
                   f"{constants.CONTAINER_IMAGES.DOCKERHUB_USERNAME}/{c.name}:{c.version}"
             logger.info(f"Starting container:{name} with cmd: {cmd}")
