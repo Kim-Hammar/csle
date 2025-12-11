@@ -44,6 +44,10 @@ class TestOssecIdsSuite:
         emulation_env_config.ossec_ids_manager_config.ossec_ids_manager_port = 1515
         self.emulation_env_config = emulation_env_config
         self.logger = MagicMock(spec=logging.Logger)
+        mock_ossec_ids_status = MagicMock()
+        mock_ossec_ids_status.monitor_running = True
+        mock_ossec_ids_status.ossec_ids_running = False
+        self.mock_ossec_ids_status = mock_ossec_ids_status
 
     @patch("csle_common.controllers.ossec_ids_controller.OSSECIDSController.stop_ossec_ids")
     def test_stop_ossec_idses(self, mock_stop_ossec_ids) -> None:
@@ -59,7 +63,7 @@ class TestOssecIdsSuite:
         ]
         physical_host_ip = self.emulation_env_config.containers_config.containers[0].physical_host_ip
         OSSECIDSController.stop_ossec_idses(emulation_env_config=self.emulation_env_config,
-                                            physical_host_ip=physical_host_ip)
+                                            physical_host_ip=physical_host_ip, logger=self.logger)
         assert mock_stop_ossec_ids.call_count == 2
 
     @patch("csle_common.controllers.ossec_ids_controller.OSSECIDSController.start_ossec_ids")
@@ -103,15 +107,17 @@ class TestOssecIdsSuite:
         :param mock_start_manager: mock start_manager
         :return: None
         """
-        mock_get_monitor_status.return_value.ossec_ids_running = False
+        mock_get_monitor_status.return_value = self.mock_ossec_ids_status
         mock_channel = MagicMock()
         mock_insecure_channel.return_value.__enter__.return_value = mock_channel
         ip = "192.168.1.10"
-        OSSECIDSController.start_ossec_ids(emulation_env_config=self.emulation_env_config, ip=ip)
-        mock_start_manager.assert_called_once_with(emulation_env_config=self.emulation_env_config, ip=ip)
-        mock_get_monitor_status.assert_called_once_with(port=1515, ip=ip)
+        OSSECIDSController.start_ossec_ids(emulation_env_config=self.emulation_env_config, ip=ip, logger=self.logger)
+        mock_start_manager.assert_called_once_with(emulation_env_config=self.emulation_env_config, ip=ip,
+                                                   logger=self.logger)
+        mock_get_monitor_status.assert_called_once_with(
+            port=self.emulation_env_config.ossec_ids_manager_config.ossec_ids_manager_port, ip=ip)
         mock_insecure_channel.assert_called_once_with(f"{ip}:1515", options=constants.GRPC_SERVERS.GRPC_OPTIONS)
-        mock_logger.__call__().get_logger().info.assert_called_once_with(f"Starting OSSEC IDS on {ip}.")
+        self.logger.info.assert_called_once_with(f"Starting OSSEC IDS on {ip}.")
 
     @patch("csle_common.controllers.ossec_ids_controller.OSSECIDSController.start_ossec_ids_manager")
     @patch(
@@ -132,8 +138,9 @@ class TestOssecIdsSuite:
         mock_channel = MagicMock()
         mock_insecure_channel.return_value.__enter__.return_value = mock_channel
         ip = "192.168.1.10"
-        OSSECIDSController.start_ossec_ids(emulation_env_config=self.emulation_env_config, ip=ip)
-        mock_start_manager.assert_called_once_with(emulation_env_config=self.emulation_env_config, ip=ip)
+        OSSECIDSController.start_ossec_ids(emulation_env_config=self.emulation_env_config, ip=ip, logger=self.logger)
+        mock_start_manager.assert_called_once_with(emulation_env_config=self.emulation_env_config, ip=ip,
+                                                   logger=self.logger)
         mock_get_monitor_status.assert_called_once_with(port=1515, ip=ip)
 
     @patch("csle_common.controllers.ossec_ids_controller.OSSECIDSController.start_ossec_ids_manager")
@@ -152,7 +159,7 @@ class TestOssecIdsSuite:
         physical_server_ip = self.emulation_env_config.containers_config.containers[0].physical_host_ip
         OSSECIDSController.start_ossec_idses_managers(
             emulation_env_config=self.emulation_env_config,
-            physical_server_ip=physical_server_ip)
+            physical_server_ip=physical_server_ip, logger=self.logger)
         assert mock_start_manager.call_count == 2
 
     @patch("csle_common.util.emulation_util.EmulationUtil.connect_admin")
@@ -170,7 +177,8 @@ class TestOssecIdsSuite:
         ip = "192.168.1.10"
         mock_execute_ssh_cmd.return_value = ("ossec_ids_manager running", "", 0)
         constants.COMMANDS.SEARCH_OSSEC_IDS_MANAGER = "ossec_ids_manager running"
-        OSSECIDSController.start_ossec_ids_manager(emulation_env_config=self.emulation_env_config, ip=ip)
+        OSSECIDSController.start_ossec_ids_manager(emulation_env_config=self.emulation_env_config, ip=ip,
+                                                   logger=self.logger)
         mock_execute_ssh_cmd.assert_called()
         mock_connect_admin.assert_called()
 
@@ -190,7 +198,7 @@ class TestOssecIdsSuite:
         ]
         physical_server_ip = self.emulation_env_config.containers_config.containers[0].physical_host_ip
         OSSECIDSController.stop_ossec_idses_managers(emulation_env_config=self.emulation_env_config,
-                                                     physical_server_ip=physical_server_ip)
+                                                     physical_server_ip=physical_server_ip, logger=self.logger)
         assert mock_stop_manager.call_count == 2
 
     @patch("csle_common.util.emulation_util.EmulationUtil.connect_admin")
@@ -207,7 +215,8 @@ class TestOssecIdsSuite:
         """
         ip = "192.168.1.10"
         mock_execute_ssh_cmd.return_value = ("ossec_ids_manager running", "", 0)
-        OSSECIDSController.stop_ossec_ids_manager(emulation_env_config=self.emulation_env_config, ip=ip)
+        OSSECIDSController.stop_ossec_ids_manager(emulation_env_config=self.emulation_env_config, ip=ip,
+                                                  logger=self.logger)
         mock_execute_ssh_cmd.assert_called()
         mock_connect_admin.assert_called()
 
@@ -227,7 +236,7 @@ class TestOssecIdsSuite:
                                                              physical_server_ip=physical_server_ip,
                                                              logger=self.logger)
         mock_start_managers.assert_called_once_with(emulation_env_config=self.emulation_env_config,
-                                                    physical_server_ip=physical_server_ip)
+                                                    physical_server_ip=physical_server_ip, logger=self.logger)
         assert mock_start_monitor.call_count == 2
 
     @patch("csle_common.controllers.ossec_ids_controller.OSSECIDSController.start_ossec_ids_manager")
@@ -251,8 +260,10 @@ class TestOssecIdsSuite:
         mock_channel = MagicMock()
         mock_insecure_channel.return_value.__enter__.return_value = mock_channel
         ip = "192.168.1.10"
-        OSSECIDSController.start_ossec_ids_monitor_thread(emulation_env_config=self.emulation_env_config, ip=ip)
-        mock_start_manager.assert_called_once_with(emulation_env_config=self.emulation_env_config, ip=ip)
+        OSSECIDSController.start_ossec_ids_monitor_thread(emulation_env_config=self.emulation_env_config, ip=ip,
+                                                          logger=self.logger)
+        mock_start_manager.assert_called_once_with(emulation_env_config=self.emulation_env_config, ip=ip,
+                                                   logger=self.logger)
         mock_get_monitor_status.assert_called_once_with(port=1515, ip=ip)
 
     @patch("csle_common.controllers.ossec_ids_controller.OSSECIDSController.stop_ossec_ids_monitor_thread")
@@ -268,7 +279,7 @@ class TestOssecIdsSuite:
         constants.CONTAINER_IMAGES.OSSEC_IDS_IMAGES = ["container-1", "container-2"]
         physical_server_ip = "192.168.1.10"
         OSSECIDSController.stop_ossec_idses_monitor_threads(
-            emulation_env_config=self.emulation_env_config, physical_server_ip=physical_server_ip)
+            emulation_env_config=self.emulation_env_config, physical_server_ip=physical_server_ip, logger=self.logger)
         assert mock_stop_monitor.call_count == 2
 
     @patch("csle_common.controllers.ossec_ids_controller.OSSECIDSController.start_ossec_ids_manager")
@@ -284,8 +295,10 @@ class TestOssecIdsSuite:
         mock_channel = MagicMock()
         mock_insecure_channel.return_value.__enter__.return_value = mock_channel
         ip = "192.168.1.10"
-        OSSECIDSController.stop_ossec_ids_monitor_thread(emulation_env_config=self.emulation_env_config, ip=ip)
-        mock_start_manager.assert_called_once_with(emulation_env_config=self.emulation_env_config, ip=ip)
+        OSSECIDSController.stop_ossec_ids_monitor_thread(emulation_env_config=self.emulation_env_config, ip=ip,
+                                                         logger=self.logger)
+        mock_start_manager.assert_called_once_with(emulation_env_config=self.emulation_env_config, ip=ip,
+                                                   logger=self.logger)
 
     @patch("csle_common.controllers.ossec_ids_controller.OSSECIDSController.start_ossec_idses_managers")
     @patch("grpc.insecure_channel")
@@ -304,9 +317,9 @@ class TestOssecIdsSuite:
         constants.CONTAINER_IMAGES = MagicMock()  # type: ignore
         constants.CONTAINER_IMAGES.OSSEC_IDS_IMAGES = ["container-1", "container-2"]
         OSSECIDSController.get_ossec_idses_monitor_threads_statuses(
-            emulation_env_config=self.emulation_env_config, physical_server_ip=physical_server_ip)
+            emulation_env_config=self.emulation_env_config, physical_server_ip=physical_server_ip, logger=self.logger)
         mock_start_managers.assert_called_once_with(
-            emulation_env_config=self.emulation_env_config, physical_server_ip=physical_server_ip)
+            emulation_env_config=self.emulation_env_config, physical_server_ip=physical_server_ip, logger=self.logger)
 
     def test_get_ossec_idses_managers_ips(self) -> None:
         """

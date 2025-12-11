@@ -103,7 +103,6 @@ class PACKETBEAT:
     """
     Constants related to Packetbeat
     """
-    FILEBEAT_GROUP_ID = "packetbeat"
     CONFIG_DIR = "/etc/packetbeat/"
     CONFIG_FILE = "/etc/packetbeat/packetbeat.yml"
     SETUP_CMD = "packetbeat setup -e"

@@ -40,7 +40,7 @@ class TestKafkaControllerSuite:
         mock_execute_ssh_cmd.assert_called()
         KafkaController.stop_kafka_manager(emulation_env_config)
         assert 2 == mock_connect_admin.call_count
-        assert 4 == mock_execute_ssh_cmd.call_count
+        assert 3 == mock_execute_ssh_cmd.call_count
 
     @patch("csle_collector.kafka_manager.query_kafka_server.create_topic")
     @patch("csle_collector.kafka_manager.query_kafka_server.start_kafka")
@@ -144,10 +144,11 @@ class TestKafkaControllerSuite:
         mock_get_kafka_status.return_value = expected_kafka_dto
         ip = "172.17.0.1"
         port = 5601
-        result = KafkaController.get_kafka_status_by_port_and_ip(ip, port)
+        timeout = 5
+        result = KafkaController.get_kafka_status_by_port_and_ip(ip=ip, port=port, timeout=timeout)
         mock_insecure_channel.assert_called_once_with(f"{ip}:{port}", options=constants.GRPC_SERVERS.GRPC_OPTIONS)
         mock_KafkaManagerStub.assert_called_once_with(mock_channel)
-        mock_get_kafka_status.assert_called_once_with(mock_stub)
+        mock_get_kafka_status.assert_called_once_with(mock_stub, timeout=timeout)
         assert result == expected_kafka_dto
 
     @patch("csle_common.controllers.kafka_controller.KafkaController.start_kafka_manager")

@@ -2088,6 +2088,7 @@ class ClusterManagerUtil:
                 raise Exception("Could not read remote file")
         finally:
             remote_file.close()
+        execution.emulation_env_config.close_all_connections()
         return cluster_manager_pb2.LogsDTO(logs=data)
 
     @staticmethod

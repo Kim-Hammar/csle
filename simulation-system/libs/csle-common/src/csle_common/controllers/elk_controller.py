@@ -9,6 +9,7 @@ import csle_collector.elk_manager.elk_manager_pb2_grpc
 import csle_collector.elk_manager.elk_manager_pb2
 import csle_collector.elk_manager.query_elk_manager
 import csle_collector.elk_manager.elk_manager_util
+import csle_collector.constants.constants as collector_constants
 from csle_common.util.emulation_util import EmulationUtil
 
 
@@ -26,22 +27,29 @@ class ELKController:
         :param logger: the logger to use for logging
         :return: None
         """
-
-        # Connect
-        EmulationUtil.connect_admin(emulation_env_config=emulation_env_config,
-                                    ip=emulation_env_config.elk_config.container.docker_gw_bridge_ip,
-                                    create_producer=False)
-
         # Check if elk_manager is already running
-        cmd = (constants.COMMANDS.PS_AUX + " | " + constants.COMMANDS.GREP + constants.COMMANDS.SPACE_DELIM +
-               constants.TRAFFIC_COMMANDS.ELK_MANAGER_FILE_NAME)
-        o, e, _ = EmulationUtil.execute_ssh_cmd(
-            cmd=cmd,
-            conn=emulation_env_config.get_connection(ip=emulation_env_config.elk_config.container.docker_gw_bridge_ip))
-
-        if constants.COMMANDS.SEARCH_ELK_MANAGER not in str(o):
+        status = None
+        not_running = False
+        try:
+            status = ELKController.get_elk_status_by_port_and_ip(
+                ip=emulation_env_config.elk_config.container.docker_gw_bridge_ip,
+                port=emulation_env_config.elk_config.elk_manager_port, timeout=5)
+        except Exception:
+            not_running = True
+        status_str = ""
+        if status is None:
+            not_running = True
+        else:
+            status_str = (f"Elasticrunning: {status.elasticRunning}, kibanaRunning: {status.kibanaRunning}, "
+                          f"logstashRunning: {status.logstashRunning}")
+        if not_running:
             logger.info(f"Starting elk manager on node: "
                         f"{emulation_env_config.elk_config.container.docker_gw_bridge_ip}")
+
+            # Connect
+            EmulationUtil.connect_admin(emulation_env_config=emulation_env_config,
+                                        ip=emulation_env_config.elk_config.container.docker_gw_bridge_ip,
+                                        create_producer=False)
 
             # Stop old background job if running
             cmd = (constants.COMMANDS.SUDO + constants.COMMANDS.SPACE_DELIM + constants.COMMANDS.PKILL +
@@ -61,6 +69,9 @@ class ELKController:
                 conn=emulation_env_config.get_connection(
                     ip=emulation_env_config.elk_config.container.docker_gw_bridge_ip))
             time.sleep(2)
+        else:
+            logger.info(f"ELK manager already running on node: "
+                        f"{emulation_env_config.elk_config.container.docker_gw_bridge_ip}. Status: {status_str}")
 
     @staticmethod
     def stop_elk_manager(emulation_env_config: EmulationEnvConfig, logger: logging.Logger) -> None:
@@ -105,19 +116,20 @@ class ELKController:
         return elk_dto
 
     @staticmethod
-    def get_elk_status_by_port_and_ip(ip: str, port: int) -> \
+    def get_elk_status_by_port_and_ip(ip: str, port: int, timeout: int = collector_constants.GRPC.TIMEOUT_SECONDS) -> \
             csle_collector.elk_manager.elk_manager_pb2.ElkDTO:
         """
         Method for querying the ElkManager about the status of the ELK stack
 
         :param ip: the ip where the ElkManager is running
         :param port: the port the ELkManager is listening to
+        :param timeout: the timeout of the GRPC query
         :return: an ELKDTO with the status of the server
         """
         # Open a gRPC session
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_collector.elk_manager.elk_manager_pb2_grpc.ElkManagerStub(channel)
-            elk_dto = csle_collector.elk_manager.query_elk_manager.get_elk_status(stub)
+            elk_dto = csle_collector.elk_manager.query_elk_manager.get_elk_status(stub, timeout=timeout)
             return elk_dto
 
     @staticmethod

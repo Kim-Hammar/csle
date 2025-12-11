@@ -141,16 +141,26 @@ class SnortIDSController:
         :param logger: the logger to use for logging
         :return: None
         """
-        # Connect
-        EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ip)
-
         # Check if ids_manager is already running
-        cmd = (constants.COMMANDS.PS_AUX + " | " + constants.COMMANDS.GREP + constants.COMMANDS.SPACE_DELIM +
-               constants.TRAFFIC_COMMANDS.SNORT_IDS_MANAGER_FILE_NAME)
-        o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd, conn=emulation_env_config.get_connection(ip=ip))
+        status = None
+        not_running = False
+        try:
+            status = SnortIDSController.get_snort_idses_monitor_threads_statuses_by_ip_and_port(
+                ip=ip,
+                port=emulation_env_config.snort_ids_manager_config.snort_ids_manager_port, timeout=5)
+        except Exception:
+            not_running = True
+        status_str = ""
+        if status is None:
+            not_running = True
+        else:
+            status_str = f"monitor running: {status.monitor_running}, snort_ids_running: {status.snort_ids_running}"
 
-        if constants.COMMANDS.SEARCH_SNORT_IDS_MANAGER not in str(o):
+        if not_running:
             logger.info(f"Starting Snort IDS manager on node {ip}")
+
+            # Connect
+            EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ip)
 
             # Stop old background job if running
             cmd = (constants.COMMANDS.SUDO + constants.COMMANDS.SPACE_DELIM + constants.COMMANDS.PKILL +
@@ -167,6 +177,8 @@ class SnortIDSController:
             o, e, _ = EmulationUtil.execute_ssh_cmd(
                 cmd=cmd, conn=emulation_env_config.get_connection(ip=ip))
             time.sleep(2)
+        else:
+            logger.info(f"The Snort IDS manager was already running on node {ip}. Status: {status_str}")
 
     @staticmethod
     def stop_snort_managers(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
@@ -333,21 +345,23 @@ class SnortIDSController:
         return statuses
 
     @staticmethod
-    def get_snort_idses_monitor_threads_statuses_by_ip_and_port(port: int, ip: str) \
-            -> csle_collector.snort_ids_manager.snort_ids_manager_pb2.SnortIdsMonitorDTO:
+    def get_snort_idses_monitor_threads_statuses_by_ip_and_port(
+            port: int, ip: str, timeout: int = csle_collector_constants.GRPC.TIMEOUT_SECONDS) -> (
+            csle_collector.snort_ids_manager.snort_ids_manager_pb2.SnortIdsMonitorDTO):
         """
         A method that sends a request to the SnortIDSManager with a specific port and ip
         to get the status of the IDS monitor thread
 
         :param port: the port of the SnortIDSManager
         :param ip: the ip of the SnortIDSManager
+        :param timeout: the timeout of the GRPC query
         :return: the status of the SnortIDSManager
         """
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_collector.snort_ids_manager.snort_ids_manager_pb2_grpc.SnortIdsManagerStub(channel)
             status = \
                 csle_collector.snort_ids_manager.query_snort_ids_manager.get_snort_ids_monitor_status(
-                    stub=stub)
+                    stub=stub, timeout=timeout)
             return status
 
     @staticmethod

@@ -41,7 +41,7 @@ class TestElkControllerSuite:
         mock_execute_ssh_cmd.assert_called()
         ELKController.stop_elk_manager(emulation_env_config, logger)
         assert 2 == mock_connect_admin.call_count
-        assert 4 == mock_execute_ssh_cmd.call_count
+        assert 3 == mock_execute_ssh_cmd.call_count
 
     @patch("csle_common.controllers.elk_controller.ELKController.start_elk_manager")
     @patch("csle_common.controllers.elk_controller.ELKController.get_elk_status_by_port_and_ip")
@@ -86,10 +86,11 @@ class TestElkControllerSuite:
         mock_get_elk_status.return_value = expected_elk_dto
         ip = "172.17.0.1"
         port = 5601
-        result = ELKController.get_elk_status_by_port_and_ip(ip, port)
+        timeout = 5
+        result = ELKController.get_elk_status_by_port_and_ip(ip, port, timeout=timeout)
         mock_insecure_channel.assert_called_once_with(f"{ip}:{port}", options=constants.GRPC_SERVERS.GRPC_OPTIONS)
         mock_ElkManagerStub.assert_called_once_with(mock_channel)
-        mock_get_elk_status.assert_called_once_with(mock_stub)
+        mock_get_elk_status.assert_called_once_with(mock_stub, timeout=timeout)
         assert result == expected_elk_dto
 
     @patch("csle_collector.elk_manager.query_elk_manager.stop_elk")

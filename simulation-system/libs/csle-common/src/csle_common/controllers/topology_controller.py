@@ -22,7 +22,8 @@ class TopologyController:
         """
         logger.info("Creating topology")
         topology_configs = emulation_env_config.topology_config.node_configs
-        topology_configs = topology_configs + [emulation_env_config.kafka_config.firewall_config]
+        topology_configs = topology_configs + [emulation_env_config.kafka_config.firewall_config,
+                                               emulation_env_config.elk_config.firewall_config]
         if emulation_env_config.sdn_controller_config is not None:
             topology_configs = topology_configs + [emulation_env_config.sdn_controller_config.firewall_config]
         for node_fw_config in topology_configs:
