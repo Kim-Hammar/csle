@@ -19,6 +19,10 @@ There are several versions and difficulty levels of the minigame. Specifically:
 - *Level 10* [./level_10](level_10): An infrastructure with 16 nodes and several vulnerabilities: SambaCry, Shellshock, CVE-2015-1427, CVE-2015-3306, CVE-2016-100033_1,and SQL injection., Pengine Server RCE Exploit, as well as SSH, FTP, Telnet servers that can be compromised using dictionary attacks
 - *Level 11* [./level_11](level_11): A complex infrastructure with 36 nodes and and several vulnerabilities: SambaCry, Shellshock, CVE-2015-1427, CVE-2015-3306, CVE-2016-100033_1, SQL injection, and brute-force vulnerabilities. Further, the infrastructure has IDS monitoring
 - *Level 12* [./level_12](level_12): A simple software-defined networking environment
+- *Level 13* [./level_13](level_13): A segmented large-scale IT infrastructure with 64 nodes
+- *Level 14* [./level_14](level_14): A flat IT infrastructure wit 17 nodes and software-defined networking
+- *Level 15* [./level_15](level_15): A system with a single router and server
+- *Level 16* [./level_16](level_16): A cloud RAN emulation
     
   
 ## Author & Maintainer

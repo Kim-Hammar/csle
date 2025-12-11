@@ -44,6 +44,9 @@ install_level_14:
 install_level_15:
 	cd 090/level_15/ && $(MAKE) install
 
+install_level_16:
+	cd 090/level_16/ && $(MAKE) install
+
 # Installs all emulations
 install:
 	cd 090/level_1/ && $(MAKE) install
@@ -61,6 +64,7 @@ install:
 	cd 090/level_13/ && $(MAKE) install
 	cd 090/level_14/ && $(MAKE) install
 	cd 090/level_15/ && $(MAKE) install
+	cd 090/level_16/ && $(MAKE) install
 
 # Targets for uninstalling each individual env
 uninstall_level_1:
@@ -108,6 +112,9 @@ uninstall_level_14:
 uninstall_level_15:
 	cd 090/level_15/ && $(MAKE) uninstall
 
+uninstall_level_16:
+	cd 090/level_16/ && $(MAKE) uninstall
+
 # Uninstalls all emulations
 uninstall:
 	cd 090/level_1/ && $(MAKE) uninstall
@@ -125,67 +132,4 @@ uninstall:
 	cd 090/level_13/ && $(MAKE) uninstall
 	cd 090/level_14/ && $(MAKE) uninstall
 	cd 090/level_15/ && $(MAKE) uninstall
-
-# Targets for cleaning the config each individual env
-clean_config_level_1:
-	cd 090/level_1/ && $(MAKE) clean_config
-
-clean_config_level_2:
-	cd 090/level_2/ && $(MAKE) clean_config
-
-clean_config_level_3:
-	cd 090/level_3/ && $(MAKE) clean_config
-
-clean_config_level_4:
-	cd 090/level_4/ && $(MAKE) clean_config
-
-clean_config_level_5:
-	cd 090/level_5/ && $(MAKE) clean_config
-
-clean_config_level_6:
-	cd 090/level_6/ && $(MAKE) clean_config
-
-clean_config_level_7:
-	cd 090/level_7/ && $(MAKE) clean_config
-
-clean_config_level_8:
-	cd 090/level_8/ && $(MAKE) clean_config
-
-clean_config_level_9:
-	cd 090/level_9/ && $(MAKE) clean_config
-
-clean_config_level_10:
-	cd 090/level_10/ && $(MAKE) clean_config
-
-clean_config_level_11:
-	cd 090/level_11/ && $(MAKE) clean_config
-
-clean_config_level_12:
-	cd 090/level_12/ && $(MAKE) clean_config
-
-clean_config_level_13:
-	cd 090/level_13/ && $(MAKE) clean_config
-
-clean_config_level_14:
-	cd 090/level_14/ && $(MAKE) clean_config
-
-clean_config_level_15:
-	cd 090/level_15/ && $(MAKE) clean_config
-
-# Cleans the materialized configuration of each emulation
-clean_config:
-	cd 080/level_1/ && $(MAKE) clean_config
-	cd 080/level_2/ && $(MAKE) clean_config
-	cd 080/level_3/ && $(MAKE) clean_config
-	cd 080/level_4/ && $(MAKE) clean_config
-	cd 080/level_5/ && $(MAKE) clean_config
-	cd 080/level_6/ && $(MAKE) clean_config
-	cd 080/level_7/ && $(MAKE) clean_config
-	cd 080/level_8/ && $(MAKE) clean_config
-	cd 080/level_9/ && $(MAKE) clean_config
-	cd 080/level_10/ && $(MAKE) clean_config
-	cd 080/level_11/ && $(MAKE) clean_config
-	cd 080/level_12/ && $(MAKE) clean_config
-	cd 080/level_13/ && $(MAKE) clean_config
-	cd 080/level_14/ && $(MAKE) clean_config
-	cd 080/level_15/ && $(MAKE) clean_config
+	cd 090/level_16/ && $(MAKE) uninstall

@@ -31,11 +31,6 @@ This folder contains emulation environments.
   make uninstall
    ```
 
-- Clean the configuration of all emulations:
-  ```bash
-  make clean_config
-   ```
-
 ## Author & Maintainer
 
 Kim Hammar <kimham@kth.se>
