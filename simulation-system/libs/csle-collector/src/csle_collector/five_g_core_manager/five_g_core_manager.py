@@ -6,6 +6,7 @@ from concurrent import futures
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2
 import csle_collector.constants.constants as constants
+from csle_collector.five_g_core_manager.five_core_manager_util import FiveGCoreManagerUtil
 
 
 class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.
@@ -40,11 +41,29 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :param context: the gRPC context
         :return: a DTO with the status of the 5g core
         """
+        status = FiveGCoreManagerUtil.get_script_status_map(
+            control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
-            mongo_running=False, mme_running=False, sgwc_running=False, smf_running=False, amf_running=False,
-            sgwu_running=False, upf_running=False, hss_running=False, pcrf_running=False, nrf_running=False,
-            scp_running=False, sepp_running=False, ausf_running=False, udm_running=False, pcf_running=False,
-            nssf_running=False, bsf_running=False, udr_running=False, webui_running=False, ip=self.ip
+            mongo_running=status.get(constants.FIVE_G_CORE.MONGO, False),
+            mme_running=status.get(constants.FIVE_G_CORE.MME, False),
+            sgwc_running=status.get(constants.FIVE_G_CORE.SGWC, False),
+            smf_running=status.get(constants.FIVE_G_CORE.SMF, False),
+            amf_running=status.get(constants.FIVE_G_CORE.AMF, False),
+            sgwu_running=status.get(constants.FIVE_G_CORE.SGWU, False),
+            upf_running=status.get(constants.FIVE_G_CORE.UPF, False),
+            hss_running=status.get(constants.FIVE_G_CORE.HSS, False),
+            pcrf_running=status.get(constants.FIVE_G_CORE.PCRF, False),
+            nrf_running=status.get(constants.FIVE_G_CORE.NRF, False),
+            scp_running=status.get(constants.FIVE_G_CORE.SCP, False),
+            sepp_running=status.get(constants.FIVE_G_CORE.SEPP, False),
+            ausf_running=status.get(constants.FIVE_G_CORE.AUSF, False),
+            udm_running=status.get(constants.FIVE_G_CORE.UDM, False),
+            pcf_running=status.get(constants.FIVE_G_CORE.PCF, False),
+            nssf_running=status.get(constants.FIVE_G_CORE.NSFF, False),
+            bsf_running=status.get(constants.FIVE_G_CORE.BSF, False),
+            udr_running=status.get(constants.FIVE_G_CORE.UDR, False),
+            webui_running=status.get(constants.FIVE_G_CORE.WEBUI, False),
+            ip=self.ip
         )
 
 
