@@ -98,10 +98,10 @@ class CONTAINER_IMAGES:
     PENGINE_EXPLOIT_1 = "csle_pengine_exploit_1"
     CVE_2014_0160_1 = "csle_cve_2014_0160_1"
     SPARK_1 = "csle_spark_1"
-    FIVE_G_CORE_1 = "5g_core_1"
-    CLOUD_RAN_CU_1 = "cloud_ran_cu_1"
-    CLOUD_RAN_DU_1 = "cloud_ran_du_1"
-    CLOUD_RAN_UE_1 = "cloud_ran_ue_1"
+    FIVE_G_CORE_1 = "csle_5g_core_1"
+    CLOUD_RAN_CU_1 = "csle_cloud_ran_cu_1"
+    CLOUD_RAN_DU_1 = "csle_cloud_ran_du_1"
+    CLOUD_RAN_UE_1 = "csle_cloud_ran_ue_1"
     SNORT_IDS_IMAGES = [ROUTER_2]
     OVS_IMAGES = [OVS_1]
     SPARK_IMAGES = [SPARK_1]

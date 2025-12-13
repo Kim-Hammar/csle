@@ -351,16 +351,12 @@ class EmulationEnvController:
         for c in emulation_env_config.containers_config.containers:
             if c.physical_host_ip != physical_host_ip:
                 continue
-            ips = c.get_ips()
             container_resources: Union[None, NodeResourcesConfig] = None
             for r in emulation_env_config.resources_config.node_resources_configurations:
-                for ip_net_resources in r.ips_and_network_configs:
-                    ip, net_resources = ip_net_resources
-                    if ip in ips:
-                        container_resources = r
-                        break
+                if r.container_name == c.get_readable_name():
+                    container_resources = r
             if container_resources is None:
-                raise ValueError(f"Container resources not found for container with ips:{ips}, "
+                raise ValueError(f"Container resources not found for container with name:{c.get_readable_name()}, "
                                  f"resources:{emulation_env_config.resources_config}")
             name = c.get_full_name()
             cmd = f"docker container run -dt --name {name} " \

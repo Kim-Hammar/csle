@@ -6,6 +6,13 @@ USER root
 ADD start.sh /start.sh
 RUN chmod 777 /start.sh
 
+ADD start_stop_cu.sh /start_stop_cu.sh
+RUN chmod 777 /start_stop_cu.sh
+
+# Add config
+ADD cu.yml /srsRAN_Project/build/apps/cu/cu.yml
+RUN chmod 666 /srsRAN_Project/build/apps/cu/cu.yml
+
 # timezone env with default
 ENV TZ=Europe/Stockholm
 

@@ -19,3 +19,9 @@ RUN git clone https://github.com/srsran/srsRAN_Project.git && \
     cd srsRAN_Project && mkdir build && cd build && \
     cmake ../ -DENABLE_EXPORT=ON -DENABLE_ZEROMQ=ON && \
     make -j $(nproc)
+
+RUN apt-get update && \
+    apt-get install -y build-essential cmake libfftw3-dev libmbedtls-dev libboost-program-options-dev \
+    libconfig++-dev libsctp-dev libzmq3-dev git && \
+    git clone --depth 1 https://github.com/srsran/srsRAN_4G.git && \
+    cd srsRAN_4G && mkdir build && cd build && cmake ../ && make srsue -j10
