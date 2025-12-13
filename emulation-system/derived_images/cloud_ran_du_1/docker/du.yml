@@ -1,0 +1,40 @@
+f1ap:
+  cu_cp_addr: 15.16.4.51
+  bind_addr: 15.16.4.52
+f1u:
+  socket:
+    -
+      bind_addr: 15.16.4.52
+ru_sdr:
+  device_driver: zmq
+  device_args: tx_port=tcp://127.0.0.1:2000,rx_port=tcp://127.0.0.1:2001,base_srate=5.76e6
+  srate: 5.76
+  tx_gain: 10
+  rx_gain: 10
+cell_cfg:
+  dl_arfcn: 368500
+  band: 3
+  channel_bandwidth_MHz: 5
+  common_scs: 15
+  plmn: "00101"
+  tac: 1
+  pci: 1
+  prach:
+    prach_config_index: 1
+    total_nof_ra_preambles: 64
+log:
+  filename: /tmp/du.log
+  all_level: info
+pcap:
+  mac_enable: false
+  mac_filename: /tmp/du_mac.pcap
+  f1ap_enable: false
+  f1ap_filename: /tmp/du_f1ap.pcap
+  f1u_enable: false
+  f1u_filename: /tmp/du_f1u.pcap
+metrics:
+  enable_json: true
+remote_control:
+  bind_addr: 172.18.0.8
+  port: 55555
+  enabled: true

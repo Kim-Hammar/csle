@@ -46,8 +46,20 @@ RUN (id -u open5gs &>/dev/null || useradd -r -m -s /bin/false open5gs) \
     # Copy init script from root source
     && cp "/${PACKAGE}-${VERSION}/docs/assets/webui/mongo-init.js" /usr/lib/node_modules/${PACKAGE}/mongo-init.js \
     # Cleanup source files from root
-    && rm -rf "/${PACKAGE}-${VERSION}"
+    && rm -rf "/${PACKAGE}-${VERSION}" \
+    && sysctl -w net.ipv4.ip_forward=1 \
+    && sysctl -w net.ipv6.conf.all.forwarding=1
 
 # 3. Add Start Script
-ADD docker_files/5g_core_base/docker/start_webui.sh /start_webui.sh
-RUN chmod 777 /start_webui.sh
+ADD docker_files/5g_core_base/docker/start_stop_5g.sh /start_stop_5g.sh
+RUN chmod 777 /start_stop_5g.sh
+
+# 4. Add Config files
+ADD docker_files/5g_core_base/docker/amf.yaml /etc/open5gs/amf.yaml
+RUN chmod 666 /etc/open5gs/amf.yaml
+
+ADD docker_files/5g_core_base/docker/upf.yaml /etc/open5gs/upf.yaml
+RUN chmod 666 /etc/open5gs/upf.yaml
+
+ADD docker_files/5g_core_base/docker/nrf.yaml /etc/open5gs/nrf.yaml
+RUN chmod 666 /etc/open5gs/nrf.yaml

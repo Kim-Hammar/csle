@@ -32,14 +32,14 @@ class ResourceConstraintsController:
                         f"{node_resource_config.container_name}")
             EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ip)
 
+            # update cpus and memory
+            cmd = f"docker update --memory={node_resource_config.available_memory_gb}G " \
+                  f"--cpus={node_resource_config.num_cpus} {node_resource_config.container_name}"
+            subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
+
             for ip_and_net_config in node_resource_config.ips_and_network_configs:
                 _, net_config = ip_and_net_config
                 if net_config is not None:
-                    # update cpus and memory
-                    cmd = f"docker update --memory={node_resource_config.available_memory_gb}G " \
-                          f"--cpus={node_resource_config.num_cpus} {node_resource_config.container_name}"
-                    subprocess.Popen(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, shell=True)
-
                     # delete existing netem rules
                     cmd = f"sudo tc qdisc del dev {net_config.interface} root netem"
                     o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd, conn=emulation_env_config.get_connection(ip=ip))

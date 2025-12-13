@@ -61,6 +61,8 @@ more specific Docker images.
   - OS: Ubuntu:22.
 - `5g_core_base` ([5g_core_base](./docker_files/5g_core_base)): a base image with the Open5Gs core network.
   - OS: Ubuntu:22.
+- `cloud_ran_base` ([cloud_ran_base](./docker_files/cloud_ran_base)): a base image with SrsRAN.
+  - OS: Ubuntu:22.
 
 ## Useful commands
 
@@ -96,6 +98,7 @@ make ryu_base # Build ryu_base
 make elk_base # Build elk_base
 make spark_base # Build spark_base
 make 5g_core_base # Build 5g_core_base
+make cloud_ran_base # Build cloud_ran_base
 
 make rm_kali_base # Remove kali_base
 make rm_ubuntu_20_base # Remove ubuntu_20_base
@@ -122,6 +125,7 @@ make rm_ryu_base # Remove ryu_base
 make rm_elk_base # Remove elk_base
 make rm_spark_base # Remove spark_base
 make rm_5g_core_base # Remove 5g_core_base
+make rm_cloud_ran_base # Remove cloud_ran_base
 
 make push_kali_base # Push kali_base to DockerHub
 make push_ubuntu_20_base # Push ubuntu_20_base to DockerHub
@@ -148,6 +152,7 @@ make push_ryu_base # Push ryu_base to DockerHub
 make push_elk_base # Push elk_base to DockerHub
 make push_spark_base # Push spark_base to DockerHub
 make push_5g_core_base # Push 5g_core_base to DockerHub
+make push_cloud_ran_base # Push cloud_ran_base to DockerHub
 
 make pull_kali_base # pull kali_base from DockerHub
 make pull_ubuntu_20_base # pull ubuntu_20_base from DockerHub
@@ -174,6 +179,7 @@ make pull_ryu_base # pull ryu_base from DockerHub
 make pull_elk_base # pull elk_base from DockerHub
 make pull_spark_base # pull spark_base from DockerHub
 make pull_5g_core_base # pull 5g_core_base from DockerHub
+make pull_cloud_ran_base # pull cloud_ran_base from DockerHub
 
 docker container ls --all # list all running containers
 docker image ls --all # list all images
