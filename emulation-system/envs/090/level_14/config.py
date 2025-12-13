@@ -3393,7 +3393,7 @@ def default_elk_config(network_id: int, level: int, version: str, time_step_len_
             DefaultNetworkFirewallConfig(
                 ip=None,
                 default_gw=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}."
-                   f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}.10",
+                           f"{collector_constants.KAFKA_CONFIG.NETWORK_ID_THIRD_OCTET}.10",
                 default_input=constants.FIREWALL.ACCEPT,
                 default_output=constants.FIREWALL.ACCEPT,
                 default_forward=constants.FIREWALL.ACCEPT,
@@ -3859,7 +3859,8 @@ if __name__ == '__main__':
     parser.add_argument("-u", "--uninstall", help="Boolean parameter, if true, uninstall config",
                         action="store_true")
     args = parser.parse_args()
-    config = default_config(name="csle-level14-090", network_id=14, level=14, version="0.9.0", time_step_len_seconds=30)
+    config = default_config(name="csle-level14-090", network_id=14, level=14, version="0.9.0",
+                            time_step_len_seconds=30)
     ExperimentUtil.write_emulation_config_file(config, ExperimentUtil.default_emulation_config_path())
 
     if args.install:
