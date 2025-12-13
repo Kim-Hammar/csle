@@ -254,6 +254,8 @@ class LOG_FILES:
     MINBFT_CLIENT_MANAGER_LOG_FILE = "minbft_manager.log"
     MINBFT_CLIENT_MANAGER_LOG_DIR = "/"
     DEFAULT_LOG_FILE_PATHS = ["/*.log", "/var/log/*.log", "/var/log/*/*.log", "/var/log/*/*/*.log"]
+    FIVE_G_CORE_MANAGER_LOG_FILE = "five_g_core_manager.log"
+    FIVE_G_CORE_MANAGER_LOG_DIR = "/"
 
 
 class MANAGER_PORTS:
@@ -269,6 +271,7 @@ class MANAGER_PORTS:
     DOCKER_STATS_MANAGER_DEFAULT_PORT = 50046
     ELK_MANAGER_DEFAULT_PORT = 50045
     KAFKA_MANAGER_DEFAULT_PORT = 50051
+    FIVE_G_CORE_MANAGER_DEFAULT_PORT = 50052
 
 
 class GRPC_WORKERS:

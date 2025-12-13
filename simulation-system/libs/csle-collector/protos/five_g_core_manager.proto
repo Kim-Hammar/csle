@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+// Interface exported by the server
+service FiveGCoreManager {
+  rpc getFiveGCoreStatus(GetFiveGCoreStatusMsg) returns (FiveGCoreStatusDTO) {}
+  rpc stopFiveGCore(StopFiveGCoreMsg) returns (FiveGCoreStatusDTO) {}
+  rpc startFiveGCore(StartFiveGCoreMsg) returns (FiveGCoreStatusDTO) {}
+  rpc initFiveGCore(InitFiveGCoreMsg) returns (FiveGCoreStatusDTO) {}
+}
+
+// Message that the client sends to get the status of the 5G core
+message GetFiveGCoreStatusMsg {}
+
+//Message that the server returns when asked about the status of the 5G core
+message FiveGCoreStatusDTO {
+  bool mongo_running = 1;
+  bool mme_running = 2;
+  bool sgwc_running = 3;
+  bool smf_running = 4;
+  bool amf_running = 5;
+  bool sgwu_running = 6;
+  bool upf_running = 7;
+  bool hss_running = 8;
+  bool pcrf_running = 9;
+  bool nrf_running = 10;
+  bool scp_running = 11;
+  bool sepp_running = 12;
+  bool ausf_running = 13;
+  bool udm_running = 14;
+  bool pcf_running = 15;
+  bool nssf_running = 16;
+  bool bsf_running = 17;
+  bool udr_running = 18;
+  bool webui_running = 19;
+  string ip = 20;
+}
+
+// Message that the client sends to stop the 5G core
+message StopFiveGCoreMsg {}
+
+// Message that the client sends to start the 5G core
+message StartFiveGCoreMsg {}
+
+// Message that the client sends to initialize the 5G core
+message InitFiveGCoreMsg {}
