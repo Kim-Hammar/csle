@@ -148,7 +148,7 @@ class TestFiveGCoreControllerSuite:
         :return: None
         """
         mock_connection = MagicMock()
-        example_emulation_env_config.get_connection = MagicMock() # type: ignore[method-assign]
+        example_emulation_env_config.get_connection = MagicMock()  # type: ignore[method-assign]
         example_emulation_env_config.get_connection.return_value = mock_connection
         mock_execute_ssh_cmd.side_effect = [
             (b"", b"", 0),  # Output for stopping old background job
@@ -196,7 +196,7 @@ class TestFiveGCoreControllerSuite:
         :return: None
         """
         mock_connection = MagicMock()
-        example_emulation_env_config.get_connection = MagicMock() # type: ignore[method-assign]
+        example_emulation_env_config.get_connection = MagicMock()  # type: ignore[method-assign]
         example_emulation_env_config.get_connection.return_value = mock_connection
         mock_execute_ssh_cmd.side_effect = [(b"", b"", 0)]
         FiveGCoreController.stop_five_g_core_manager(
@@ -231,3 +231,52 @@ class TestFiveGCoreControllerSuite:
         ports = FiveGCoreController.get_five_g_core_managers_ports(emulation_env_config=example_emulation_env_config)
         expected_ports = [50052]
         assert ports == expected_ports
+
+    @patch("csle_common.controllers.five_g_core_controller.FiveGCoreController.init_five_g_core")
+    def test_init_five_g_cores(self, mock_init_five_g_core, example_emulation_env_config: EmulationEnvConfig) -> None:
+        """
+        Test utility function for initializing the 5G cores
+
+        :param mock_init_five_g_core: mock_init_five_g_core
+        :param example_emulation_env_config: example_emulation_env_config
+        :return: None
+        """
+        constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES = \
+            [example_emulation_env_config.containers_config.containers[0].name]
+        FiveGCoreController.init_five_g_cores(
+            emulation_env_config=example_emulation_env_config,
+            physical_server_ip=example_emulation_env_config.containers_config.containers[0].physical_host_ip,
+            logger=self.logger)
+        mock_init_five_g_core.assert_called_once_with(
+            emulation_env_config=example_emulation_env_config,
+            ip=example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip,
+            logger=self.logger)
+
+    @patch("csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core")
+    @patch("grpc.insecure_channel")
+    def test_init_five_g_core(self, mock_insecure_channel, mock_init_five_g_core,
+                              example_emulation_env_config: EmulationEnvConfig) -> None:
+        """
+        Test utility function for starting the 5G core on a specific IP
+
+        :param mock_insecure_channel: mock_insecure_channel
+        :param mock_start_five_g_core: mock_start_five_g_core
+        :param example_emulation_env_config: example_emulation_env_config
+        :return: None
+        """
+        constants.GRPC_SERVERS.GRPC_OPTIONS = []
+        mock_channel = MagicMock()
+        mock_insecure_channel.return_value = mock_channel
+        mock_stub = MagicMock()
+        mock_channel.__enter__.return_value = mock_stub
+        FiveGCoreController.init_five_g_core(
+            emulation_env_config=example_emulation_env_config,
+            ip=example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip,
+            logger=self.logger)
+        self.logger.info.assert_called_once_with(
+            f"Initializing the 5G core on container with ip "
+            f"{example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip} in "
+            f"execution {example_emulation_env_config.execution_id} "
+            f"of emulation: {example_emulation_env_config.name}")
+        mock_insecure_channel.assert_called()
+        mock_init_five_g_core.assert_called()

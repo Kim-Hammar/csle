@@ -314,7 +314,7 @@ class FiveGCoreController:
         :return: None
         """
         logger.info(
-            f"Iniitalizing the 5G core on container with ip {ip} in execution {emulation_env_config.execution_id} "
+            f"Initializing the 5G core on container with ip {ip} in execution {emulation_env_config.execution_id} "
             f"of emulation: {emulation_env_config.name}")
         port = emulation_env_config.five_g_config.five_g_core_manager_port
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
