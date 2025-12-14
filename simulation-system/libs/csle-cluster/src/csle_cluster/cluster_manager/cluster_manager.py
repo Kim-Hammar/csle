@@ -4834,7 +4834,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         ManagementSystemController.stop_pid(pid=request.pid, logger=logging.getLogger())
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
-    def startFiveGCoreManagers(
+    def start5GCoreManagers(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCoreManagersMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
@@ -4856,7 +4856,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
-    def stopFiveGCoreManagers(
+    def stop5GCoreManagers(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCoreManagersMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
@@ -4878,7 +4878,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
-    def startFiveGCoreManager(
+    def start5GCoreManager(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCoreManagerMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
@@ -4905,7 +4905,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
-    def stopFiveGCoreManager(
+    def stop5GCoreManager(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCoreManagerMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
@@ -4932,7 +4932,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
-    def startFiveGCores(
+    def start5GCores(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCoresMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
@@ -4954,7 +4954,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
-    def stopFiveGCores(
+    def stop5GCores(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCoresMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
@@ -4975,7 +4975,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
-    def initFiveGCores(
+    def init5GCores(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Init5GCoresMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
@@ -4996,7 +4996,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
-    def startFiveGCore(
+    def start5GCore(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCoreMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
@@ -5022,7 +5022,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
-    def stopFiveGCore(
+    def stop5GCore(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCoreMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
@@ -5048,7 +5048,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
-    def initFiveGCore(
+    def init5GCore(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Init5GCoreMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """

@@ -218,13 +218,13 @@ service ClusterManager {
   rpc stopSparkServer(StopSparkServerMsg) returns (OperationOutcomeDTO) {}
   rpc checkPid(CheckPidMsg) returns (OperationOutcomeDTO) {}
   rpc stopPid(StopPidMsg) returns (OperationOutcomeDTO) {}
-  rpc startFiveGCoreManagers(Start5GCoreManagersMsg) returns (OperationOutcomeDTO) {}
-  rpc stopFiveGCoreManagers(Stop5GCoreManagersMsg) returns (OperationOutcomeDTO) {}
-  rpc startFiveGCoreManager(Start5GCoreManagerMsg) returns (OperationOutcomeDTO) {}
-  rpc stopFiveGCoreManager(Stop5GCoreManagerMsg) returns (OperationOutcomeDTO) {}
-  rpc stopFiveGCores(Stop5GCoresMsg) returns (OperationOutcomeDTO) {}
-  rpc startFiveGCores(Start5GCoresMsg) returns (OperationOutcomeDTO) {}
-  rpc initFiveGCores(Init5GCoresMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCoreManagers(Start5GCoreManagersMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCoreManagers(Stop5GCoreManagersMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCoreManager(Start5GCoreManagerMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCoreManager(Stop5GCoreManagerMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCores(Stop5GCoresMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCores(Start5GCoresMsg) returns (OperationOutcomeDTO) {}
+  rpc init5GCores(Init5GCoresMsg) returns (OperationOutcomeDTO) {}
   rpc stop5GCore(Stop5GCoreMsg) returns (OperationOutcomeDTO) {}
   rpc start5GCore(Start5GCoreMsg) returns (OperationOutcomeDTO) {}
   rpc init5GCore(Init5GCoreMsg) returns (OperationOutcomeDTO) {}
