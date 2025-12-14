@@ -228,6 +228,14 @@ service ClusterManager {
   rpc stop5GCore(Stop5GCoreMsg) returns (OperationOutcomeDTO) {}
   rpc start5GCore(Start5GCoreMsg) returns (OperationOutcomeDTO) {}
   rpc init5GCore(Init5GCoreMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCUManagers(Start5GCUManagersMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCUManagers(Stop5GCUManagersMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCUManager(Start5GCUManagerMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCUManager(Stop5GCUManagerMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCUs(Stop5GCUsMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCUs(Start5GCUsMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCU(Stop5GCUMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCU(Start5GCUMsg) returns (OperationOutcomeDTO) {}
 }
 
 // Message that the client sends when requesting to start stop a PID
@@ -2077,6 +2085,58 @@ message Init5GCoreMsg {
 
 // Message that the client sends when requesting to initialize the 5G cores
 message Init5GCoresMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to start 5G cu managers
+message Start5GCUManagersMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to stop 5G cu managers
+message Stop5GCUManagersMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to start a specific 5G cu manager
+message Start5GCUManagerMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to stop a specific 5G cu manager
+message Stop5GCUManagerMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to stop a specific 5G cu
+message Stop5GCUMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to stop the 5G cus
+message Stop5GCUsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to start a specific 5G cu
+message Start5GCUMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to start the 5G cus
+message Start5GCUsMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }

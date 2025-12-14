@@ -805,3 +805,17 @@ class FIVE_G_CORE:
     BSF = "bsf"
     UDR = "udr"
     WEBUI = "webui"
+
+
+class FIVE_G_CU:
+    """
+    Constants related to the 5G core
+    """
+    CONTROL_SCRIPT_PATH = "/start_stop_cu.sh"
+    RUNNING = "RUNNING"
+    STOPPED = "STOPPED"
+    ALL = "all"
+    STATUS = "status"
+    START = "start"
+    STOP = "stop"
+    CU = "srscu"

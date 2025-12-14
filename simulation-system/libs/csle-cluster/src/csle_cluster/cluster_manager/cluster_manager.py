@@ -26,6 +26,7 @@ from csle_common.controllers.host_controller import HostController
 from csle_common.controllers.elk_controller import ELKController
 from csle_common.controllers.kafka_controller import KafkaController
 from csle_common.controllers.five_g_core_controller import FiveGCoreController
+from csle_common.controllers.five_g_cu_controller import FiveGCUController
 from csle_common.util.read_emulation_statistics_util import ReadEmulationStatisticsUtil
 import csle_ryu.constants.constants as ryu_constants
 import csle_cluster.cluster_manager.cluster_manager_pb2_grpc
@@ -5068,6 +5069,199 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if container_config is not None:
             FiveGCoreController.init_five_g_core(emulation_env_config=execution.emulation_env_config,
                                                  ip=container_config.docker_gw_bridge_ip, logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+        else:
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+
+    def start5GCUManagers(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCUManagersMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Starts the 5G cu managers for a specific execution
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Starting the 5G cu managers "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        FiveGCUController.start_five_g_cu_managers(emulation_env_config=execution.emulation_env_config,
+                                                   physical_server_ip=GeneralUtil.get_host_ip(),
+                                                   logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
+        return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+
+    def stop5GCUManagers(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCUManagersMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Stops the 5G cu managers for a specific execution
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Stopping the 5G cu managers "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        FiveGCUController.stop_five_g_cu_managers(emulation_env_config=execution.emulation_env_config,
+                                                  physical_server_ip=GeneralUtil.get_host_ip(),
+                                                  logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
+        return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+
+    def start5GCUManager(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCUManagerMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Starts the 5G CU manager on a specific node
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Starts the 5G cu manager on the container with ip: {request.containerIp}  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is not None:
+            FiveGCUController.start_five_g_cu_manager(emulation_env_config=execution.emulation_env_config,
+                                                      ip=container_config.docker_gw_bridge_ip,
+                                                      logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+        else:
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+
+    def stop5GCUManager(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCUManagerMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Stops the 5G cu manager on a specific node
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Stopping the 5G cu manager on the container with ip: {request.containerIp}  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is not None:
+            FiveGCUController.stop_five_g_cu_manager(emulation_env_config=execution.emulation_env_config,
+                                                     ip=container_config.docker_gw_bridge_ip,
+                                                     logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+        else:
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+
+    def start5GCUs(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCUsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Starts the 5G cus for a specific execution
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Starting the 5G cus "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        FiveGCUController.start_five_g_cus(emulation_env_config=execution.emulation_env_config,
+                                           physical_server_ip=GeneralUtil.get_host_ip(),
+                                           logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
+        return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+
+    def stop5GCUs(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCUsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Stops the 5G cus for a specific execution
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Stopping the 5G cus "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        FiveGCUController.stop_five_g_cus(emulation_env_config=execution.emulation_env_config,
+                                          physical_server_ip=GeneralUtil.get_host_ip(), logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
+        return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+
+    def start5GCU(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCUMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Starts the 5G CU on a specific node
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Starting the 5G cu on the container with ip: {request.containerIp}  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is not None:
+            FiveGCUController.start_five_g_cu(emulation_env_config=execution.emulation_env_config,
+                                              ip=container_config.docker_gw_bridge_ip, logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+        else:
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+
+    def stop5GCU(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCUMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Starts the 5G CU on a specific node
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Stopping the 5G cu on the container with ip: {request.containerIp}  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is not None:
+            FiveGCUController.stop_five_g_cu(emulation_env_config=execution.emulation_env_config,
+                                             ip=container_config.docker_gw_bridge_ip, logger=logging.getLogger())
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:

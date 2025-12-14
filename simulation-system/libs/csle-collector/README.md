@@ -23,6 +23,7 @@ python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --gr
 python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/traffic_manager/. ./protos/traffic_manager.proto --mypy_out=./src/csle_collector/traffic_manager/.
 python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/ryu_manager/. ./protos/ryu_manager.proto --mypy_out=./src/csle_collector/ryu_manager/.
 python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/five_g_core_manager/. ./protos/five_g_core_manager.proto --mypy_out=./src/csle_collector/five_g_core_manager/.
+python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/five_g_cu_manager/. ./protos/five_g_cu_manager.proto --mypy_out=./src/csle_collector/five_g_cu_manager/.
 ```
 
 ## Requirements

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+// Interface exported by the server
+service FiveGCUManager {
+  rpc getFiveGCUStatus(GetFiveGCUStatusMsg) returns (FiveGCUStatusDTO) {}
+  rpc stopFiveGCU(StopFiveGCUMsg) returns (FiveGCUStatusDTO) {}
+  rpc startFiveGCU(StartFiveGCUMsg) returns (FiveGCUStatusDTO) {}
+}
+
+// Message that the client sends to get the status of the 5G core
+message GetFiveGCUStatusMsg {}
+
+//Message that the server returns when asked about the status of the 5G core
+message FiveGCUStatusDTO {
+  bool cu_running = 1;
+  string ip = 2;
+}
+
+// Message that the client sends to stop the 5G core
+message StopFiveGCUMsg {}
+
+// Message that the client sends to start the 5G core
+message StartFiveGCUMsg {}
