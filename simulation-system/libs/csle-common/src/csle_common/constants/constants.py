@@ -919,12 +919,12 @@ class COMMANDS:
                          "--logfile {} --maxworkers {} &"
     START_TRAFFIC_MANAGER = "sudo nohup /root/miniconda3/bin/python3 /traffic_manager.py --port {} --logdir {} " \
                             "--logfile {} --maxworkers {} &"
-    START_FIVE_G_CORE_MANAGER = "sudo nohup /root/miniconda3/bin/python3 /five_g_core_manager.py --port {} --logdir {} " \
-                              "--logfile {} --maxworkers {} &"
-    START_FIVE_G_CU_MANAGER = "sudo nohup /root/miniconda3/bin/python3 /five_g_cu_manager.py --port {} --logdir {} " \
-                            "--logfile {} --maxworkers {} &"
-    START_FIVE_G_DU_MANAGER = "sudo nohup /root/miniconda3/bin/python3 /five_g_du_manager.py --port {} --logdir {} " \
-                          "--logfile {} --maxworkers {} &"
+    START_FIVE_G_CORE_MANAGER = ("sudo nohup /root/miniconda3/bin/python3 /five_g_core_manager.py --port {} "
+                                 "--logdir {} --logfile {} --maxworkers {} &")
+    START_FIVE_G_CU_MANAGER = ("sudo nohup /root/miniconda3/bin/python3 /five_g_cu_manager.py --port {} "
+                               "--logdir {} --logfile {} --maxworkers {} &")
+    START_FIVE_G_DU_MANAGER = ("sudo nohup /root/miniconda3/bin/python3 /five_g_du_manager.py --port {} "
+                               "--logdir {} --logfile {} --maxworkers {} &")
     START_SDN_CONTROLLER = "sudo nohup /root/miniconda3/bin/python3 /ryu_controller.py --port {} --webport {} " \
                            "--controller {} &"
     SEARCH_KAFKA_MANAGER = "/root/miniconda3/bin/python3 /kafka_manager.py"

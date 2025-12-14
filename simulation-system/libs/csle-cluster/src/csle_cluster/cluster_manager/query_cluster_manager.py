@@ -4482,11 +4482,11 @@ def start_five_g_core_managers(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: an OperationOutcomeDTO with the outcome of the operation
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartFiveGCoreManagersMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCoreManagersMsg(
         emulation=emulation, ipFirstOctet=ip_first_octet
     )
     operation_outcome_dto: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.startFiveGCoreManagers(operation_msg, timeout=timeout)
+        stub.start5GCoreManagers(operation_msg, timeout=timeout)
     return operation_outcome_dto
 
 
@@ -4504,11 +4504,11 @@ def stop_five_g_core_managers(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: an OperationOutcomeDTO with the outcome of the operation
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopFiveGCoreManagersMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCoreManagersMsg(
         emulation=emulation, ipFirstOctet=ip_first_octet
     )
     operation_outcome_dto: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.stopFiveGCoreManagers(operation_msg, timeout=timeout)
+        stub.stop5GCoreManagers(operation_msg, timeout=timeout)
     return operation_outcome_dto
 
 
@@ -4527,11 +4527,11 @@ def start_five_g_core_manager(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartFiveGCoreManagerMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCoreManagerMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.startFiveGCoreManager(operation_msg, timeout=timeout)
+        stub.start5GCoreManager(operation_msg, timeout=timeout)
     return operation_outcome
 
 
@@ -4550,9 +4550,144 @@ def stop_five_g_core_manager(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopFiveGCoreManagerMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCoreManagerMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.stopFiveGCoreManager(operation_msg, timeout=timeout)
+        stub.stop5GCoreManager(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def start_five_g_cores(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Starts the 5G cores of a given execution
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: an OperationOutcomeDTO with the outcome of the operation
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCoresMsg(
+        emulation=emulation, ipFirstOctet=ip_first_octet
+    )
+    operation_outcome_dto: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.start5GCores(operation_msg, timeout=timeout)
+    return operation_outcome_dto
+
+
+def stop_five_g_cores(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Stops the 5G cores of a given execution
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: an OperationOutcomeDTO with the outcome of the operation
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCoresMsg(
+        emulation=emulation, ipFirstOctet=ip_first_octet
+    )
+    operation_outcome_dto: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.stop5GCores(operation_msg, timeout=timeout)
+    return operation_outcome_dto
+
+
+def init_five_g_cores(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Intializes the 5G cores of a given execution
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: an OperationOutcomeDTO with the outcome of the operation
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Init5GCoresMsg(
+        emulation=emulation, ipFirstOctet=ip_first_octet
+    )
+    operation_outcome_dto: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.init5GCores(operation_msg, timeout=timeout)
+    return operation_outcome_dto
+
+
+def start_five_g_core(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int, container_ip: str,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Starts the 5G core on a specific node
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param container_ip: the IP of the node to start the manager
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCoreMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.start5GCore(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def stop_five_g_core(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int, container_ip: str,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Stops the 5G core on a specific node
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param container_ip: the IP of the node to start the manager
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCoreMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.stop5GCore(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def init_five_g_core(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int, container_ip: str,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Initializes the 5G core on a specific node
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param container_ip: the IP of the node to start the manager
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Init5GCoreMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.init5GCore(operation_msg, timeout=timeout)
     return operation_outcome

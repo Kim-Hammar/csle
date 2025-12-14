@@ -95,9 +95,8 @@ class TestOssecIdsSuite:
         ".get_ossec_ids_monitor_thread_status_by_ip_and_port"
     )
     @patch("grpc.insecure_channel")
-    @patch("csle_common.controllers.ossec_ids_controller.Logger")
     def test_start_ossec_ids(
-            self, mock_logger, mock_insecure_channel, mock_get_monitor_status, mock_start_manager) -> None:
+            self, mock_insecure_channel, mock_get_monitor_status, mock_start_manager) -> None:
         """
         Test the method for starting a OSSEC IDS with a specific IP
 

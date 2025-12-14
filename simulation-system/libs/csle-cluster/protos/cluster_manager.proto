@@ -218,10 +218,16 @@ service ClusterManager {
   rpc stopSparkServer(StopSparkServerMsg) returns (OperationOutcomeDTO) {}
   rpc checkPid(CheckPidMsg) returns (OperationOutcomeDTO) {}
   rpc stopPid(StopPidMsg) returns (OperationOutcomeDTO) {}
-  rpc startFiveGCoreManagers(StartFiveGCoreManagersMsg) returns (OperationOutcomeDTO) {}
-  rpc stopFiveGCoreManagers(StopFiveGCoreManagersMsg) returns (OperationOutcomeDTO) {}
-  rpc startFiveGCoreManager(StartFiveGCoreManagerMsg) returns (OperationOutcomeDTO) {}
-  rpc stopFiveGCoreManager(StopFiveGCoreManagerMsg) returns (OperationOutcomeDTO) {}
+  rpc startFiveGCoreManagers(Start5GCoreManagersMsg) returns (OperationOutcomeDTO) {}
+  rpc stopFiveGCoreManagers(Stop5GCoreManagersMsg) returns (OperationOutcomeDTO) {}
+  rpc startFiveGCoreManager(Start5GCoreManagerMsg) returns (OperationOutcomeDTO) {}
+  rpc stopFiveGCoreManager(Stop5GCoreManagerMsg) returns (OperationOutcomeDTO) {}
+  rpc stopFiveGCores(Stop5GCoresMsg) returns (OperationOutcomeDTO) {}
+  rpc startFiveGCores(Start5GCoresMsg) returns (OperationOutcomeDTO) {}
+  rpc initFiveGCores(Init5GCoresMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCore(Stop5GCoreMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCore(Start5GCoreMsg) returns (OperationOutcomeDTO) {}
+  rpc init5GCore(Init5GCoreMsg) returns (OperationOutcomeDTO) {}
 }
 
 // Message that the client sends when requesting to start stop a PID
@@ -2011,27 +2017,66 @@ message StopDockerStatsManagerMsg {}
 message StopDockerEngineMsg {}
 
 // Message that the client sends when requesting to start 5G core managers
-message StartFiveGCoreManagersMsg {
+message Start5GCoreManagersMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }
 
 // Message that the client sends when requesting to stop 5G core managers
-message StopFiveGCoreManagersMsg {
+message Stop5GCoreManagersMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }
 
 // Message that the client sends when requesting to start a specific 5G core manager
-message StartFiveGCoreManagerMsg {
+message Start5GCoreManagerMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;
 }
 
 // Message that the client sends when requesting to stop a specific 5G core manager
-message StopFiveGCoreManagerMsg {
+message Stop5GCoreManagerMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;
+}
+
+// Message that the client sends when requesting to stop a specific 5G core
+message Stop5GCoreMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to stop the 5G cores
+message Stop5GCoresMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to start a specific 5G core
+message Start5GCoreMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to start the 5G cores
+message Start5GCoresMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to initialize a specific 5G core
+message Init5GCoreMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to initialize the 5G cores
+message Init5GCoresMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
 }

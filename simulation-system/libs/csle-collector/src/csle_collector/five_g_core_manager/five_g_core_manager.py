@@ -41,7 +41,7 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :param context: the gRPC context
         :return: a DTO with the status of the 5g core
         """
-        logging.info(f"Getting the status of the 5G Core services")
+        logging.info("Getting the status of the 5G Core services")
         status = FiveGCoreManagerUtil.get_script_status_map(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
@@ -77,7 +77,7 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :param context: the gRPC context
         :return: a DTO with the status of the 5g core
         """
-        logging.info(f"Starting the 5G Core services")
+        logging.info("Starting the 5G Core services")
         FiveGCoreManagerUtil.start_all_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         status = FiveGCoreManagerUtil.get_script_status_map(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
@@ -114,7 +114,7 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :param context: the gRPC context
         :return: a DTO with the status of the 5g core
         """
-        logging.info(f"Stopping the 5G Core services")
+        logging.info("Stopping the 5G Core services")
         FiveGCoreManagerUtil.stop_all_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         status = FiveGCoreManagerUtil.get_script_status_map(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
@@ -151,7 +151,7 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :param context: the gRPC context
         :return: a DTO with the status of the 5g core
         """
-        logging.info(f"Initializes the 5G Core services")
+        logging.info("Initializing the 5G Core services")
         FiveGCoreManagerUtil.init_all_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         status = FiveGCoreManagerUtil.get_script_status_map(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)

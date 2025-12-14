@@ -77,7 +77,6 @@ def start_cluster_manager(host_ip: str) -> None:
         click.secho(f"Starting the cluster manager with command: {cmd}", bold=False)
         p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, shell=True)
         (output, err) = p.communicate()
-        click.secho(f"Cluster manager started, output: {output}", bold=False)
 
 
 def attacker_shell(s: "EmulationEnvState") -> None:

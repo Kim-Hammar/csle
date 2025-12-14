@@ -6082,7 +6082,7 @@ class StopDockerEngineMsg(google.protobuf.message.Message):
 global___StopDockerEngineMsg = StopDockerEngineMsg
 
 @typing_extensions.final
-class StartFiveGCoreManagersMsg(google.protobuf.message.Message):
+class Start5GCoreManagersMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start 5G core managers"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -6099,10 +6099,10 @@ class StartFiveGCoreManagersMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StartFiveGCoreManagersMsg = StartFiveGCoreManagersMsg
+global___Start5GCoreManagersMsg = Start5GCoreManagersMsg
 
 @typing_extensions.final
-class StopFiveGCoreManagersMsg(google.protobuf.message.Message):
+class Stop5GCoreManagersMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to stop 5G core managers"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -6119,10 +6119,10 @@ class StopFiveGCoreManagersMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StopFiveGCoreManagersMsg = StopFiveGCoreManagersMsg
+global___Stop5GCoreManagersMsg = Stop5GCoreManagersMsg
 
 @typing_extensions.final
-class StartFiveGCoreManagerMsg(google.protobuf.message.Message):
+class Start5GCoreManagerMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start a specific 5G core manager"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -6142,10 +6142,10 @@ class StartFiveGCoreManagerMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StartFiveGCoreManagerMsg = StartFiveGCoreManagerMsg
+global___Start5GCoreManagerMsg = Start5GCoreManagerMsg
 
 @typing_extensions.final
-class StopFiveGCoreManagerMsg(google.protobuf.message.Message):
+class Stop5GCoreManagerMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to stop a specific 5G core manager"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -6165,4 +6165,133 @@ class StopFiveGCoreManagerMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StopFiveGCoreManagerMsg = StopFiveGCoreManagerMsg
+global___Stop5GCoreManagerMsg = Stop5GCoreManagerMsg
+
+@typing_extensions.final
+class Stop5GCoreMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop a specific 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCoreMsg = Stop5GCoreMsg
+
+@typing_extensions.final
+class Stop5GCoresMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop the 5G cores"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCoresMsg = Stop5GCoresMsg
+
+@typing_extensions.final
+class Start5GCoreMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start a specific 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCoreMsg = Start5GCoreMsg
+
+@typing_extensions.final
+class Start5GCoresMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G cores"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCoresMsg = Start5GCoresMsg
+
+@typing_extensions.final
+class Init5GCoreMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize a specific 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Init5GCoreMsg = Init5GCoreMsg
+
+@typing_extensions.final
+class Init5GCoresMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize the 5G cores"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Init5GCoresMsg = Init5GCoresMsg

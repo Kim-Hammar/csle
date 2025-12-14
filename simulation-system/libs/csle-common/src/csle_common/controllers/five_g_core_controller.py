@@ -206,3 +206,118 @@ class FiveGCoreController:
                 csle_collector.five_g_core_manager.query_five_g_core_manager.get_five_g_core_status(
                     stub=stub, timeout=timeout)
             return status
+
+    @staticmethod
+    def start_five_g_cores(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
+                           logger: logging.Logger) -> None:
+        """
+        Utility method for starting the 5G cores of a specific execution
+
+        :param emulation_env_config: the emulation env config
+        :param physical_server_ip: the ip of the physical server
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        for c in emulation_env_config.containers_config.containers:
+            if c.physical_host_ip != physical_server_ip:
+                continue
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if ids_image in c.name:
+                    FiveGCoreController.start_five_g_core(emulation_env_config=emulation_env_config,
+                                                          ip=c.docker_gw_bridge_ip, logger=logger)
+
+    @staticmethod
+    def start_five_g_core(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) \
+            -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
+        """
+        Utility method for starting the 5G core on a specific container
+
+        :param emulation_env_config: the emulation env config
+        :param ip: the ip of the container
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        logger.info(f"Starting the 5G core on container with ip {ip} in execution {emulation_env_config.execution_id} "
+                    f"of emulation: {emulation_env_config.name}")
+        port = emulation_env_config.five_g_config.five_g_core_manager_port
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
+            status = csle_collector.five_g_core_manager.query_five_g_core_manager.start_five_g_core(stub=stub)
+            return status
+
+    @staticmethod
+    def stop_five_g_cores(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
+                          logger: logging.Logger) -> None:
+        """
+        Utility method for stopping the 5G cores of a specific execution
+
+        :param emulation_env_config: the emulation env config
+        :param physical_server_ip: the ip of the physical server
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        for c in emulation_env_config.containers_config.containers:
+            if c.physical_host_ip != physical_server_ip:
+                continue
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if ids_image in c.name:
+                    FiveGCoreController.stop_five_g_core(emulation_env_config=emulation_env_config,
+                                                         ip=c.docker_gw_bridge_ip, logger=logger)
+
+    @staticmethod
+    def stop_five_g_core(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) \
+            -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
+        """
+        Utility method for stopping the 5G core on a specific container
+
+        :param emulation_env_config: the emulation env config
+        :param ip: the ip of the container
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        logger.info(f"Stopping the 5G core on container with ip {ip} in execution {emulation_env_config.execution_id} "
+                    f"of emulation: {emulation_env_config.name}")
+        port = emulation_env_config.five_g_config.five_g_core_manager_port
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
+            status = csle_collector.five_g_core_manager.query_five_g_core_manager.stop_five_g_core(stub=stub)
+            return status
+
+    @staticmethod
+    def init_five_g_cores(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
+                          logger: logging.Logger) -> None:
+        """
+        Utility method for initializing the 5G cores of a specific execution
+
+        :param emulation_env_config: the emulation env config
+        :param physical_server_ip: the ip of the physical server
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        for c in emulation_env_config.containers_config.containers:
+            if c.physical_host_ip != physical_server_ip:
+                continue
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if ids_image in c.name:
+                    FiveGCoreController.init_five_g_core(emulation_env_config=emulation_env_config,
+                                                         ip=c.docker_gw_bridge_ip, logger=logger)
+
+    @staticmethod
+    def init_five_g_core(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) \
+            -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
+        """
+        Utility method for initializing the 5G core on a specific container
+
+        :param emulation_env_config: the emulation env config
+        :param ip: the ip of the container
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        logger.info(
+            f"Iniitalizing the 5G core on container with ip {ip} in execution {emulation_env_config.execution_id} "
+            f"of emulation: {emulation_env_config.name}")
+        port = emulation_env_config.five_g_config.five_g_core_manager_port
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
+            status = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(stub=stub)
+            return status

@@ -1107,22 +1107,52 @@ class ClusterManagerStub(object):
                 _registered_method=True)
         self.startFiveGCoreManagers = channel.unary_unary(
                 '/ClusterManager/startFiveGCoreManagers',
-                request_serializer=cluster__manager__pb2.StartFiveGCoreManagersMsg.SerializeToString,
+                request_serializer=cluster__manager__pb2.Start5GCoreManagersMsg.SerializeToString,
                 response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
                 _registered_method=True)
         self.stopFiveGCoreManagers = channel.unary_unary(
                 '/ClusterManager/stopFiveGCoreManagers',
-                request_serializer=cluster__manager__pb2.StopFiveGCoreManagersMsg.SerializeToString,
+                request_serializer=cluster__manager__pb2.Stop5GCoreManagersMsg.SerializeToString,
                 response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
                 _registered_method=True)
         self.startFiveGCoreManager = channel.unary_unary(
                 '/ClusterManager/startFiveGCoreManager',
-                request_serializer=cluster__manager__pb2.StartFiveGCoreManagerMsg.SerializeToString,
+                request_serializer=cluster__manager__pb2.Start5GCoreManagerMsg.SerializeToString,
                 response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
                 _registered_method=True)
         self.stopFiveGCoreManager = channel.unary_unary(
                 '/ClusterManager/stopFiveGCoreManager',
-                request_serializer=cluster__manager__pb2.StopFiveGCoreManagerMsg.SerializeToString,
+                request_serializer=cluster__manager__pb2.Stop5GCoreManagerMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.stopFiveGCores = channel.unary_unary(
+                '/ClusterManager/stopFiveGCores',
+                request_serializer=cluster__manager__pb2.Stop5GCoresMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.startFiveGCores = channel.unary_unary(
+                '/ClusterManager/startFiveGCores',
+                request_serializer=cluster__manager__pb2.Start5GCoresMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.initFiveGCores = channel.unary_unary(
+                '/ClusterManager/initFiveGCores',
+                request_serializer=cluster__manager__pb2.Init5GCoresMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.stop5GCore = channel.unary_unary(
+                '/ClusterManager/stop5GCore',
+                request_serializer=cluster__manager__pb2.Stop5GCoreMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.start5GCore = channel.unary_unary(
+                '/ClusterManager/start5GCore',
+                request_serializer=cluster__manager__pb2.Start5GCoreMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.init5GCore = channel.unary_unary(
+                '/ClusterManager/init5GCore',
+                request_serializer=cluster__manager__pb2.Init5GCoreMsg.SerializeToString,
                 response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
                 _registered_method=True)
 
@@ -2439,6 +2469,42 @@ class ClusterManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def stopFiveGCores(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def startFiveGCores(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def initFiveGCores(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def stop5GCore(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def start5GCore(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def init5GCore(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ClusterManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -3514,22 +3580,52 @@ def add_ClusterManagerServicer_to_server(servicer, server):
             ),
             'startFiveGCoreManagers': grpc.unary_unary_rpc_method_handler(
                     servicer.startFiveGCoreManagers,
-                    request_deserializer=cluster__manager__pb2.StartFiveGCoreManagersMsg.FromString,
+                    request_deserializer=cluster__manager__pb2.Start5GCoreManagersMsg.FromString,
                     response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
             ),
             'stopFiveGCoreManagers': grpc.unary_unary_rpc_method_handler(
                     servicer.stopFiveGCoreManagers,
-                    request_deserializer=cluster__manager__pb2.StopFiveGCoreManagersMsg.FromString,
+                    request_deserializer=cluster__manager__pb2.Stop5GCoreManagersMsg.FromString,
                     response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
             ),
             'startFiveGCoreManager': grpc.unary_unary_rpc_method_handler(
                     servicer.startFiveGCoreManager,
-                    request_deserializer=cluster__manager__pb2.StartFiveGCoreManagerMsg.FromString,
+                    request_deserializer=cluster__manager__pb2.Start5GCoreManagerMsg.FromString,
                     response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
             ),
             'stopFiveGCoreManager': grpc.unary_unary_rpc_method_handler(
                     servicer.stopFiveGCoreManager,
-                    request_deserializer=cluster__manager__pb2.StopFiveGCoreManagerMsg.FromString,
+                    request_deserializer=cluster__manager__pb2.Stop5GCoreManagerMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'stopFiveGCores': grpc.unary_unary_rpc_method_handler(
+                    servicer.stopFiveGCores,
+                    request_deserializer=cluster__manager__pb2.Stop5GCoresMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'startFiveGCores': grpc.unary_unary_rpc_method_handler(
+                    servicer.startFiveGCores,
+                    request_deserializer=cluster__manager__pb2.Start5GCoresMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'initFiveGCores': grpc.unary_unary_rpc_method_handler(
+                    servicer.initFiveGCores,
+                    request_deserializer=cluster__manager__pb2.Init5GCoresMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'stop5GCore': grpc.unary_unary_rpc_method_handler(
+                    servicer.stop5GCore,
+                    request_deserializer=cluster__manager__pb2.Stop5GCoreMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'start5GCore': grpc.unary_unary_rpc_method_handler(
+                    servicer.start5GCore,
+                    request_deserializer=cluster__manager__pb2.Start5GCoreMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'init5GCore': grpc.unary_unary_rpc_method_handler(
+                    servicer.init5GCore,
+                    request_deserializer=cluster__manager__pb2.Init5GCoreMsg.FromString,
                     response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
             ),
     }
@@ -9337,7 +9433,7 @@ class ClusterManager(object):
             request,
             target,
             '/ClusterManager/startFiveGCoreManagers',
-            cluster__manager__pb2.StartFiveGCoreManagersMsg.SerializeToString,
+            cluster__manager__pb2.Start5GCoreManagersMsg.SerializeToString,
             cluster__manager__pb2.OperationOutcomeDTO.FromString,
             options,
             channel_credentials,
@@ -9364,7 +9460,7 @@ class ClusterManager(object):
             request,
             target,
             '/ClusterManager/stopFiveGCoreManagers',
-            cluster__manager__pb2.StopFiveGCoreManagersMsg.SerializeToString,
+            cluster__manager__pb2.Stop5GCoreManagersMsg.SerializeToString,
             cluster__manager__pb2.OperationOutcomeDTO.FromString,
             options,
             channel_credentials,
@@ -9391,7 +9487,7 @@ class ClusterManager(object):
             request,
             target,
             '/ClusterManager/startFiveGCoreManager',
-            cluster__manager__pb2.StartFiveGCoreManagerMsg.SerializeToString,
+            cluster__manager__pb2.Start5GCoreManagerMsg.SerializeToString,
             cluster__manager__pb2.OperationOutcomeDTO.FromString,
             options,
             channel_credentials,
@@ -9418,7 +9514,169 @@ class ClusterManager(object):
             request,
             target,
             '/ClusterManager/stopFiveGCoreManager',
-            cluster__manager__pb2.StopFiveGCoreManagerMsg.SerializeToString,
+            cluster__manager__pb2.Stop5GCoreManagerMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def stopFiveGCores(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/stopFiveGCores',
+            cluster__manager__pb2.Stop5GCoresMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def startFiveGCores(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/startFiveGCores',
+            cluster__manager__pb2.Start5GCoresMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def initFiveGCores(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/initFiveGCores',
+            cluster__manager__pb2.Init5GCoresMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def stop5GCore(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/stop5GCore',
+            cluster__manager__pb2.Stop5GCoreMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def start5GCore(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/start5GCore',
+            cluster__manager__pb2.Start5GCoreMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def init5GCore(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/init5GCore',
+            cluster__manager__pb2.Init5GCoreMsg.SerializeToString,
             cluster__manager__pb2.OperationOutcomeDTO.FromString,
             options,
             channel_credentials,

@@ -21,6 +21,7 @@ from csle_common.dao.emulation_config.config import Config
 from csle_common.dao.emulation_config.containers_config import ContainersConfig
 from csle_common.dao.emulation_config.docker_stats_manager_config import DockerStatsManagerConfig
 from csle_common.dao.emulation_config.elk_config import ElkConfig
+from csle_common.dao.emulation_config.five_g_config import FiveGConfig
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
 from csle_common.dao.emulation_config.emulation_execution import EmulationExecution
 from csle_common.dao.emulation_config.flag import Flag
@@ -1239,8 +1240,8 @@ def example_emulation_env_config(
         example_ovs_config: OVSConfig, example_elk_config: ElkConfig,
         example_host_manager_config: HostManagerConfig, example_snort_ids_manager_config: SnortIDSManagerConfig,
         example_ossec_ids_manager_config: OSSECIDSManagerConfig,
-        example_docker_stats_manager_config: DockerStatsManagerConfig, example_beats_config: BeatsConfig) \
-        -> EmulationEnvConfig:
+        example_docker_stats_manager_config: DockerStatsManagerConfig, example_beats_config: BeatsConfig,
+        example_five_g_config: FiveGConfig) -> EmulationEnvConfig:
     """
     Fixture that returns an example EmulationEnvConfig object
 
@@ -1266,6 +1267,7 @@ def example_emulation_env_config(
     :param example_ossec_ids_manager_config: an example OSSECIDSManagerConfig
     :param example_docker_stats_manager_config: an example DockerStatsManagerConfig
     :param example_beats_config: an example BeatsConfig
+    :param example_five_g_config: an example FiveGConfig
     :return: example EmulationEnvConfig object
     """
     return EmulationEnvConfig(name="JDoeEmulation", containers_config=example_containers_config,
@@ -1287,7 +1289,8 @@ def example_emulation_env_config(
                               beats_config=example_beats_config,
                               level=5, version="null", execution_id=10,
                               csle_collector_version=collector_constants.LATEST_VERSION,
-                              csle_ryu_version=collector_constants.LATEST_VERSION)
+                              csle_ryu_version=collector_constants.LATEST_VERSION,
+                              five_g_config=example_five_g_config)
 
 
 @pytest.fixture
@@ -2277,3 +2280,27 @@ def example_vector_policy() -> VectorPolicy:
     return VectorPolicy(player_type=PlayerType.DEFENDER, actions=[1, 3], policy_vector=[2.3],
                         agent_type=AgentType.LINEAR_PROGRAMMING_NORMAL_FORM, simulation_name="test",
                         avg_R=0.4)
+
+
+@pytest.fixture
+def example_five_g_config() -> FiveGConfig:
+    """
+    Fixture that returns an example FiveGConfig object
+
+    :return: an example FiveGConfig object
+    """
+    return FiveGConfig(
+        version="0.0.1", time_step_len_seconds=30,
+        five_g_core_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_CORE_MANAGER_DEFAULT_PORT,
+        five_g_core_manager_log_file=collector_constants.LOG_FILES.FIVE_G_CORE_MANAGER_LOG_FILE,
+        five_g_core_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_CORE_MANAGER_LOG_DIR,
+        five_g_core_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+        five_g_cu_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_CU_MANAGER_DEFAULT_PORT,
+        five_g_cu_manager_log_file=collector_constants.LOG_FILES.FIVE_G_CU_MANAGER_LOG_FILE,
+        five_g_cu_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_CU_MANAGER_LOG_DIR,
+        five_g_cu_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+        five_g_du_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_DU_MANAGER_DEFAULT_PORT,
+        five_g_du_manager_log_file=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_FILE,
+        five_g_du_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_DIR,
+        five_g_du_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS
+    )
