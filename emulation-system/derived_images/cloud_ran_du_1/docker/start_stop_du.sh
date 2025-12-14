@@ -4,7 +4,7 @@
 BASE_PATH="/srsRAN_Project/build/apps/du"
 BINARY="srsdu"
 CONF_FILE="du.yml"
-LOG_FILE="du.log"
+LOG_FILE="/du.log"
 
 FULL_BIN="${BASE_PATH}/${BINARY}"
 FULL_CONF="${BASE_PATH}/${CONF_FILE}"

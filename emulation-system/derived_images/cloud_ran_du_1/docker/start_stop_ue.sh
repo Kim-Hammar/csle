@@ -4,7 +4,7 @@
 BASE_PATH="/srsRAN_4G/build/srsue/src"
 BINARY="srsue"
 CONF_FILE="ue.conf"
-LOG_FILE="ue.log"
+LOG_FILE="/ue.log"
 NETNS_NAME="ue1"
 PING_TARGET="10.45.0.1"
 

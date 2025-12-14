@@ -51,12 +51,12 @@ class FiveGCUManagerUtil:
     @staticmethod
     def start_cu(control_script_path: str) -> bool:
         """
-        Starts the 5G CU using the control script with the 'all start' command.
+        Starts the 5G CU using the control script with the 'start' command.
 
         :param control_script_path: the path to the control script
         :return: True if the script execution completed successfully, False otherwise.
         """
-        logging.info(f"Attempting to start the 5G CU using: {control_script_path} all start")
+        logging.info(f"Attempting to start the 5G CU using: {control_script_path} start")
         try:
             result = subprocess.run([control_script_path, constants.FIVE_G_CORE.START],
                                     capture_output=True, text=True, check=True, cwd=".")
@@ -78,12 +78,12 @@ class FiveGCUManagerUtil:
     @staticmethod
     def stop_cu(control_script_path: str) -> bool:
         """
-        Stops the 5G CU using the control script with the 'all stop' command.
+        Stops the 5G CU using the control script with the 'stop' command.
 
         :param control_script_path: the path to the control script
         :return: True if the script execution completed successfully, False otherwise.
         """
-        logging.info(f"Attempting to stop the 5G CU using: {control_script_path} all stop")
+        logging.info(f"Attempting to stop the 5G CU using: {control_script_path} stop")
         try:
             result = subprocess.run([control_script_path, constants.FIVE_G_CORE.STOP],
                                     capture_output=True, text=True, check=True, cwd=".")

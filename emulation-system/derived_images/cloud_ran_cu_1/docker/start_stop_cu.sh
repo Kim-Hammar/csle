@@ -4,7 +4,7 @@
 BASE_PATH="/srsRAN_Project/build/apps/cu"
 BINARY="srscu"
 CONF_FILE="cu.yml"
-LOG_FILE="cu.log"
+LOG_FILE="/cu.log"
 
 FULL_BIN="${BASE_PATH}/${BINARY}"
 FULL_CONF="${BASE_PATH}/${CONF_FILE}"
