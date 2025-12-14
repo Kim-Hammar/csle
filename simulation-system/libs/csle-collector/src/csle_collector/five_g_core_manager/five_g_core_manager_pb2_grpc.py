@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-import five_g_core_manager_pb2 as five__g__core__manager__pb2
+import csle_collector.five_g_core_manager.five_g_core_manager_pb2 as five__g__core__manager__pb2
 
 GRPC_GENERATED_VERSION = '1.69.0'
 GRPC_VERSION = grpc.__version__
