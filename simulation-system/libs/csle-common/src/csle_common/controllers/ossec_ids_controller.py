@@ -11,7 +11,6 @@ import csle_collector.ossec_ids_manager.ossec_ids_manager_pb2
 import csle_collector.ossec_ids_manager.query_ossec_ids_manager
 import csle_collector.ossec_ids_manager.ossec_ids_manager_util
 from csle_common.util.emulation_util import EmulationUtil
-from csle_common.logging.log import Logger
 
 
 class OSSECIDSController:
@@ -102,8 +101,7 @@ class OSSECIDSController:
                     f'{emulation_env_config.ossec_ids_manager_config.ossec_ids_manager_port}',
                     options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
                 stub = csle_collector.ossec_ids_manager.ossec_ids_manager_pb2_grpc.OSSECIdsManagerStub(channel)
-                Logger.__call__().get_logger().info(
-                    f"Stopping OSSEC IDS on {ip}.")
+                logger.info(f"Stopping OSSEC IDS on {ip}.")
                 csle_collector.ossec_ids_manager.query_ossec_ids_manager.stop_ossec_ids(stub=stub)
 
     @staticmethod

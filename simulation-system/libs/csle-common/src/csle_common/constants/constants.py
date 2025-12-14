@@ -113,6 +113,7 @@ class CONTAINER_IMAGES:
     CADVISOR = "cadvisor"
     PGADMIN = "pgadmin"
     GRAFANA = "grafana"
+    FIVE_G_CORE_IMAGES = [FIVE_G_CORE_1]
 
 
 class CONTAINER_OS:
@@ -1175,6 +1176,9 @@ class TRAFFIC_COMMANDS:
     RYU_MANAGER_FILE_NAME = "ryu_manager.py"
     SNORT_IDS_MANAGER_FILE_NAME = "snort_ids_manager.py"
     OSSEC_IDS_MANAGER_FILE_NAME = "ossec_ids_manager.py"
+    FIVE_G_CORE_MANAGER_FILE_NAME = "five_g_core_manager.py"
+    FIVE_G_CU_MANAGER_FILE_NAME = "five_g_cu_manager.py"
+    FIVE_G_DU_MANAGER_FILE_NAME = "five_g_du_manager.py"
     HOST_MANAGER_FILE_NAME = "host_manager.py"
     TRAFFIC_MANAGER_FILE_NAME = "traffic_manager.py"
     SDN_CONTROLLER_FILE_NAME = "ryu_controller.py"

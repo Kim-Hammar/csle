@@ -2887,7 +2887,7 @@ class ClusterController:
         :param port: the port of the cluster manager
         :param emulation: the emulation of the execution
         :param ip_first_octet: the ID of the execution
-        :param container_ip: the IP of the node to apply the config
+        :param container_ip: the IP of the node to start the manager
         :return: The operation outcome
         """
         # Open a gRPC session
@@ -2901,13 +2901,13 @@ class ClusterController:
     def stop_ossec_ids_manager(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
             -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
-        Sends a request to stop the containers of a given execution
+        Sends a request to stop the OSSEC IDS manager of a specific node
 
         :param ip: the ip of the physical node
         :param port: the port of the cluster manager
         :param emulation: the emulation of the execution
         :param ip_first_octet: the ID of the execution
-        :param container_ip: the IP of the node to apply the config
+        :param container_ip: the IP of the node to stop the OSSEC IDS manager
         :return: The operation outcome
         """
         # Open a gRPC session
@@ -2928,7 +2928,7 @@ class ClusterController:
         :param port: the port of the cluster manager
         :param emulation: the emulation of the execution
         :param ip_first_octet: the ID of the execution
-        :param container_ip: the IP of the node to apply the config
+        :param container_ip: the IP of the node to start the thread on
         :return: The operation outcome
         """
         # Open a gRPC session
@@ -3625,6 +3625,86 @@ class ClusterController:
             return operation_outcome_dto
 
     @staticmethod
+    def start_five_g_core_managers(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to start the 5G core managers of a given execution
+
+        :param ip: the ip of the node where to start the 5g core managers
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.start_five_g_core_managers(
+                stub=stub, emulation=emulation, ip_first_octet=ip_first_octet
+            )
+            return operation_outcome_dto
+
+    @staticmethod
+    def stop_five_g_core_managers(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to stop the 5G core managers of a given execution
+
+        :param ip: the ip of the node where to start the 5g core managers
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.stop_five_g_core_managers(
+                stub=stub, emulation=emulation, ip_first_octet=ip_first_octet
+            )
+            return operation_outcome_dto
+
+    @staticmethod
+    def start_five_g_core_manager(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Starts the 5G core manager on a specific node
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the node to start the manager
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.start_five_g_core_manager(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return operation_outcome_dto
+
+    @staticmethod
+    def stop_five_g_core_manager(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to stop the 5G core manager on a specific node
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the node to stop the manager
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.stop_five_g_core_manager(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return operation_outcome_dto
+
+    @staticmethod
     def run_emulation(execution: EmulationExecution, physical_servers: List[str], no_traffic: bool = False,
                       no_clients: bool = False, no_beats: bool = False) -> None:
         """
@@ -3637,7 +3717,7 @@ class ClusterController:
         :param no_beats: boolean flag indicating whether configuration/starting of beats should be skipped or not
         :return: None
         """
-        steps = 40
+        steps = 41
         if no_traffic:
             steps = steps - 1
         if no_beats:
@@ -3914,6 +3994,16 @@ class ClusterController:
                 ip=ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                 emulation=execution.emulation_name, ip_first_octet=execution.ip_first_octet)
         time.sleep(10)
+
+        current_step += 1
+        Logger.__call__().get_logger().info(f"-- Step "
+                                            f"{current_step}/{steps}: Starting the 5G core managers on containers --")
+        for ip in physical_servers:
+            Logger.__call__().get_logger().info(f"Starting the 5G core managers on containers "
+                                                f"in emulation: {execution.emulation_env_config.name} on server: {ip}")
+            ClusterController.start_five_g_core_managers(
+                ip=ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                emulation=execution.emulation_name, ip_first_octet=execution.ip_first_octet)
 
         if not no_beats:
             current_step += 1

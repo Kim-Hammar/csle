@@ -218,6 +218,10 @@ service ClusterManager {
   rpc stopSparkServer(StopSparkServerMsg) returns (OperationOutcomeDTO) {}
   rpc checkPid(CheckPidMsg) returns (OperationOutcomeDTO) {}
   rpc stopPid(StopPidMsg) returns (OperationOutcomeDTO) {}
+  rpc startFiveGCoreManagers(StartFiveGCoreManagersMsg) returns (OperationOutcomeDTO) {}
+  rpc stopFiveGCoreManagers(StopFiveGCoreManagersMsg) returns (OperationOutcomeDTO) {}
+  rpc startFiveGCoreManager(StartFiveGCoreManagerMsg) returns (OperationOutcomeDTO) {}
+  rpc stopFiveGCoreManager(StopFiveGCoreManagerMsg) returns (OperationOutcomeDTO) {}
 }
 
 // Message that the client sends when requesting to start stop a PID
@@ -2005,3 +2009,29 @@ message StopDockerStatsManagerMsg {}
 
 // Message that the client sends to stop the docker engine
 message StopDockerEngineMsg {}
+
+// Message that the client sends when requesting to start 5G core managers
+message StartFiveGCoreManagersMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to stop 5G core managers
+message StopFiveGCoreManagersMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to start a specific 5G core manager
+message StartFiveGCoreManagerMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to stop a specific 5G core manager
+message StopFiveGCoreManagerMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}

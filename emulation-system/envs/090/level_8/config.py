@@ -52,6 +52,7 @@ from csle_common.dao.emulation_config.docker_stats_manager_config import DockerS
 from csle_common.dao.emulation_config.elk_config import ElkConfig
 from csle_common.dao.emulation_config.beats_config import BeatsConfig
 from csle_common.dao.emulation_config.node_beats_config import NodeBeatsConfig
+from csle_common.dao.emulation_config.five_g_config import FiveGConfig
 
 
 def default_config(name: str, network_id: int = 8, level: int = 8, version: str = "0.9.0",
@@ -104,6 +105,8 @@ def default_config(name: str, network_id: int = 8, level: int = 8, version: str 
     elk_cfg = default_elk_config(network_id=network_id, level=level, version=version,
                                  time_step_len_seconds=time_step_len_seconds)
     beats_cfg = default_beats_config(network_id=network_id)
+    five_g_config = default_five_g_config(network_id=network_id, level=level, version=version,
+                                          time_step_len_seconds=time_step_len_seconds)
     emulation_env_cfg = EmulationEnvConfig(
         name=name, containers_config=containers_cfg, users_config=users_cfg, flags_config=flags_cfg,
         vuln_config=vuln_cfg, topology_config=topology_cfg, traffic_config=traffic_cfg, resources_config=resources_cfg,
@@ -112,7 +115,7 @@ def default_config(name: str, network_id: int = 8, level: int = 8, version: str 
         sdn_controller_config=sdn_controller_cfg, host_manager_config=host_manager_cfg,
         snort_ids_manager_config=snort_ids_manager_cfg, ossec_ids_manager_config=ossec_ids_manager_cfg,
         docker_stats_manager_config=docker_stats_manager_cfg, elk_config=elk_cfg,
-        level=level, execution_id=-1, version=version, beats_config=beats_cfg
+        level=level, execution_id=-1, version=version, beats_config=beats_cfg, five_g_config=five_g_config
     )
     return emulation_env_cfg
 
@@ -5592,6 +5595,35 @@ def default_beats_config(network_id: int) -> BeatsConfig:
     ]
     beats_conf = BeatsConfig(node_beats_configs=node_beats_configs, num_elastic_shards=1, reload_enabled=False)
     return beats_conf
+
+
+def default_five_g_config(network_id: int, level: int, version: str, time_step_len_seconds: int) \
+        -> FiveGConfig:
+    """
+    Generates the default 5G configuration
+
+    :param network_id: the id of the emulation network
+    :param level: the level of the emulation
+    :param version: the version of the emulation
+    :param time_step_len_seconds: default length of a time-step in the emulation
+    :return: the 5G configuration
+    """
+    config = FiveGConfig(
+        version=version, time_step_len_seconds=time_step_len_seconds,
+        five_g_core_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_CORE_MANAGER_DEFAULT_PORT,
+        five_g_core_manager_log_file=collector_constants.LOG_FILES.FIVE_G_CORE_MANAGER_LOG_FILE,
+        five_g_core_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_CORE_MANAGER_LOG_DIR,
+        five_g_core_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+        five_g_cu_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_CU_MANAGER_DEFAULT_PORT,
+        five_g_cu_manager_log_file=collector_constants.LOG_FILES.FIVE_G_CU_MANAGER_LOG_FILE,
+        five_g_cu_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_CU_MANAGER_LOG_DIR,
+        five_g_cu_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+        five_g_du_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_DU_MANAGER_DEFAULT_PORT,
+        five_g_du_manager_log_file=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_FILE,
+        five_g_du_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_DIR,
+        five_g_du_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS
+    )
+    return config
 
 
 if __name__ == '__main__':

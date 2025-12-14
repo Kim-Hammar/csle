@@ -256,6 +256,10 @@ class LOG_FILES:
     DEFAULT_LOG_FILE_PATHS = ["/*.log", "/var/log/*.log", "/var/log/*/*.log", "/var/log/*/*/*.log"]
     FIVE_G_CORE_MANAGER_LOG_FILE = "five_g_core_manager.log"
     FIVE_G_CORE_MANAGER_LOG_DIR = "/"
+    FIVE_G_CU_MANAGER_LOG_FILE = "five_g_cu_manager.log"
+    FIVE_G_CU_MANAGER_LOG_DIR = "/"
+    FIVE_G_DU_MANAGER_LOG_FILE = "five_g_du_manager.log"
+    FIVE_G_DU_MANAGER_LOG_DIR = "/"
 
 
 class MANAGER_PORTS:
@@ -272,6 +276,8 @@ class MANAGER_PORTS:
     ELK_MANAGER_DEFAULT_PORT = 50045
     KAFKA_MANAGER_DEFAULT_PORT = 50051
     FIVE_G_CORE_MANAGER_DEFAULT_PORT = 50052
+    FIVE_G_CU_MANAGER_DEFAULT_PORT = 50053
+    FIVE_G_DU_MANAGER_DEFAULT_PORT = 50054
 
 
 class GRPC_WORKERS:
