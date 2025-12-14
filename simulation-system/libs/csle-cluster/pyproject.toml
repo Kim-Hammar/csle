@@ -20,15 +20,15 @@ classifiers = [
 dependencies = [
     "grpcio>=1.69.0",
     "grpcio-tools>=1.69.0",
-    "csle-base>=0.9.16",
-    "csle-collector>=0.9.16",
-    "csle-common>=0.9.16",
-    "csle-ryu>=0.9.16",
-    "gym-csle-stopping-game>=0.9.16",
-    "gym-csle-intrusion-response-game>=0.9.16",
-    "gym-csle-apt-game>=0.9.16",
-    "gym-csle-cyborg>=0.9.16",
-    "csle-tolerance>=0.9.16"
+    "csle-base>=0.9.17",
+    "csle-collector>=0.9.17",
+    "csle-common>=0.9.17",
+    "csle-ryu>=0.9.17",
+    "gym-csle-stopping-game>=0.9.17",
+    "gym-csle-intrusion-response-game>=0.9.17",
+    "gym-csle-apt-game>=0.9.17",
+    "gym-csle-cyborg>=0.9.17",
+    "csle-tolerance>=0.9.17"
 ]
 
 [project.optional-dependencies]
