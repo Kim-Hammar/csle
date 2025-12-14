@@ -30,7 +30,7 @@ class FiveGCoreController:
         for c in emulation_env_config.containers_config.containers:
             if c.physical_host_ip != physical_server_ip:
                 continue
-            for ids_image in constants.CONTAINER_IMAGES.OSSEC_IDS_IMAGES:
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
                 if ids_image in c.name:
                     FiveGCoreController.start_five_g_core_manager(emulation_env_config=emulation_env_config,
                                                                   ip=c.docker_gw_bridge_ip, logger=logger)
@@ -62,25 +62,25 @@ class FiveGCoreController:
                           f"amf_running: {status.amf_running}, sgwu_running: {status.sgwu_running}, "
                           f"upf_running: {status.upf_running}, hss_running: {status.hss_running}, "
                           f"pcrf_running: {status.pcrf_running}, nrf_running: {status.nrf_running}, "
-                          f"scp_running: {status.scp_running}, sepping_running: {status.sepping_running}, "
+                          f"scp_running: {status.scp_running}, sepp_running: {status.sepp_running}, "
                           f"ausf_running: {status.ausf_running}, udm_running: {status.udm_running}, "
                           f"pcf_running: {status.pcf_running}, nssf_running: {status.nssf_running}, "
                           f"bsf_running: {status.bsf_running}, udr_running: {status.udr_running}, "
                           f"webui_running: {status.webui_running}, ip: {status.ip}")
         if not_running:
-            logger.info(f"Starting Five G core manager on node {ip}")
+            logger.info(f"Starting 5G core manager on node {ip}")
 
             # Connect
             EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ip)
 
             # Stop old background job if running
             cmd = (constants.COMMANDS.SUDO + constants.COMMANDS.SPACE_DELIM + constants.COMMANDS.PKILL +
-                   constants.COMMANDS.SPACE_DELIM + constants.TRAFFIC_COMMANDS.OSSEC_IDS_MANAGER_FILE_NAME)
+                   constants.COMMANDS.SPACE_DELIM + constants.TRAFFIC_COMMANDS.FIVE_G_CORE_MANAGER_FILE_NAME)
             o, e, _ = EmulationUtil.execute_ssh_cmd(
                 cmd=cmd, conn=emulation_env_config.get_connection(ip=ip))
 
             # Start the 5G core manager
-            cmd = constants.COMMANDS.START_OSSEC_IDS_MANAGER.format(
+            cmd = constants.COMMANDS.START_FIVE_G_CORE_MANAGER.format(
                 emulation_env_config.five_g_config.five_g_core_manager_port,
                 emulation_env_config.five_g_config.five_g_core_manager_log_dir,
                 emulation_env_config.five_g_config.five_g_core_manager_log_file,
@@ -104,7 +104,7 @@ class FiveGCoreController:
         for c in emulation_env_config.containers_config.containers:
             if c.physical_host_ip != physical_server_ip:
                 continue
-            for ids_image in constants.CONTAINER_IMAGES.OSSEC_IDS_IMAGES:
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
                 if ids_image in c.name:
                     FiveGCoreController.stop_five_g_core_manager(emulation_env_config=emulation_env_config,
                                                                  ip=c.docker_gw_bridge_ip, logger=logger)
