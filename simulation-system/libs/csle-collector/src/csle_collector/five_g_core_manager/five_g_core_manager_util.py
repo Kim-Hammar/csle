@@ -11,7 +11,7 @@ class FiveGCoreManagerUtil:
     """
 
     @staticmethod
-    def get_script_status_map(control_script_path: str) -> Dict[str, bool]:
+    def get_core_status(control_script_path: str) -> Dict[str, bool]:
         """
         Executes the control script, parses the output, and return the statuses of the 5G core services
 
@@ -50,7 +50,7 @@ class FiveGCoreManagerUtil:
         return status_map
 
     @staticmethod
-    def start_all_services(control_script_path: str) -> bool:
+    def start_all_core_services(control_script_path: str) -> bool:
         """
         Starts all 5G core services using the control script with the 'all start' command.
 
@@ -78,7 +78,7 @@ class FiveGCoreManagerUtil:
             return False
 
     @staticmethod
-    def stop_all_services(control_script_path: str) -> bool:
+    def stop_all_core_services(control_script_path: str) -> bool:
         """
         Stops all 5G core services using the control script with the 'all stop' command.
 
@@ -106,7 +106,7 @@ class FiveGCoreManagerUtil:
             return False
 
     @staticmethod
-    def init_all_services(control_script_path: str) -> bool:
+    def init_all_core_services(control_script_path: str) -> bool:
         """
         Initializes all 5G core services using the control script with the 'all init' command.
 

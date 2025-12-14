@@ -42,7 +42,7 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :return: a DTO with the status of the 5g core
         """
         logging.info("Getting the status of the 5G Core services")
-        status = FiveGCoreManagerUtil.get_script_status_map(
+        status = FiveGCoreManagerUtil.get_core_status(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
             mongo_running=status.get(constants.FIVE_G_CORE.MONGO, False),
@@ -78,8 +78,8 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :return: a DTO with the status of the 5g core
         """
         logging.info("Starting the 5G Core services")
-        FiveGCoreManagerUtil.start_all_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
-        status = FiveGCoreManagerUtil.get_script_status_map(
+        FiveGCoreManagerUtil.start_all_core_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
+        status = FiveGCoreManagerUtil.get_core_status(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
             mongo_running=status.get(constants.FIVE_G_CORE.MONGO, False),
@@ -115,8 +115,8 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :return: a DTO with the status of the 5g core
         """
         logging.info("Stopping the 5G Core services")
-        FiveGCoreManagerUtil.stop_all_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
-        status = FiveGCoreManagerUtil.get_script_status_map(
+        FiveGCoreManagerUtil.stop_all_core_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
+        status = FiveGCoreManagerUtil.get_core_status(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
             mongo_running=status.get(constants.FIVE_G_CORE.MONGO, False),
@@ -152,8 +152,8 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :return: a DTO with the status of the 5g core
         """
         logging.info("Initializing the 5G Core services")
-        FiveGCoreManagerUtil.init_all_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
-        status = FiveGCoreManagerUtil.get_script_status_map(
+        FiveGCoreManagerUtil.init_all_core_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
+        status = FiveGCoreManagerUtil.get_core_status(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
             mongo_running=status.get(constants.FIVE_G_CORE.MONGO, False),

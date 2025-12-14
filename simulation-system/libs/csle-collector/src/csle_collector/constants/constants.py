@@ -814,7 +814,6 @@ class FIVE_G_CU:
     CONTROL_SCRIPT_PATH = "/start_stop_cu.sh"
     RUNNING = "RUNNING"
     STOPPED = "STOPPED"
-    ALL = "all"
     STATUS = "status"
     START = "start"
     STOP = "stop"

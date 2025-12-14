@@ -41,7 +41,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         :return: a DTO with the status of the 5g cu
         """
         logging.info("Getting the status of the 5G CU services")
-        status = FiveGCUManagerUtil.get_script_status_map(
+        status = FiveGCUManagerUtil.get_cu_status(
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
             cu_running=status.get(constants.FIVE_G_CU.CU, False),
@@ -59,8 +59,8 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         :return: a DTO with the status of the 5g cu
         """
         logging.info("Starting the 5G CU services")
-        FiveGCUManagerUtil.start_all_services(control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
-        status = FiveGCUManagerUtil.get_script_status_map(
+        FiveGCUManagerUtil.start_cu(control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
+        status = FiveGCUManagerUtil.get_cu_status(
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
             cu_running=status.get(constants.FIVE_G_CU.CU, False),
@@ -78,8 +78,8 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         :return: a DTO with the status of the 5g cu
         """
         logging.info("Stopping the 5G CU services")
-        FiveGCUManagerUtil.stop_all_services(control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
-        status = FiveGCUManagerUtil.get_script_status_map(
+        FiveGCUManagerUtil.stop_cu(control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
+        status = FiveGCUManagerUtil.get_cu_status(
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
             cu_running=status.get(constants.FIVE_G_CU.CU, False),
