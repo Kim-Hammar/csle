@@ -6,7 +6,7 @@ from concurrent import futures
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2
 import csle_collector.constants.constants as constants
-from csle_collector.five_g_core_manager.five_core_manager_util import FiveGCoreManagerUtil
+from csle_collector.five_g_core_manager.five_g_core_manager_util import FiveGCoreManagerUtil
 
 
 class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.
@@ -41,6 +41,7 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :param context: the gRPC context
         :return: a DTO with the status of the 5g core
         """
+        logging.info(f"Getting the status of the 5G Core services")
         status = FiveGCoreManagerUtil.get_script_status_map(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
@@ -59,7 +60,118 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
             ausf_running=status.get(constants.FIVE_G_CORE.AUSF, False),
             udm_running=status.get(constants.FIVE_G_CORE.UDM, False),
             pcf_running=status.get(constants.FIVE_G_CORE.PCF, False),
-            nssf_running=status.get(constants.FIVE_G_CORE.NSFF, False),
+            nssf_running=status.get(constants.FIVE_G_CORE.NSSF, False),
+            bsf_running=status.get(constants.FIVE_G_CORE.BSF, False),
+            udr_running=status.get(constants.FIVE_G_CORE.UDR, False),
+            webui_running=status.get(constants.FIVE_G_CORE.WEBUI, False),
+            ip=self.ip
+        )
+
+    def startFiveGCore(self, request: csle_collector.five_g_core_manager.five_g_core_manager_pb2.StartFiveGCoreMsg,
+                       context: grpc.ServicerContext) \
+            -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
+        """
+        Starts the 5G core services
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the 5g core
+        """
+        logging.info(f"Starting the 5G Core services")
+        FiveGCoreManagerUtil.start_all_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
+        status = FiveGCoreManagerUtil.get_script_status_map(
+            control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
+            mongo_running=status.get(constants.FIVE_G_CORE.MONGO, False),
+            mme_running=status.get(constants.FIVE_G_CORE.MME, False),
+            sgwc_running=status.get(constants.FIVE_G_CORE.SGWC, False),
+            smf_running=status.get(constants.FIVE_G_CORE.SMF, False),
+            amf_running=status.get(constants.FIVE_G_CORE.AMF, False),
+            sgwu_running=status.get(constants.FIVE_G_CORE.SGWU, False),
+            upf_running=status.get(constants.FIVE_G_CORE.UPF, False),
+            hss_running=status.get(constants.FIVE_G_CORE.HSS, False),
+            pcrf_running=status.get(constants.FIVE_G_CORE.PCRF, False),
+            nrf_running=status.get(constants.FIVE_G_CORE.NRF, False),
+            scp_running=status.get(constants.FIVE_G_CORE.SCP, False),
+            sepp_running=status.get(constants.FIVE_G_CORE.SEPP, False),
+            ausf_running=status.get(constants.FIVE_G_CORE.AUSF, False),
+            udm_running=status.get(constants.FIVE_G_CORE.UDM, False),
+            pcf_running=status.get(constants.FIVE_G_CORE.PCF, False),
+            nssf_running=status.get(constants.FIVE_G_CORE.NSSF, False),
+            bsf_running=status.get(constants.FIVE_G_CORE.BSF, False),
+            udr_running=status.get(constants.FIVE_G_CORE.UDR, False),
+            webui_running=status.get(constants.FIVE_G_CORE.WEBUI, False),
+            ip=self.ip
+        )
+
+    def stopFiveGCore(self, request: csle_collector.five_g_core_manager.five_g_core_manager_pb2.StopFiveGCoreMsg,
+                      context: grpc.ServicerContext) \
+            -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
+        """
+        Stops the 5G core services
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the 5g core
+        """
+        logging.info(f"Stopping the 5G Core services")
+        FiveGCoreManagerUtil.stop_all_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
+        status = FiveGCoreManagerUtil.get_script_status_map(
+            control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
+            mongo_running=status.get(constants.FIVE_G_CORE.MONGO, False),
+            mme_running=status.get(constants.FIVE_G_CORE.MME, False),
+            sgwc_running=status.get(constants.FIVE_G_CORE.SGWC, False),
+            smf_running=status.get(constants.FIVE_G_CORE.SMF, False),
+            amf_running=status.get(constants.FIVE_G_CORE.AMF, False),
+            sgwu_running=status.get(constants.FIVE_G_CORE.SGWU, False),
+            upf_running=status.get(constants.FIVE_G_CORE.UPF, False),
+            hss_running=status.get(constants.FIVE_G_CORE.HSS, False),
+            pcrf_running=status.get(constants.FIVE_G_CORE.PCRF, False),
+            nrf_running=status.get(constants.FIVE_G_CORE.NRF, False),
+            scp_running=status.get(constants.FIVE_G_CORE.SCP, False),
+            sepp_running=status.get(constants.FIVE_G_CORE.SEPP, False),
+            ausf_running=status.get(constants.FIVE_G_CORE.AUSF, False),
+            udm_running=status.get(constants.FIVE_G_CORE.UDM, False),
+            pcf_running=status.get(constants.FIVE_G_CORE.PCF, False),
+            nssf_running=status.get(constants.FIVE_G_CORE.NSSF, False),
+            bsf_running=status.get(constants.FIVE_G_CORE.BSF, False),
+            udr_running=status.get(constants.FIVE_G_CORE.UDR, False),
+            webui_running=status.get(constants.FIVE_G_CORE.WEBUI, False),
+            ip=self.ip
+        )
+
+    def initFiveGCore(self, request: csle_collector.five_g_core_manager.five_g_core_manager_pb2.InitFiveGCoreMsg,
+                      context: grpc.ServicerContext) \
+            -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
+        """
+        Initializes the 5G core services
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the 5g core
+        """
+        logging.info(f"Initializes the 5G Core services")
+        FiveGCoreManagerUtil.init_all_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
+        status = FiveGCoreManagerUtil.get_script_status_map(
+            control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
+            mongo_running=status.get(constants.FIVE_G_CORE.MONGO, False),
+            mme_running=status.get(constants.FIVE_G_CORE.MME, False),
+            sgwc_running=status.get(constants.FIVE_G_CORE.SGWC, False),
+            smf_running=status.get(constants.FIVE_G_CORE.SMF, False),
+            amf_running=status.get(constants.FIVE_G_CORE.AMF, False),
+            sgwu_running=status.get(constants.FIVE_G_CORE.SGWU, False),
+            upf_running=status.get(constants.FIVE_G_CORE.UPF, False),
+            hss_running=status.get(constants.FIVE_G_CORE.HSS, False),
+            pcrf_running=status.get(constants.FIVE_G_CORE.PCRF, False),
+            nrf_running=status.get(constants.FIVE_G_CORE.NRF, False),
+            scp_running=status.get(constants.FIVE_G_CORE.SCP, False),
+            sepp_running=status.get(constants.FIVE_G_CORE.SEPP, False),
+            ausf_running=status.get(constants.FIVE_G_CORE.AUSF, False),
+            udm_running=status.get(constants.FIVE_G_CORE.UDM, False),
+            pcf_running=status.get(constants.FIVE_G_CORE.PCF, False),
+            nssf_running=status.get(constants.FIVE_G_CORE.NSSF, False),
             bsf_running=status.get(constants.FIVE_G_CORE.BSF, False),
             udr_running=status.get(constants.FIVE_G_CORE.UDR, False),
             webui_running=status.get(constants.FIVE_G_CORE.WEBUI, False),
