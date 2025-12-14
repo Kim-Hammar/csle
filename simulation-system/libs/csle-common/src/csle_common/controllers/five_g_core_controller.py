@@ -221,8 +221,8 @@ class FiveGCoreController:
         for c in emulation_env_config.containers_config.containers:
             if c.physical_host_ip != physical_server_ip:
                 continue
-            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
-                if ids_image in c.name:
+            for container_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if container_image in c.name:
                     FiveGCoreController.start_five_g_core(emulation_env_config=emulation_env_config,
                                                           ip=c.docker_gw_bridge_ip, logger=logger)
 
@@ -259,8 +259,8 @@ class FiveGCoreController:
         for c in emulation_env_config.containers_config.containers:
             if c.physical_host_ip != physical_server_ip:
                 continue
-            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
-                if ids_image in c.name:
+            for container_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if container_image in c.name:
                     FiveGCoreController.stop_five_g_core(emulation_env_config=emulation_env_config,
                                                          ip=c.docker_gw_bridge_ip, logger=logger)
 
@@ -297,8 +297,8 @@ class FiveGCoreController:
         for c in emulation_env_config.containers_config.containers:
             if c.physical_host_ip != physical_server_ip:
                 continue
-            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
-                if ids_image in c.name:
+            for container_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if container_image in c.name:
                     FiveGCoreController.init_five_g_core(emulation_env_config=emulation_env_config,
                                                          ip=c.docker_gw_bridge_ip, logger=logger)
 

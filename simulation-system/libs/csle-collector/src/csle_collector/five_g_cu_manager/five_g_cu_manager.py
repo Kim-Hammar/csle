@@ -9,8 +9,7 @@ import csle_collector.constants.constants as constants
 from csle_collector.five_g_cu_manager.five_g_cu_manager_util import FiveGCUManagerUtil
 
 
-class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.
-                               FiveGCUManagerServicer):
+class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerServicer):
     """
     gRPC server for managing the 5g cu
     """
@@ -50,7 +49,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         )
 
     def startFiveGCU(self, request: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StartFiveGCUMsg,
-                       context: grpc.ServicerContext) \
+                     context: grpc.ServicerContext) \
             -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
         """
         Starts the 5G cu services
@@ -69,7 +68,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         )
 
     def stopFiveGCU(self, request: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StopFiveGCUMsg,
-                      context: grpc.ServicerContext) \
+                    context: grpc.ServicerContext) \
             -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
         """
         Stops the 5G cu services
@@ -86,6 +85,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
             cu_running=status.get(constants.FIVE_G_CU.CU, False),
             ip=self.ip
         )
+
 
 def serve(port: int = 50052, log_dir: str = "/", max_workers: int = 100,
           log_file_name: str = "five_g_cu_manager.log") -> None:
