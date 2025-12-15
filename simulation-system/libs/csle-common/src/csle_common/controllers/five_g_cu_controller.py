@@ -3,10 +3,12 @@ from typing import List
 import grpc
 import time
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
+from csle_common.dao.emulation_config.five_g_cu_managers_info import FiveGCUManagersInfo
 import csle_common.constants.constants as constants
 import csle_collector.constants.constants as csle_collector_constants
 import csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc
 import csle_collector.five_g_cu_manager.five_g_cu_manager_pb2
+import csle_collector.five_g_cu_manager.five_g_cu_manager_util
 import csle_collector.five_g_cu_manager.query_five_g_cu_manager
 from csle_common.util.emulation_util import EmulationUtil
 
@@ -273,3 +275,48 @@ class FiveGCUController:
             stub = csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerStub(channel)
             status = csle_collector.five_g_cu_manager.query_five_g_cu_manager.stop_five_g_cu(stub=stub)
             return status
+
+    @staticmethod
+    def get_five_g_cu_managers_info(emulation_env_config: EmulationEnvConfig, active_ips: List[str],
+                                    logger: logging.Logger, physical_server_ip: str) -> FiveGCUManagersInfo:
+        """
+        Extracts the information of the 5G CU managers for a given emulation
+
+        :param emulation_env_config: the configuration of the emulation
+        :param active_ips: list of active IPs
+        :param physical_server_ip: the IP of the physical server
+        :param logger: the logger to use for logging
+        :return: a DTO with the status of the 5G core managers
+        """
+        five_g_cu_managers_ips = FiveGCUController.get_five_g_cu_managers_ips(
+            emulation_env_config=emulation_env_config)
+        five_g_core_managers_ports = FiveGCUController.get_five_g_cu_managers_ports(
+            emulation_env_config=emulation_env_config)
+        five_g_cu_managers_statuses = []
+        five_g_cu_managers_running = []
+        for ip in five_g_cu_managers_ips:
+            if ip not in active_ips or not EmulationUtil.physical_ip_match(
+                    emulation_env_config=emulation_env_config, ip=ip, physical_host_ip=physical_server_ip):
+                continue
+            running = False
+            status = None
+            try:
+                status = FiveGCUController.get_five_g_cu_status_by_ip_and_port(
+                    port=emulation_env_config.five_g_config.five_g_cu_manager_port, ip=ip)
+                running = True
+            except Exception as e:
+                logger.debug(
+                    f"Could not fetch 5G CU manager status on IP:{ip}, error: {str(e)}, {repr(e)}")
+            if status is not None:
+                five_g_cu_managers_statuses.append(status)
+            else:
+                util = csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil
+                five_g_cu_managers_statuses.append(util.five_g_cu_status_dto_empty())
+            five_g_cu_managers_running.append(running)
+        execution_id = emulation_env_config.execution_id
+        emulation_name = emulation_env_config.name
+        five_g_core_manager_info_dto = FiveGCUManagersInfo(
+            five_g_cu_managers_running=five_g_cu_managers_running, ips=five_g_cu_managers_ips,
+            ports=five_g_core_managers_ports, execution_id=execution_id, emulation_name=emulation_name,
+            five_g_cu_managers_statuses=five_g_cu_managers_statuses)
+        return five_g_core_manager_info_dto
