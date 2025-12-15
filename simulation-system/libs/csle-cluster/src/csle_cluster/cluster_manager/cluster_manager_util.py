@@ -1861,6 +1861,9 @@ class ClusterManagerUtil:
         inactive_networks = []
         elk_managers_info = []
         ryu_managers_info = []
+        five_g_core_managers_info = []
+        five_g_cu_managers_info = []
+        five_g_du_managers_info = []
         for exec_info in execution_infos:
             snort_ids_managers_info.append(ClusterManagerUtil.convert_snort_info_dto_reverse(
                 exec_info.snortIdsManagersInfo))
@@ -1874,6 +1877,12 @@ class ClusterManagerUtil:
                 exec_info.clientManagersInfo))
             docker_stats_managers_info.append(ClusterManagerUtil.convert_docker_info_dto_reverse(
                 exec_info.dockerStatsManagersInfo))
+            five_g_core_managers_info.append(ClusterManagerUtil.convert_five_g_core_info_dto_reverse(
+                exec_info.fiveGCoreManagersInfoDTO))
+            five_g_cu_managers_info.append(ClusterManagerUtil.convert_five_g_cu_info_dto_reverse(
+                exec_info.fiveGCUManagersInfoDTO))
+            five_g_du_managers_info.append(ClusterManagerUtil.convert_five_g_du_info_dto_reverse(
+                exec_info.fiveGDUManagersInfoDTO))
             for running_c in exec_info.runningContainers.runningContainers:
                 container_dto = execution.emulation_env_config.containers_config.get_container_from_ip(ip=running_c.ip)
                 if container_dto is not None:
@@ -1923,17 +1932,17 @@ class ClusterManagerUtil:
 
         stopped_containers = list(filter(lambda x: x.name not in running_container_names, stopped_containers))
         merged_snort_ids_managers_info = snort_ids_managers_info[0]
-        for snort_ids_manager_info in snort_ids_managers_info[1:]:
+        for five_g_core_manager_info in snort_ids_managers_info[1:]:
             merged_snort_ids_managers_info.ips = (list(merged_snort_ids_managers_info.ips) +
-                                                  list(snort_ids_manager_info.ips))
+                                                  list(five_g_core_manager_info.ips))
             merged_snort_ids_managers_info.ports = (list(merged_snort_ids_managers_info.ports) +
-                                                    list(snort_ids_manager_info.ports))
+                                                    list(five_g_core_manager_info.ports))
             merged_snort_ids_managers_info.snort_ids_managers_running = \
                 list(merged_snort_ids_managers_info.snort_ids_managers_running) + \
-                list(snort_ids_manager_info.snort_ids_managers_running)
+                list(five_g_core_manager_info.snort_ids_managers_running)
             merged_snort_ids_managers_info.snort_ids_managers_statuses = \
                 (list(merged_snort_ids_managers_info.snort_ids_managers_statuses) +
-                 list(snort_ids_manager_info.snort_ids_managers_statuses))
+                 list(five_g_core_manager_info.snort_ids_managers_statuses))
 
         merged_ossec_ids_managers_info = ossec_ids_managers_info[0]
         for ossec_ids_manager_info in ossec_ids_managers_info[1:]:
@@ -2028,6 +2037,45 @@ class ClusterManagerUtil:
                 list(merged_ryu_managers_info.ryu_managers_statuses) + \
                 list(ryu_manager_info.ryu_managers_statuses)
 
+        merged_five_g_core_managers_info = five_g_core_managers_info[0]
+        for five_g_core_manager_info in five_g_core_managers_info[1:]:
+            merged_five_g_core_managers_info.ips = (list(merged_five_g_core_managers_info.ips) +
+                                                    list(five_g_core_manager_info.ips))
+            merged_five_g_core_managers_info.ports = (list(merged_five_g_core_managers_info.ports) +
+                                                      list(five_g_core_manager_info.ports))
+            merged_five_g_core_managers_info.five_g_core_managers_running = \
+                list(merged_five_g_core_managers_info.five_g_core_managers_running) + \
+                list(five_g_core_manager_info.five_g_core_managers_running)
+            merged_five_g_core_managers_info.five_g_core_managers_statuses = \
+                (list(merged_five_g_core_managers_info.five_g_core_managers_statuses) +
+                 list(five_g_core_manager_info.five_g_core_managers_statuses))
+
+        merged_five_g_cu_managers_info = five_g_cu_managers_info[0]
+        for five_g_cu_manager_info in five_g_cu_managers_info[1:]:
+            merged_five_g_cu_managers_info.ips = (list(merged_five_g_cu_managers_info.ips) +
+                                                  list(five_g_cu_manager_info.ips))
+            merged_five_g_cu_managers_info.ports = (list(merged_five_g_cu_managers_info.ports) +
+                                                    list(five_g_cu_manager_info.ports))
+            merged_five_g_cu_managers_info.five_g_cu_managers_running = \
+                list(merged_five_g_cu_managers_info.five_g_cu_managers_running) + \
+                list(five_g_cu_manager_info.five_g_cu_managers_running)
+            merged_five_g_cu_managers_info.five_g_cu_managers_statuses = \
+                (list(merged_five_g_cu_managers_info.five_g_cu_managers_statuses) +
+                 list(five_g_cu_manager_info.five_g_cu_managers_statuses))
+
+        merged_five_g_du_managers_info = five_g_du_managers_info[0]
+        for five_g_du_manager_info in five_g_du_managers_info[1:]:
+            merged_five_g_du_managers_info.ips = (list(merged_five_g_du_managers_info.ips) +
+                                                  list(five_g_du_manager_info.ips))
+            merged_five_g_du_managers_info.ports = (list(merged_five_g_du_managers_info.ports) +
+                                                    list(five_g_du_manager_info.ports))
+            merged_five_g_du_managers_info.five_g_du_managers_running = \
+                list(merged_five_g_du_managers_info.five_g_du_managers_running) + \
+                list(five_g_du_manager_info.five_g_du_managers_running)
+            merged_five_g_du_managers_info.five_g_du_managers_statuses = \
+                (list(merged_five_g_du_managers_info.five_g_du_managers_statuses) +
+                 list(five_g_du_manager_info.five_g_du_managers_statuses))
+
         merged_execution_info = EmulationExecutionInfo(
             emulation_name=emulation_name, execution_id=execution_id,
             snort_ids_managers_info=merged_snort_ids_managers_info,
@@ -2037,8 +2085,9 @@ class ClusterManagerUtil:
             docker_stats_managers_info=merged_docker_stats_managers_info, running_containers=running_containers,
             stopped_containers=stopped_containers, active_networks=active_networks, inactive_networks=inactive_networks,
             elk_managers_info=merged_elk_managers_info, ryu_managers_info=merged_ryu_managers_info,
-            traffic_managers_info=merged_traffic_managers_info
-        )
+            traffic_managers_info=merged_traffic_managers_info, five_g_cu_managers_info=merged_five_g_cu_managers_info,
+            five_g_core_managers_info=merged_five_g_core_managers_info,
+            five_g_du_managers_info=merged_five_g_du_managers_info)
         return merged_execution_info
 
     @staticmethod

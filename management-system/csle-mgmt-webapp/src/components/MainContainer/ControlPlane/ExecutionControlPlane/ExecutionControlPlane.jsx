@@ -13,6 +13,7 @@ import ActiveNetworksInfo from "./ActiveNetworksInfo/ActiveNetworksInfo.jsx";
 import ClientManagersInfo from "./ClientManagersInfo/ClientManagersInfo.jsx";
 import DockerStatsManagersInfo from "./DockerStatsManagersInfo/DockerStatsManagersInfo.jsx";
 import HostManagersInfo from "./HostManagersInfo/HostManagersInfo.jsx";
+import FiveGCoreManagersInfo from "./FiveGCoreManagersInfo/FiveGCoreManagersInfo.jsx";
 import KafkaManagersInfo from "./KafkaManagersInfo/KafkaManagersInfo.jsx";
 import OSSECIDSManagersInfo from "./OSSECIDSManagersInfo/OSSECIDSManagersInfo.jsx";
 import SnortIDSManagersInfo from "./SnortIDSManagersInfo/SnortIDSManagersInfo.jsx";
@@ -57,8 +58,10 @@ import {
     HEARTBEAT_SUBRESOURCE,
     RYU_MANAGER_SUBRESOURCE,
     RYU_MONITOR_SUBRESOURCE,
-    RYU_CONTROLLER_SUBRESOURCE
+    RYU_CONTROLLER_SUBRESOURCE,
+    FIVE_G_CORE_MANAGER_SUBRESOURCE,
 } from "../../../Common/constants";
+import fiveGCoreManagersInfo from './FiveGCoreManagersInfo/FiveGCoreManagersInfo.jsx'
 
 /**
  * Component representing the /emulation-executions/<id>/control resource
@@ -69,6 +72,7 @@ const ExecutionControlPlane = (props) => {
     const [clientManagersOpen, setClientManagersOpen] = useState(false);
     const [dockerStatsManagersOpen, setDockerStatsManagersOpen] = useState(false);
     const [hostManagersOpen, setHostManagersOpen] = useState(false);
+    const [fiveGCoreManagersOpen, setFiveGCoreManagersOpen] = useState(false);
     const [kafkaManagersOpen, setKafkaManagersOpen] = useState(false);
     const [ossecIdsManagersOpen, setOssecIdsManagersOpen] = useState(false);
     const [snortManagersOpen, setSnortManagersOpen] = useState(false);
@@ -87,6 +91,7 @@ const ExecutionControlPlane = (props) => {
     const [elkManagersInfo, setElkManagersInfo] = useState(props.info.elk_managers_info);
     const [ryuManagersInfo, setRyuManagersInfo] = useState(props.info.ryu_managers_info);
     const [hostManagersInfo, setHostManagersInfo] = useState(props.info.host_managers_info);
+    const [fiveGCoreManagersInfo, setFiveGCoreManagersInfo] = useState(props.info.five_g_core_managers_info);
     const [inactiveNetworks, setInactiveNetworks] = useState(props.info.inactive_networks);
     const [kafkaManagersInfo, setkafkaManagersInfo] = useState(props.info.kafka_managers_info);
     const [ossecIDSManagersInfo, setOSSECIDSManagersInfo] = useState(props.info.ossec_ids_managers_info);
@@ -193,6 +198,9 @@ const ExecutionControlPlane = (props) => {
             entity === FILEBEAT_SUBRESOURCE || entity === PACKETBEAT_SUBRESOURCE ||
             entity === METRICBEAT_SUBRESOURCE || entity === HEARTBEAT_SUBRESOURCE){
             setHostManagersInfo(response.host_managers_info)
+        }
+        if(entity === FIVE_G_CORE_MANAGER_SUBRESOURCE){
+            setFiveGCoreManagersInfo(response.five_g_core_managers_info)
         }
         if(entity === TRAFFIC_MANAGER_SUBRESOURCE || entity === TRAFFIC_GENERATOR_SUBRESOURCE){
             setTrafficManagersInfo(response.traffic_managers_info)
@@ -325,6 +333,16 @@ const ExecutionControlPlane = (props) => {
                     getLogs={getLogs}
                     activeStatus={activeStatus}
                     startOrStop={startOrStop}
+                />
+
+                <HostManagersInfo
+                  setHostManagersOpen={setFiveGCoreManagersOpen}
+                  hostManagersOpen={fiveGCoreManagersOpen}
+                  loadingEntities={loadingEntities}
+                  hostManagersInfo={fiveGCoreManagersInfo}
+                  getLogs={getLogs}
+                  activeStatus={activeStatus}
+                  startOrStop={startOrStop}
                 />
 
                 <KafkaManagersInfo
