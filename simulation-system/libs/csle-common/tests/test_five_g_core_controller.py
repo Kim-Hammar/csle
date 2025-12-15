@@ -280,3 +280,35 @@ class TestFiveGCoreControllerSuite:
             f"of emulation: {example_emulation_env_config.name}")
         mock_insecure_channel.assert_called()
         mock_init_five_g_core.assert_called()
+
+    @patch("csle_common.controllers.five_g_core_controller.FiveGCoreController.get_five_g_core_managers_ips")
+    @patch("csle_common.controllers.five_g_core_controller.FiveGCoreController.get_five_g_core_managers_ports")
+    @patch("csle_common.controllers.five_g_core_controller.FiveGCoreController."
+           "get_five_g_core_status_by_ip_and_port")
+    @patch("csle_common.util.emulation_util.EmulationUtil.physical_ip_match")
+    def test_get_five_g_core_managers_info(self, mock_physical_ip_match, mock_get_statuses, mock_get_ports,
+                                           mock_get_ips, example_emulation_env_config: EmulationEnvConfig) -> None:
+        """
+        Test the method that extracts the information of the 5G core managers for a given emulation
+
+        :param mock_physical_ip_match: mock_physical_ip_match
+        :param mock_get_statuses: mock_get_statuses
+        :param mock_get_ports:mock_get_ports
+        :param mock_get_ips: mock_get_ips
+        :return: None
+        """
+        mock_get_ips.return_value = [example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip]
+        mock_get_ports.return_value = [example_emulation_env_config.five_g_config.five_g_core_manager_port]
+        mock_status = MagicMock()
+        mock_get_statuses.side_effect = [mock_status, Exception("Test exception")]
+        mock_physical_ip_match.side_effect = [True, False]
+        active_ips = [example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip]
+        physical_server_ip = example_emulation_env_config.containers_config.containers[0].physical_host_ip
+        FiveGCoreController.get_five_g_core_managers_info(
+            emulation_env_config=example_emulation_env_config, active_ips=active_ips, logger=self.logger,
+            physical_server_ip=physical_server_ip)
+        mock_get_ips.assert_called_once_with(emulation_env_config=example_emulation_env_config)
+        mock_get_ports.assert_called_once_with(emulation_env_config=example_emulation_env_config)
+        mock_get_statuses.assert_any_call(
+            port=example_emulation_env_config.five_g_config.five_g_core_manager_port,
+            ip=example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip)

@@ -328,13 +328,13 @@ class FiveGCoreController:
     def get_five_g_core_managers_info(emulation_env_config: EmulationEnvConfig, active_ips: List[str],
                                       logger: logging.Logger, physical_server_ip: str) -> FiveGCoreManagersInfo:
         """
-        Extracts the information of the Snort managers for a given emulation
+        Extracts the information of the 5G core managers for a given emulation
 
         :param emulation_env_config: the configuration of the emulation
         :param active_ips: list of active IPs
         :param physical_server_ip: the IP of the physical server
         :param logger: the logger to use for logging
-        :return: a DTO with the status of the Snort managers
+        :return: a DTO with the status of the 5G core managers
         """
         five_g_core_managers_ips = FiveGCoreController.get_five_g_core_managers_ips(
             emulation_env_config=emulation_env_config)
@@ -350,7 +350,7 @@ class FiveGCoreController:
             status = None
             try:
                 status = FiveGCoreController.get_five_g_core_status_by_ip_and_port(
-                    port=emulation_env_config.snort_ids_manager_config.snort_ids_manager_port, ip=ip)
+                    port=emulation_env_config.five_g_config.five_g_core_manager_port, ip=ip)
                 running = True
             except Exception as e:
                 logger.debug(
@@ -363,8 +363,8 @@ class FiveGCoreController:
             five_g_core_managers_running.append(running)
         execution_id = emulation_env_config.execution_id
         emulation_name = emulation_env_config.name
-        snort_manager_info_dto = FiveGCoreManagersInfo(
+        five_g_core_manager_info_dto = FiveGCoreManagersInfo(
             five_g_core_managers_running=five_g_core_managers_running, ips=five_g_core_managers_ips,
             ports=five_g_core_managers_ports, execution_id=execution_id, emulation_name=emulation_name,
             five_g_core_managers_statuses=five_g_core_managers_statuses)
-        return snort_manager_info_dto
+        return five_g_core_manager_info_dto

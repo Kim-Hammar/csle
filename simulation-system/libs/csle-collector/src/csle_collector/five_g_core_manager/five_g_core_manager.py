@@ -153,6 +153,8 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         """
         logging.info("Initializing the 5G Core services")
         FiveGCoreManagerUtil.init_all_core_services(control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
+        FiveGCoreManagerUtil.init_subscriber_data(
+            control_script_path=constants.FIVE_G_CORE.SUBSCRIBER_CONTROL_SCRIPT_PATH)
         status = FiveGCoreManagerUtil.get_core_status(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(

@@ -389,6 +389,8 @@ class TestFiveGCoreManagerSuite:
         """
         mocker.patch('csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.'
                      'init_all_core_services', return_value=None)
+        mocker.patch('csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.'
+                     'init_subscriber_data', return_value=None)
         mock_status_dict = {
             constants.FIVE_G_CORE.MONGO: False,
             constants.FIVE_G_CORE.MME: False,

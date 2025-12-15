@@ -226,3 +226,28 @@ class FiveGCoreManagerUtil:
         dto.webui_running = False
         dto.ip = "0.0.0.0"
         return dto
+
+    @staticmethod
+    def init_subscriber_data(control_script_path: str) -> bool:
+        """
+        Initializes the subscriber data for the 5G core.
+
+        :param control_script_path: the path to the control script
+        :return: True if the script execution completed successfully, False otherwise.
+        """
+        logging.info(f"Attempting to initialize the subscriber data for the 5G core using: {control_script_path}")
+        try:
+            result = subprocess.run([control_script_path], capture_output=True, text=True, check=True, cwd=".")
+            logging.info(f"Subscriber data initialized, command output: {result.stdout.strip()}")
+            return True
+
+        except FileNotFoundError:
+            logging.error(f"5G Core control script not found at {control_script_path}")
+            return False
+        except subprocess.CalledProcessError as e:
+            logging.error(f"Script execution failed to initialize subscriber data. Stderr: {e.stderr.strip()}")
+            logging.error(f"Stdout: {e.stdout.strip()}")
+            return False
+        except Exception as e:
+            logging.error(f"An unexpected error occurred during initialization of subscriber data: {e}")
+            return False

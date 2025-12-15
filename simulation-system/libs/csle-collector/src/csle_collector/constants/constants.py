@@ -779,6 +779,7 @@ class FIVE_G_CORE:
     Constants related to the 5G core
     """
     CONTROL_SCRIPT_PATH = "/start_stop_5g.sh"
+    SUBSCRIBER_CONTROL_SCRIPT_PATH = "/subscriber_init.sh"
     RUNNING = "RUNNING"
     STOPPED = "STOPPED"
     ALL = "all"
