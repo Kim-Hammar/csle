@@ -56,7 +56,7 @@ class FiveGCoreManagersInfo(JSONSerializable):
         d["emulation_name"] = self.emulation_name
         d["execution_id"] = self.execution_id
         d["five_g_core_managers_statuses"] = list(map(
-            lambda x: snort_ids_manager_util.SnortIdsManagerUtil.snort_ids_monitor_dto_to_dict(x),
+            lambda x: five_g_core_manager_util.FiveGCoreManagerUtil.five_g_core_status_dto_to_dict(x),
             self.five_g_core_managers_statuses))
         return d
 
@@ -71,7 +71,7 @@ class FiveGCoreManagersInfo(JSONSerializable):
             five_g_core_managers_running=d["five_g_core_managers_running"], ips=d["ips"], ports=d["ports"],
             emulation_name=d["emulation_name"], execution_id=d["execution_id"],
             five_g_core_managers_statuses=list(map(
-                lambda x: snort_ids_manager_util.SnortIdsManagerUtil.snort_ids_monitor_dto_from_dict(x),
+                lambda x: five_g_core_manager_util.FiveGCoreManagerUtil.five_g_core_status_dto_from_dict(x),
                 d["five_g_core_managers_statuses"])))
         return dto
 

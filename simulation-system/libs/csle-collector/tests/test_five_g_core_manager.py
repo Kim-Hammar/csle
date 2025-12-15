@@ -357,7 +357,7 @@ class TestFiveGCoreManagerSuite:
         mocker.patch('csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.'
                      'get_core_status', return_value=mock_status_dict)
         response_2: FiveGCoreStatusDTO = (csle_collector.five_g_core_manager.query_five_g_core_manager.
-                                        get_five_g_core_status(stub=grpc_stub))
+                                          get_five_g_core_status(stub=grpc_stub))
         assert response_2.mongo_running == mock_status.mongo_running
         assert response_2.mme_running == mock_status.mme_running
         assert response_2.sgwc_running == mock_status.sgwc_running
