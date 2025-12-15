@@ -18,12 +18,12 @@ classifiers = [
     "Intended Audience :: Science/Research"
 ]
 dependencies = [
-    "csle-base>=0.9.18",
-    "csle-common>=0.9.18",
-    "csle-agents>=0.9.18",
-    "csle-cluster>=0.9.18",
-    "csle-system-identification>=0.9.18",
-    "csle-ryu>=0.9.18",
+    "csle-base>=0.9.19",
+    "csle-common>=0.9.19",
+    "csle-agents>=0.9.19",
+    "csle-cluster>=0.9.19",
+    "csle-system-identification>=0.9.19",
+    "csle-ryu>=0.9.19",
     "flask>=2.2.2",
     "flask-cors>=5.0.0",
     "flask-socketio>=5.5.1",
