@@ -6604,3 +6604,235 @@ class TestClusterManagerSuite:
             stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
             container_ip=container_ip)
         assert not response.outcome
+
+    def test_start5GDUManagers(self, grpc_stub, mocker: pytest_mock.MockFixture,
+                               get_ex_exec: EmulationExecution) -> None:
+        """
+        Tests the start5GDUManagers grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch('csle_common.controllers.five_g_du_controller.FiveGDUController.'
+                     'start_five_g_du_managers', return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.start_five_g_du_managers(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet)
+        assert response.outcome
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.start_five_g_du_managers(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet)
+        assert not response.outcome
+
+    def test_stop5GDUManagers(self, grpc_stub, mocker: pytest_mock.MockFixture, get_ex_exec: EmulationExecution) \
+            -> None:
+        """
+        Tests the stop5GDUManagers grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch('csle_common.controllers.five_g_du_controller.FiveGDUController.'
+                     'stop_five_g_du_managers', return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_du_managers(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet)
+        assert response.outcome
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_du_managers(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet)
+        assert not response.outcome
+
+    def test_start5GDUManager(self, grpc_stub, mocker: pytest_mock.MockFixture,
+                              get_ex_exec: EmulationExecution) -> None:
+        """
+        Tests the start5GDUManager grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch('csle_common.controllers.five_g_du_controller.FiveGDUController.'
+                     'start_five_g_du_manager', return_value=None)
+        container_ip = get_ex_exec.emulation_env_config.containers_config.containers[0].get_ips()[0]
+        physical_host_ip = get_ex_exec.emulation_env_config.containers_config.containers[0].physical_host_ip
+        mocker.patch('csle_common.util.general_util.GeneralUtil.get_host_ip', return_value=physical_host_ip)
+        response: OperationOutcomeDTO = query_cluster_manager.start_five_g_du_manager(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert response.outcome
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_container_config",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.start_five_g_du_manager(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert not response.outcome
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_container_config",
+                     return_value=get_ex_exec.emulation_env_config.containers_config.containers[0])
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.start_five_g_du_manager(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert not response.outcome
+
+    def test_stop5GDUManager(self, grpc_stub, mocker: pytest_mock.MockFixture, get_ex_exec: EmulationExecution) \
+            -> None:
+        """
+        Tests the stop5GDUManager grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch('csle_common.controllers.five_g_du_controller.FiveGDUController.'
+                     'stop_five_g_du_manager', return_value=None)
+        container_ip = get_ex_exec.emulation_env_config.containers_config.containers[0].get_ips()[0]
+        physical_host_ip = get_ex_exec.emulation_env_config.containers_config.containers[0].physical_host_ip
+        mocker.patch('csle_common.util.general_util.GeneralUtil.get_host_ip', return_value=physical_host_ip)
+        response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_du_manager(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert response.outcome
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_container_config",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_du_manager(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert not response.outcome
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_container_config",
+                     return_value=get_ex_exec.emulation_env_config.containers_config.containers[0])
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_du_manager(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert not response.outcome
+
+    def test_start5GDUs(self, grpc_stub, mocker: pytest_mock.MockFixture, get_ex_exec: EmulationExecution) -> None:
+        """
+        Tests the start5GDUs grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch('csle_common.controllers.five_g_du_controller.FiveGDUController.'
+                     'start_five_g_dus', return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.start_five_g_dus(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet)
+        assert response.outcome
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.start_five_g_dus(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet)
+        assert not response.outcome
+
+    def test_stop5GDUs(self, grpc_stub, mocker: pytest_mock.MockFixture, get_ex_exec: EmulationExecution) -> None:
+        """
+        Tests the stop5GDUs grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch('csle_common.controllers.five_g_du_controller.FiveGDUController.'
+                     'stop_five_g_dus', return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_dus(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet)
+        assert response.outcome
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_dus(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet)
+        assert not response.outcome
+
+    def test_start5GDU(self, grpc_stub, mocker: pytest_mock.MockFixture, get_ex_exec: EmulationExecution) -> None:
+        """
+        Tests the start5GDU grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch('csle_common.controllers.five_g_du_controller.FiveGDUController.'
+                     'start_five_g_du', return_value=None)
+        container_ip = get_ex_exec.emulation_env_config.containers_config.containers[0].get_ips()[0]
+        physical_host_ip = get_ex_exec.emulation_env_config.containers_config.containers[0].physical_host_ip
+        mocker.patch('csle_common.util.general_util.GeneralUtil.get_host_ip', return_value=physical_host_ip)
+        response: OperationOutcomeDTO = query_cluster_manager.start_five_g_du(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert response.outcome
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_container_config",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.start_five_g_du(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert not response.outcome
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_container_config",
+                     return_value=get_ex_exec.emulation_env_config.containers_config.containers[0])
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.start_five_g_du(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert not response.outcome
+
+    def test_stop5GDU(self, grpc_stub, mocker: pytest_mock.MockFixture, get_ex_exec: EmulationExecution) -> None:
+        """
+        Tests the stop5GDU grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch('csle_common.controllers.five_g_du_controller.FiveGDUController.'
+                     'stop_five_g_du', return_value=None)
+        container_ip = get_ex_exec.emulation_env_config.containers_config.containers[0].get_ips()[0]
+        physical_host_ip = get_ex_exec.emulation_env_config.containers_config.containers[0].physical_host_ip
+        mocker.patch('csle_common.util.general_util.GeneralUtil.get_host_ip', return_value=physical_host_ip)
+        response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_du(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert response.outcome
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_container_config",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_du(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert not response.outcome
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_container_config",
+                     return_value=get_ex_exec.emulation_env_config.containers_config.containers[0])
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_du(
+            stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet,
+            container_ip=container_ip)
+        assert not response.outcome

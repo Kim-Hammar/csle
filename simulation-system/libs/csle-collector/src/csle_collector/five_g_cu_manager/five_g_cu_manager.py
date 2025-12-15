@@ -40,7 +40,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         :param context: the gRPC context
         :return: a DTO with the status of the 5g cu
         """
-        logging.info("Getting the status of the 5G CU services")
+        logging.info("Getting the status of the 5G CU")
         status = FiveGCUManagerUtil.get_cu_status(
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
@@ -58,7 +58,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         :param context: the gRPC context
         :return: a DTO with the status of the 5g cu
         """
-        logging.info("Starting the 5G CU services")
+        logging.info("Starting the 5G CU")
         FiveGCUManagerUtil.start_cu(control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         status = FiveGCUManagerUtil.get_cu_status(
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
@@ -77,7 +77,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         :param context: the gRPC context
         :return: a DTO with the status of the 5g cu
         """
-        logging.info("Stopping the 5G CU services")
+        logging.info("Stopping the 5G CU")
         FiveGCUManagerUtil.stop_cu(control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         status = FiveGCUManagerUtil.get_cu_status(
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)

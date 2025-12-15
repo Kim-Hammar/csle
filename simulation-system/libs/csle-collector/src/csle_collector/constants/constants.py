@@ -809,7 +809,7 @@ class FIVE_G_CORE:
 
 class FIVE_G_CU:
     """
-    Constants related to the 5G core
+    Constants related to the 5G CU
     """
     CONTROL_SCRIPT_PATH = "/start_stop_cu.sh"
     RUNNING = "RUNNING"
@@ -818,3 +818,16 @@ class FIVE_G_CU:
     START = "start"
     STOP = "stop"
     CU = "srscu"
+
+
+class FIVE_G_DU:
+    """
+    Constants related to the 5G DU
+    """
+    CONTROL_SCRIPT_PATH = "/start_stop_du.sh"
+    RUNNING = "RUNNING"
+    STOPPED = "STOPPED"
+    STATUS = "status"
+    START = "start"
+    STOP = "stop"
+    DU = "srsdu"

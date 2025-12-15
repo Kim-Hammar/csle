@@ -12,6 +12,9 @@ RUN chmod 777 /start_stop_du.sh
 ADD start_stop_ue.sh /start_stop_ue.sh
 RUN chmod 777 /start_stop_ue.sh
 
+ADD five_g_du_manager.py /five_g_du_manager.py
+RUN chmod 777 /five_g_du_manager.py
+
 # Add config
 ADD du.yml /srsRAN_Project/build/apps/du/du.yml
 RUN chmod 666 /srsRAN_Project/build/apps/du/du.yml

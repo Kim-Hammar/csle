@@ -24,6 +24,7 @@ python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --gr
 python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/ryu_manager/. ./protos/ryu_manager.proto --mypy_out=./src/csle_collector/ryu_manager/.
 python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/five_g_core_manager/. ./protos/five_g_core_manager.proto --mypy_out=./src/csle_collector/five_g_core_manager/.
 python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/five_g_cu_manager/. ./protos/five_g_cu_manager.proto --mypy_out=./src/csle_collector/five_g_cu_manager/.
+python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/five_g_du_manager/. ./protos/five_g_du_manager.proto --mypy_out=./src/csle_collector/five_g_du_manager/.
 ```
 
 ## Requirements
