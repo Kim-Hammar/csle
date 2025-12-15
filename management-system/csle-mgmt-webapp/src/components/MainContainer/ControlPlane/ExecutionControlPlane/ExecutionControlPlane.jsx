@@ -106,7 +106,6 @@ const ExecutionControlPlane = (props) => {
     const [runningContainers, setRunningContainers] = useState(props.info.running_containers);
     const [stoppedContainers, setStoppedContainers] = useState(props.info.stopped_containers);
     const [trafficManagersInfo, setTrafficManagersInfo] = useState(props.info.traffic_managers_info);
-
     const ip = serverIp;
     const port = serverPort;
     const navigate = useNavigate();
@@ -372,7 +371,7 @@ const ExecutionControlPlane = (props) => {
                   setFiveGDUManagersOpen={setFiveGDUManagersOpen}
                   fiveGDUManagersOpen={fiveGDUManagersOpen}
                   loadingEntities={loadingEntities}
-                  fiveGCUManagersInfo={fiveGDUManagersInfo}
+                  fiveGDUManagersInfo={fiveGDUManagersInfo}
                   getLogs={getLogs}
                   activeStatus={activeStatus}
                   startOrStop={startOrStop}

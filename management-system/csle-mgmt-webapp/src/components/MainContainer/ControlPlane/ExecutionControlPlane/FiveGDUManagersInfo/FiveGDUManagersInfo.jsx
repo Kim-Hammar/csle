@@ -17,7 +17,6 @@ import {
  * Subcomponent of the /control-plane page that contains information about 5G DU managers
  */
 const FiveGDUManagersInfo = (props) => {
-  console.log(props.fiveGDUManagersOpen)
   return (
     <Card className="subCard">
       <Card.Header>
