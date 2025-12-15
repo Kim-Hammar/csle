@@ -253,6 +253,13 @@ service ClusterManager {
   rpc get5GCoreManagersInfo(Get5GCoreManagersInfoMsg) returns (FiveGCoreManagersInfoDTO) {}
   rpc get5GCUManagersInfo(Get5GCUManagersInfoMsg) returns (FiveGCUManagersInfoDTO) {}
   rpc get5GDUManagersInfo(Get5GDUManagersInfoMsg) returns (FiveGDUManagersInfoDTO) {}
+  rpc get5GCoreManagerLogs(Get5GCoreManagerLogsMsg) returns (LogsDTO) {}
+  rpc get5GCUManagerLogs(Get5GCUManagerLogsMsg) returns (LogsDTO) {}
+  rpc get5GDUManagerLogs(Get5GDUManagerLogsMsg) returns (LogsDTO) {}
+  rpc get5GCoreLogs(Get5GCoreLogsMsg) returns (LogsDTO) {}
+  rpc get5GCULogs(Get5GCULogsMsg) returns (LogsDTO) {}
+  rpc get5GDULogs(Get5GDULogsMsg) returns (LogsDTO) {}
+  rpc get5GUELogs(Get5GUELogsMsg) returns (LogsDTO) {}
 }
 
 // Message that the client sends when requesting to start stop a PID
@@ -2333,4 +2340,53 @@ message FiveGDUManagersInfoDTO {
   int32 executionId = 4;
   repeated bool fiveGDUManagersRunning = 5;
   repeated FiveGDUInfoDTO fiveGDUManagersStatuses = 6;
+}
+
+// Message that the client sends when requesting to get logs of a specific 5G core manager
+message Get5GCoreManagerLogsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to get logs of a specific 5G CU manager
+message Get5GCUManagerLogsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to get logs of a specific 5G DU manager
+message Get5GDUManagerLogsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to get logs of a specific 5G core
+message Get5GCoreLogsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to get logs of a specific 5G CU
+message Get5GCULogsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to get logs of a specific 5G DU
+message Get5GDULogsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to get logs of a specific 5G UE
+message Get5GUELogsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
 }

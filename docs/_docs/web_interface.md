@@ -293,6 +293,13 @@ Table 21: REST API resources (2/4).
 | `/emulation-executions/<exec_id>/ryu-monitor?token=<token>&emulation=<em>`          | `POST`                 |
 | `/emulation-executions/<exec_id>/ryu-controller?token=<token>&emulation=<em>`       | `POST`                 |
 | `/emulation-executions/<exec_id>/switches?token=<token>&emulation=<em>`             | `POST`                 |
+| `/emulation-executions/<exec_id>/five-g-core-manager?token=<token>&emulation=<em>`  | `POST`                 |
+| `/emulation-executions/<exec_id>/five-g-cu-manager?token=<token>&emulation=<em>`    | `POST`                 |
+| `/emulation-executions/<exec_id>/five-g-du-manager?token=<token>&emulation=<em>`    | `POST`                 |
+| `/emulation-executions/<exec_id>/five-g-core?token=<token>&emulation=<em>`          | `POST`                 |
+| `/emulation-executions/<exec_id>/five-g-cu?token=<token>&emulation=<em>`            | `POST`                 |
+| `/emulation-executions/<exec_id>/five-g-du?token=<token>&emulation=<em>`            | `POST`                 |
+| `/emulation-executions/<exec_id>/five-g-ue?token=<token>&emulation=<em>`            | `POST`                 |
 | `/users?token=<token>`                                                              | `GET`, `DELETE`, `PUT` |
 | `/users?ids=true&token=<token>`                                                     | `GET`, `DELETE`        |
 | `/users/<user_id>?token=<token>`                                                    | `GET`, `DELETE`, `PUT` |
@@ -306,52 +313,59 @@ Table 21: REST API resources (2/4).
 Table 22: REST API resources (3/4).
 </p>
 
-| *Resource*                                                                   | *Method*     |
-|------------------------------------------------------------------------------|--------------|
-| `/logs/grafana?token=<token>`                                                | `GET`        |
-| `/logs/cadvisor?token=<token>`                                               | `GET`        |
-| `/logs/container?token=<token>`                                              | `GET`        |
-| `/logs/node-exporter?token=<token>`                                          | `GET`        |
-| `/logs/client-manager?token=<token>&emulation=<em>&executionid=<exec_id>`    | `POST`       |
-| `/logs/kafka-manager?token=<token>&emulation=<em>&executionid=<exec_id>`     | `POST`       |
-| `/logs/elk-manager?token=<token>&emulation=<em>&executionid=<exec_id>`       | `POST`       |
-| `/logs/ryu-manager?token=<token>&emulation=<em>&executionid=<exec_id>`       | `POST`       |
-| `/logs/traffic-manager?token=<token>&emulation=<em>&executionid=<exec_id>`   | `POST`       |
-| `/logs/snort-ids-manager?token=<token>&emulation=<em>&executionid=<exec_id>` | `POST`       |
-| `/logs/ossec-ids-manager?token=<token>&emulation=<em>&executionid=<exec_id>` | `POST`       |
-| `/logs/host-manager?token=<token>&emulation=<em>&executionid=<exec_id>`      | `POST`       |
-| `/logs/ossec-ids?token=<token>&emulation=<em>&executionid=<exec_id>`         | `POST`       |
-| `/logs/snort-ids?token=<token>&emulation=<em>&executionid=<exec_id>`         | `POST`       |
-| `/logs/kafka?token=<token>&emulation=<em>&executionid=<exec_id>`             | `POST`       |
-| `/logs/elk-stack?token=<token>&emulation=<em>&executionid=<exec_id>`         | `POST`       |
-| `/logs/ryu-controller?token=<token>&emulation=<em>&executionid=<exec_id>`    | `POST`       |
-| `/config?token=<token>`                                                      | `GET`, `PUT` |
-| `/config/registration-allowed`                                               | `GET`        |
-| `/version`                                                                   | `GET`        |
-| `/about-page`                                                                | `GET`        |
-| `/login-page`                                                                | `GET`        |
-| `/register-page`                                                             | `GET`        |
-| `/emulation-statistics-page`                                                 | `GET`        |
-| `/emulations-page`                                                           | `GET`        |
-| `/images-page`                                                               | `GET`        |
-| `/downloads-page`                                                            | `GET`        |
-| `/jobs-page`                                                                 | `GET`        |
-| `/monitoring-page`                                                           | `GET`        |
-| `/policies-page`                                                             | `GET`        |
-| `/policy-examination-page`                                                   | `GET`        |
-| `/sdn-controllers-page`                                                      | `GET`        |
-| `/control-plane-page`                                                        | `GET`        |
-| `/user-admin-page`                                                           | `GET`        |
-| `/system-admin-page`                                                         | `GET`        |
-| `/logs-admin-page`                                                           | `GET`        |
-| `/simulations-page`                                                          | `GET`        |
-| `/system-models-page`                                                        | `GET`        |
-| `/traces-page`                                                               | `GET`        |
-| `/training-page`                                                             | `GET`        |
-| `/create-emulation-page`                                                     | `GET`        |
-| `/container-terminal-page`                                                   | `GET`        |
-| `/container-terminal?token=<token>`                                          | `Websockets` |
-| `/create-emulation`                                                          | `POST`       |
+| *Resource*                                                                     | *Method*     |
+|--------------------------------------------------------------------------------|--------------|
+| `/logs/grafana?token=<token>`                                                  | `GET`        |
+| `/logs/cadvisor?token=<token>`                                                 | `GET`        |
+| `/logs/container?token=<token>`                                                | `GET`        |
+| `/logs/node-exporter?token=<token>`                                            | `GET`        |
+| `/logs/client-manager?token=<token>&emulation=<em>&executionid=<exec_id>`      | `POST`       |
+| `/logs/kafka-manager?token=<token>&emulation=<em>&executionid=<exec_id>`       | `POST`       |
+| `/logs/elk-manager?token=<token>&emulation=<em>&executionid=<exec_id>`         | `POST`       |
+| `/logs/ryu-manager?token=<token>&emulation=<em>&executionid=<exec_id>`         | `POST`       |
+| `/logs/traffic-manager?token=<token>&emulation=<em>&executionid=<exec_id>`     | `POST`       |
+| `/logs/snort-ids-manager?token=<token>&emulation=<em>&executionid=<exec_id>`   | `POST`       |
+| `/logs/ossec-ids-manager?token=<token>&emulation=<em>&executionid=<exec_id>`   | `POST`       |
+| `/logs/host-manager?token=<token>&emulation=<em>&executionid=<exec_id>`        | `POST`       |
+| `/logs/ossec-ids?token=<token>&emulation=<em>&executionid=<exec_id>`           | `POST`       |
+| `/logs/snort-ids?token=<token>&emulation=<em>&executionid=<exec_id>`           | `POST`       |
+| `/logs/kafka?token=<token>&emulation=<em>&executionid=<exec_id>`               | `POST`       |
+| `/logs/elk-stack?token=<token>&emulation=<em>&executionid=<exec_id>`           | `POST`       |
+| `/logs/ryu-controller?token=<token>&emulation=<em>&executionid=<exec_id>`      | `POST`       |
+| `/logs/five-g-core-manager?token=<token>&emulation=<em>&executionid=<exec_id>` | `POST`       |
+| `/logs/five-g-cu-manager?token=<token>&emulation=<em>&executionid=<exec_id>`   | `POST`       |
+| `/logs/five-g-du-manager?token=<token>&emulation=<em>&executionid=<exec_id>`   | `POST`       |
+| `/logs/five-g-core?token=<token>&emulation=<em>&executionid=<exec_id>`         | `POST`       |
+| `/logs/five-g-cu?token=<token>&emulation=<em>&executionid=<exec_id>`           | `POST`       |
+| `/logs/five-g-du?token=<token>&emulation=<em>&executionid=<exec_id>`           | `POST`       |
+| `/logs/five-g-ue?token=<token>&emulation=<em>&executionid=<exec_id>`           | `POST`       |
+| `/config?token=<token>`                                                        | `GET`, `PUT` |
+| `/config/registration-allowed`                                                 | `GET`        |
+| `/version`                                                                     | `GET`        |
+| `/about-page`                                                                  | `GET`        |
+| `/login-page`                                                                  | `GET`        |
+| `/register-page`                                                               | `GET`        |
+| `/emulation-statistics-page`                                                   | `GET`        |
+| `/emulations-page`                                                             | `GET`        |
+| `/images-page`                                                                 | `GET`        |
+| `/downloads-page`                                                              | `GET`        |
+| `/jobs-page`                                                                   | `GET`        |
+| `/monitoring-page`                                                             | `GET`        |
+| `/policies-page`                                                               | `GET`        |
+| `/policy-examination-page`                                                     | `GET`        |
+| `/sdn-controllers-page`                                                        | `GET`        |
+| `/control-plane-page`                                                          | `GET`        |
+| `/user-admin-page`                                                             | `GET`        |
+| `/system-admin-page`                                                           | `GET`        |
+| `/logs-admin-page`                                                             | `GET`        |
+| `/simulations-page`                                                            | `GET`        |
+| `/system-models-page`                                                          | `GET`        |
+| `/traces-page`                                                                 | `GET`        |
+| `/training-page`                                                               | `GET`        |
+| `/create-emulation-page`                                                       | `GET`        |
+| `/container-terminal-page`                                                     | `GET`        |
+| `/container-terminal?token=<token>`                                            | `Websockets` |
+| `/create-emulation`                                                            | `POST`       |
 
 
 <p class="captionFig">

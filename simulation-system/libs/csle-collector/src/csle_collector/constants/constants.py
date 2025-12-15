@@ -260,6 +260,10 @@ class LOG_FILES:
     FIVE_G_CU_MANAGER_LOG_DIR = "/"
     FIVE_G_DU_MANAGER_LOG_FILE = "five_g_du_manager.log"
     FIVE_G_DU_MANAGER_LOG_DIR = "/"
+    FIVE_G_CORE_LOG_FILE = "/var/log/open5gs/amf.log"
+    FIVE_G_DU_LOG_FILE = "/du.log"
+    FIVE_G_CU_LOG_FILE = "/cu.log"
+    FIVE_G_UE_LOG_FILE = "/ue.log"
 
 
 class MANAGER_PORTS:

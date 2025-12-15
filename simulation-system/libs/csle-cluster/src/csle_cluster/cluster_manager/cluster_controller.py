@@ -5243,3 +5243,143 @@ class ClusterController:
             stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
             operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.stop_pid(stub=stub, pid=pid)
             return operation_outcome_dto
+
+    @staticmethod
+    def get_five_g_core_manager_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> Dict[str, Any]:
+        """
+        Gets the logs of a specific 5G core manager of a specific execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The logs
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            logs_dto = csle_cluster.cluster_manager.query_cluster_manager.get_five_g_core_manager_logs(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return ClusterManagerUtil.logs_dto_to_dict(logs_dto=logs_dto)
+
+    @staticmethod
+    def get_five_g_cu_manager_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> Dict[str, Any]:
+        """
+        Gets the logs of a specific 5G CU manager of a specific execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The logs
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            logs_dto = csle_cluster.cluster_manager.query_cluster_manager.get_five_g_cu_manager_logs(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return ClusterManagerUtil.logs_dto_to_dict(logs_dto=logs_dto)
+
+    @staticmethod
+    def get_five_g_du_manager_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> Dict[str, Any]:
+        """
+        Gets the logs of a specific 5G DU manager of a specific execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The logs
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            logs_dto = csle_cluster.cluster_manager.query_cluster_manager.get_five_g_du_manager_logs(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return ClusterManagerUtil.logs_dto_to_dict(logs_dto=logs_dto)
+
+    @staticmethod
+    def get_five_g_core_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> Dict[str, Any]:
+        """
+        Gets the logs of a specific 5G core of a specific execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The logs
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            logs_dto = csle_cluster.cluster_manager.query_cluster_manager.get_five_g_core_logs(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return ClusterManagerUtil.logs_dto_to_dict(logs_dto=logs_dto)
+
+    @staticmethod
+    def get_five_g_cu_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> Dict[str, Any]:
+        """
+        Gets the logs of a specific 5G CU of a specific execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The logs
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            logs_dto = csle_cluster.cluster_manager.query_cluster_manager.get_five_g_cu_logs(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return ClusterManagerUtil.logs_dto_to_dict(logs_dto=logs_dto)
+
+    @staticmethod
+    def get_five_g_du_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> Dict[str, Any]:
+        """
+        Gets the logs of a specific 5G DU of a specific execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The logs
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            logs_dto = csle_cluster.cluster_manager.query_cluster_manager.get_five_g_du_logs(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return ClusterManagerUtil.logs_dto_to_dict(logs_dto=logs_dto)
+
+    @staticmethod
+    def get_five_g_ue_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> Dict[str, Any]:
+        """
+        Gets the logs of a specific 5G core of a specific execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The logs
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            logs_dto = csle_cluster.cluster_manager.query_cluster_manager.get_five_g_ue_logs(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return ClusterManagerUtil.logs_dto_to_dict(logs_dto=logs_dto)

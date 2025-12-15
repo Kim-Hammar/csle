@@ -7065,3 +7065,164 @@ class FiveGDUManagersInfoDTO(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["emulationName", b"emulationName", "executionId", b"executionId", "fiveGDUManagersRunning", b"fiveGDUManagersRunning", "fiveGDUManagersStatuses", b"fiveGDUManagersStatuses", "ips", b"ips", "ports", b"ports"]) -> None: ...
 
 global___FiveGDUManagersInfoDTO = FiveGDUManagersInfoDTO
+
+@typing_extensions.final
+class Get5GCoreManagerLogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G core manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCoreManagerLogsMsg = Get5GCoreManagerLogsMsg
+
+@typing_extensions.final
+class Get5GCUManagerLogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G CU manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCUManagerLogsMsg = Get5GCUManagerLogsMsg
+
+@typing_extensions.final
+class Get5GDUManagerLogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G DU manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GDUManagerLogsMsg = Get5GDUManagerLogsMsg
+
+@typing_extensions.final
+class Get5GCoreLogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCoreLogsMsg = Get5GCoreLogsMsg
+
+@typing_extensions.final
+class Get5GCULogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G CU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCULogsMsg = Get5GCULogsMsg
+
+@typing_extensions.final
+class Get5GDULogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G DU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GDULogsMsg = Get5GDULogsMsg
+
+@typing_extensions.final
+class Get5GUELogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G UE"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GUELogsMsg = Get5GUELogsMsg

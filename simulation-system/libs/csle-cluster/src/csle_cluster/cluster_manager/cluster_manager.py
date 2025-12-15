@@ -5679,6 +5679,170 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         else:
             return ClusterManagerUtil.get_empty_five_g_du_info_dto()
 
+    def get5GCoreManagerLogs(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Get5GCoreManagerLogsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO:
+        """
+        Gets the logs of a specific 5G core manager
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a LogsDTO with the logs
+        """
+        logging.info(f"Getting the logs of the 5G core manager with ip: {request.containerIp} "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        else:
+            path = (execution.emulation_env_config.five_g_config.five_g_core_manager_log_dir +
+                    execution.emulation_env_config.five_g_config.five_g_core_manager_log_file)
+            return ClusterManagerUtil.get_logs(execution=execution, ip=container_config.docker_gw_bridge_ip, path=path)
+
+    def get5GCUManagerLogs(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Get5GCUManagerLogsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO:
+        """
+        Gets the logs of a specific 5G CU manager
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a LogsDTO with the logs
+        """
+        logging.info(f"Getting the logs of the 5G CU manager with ip: {request.containerIp} "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        else:
+            path = (execution.emulation_env_config.five_g_config.five_g_cu_manager_log_dir +
+                    execution.emulation_env_config.five_g_config.five_g_cu_manager_log_file)
+            return ClusterManagerUtil.get_logs(execution=execution, ip=container_config.docker_gw_bridge_ip, path=path)
+
+    def get5GDUManagerLogs(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Get5GDUManagerLogsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO:
+        """
+        Gets the logs of a specific 5G DU manager
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a LogsDTO with the logs
+        """
+        logging.info(f"Getting the logs of the 5G DU manager with ip: {request.containerIp} "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        else:
+            path = (execution.emulation_env_config.five_g_config.five_g_du_manager_log_dir +
+                    execution.emulation_env_config.five_g_config.five_g_du_manager_log_file)
+            return ClusterManagerUtil.get_logs(execution=execution, ip=container_config.docker_gw_bridge_ip, path=path)
+
+    def get5GCoreLogs(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Get5GCoreLogsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO:
+        """
+        Gets the logs of a specific 5G core
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a LogsDTO with the logs
+        """
+        logging.info(f"Getting the logs of the 5G core with ip: {request.containerIp} "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        else:
+            path = collector_constants.LOG_FILES.FIVE_G_CORE_LOG_FILE
+            return ClusterManagerUtil.get_logs(execution=execution, ip=container_config.docker_gw_bridge_ip, path=path)
+
+    def get5GCULogs(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Get5GCULogsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO:
+        """
+        Gets the logs of a specific 5G CU
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a LogsDTO with the logs
+        """
+        logging.info(f"Getting the logs of the 5G CU with ip: {request.containerIp} "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        else:
+            path = collector_constants.LOG_FILES.FIVE_G_CU_LOG_FILE
+            return ClusterManagerUtil.get_logs(execution=execution, ip=container_config.docker_gw_bridge_ip, path=path)
+
+    def get5GDULogs(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Get5GDULogsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO:
+        """
+        Gets the logs of a specific 5G DU
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a LogsDTO with the logs
+        """
+        logging.info(f"Getting the logs of the 5G DU with ip: {request.containerIp} "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        else:
+            path = collector_constants.LOG_FILES.FIVE_G_DU_LOG_FILE
+            return ClusterManagerUtil.get_logs(execution=execution, ip=container_config.docker_gw_bridge_ip, path=path)
+
+    def get5GUELogs(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Get5GUELogsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO:
+        """
+        Gets the logs of a specific 5G UE
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a LogsDTO with the logs
+        """
+        logging.info(f"Getting the logs of the 5G UE with ip: {request.containerIp} "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=[])
+        else:
+            path = collector_constants.LOG_FILES.FIVE_G_UE_LOG_FILE
+            return ClusterManagerUtil.get_logs(execution=execution, ip=container_config.docker_gw_bridge_ip, path=path)
+
 
 def serve(port: int = 50041, log_dir: str = "/var/log/csle/", max_workers: int = 10,
           log_file_name: str = "cluster_manager.log") -> None:
