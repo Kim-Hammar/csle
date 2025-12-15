@@ -1,7 +1,8 @@
-from typing import Dict
+from typing import Dict, Any
 import subprocess
 import re
 import logging
+import csle_collector.five_g_du_manager.five_g_du_manager_pb2
 import csle_collector.constants.constants as constants
 
 
@@ -220,3 +221,45 @@ class FiveGDUManagerUtil:
             logging.error(f"An unexpected error occurred during status retrieval: {e}")
 
         return status_map
+
+    @staticmethod
+    def five_g_du_status_dto_to_dict(
+            five_g_du_status_dto: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO) \
+            -> Dict[str, Any]:
+        """
+        Converts a FiveGDUStatusDTO to a dict
+
+        :param five_g_du_status_dto: the DTO to convert
+        :return: a dict representation of the DTO
+        """
+        d: Dict[str, Any] = {}
+        d["du_running"] = five_g_du_status_dto.du_running
+        d["ue_running"] = five_g_du_status_dto.ue_running
+        d["ip"] = five_g_du_status_dto.ip
+        return d
+
+    @staticmethod
+    def five_g_du_status_dto_from_dict(d: Dict[str, Any]) \
+            -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+        """
+        Converts a FiveGDUStatusDTO to a dict
+
+        :param d: the dict to convert
+        :return: the converted DTO
+        """
+        dto = csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO()
+        dto.du_running = d["du_running"]
+        dto.ue_running = d["ue_running"]
+        dto.ip = d["ip"]
+        return dto
+
+    @staticmethod
+    def five_g_du_status_dto_empty() -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+        """
+        :return: An empty FiveGDUStatusDTO
+        """
+        dto = csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO()
+        dto.du_running = False
+        dto.ue_running = False
+        dto.ip = "0.0.0.0"
+        return dto

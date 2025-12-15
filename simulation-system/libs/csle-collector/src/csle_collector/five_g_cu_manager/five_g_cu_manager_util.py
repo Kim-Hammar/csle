@@ -1,7 +1,8 @@
-from typing import Dict
+from typing import Dict, Any
 import subprocess
 import re
 import logging
+import csle_collector.five_g_cu_manager.five_g_cu_manager_pb2
 import csle_collector.constants.constants as constants
 
 
@@ -101,3 +102,42 @@ class FiveGCUManagerUtil:
         except Exception as e:
             logging.error(f"An unexpected error occurred during stopping the CU: {e}")
             return False
+
+    @staticmethod
+    def five_g_cu_status_dto_to_dict(
+            five_g_cu_status_dto: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO) \
+            -> Dict[str, Any]:
+        """
+        Converts a FiveGCUStatusDTO to a dict
+
+        :param five_g_cu_status_dto: the DTO to convert
+        :return: a dict representation of the DTO
+        """
+        d: Dict[str, Any] = {}
+        d["cu_running"] = five_g_cu_status_dto.cu_running
+        d["ip"] = five_g_cu_status_dto.ip
+        return d
+
+    @staticmethod
+    def five_g_cu_status_dto_from_dict(d: Dict[str, Any]) \
+            -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
+        """
+        Converts a FiveGCUStatusDTO to a dict
+
+        :param d: the dict to convert
+        :return: the converted DTO
+        """
+        dto = csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO()
+        dto.cu_running = d["cu_running"]
+        dto.ip = d["ip"]
+        return dto
+
+    @staticmethod
+    def five_g_cu_status_dto_empty() -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
+        """
+        :return: An empty FiveGCUStatusDTO
+        """
+        dto = csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO()
+        dto.cu_running = False
+        dto.ip = "0.0.0.0"
+        return dto

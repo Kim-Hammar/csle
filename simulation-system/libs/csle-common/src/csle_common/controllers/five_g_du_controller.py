@@ -59,8 +59,6 @@ class FiveGDUController:
         else:
             status_str = f"du_running: {status.du_running}, ip: {status.ip}"
         if not_running:
-            logger.info(f"Starting 5G DU manager on node {ip}")
-
             # Connect
             EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ip)
 
@@ -70,7 +68,9 @@ class FiveGDUController:
             o, e, _ = EmulationUtil.execute_ssh_cmd(
                 cmd=cmd, conn=emulation_env_config.get_connection(ip=ip))
 
-            # Start the 5G du manager
+            logger.info(f"Starting 5G DU manager on node {ip} with cmd: {cmd}")
+
+            # Start the 5G DU manager
             cmd = constants.COMMANDS.START_FIVE_G_DU_MANAGER.format(
                 emulation_env_config.five_g_config.five_g_du_manager_port,
                 emulation_env_config.five_g_config.five_g_du_manager_log_dir,

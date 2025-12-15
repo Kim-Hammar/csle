@@ -7,8 +7,10 @@ import csle_common.constants.constants as constants
 import csle_collector.constants.constants as csle_collector_constants
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2
+import csle_collector.five_g_core_manager.five_g_core_manager_util
 import csle_collector.five_g_core_manager.query_five_g_core_manager
 from csle_common.util.emulation_util import EmulationUtil
+from csle_common.dao.emulation_config.five_g_core_managers_info import FiveGCoreManagersInfo
 
 
 class FiveGCoreController:
@@ -322,47 +324,47 @@ class FiveGCoreController:
             status = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(stub=stub)
             return status
 
-    # @staticmethod
-    # def get_five_g_core_managers_info(emulation_env_config: EmulationEnvConfig, active_ips: List[str],
-    #                                   logger: logging.Logger, physical_server_ip: str) -> SnortIdsManagersInfo:
-    #     """
-    #     Extracts the information of the Snort managers for a given emulation
-    #
-    #     :param emulation_env_config: the configuration of the emulation
-    #     :param active_ips: list of active IPs
-    #     :param physical_server_ip: the IP of the physical server
-    #     :param logger: the logger to use for logging
-    #     :return: a DTO with the status of the Snort managers
-    #     """
-    #     snort_ids_managers_ips = SnortIDSController.get_snort_ids_managers_ips(
-    #         emulation_env_config=emulation_env_config)
-    #     snort_ids_managers_ports = \
-    #         SnortIDSController.get_snort_idses_managers_ports(emulation_env_config=emulation_env_config)
-    #     snort_managers_statuses = []
-    #     snort_managers_running = []
-    #     for ip in snort_ids_managers_ips:
-    #         if ip not in active_ips or not EmulationUtil.physical_ip_match(
-    #                 emulation_env_config=emulation_env_config, ip=ip, physical_host_ip=physical_server_ip):
-    #             continue
-    #         running = False
-    #         status = None
-    #         try:
-    #             status = SnortIDSController.get_snort_idses_monitor_threads_statuses_by_ip_and_port(
-    #                 port=emulation_env_config.snort_ids_manager_config.snort_ids_manager_port, ip=ip)
-    #             running = True
-    #         except Exception as e:
-    #             logger.debug(
-    #                 f"Could not fetch Snort IDS manager status on IP:{ip}, error: {str(e)}, {repr(e)}")
-    #         if status is not None:
-    #             snort_managers_statuses.append(status)
-    #         else:
-    #             util = csle_collector.snort_ids_manager.snort_ids_manager_util.SnortIdsManagerUtil
-    #             snort_managers_statuses.append(util.snort_ids_monitor_dto_empty())
-    #         snort_managers_running.append(running)
-    #     execution_id = emulation_env_config.execution_id
-    #     emulation_name = emulation_env_config.name
-    #     snort_manager_info_dto = SnortIdsManagersInfo(
-    #         snort_ids_managers_running=snort_managers_running, ips=snort_ids_managers_ips,
-    #         ports=snort_ids_managers_ports, execution_id=execution_id, emulation_name=emulation_name,
-    #         snort_ids_managers_statuses=snort_managers_statuses)
-    #     return snort_manager_info_dto
+    @staticmethod
+    def get_five_g_core_managers_info(emulation_env_config: EmulationEnvConfig, active_ips: List[str],
+                                      logger: logging.Logger, physical_server_ip: str) -> FiveGCoreManagersInfo:
+        """
+        Extracts the information of the Snort managers for a given emulation
+
+        :param emulation_env_config: the configuration of the emulation
+        :param active_ips: list of active IPs
+        :param physical_server_ip: the IP of the physical server
+        :param logger: the logger to use for logging
+        :return: a DTO with the status of the Snort managers
+        """
+        five_g_core_managers_ips = FiveGCoreController.get_five_g_core_managers_ips(
+            emulation_env_config=emulation_env_config)
+        five_g_core_managers_ports = FiveGCoreController.get_five_g_core_managers_ports(
+            emulation_env_config=emulation_env_config)
+        five_g_core_managers_statuses = []
+        five_g_core_managers_running = []
+        for ip in five_g_core_managers_ips:
+            if ip not in active_ips or not EmulationUtil.physical_ip_match(
+                    emulation_env_config=emulation_env_config, ip=ip, physical_host_ip=physical_server_ip):
+                continue
+            running = False
+            status = None
+            try:
+                status = FiveGCoreController.get_five_g_core_status_by_ip_and_port(
+                    port=emulation_env_config.snort_ids_manager_config.snort_ids_manager_port, ip=ip)
+                running = True
+            except Exception as e:
+                logger.debug(
+                    f"Could not fetch 5G core manager status on IP:{ip}, error: {str(e)}, {repr(e)}")
+            if status is not None:
+                five_g_core_managers_statuses.append(status)
+            else:
+                util = csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil
+                five_g_core_managers_statuses.append(util.five_g_core_status_dto_empty())
+            five_g_core_managers_running.append(running)
+        execution_id = emulation_env_config.execution_id
+        emulation_name = emulation_env_config.name
+        snort_manager_info_dto = FiveGCoreManagersInfo(
+            five_g_core_managers_running=five_g_core_managers_running, ips=five_g_core_managers_ips,
+            ports=five_g_core_managers_ports, execution_id=execution_id, emulation_name=emulation_name,
+            five_g_core_managers_statuses=five_g_core_managers_statuses)
+        return snort_manager_info_dto

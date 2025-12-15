@@ -31,6 +31,10 @@ class GRPC_SERVERS:
     OSSEC_IDS_MANAGER_PORT = 50047
     SNORT_IDS_MANAGER_PORT = 50048
     HOST_MANAGER_PORT = 50049
+    KAFKA_MANAGER_DEFAULT_PORT = 50051
+    FIVE_G_CORE_MANAGER_DEFAULT_PORT = 50052
+    FIVE_G_CU_MANAGER_DEFAULT_PORT = 50053
+    FIVE_G_DU_MANAGER_DEFAULT_PORT = 50054
     SERVICE_CONFIG_JSON = json.dumps({
         "methodConfig": [{
             # An empty "name" list means this policy applies to all methods.

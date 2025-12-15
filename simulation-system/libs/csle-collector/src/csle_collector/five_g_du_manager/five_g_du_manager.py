@@ -166,7 +166,7 @@ def serve(port: int = 50054, log_dir: str = "/", max_workers: int = 100,
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
     csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.add_FiveGDUManagerServicer_to_server(
         FiveGDUManagerServicer(), server)
-    server.add_insedure_port(f'[::]:{port}')
+    server.add_insecure_port(f'[::]:{port}')
     server.start()
     logging.info(f"5G DU Manager Server Started, Listening on port: {port}, num workers: {max_workers}, "
                  f"log file: {log_file_name}")
