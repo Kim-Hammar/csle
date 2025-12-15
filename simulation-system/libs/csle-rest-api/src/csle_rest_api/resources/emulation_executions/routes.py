@@ -2480,6 +2480,7 @@ def get_sdn_switches_of_execution(execution_id: int) -> Tuple[Response, int]:
     complete_response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
     return complete_response, constants.HTTPS.OK_STATUS_CODE
 
+
 @emulation_executions_bp.route(f"{constants.COMMANDS.SLASH_DELIM}<execution_id>{constants.COMMANDS.SLASH_DELIM}"
                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MANAGER_SUBRESOURCE}",
                                methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])

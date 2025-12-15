@@ -6,11 +6,9 @@ import Collapse from 'react-bootstrap/Collapse'
 import SpinnerOrButton from '../SpinnerOrButton/SpinnerOrButton.jsx'
 import LogsButton from '../LogsButton/LogsButton.jsx'
 import {
-  HOST_MONITOR_SUBRESOURCE,
-  HOST_MANAGER_SUBRESOURCE,
+  FIVE_G_CORE_MANAGER_SUBRESOURCE,
   START_ALL_PROPERTY,
-  STOP_ALL_PROPERTY, FILEBEAT_SUBRESOURCE, PACKETBEAT_SUBRESOURCE, METRICBEAT_SUBRESOURCE,
-  HEARTBEAT_SUBRESOURCE
+  STOP_ALL_PROPERTY
 } from '../../../../Common/constants'
 
 /**
@@ -37,16 +35,16 @@ const FiveGCoreManagersInfo = (props) => {
             <span className="aggregateActions">Stop all managers:</span>
             <SpinnerOrButton
               loading={props.loadingEntities.includes(
-                `${HOST_MANAGER_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
-              running={true} entity={HOST_MANAGER_SUBRESOURCE}
+                `${FIVE_G_CORE_MANAGER_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
+              running={true} entity={FIVE_G_CORE_MANAGER_SUBRESOURCE}
               name={STOP_ALL_PROPERTY} ip={STOP_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
             <span className="aggregateActions">Start all managers:</span>
             <SpinnerOrButton
               loading={props.loadingEntities.includes(
-                `${HOST_MANAGER_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
-              running={false} entity={HOST_MANAGER_SUBRESOURCE}
+                `${FIVE_G_CORE_MANAGER_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
+              running={false} entity={FIVE_G_CORE_MANAGER_SUBRESOURCE}
               name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
@@ -65,7 +63,7 @@ const FiveGCoreManagersInfo = (props) => {
               </thead>
               <tbody>
               {props.fiveGCoreManagersInfo.five_g_core_managers_statuses.map((status, index) =>
-                <tr key={`${HOST_MANAGER_SUBRESOURCE}-${index}`}>
+                <tr key={`${FIVE_G_CORE_MANAGER_SUBRESOURCE}-${index}`}>
                   <td>5G core manager</td>
                   <td>{props.fiveGCoreManagersInfo.ips[index]}</td>
                   <td>{props.fiveGCoreManagersInfo.ports[index]}</td>
@@ -73,15 +71,15 @@ const FiveGCoreManagersInfo = (props) => {
                   <td>
                     <SpinnerOrButton
                       loading={props.loadingEntities.includes(
-                        `${HOST_MANAGER_SUBRESOURCE}-`
+                        `${FIVE_G_CORE_MANAGER_SUBRESOURCE}-`
                         + `${props.fiveGCoreManagersInfo.ips[index]}`)}
                       running={props.fiveGCoreManagersInfo.five_g_core_managers_running[index]}
-                      entity={HOST_MANAGER_SUBRESOURCE} name={HOST_MANAGER_SUBRESOURCE}
+                      entity={FIVE_G_CORE_MANAGER_SUBRESOURCE} name={FIVE_G_CORE_MANAGER_SUBRESOURCE}
                       ip={props.fiveGCoreManagersInfo.ips[index]}
                       startOrStop={props.startOrStop}
                     />
                     <LogsButton name={props.fiveGCoreManagersInfo.ips[index]}
-                                entity={HOST_MANAGER_SUBRESOURCE}
+                                entity={FIVE_G_CORE_MANAGER_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
                   </td>
