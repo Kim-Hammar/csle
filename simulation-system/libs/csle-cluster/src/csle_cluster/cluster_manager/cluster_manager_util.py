@@ -8,6 +8,9 @@ from csle_common.dao.emulation_config.snort_managers_info import SnortIdsManager
 from csle_common.dao.emulation_config.ossec_managers_info import OSSECIDSManagersInfo
 from csle_common.dao.emulation_config.host_managers_info import HostManagersInfo
 from csle_common.dao.emulation_config.kafka_managers_info import KafkaManagersInfo
+from csle_common.dao.emulation_config.five_g_core_managers_info import FiveGCoreManagersInfo
+from csle_common.dao.emulation_config.five_g_cu_managers_info import FiveGCUManagersInfo
+from csle_common.dao.emulation_config.five_g_du_managers_info import FiveGDUManagersInfo
 from csle_common.dao.emulation_config.node_container_config import NodeContainerConfig
 from csle_common.dao.emulation_config.client_managers_info import ClientManagersInfo
 from csle_common.dao.emulation_config.traffic_managers_info import TrafficManagersInfo
@@ -37,6 +40,9 @@ import csle_collector.elk_manager.elk_manager_pb2
 import csle_collector.snort_ids_manager.snort_ids_manager_pb2
 import csle_collector.ossec_ids_manager.ossec_ids_manager_pb2
 import csle_collector.kafka_manager.kafka_manager_pb2
+import csle_collector.five_g_core_manager.five_g_core_manager_pb2
+import csle_collector.five_g_cu_manager.five_g_cu_manager_pb2
+import csle_collector.five_g_du_manager.five_g_du_manager_pb2
 import csle_collector.ryu_manager.ryu_manager_pb2
 import csle_collector.host_manager.host_manager_pb2
 from csle_ryu.dao.avg_port_statistic import AvgPortStatistic
@@ -4130,3 +4136,320 @@ class ClusterManagerUtil:
             map(lambda x: ClusterManagerUtil.snort_ids_alert_counters_dict_to_dict(x),
                 time_series_dto.snort_alert_metrics_per_ids))
         return d
+
+    @staticmethod
+    def get_empty_five_g_core_managers_info_dto() -> cluster_manager_pb2.FiveGCoreManagersInfoDTO:
+        """
+        Gets an empty FiveGCoreManagersInfoDTO
+
+        :return: an empty FiveGCoreManagersInfoDTO
+        """
+        return cluster_manager_pb2.FiveGCoreManagersInfoDTO(
+            ips=[], ports=[], emulationName="", executionId=-1, fiveGCoreManagersRunning=[],
+            fiveGCoreManagersStatuses=[])
+
+    @staticmethod
+    def convert_five_g_core_info_dto(five_g_core_managers_info_dto: Union[None, FiveGCoreManagersInfo]) \
+            -> cluster_manager_pb2.FiveGCoreManagersInfoDTO:
+        """
+        Converts a FiveGCoreManagersInfo into a FiveGCoreManagersInfoDTO
+
+        :param five_g_core_managers_info_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_core_managers_info_dto is None:
+            return ClusterManagerUtil.get_empty_five_g_core_managers_info_dto()
+        return cluster_manager_pb2.FiveGCoreManagersInfoDTO(
+            ips=five_g_core_managers_info_dto.ips,
+            ports=five_g_core_managers_info_dto.ports,
+            emulationName=five_g_core_managers_info_dto.emulation_name,
+            executionId=five_g_core_managers_info_dto.execution_id,
+            fiveGCoreManagersRunning=five_g_core_managers_info_dto.five_g_core_managers_running,
+            fiveGCoreManagersStatuses=
+            list(map(lambda x: ClusterManagerUtil.convert_five_g_core_status_dto_to_five_g_core_info_dto(x),
+                     five_g_core_managers_info_dto.five_g_core_managers_statuses))
+        )
+
+    @staticmethod
+    def convert_five_g_core_info_dto_reverse(
+            five_g_core_managers_info_dto: Union[None, cluster_manager_pb2.FiveGCoreManagersInfoDTO]) \
+            -> FiveGCoreManagersInfo:
+        """
+        Converts a FiveGCoreManagersInfoDTO into a FiveGCoreManagersInfo
+
+        :param five_g_core_managers_info_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_core_managers_info_dto is None:
+            return ClusterManagerUtil.convert_five_g_core_info_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_info_dto())
+        return FiveGCoreManagersInfo(
+            ips=five_g_core_managers_info_dto.ips,
+            ports=five_g_core_managers_info_dto.ports,
+            emulation_name=five_g_core_managers_info_dto.emulationName,
+            execution_id=five_g_core_managers_info_dto.executionId,
+            five_g_core_managers_running=five_g_core_managers_info_dto.fiveGCoreManagersRunning,
+            five_g_core_managers_statuses=list(
+                map(lambda x: ClusterManagerUtil.convert_five_g_core_info_dto_to_five_g_core_status_dto_reverse(x),
+                    five_g_core_managers_info_dto.fiveGCoreManagersStatuses))
+        )
+
+    @staticmethod
+    def convert_five_g_core_status_dto_to_five_g_core_info_dto(
+            five_g_core_status_dto: Union[None,
+            csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO]) \
+            -> cluster_manager_pb2.FiveGCoreInfoDTO:
+        """
+        Converts a FiveGCoreStatusDTO to a FiveGCoreInfoDTO
+
+        :param five_g_core_status_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_core_status_dto is None:
+            return ClusterManagerUtil.get_empty_five_g_core_info_dto()
+        return cluster_manager_pb2.FiveGCoreInfoDTO(
+            mongo_running=five_g_core_status_dto.mongo_running, mme_running=five_g_core_status_dto.mme_running,
+            sgwc_running=five_g_core_status_dto.sgwc_running, smf_running=five_g_core_status_dto.smf_running,
+            amf_running=five_g_core_status_dto.amf_running, sgwu_running=five_g_core_status_dto.sgwu_running,
+            upf_running=five_g_core_status_dto.upf_running, hss_running=five_g_core_status_dto.hss_running,
+            pcrf_running=five_g_core_status_dto.pcrf_running, nrf_running=five_g_core_status_dto.nrf_running,
+            scp_running=five_g_core_status_dto.scp_running, sepp_running=five_g_core_status_dto.sepp_running,
+            ausf_running=five_g_core_status_dto.ausf_running, udm_running=five_g_core_status_dto.udm_running,
+            pcf_running=five_g_core_status_dto.pcf_running, nssf_running=five_g_core_status_dto.nssf_running,
+            bsf_running=five_g_core_status_dto.bsf_running, udr_running=five_g_core_status_dto.udr_running,
+            webui_running=five_g_core_status_dto.webui_running, ip=five_g_core_status_dto.ip
+        )
+
+    @staticmethod
+    def get_empty_five_g_core_info_dto() -> cluster_manager_pb2.FiveGCoreInfoDTO:
+        """
+        Gets an empty FiveGCoreInfoDTO
+
+        :return: an empty FiveGCoreInfoDTO
+        """
+        return cluster_manager_pb2.FiveGCoreInfoDTO(
+            mongo_running=False, mme_running=False, sgwc_running=False, smf_running=False, amf_running=False,
+            sgwu_running=False, upf_running=False, hss_running=False, pcrf_running=False, nrf_running=False,
+            scp_running=False, sepp_running=False, ausf_running=False, udm_running=False, pcf_running=False,
+            nssf_running=False, bsf_running=False, udr_running=False, webui_running=False, ip="")
+
+    @staticmethod
+    def convert_five_g_core_info_dto_to_five_g_core_status_dto_reverse(
+            five_g_core_info_dto: Union[None, cluster_manager_pb2.FiveGCoreInfoDTO]) \
+            -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
+        """
+        Converts a FiveGCoreInfoDTO to a FiveGCoreStatusDTO
+
+        :param five_g_core_info_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_core_info_dto is None:
+            return ClusterManagerUtil.convert_five_g_core_info_dto_to_five_g_core_status_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_info_dto())
+        return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
+            mongo_running=five_g_core_info_dto.mongo_running, mme_running=five_g_core_info_dto.mme_running,
+            sgwc_running=five_g_core_info_dto.sgwc_running, smf_running=five_g_core_info_dto.smf_running,
+            amf_running=five_g_core_info_dto.amf_running, sgwu_running=five_g_core_info_dto.sgwu_running,
+            upf_running=five_g_core_info_dto.upf_running, hss_running=five_g_core_info_dto.hss_running,
+            pcrf_running=five_g_core_info_dto.pcrf_running, nrf_running=five_g_core_info_dto.nrf_running,
+            scp_running=five_g_core_info_dto.scp_running, sepp_running=five_g_core_info_dto.sepp_running,
+            ausf_running=five_g_core_info_dto.ausf_running, udm_running=five_g_core_info_dto.udm_running,
+            pcf_running=five_g_core_info_dto.pcf_running, nssf_running=five_g_core_info_dto.nssf_running,
+            bsf_running=five_g_core_info_dto.bsf_running, udr_running=five_g_core_info_dto.udr_running,
+            webui_running=five_g_core_info_dto.webui_running, ip=five_g_core_info_dto.ip)
+
+    @staticmethod
+    def get_empty_five_g_cu_managers_info_dto() -> cluster_manager_pb2.FiveGCUManagersInfoDTO:
+        """
+        Gets an empty FiveGCUManagersInfoDTO
+
+        :return: an empty FiveGCUManagersInfoDTO
+        """
+        return cluster_manager_pb2.FiveGCUManagersInfoDTO(
+            ips=[], ports=[], emulationName="", executionId=-1, fiveGCUManagersRunning=[],
+            fiveGCUManagersStatuses=[])
+
+    @staticmethod
+    def convert_five_g_cu_info_dto(five_g_cu_managers_info_dto: Union[None, FiveGCUManagersInfo]) \
+            -> cluster_manager_pb2.FiveGCUManagersInfoDTO:
+        """
+        Converts a FiveGCUManagersInfo into a FiveGCUManagersInfoDTO
+
+        :param five_g_cu_managers_info_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_cu_managers_info_dto is None:
+            return ClusterManagerUtil.get_empty_five_g_cu_managers_info_dto()
+        return cluster_manager_pb2.FiveGCUManagersInfoDTO(
+            ips=five_g_cu_managers_info_dto.ips,
+            ports=five_g_cu_managers_info_dto.ports,
+            emulationName=five_g_cu_managers_info_dto.emulation_name,
+            executionId=five_g_cu_managers_info_dto.execution_id,
+            fiveGCUManagersRunning=five_g_cu_managers_info_dto.five_g_cu_managers_running,
+            fiveGCUManagersStatuses=
+            list(map(lambda x: ClusterManagerUtil.convert_five_g_cu_status_dto_to_five_g_cu_info_dto(x),
+                     five_g_cu_managers_info_dto.five_g_cu_managers_statuses))
+        )
+
+    @staticmethod
+    def convert_five_g_cu_info_dto_reverse(
+            five_g_cu_managers_info_dto: Union[None, cluster_manager_pb2.FiveGCUManagersInfoDTO]) \
+            -> FiveGCUManagersInfo:
+        """
+        Converts a FiveGCUManagersInfoDTO into a FiveGCUManagersInfo
+
+        :param five_g_cu_managers_info_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_cu_managers_info_dto is None:
+            return ClusterManagerUtil.convert_five_g_cu_info_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_cu_info_dto())
+        return FiveGCUManagersInfo(
+            ips=five_g_cu_managers_info_dto.ips,
+            ports=five_g_cu_managers_info_dto.ports,
+            emulation_name=five_g_cu_managers_info_dto.emulationName,
+            execution_id=five_g_cu_managers_info_dto.executionId,
+            five_g_cu_managers_running=five_g_cu_managers_info_dto.fiveGCUManagersRunning,
+            five_g_cu_managers_statuses=list(
+                map(lambda x: ClusterManagerUtil.convert_five_g_cu_info_dto_to_five_g_cu_status_dto_reverse(x),
+                    five_g_cu_managers_info_dto.fiveGCUManagersStatuses))
+        )
+
+    @staticmethod
+    def convert_five_g_cu_status_dto_to_five_g_cu_info_dto(
+            five_g_cu_status_dto: Union[None,
+            csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO]) \
+            -> cluster_manager_pb2.FiveGCUInfoDTO:
+        """
+        Converts a FiveGCUStatusDTO to a FiveGCUInfoDTO
+
+        :param five_g_cu_status_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_cu_status_dto is None:
+            return ClusterManagerUtil.get_empty_five_g_cu_info_dto()
+        return cluster_manager_pb2.FiveGCUInfoDTO(cu_running=five_g_cu_status_dto.cu_running,
+                                                  ip=five_g_cu_status_dto.ip)
+
+    @staticmethod
+    def get_empty_five_g_cu_info_dto() -> cluster_manager_pb2.FiveGCUInfoDTO:
+        """
+        Gets an empty FiveGCUInfoDTO
+
+        :return: an empty FiveGCUInfoDTO
+        """
+        return cluster_manager_pb2.FiveGCUInfoDTO(cu_running=False, ip="")
+
+    @staticmethod
+    def convert_five_g_cu_info_dto_to_five_g_cu_status_dto_reverse(
+            five_g_cu_info_dto: Union[None, cluster_manager_pb2.FiveGCUInfoDTO]) \
+            -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
+        """
+        Converts a FiveGCUInfoDTO to a FiveGCUStatusDTO
+
+        :param five_g_cu_info_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_cu_info_dto is None:
+            return ClusterManagerUtil.convert_five_g_cu_info_dto_to_five_g_cu_status_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_cu_info_dto())
+        return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
+            cu_running=five_g_cu_info_dto.cu_running, ip=five_g_cu_info_dto.ip)
+
+    @staticmethod
+    def get_empty_five_g_du_managers_info_dto() -> cluster_manager_pb2.FiveGDUManagersInfoDTO:
+        """
+        Gets an empty FiveGDUManagersInfoDTO
+
+        :return: an empty FiveGDUManagersInfoDTO
+        """
+        return cluster_manager_pb2.FiveGDUManagersInfoDTO(
+            ips=[], ports=[], emulationName="", executionId=-1, fiveGDUManagersRunning=[],
+            fiveGDUManagersStatuses=[])
+
+    @staticmethod
+    def convert_five_g_du_info_dto(five_g_du_managers_info_dto: Union[None, FiveGDUManagersInfo]) \
+            -> cluster_manager_pb2.FiveGDUManagersInfoDTO:
+        """
+        Converts a FiveGDUManagersInfo into a FiveGDUManagersInfoDTO
+
+        :param five_g_du_managers_info_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_du_managers_info_dto is None:
+            return ClusterManagerUtil.get_empty_five_g_du_managers_info_dto()
+        return cluster_manager_pb2.FiveGDUManagersInfoDTO(
+            ips=five_g_du_managers_info_dto.ips,
+            ports=five_g_du_managers_info_dto.ports,
+            emulationName=five_g_du_managers_info_dto.emulation_name,
+            executionId=five_g_du_managers_info_dto.execution_id,
+            fiveGDUManagersRunning=five_g_du_managers_info_dto.five_g_du_managers_running,
+            fiveGDUManagersStatuses=
+            list(map(lambda x: ClusterManagerUtil.convert_five_g_du_status_dto_to_five_g_du_info_dto(x),
+                     five_g_du_managers_info_dto.five_g_du_managers_statuses))
+        )
+
+    @staticmethod
+    def convert_five_g_du_info_dto_reverse(
+            five_g_du_managers_info_dto: Union[None, cluster_manager_pb2.FiveGDUManagersInfoDTO]) \
+            -> FiveGDUManagersInfo:
+        """
+        Converts a FiveGDUManagersInfoDTO into a FiveGDUManagersInfo
+
+        :param five_g_du_managers_info_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_du_managers_info_dto is None:
+            return ClusterManagerUtil.convert_five_g_du_info_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_info_dto())
+        return FiveGDUManagersInfo(
+            ips=five_g_du_managers_info_dto.ips,
+            ports=five_g_du_managers_info_dto.ports,
+            emulation_name=five_g_du_managers_info_dto.emulationName,
+            execution_id=five_g_du_managers_info_dto.executionId,
+            five_g_du_managers_running=five_g_du_managers_info_dto.fiveGDUManagersRunning,
+            five_g_du_managers_statuses=list(
+                map(lambda x: ClusterManagerUtil.convert_five_g_du_info_dto_to_five_g_du_status_dto_reverse(x),
+                    five_g_du_managers_info_dto.fiveGDUManagersStatuses))
+        )
+
+    @staticmethod
+    def convert_five_g_du_status_dto_to_five_g_du_info_dto(
+            five_g_du_status_dto: Union[None,
+            csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO]) \
+            -> cluster_manager_pb2.FiveGDUInfoDTO:
+        """
+        Converts a FiveGDUStatusDTO to a FiveGDUInfoDTO
+
+        :param five_g_du_status_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_du_status_dto is None:
+            return ClusterManagerUtil.get_empty_five_g_du_info_dto()
+        return cluster_manager_pb2.FiveGDUInfoDTO(du_running=five_g_du_status_dto.du_running,
+                                                  ip=five_g_du_status_dto.ip)
+
+    @staticmethod
+    def get_empty_five_g_du_info_dto() -> cluster_manager_pb2.FiveGDUInfoDTO:
+        """
+        Gets an empty FiveGDUInfoDTO
+
+        :return: an empty FiveGDUInfoDTO
+        """
+        return cluster_manager_pb2.FiveGDUInfoDTO(du_running=False, ip="")
+
+    @staticmethod
+    def convert_five_g_du_info_dto_to_five_g_du_status_dto_reverse(
+            five_g_du_info_dto: Union[None, cluster_manager_pb2.FiveGDUInfoDTO]) \
+            -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+        """
+        Converts a FiveGDUInfoDTO to a FiveGDUStatusDTO
+
+        :param five_g_du_info_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_du_info_dto is None:
+            return ClusterManagerUtil.convert_five_g_du_info_dto_to_five_g_du_status_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_info_dto())
+        return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
+            du_running=five_g_du_info_dto.du_running, ip=five_g_du_info_dto.ip)

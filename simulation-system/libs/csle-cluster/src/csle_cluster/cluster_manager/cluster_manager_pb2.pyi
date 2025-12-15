@@ -3164,6 +3164,9 @@ class ExecutionInfoDTO(google.protobuf.message.Message):
     ACTIVENETWORKS_FIELD_NUMBER: builtins.int
     ELKMANAGERSINFODTO_FIELD_NUMBER: builtins.int
     RYUMANAGERSINFODTO_FIELD_NUMBER: builtins.int
+    FIVEGCOREMANAGERSINFODTO_FIELD_NUMBER: builtins.int
+    FIVEGCUMANAGERSINFODTO_FIELD_NUMBER: builtins.int
+    FIVEGDUMANAGERSINFODTO_FIELD_NUMBER: builtins.int
     emulationName: builtins.str
     executionId: builtins.int
     @property
@@ -3190,6 +3193,12 @@ class ExecutionInfoDTO(google.protobuf.message.Message):
     def elkManagersInfoDTO(self) -> global___ElkManagersInfoDTO: ...
     @property
     def ryuManagersInfoDTO(self) -> global___RyuManagersInfoDTO: ...
+    @property
+    def fiveGCoreManagersInfoDTO(self) -> global___FiveGCoreManagersInfoDTO: ...
+    @property
+    def fiveGCUManagersInfoDTO(self) -> global___FiveGCUManagersInfoDTO: ...
+    @property
+    def fiveGDUManagersInfoDTO(self) -> global___FiveGDUManagersInfoDTO: ...
     def __init__(
         self,
         *,
@@ -3207,9 +3216,12 @@ class ExecutionInfoDTO(google.protobuf.message.Message):
         activeNetworks: global___DockerNetworksDTO | None = ...,
         elkManagersInfoDTO: global___ElkManagersInfoDTO | None = ...,
         ryuManagersInfoDTO: global___RyuManagersInfoDTO | None = ...,
+        fiveGCoreManagersInfoDTO: global___FiveGCoreManagersInfoDTO | None = ...,
+        fiveGCUManagersInfoDTO: global___FiveGCUManagersInfoDTO | None = ...,
+        fiveGDUManagersInfoDTO: global___FiveGDUManagersInfoDTO | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["activeNetworks", b"activeNetworks", "clientManagersInfo", b"clientManagersInfo", "dockerStatsManagersInfo", b"dockerStatsManagersInfo", "elkManagersInfoDTO", b"elkManagersInfoDTO", "hostManagersInfo", b"hostManagersInfo", "kafkaManagersInfo", b"kafkaManagersInfo", "ossecIdsManagersInfo", b"ossecIdsManagersInfo", "runningContainers", b"runningContainers", "ryuManagersInfoDTO", b"ryuManagersInfoDTO", "snortIdsManagersInfo", b"snortIdsManagersInfo", "stoppedContainers", b"stoppedContainers", "trafficManagersInfoDTO", b"trafficManagersInfoDTO"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["activeNetworks", b"activeNetworks", "clientManagersInfo", b"clientManagersInfo", "dockerStatsManagersInfo", b"dockerStatsManagersInfo", "elkManagersInfoDTO", b"elkManagersInfoDTO", "emulationName", b"emulationName", "executionId", b"executionId", "hostManagersInfo", b"hostManagersInfo", "kafkaManagersInfo", b"kafkaManagersInfo", "ossecIdsManagersInfo", b"ossecIdsManagersInfo", "runningContainers", b"runningContainers", "ryuManagersInfoDTO", b"ryuManagersInfoDTO", "snortIdsManagersInfo", b"snortIdsManagersInfo", "stoppedContainers", b"stoppedContainers", "trafficManagersInfoDTO", b"trafficManagersInfoDTO"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["activeNetworks", b"activeNetworks", "clientManagersInfo", b"clientManagersInfo", "dockerStatsManagersInfo", b"dockerStatsManagersInfo", "elkManagersInfoDTO", b"elkManagersInfoDTO", "fiveGCUManagersInfoDTO", b"fiveGCUManagersInfoDTO", "fiveGCoreManagersInfoDTO", b"fiveGCoreManagersInfoDTO", "fiveGDUManagersInfoDTO", b"fiveGDUManagersInfoDTO", "hostManagersInfo", b"hostManagersInfo", "kafkaManagersInfo", b"kafkaManagersInfo", "ossecIdsManagersInfo", b"ossecIdsManagersInfo", "runningContainers", b"runningContainers", "ryuManagersInfoDTO", b"ryuManagersInfoDTO", "snortIdsManagersInfo", b"snortIdsManagersInfo", "stoppedContainers", b"stoppedContainers", "trafficManagersInfoDTO", b"trafficManagersInfoDTO"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["activeNetworks", b"activeNetworks", "clientManagersInfo", b"clientManagersInfo", "dockerStatsManagersInfo", b"dockerStatsManagersInfo", "elkManagersInfoDTO", b"elkManagersInfoDTO", "emulationName", b"emulationName", "executionId", b"executionId", "fiveGCUManagersInfoDTO", b"fiveGCUManagersInfoDTO", "fiveGCoreManagersInfoDTO", b"fiveGCoreManagersInfoDTO", "fiveGDUManagersInfoDTO", b"fiveGDUManagersInfoDTO", "hostManagersInfo", b"hostManagersInfo", "kafkaManagersInfo", b"kafkaManagersInfo", "ossecIdsManagersInfo", b"ossecIdsManagersInfo", "runningContainers", b"runningContainers", "ryuManagersInfoDTO", b"ryuManagersInfoDTO", "snortIdsManagersInfo", b"snortIdsManagersInfo", "stoppedContainers", b"stoppedContainers", "trafficManagersInfoDTO", b"trafficManagersInfoDTO"]) -> None: ...
 
 global___ExecutionInfoDTO = ExecutionInfoDTO
 
@@ -6768,3 +6780,288 @@ class Init5GUEsMsg(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
 global___Init5GUEsMsg = Init5GUEsMsg
+
+@typing_extensions.final
+class Get5GCoreManagersInfoMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get the 5G core managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCoreManagersInfoMsg = Get5GCoreManagersInfoMsg
+
+@typing_extensions.final
+class Get5GCUManagersInfoMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get the 5G CU managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCUManagersInfoMsg = Get5GCUManagersInfoMsg
+
+@typing_extensions.final
+class Get5GDUManagersInfoMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get the 5G DU managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GDUManagersInfoMsg = Get5GDUManagersInfoMsg
+
+@typing_extensions.final
+class FiveGCoreInfoDTO(google.protobuf.message.Message):
+    """Info DTO for the 5G Core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MONGO_RUNNING_FIELD_NUMBER: builtins.int
+    MME_RUNNING_FIELD_NUMBER: builtins.int
+    SGWC_RUNNING_FIELD_NUMBER: builtins.int
+    SMF_RUNNING_FIELD_NUMBER: builtins.int
+    AMF_RUNNING_FIELD_NUMBER: builtins.int
+    SGWU_RUNNING_FIELD_NUMBER: builtins.int
+    UPF_RUNNING_FIELD_NUMBER: builtins.int
+    HSS_RUNNING_FIELD_NUMBER: builtins.int
+    PCRF_RUNNING_FIELD_NUMBER: builtins.int
+    NRF_RUNNING_FIELD_NUMBER: builtins.int
+    SCP_RUNNING_FIELD_NUMBER: builtins.int
+    SEPP_RUNNING_FIELD_NUMBER: builtins.int
+    AUSF_RUNNING_FIELD_NUMBER: builtins.int
+    UDM_RUNNING_FIELD_NUMBER: builtins.int
+    PCF_RUNNING_FIELD_NUMBER: builtins.int
+    NSSF_RUNNING_FIELD_NUMBER: builtins.int
+    BSF_RUNNING_FIELD_NUMBER: builtins.int
+    UDR_RUNNING_FIELD_NUMBER: builtins.int
+    WEBUI_RUNNING_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    mongo_running: builtins.bool
+    mme_running: builtins.bool
+    sgwc_running: builtins.bool
+    smf_running: builtins.bool
+    amf_running: builtins.bool
+    sgwu_running: builtins.bool
+    upf_running: builtins.bool
+    hss_running: builtins.bool
+    pcrf_running: builtins.bool
+    nrf_running: builtins.bool
+    scp_running: builtins.bool
+    sepp_running: builtins.bool
+    ausf_running: builtins.bool
+    udm_running: builtins.bool
+    pcf_running: builtins.bool
+    nssf_running: builtins.bool
+    bsf_running: builtins.bool
+    udr_running: builtins.bool
+    webui_running: builtins.bool
+    ip: builtins.str
+    def __init__(
+        self,
+        *,
+        mongo_running: builtins.bool = ...,
+        mme_running: builtins.bool = ...,
+        sgwc_running: builtins.bool = ...,
+        smf_running: builtins.bool = ...,
+        amf_running: builtins.bool = ...,
+        sgwu_running: builtins.bool = ...,
+        upf_running: builtins.bool = ...,
+        hss_running: builtins.bool = ...,
+        pcrf_running: builtins.bool = ...,
+        nrf_running: builtins.bool = ...,
+        scp_running: builtins.bool = ...,
+        sepp_running: builtins.bool = ...,
+        ausf_running: builtins.bool = ...,
+        udm_running: builtins.bool = ...,
+        pcf_running: builtins.bool = ...,
+        nssf_running: builtins.bool = ...,
+        bsf_running: builtins.bool = ...,
+        udr_running: builtins.bool = ...,
+        webui_running: builtins.bool = ...,
+        ip: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["amf_running", b"amf_running", "ausf_running", b"ausf_running", "bsf_running", b"bsf_running", "hss_running", b"hss_running", "ip", b"ip", "mme_running", b"mme_running", "mongo_running", b"mongo_running", "nrf_running", b"nrf_running", "nssf_running", b"nssf_running", "pcf_running", b"pcf_running", "pcrf_running", b"pcrf_running", "scp_running", b"scp_running", "sepp_running", b"sepp_running", "sgwc_running", b"sgwc_running", "sgwu_running", b"sgwu_running", "smf_running", b"smf_running", "udm_running", b"udm_running", "udr_running", b"udr_running", "upf_running", b"upf_running", "webui_running", b"webui_running"]) -> None: ...
+
+global___FiveGCoreInfoDTO = FiveGCoreInfoDTO
+
+@typing_extensions.final
+class FiveGCUInfoDTO(google.protobuf.message.Message):
+    """Info DTO for the 5G CU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CU_RUNNING_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    cu_running: builtins.bool
+    ip: builtins.str
+    def __init__(
+        self,
+        *,
+        cu_running: builtins.bool = ...,
+        ip: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cu_running", b"cu_running", "ip", b"ip"]) -> None: ...
+
+global___FiveGCUInfoDTO = FiveGCUInfoDTO
+
+@typing_extensions.final
+class FiveGDUInfoDTO(google.protobuf.message.Message):
+    """Info DTO for the 5G DU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DU_RUNNING_FIELD_NUMBER: builtins.int
+    UE_RUNNING_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    du_running: builtins.bool
+    ue_running: builtins.bool
+    ip: builtins.str
+    def __init__(
+        self,
+        *,
+        du_running: builtins.bool = ...,
+        ue_running: builtins.bool = ...,
+        ip: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["du_running", b"du_running", "ip", b"ip", "ue_running", b"ue_running"]) -> None: ...
+
+global___FiveGDUInfoDTO = FiveGDUInfoDTO
+
+@typing_extensions.final
+class FiveGCoreManagersInfoDTO(google.protobuf.message.Message):
+    """Message that the server returns when requested for the 5G Core managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    IPS_FIELD_NUMBER: builtins.int
+    PORTS_FIELD_NUMBER: builtins.int
+    EMULATIONNAME_FIELD_NUMBER: builtins.int
+    EXECUTIONID_FIELD_NUMBER: builtins.int
+    FIVEGCOREMANAGERSRUNNING_FIELD_NUMBER: builtins.int
+    FIVEGCOREMANAGERSSTATUSES_FIELD_NUMBER: builtins.int
+    @property
+    def ips(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    @property
+    def ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    emulationName: builtins.str
+    executionId: builtins.int
+    @property
+    def fiveGCoreManagersRunning(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
+    @property
+    def fiveGCoreManagersStatuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreInfoDTO]: ...
+    def __init__(
+        self,
+        *,
+        ips: collections.abc.Iterable[builtins.str] | None = ...,
+        ports: collections.abc.Iterable[builtins.int] | None = ...,
+        emulationName: builtins.str = ...,
+        executionId: builtins.int = ...,
+        fiveGCoreManagersRunning: collections.abc.Iterable[builtins.bool] | None = ...,
+        fiveGCoreManagersStatuses: collections.abc.Iterable[global___FiveGCoreInfoDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulationName", b"emulationName", "executionId", b"executionId", "fiveGCoreManagersRunning", b"fiveGCoreManagersRunning", "fiveGCoreManagersStatuses", b"fiveGCoreManagersStatuses", "ips", b"ips", "ports", b"ports"]) -> None: ...
+
+global___FiveGCoreManagersInfoDTO = FiveGCoreManagersInfoDTO
+
+@typing_extensions.final
+class FiveGCUManagersInfoDTO(google.protobuf.message.Message):
+    """Message that the server returns when requested for the 5G CU managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    IPS_FIELD_NUMBER: builtins.int
+    PORTS_FIELD_NUMBER: builtins.int
+    EMULATIONNAME_FIELD_NUMBER: builtins.int
+    EXECUTIONID_FIELD_NUMBER: builtins.int
+    FIVEGCUMANAGERSRUNNING_FIELD_NUMBER: builtins.int
+    FIVEGCUMANAGERSSTATUSES_FIELD_NUMBER: builtins.int
+    @property
+    def ips(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    @property
+    def ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    emulationName: builtins.str
+    executionId: builtins.int
+    @property
+    def fiveGCUManagersRunning(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
+    @property
+    def fiveGCUManagersStatuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCUInfoDTO]: ...
+    def __init__(
+        self,
+        *,
+        ips: collections.abc.Iterable[builtins.str] | None = ...,
+        ports: collections.abc.Iterable[builtins.int] | None = ...,
+        emulationName: builtins.str = ...,
+        executionId: builtins.int = ...,
+        fiveGCUManagersRunning: collections.abc.Iterable[builtins.bool] | None = ...,
+        fiveGCUManagersStatuses: collections.abc.Iterable[global___FiveGCUInfoDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulationName", b"emulationName", "executionId", b"executionId", "fiveGCUManagersRunning", b"fiveGCUManagersRunning", "fiveGCUManagersStatuses", b"fiveGCUManagersStatuses", "ips", b"ips", "ports", b"ports"]) -> None: ...
+
+global___FiveGCUManagersInfoDTO = FiveGCUManagersInfoDTO
+
+@typing_extensions.final
+class FiveGDUManagersInfoDTO(google.protobuf.message.Message):
+    """Message that the server returns when requested for the 5G DU managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    IPS_FIELD_NUMBER: builtins.int
+    PORTS_FIELD_NUMBER: builtins.int
+    EMULATIONNAME_FIELD_NUMBER: builtins.int
+    EXECUTIONID_FIELD_NUMBER: builtins.int
+    FIVEGDUMANAGERSRUNNING_FIELD_NUMBER: builtins.int
+    FIVEGDUMANAGERSSTATUSES_FIELD_NUMBER: builtins.int
+    @property
+    def ips(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    @property
+    def ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    emulationName: builtins.str
+    executionId: builtins.int
+    @property
+    def fiveGDUManagersRunning(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
+    @property
+    def fiveGDUManagersStatuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDUInfoDTO]: ...
+    def __init__(
+        self,
+        *,
+        ips: collections.abc.Iterable[builtins.str] | None = ...,
+        ports: collections.abc.Iterable[builtins.int] | None = ...,
+        emulationName: builtins.str = ...,
+        executionId: builtins.int = ...,
+        fiveGDUManagersRunning: collections.abc.Iterable[builtins.bool] | None = ...,
+        fiveGDUManagersStatuses: collections.abc.Iterable[global___FiveGDUInfoDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulationName", b"emulationName", "executionId", b"executionId", "fiveGDUManagersRunning", b"fiveGDUManagersRunning", "fiveGDUManagersStatuses", b"fiveGDUManagersStatuses", "ips", b"ips", "ports", b"ports"]) -> None: ...
+
+global___FiveGDUManagersInfoDTO = FiveGDUManagersInfoDTO

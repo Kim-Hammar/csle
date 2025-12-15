@@ -40,8 +40,20 @@ from csle_cluster.cluster_manager.cluster_manager_pb2 import OSSECIdsManagersInf
 from csle_common.dao.emulation_config.ossec_managers_info import OSSECIDSManagersInfo
 from csle_cluster.cluster_manager.cluster_manager_pb2 import KafkaManagersInfoDTO
 from csle_common.dao.emulation_config.kafka_managers_info import KafkaManagersInfo
+from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGCoreManagersInfoDTO
+from csle_common.dao.emulation_config.five_g_core_managers_info import FiveGCoreManagersInfo
+from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGCUManagersInfoDTO
+from csle_common.dao.emulation_config.five_g_cu_managers_info import FiveGCUManagersInfo
+from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGDUManagersInfoDTO
+from csle_common.dao.emulation_config.five_g_du_managers_info import FiveGDUManagersInfo
 from csle_cluster.cluster_manager.cluster_manager_pb2 import KafkaStatusDTO
 from csle_collector.kafka_manager.kafka_manager_pb2 import KafkaDTO
+from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGCoreInfoDTO
+from csle_collector.five_g_core_manager.five_g_core_manager_pb2 import FiveGCoreStatusDTO
+from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGCUInfoDTO
+from csle_collector.five_g_cu_manager.five_g_cu_manager_pb2 import FiveGCUStatusDTO
+from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGDUInfoDTO
+from csle_collector.five_g_du_manager.five_g_du_manager_pb2 import FiveGDUStatusDTO
 from csle_collector.docker_stats_manager.docker_stats_manager_pb2 import DockerStatsMonitorDTO
 from csle_cluster.cluster_manager.cluster_manager_pb2 import HostManagerStatusesDTO
 from csle_common.dao.emulation_config.host_managers_info import HostManagersInfo
@@ -346,6 +358,49 @@ class TestClusterManagerSuite:
             ips=["123.456.78.99"], ports=[1], emulation_name="JDoeEmulation", execution_id=1,
             kafka_managers_statuses=[KafkaDTO(running=True, topics=["null"])], kafka_managers_running=[True])
         return kafka_mng_info
+
+    @staticmethod
+    def get_five_g_core_manager_info():
+        """
+        static help method for obtaining a FiveGCoreManagerInfo object
+
+        :return: a FiveGCoreManagerInfo object
+        """
+        five_g_core_manager_info = FiveGCoreManagersInfo(
+            ips=["123.456.78.99"], ports=[1], emulation_name="JDoeEmulation", execution_id=1,
+            five_g_core_managers_statuses=[FiveGCoreStatusDTO(
+                mongo_running=True, mme_running=True, sgwc_running=True, smf_running=True, amf_running=True,
+                sgwu_running=True, upf_running=True, hss_running=True, pcrf_running=True, nrf_running=True,
+                scp_running=True, sepp_running=True, ausf_running=True, udm_running=True, pcf_running=True,
+                nssf_running=True, bsf_running=True, udr_running=True, webui_running=True, ip="123.456.78.99")],
+            five_g_core_managers_running=[True])
+        return five_g_core_manager_info
+
+    @staticmethod
+    def get_five_g_cu_manager_info():
+        """
+        static help method for obtaining a FiveGCUManagerInfo object
+
+        :return: a FiveGCUManagerInfo object
+        """
+        five_g_cu_manager_info = FiveGCUManagersInfo(
+            ips=["123.456.78.99"], ports=[1], emulation_name="JDoeEmulation", execution_id=1,
+            five_g_cu_managers_statuses=[FiveGCUStatusDTO(cu_running=True, ip="123.456.78.99")],
+            five_g_cu_managers_running=[True])
+        return five_g_cu_manager_info
+
+    @staticmethod
+    def get_five_g_du_manager_info():
+        """
+        static help method for obtaining a FiveGDUManagerInfo object
+
+        :return: a FiveGDUManagerInfo object
+        """
+        five_g_du_manager_info = FiveGDUManagersInfo(
+            ips=["123.456.78.99"], ports=[1], emulation_name="JDoeEmulation", execution_id=1,
+            five_g_du_managers_statuses=[FiveGDUStatusDTO(du_running=True, ue_running=True, ip="123.456.78.99")],
+            five_g_du_managers_running=[True])
+        return five_g_du_manager_info
 
     @staticmethod
     def get_ossec_imt_statuses():
@@ -6963,3 +7018,90 @@ class TestClusterManagerSuite:
         response: OperationOutcomeDTO = query_cluster_manager.stop_five_g_ues(
             stub=grpc_stub, emulation=get_ex_exec.emulation_name, ip_first_octet=get_ex_exec.ip_first_octet)
         assert not response.outcome
+
+    def test_getFiveGCoreManagersInfo(self, grpc_stub, mocker: pytest_mock.MockFixture,
+                                      get_ex_exec: EmulationExecution, active_ips: List[str]) -> None:
+        """
+        Tests the getFiveGCoreManagersInfo grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :param active_ips: fixture that creates a list of active IPs
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_active_ips",
+                     side_effect=active_ips)
+        mocker.patch("csle_common.util.general_util.GeneralUtil.get_host_ip",
+                     return_value="123.456.78.99")
+        mocker.patch("csle_common.controllers.five_g_core_controller.FiveGCoreController."
+                     "get_five_g_core_managers_info",
+                     return_value=TestClusterManagerSuite.get_five_g_core_manager_info())
+        response: FiveGCoreManagersInfoDTO = query_cluster_manager.get_five_g_core_managers_info(
+            stub=grpc_stub, emulation="JDoeEmulation", ip_first_octet=1)
+        assert response.ips == ["123.456.78.99"]
+        assert response.ports == [1]
+        assert response.emulationName == "JDoeEmulation"
+        assert response.executionId == 1
+        assert response.fiveGCoreManagersRunning
+        assert response.fiveGCoreManagersStatuses[0].mongo_running
+
+    def test_getFiveGCUManagersInfo(self, grpc_stub, mocker: pytest_mock.MockFixture,
+                                      get_ex_exec: EmulationExecution, active_ips: List[str]) -> None:
+        """
+        Tests the getFiveGCUManagersInfo grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :param active_ips: fixture that creates a list of active IPs
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_active_ips",
+                     side_effect=active_ips)
+        mocker.patch("csle_common.util.general_util.GeneralUtil.get_host_ip",
+                     return_value="123.456.78.99")
+        mocker.patch("csle_common.controllers.five_g_cu_controller.FiveGCUController."
+                     "get_five_g_cu_managers_info",
+                     return_value=TestClusterManagerSuite.get_five_g_cu_manager_info())
+        response: FiveGCUManagersInfoDTO = query_cluster_manager.get_five_g_cu_managers_info(
+            stub=grpc_stub, emulation="JDoeEmulation", ip_first_octet=1)
+        assert response.ips == ["123.456.78.99"]
+        assert response.ports == [1]
+        assert response.emulationName == "JDoeEmulation"
+        assert response.executionId == 1
+        assert response.fiveGCUManagersRunning
+        assert response.fiveGCUManagersStatuses[0].cu_running
+
+    def test_getFiveGDUManagersInfo(self, grpc_stub, mocker: pytest_mock.MockFixture,
+                                      get_ex_exec: EmulationExecution, active_ips: List[str]) -> None:
+        """
+        Tests the getFiveGDUManagersInfo grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :param active_ips: fixture that creates a list of active IPs
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch("csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.get_active_ips",
+                     side_effect=active_ips)
+        mocker.patch("csle_common.util.general_util.GeneralUtil.get_host_ip",
+                     return_value="123.456.78.99")
+        mocker.patch("csle_common.controllers.five_g_du_controller.FiveGDUController."
+                     "get_five_g_du_managers_info",
+                     return_value=TestClusterManagerSuite.get_five_g_du_manager_info())
+        response: FiveGDUManagersInfoDTO = query_cluster_manager.get_five_g_du_managers_info(
+            stub=grpc_stub, emulation="JDoeEmulation", ip_first_octet=1)
+        assert response.ips == ["123.456.78.99"]
+        assert response.ports == [1]
+        assert response.emulationName == "JDoeEmulation"
+        assert response.executionId == 1
+        assert response.fiveGDUManagersRunning
+        assert response.fiveGDUManagersStatuses[0].du_running

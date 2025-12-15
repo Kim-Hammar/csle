@@ -5186,3 +5186,69 @@ def init_five_g_ues(
     operation_outcome_dto: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
         stub.init5GUEs(operation_msg, timeout=timeout)
     return operation_outcome_dto
+
+
+def get_five_g_core_managers_info(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.FiveGCoreManagersInfoDTO:
+    """
+    Gets the info of 5G core managers
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Get5GCoreManagersInfoMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation
+    )
+    five_g_core_managers_info: csle_cluster.cluster_manager.cluster_manager_pb2.FiveGCoreManagersInfoDTO = \
+        stub.get5GCoreManagersInfo(operation_msg, timeout=timeout)
+    return five_g_core_managers_info
+
+
+def get_five_g_cu_managers_info(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.FiveGCUManagersInfoDTO:
+    """
+    Gets the info of 5G CU managers
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Get5GCUManagersInfoMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation
+    )
+    five_g_cu_managers_info: csle_cluster.cluster_manager.cluster_manager_pb2.FiveGCUManagersInfoDTO = \
+        stub.get5GCUManagersInfo(operation_msg, timeout=timeout)
+    return five_g_cu_managers_info
+
+
+def get_five_g_du_managers_info(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.FiveGDUManagersInfoDTO:
+    """
+    Gets the info of 5G DU managers
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Get5GDUManagersInfoMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation
+    )
+    five_g_du_managers_info: csle_cluster.cluster_manager.cluster_manager_pb2.FiveGDUManagersInfoDTO = \
+        stub.get5GDUManagersInfo(operation_msg, timeout=timeout)
+    return five_g_du_managers_info

@@ -3,6 +3,9 @@ from csle_common.dao.emulation_config.snort_managers_info import SnortIdsManager
 from csle_common.dao.emulation_config.ossec_managers_info import OSSECIDSManagersInfo
 from csle_common.dao.emulation_config.kafka_managers_info import KafkaManagersInfo
 from csle_common.dao.emulation_config.host_managers_info import HostManagersInfo
+from csle_common.dao.emulation_config.five_g_core_managers_info import FiveGCoreManagersInfo
+from csle_common.dao.emulation_config.five_g_cu_managers_info import FiveGCUManagersInfo
+from csle_common.dao.emulation_config.five_g_du_managers_info import FiveGDUManagersInfo
 from csle_common.dao.emulation_config.client_managers_info import ClientManagersInfo
 from csle_common.dao.emulation_config.docker_stats_managers_info import DockerStatsManagersInfo
 from csle_common.dao.emulation_config.elk_managers_info import ELKManagersInfo
@@ -25,7 +28,8 @@ class EmulationExecutionInfo(JSONSerializable):
                  stopped_containers: List[NodeContainerConfig], traffic_managers_info: TrafficManagersInfo,
                  active_networks: List[ContainerNetwork],
                  inactive_networks: List[ContainerNetwork], elk_managers_info: ELKManagersInfo,
-                 ryu_managers_info: Union[None, RyuManagersInfo]):
+                 ryu_managers_info: Union[None, RyuManagersInfo], five_g_core_managers_info: FiveGCoreManagersInfo,
+                 five_g_cu_managers_info: FiveGCUManagersInfo, five_g_du_managers_info: FiveGDUManagersInfo):
         """
         Initializes the DTO
 
@@ -44,6 +48,9 @@ class EmulationExecutionInfo(JSONSerializable):
         :param inactive_networks: information about the inactive networks
         :param elk_managers_info: information about the ELK managers
         :param ryu_managers_info: information about the Ryu managers
+        :param five_g_core_managers_info: information about the 5G core managers
+        :param five_g_cu_managers_info: information about the 5G CU managers
+        :param five_g_du_managers_info: information about the 5G DU managers
         """
         self.emulation_name = emulation_name
         self.execution_id = execution_id
@@ -60,6 +67,9 @@ class EmulationExecutionInfo(JSONSerializable):
         self.elk_managers_info = elk_managers_info
         self.traffic_managers_info = traffic_managers_info
         self.ryu_managers_info = ryu_managers_info
+        self.five_g_core_managers_info = five_g_core_managers_info
+        self.five_g_cu_managers_info = five_g_cu_managers_info
+        self.five_g_du_managers_info = five_g_du_managers_info
 
     def __str__(self) -> str:
         """
@@ -76,7 +86,10 @@ class EmulationExecutionInfo(JSONSerializable):
                f"stopped_containers: {list(map(lambda x: str(x), self.stopped_containers))}, " \
                f"active_networks : {list(map(lambda x: str(x), self.active_networks))}, " \
                f"inactive_networks : {list(map(lambda x: str(x), self.inactive_networks))}," \
-               f"ryu_managers_info: {self.ryu_managers_info}"
+               f"ryu_managers_info: {self.ryu_managers_info}, " \
+               f"five_g_core_managers_info: {self.five_g_core_managers_info}, " \
+               f"five_g_cu_managers_info: {self.five_g_cu_managers_info}, " \
+               f"five_g_du_managers_info: {self.five_g_du_managers_info}, "
 
     def to_dict(self) -> Dict[str, Any]:
         """
@@ -103,6 +116,9 @@ class EmulationExecutionInfo(JSONSerializable):
             d["ryu_managers_info"] = self.ryu_managers_info.to_dict()
         else:
             d["ryu_managers_info"] = None
+        d["five_g_core_managers_info"] = self.five_g_core_managers_info.to_dict()
+        d["five_g_cu_managers_info"] = self.five_g_cu_managers_info.to_dict()
+        d["five_g_du_managers_info"] = self.five_g_du_managers_info.to_dict()
         return d
 
     @staticmethod
@@ -112,7 +128,7 @@ class EmulationExecutionInfo(JSONSerializable):
 
         :return: a dto representation of the object
         """
-    
+
         dto = EmulationExecutionInfo(
             emulation_name=d["emulation_name"], execution_id=d["execution_id"],
             snort_ids_managers_info=SnortIdsManagersInfo.from_dict(d["snort_ids_managers_info"]),
@@ -127,7 +143,10 @@ class EmulationExecutionInfo(JSONSerializable):
             stopped_containers=list(map(lambda x: NodeContainerConfig.from_dict(x), d["stopped_containers"])),
             active_networks=list(map(lambda x: ContainerNetwork.from_dict(x), d["active_networks"])),
             inactive_networks=list(map(lambda x: ContainerNetwork.from_dict(x), d["inactive_networks"])),
-            ryu_managers_info=RyuManagersInfo.from_dict(d["ryu_managers_info"]))
+            ryu_managers_info=RyuManagersInfo.from_dict(d["ryu_managers_info"]),
+            five_g_core_managers_info=FiveGCoreManagersInfo.from_dict(d["five_g_core_managers_info"]),
+            five_g_cu_managers_info=FiveGCUManagersInfo.from_dict(d["five_g_cu_managers_info"]),
+            five_g_du_managers_info=FiveGDUManagersInfo.from_dict(d["five_g_du_managers_info"]))
         return dto
 
     @staticmethod

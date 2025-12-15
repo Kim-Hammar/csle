@@ -1265,6 +1265,21 @@ class ClusterManagerStub(object):
                 request_serializer=cluster__manager__pb2.Init5GUEMsg.SerializeToString,
                 response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
                 _registered_method=True)
+        self.get5GCoreManagersInfo = channel.unary_unary(
+                '/ClusterManager/get5GCoreManagersInfo',
+                request_serializer=cluster__manager__pb2.Get5GCoreManagersInfoMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.FiveGCoreManagersInfoDTO.FromString,
+                _registered_method=True)
+        self.get5GCUManagersInfo = channel.unary_unary(
+                '/ClusterManager/get5GCUManagersInfo',
+                request_serializer=cluster__manager__pb2.Get5GCUManagersInfoMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.FiveGCUManagersInfoDTO.FromString,
+                _registered_method=True)
+        self.get5GDUManagersInfo = channel.unary_unary(
+                '/ClusterManager/get5GDUManagersInfo',
+                request_serializer=cluster__manager__pb2.Get5GDUManagersInfoMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.FiveGDUManagersInfoDTO.FromString,
+                _registered_method=True)
 
 
 class ClusterManagerServicer(object):
@@ -2747,6 +2762,24 @@ class ClusterManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def get5GCoreManagersInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def get5GCUManagersInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def get5GDUManagersInfo(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ClusterManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -3979,6 +4012,21 @@ def add_ClusterManagerServicer_to_server(servicer, server):
                     servicer.init5GUE,
                     request_deserializer=cluster__manager__pb2.Init5GUEMsg.FromString,
                     response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'get5GCoreManagersInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.get5GCoreManagersInfo,
+                    request_deserializer=cluster__manager__pb2.Get5GCoreManagersInfoMsg.FromString,
+                    response_serializer=cluster__manager__pb2.FiveGCoreManagersInfoDTO.SerializeToString,
+            ),
+            'get5GCUManagersInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.get5GCUManagersInfo,
+                    request_deserializer=cluster__manager__pb2.Get5GCUManagersInfoMsg.FromString,
+                    response_serializer=cluster__manager__pb2.FiveGCUManagersInfoDTO.SerializeToString,
+            ),
+            'get5GDUManagersInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.get5GDUManagersInfo,
+                    request_deserializer=cluster__manager__pb2.Get5GDUManagersInfoMsg.FromString,
+                    response_serializer=cluster__manager__pb2.FiveGDUManagersInfoDTO.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -10624,6 +10672,87 @@ class ClusterManager(object):
             '/ClusterManager/init5GUE',
             cluster__manager__pb2.Init5GUEMsg.SerializeToString,
             cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def get5GCoreManagersInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/get5GCoreManagersInfo',
+            cluster__manager__pb2.Get5GCoreManagersInfoMsg.SerializeToString,
+            cluster__manager__pb2.FiveGCoreManagersInfoDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def get5GCUManagersInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/get5GCUManagersInfo',
+            cluster__manager__pb2.Get5GCUManagersInfoMsg.SerializeToString,
+            cluster__manager__pb2.FiveGCUManagersInfoDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def get5GDUManagersInfo(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/get5GDUManagersInfo',
+            cluster__manager__pb2.Get5GDUManagersInfoMsg.SerializeToString,
+            cluster__manager__pb2.FiveGDUManagersInfoDTO.FromString,
             options,
             channel_credentials,
             insecure,

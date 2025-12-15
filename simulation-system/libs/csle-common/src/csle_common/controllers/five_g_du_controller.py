@@ -392,7 +392,6 @@ class FiveGDUController:
             status = csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_ue(stub=stub)
             return status
 
-
     @staticmethod
     def get_five_g_du_managers_info(emulation_env_config: EmulationEnvConfig, active_ips: List[str],
                                     logger: logging.Logger, physical_server_ip: str) -> FiveGDUManagersInfo:

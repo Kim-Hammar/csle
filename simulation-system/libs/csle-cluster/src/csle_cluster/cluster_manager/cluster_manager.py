@@ -5604,6 +5604,81 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
+    def get5GCoreManagersInfo(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Get5GCoreManagersInfoMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.FiveGCoreManagersInfoDTO:
+        """
+        Gets the info of 5G core managers
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a FiveGCoreManagersInfoDTO
+        """
+        logging.info(f"Getting the info of 5G core managers in execution with id: {request.ipFirstOctet} "
+                     f"and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is not None:
+            five_g_core_managers_info_dto = FiveGCoreController.get_five_g_core_managers_info(
+                emulation_env_config=execution.emulation_env_config, logger=logging.getLogger(),
+                active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
+                physical_server_ip=GeneralUtil.get_host_ip())
+            execution.emulation_env_config.close_all_connections()
+            return ClusterManagerUtil.convert_five_g_core_info_dto(
+                five_g_core_managers_info_dto=five_g_core_managers_info_dto)
+        else:
+            return ClusterManagerUtil.get_empty_five_g_core_info_dto()
+
+    def get5GCUManagersInfo(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Get5GCUManagersInfoMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.FiveGCUManagersInfoDTO:
+        """
+        Gets the info of 5G CU managers
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a FiveGCUManagersInfoDTO
+        """
+        logging.info(f"Getting the info of 5G cu managers in execution with id: {request.ipFirstOctet} "
+                     f"and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is not None:
+            five_g_cu_managers_info_dto = FiveGCUController.get_five_g_cu_managers_info(
+                emulation_env_config=execution.emulation_env_config, logger=logging.getLogger(),
+                active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
+                physical_server_ip=GeneralUtil.get_host_ip())
+            execution.emulation_env_config.close_all_connections()
+            return ClusterManagerUtil.convert_five_g_cu_info_dto(
+                five_g_cu_managers_info_dto=five_g_cu_managers_info_dto)
+        else:
+            return ClusterManagerUtil.get_empty_five_g_cu_info_dto()
+
+    def get5GDUManagersInfo(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Get5GDUManagersInfoMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.FiveGDUManagersInfoDTO:
+        """
+        Gets the info of 5G DU managers
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a FiveGDUManagersInfoDTO
+        """
+        logging.info(f"Getting the info of 5G DU managers in execution with id: {request.ipFirstOctet} "
+                     f"and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is not None:
+            five_g_du_managers_info_dto = FiveGDUController.get_five_g_du_managers_info(
+                emulation_env_config=execution.emulation_env_config, logger=logging.getLogger(),
+                active_ips=ClusterManagerUtil.get_active_ips(emulation_env_config=execution.emulation_env_config),
+                physical_server_ip=GeneralUtil.get_host_ip())
+            execution.emulation_env_config.close_all_connections()
+            return ClusterManagerUtil.convert_five_g_du_info_dto(
+                five_g_du_managers_info_dto=five_g_du_managers_info_dto)
+        else:
+            return ClusterManagerUtil.get_empty_five_g_du_info_dto()
+
 
 def serve(port: int = 50041, log_dir: str = "/var/log/csle/", max_workers: int = 10,
           log_file_name: str = "cluster_manager.log") -> None:

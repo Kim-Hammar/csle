@@ -250,6 +250,9 @@ service ClusterManager {
   rpc start5GUE(Start5GUEMsg) returns (OperationOutcomeDTO) {}
   rpc init5GUEs(Init5GUEsMsg) returns (OperationOutcomeDTO) {}
   rpc init5GUE(Init5GUEMsg) returns (OperationOutcomeDTO) {}
+  rpc get5GCoreManagersInfo(Get5GCoreManagersInfoMsg) returns (FiveGCoreManagersInfoDTO) {}
+  rpc get5GCUManagersInfo(Get5GCUManagersInfoMsg) returns (FiveGCUManagersInfoDTO) {}
+  rpc get5GDUManagersInfo(Get5GDUManagersInfoMsg) returns (FiveGDUManagersInfoDTO) {}
 }
 
 // Message that the client sends when requesting to start stop a PID
@@ -1208,6 +1211,9 @@ message ExecutionInfoDTO {
   DockerNetworksDTO activeNetworks = 12;
   ElkManagersInfoDTO elkManagersInfoDTO = 13;
   RyuManagersInfoDTO ryuManagersInfoDTO = 14;
+  FiveGCoreManagersInfoDTO fiveGCoreManagersInfoDTO = 15;
+  FiveGCUManagersInfoDTO fiveGCUManagersInfoDTO = 16;
+  FiveGDUManagersInfoDTO fiveGDUManagersInfoDTO = 17;
 }
 
 // Message that the server returns when requested for the Ryu managers info
@@ -2242,4 +2248,89 @@ message Init5GUEMsg {
 message Init5GUEsMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to get the 5G core managers info
+message Get5GCoreManagersInfoMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to get the 5G CU managers info
+message Get5GCUManagersInfoMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to get the 5G DU managers info
+message Get5GDUManagersInfoMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+//Info DTO for the 5G Core
+message FiveGCoreInfoDTO {
+  bool mongo_running = 1;
+  bool mme_running = 2;
+  bool sgwc_running = 3;
+  bool smf_running = 4;
+  bool amf_running = 5;
+  bool sgwu_running = 6;
+  bool upf_running = 7;
+  bool hss_running = 8;
+  bool pcrf_running = 9;
+  bool nrf_running = 10;
+  bool scp_running = 11;
+  bool sepp_running = 12;
+  bool ausf_running = 13;
+  bool udm_running = 14;
+  bool pcf_running = 15;
+  bool nssf_running = 16;
+  bool bsf_running = 17;
+  bool udr_running = 18;
+  bool webui_running = 19;
+  string ip = 20;
+}
+
+//Info DTO for the 5G CU
+message FiveGCUInfoDTO {
+  bool cu_running = 1;
+  string ip = 2;
+}
+
+//Info DTO for the 5G DU
+message FiveGDUInfoDTO {
+  bool du_running = 1;
+  bool ue_running = 2;
+  string ip = 3;
+}
+
+// Message that the server returns when requested for the 5G Core managers info
+message FiveGCoreManagersInfoDTO {
+  repeated string ips = 1;
+  repeated int32 ports = 2;
+  string emulationName = 3;
+  int32 executionId = 4;
+  repeated bool fiveGCoreManagersRunning = 5;
+  repeated FiveGCoreInfoDTO fiveGCoreManagersStatuses = 6;
+}
+
+// Message that the server returns when requested for the 5G CU managers info
+message FiveGCUManagersInfoDTO {
+  repeated string ips = 1;
+  repeated int32 ports = 2;
+  string emulationName = 3;
+  int32 executionId = 4;
+  repeated bool fiveGCUManagersRunning = 5;
+  repeated FiveGCUInfoDTO fiveGCUManagersStatuses = 6;
+}
+
+// Message that the server returns when requested for the 5G DU managers info
+message FiveGDUManagersInfoDTO {
+  repeated string ips = 1;
+  repeated int32 ports = 2;
+  string emulationName = 3;
+  int32 executionId = 4;
+  repeated bool fiveGDUManagersRunning = 5;
+  repeated FiveGDUInfoDTO fiveGDUManagersStatuses = 6;
 }
