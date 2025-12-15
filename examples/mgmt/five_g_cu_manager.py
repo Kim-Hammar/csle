@@ -31,6 +31,6 @@ def stop_5g_cu(ip: str, port: int):
 if __name__ == '__main__':
     ip = "172.18.0.7"
     port = 50053
-    get_status(ip, port)
-    # start_5g_cu(ip, port)
+    # get_status(ip, port)
+    start_5g_cu(ip, port)
     # stop_5g_cu(ip, port)

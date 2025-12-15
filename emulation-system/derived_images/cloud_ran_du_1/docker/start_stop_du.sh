@@ -59,12 +59,12 @@ stop_du() {
 }
 
 status_du() {
-    local pid=$(get_pid)
+    local pid=$(get_pid | head -n1)
 
     if [ -n "$pid" ]; then
-        echo "$BINARY is RUNNING (PID: $pid)."
+        echo "$BINARY RUNNING (PID: $pid)"
     else
-        echo "$BINARY is STOPPED."
+        echo "$BINARY STOPPED"
     fi
 }
 

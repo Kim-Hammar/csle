@@ -20,7 +20,7 @@ class FiveGCUManagerUtil:
         """
         status_map = {}
         try:
-            result = subprocess.run([control_script_path, constants.FIVE_G_CORE.STATUS],
+            result = subprocess.run([control_script_path, constants.FIVE_G_CU.STATUS],
                                     capture_output=True, text=True, check=True, cwd=".")
 
             output_lines = result.stdout.strip().split('\n')
@@ -28,7 +28,7 @@ class FiveGCUManagerUtil:
             # Regex to capture the service name and its status
             status_pattern = re.compile(
                 rf'^(\w+)\s+'
-                rf'({re.escape(constants.FIVE_G_CORE.RUNNING)}|{re.escape(constants.FIVE_G_CORE.STOPPED)})',
+                rf'({re.escape(constants.FIVE_G_CU.RUNNING)}|{re.escape(constants.FIVE_G_CU.STOPPED)})',
                 re.IGNORECASE
             )
 
@@ -37,7 +37,7 @@ class FiveGCUManagerUtil:
                 if match:
                     service_name = match.group(1).lower()
                     status = match.group(2)
-                    status_map[service_name] = (status == constants.FIVE_G_CORE.RUNNING)
+                    status_map[service_name] = (status == constants.FIVE_G_CU.RUNNING)
 
         except FileNotFoundError:
             logging.error(f"5G CU control script not found at {control_script_path}")
@@ -58,7 +58,7 @@ class FiveGCUManagerUtil:
         """
         logging.info(f"Attempting to start the 5G CU using: {control_script_path} start")
         try:
-            result = subprocess.run([control_script_path, constants.FIVE_G_CORE.START],
+            result = subprocess.run([control_script_path, constants.FIVE_G_CU.START],
                                     capture_output=True, text=True, check=True, cwd=".")
 
             logging.info(f"CU start command output: {result.stdout.strip()}")
@@ -85,7 +85,7 @@ class FiveGCUManagerUtil:
         """
         logging.info(f"Attempting to stop the 5G CU using: {control_script_path} stop")
         try:
-            result = subprocess.run([control_script_path, constants.FIVE_G_CORE.STOP],
+            result = subprocess.run([control_script_path, constants.FIVE_G_CU.STOP],
                                     capture_output=True, text=True, check=True, cwd=".")
 
             logging.info(f"CU stop command output: {result.stdout.strip()}")
