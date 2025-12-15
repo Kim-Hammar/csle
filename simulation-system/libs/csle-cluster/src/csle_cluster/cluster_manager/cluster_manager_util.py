@@ -4165,10 +4165,9 @@ class ClusterManagerUtil:
             emulationName=five_g_core_managers_info_dto.emulation_name,
             executionId=five_g_core_managers_info_dto.execution_id,
             fiveGCoreManagersRunning=five_g_core_managers_info_dto.five_g_core_managers_running,
-            fiveGCoreManagersStatuses=
-            list(map(lambda x: ClusterManagerUtil.convert_five_g_core_status_dto_to_five_g_core_info_dto(x),
-                     five_g_core_managers_info_dto.five_g_core_managers_statuses))
-        )
+            fiveGCoreManagersStatuses=list(map(lambda x: ClusterManagerUtil.
+                                               convert_five_g_core_status_dto_to_five_g_core_info_dto(x),
+                                               five_g_core_managers_info_dto.five_g_core_managers_statuses)))
 
     @staticmethod
     def convert_five_g_core_info_dto_reverse(
@@ -4196,8 +4195,8 @@ class ClusterManagerUtil:
 
     @staticmethod
     def convert_five_g_core_status_dto_to_five_g_core_info_dto(
-            five_g_core_status_dto: Union[None,
-            csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO]) \
+            five_g_core_status_dto: Union[
+                None, csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO]) \
             -> cluster_manager_pb2.FiveGCoreInfoDTO:
         """
         Converts a FiveGCoreStatusDTO to a FiveGCoreInfoDTO
@@ -4286,10 +4285,9 @@ class ClusterManagerUtil:
             emulationName=five_g_cu_managers_info_dto.emulation_name,
             executionId=five_g_cu_managers_info_dto.execution_id,
             fiveGCUManagersRunning=five_g_cu_managers_info_dto.five_g_cu_managers_running,
-            fiveGCUManagersStatuses=
-            list(map(lambda x: ClusterManagerUtil.convert_five_g_cu_status_dto_to_five_g_cu_info_dto(x),
-                     five_g_cu_managers_info_dto.five_g_cu_managers_statuses))
-        )
+            fiveGCUManagersStatuses=list(map(lambda x: ClusterManagerUtil.
+                                             convert_five_g_cu_status_dto_to_five_g_cu_info_dto(x),
+                                             five_g_cu_managers_info_dto.five_g_cu_managers_statuses)))
 
     @staticmethod
     def convert_five_g_cu_info_dto_reverse(
@@ -4317,8 +4315,8 @@ class ClusterManagerUtil:
 
     @staticmethod
     def convert_five_g_cu_status_dto_to_five_g_cu_info_dto(
-            five_g_cu_status_dto: Union[None,
-            csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO]) \
+            five_g_cu_status_dto: Union[
+                None, csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO]) \
             -> cluster_manager_pb2.FiveGCUInfoDTO:
         """
         Converts a FiveGCUStatusDTO to a FiveGCUInfoDTO
@@ -4384,15 +4382,14 @@ class ClusterManagerUtil:
             emulationName=five_g_du_managers_info_dto.emulation_name,
             executionId=five_g_du_managers_info_dto.execution_id,
             fiveGDUManagersRunning=five_g_du_managers_info_dto.five_g_du_managers_running,
-            fiveGDUManagersStatuses=
-            list(map(lambda x: ClusterManagerUtil.convert_five_g_du_status_dto_to_five_g_du_info_dto(x),
-                     five_g_du_managers_info_dto.five_g_du_managers_statuses))
-        )
+            fiveGDUManagersStatuses=list(map(lambda x: ClusterManagerUtil.
+                                             convert_five_g_du_status_dto_to_five_g_du_info_dto(x),
+                                             five_g_du_managers_info_dto.five_g_du_managers_statuses)))
 
     @staticmethod
     def convert_five_g_du_info_dto_reverse(
-            five_g_du_managers_info_dto: Union[None, cluster_manager_pb2.FiveGDUManagersInfoDTO]) \
-            -> FiveGDUManagersInfo:
+            five_g_du_managers_info_dto: Union[
+                None, cluster_manager_pb2.FiveGDUManagersInfoDTO]) -> FiveGDUManagersInfo:
         """
         Converts a FiveGDUManagersInfoDTO into a FiveGDUManagersInfo
 
@@ -4415,8 +4412,8 @@ class ClusterManagerUtil:
 
     @staticmethod
     def convert_five_g_du_status_dto_to_five_g_du_info_dto(
-            five_g_du_status_dto: Union[None,
-            csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO]) \
+            five_g_du_status_dto: Union[
+                None, csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO]) \
             -> cluster_manager_pb2.FiveGDUInfoDTO:
         """
         Converts a FiveGDUStatusDTO to a FiveGDUInfoDTO

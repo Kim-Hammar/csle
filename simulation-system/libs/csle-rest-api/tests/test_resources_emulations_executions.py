@@ -14,11 +14,18 @@ from csle_collector.ossec_ids_manager.ossec_ids_manager_pb2 import OSSECIdsMonit
 from csle_collector.ryu_manager.ryu_manager_pb2 import RyuDTO
 from csle_collector.snort_ids_manager.snort_ids_manager_pb2 import SnortIdsMonitorDTO
 from csle_collector.traffic_manager.traffic_manager_pb2 import TrafficDTO
+from csle_collector.five_g_core_manager.five_g_core_manager_pb2 import FiveGCoreStatusDTO
+from csle_collector.five_g_cu_manager.five_g_cu_manager_pb2 import FiveGCUStatusDTO
+from csle_collector.five_g_du_manager.five_g_du_manager_pb2 import FiveGDUStatusDTO
+from csle_common.dao.emulation_config import five_g_cu_managers_info
 from csle_common.dao.emulation_config.client_managers_info import ClientManagersInfo
 from csle_common.dao.emulation_config.config import Config
 from csle_common.dao.emulation_config.container_network import ContainerNetwork
 from csle_common.dao.emulation_config.docker_stats_managers_info import DockerStatsManagersInfo
 from csle_common.dao.emulation_config.elk_managers_info import ELKManagersInfo
+from csle_common.dao.emulation_config.five_g_core_managers_info import FiveGCoreManagersInfo
+from csle_common.dao.emulation_config.five_g_cu_managers_info import FiveGCUManagersInfo
+from csle_common.dao.emulation_config.five_g_du_managers_info import FiveGDUManagersInfo
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
 from csle_common.dao.emulation_config.emulation_execution import EmulationExecution
 from csle_common.dao.emulation_config.emulation_execution_info import EmulationExecutionInfo
@@ -1668,6 +1675,34 @@ class TestResourcesEmulationExecutionsSuite:
                                                                 kafka_port=4, time_step_len=4)],
                                   ryu_managers_running=[True], local_controller_web_port=1,
                                   physical_server_ip="123.456.78.99")
+        five_g_core_info = FiveGCoreManagersInfo(ips=["123.456.78.99"], ports=[10],
+                                                 emulation_name="JDoeEmulation", execution_id=10,
+                                                 five_g_core_managers_statuses=[
+                                                     FiveGCoreStatusDTO(
+                                                         mongo_running=True, mme_running=True, sgwc_running=True,
+                                                         smf_running=True,
+                                                         amf_running=True, sgwu_running=True, upf_running=True,
+                                                         hss_running=True,
+                                                         pcrf_running=True, nrf_running=True, scp_running=True,
+                                                         sepp_running=True,
+                                                         ausf_running=True, udm_running=True, pcf_running=True,
+                                                         nssf_running=True,
+                                                         bsf_running=True, udr_running=True, webui_running=True,
+                                                         ip="123.456.78.99",
+                                                     )
+                                                 ],
+                                                 five_g_core_managers_running=[True])
+        five_g_cu_info = FiveGCUManagersInfo(ips=["123.456.78.99"], ports=[10],
+                                             emulation_name="JDoeEmulation", execution_id=10,
+                                             five_g_cu_managers_statuses=[
+                                                 FiveGCUStatusDTO(cu_running=True, ip="123.456.78.99")],
+                                             five_g_cu_managers_running=[True])
+        five_g_du_info = FiveGDUManagersInfo(ips=["123.456.78.99"], ports=[10],
+                                             emulation_name="JDoeEmulation", execution_id=10,
+                                             five_g_du_managers_statuses=[
+                                                 FiveGDUStatusDTO(du_running=True, ue_running=True,
+                                                                  ip="123.456.78.99")],
+                                             five_g_du_managers_running=[True])
         em_exec_info = EmulationExecutionInfo(emulation_name="JohnDoe", execution_id=10,
                                               snort_ids_managers_info=snort_ids,
                                               ossec_ids_managers_info=ossec_ids,
@@ -1680,7 +1715,9 @@ class TestResourcesEmulationExecutionsSuite:
                                               traffic_managers_info=traffic_mng,
                                               active_networks=[c_network],
                                               inactive_networks=[c_network], elk_managers_info=elk_mng,
-                                              ryu_managers_info=ryu_mng)
+                                              ryu_managers_info=ryu_mng, five_g_core_managers_info=five_g_core_info,
+                                              five_g_cu_managers_info=five_g_cu_info,
+                                              five_g_du_managers_info=five_g_du_info)
         return em_exec_info
 
     def test_emulation_executions_get(self, mocker: pytest_mock.MockFixture, flask_app, not_logged_in, logged_in,

@@ -48,11 +48,8 @@ from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGDUManagersInfo
 from csle_common.dao.emulation_config.five_g_du_managers_info import FiveGDUManagersInfo
 from csle_cluster.cluster_manager.cluster_manager_pb2 import KafkaStatusDTO
 from csle_collector.kafka_manager.kafka_manager_pb2 import KafkaDTO
-from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGCoreInfoDTO
 from csle_collector.five_g_core_manager.five_g_core_manager_pb2 import FiveGCoreStatusDTO
-from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGCUInfoDTO
 from csle_collector.five_g_cu_manager.five_g_cu_manager_pb2 import FiveGCUStatusDTO
-from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGDUInfoDTO
 from csle_collector.five_g_du_manager.five_g_du_manager_pb2 import FiveGDUStatusDTO
 from csle_collector.docker_stats_manager.docker_stats_manager_pb2 import DockerStatsMonitorDTO
 from csle_cluster.cluster_manager.cluster_manager_pb2 import HostManagerStatusesDTO
@@ -481,7 +478,11 @@ class TestClusterManagerSuite:
                                                 subnet_prefix="null",
                                                 interface="eth0")],
             elk_managers_info=TestClusterManagerSuite.get_elk_mng_info(),
-            ryu_managers_info=TestClusterManagerSuite.ryu_mng_info())
+            ryu_managers_info=TestClusterManagerSuite.ryu_mng_info(),
+            five_g_core_managers_info=TestClusterManagerSuite.get_five_g_core_manager_info(),
+            five_g_cu_managers_info=TestClusterManagerSuite.get_five_g_cu_manager_info(),
+            five_g_du_managers_info=TestClusterManagerSuite.get_five_g_du_manager_info()
+        )
         return emulation_exec_info
 
     @staticmethod
@@ -7048,8 +7049,8 @@ class TestClusterManagerSuite:
         assert response.fiveGCoreManagersRunning
         assert response.fiveGCoreManagersStatuses[0].mongo_running
 
-    def test_getFiveGCUManagersInfo(self, grpc_stub, mocker: pytest_mock.MockFixture,
-                                      get_ex_exec: EmulationExecution, active_ips: List[str]) -> None:
+    def test_getFiveGCUManagersInfo(self, grpc_stub, mocker: pytest_mock.MockFixture, get_ex_exec: EmulationExecution,
+                                    active_ips: List[str]) -> None:
         """
         Tests the getFiveGCUManagersInfo grpc
 
@@ -7077,8 +7078,8 @@ class TestClusterManagerSuite:
         assert response.fiveGCUManagersRunning
         assert response.fiveGCUManagersStatuses[0].cu_running
 
-    def test_getFiveGDUManagersInfo(self, grpc_stub, mocker: pytest_mock.MockFixture,
-                                      get_ex_exec: EmulationExecution, active_ips: List[str]) -> None:
+    def test_getFiveGDUManagersInfo(self, grpc_stub, mocker: pytest_mock.MockFixture, get_ex_exec: EmulationExecution,
+                                    active_ips: List[str]) -> None:
         """
         Tests the getFiveGDUManagersInfo grpc
 
