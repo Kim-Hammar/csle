@@ -825,9 +825,12 @@ class FIVE_G_DU:
     Constants related to the 5G DU
     """
     CONTROL_SCRIPT_PATH = "/start_stop_du.sh"
+    UE_CONTROL_SCRIPT_PATH = "/start_stop_ue.sh"
     RUNNING = "RUNNING"
     STOPPED = "STOPPED"
     STATUS = "status"
     START = "start"
     STOP = "stop"
+    INIT = "init"
     DU = "srsdu"
+    UE = "srsue"

@@ -55,23 +55,31 @@ class TestFiveGDUManagerSuite:
         """
         mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
                      'start_du', return_value=None)
-        mock_status_dict = {constants.FIVE_G_DU.DU: True}
-        mock_status = FiveGDUStatusDTO(du_running=True, ip="0.0.0.0")
+        mock_status_dict_du = {constants.FIVE_G_DU.DU: True}
+        mock_status_dict_ue = {constants.FIVE_G_DU.UE: False}
+        mock_status = FiveGDUStatusDTO(du_running=True, ue_running=False, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
-                     'get_du_status', return_value=mock_status_dict)
+                     'get_du_status', return_value=mock_status_dict_du)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'get_ue_status', return_value=mock_status_dict_ue)
         response: FiveGDUStatusDTO = csle_collector.five_g_du_manager.query_five_g_du_manager.start_five_g_du(
             stub=grpc_stub)
         assert response.du_running == mock_status.du_running
+        assert response.ue_running == mock_status.ue_running
         assert response.ip == mock_status.ip
 
-        mock_status_dict = {constants.FIVE_G_DU.DU: True}
-        mock_status = FiveGDUStatusDTO(du_running=True, ip="0.0.0.0")
+        mock_status_dict_du = {constants.FIVE_G_DU.DU: True}
+        mock_status_dict_ue = {constants.FIVE_G_DU.UE: True}
+        mock_status = FiveGDUStatusDTO(du_running=True, ue_running=True, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
-                     'get_du_status', return_value=mock_status_dict)
-        response: FiveGDUStatusDTO = csle_collector.five_g_du_manager.query_five_g_du_manager.start_five_g_du(
+                     'get_du_status', return_value=mock_status_dict_du)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'get_ue_status', return_value=mock_status_dict_ue)
+        response_2: FiveGDUStatusDTO = csle_collector.five_g_du_manager.query_five_g_du_manager.start_five_g_du(
             stub=grpc_stub)
-        assert response.du_running == mock_status.du_running
-        assert response.ip == mock_status.ip
+        assert response_2.du_running == mock_status.du_running
+        assert response_2.ue_running == mock_status.ue_running
+        assert response_2.ip == mock_status.ip
 
     def test_stopFiveGDU(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
         """
@@ -83,23 +91,31 @@ class TestFiveGDUManagerSuite:
         """
         mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
                      'stop_du', return_value=None)
-        mock_status_dict = {constants.FIVE_G_DU.DU: False}
-        mock_status = FiveGDUStatusDTO(du_running=False, ip="0.0.0.0")
+        mock_status_dict_du = {constants.FIVE_G_DU.DU: False}
+        mock_status_dict_ue = {constants.FIVE_G_DU.UE: False}
+        mock_status = FiveGDUStatusDTO(du_running=False, ue_running=False, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
-                     'get_du_status', return_value=mock_status_dict)
+                     'get_du_status', return_value=mock_status_dict_du)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'get_ue_status', return_value=mock_status_dict_ue)
         response: FiveGDUStatusDTO = csle_collector.five_g_du_manager.query_five_g_du_manager.stop_five_g_du(
             stub=grpc_stub)
         assert response.du_running == mock_status.du_running
+        assert response.ue_running == mock_status.ue_running
         assert response.ip == mock_status.ip
 
-        mock_status_dict = {constants.FIVE_G_DU.DU: True}
-        mock_status = FiveGDUStatusDTO(du_running=True, ip="0.0.0.0")
+        mock_status_dict_du = {constants.FIVE_G_DU.DU: True}
+        mock_status_dict_ue = {constants.FIVE_G_DU.UE: False}
+        mock_status = FiveGDUStatusDTO(du_running=True, ue_running=False, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
-                     'get_du_status', return_value=mock_status_dict)
-        response: FiveGDUStatusDTO = csle_collector.five_g_du_manager.query_five_g_du_manager.stop_five_g_du(
+                     'get_du_status', return_value=mock_status_dict_du)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'get_ue_status', return_value=mock_status_dict_ue)
+        response_2: FiveGDUStatusDTO = csle_collector.five_g_du_manager.query_five_g_du_manager.stop_five_g_du(
             stub=grpc_stub)
-        assert response.du_running == mock_status.du_running
-        assert response.ip == mock_status.ip
+        assert response_2.du_running == mock_status.du_running
+        assert response_2.ue_running == mock_status.ue_running
+        assert response_2.ip == mock_status.ip
 
     def test_getFiveGDUStatus(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
         """
@@ -109,20 +125,28 @@ class TestFiveGDUManagerSuite:
         :param mocker: the mocker object to mock functions with external dependencies
         :return: None
         """
-        mock_status_dict = {constants.FIVE_G_DU.DU: False}
-        mock_status = FiveGDUStatusDTO(du_running=False, ip="0.0.0.0")
+        mock_status_dict_du = {constants.FIVE_G_DU.DU: False}
+        mock_status_dict_ue = {constants.FIVE_G_DU.UE: True}
+        mock_status = FiveGDUStatusDTO(du_running=False, ue_running=True, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
-                     'get_du_status', return_value=mock_status_dict)
+                     'get_du_status', return_value=mock_status_dict_du)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'get_ue_status', return_value=mock_status_dict_ue)
         response: FiveGDUStatusDTO = (csle_collector.five_g_du_manager.query_five_g_du_manager.
                                       get_five_g_du_status(stub=grpc_stub))
         assert response.du_running == mock_status.du_running
+        assert response.ue_running == mock_status.ue_running
         assert response.ip == mock_status.ip
 
-        mock_status_dict = {constants.FIVE_G_DU.DU: True}
-        mock_status = FiveGDUStatusDTO(du_running=True, ip="0.0.0.0")
+        mock_status_dict_du = {constants.FIVE_G_DU.DU: True}
+        mock_status_dict_ue = {constants.FIVE_G_DU.UE: False}
+        mock_status = FiveGDUStatusDTO(du_running=True, ue_running=False, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
-                     'get_du_status', return_value=mock_status_dict)
-        response: FiveGDUStatusDTO = (csle_collector.five_g_du_manager.query_five_g_du_manager.
+                     'get_du_status', return_value=mock_status_dict_du)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'get_ue_status', return_value=mock_status_dict_ue)
+        response_2: FiveGDUStatusDTO = (csle_collector.five_g_du_manager.query_five_g_du_manager.
                                       get_five_g_du_status(stub=grpc_stub))
-        assert response.du_running == mock_status.du_running
-        assert response.ip == mock_status.ip
+        assert response_2.du_running == mock_status.du_running
+        assert response_2.ue_running == mock_status.ue_running
+        assert response_2.ip == mock_status.ip

@@ -16,7 +16,7 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing_extensions.final
 class GetFiveGDUStatusMsg(google.protobuf.message.Message):
-    """Message that the client sends to get the status of the 5G core"""
+    """Message that the client sends to get the status of the 5G DU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -28,27 +28,30 @@ global___GetFiveGDUStatusMsg = GetFiveGDUStatusMsg
 
 @typing_extensions.final
 class FiveGDUStatusDTO(google.protobuf.message.Message):
-    """Message that the server returns when asked about the status of the 5G core"""
+    """Message that the server returns when asked about the status of the 5G DU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
     DU_RUNNING_FIELD_NUMBER: builtins.int
+    UE_RUNNING_FIELD_NUMBER: builtins.int
     IP_FIELD_NUMBER: builtins.int
     du_running: builtins.bool
+    ue_running: builtins.bool
     ip: builtins.str
     def __init__(
         self,
         *,
         du_running: builtins.bool = ...,
+        ue_running: builtins.bool = ...,
         ip: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["du_running", b"du_running", "ip", b"ip"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["du_running", b"du_running", "ip", b"ip", "ue_running", b"ue_running"]) -> None: ...
 
 global___FiveGDUStatusDTO = FiveGDUStatusDTO
 
 @typing_extensions.final
 class StopFiveGDUMsg(google.protobuf.message.Message):
-    """Message that the client sends to stop the 5G core"""
+    """Message that the client sends to stop the 5G DU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -60,7 +63,7 @@ global___StopFiveGDUMsg = StopFiveGDUMsg
 
 @typing_extensions.final
 class StartFiveGDUMsg(google.protobuf.message.Message):
-    """Message that the client sends to start the 5G core"""
+    """Message that the client sends to start the 5G DU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -69,3 +72,39 @@ class StartFiveGDUMsg(google.protobuf.message.Message):
     ) -> None: ...
 
 global___StartFiveGDUMsg = StartFiveGDUMsg
+
+@typing_extensions.final
+class StartFiveGUEMsg(google.protobuf.message.Message):
+    """Message that the client sends to stop the 5G UE"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___StartFiveGUEMsg = StartFiveGUEMsg
+
+@typing_extensions.final
+class StopFiveGUEMsg(google.protobuf.message.Message):
+    """Message that the client sends to start the 5G UE"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___StopFiveGUEMsg = StopFiveGUEMsg
+
+@typing_extensions.final
+class InitFiveGUEMsg(google.protobuf.message.Message):
+    """Message that the client sends to initialize the 5G UE"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___InitFiveGUEMsg = InitFiveGUEMsg

@@ -11,7 +11,7 @@ from csle_collector.five_g_cu_manager.five_g_cu_manager_util import FiveGCUManag
 
 class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerServicer):
     """
-    gRPC server for managing the 5g cu
+    gRPC server for managing the 5G CU
     """
 
     def __init__(self) -> None:
@@ -34,7 +34,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
             context: grpc.ServicerContext) \
             -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
         """
-        Gets the status of the 5G cu
+        Gets the status of the 5G CU
 
         :param request: the gRPC request
         :param context: the gRPC context
@@ -52,7 +52,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
                      context: grpc.ServicerContext) \
             -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
         """
-        Starts the 5G cu services
+        Starts the 5G CU
 
         :param request: the gRPC request
         :param context: the gRPC context
@@ -71,7 +71,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
                     context: grpc.ServicerContext) \
             -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
         """
-        Stops the 5G cu services
+        Stops the 5G CU
 
         :param request: the gRPC request
         :param context: the gRPC context
@@ -87,7 +87,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         )
 
 
-def serve(port: int = 50052, log_dir: str = "/", max_workers: int = 100,
+def serve(port: int = 50053, log_dir: str = "/", max_workers: int = 100,
           log_file_name: str = "five_g_cu_manager.log") -> None:
     """
     Starts the gRPC server for managing clients

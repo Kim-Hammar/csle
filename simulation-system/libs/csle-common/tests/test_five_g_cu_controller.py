@@ -22,7 +22,7 @@ class TestFiveGCUControllerSuite:
     @patch("csle_common.controllers.five_g_cu_controller.FiveGCUController.start_five_g_cu")
     def test_start_five_g_cus(self, mock_start_five_g_cu, example_emulation_env_config: EmulationEnvConfig) -> None:
         """
-        Test utility function for starting the 5G cus
+        Test utility function for starting the 5G CUs
 
         :param mock_start_five_g_cu: mock_start_five_g_cu
         :param example_emulation_env_config: example_emulation_env_config
@@ -42,7 +42,7 @@ class TestFiveGCUControllerSuite:
     @patch("csle_common.controllers.five_g_cu_controller.FiveGCUController.stop_five_g_cu")
     def test_stop_five_g_cus(self, mock_stop_five_g_cu, example_emulation_env_config: EmulationEnvConfig) -> None:
         """
-        Test utility function for stopping the 5G cus
+        Test utility function for stopping the 5G CUs
 
         :param mock_stop_five_g_cu: mock_stop_five_g_cu
         :param example_emulation_env_config: example_emulation_env_config
@@ -64,7 +64,7 @@ class TestFiveGCUControllerSuite:
     def test_start_five_g_cu(self, mock_insecure_channel, mock_start_five_g_cu,
                              example_emulation_env_config: EmulationEnvConfig) -> None:
         """
-        Test utility function for starting the 5G cu on a specific IP
+        Test utility function for starting the 5G CU on a specific IP
 
         :param mock_insecure_channel: mock_insecure_channel
         :param mock_start_five_g_cu: mock_start_five_g_cu
@@ -81,7 +81,7 @@ class TestFiveGCUControllerSuite:
             ip=example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip,
             logger=self.logger)
         self.logger.info.assert_called_once_with(
-            f"Starting the 5G cu on container with ip "
+            f"Starting the 5G CU on container with ip "
             f"{example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip} in "
             f"execution {example_emulation_env_config.execution_id} "
             f"of emulation: {example_emulation_env_config.name}")
@@ -93,7 +93,7 @@ class TestFiveGCUControllerSuite:
     def test_stop_five_g_cu(self, mock_insecure_channel, mock_stop_five_g_cu,
                             example_emulation_env_config: EmulationEnvConfig) -> None:
         """
-        Test utility function for stopping the 5G cu on a specific IP
+        Test utility function for stopping the 5G CU on a specific IP
 
         :param mock_insecure_channel: mock_insecure_channel
         :param mock_stop_five_g_cu: mock_stop_five_g_cu
@@ -110,7 +110,7 @@ class TestFiveGCUControllerSuite:
             ip=example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip,
             logger=self.logger)
         self.logger.info.assert_called_once_with(
-            f"Stopping the 5G cu on container with ip "
+            f"Stopping the 5G CU on container with ip "
             f"{example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip} in "
             f"execution {example_emulation_env_config.execution_id} "
             f"of emulation: {example_emulation_env_config.name}")
@@ -121,7 +121,7 @@ class TestFiveGCUControllerSuite:
     def test_start_five_g_cu_managers(self, start_five_g_cu_manager,
                                       example_emulation_env_config: EmulationEnvConfig) -> None:
         """
-        Test utility function for starting 5G cu managers
+        Test utility function for starting 5G CU managers
 
         :param start_five_g_cu_manager: start_five_g_cu_manager
         :param example_emulation_env_config: example_emulation_env_config
@@ -139,7 +139,7 @@ class TestFiveGCUControllerSuite:
     def test_start_five_g_cu_manager(self, mock_sleep, mock_execute_ssh_cmd, mock_connect_admin,
                                      example_emulation_env_config: EmulationEnvConfig) -> None:
         """
-        Test utility function for starting the 5G cu manager on a specific IP
+        Test utility function for starting the 5G CU manager on a specific IP
 
         :param mock_execute_ssh_cmd: mock_execute_ssh_cmd
         :param mock_connect_admin: mock_connect_admin
@@ -162,14 +162,14 @@ class TestFiveGCUControllerSuite:
             ip=example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip)
         mock_execute_ssh_cmd.assert_called()
         self.logger.info.assert_any_call(
-            f"Starting 5G cu manager on node "
+            f"Starting 5G CU manager on node "
             f"{example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip}")
 
     @patch("csle_common.controllers.five_g_cu_controller.FiveGCUController.stop_five_g_cu_manager")
     def test_stop_five_g_cu_managers(self, stop_five_g_cu_manager,
                                      example_emulation_env_config: EmulationEnvConfig) -> None:
         """
-        Test utility function for stopping 5G cu managers
+        Test utility function for stopping 5G CU managers
 
         :param stop_five_g_cu_manager: stop_five_g_cu_manager
         :param example_emulation_env_config: example_emulation_env_config
@@ -187,7 +187,7 @@ class TestFiveGCUControllerSuite:
     def test_stop_five_g_cu_manager(self, mock_sleep, mock_execute_ssh_cmd, mock_connect_admin,
                                     example_emulation_env_config: EmulationEnvConfig) -> None:
         """
-        Test utility function for stopping the 5G cu manager on a specific IP
+        Test utility function for stopping the 5G CU manager on a specific IP
 
         :param mock_execute_ssh_cmd: mock_execute_ssh_cmd
         :param mock_connect_admin: mock_connect_admin
@@ -212,7 +212,7 @@ class TestFiveGCUControllerSuite:
 
     def test_get_five_g_cu_managers_ips(self, example_emulation_env_config: EmulationEnvConfig) -> None:
         """
-        Test a method that extracts the IPs of the 5G cu managers in a given emulation
+        Test a method that extracts the IPs of the 5G Cu managers in a given emulation
 
         :param example_emulation_env_config: example_emulation_env_config
         :return: None
@@ -223,7 +223,7 @@ class TestFiveGCUControllerSuite:
 
     def test_get_five_g_cu_managers_ports(self, example_emulation_env_config: EmulationEnvConfig) -> None:
         """
-        Test a method that extracts the ports of the 5G cu managers in a given emulation
+        Test a method that extracts the ports of the 5G CU managers in a given emulation
 
         :param example_emulation_env_config: example_emulation_env_config
         :return: None

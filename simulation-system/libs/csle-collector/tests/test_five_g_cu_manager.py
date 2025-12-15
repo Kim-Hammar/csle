@@ -68,10 +68,10 @@ class TestFiveGCUManagerSuite:
         mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
-        response: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.start_five_g_cu(
+        response_2: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.start_five_g_cu(
             stub=grpc_stub)
-        assert response.cu_running == mock_status.cu_running
-        assert response.ip == mock_status.ip
+        assert response_2.cu_running == mock_status.cu_running
+        assert response_2.ip == mock_status.ip
 
     def test_stopFiveGCU(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
         """
@@ -96,10 +96,10 @@ class TestFiveGCUManagerSuite:
         mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
-        response: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.stop_five_g_cu(
+        response_2: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.stop_five_g_cu(
             stub=grpc_stub)
-        assert response.cu_running == mock_status.cu_running
-        assert response.ip == mock_status.ip
+        assert response_2.cu_running == mock_status.cu_running
+        assert response_2.ip == mock_status.ip
 
     def test_getFiveGCUStatus(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
         """
@@ -122,7 +122,7 @@ class TestFiveGCUManagerSuite:
         mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
-        response: FiveGCUStatusDTO = (csle_collector.five_g_cu_manager.query_five_g_cu_manager.
+        response_2: FiveGCUStatusDTO = (csle_collector.five_g_cu_manager.query_five_g_cu_manager.
                                       get_five_g_cu_status(stub=grpc_stub))
-        assert response.cu_running == mock_status.cu_running
-        assert response.ip == mock_status.ip
+        assert response_2.cu_running == mock_status.cu_running
+        assert response_2.ip == mock_status.ip

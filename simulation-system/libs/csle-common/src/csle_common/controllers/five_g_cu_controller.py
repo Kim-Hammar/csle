@@ -13,14 +13,14 @@ from csle_common.util.emulation_util import EmulationUtil
 
 class FiveGCUController:
     """
-    Class controlling 5G cus running on nodes in the emulations, as well as 5G cu managers
+    Class controlling 5G cus running on nodes in the emulations, as well as 5G CU managers
     """
 
     @staticmethod
     def start_five_g_cu_managers(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
                                  logger: logging.Logger) -> None:
         """
-        Utility method for starting 5G cu managers
+        Utility method for starting 5G CU managers
 
         :param emulation_env_config: the emulation env config
         :param physical_server_ip: the ip of the physical server
@@ -38,7 +38,7 @@ class FiveGCUController:
     @staticmethod
     def start_five_g_cu_manager(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) -> None:
         """
-        Utility method for starting the 5G cu manager on a specific container
+        Utility method for starting the 5G CU manager on a specific container
 
         :param emulation_env_config: the emulation env config
         :param ip: the ip of the container
@@ -59,7 +59,7 @@ class FiveGCUController:
         else:
             status_str = f"cu_running: {status.cu_running}, ip: {status.ip}"
         if not_running:
-            logger.info(f"Starting 5G cu manager on node {ip}")
+            logger.info(f"Starting 5G CU manager on node {ip}")
 
             # Connect
             EmulationUtil.connect_admin(emulation_env_config=emulation_env_config, ip=ip)
@@ -79,13 +79,13 @@ class FiveGCUController:
             o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd, conn=emulation_env_config.get_connection(ip=ip))
             time.sleep(2)
         else:
-            logger.info(f"5G cu manager was already running on node {ip}. Status: {status_str}")
+            logger.info(f"5G CU manager was already running on node {ip}. Status: {status_str}")
 
     @staticmethod
     def stop_five_g_cu_managers(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
                                 logger: logging.Logger) -> None:
         """
-        Utility method for stopping 5G cu managers
+        Utility method for stopping 5G CU managers
 
         :param emulation_env_config: the emulation env config
         :param physical_server_ip: the IP of the physical host
@@ -103,7 +103,7 @@ class FiveGCUController:
     @staticmethod
     def stop_five_g_cu_manager(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) -> None:
         """
-        Utility method for stopping a 5G cu manager with a speicific IP
+        Utility method for stopping a 5G CU manager with a specific IP
 
         :param emulation_env_config: the emulation env config
         :param ip: the ip of the container
@@ -125,8 +125,8 @@ class FiveGCUController:
             emulation_env_config: EmulationEnvConfig, physical_server_ip: str, logger: logging.Logger) \
             -> List[csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO]:
         """
-        A method that sends a request to the 5G cu manager on every container to get the status of the
-        5G cu
+        A method that sends a request to the 5G CU manager on every container to get the status of the
+        5G CU
 
         :param emulation_env_config: the emulation config
         :param physical_server_ip: the IP of the physical server
@@ -151,7 +151,7 @@ class FiveGCUController:
     @staticmethod
     def get_five_g_cu_managers_ips(emulation_env_config: EmulationEnvConfig) -> List[str]:
         """
-        A method that extracts the IPs of the 5G cu managers in a given emulation
+        A method that extracts the IPs of the 5G CU managers in a given emulation
 
         :param emulation_env_config: the emulation env config
         :return: the list of IP addresses
@@ -183,8 +183,8 @@ class FiveGCUController:
             port: int, ip: str, timeout: int = csle_collector_constants.GRPC.TIMEOUT_SECONDS) \
             -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
         """
-        A method that sends a request to the 5G cu manager with a specific port and ip
-        to get the status of the 5G cu
+        A method that sends a request to the 5G Cu manager with a specific port and ip
+        to get the status of the 5G CU
 
         :param port: the port of the FiveGCUManager
         :param ip: the ip of the FiveGCUManager
@@ -202,7 +202,7 @@ class FiveGCUController:
     def start_five_g_cus(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
                          logger: logging.Logger) -> None:
         """
-        Utility method for starting the 5G cus of a specific execution
+        Utility method for starting the 5G CUs of a specific execution
 
         :param emulation_env_config: the emulation env config
         :param physical_server_ip: the ip of the physical server
@@ -221,14 +221,14 @@ class FiveGCUController:
     def start_five_g_cu(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) \
             -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
         """
-        Utility method for starting the 5G cu on a specific container
+        Utility method for starting the 5G CU on a specific container
 
         :param emulation_env_config: the emulation env config
         :param ip: the ip of the container
         :param logger: the logger to use for logging
         :return: None
         """
-        logger.info(f"Starting the 5G cu on container with ip {ip} in execution {emulation_env_config.execution_id} "
+        logger.info(f"Starting the 5G CU on container with ip {ip} in execution {emulation_env_config.execution_id} "
                     f"of emulation: {emulation_env_config.name}")
         port = emulation_env_config.five_g_config.five_g_cu_manager_port
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
@@ -240,7 +240,7 @@ class FiveGCUController:
     def stop_five_g_cus(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
                         logger: logging.Logger) -> None:
         """
-        Utility method for stopping the 5G cus of a specific execution
+        Utility method for stopping the 5G CUs of a specific execution
 
         :param emulation_env_config: the emulation env config
         :param physical_server_ip: the ip of the physical server
@@ -266,7 +266,7 @@ class FiveGCUController:
         :param logger: the logger to use for logging
         :return: None
         """
-        logger.info(f"Stopping the 5G cu on container with ip {ip} in execution {emulation_env_config.execution_id} "
+        logger.info(f"Stopping the 5G CU on container with ip {ip} in execution {emulation_env_config.execution_id} "
                     f"of emulation: {emulation_env_config.name}")
         port = emulation_env_config.five_g_config.five_g_cu_manager_port
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:

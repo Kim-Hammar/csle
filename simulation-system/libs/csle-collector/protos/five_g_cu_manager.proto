@@ -7,17 +7,17 @@ service FiveGCUManager {
   rpc startFiveGCU(StartFiveGCUMsg) returns (FiveGCUStatusDTO) {}
 }
 
-// Message that the client sends to get the status of the 5G core
+// Message that the client sends to get the status of the 5G CU
 message GetFiveGCUStatusMsg {}
 
-//Message that the server returns when asked about the status of the 5G core
+//Message that the server returns when asked about the status of the 5G CU
 message FiveGCUStatusDTO {
   bool cu_running = 1;
   string ip = 2;
 }
 
-// Message that the client sends to stop the 5G core
+// Message that the client sends to stop the 5G CU
 message StopFiveGCUMsg {}
 
-// Message that the client sends to start the 5G core
+// Message that the client sends to start the 5G CU
 message StartFiveGCUMsg {}

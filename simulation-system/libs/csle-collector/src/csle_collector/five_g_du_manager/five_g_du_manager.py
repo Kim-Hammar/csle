@@ -11,7 +11,7 @@ from csle_collector.five_g_du_manager.five_g_du_manager_util import FiveGDUManag
 
 class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerServicer):
     """
-    gRPC server for managing the 5g du
+    gRPC server for managing the 5G DU
     """
 
     def __init__(self) -> None:
@@ -34,17 +34,18 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
             context: grpc.ServicerContext) \
             -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
         """
-        Gets the status of the 5G du
+        Gets the status of the 5G DU
 
         :param request: the gRPC request
         :param context: the gRPC context
         :return: a DTO with the status of the 5g du
         """
         logging.info("Getting the status of the 5G DU")
-        status = FiveGDUManagerUtil.get_du_status(
-            control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_du = FiveGDUManagerUtil.get_du_status(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_ue = FiveGDUManagerUtil.get_ue_status(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
-            du_running=status.get(constants.FIVE_G_DU.DU, False),
+            du_running=status_du.get(constants.FIVE_G_DU.DU, False),
+            ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
             ip=self.ip
         )
 
@@ -52,7 +53,7 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
                      context: grpc.ServicerContext) \
             -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
         """
-        Starts the 5G du services
+        Starts the 5G DU
 
         :param request: the gRPC request
         :param context: the gRPC context
@@ -60,10 +61,11 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
         """
         logging.info("Starting the 5G DU")
         FiveGDUManagerUtil.start_du(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
-        status = FiveGDUManagerUtil.get_du_status(
-            control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_du = FiveGDUManagerUtil.get_du_status(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_ue = FiveGDUManagerUtil.get_ue_status(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
-            du_running=status.get(constants.FIVE_G_DU.DU, False),
+            du_running=status_du.get(constants.FIVE_G_DU.DU, False),
+            ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
             ip=self.ip
         )
 
@@ -71,7 +73,7 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
                     context: grpc.ServicerContext) \
             -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
         """
-        Stops the 5G du services
+        Stops the 5G DU
 
         :param request: the gRPC request
         :param context: the gRPC context
@@ -79,13 +81,76 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
         """
         logging.info("Stopping the 5G DU")
         FiveGDUManagerUtil.stop_du(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
-        status = FiveGDUManagerUtil.get_du_status(
-            control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_du = FiveGDUManagerUtil.get_du_status(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_ue = FiveGDUManagerUtil.get_ue_status(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
-            du_running=status.get(constants.FIVE_G_DU.DU, False), ip=self.ip)
+            du_running=status_du.get(constants.FIVE_G_DU.DU, False),
+            ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
+            ip=self.ip
+        )
+
+    def stopFiveGUE(self, request: csle_collector.five_g_du_manager.five_g_du_manager_pb2.StopFiveGUEMsg,
+                    context: grpc.ServicerContext) \
+            -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+        """
+        Stops the 5G UE
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the 5g DU
+        """
+        logging.info("Stopping the 5G UE")
+        FiveGDUManagerUtil.stop_ue(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
+        status_du = FiveGDUManagerUtil.get_du_status(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_ue = FiveGDUManagerUtil.get_ue_status(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
+            du_running=status_du.get(constants.FIVE_G_DU.DU, False),
+            ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
+            ip=self.ip
+        )
+
+    def startFiveGUE(self, request: csle_collector.five_g_du_manager.five_g_du_manager_pb2.StartFiveGUEMsg,
+                     context: grpc.ServicerContext) \
+            -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+        """
+        Starts the 5G UE
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the 5g DU
+        """
+        logging.info("Starting the 5G UE")
+        FiveGDUManagerUtil.start_ue(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
+        status_du = FiveGDUManagerUtil.get_du_status(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_ue = FiveGDUManagerUtil.get_ue_status(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
+            du_running=status_du.get(constants.FIVE_G_DU.DU, False),
+            ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
+            ip=self.ip
+        )
+
+    def initFiveGUE(self, request: csle_collector.five_g_du_manager.five_g_du_manager_pb2.InitFiveGUEMsg,
+                    context: grpc.ServicerContext) \
+            -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+        """
+        Initializes the 5G UE
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the 5g DU
+        """
+        logging.info("Initializing the 5G UE")
+        FiveGDUManagerUtil.init_ue(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
+        status_du = FiveGDUManagerUtil.get_du_status(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_ue = FiveGDUManagerUtil.get_ue_status(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
+            du_running=status_du.get(constants.FIVE_G_DU.DU, False),
+            ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
+            ip=self.ip
+        )
 
 
-def serve(port: int = 50052, log_dir: str = "/", max_workers: int = 100,
+def serve(port: int = 50054, log_dir: str = "/", max_workers: int = 100,
           log_file_name: str = "five_g_du_manager.log") -> None:
     """
     Starts the gRPC server for managing clients
@@ -98,7 +163,7 @@ def serve(port: int = 50052, log_dir: str = "/", max_workers: int = 100,
     """
     constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_DIR = log_dir
     constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_FILE = log_file_name
-    server = grpc.server(futures.ThreadPoolExedutor(max_workers=max_workers))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
     csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.add_FiveGDUManagerServicer_to_server(
         FiveGDUManagerServicer(), server)
     server.add_insedure_port(f'[::]:{port}')

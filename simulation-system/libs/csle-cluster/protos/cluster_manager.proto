@@ -244,6 +244,12 @@ service ClusterManager {
   rpc start5GDUs(Start5GDUsMsg) returns (OperationOutcomeDTO) {}
   rpc stop5GDU(Stop5GDUMsg) returns (OperationOutcomeDTO) {}
   rpc start5GDU(Start5GDUMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GUEs(Stop5GUEsMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GUEs(Start5GUEsMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GUE(Stop5GUEMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GUE(Start5GUEMsg) returns (OperationOutcomeDTO) {}
+  rpc init5GUEs(Init5GUEsMsg) returns (OperationOutcomeDTO) {}
+  rpc init5GUE(Init5GUEMsg) returns (OperationOutcomeDTO) {}
 }
 
 // Message that the client sends when requesting to start stop a PID
@@ -2195,6 +2201,45 @@ message Start5GDUMsg {
 
 // Message that the client sends when requesting to start the 5G dus
 message Start5GDUsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to stop a specific 5G UE
+message Stop5GUEMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to stop the 5G UEs
+message Stop5GUEsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to start a specific 5G UE
+message Start5GUEMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to start the 5G UEs
+message Start5GUEsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to initialize a specific 5G UE
+message Init5GUEMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to initialize the 5G UEs
+message Init5GUEsMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }

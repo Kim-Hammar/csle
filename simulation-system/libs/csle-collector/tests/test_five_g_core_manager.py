@@ -134,28 +134,28 @@ class TestFiveGCoreManagerSuite:
             nssf_running=True, bsf_running=True, udr_running=True, webui_running=True, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.'
                      'get_core_status', return_value=mock_status_dict)
-        response: FiveGCoreStatusDTO = csle_collector.five_g_core_manager.query_five_g_core_manager.start_five_g_core(
+        response_2: FiveGCoreStatusDTO = csle_collector.five_g_core_manager.query_five_g_core_manager.start_five_g_core(
             stub=grpc_stub)
-        assert response.mongo_running == mock_status.mongo_running
-        assert response.mme_running == mock_status.mme_running
-        assert response.sgwc_running == mock_status.sgwc_running
-        assert response.smf_running == mock_status.smf_running
-        assert response.amf_running == mock_status.amf_running
-        assert response.sgwu_running == mock_status.sgwu_running
-        assert response.upf_running == mock_status.upf_running
-        assert response.hss_running == mock_status.hss_running
-        assert response.pcrf_running == mock_status.pcrf_running
-        assert response.nrf_running == mock_status.nrf_running
-        assert response.scp_running == mock_status.scp_running
-        assert response.sepp_running == mock_status.sepp_running
-        assert response.ausf_running == mock_status.ausf_running
-        assert response.udm_running == mock_status.udm_running
-        assert response.pcf_running == mock_status.pcf_running
-        assert response.nssf_running == mock_status.nssf_running
-        assert response.bsf_running == mock_status.bsf_running
-        assert response.udr_running == mock_status.udr_running
-        assert response.webui_running == mock_status.webui_running
-        assert response.ip == mock_status.ip
+        assert response_2.mongo_running == mock_status.mongo_running
+        assert response_2.mme_running == mock_status.mme_running
+        assert response_2.sgwc_running == mock_status.sgwc_running
+        assert response_2.smf_running == mock_status.smf_running
+        assert response_2.amf_running == mock_status.amf_running
+        assert response_2.sgwu_running == mock_status.sgwu_running
+        assert response_2.upf_running == mock_status.upf_running
+        assert response_2.hss_running == mock_status.hss_running
+        assert response_2.pcrf_running == mock_status.pcrf_running
+        assert response_2.nrf_running == mock_status.nrf_running
+        assert response_2.scp_running == mock_status.scp_running
+        assert response_2.sepp_running == mock_status.sepp_running
+        assert response_2.ausf_running == mock_status.ausf_running
+        assert response_2.udm_running == mock_status.udm_running
+        assert response_2.pcf_running == mock_status.pcf_running
+        assert response_2.nssf_running == mock_status.nssf_running
+        assert response_2.bsf_running == mock_status.bsf_running
+        assert response_2.udr_running == mock_status.udr_running
+        assert response_2.webui_running == mock_status.webui_running
+        assert response_2.ip == mock_status.ip
 
     def test_stopFiveGCore(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
         """
@@ -246,28 +246,28 @@ class TestFiveGCoreManagerSuite:
             nssf_running=True, bsf_running=True, udr_running=True, webui_running=True, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.'
                      'get_core_status', return_value=mock_status_dict)
-        response: FiveGCoreStatusDTO = csle_collector.five_g_core_manager.query_five_g_core_manager.stop_five_g_core(
+        response_2: FiveGCoreStatusDTO = csle_collector.five_g_core_manager.query_five_g_core_manager.stop_five_g_core(
             stub=grpc_stub)
-        assert response.mongo_running == mock_status.mongo_running
-        assert response.mme_running == mock_status.mme_running
-        assert response.sgwc_running == mock_status.sgwc_running
-        assert response.smf_running == mock_status.smf_running
-        assert response.amf_running == mock_status.amf_running
-        assert response.sgwu_running == mock_status.sgwu_running
-        assert response.upf_running == mock_status.upf_running
-        assert response.hss_running == mock_status.hss_running
-        assert response.pcrf_running == mock_status.pcrf_running
-        assert response.nrf_running == mock_status.nrf_running
-        assert response.scp_running == mock_status.scp_running
-        assert response.sepp_running == mock_status.sepp_running
-        assert response.ausf_running == mock_status.ausf_running
-        assert response.udm_running == mock_status.udm_running
-        assert response.pcf_running == mock_status.pcf_running
-        assert response.nssf_running == mock_status.nssf_running
-        assert response.bsf_running == mock_status.bsf_running
-        assert response.udr_running == mock_status.udr_running
-        assert response.webui_running == mock_status.webui_running
-        assert response.ip == mock_status.ip
+        assert response_2.mongo_running == mock_status.mongo_running
+        assert response_2.mme_running == mock_status.mme_running
+        assert response_2.sgwc_running == mock_status.sgwc_running
+        assert response_2.smf_running == mock_status.smf_running
+        assert response_2.amf_running == mock_status.amf_running
+        assert response_2.sgwu_running == mock_status.sgwu_running
+        assert response_2.upf_running == mock_status.upf_running
+        assert response_2.hss_running == mock_status.hss_running
+        assert response_2.pcrf_running == mock_status.pcrf_running
+        assert response_2.nrf_running == mock_status.nrf_running
+        assert response_2.scp_running == mock_status.scp_running
+        assert response_2.sepp_running == mock_status.sepp_running
+        assert response_2.ausf_running == mock_status.ausf_running
+        assert response_2.udm_running == mock_status.udm_running
+        assert response_2.pcf_running == mock_status.pcf_running
+        assert response_2.nssf_running == mock_status.nssf_running
+        assert response_2.bsf_running == mock_status.bsf_running
+        assert response_2.udr_running == mock_status.udr_running
+        assert response_2.webui_running == mock_status.webui_running
+        assert response_2.ip == mock_status.ip
 
     def test_getFiveGCUStatus(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
         """
@@ -356,28 +356,28 @@ class TestFiveGCoreManagerSuite:
             nssf_running=True, bsf_running=True, udr_running=True, webui_running=True, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.'
                      'get_core_status', return_value=mock_status_dict)
-        response: FiveGCoreStatusDTO = (csle_collector.five_g_core_manager.query_five_g_core_manager.
+        response_2: FiveGCoreStatusDTO = (csle_collector.five_g_core_manager.query_five_g_core_manager.
                                         get_five_g_core_status(stub=grpc_stub))
-        assert response.mongo_running == mock_status.mongo_running
-        assert response.mme_running == mock_status.mme_running
-        assert response.sgwc_running == mock_status.sgwc_running
-        assert response.smf_running == mock_status.smf_running
-        assert response.amf_running == mock_status.amf_running
-        assert response.sgwu_running == mock_status.sgwu_running
-        assert response.upf_running == mock_status.upf_running
-        assert response.hss_running == mock_status.hss_running
-        assert response.pcrf_running == mock_status.pcrf_running
-        assert response.nrf_running == mock_status.nrf_running
-        assert response.scp_running == mock_status.scp_running
-        assert response.sepp_running == mock_status.sepp_running
-        assert response.ausf_running == mock_status.ausf_running
-        assert response.udm_running == mock_status.udm_running
-        assert response.pcf_running == mock_status.pcf_running
-        assert response.nssf_running == mock_status.nssf_running
-        assert response.bsf_running == mock_status.bsf_running
-        assert response.udr_running == mock_status.udr_running
-        assert response.webui_running == mock_status.webui_running
-        assert response.ip == mock_status.ip
+        assert response_2.mongo_running == mock_status.mongo_running
+        assert response_2.mme_running == mock_status.mme_running
+        assert response_2.sgwc_running == mock_status.sgwc_running
+        assert response_2.smf_running == mock_status.smf_running
+        assert response_2.amf_running == mock_status.amf_running
+        assert response_2.sgwu_running == mock_status.sgwu_running
+        assert response_2.upf_running == mock_status.upf_running
+        assert response_2.hss_running == mock_status.hss_running
+        assert response_2.pcrf_running == mock_status.pcrf_running
+        assert response_2.nrf_running == mock_status.nrf_running
+        assert response_2.scp_running == mock_status.scp_running
+        assert response_2.sepp_running == mock_status.sepp_running
+        assert response_2.ausf_running == mock_status.ausf_running
+        assert response_2.udm_running == mock_status.udm_running
+        assert response_2.pcf_running == mock_status.pcf_running
+        assert response_2.nssf_running == mock_status.nssf_running
+        assert response_2.bsf_running == mock_status.bsf_running
+        assert response_2.udr_running == mock_status.udr_running
+        assert response_2.webui_running == mock_status.webui_running
+        assert response_2.ip == mock_status.ip
 
     def test_initFiveGCore(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
         """
@@ -468,25 +468,25 @@ class TestFiveGCoreManagerSuite:
             nssf_running=True, bsf_running=True, udr_running=True, webui_running=True, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.'
                      'get_core_status', return_value=mock_status_dict)
-        response: FiveGCoreStatusDTO = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(
+        response_2: FiveGCoreStatusDTO = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(
             stub=grpc_stub)
-        assert response.mongo_running == mock_status.mongo_running
-        assert response.mme_running == mock_status.mme_running
-        assert response.sgwc_running == mock_status.sgwc_running
-        assert response.smf_running == mock_status.smf_running
-        assert response.amf_running == mock_status.amf_running
-        assert response.sgwu_running == mock_status.sgwu_running
-        assert response.upf_running == mock_status.upf_running
-        assert response.hss_running == mock_status.hss_running
-        assert response.pcrf_running == mock_status.pcrf_running
-        assert response.nrf_running == mock_status.nrf_running
-        assert response.scp_running == mock_status.scp_running
-        assert response.sepp_running == mock_status.sepp_running
-        assert response.ausf_running == mock_status.ausf_running
-        assert response.udm_running == mock_status.udm_running
-        assert response.pcf_running == mock_status.pcf_running
-        assert response.nssf_running == mock_status.nssf_running
-        assert response.bsf_running == mock_status.bsf_running
-        assert response.udr_running == mock_status.udr_running
-        assert response.webui_running == mock_status.webui_running
-        assert response.ip == mock_status.ip
+        assert response_2.mongo_running == mock_status.mongo_running
+        assert response_2.mme_running == mock_status.mme_running
+        assert response_2.sgwc_running == mock_status.sgwc_running
+        assert response_2.smf_running == mock_status.smf_running
+        assert response_2.amf_running == mock_status.amf_running
+        assert response_2.sgwu_running == mock_status.sgwu_running
+        assert response_2.upf_running == mock_status.upf_running
+        assert response_2.hss_running == mock_status.hss_running
+        assert response_2.pcrf_running == mock_status.pcrf_running
+        assert response_2.nrf_running == mock_status.nrf_running
+        assert response_2.scp_running == mock_status.scp_running
+        assert response_2.sepp_running == mock_status.sepp_running
+        assert response_2.ausf_running == mock_status.ausf_running
+        assert response_2.udm_running == mock_status.udm_running
+        assert response_2.pcf_running == mock_status.pcf_running
+        assert response_2.nssf_running == mock_status.nssf_running
+        assert response_2.bsf_running == mock_status.bsf_running
+        assert response_2.udr_running == mock_status.udr_running
+        assert response_2.webui_running == mock_status.webui_running
+        assert response_2.ip == mock_status.ip
