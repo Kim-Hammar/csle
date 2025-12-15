@@ -1365,6 +1365,12 @@ class ClusterManagerUtil:
             activeNetworks=activeNetworks,
             elkManagersInfoDTO=ClusterManagerUtil.convert_elk_info_dto(execution_info_dto.elk_managers_info),
             ryuManagersInfoDTO=ClusterManagerUtil.convert_ryu_info_dto(execution_info_dto.ryu_managers_info),
+            fiveGCoreManagersInfoDTO=ClusterManagerUtil.convert_five_g_core_info_dto(
+                execution_info_dto.five_g_core_managers_info),
+            fiveGCUManagersInfoDTO=ClusterManagerUtil.convert_five_g_cu_info_dto(
+                execution_info_dto.five_g_cu_managers_info),
+            fiveGDUManagersInfoDTO=ClusterManagerUtil.convert_five_g_du_info_dto(
+                execution_info_dto.five_g_du_managers_info)
         )
 
     @staticmethod

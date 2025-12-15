@@ -17,7 +17,6 @@ from csle_collector.traffic_manager.traffic_manager_pb2 import TrafficDTO
 from csle_collector.five_g_core_manager.five_g_core_manager_pb2 import FiveGCoreStatusDTO
 from csle_collector.five_g_cu_manager.five_g_cu_manager_pb2 import FiveGCUStatusDTO
 from csle_collector.five_g_du_manager.five_g_du_manager_pb2 import FiveGDUStatusDTO
-from csle_common.dao.emulation_config import five_g_cu_managers_info
 from csle_common.dao.emulation_config.client_managers_info import ClientManagersInfo
 from csle_common.dao.emulation_config.config import Config
 from csle_common.dao.emulation_config.container_network import ContainerNetwork
@@ -1675,23 +1674,15 @@ class TestResourcesEmulationExecutionsSuite:
                                                                 kafka_port=4, time_step_len=4)],
                                   ryu_managers_running=[True], local_controller_web_port=1,
                                   physical_server_ip="123.456.78.99")
-        five_g_core_info = FiveGCoreManagersInfo(ips=["123.456.78.99"], ports=[10],
-                                                 emulation_name="JDoeEmulation", execution_id=10,
-                                                 five_g_core_managers_statuses=[
-                                                     FiveGCoreStatusDTO(
-                                                         mongo_running=True, mme_running=True, sgwc_running=True,
-                                                         smf_running=True,
-                                                         amf_running=True, sgwu_running=True, upf_running=True,
-                                                         hss_running=True,
-                                                         pcrf_running=True, nrf_running=True, scp_running=True,
-                                                         sepp_running=True,
-                                                         ausf_running=True, udm_running=True, pcf_running=True,
-                                                         nssf_running=True,
-                                                         bsf_running=True, udr_running=True, webui_running=True,
-                                                         ip="123.456.78.99",
-                                                     )
-                                                 ],
-                                                 five_g_core_managers_running=[True])
+        five_g_core_info = FiveGCoreManagersInfo(
+            ips=["123.456.78.99"], ports=[10], emulation_name="JDoeEmulation", execution_id=10,
+            five_g_core_managers_statuses=[
+                FiveGCoreStatusDTO(mongo_running=True, mme_running=True, sgwc_running=True, smf_running=True,
+                                   amf_running=True, sgwu_running=True, upf_running=True, hss_running=True,
+                                   pcrf_running=True, nrf_running=True, scp_running=True, sepp_running=True,
+                                   ausf_running=True, udm_running=True, pcf_running=True, nssf_running=True,
+                                   bsf_running=True, udr_running=True, webui_running=True, ip="123.456.78.99")],
+            five_g_core_managers_running=[True])
         five_g_cu_info = FiveGCUManagersInfo(ips=["123.456.78.99"], ports=[10],
                                              emulation_name="JDoeEmulation", execution_id=10,
                                              five_g_cu_managers_statuses=[

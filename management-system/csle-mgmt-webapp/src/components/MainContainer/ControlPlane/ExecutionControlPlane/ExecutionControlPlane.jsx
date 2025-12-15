@@ -14,6 +14,8 @@ import ClientManagersInfo from "./ClientManagersInfo/ClientManagersInfo.jsx";
 import DockerStatsManagersInfo from "./DockerStatsManagersInfo/DockerStatsManagersInfo.jsx";
 import HostManagersInfo from "./HostManagersInfo/HostManagersInfo.jsx";
 import FiveGCoreManagersInfo from "./FiveGCoreManagersInfo/FiveGCoreManagersInfo.jsx";
+import FiveGCUManagersInfo from "./FiveGCUManagersInfo/FiveGCUManagersInfo.jsx";
+import FiveGDUManagersInfo from "./FiveGDUManagersInfo/FiveGDUManagersInfo.jsx";
 import KafkaManagersInfo from "./KafkaManagersInfo/KafkaManagersInfo.jsx";
 import OSSECIDSManagersInfo from "./OSSECIDSManagersInfo/OSSECIDSManagersInfo.jsx";
 import SnortIDSManagersInfo from "./SnortIDSManagersInfo/SnortIDSManagersInfo.jsx";
@@ -60,8 +62,9 @@ import {
     RYU_MONITOR_SUBRESOURCE,
     RYU_CONTROLLER_SUBRESOURCE,
     FIVE_G_CORE_MANAGER_SUBRESOURCE,
+    FIVE_G_CU_MANAGER_SUBRESOURCE,
+    FIVE_G_DU_MANAGER_SUBRESOURCE,
 } from "../../../Common/constants";
-import fiveGCoreManagersInfo from './FiveGCoreManagersInfo/FiveGCoreManagersInfo.jsx'
 
 /**
  * Component representing the /emulation-executions/<id>/control resource
@@ -73,6 +76,8 @@ const ExecutionControlPlane = (props) => {
     const [dockerStatsManagersOpen, setDockerStatsManagersOpen] = useState(false);
     const [hostManagersOpen, setHostManagersOpen] = useState(false);
     const [fiveGCoreManagersOpen, setFiveGCoreManagersOpen] = useState(false);
+    const [fiveGCUManagersOpen, setFiveGCUManagersOpen] = useState(false);
+    const [fiveGDUManagersOpen, setFiveGDUManagersOpen] = useState(false);
     const [kafkaManagersOpen, setKafkaManagersOpen] = useState(false);
     const [ossecIdsManagersOpen, setOssecIdsManagersOpen] = useState(false);
     const [snortManagersOpen, setSnortManagersOpen] = useState(false);
@@ -92,6 +97,8 @@ const ExecutionControlPlane = (props) => {
     const [ryuManagersInfo, setRyuManagersInfo] = useState(props.info.ryu_managers_info);
     const [hostManagersInfo, setHostManagersInfo] = useState(props.info.host_managers_info);
     const [fiveGCoreManagersInfo, setFiveGCoreManagersInfo] = useState(props.info.five_g_core_managers_info);
+    const [fiveGCUManagersInfo, setFiveGCUManagersInfo] = useState(props.info.five_g_cu_managers_info);
+    const [fiveGDUManagersInfo, setFiveGDUManagersInfo] = useState(props.info.five_g_du_managers_info);
     const [inactiveNetworks, setInactiveNetworks] = useState(props.info.inactive_networks);
     const [kafkaManagersInfo, setkafkaManagersInfo] = useState(props.info.kafka_managers_info);
     const [ossecIDSManagersInfo, setOSSECIDSManagersInfo] = useState(props.info.ossec_ids_managers_info);
@@ -201,6 +208,12 @@ const ExecutionControlPlane = (props) => {
         }
         if(entity === FIVE_G_CORE_MANAGER_SUBRESOURCE){
             setFiveGCoreManagersInfo(response.five_g_core_managers_info)
+        }
+        if(entity === FIVE_G_CU_MANAGER_SUBRESOURCE){
+            setFiveGCUManagersInfo(response.five_g_cu_managers_info)
+        }
+        if(entity === FIVE_G_DU_MANAGER_SUBRESOURCE){
+            setFiveGDUManagersInfo(response.five_g_du_managers_info)
         }
         if(entity === TRAFFIC_MANAGER_SUBRESOURCE || entity === TRAFFIC_GENERATOR_SUBRESOURCE){
             setTrafficManagersInfo(response.traffic_managers_info)
@@ -335,11 +348,31 @@ const ExecutionControlPlane = (props) => {
                     startOrStop={startOrStop}
                 />
 
-                <HostManagersInfo
-                  setHostManagersOpen={setFiveGCoreManagersOpen}
-                  hostManagersOpen={fiveGCoreManagersOpen}
+                <FiveGCoreManagersInfo
+                  setFiveGCoreManagersOpen={setFiveGCoreManagersOpen}
+                  fiveGCoreManagersOpen={fiveGCoreManagersOpen}
                   loadingEntities={loadingEntities}
-                  hostManagersInfo={fiveGCoreManagersInfo}
+                  fiveGCoreManagersInfo={fiveGCoreManagersInfo}
+                  getLogs={getLogs}
+                  activeStatus={activeStatus}
+                  startOrStop={startOrStop}
+                />
+
+                <FiveGCUManagersInfo
+                  setFiveGCUManagersOpen={setFiveGCUManagersOpen}
+                  fiveGCUManagersOpen={fiveGCUManagersOpen}
+                  loadingEntities={loadingEntities}
+                  fiveGCUManagersInfo={fiveGCUManagersInfo}
+                  getLogs={getLogs}
+                  activeStatus={activeStatus}
+                  startOrStop={startOrStop}
+                />
+
+                <FiveGDUManagersInfo
+                  setFiveGDUManagersOpen={setFiveGDUManagersOpen}
+                  fiveGDUManagersOpen={fiveGDUManagersOpen}
+                  loadingEntities={loadingEntities}
+                  fiveGCUManagersInfo={fiveGDUManagersInfo}
                   getLogs={getLogs}
                   activeStatus={activeStatus}
                   startOrStop={startOrStop}

@@ -1,4 +1,4 @@
-import './FiveGCoreManagersInfo.css'
+import './FiveGDUManagersInfo.css'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
@@ -14,24 +14,25 @@ import {
 } from '../../../../Common/constants'
 
 /**
- * Subcomponent of the /control-plane page that contains information about 5G core managers
+ * Subcomponent of the /control-plane page that contains information about 5G DU managers
  */
-const FiveGCoreManagersInfo = (props) => {
+const FiveGDUManagersInfo = (props) => {
+  console.log(props.fiveGDUManagersOpen)
   return (
     <Card className="subCard">
       <Card.Header>
         <Button
-          onClick={() => props.setFiveGCoreManagersOpen(!props.fiveGCoreManagersOpen)}
+          onClick={() => props.setFiveGDUManagersOpen(!props.fiveGDUManagersOpen)}
           aria-controls="hostManagersBody"
-          aria-expanded={props.fiveGCoreManagersOpen}
+          aria-expanded={props.fiveGDUManagersOpen}
           variant="link"
         >
-          <h5 className="semiTitle"> 5G core managers
+          <h5 className="semiTitle"> 5G DU managers
             <i className="fa fa-server headerIcon" aria-hidden="true"></i>
           </h5>
         </Button>
       </Card.Header>
-      <Collapse in={props.fiveGCoreManagersOpen}>
+      <Collapse in={props.fiveGDUManagersOpen}>
         <div id="hostManagersOpen" className="cardBodyHidden">
           <div className="aggregateActionsContainer">
             <span className="aggregateActions">Stop all managers:</span>
@@ -64,23 +65,23 @@ const FiveGCoreManagersInfo = (props) => {
               </tr>
               </thead>
               <tbody>
-              {props.fiveGCoreManagersInfo.five_g_core_managers_statuses.map((status, index) =>
+              {props.fiveGDUManagersInfo.five_g_du_managers_statuses.map((status, index) =>
                 <tr key={`${HOST_MANAGER_SUBRESOURCE}-${index}`}>
-                  <td>5G core manager</td>
-                  <td>{props.fiveGCoreManagersInfo.ips[index]}</td>
-                  <td>{props.fiveGCoreManagersInfo.ports[index]}</td>
-                  {props.activeStatus(props.fiveGCoreManagersInfo.five_g_core_managers_running[index])}
+                  <td>5G DU manager</td>
+                  <td>{props.fiveGDUManagersInfo.ips[index]}</td>
+                  <td>{props.fiveGDUManagersInfo.ports[index]}</td>
+                  {props.activeStatus(props.fiveGDUManagersInfo.five_g_du_managers_running[index])}
                   <td>
                     <SpinnerOrButton
                       loading={props.loadingEntities.includes(
                         `${HOST_MANAGER_SUBRESOURCE}-`
-                        + `${props.fiveGCoreManagersInfo.ips[index]}`)}
-                      running={props.fiveGCoreManagersInfo.five_g_core_managers_running[index]}
+                        + `${props.fiveGDUManagersInfo.ips[index]}`)}
+                      running={props.fiveGDUManagersInfo.five_g_du_managers_running[index]}
                       entity={HOST_MANAGER_SUBRESOURCE} name={HOST_MANAGER_SUBRESOURCE}
-                      ip={props.fiveGCoreManagersInfo.ips[index]}
+                      ip={props.fiveGDUManagersInfo.ips[index]}
                       startOrStop={props.startOrStop}
                     />
-                    <LogsButton name={props.fiveGCoreManagersInfo.ips[index]}
+                    <LogsButton name={props.fiveGDUManagersInfo.ips[index]}
                                 entity={HOST_MANAGER_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
@@ -97,6 +98,6 @@ const FiveGCoreManagersInfo = (props) => {
 
 }
 
-FiveGCoreManagersInfo.propTypes = {}
-FiveGCoreManagersInfo.defaultProps = {}
-export default FiveGCoreManagersInfo
+FiveGDUManagersInfo.propTypes = {}
+FiveGDUManagersInfo.defaultProps = {}
+export default FiveGDUManagersInfo

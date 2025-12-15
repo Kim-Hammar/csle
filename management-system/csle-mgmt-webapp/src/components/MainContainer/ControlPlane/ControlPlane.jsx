@@ -138,7 +138,6 @@ const ControlPlane = (props) => {
             if (response === null) {
                 return
             }
-            console.log(response)
             setSelectedEmulationExecutionInfo(response)
             setLoadingSelectedEmulationExecutionInfo(false)
         })
