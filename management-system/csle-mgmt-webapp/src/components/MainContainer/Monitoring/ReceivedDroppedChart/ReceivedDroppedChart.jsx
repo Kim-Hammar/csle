@@ -16,8 +16,6 @@ import {
  * Component containing a plot showing the average number of dropped packets over time
  */
 const ReceivedDroppedChart = React.memo((props) => {
-        const width = 500
-        const height = 200
         const margin = {
             top: 10,
             right: 30,
@@ -44,10 +42,9 @@ const ReceivedDroppedChart = React.memo((props) => {
             var yDomain = [minReceivedDropped, maxReceivedDropped]
 
             return (
-                <ResponsiveContainer width='100%' height={300}>
+              <div style={{ height: 300 }}>
+                <ResponsiveContainer width='100%' height='100%'>
                     <LineChart
-                        width={width}
-                        height={height}
                         data={data}
                         margin={margin}
                     >
@@ -70,6 +67,7 @@ const ReceivedDroppedChart = React.memo((props) => {
                               animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)}/>
                     </LineChart>
                 </ResponsiveContainer>
+              </div>
             )
 
         } else {

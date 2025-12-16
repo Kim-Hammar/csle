@@ -16,8 +16,6 @@ import {
  * Component containing a plot showing the average number of PIDs over time
  */
 const PidsChart = React.memo((props) => {
-        const width = 500
-        const height = 200
         const margin = {
             top: 10,
             right: 30,
@@ -35,10 +33,9 @@ const PidsChart = React.memo((props) => {
             var domain = [0, Math.max(1, data.length)]
 
             return (
-                <ResponsiveContainer width='100%' height={300}>
+              <div style={{ height: 300 }}>
+                <ResponsiveContainer width='100%' height='100%'>
                     <LineChart
-                        width={width}
-                        height={height}
                         data={data}
                         margin={margin}
                     >
@@ -61,6 +58,7 @@ const PidsChart = React.memo((props) => {
                               animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)}/>
                     </LineChart>
                 </ResponsiveContainer>
+              </div>
             )
 
         } else {

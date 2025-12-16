@@ -15,8 +15,6 @@ import {
  * Component containing a plot showing average flow duration over time
  */
 const FlowDurationChart = React.memo((props) => {
-        const width = 500
-        const height = 200
         const margin = {
             top: 10,
             right: 30,
@@ -43,10 +41,9 @@ const FlowDurationChart = React.memo((props) => {
             var yDomain = [minDuration, maxDuration]
 
             return (
-                <ResponsiveContainer width='100%' height={300}>
+              <div style={{ height: 300 }}>
+                <ResponsiveContainer width='100%' height='100%'>
                     <LineChart
-                        width={width}
-                        height={height}
                         data={data}
                         margin={margin}
                     >
@@ -69,6 +66,7 @@ const FlowDurationChart = React.memo((props) => {
                               animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)}/>
                     </LineChart>
                 </ResponsiveContainer>
+              </div>
             )
 
         } else {

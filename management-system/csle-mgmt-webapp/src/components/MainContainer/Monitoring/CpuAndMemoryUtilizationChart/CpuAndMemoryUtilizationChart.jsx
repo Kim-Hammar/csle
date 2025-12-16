@@ -16,8 +16,6 @@ import {
  * Component containing a plot showing the CPU and memory utilization
  */
 const CpuAndMemoryUtilizationChart = React.memo((props) => {
-        const width = 500
-        const height = 200
         const margin = {
             top: 10,
             right: 30,
@@ -36,10 +34,9 @@ const CpuAndMemoryUtilizationChart = React.memo((props) => {
             var domain = [0, Math.max(1, data.length)]
 
             return (
-                <ResponsiveContainer width='100%' height={300}>
+              <div style={{ height: 300 }}>
+                <ResponsiveContainer width='100%' height='100%'>
                     <AreaChart
-                        width={width}
-                        height={height}
                         data={data}
                         margin={margin}
                     >
@@ -67,6 +64,7 @@ const CpuAndMemoryUtilizationChart = React.memo((props) => {
                               isAnimationActive={props.animation}/>
                     </AreaChart>
                 </ResponsiveContainer>
+              </div>
             )
 
         } else {
