@@ -6,11 +6,11 @@ import Collapse from 'react-bootstrap/Collapse'
 import SpinnerOrButton from '../SpinnerOrButton/SpinnerOrButton.jsx'
 import LogsButton from '../LogsButton/LogsButton.jsx'
 import {
-  HOST_MONITOR_SUBRESOURCE,
-  HOST_MANAGER_SUBRESOURCE,
+  FIVE_G_DU_MANAGER_SUBRESOURCE,
+  FIVE_G_DU_SUBRESOURCE,
+  FIVE_G_UE_SUBRESOURCE,
   START_ALL_PROPERTY,
-  STOP_ALL_PROPERTY, FILEBEAT_SUBRESOURCE, PACKETBEAT_SUBRESOURCE, METRICBEAT_SUBRESOURCE,
-  HEARTBEAT_SUBRESOURCE
+  STOP_ALL_PROPERTY
 } from '../../../../Common/constants'
 
 /**
@@ -22,7 +22,7 @@ const FiveGDUManagersInfo = (props) => {
       <Card.Header>
         <Button
           onClick={() => props.setFiveGDUManagersOpen(!props.fiveGDUManagersOpen)}
-          aria-controls="hostManagersBody"
+          aria-controls="fiveGDUManagersBody"
           aria-expanded={props.fiveGDUManagersOpen}
           variant="link"
         >
@@ -32,21 +32,21 @@ const FiveGDUManagersInfo = (props) => {
         </Button>
       </Card.Header>
       <Collapse in={props.fiveGDUManagersOpen}>
-        <div id="hostManagersOpen" className="cardBodyHidden">
+        <div id="fiveGDUManagersOpen" className="cardBodyHidden">
           <div className="aggregateActionsContainer">
             <span className="aggregateActions">Stop all managers:</span>
             <SpinnerOrButton
               loading={props.loadingEntities.includes(
-                `${HOST_MANAGER_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
-              running={true} entity={HOST_MANAGER_SUBRESOURCE}
+                `${FIVE_G_DU_MANAGER_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
+              running={true} entity={FIVE_G_DU_MANAGER_SUBRESOURCE}
               name={STOP_ALL_PROPERTY} ip={STOP_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
             <span className="aggregateActions">Start all managers:</span>
             <SpinnerOrButton
               loading={props.loadingEntities.includes(
-                `${HOST_MANAGER_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
-              running={false} entity={HOST_MANAGER_SUBRESOURCE}
+                `${FIVE_G_DU_MANAGER_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
+              running={false} entity={FIVE_G_DU_MANAGER_SUBRESOURCE}
               name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
@@ -65,7 +65,7 @@ const FiveGDUManagersInfo = (props) => {
               </thead>
               <tbody>
               {props.fiveGDUManagersInfo.five_g_du_managers_statuses.map((status, index) =>
-                <tr key={`${HOST_MANAGER_SUBRESOURCE}-${index}`}>
+                <tr key={`${FIVE_G_DU_MANAGER_SUBRESOURCE}-${index}`}>
                   <td>5G DU manager</td>
                   <td>{props.fiveGDUManagersInfo.ips[index]}</td>
                   <td>{props.fiveGDUManagersInfo.ports[index]}</td>
@@ -73,15 +73,65 @@ const FiveGDUManagersInfo = (props) => {
                   <td>
                     <SpinnerOrButton
                       loading={props.loadingEntities.includes(
-                        `${HOST_MANAGER_SUBRESOURCE}-`
+                        `${FIVE_G_DU_MANAGER_SUBRESOURCE}-`
                         + `${props.fiveGDUManagersInfo.ips[index]}`)}
                       running={props.fiveGDUManagersInfo.five_g_du_managers_running[index]}
-                      entity={HOST_MANAGER_SUBRESOURCE} name={HOST_MANAGER_SUBRESOURCE}
+                      entity={FIVE_G_DU_MANAGER_SUBRESOURCE} name={FIVE_G_DU_MANAGER_SUBRESOURCE}
                       ip={props.fiveGDUManagersInfo.ips[index]}
                       startOrStop={props.startOrStop}
                     />
                     <LogsButton name={props.fiveGDUManagersInfo.ips[index]}
-                                entity={HOST_MANAGER_SUBRESOURCE}
+                                entity={FIVE_G_DU_MANAGER_SUBRESOURCE}
+                                getLogs={props.getLogs}
+                    />
+                  </td>
+                </tr>
+              )}
+
+              {props.fiveGDUManagersInfo.five_g_du_managers_statuses.map((status, index) =>
+                <tr key={`${FIVE_G_DU_SUBRESOURCE}-${index}`}>
+                  <td>5G DU</td>
+                  <td>{props.fiveGDUManagersInfo.ips[index]}</td>
+                  <td></td>
+                  {props.activeStatus(status.du_running)}
+                  <td>
+                    <SpinnerOrButton
+                      loading={props.loadingEntities.includes(
+                        `${FIVE_G_DU_SUBRESOURCE}-`
+                        + `${props.fiveGDUManagersInfo.ips[index]}`)}
+                      running={status.du_running}
+                      entity={FIVE_G_DU_SUBRESOURCE}
+                      name={FIVE_G_DU_SUBRESOURCE}
+                      ip={props.fiveGDUManagersInfo.ips[index]}
+                      startOrStop={props.startOrStop}
+                    />
+                    <LogsButton name={props.fiveGDUManagersInfo.ips[index]}
+                                entity={FIVE_G_DU_SUBRESOURCE}
+                                getLogs={props.getLogs}
+                    />
+                  </td>
+                </tr>
+              )}
+
+              {props.fiveGDUManagersInfo.five_g_du_managers_statuses.map((status, index) =>
+                <tr key={`${FIVE_G_UE_SUBRESOURCE}-${index}`}>
+                  <td>5G UE</td>
+                  <td>{props.fiveGDUManagersInfo.ips[index]}</td>
+                  <td></td>
+                  {props.activeStatus(status.ue_running)}
+                  <td>
+                    <SpinnerOrButton
+                      loading={props.loadingEntities.includes(
+                        `${FIVE_G_UE_SUBRESOURCE}-`
+                        + `${props.fiveGDUManagersInfo.ips[index]}`)}
+                      running={status.ue_running}
+                      entity={FIVE_G_UE_SUBRESOURCE}
+                      name={FIVE_G_UE_SUBRESOURCE}
+                      ip={props.fiveGDUManagersInfo.ips[index]}
+                      startOrStop={props.startOrStop}
+                    />
+                    <LogsButton name={props.fiveGDUManagersInfo.ips[index]}
+                                entity={FIVE_G_UE_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
                   </td>

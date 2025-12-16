@@ -6,11 +6,10 @@ import Collapse from 'react-bootstrap/Collapse'
 import SpinnerOrButton from '../SpinnerOrButton/SpinnerOrButton.jsx'
 import LogsButton from '../LogsButton/LogsButton.jsx'
 import {
-  HOST_MONITOR_SUBRESOURCE,
-  HOST_MANAGER_SUBRESOURCE,
+  FIVE_G_CU_MANAGER_SUBRESOURCE,
+  FIVE_G_CU_SUBRESOURCE,
   START_ALL_PROPERTY,
-  STOP_ALL_PROPERTY, FILEBEAT_SUBRESOURCE, PACKETBEAT_SUBRESOURCE, METRICBEAT_SUBRESOURCE,
-  HEARTBEAT_SUBRESOURCE
+  STOP_ALL_PROPERTY
 } from '../../../../Common/constants'
 
 /**
@@ -22,7 +21,7 @@ const FiveGCUManagersInfo = (props) => {
       <Card.Header>
         <Button
           onClick={() => props.setFiveGCUManagersOpen(!props.fiveGCUManagersOpen)}
-          aria-controls="hostManagersBody"
+          aria-controls="fiveGCUManagersBody"
           aria-expanded={props.fiveGCUManagersOpen}
           variant="link"
         >
@@ -32,21 +31,21 @@ const FiveGCUManagersInfo = (props) => {
         </Button>
       </Card.Header>
       <Collapse in={props.fiveGCUManagersOpen}>
-        <div id="hostManagersOpen" className="cardBodyHidden">
+        <div id="fiveGCUManagersOpen" className="cardBodyHidden">
           <div className="aggregateActionsContainer">
             <span className="aggregateActions">Stop all managers:</span>
             <SpinnerOrButton
               loading={props.loadingEntities.includes(
-                `${HOST_MANAGER_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
-              running={true} entity={HOST_MANAGER_SUBRESOURCE}
+                `${FIVE_G_CU_MANAGER_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
+              running={true} entity={FIVE_G_CU_MANAGER_SUBRESOURCE}
               name={STOP_ALL_PROPERTY} ip={STOP_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
             <span className="aggregateActions">Start all managers:</span>
             <SpinnerOrButton
               loading={props.loadingEntities.includes(
-                `${HOST_MANAGER_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
-              running={false} entity={HOST_MANAGER_SUBRESOURCE}
+                `${FIVE_G_CU_MANAGER_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
+              running={false} entity={FIVE_G_CU_MANAGER_SUBRESOURCE}
               name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
@@ -65,7 +64,7 @@ const FiveGCUManagersInfo = (props) => {
               </thead>
               <tbody>
               {props.fiveGCUManagersInfo.five_g_cu_managers_statuses.map((status, index) =>
-                <tr key={`${HOST_MANAGER_SUBRESOURCE}-${index}`}>
+                <tr key={`${FIVE_G_CU_MANAGER_SUBRESOURCE}-${index}`}>
                   <td>5G CU manager</td>
                   <td>{props.fiveGCUManagersInfo.ips[index]}</td>
                   <td>{props.fiveGCUManagersInfo.ports[index]}</td>
@@ -73,15 +72,40 @@ const FiveGCUManagersInfo = (props) => {
                   <td>
                     <SpinnerOrButton
                       loading={props.loadingEntities.includes(
-                        `${HOST_MANAGER_SUBRESOURCE}-`
+                        `${FIVE_G_CU_MANAGER_SUBRESOURCE}-`
                         + `${props.fiveGCUManagersInfo.ips[index]}`)}
                       running={props.fiveGCUManagersInfo.five_g_cu_managers_running[index]}
-                      entity={HOST_MANAGER_SUBRESOURCE} name={HOST_MANAGER_SUBRESOURCE}
+                      entity={FIVE_G_CU_MANAGER_SUBRESOURCE} name={FIVE_G_CU_MANAGER_SUBRESOURCE}
                       ip={props.fiveGCUManagersInfo.ips[index]}
                       startOrStop={props.startOrStop}
                     />
                     <LogsButton name={props.fiveGCUManagersInfo.ips[index]}
-                                entity={HOST_MANAGER_SUBRESOURCE}
+                                entity={FIVE_G_CU_MANAGER_SUBRESOURCE}
+                                getLogs={props.getLogs}
+                    />
+                  </td>
+                </tr>
+              )}
+
+              {props.fiveGCUManagersInfo.five_g_cu_managers_statuses.map((status, index) =>
+                <tr key={`${FIVE_G_CU_SUBRESOURCE}-${index}`}>
+                  <td>5G CU</td>
+                  <td>{props.fiveGCUManagersInfo.ips[index]}</td>
+                  <td></td>
+                  {props.activeStatus(status.cu_running)}
+                  <td>
+                    <SpinnerOrButton
+                      loading={props.loadingEntities.includes(
+                        `${FIVE_G_CU_SUBRESOURCE}-`
+                        + `${props.fiveGCUManagersInfo.ips[index]}`)}
+                      running={status.cu_running}
+                      entity={FIVE_G_CU_SUBRESOURCE}
+                      name={FIVE_G_CU_SUBRESOURCE}
+                      ip={props.fiveGCUManagersInfo.ips[index]}
+                      startOrStop={props.startOrStop}
+                    />
+                    <LogsButton name={props.fiveGCUManagersInfo.ips[index]}
+                                entity={FIVE_G_CU_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
                   </td>

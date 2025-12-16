@@ -6,7 +6,7 @@ import Collapse from 'react-bootstrap/Collapse'
 import SpinnerOrButton from '../SpinnerOrButton/SpinnerOrButton.jsx'
 import LogsButton from '../LogsButton/LogsButton.jsx'
 import {
-  FIVE_G_CORE_MANAGER_SUBRESOURCE,
+  FIVE_G_CORE_MANAGER_SUBRESOURCE, FIVE_G_CORE_SUBRESOURCE,
   START_ALL_PROPERTY,
   STOP_ALL_PROPERTY
 } from '../../../../Common/constants'
@@ -20,7 +20,7 @@ const FiveGCoreManagersInfo = (props) => {
       <Card.Header>
         <Button
           onClick={() => props.setFiveGCoreManagersOpen(!props.fiveGCoreManagersOpen)}
-          aria-controls="hostManagersBody"
+          aria-controls="fiveGCoreManagersBody"
           aria-expanded={props.fiveGCoreManagersOpen}
           variant="link"
         >
@@ -30,7 +30,7 @@ const FiveGCoreManagersInfo = (props) => {
         </Button>
       </Card.Header>
       <Collapse in={props.fiveGCoreManagersOpen}>
-        <div id="hostManagersOpen" className="cardBodyHidden">
+        <div id="fiveGCoreManagersOpen" className="cardBodyHidden">
           <div className="aggregateActionsContainer">
             <span className="aggregateActions">Stop all managers:</span>
             <SpinnerOrButton
@@ -80,6 +80,31 @@ const FiveGCoreManagersInfo = (props) => {
                     />
                     <LogsButton name={props.fiveGCoreManagersInfo.ips[index]}
                                 entity={FIVE_G_CORE_MANAGER_SUBRESOURCE}
+                                getLogs={props.getLogs}
+                    />
+                  </td>
+                </tr>
+              )}
+
+              {props.fiveGCoreManagersInfo.five_g_core_managers_statuses.map((status, index) =>
+                <tr key={`${FIVE_G_CORE_SUBRESOURCE}-${index}`}>
+                  <td>5G core</td>
+                  <td>{props.fiveGCoreManagersInfo.ips[index]}</td>
+                  <td></td>
+                  {props.activeStatus(status.amf_running)}
+                  <td>
+                    <SpinnerOrButton
+                      loading={props.loadingEntities.includes(
+                        `${FIVE_G_CORE_SUBRESOURCE}-`
+                        + `${props.fiveGCoreManagersInfo.ips[index]}`)}
+                      running={status.amf_running}
+                      entity={FIVE_G_CORE_SUBRESOURCE}
+                      name={FIVE_G_CORE_SUBRESOURCE}
+                      ip={props.fiveGCoreManagersInfo.ips[index]}
+                      startOrStop={props.startOrStop}
+                    />
+                    <LogsButton name={props.fiveGCoreManagersInfo.ips[index]}
+                                entity={FIVE_G_CORE_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
                   </td>

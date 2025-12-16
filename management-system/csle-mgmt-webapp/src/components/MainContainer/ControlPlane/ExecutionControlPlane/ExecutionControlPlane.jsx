@@ -64,6 +64,10 @@ import {
     FIVE_G_CORE_MANAGER_SUBRESOURCE,
     FIVE_G_CU_MANAGER_SUBRESOURCE,
     FIVE_G_DU_MANAGER_SUBRESOURCE,
+    FIVE_G_CORE_SUBRESOURCE,
+    FIVE_G_CU_SUBRESOURCE,
+    FIVE_G_DU_SUBRESOURCE,
+    FIVE_G_UE_SUBRESOURCE,
 } from "../../../Common/constants";
 
 /**
@@ -205,13 +209,14 @@ const ExecutionControlPlane = (props) => {
             entity === METRICBEAT_SUBRESOURCE || entity === HEARTBEAT_SUBRESOURCE){
             setHostManagersInfo(response.host_managers_info)
         }
-        if(entity === FIVE_G_CORE_MANAGER_SUBRESOURCE){
+        if(entity === FIVE_G_CORE_MANAGER_SUBRESOURCE || entity === FIVE_G_CORE_SUBRESOURCE){
             setFiveGCoreManagersInfo(response.five_g_core_managers_info)
         }
-        if(entity === FIVE_G_CU_MANAGER_SUBRESOURCE){
+        if(entity === FIVE_G_CU_MANAGER_SUBRESOURCE || entity === FIVE_G_CU_SUBRESOURCE){
             setFiveGCUManagersInfo(response.five_g_cu_managers_info)
         }
-        if(entity === FIVE_G_DU_MANAGER_SUBRESOURCE){
+        if(entity === FIVE_G_DU_MANAGER_SUBRESOURCE || entity === FIVE_G_DU_SUBRESOURCE
+          || entity === FIVE_G_UE_SUBRESOURCE){
             setFiveGDUManagersInfo(response.five_g_du_managers_info)
         }
         if(entity === TRAFFIC_MANAGER_SUBRESOURCE || entity === TRAFFIC_GENERATOR_SUBRESOURCE){

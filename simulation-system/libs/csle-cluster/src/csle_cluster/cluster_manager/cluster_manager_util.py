@@ -4478,8 +4478,9 @@ class ClusterManagerUtil:
         """
         if five_g_du_status_dto is None:
             return ClusterManagerUtil.get_empty_five_g_du_info_dto()
-        return cluster_manager_pb2.FiveGDUInfoDTO(du_running=five_g_du_status_dto.du_running,
-                                                  ip=five_g_du_status_dto.ip)
+        return cluster_manager_pb2.FiveGDUInfoDTO(
+            du_running=five_g_du_status_dto.du_running, ue_running=five_g_du_status_dto.ue_running,
+            ip=five_g_du_status_dto.ip)
 
     @staticmethod
     def get_empty_five_g_du_info_dto() -> cluster_manager_pb2.FiveGDUInfoDTO:
@@ -4488,7 +4489,7 @@ class ClusterManagerUtil:
 
         :return: an empty FiveGDUInfoDTO
         """
-        return cluster_manager_pb2.FiveGDUInfoDTO(du_running=False, ip="")
+        return cluster_manager_pb2.FiveGDUInfoDTO(du_running=False, ue_running=False, ip="")
 
     @staticmethod
     def convert_five_g_du_info_dto_to_five_g_du_status_dto_reverse(
@@ -4504,4 +4505,5 @@ class ClusterManagerUtil:
             return ClusterManagerUtil.convert_five_g_du_info_dto_to_five_g_du_status_dto_reverse(
                 ClusterManagerUtil.get_empty_five_g_du_info_dto())
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
-            du_running=five_g_du_info_dto.du_running, ip=five_g_du_info_dto.ip)
+            du_running=five_g_du_info_dto.du_running, ue_running=five_g_du_info_dto.ue_running,
+            ip=five_g_du_info_dto.ip)
