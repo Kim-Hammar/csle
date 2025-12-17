@@ -3798,6 +3798,28 @@ def create_kibana_tunnel(
     return operation_outcome
 
 
+def create_five_g_core_tunnel(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Creates a 5G core tunnel for a specific execution
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Create5GCoreTunnelMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.create5GCoreTunnel(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
 def create_ryu_tunnel(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int,
@@ -3835,6 +3857,23 @@ def list_kibana_tunnels(
     kibana_tunnels_dto: csle_cluster.cluster_manager.cluster_manager_pb2.KibanaTunnelsDTO = \
         stub.listKibanaTunnels(operation_msg, timeout=timeout)
     return kibana_tunnels_dto
+
+
+def list_five_g_core_tunnels(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.KibanaTunnelsDTO:
+    """
+    Lists the 5G core tunnels of a specific server
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.List5GCoreTunnelsMsg()
+    five_g_core_tunnels_dto: csle_cluster.cluster_manager.cluster_manager_pb2.FiveGCoreTunnelsDTO = \
+        stub.list5GCoreTunnels(operation_msg, timeout=timeout)
+    return five_g_core_tunnels_dto
 
 
 def list_ryu_tunnels(
@@ -3895,6 +3934,28 @@ def remove_kibana_tunnel(
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
         stub.removeKibanaTunnel(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def remove_five_g_core_tunnel(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Removes a 5G core tunnel for a specific execution
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Remove5GCoreTunnelMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.remove5GCoreTunnel(operation_msg, timeout=timeout)
     return operation_outcome
 
 

@@ -192,6 +192,9 @@ service ClusterManager {
   rpc createRyuTunnel(CreateKibanaTunnelMsg) returns (OperationOutcomeDTO) {}
   rpc removeKibanaTunnel(RemoveKibanaTunnelMsg) returns (OperationOutcomeDTO) {}
   rpc removeRyuTunnel(RemoveRyuTunnelMsg) returns (OperationOutcomeDTO) {}
+  rpc list5GCoreTunnels(List5GCoreTunnelsMsg) returns (FiveGCoreTunnelsDTO) {}
+  rpc create5GCoreTunnel(Create5GCoreTunnelMsg) returns (OperationOutcomeDTO) {}
+  rpc remove5GCoreTunnel(Remove5GCoreTunnelMsg) returns (OperationOutcomeDTO) {}
   rpc stopHostMonitorThreads(StopHostMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
   rpc stopHostMonitorThread(StopHostMonitorThreadMsg) returns (OperationOutcomeDTO) {}
   rpc startRyuMonitor(StartRyuMonitorThreadMsg) returns (OperationOutcomeDTO) {}
@@ -738,6 +741,34 @@ message KibanaTunnelsDTO {
 
 // Message that the server returns when the client requests information about the Kibana tunnels
 message KibanaTunnelDTO {
+  int32 port = 1;
+  string ip = 2;
+  string emulation = 3;
+  int32 ipFirstOctet = 4;
+}
+
+// Message that the client sends to remove a 5G core tunnel
+message Remove5GCoreTunnelMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends to create a 5G core tunnel
+message Create5GCoreTunnelMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends to request information about 5G core tunnels
+message List5GCoreTunnelsMsg {}
+
+// Message that the server returns when the client requests information about the 5G core tunnels
+message FiveGCoreTunnelsDTO {
+  repeated FiveGCoreTunnelDTO tunnels = 1;
+}
+
+// Message that the server returns when the client requests information about the 5G core tunnels
+message FiveGCoreTunnelDTO {
   int32 port = 1;
   string ip = 2;
   string emulation = 3;

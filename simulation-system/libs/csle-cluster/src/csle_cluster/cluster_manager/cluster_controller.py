@@ -3461,6 +3461,25 @@ class ClusterController:
             return operation_outcome_dto
 
     @staticmethod
+    def create_five_g_core_tunnel(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Creates a 5G core tunnel for a specific execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.create_five_g_core_tunnel(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation)
+            return operation_outcome_dto
+
+    @staticmethod
     def list_kibana_tunnels(ip: str, port: int) -> csle_cluster.cluster_manager.cluster_manager_pb2.KibanaTunnelsDTO:
         """
         Lists the Kibana tunnels of a given server
@@ -3473,6 +3492,23 @@ class ClusterController:
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
             operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.list_kibana_tunnels(stub=stub)
+            return operation_outcome_dto
+
+    @staticmethod
+    def list_five_g_core_tunnels(ip: str, port: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.FiveGCoreTunnelsDTO:
+        """
+        Lists the 5G core tunnels of a given server
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.list_five_g_core_tunnels(
+                stub=stub)
             return operation_outcome_dto
 
     @staticmethod
@@ -3525,6 +3561,25 @@ class ClusterController:
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
             operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.remove_kibana_tunnel(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation)
+            return operation_outcome_dto
+
+    @staticmethod
+    def remove_five_g_core_tunnel(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Removes a 5G core tunnel for a specific execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.remove_five_g_core_tunnel(
                 stub=stub, ip_first_octet=ip_first_octet, emulation=emulation)
             return operation_outcome_dto
 
@@ -4317,7 +4372,7 @@ class ClusterController:
         :param no_beats: boolean flag indicating whether configuration/starting of beats should be skipped or not
         :return: None
         """
-        steps = 49
+        steps = 50
         if no_traffic:
             steps = steps - 1
         if no_beats:
@@ -4636,6 +4691,18 @@ class ClusterController:
             Logger.__call__().get_logger().info(f"Starting the 5G CU managers on containers "
                                                 f"in emulation: {execution.emulation_env_config.name} on server: {ip}")
             ClusterController.start_five_g_cu_managers(
+                ip=ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                emulation=execution.emulation_name, ip_first_octet=execution.ip_first_octet)
+
+        time.sleep(5)
+        current_step += 1
+        Logger.__call__().get_logger().info(f"-- Step "
+                                            f"{current_step}/{steps}: Initializing the 5G CUs on "
+                                            f"containers --")
+        for ip in physical_servers:
+            Logger.__call__().get_logger().info(f"Initializing the 5G CUs on containers "
+                                                f"in emulation: {execution.emulation_env_config.name} on server: {ip}")
+            ClusterController.init_five_g_cus(
                 ip=ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                 emulation=execution.emulation_name, ip_first_octet=execution.ip_first_octet)
 

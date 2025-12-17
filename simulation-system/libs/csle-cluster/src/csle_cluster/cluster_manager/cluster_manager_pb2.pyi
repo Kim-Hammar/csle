@@ -1620,6 +1620,102 @@ class KibanaTunnelDTO(google.protobuf.message.Message):
 global___KibanaTunnelDTO = KibanaTunnelDTO
 
 @typing_extensions.final
+class Remove5GCoreTunnelMsg(google.protobuf.message.Message):
+    """Message that the client sends to remove a 5G core tunnel"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Remove5GCoreTunnelMsg = Remove5GCoreTunnelMsg
+
+@typing_extensions.final
+class Create5GCoreTunnelMsg(google.protobuf.message.Message):
+    """Message that the client sends to create a 5G core tunnel"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Create5GCoreTunnelMsg = Create5GCoreTunnelMsg
+
+@typing_extensions.final
+class List5GCoreTunnelsMsg(google.protobuf.message.Message):
+    """Message that the client sends to request information about 5G core tunnels"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___List5GCoreTunnelsMsg = List5GCoreTunnelsMsg
+
+@typing_extensions.final
+class FiveGCoreTunnelsDTO(google.protobuf.message.Message):
+    """Message that the server returns when the client requests information about the 5G core tunnels"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TUNNELS_FIELD_NUMBER: builtins.int
+    @property
+    def tunnels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreTunnelDTO]: ...
+    def __init__(
+        self,
+        *,
+        tunnels: collections.abc.Iterable[global___FiveGCoreTunnelDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["tunnels", b"tunnels"]) -> None: ...
+
+global___FiveGCoreTunnelsDTO = FiveGCoreTunnelsDTO
+
+@typing_extensions.final
+class FiveGCoreTunnelDTO(google.protobuf.message.Message):
+    """Message that the server returns when the client requests information about the 5G core tunnels"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PORT_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    port: builtins.int
+    ip: builtins.str
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        port: builtins.int = ...,
+        ip: builtins.str = ...,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ip", b"ip", "ipFirstOctet", b"ipFirstOctet", "port", b"port"]) -> None: ...
+
+global___FiveGCoreTunnelDTO = FiveGCoreTunnelDTO
+
+@typing_extensions.final
 class RemoveRyuTunnelMsg(google.protobuf.message.Message):
     """Message that the client sends to remove a Ryu tunnel"""
 

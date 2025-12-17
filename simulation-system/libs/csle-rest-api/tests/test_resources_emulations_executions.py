@@ -4,7 +4,7 @@ import pytest
 import pytest_mock
 import csle_common.constants.constants as constants
 from csle_cluster.cluster_manager.cluster_manager_pb2 import ExecutionInfoDTO, KibanaTunnelDTO, KibanaTunnelsDTO, \
-    OperationOutcomeDTO, RunningEmulationsDTO, RyuTunnelDTO, RyuTunnelsDTO
+    OperationOutcomeDTO, RunningEmulationsDTO, RyuTunnelDTO, RyuTunnelsDTO, FiveGCoreTunnelsDTO, FiveGCoreTunnelDTO
 from csle_collector.client_manager.client_manager_pb2 import ClientsDTO
 from csle_collector.docker_stats_manager.docker_stats_manager_pb2 import DockerStatsMonitorDTO
 from csle_collector.elk_manager.elk_manager_pb2 import ElkDTO
@@ -1997,6 +1997,37 @@ class TestResourcesEmulationExecutionsSuite:
         return list_ryu_tunnels_mocker
 
     @pytest.fixture
+    def create_five_g_core_tunnel(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the create_five_g_core_tunnel method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def create_five_g_core_tunnel(ip: str, port: int, emulation: str, ip_first_octet: int) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=True)
+
+        create_five_g_core_tunnel_mocker = mocker.MagicMock(side_effect=create_five_g_core_tunnel)
+        return create_five_g_core_tunnel_mocker
+
+    @pytest.fixture
+    def list_five_g_core_tunnels(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the list_five_g_core_tunnels method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def list_five_g_core_tunnels(ip: str, port: int) -> FiveGCoreTunnelsDTO:
+            return FiveGCoreTunnelsDTO(tunnels=[FiveGCoreTunnelDTO(
+                port=1, ip="123.456.78.99", emulation="null", ipFirstOctet=-1)])
+
+        list_five_g_core_tunnels_mocker = mocker.MagicMock(side_effect=list_five_g_core_tunnels)
+        return list_five_g_core_tunnels_mocker
+
+    @pytest.fixture
     def exec_none(self, mocker: pytest_mock.MockFixture):
         """
         Pytest fixture for mocking the get_emulation_execution function
@@ -2306,23 +2337,26 @@ class TestResourcesEmulationExecutionsSuite:
 
     def test_emulation_execution_ids_info_get(self, mocker: pytest_mock.MockFixture, flask_app, not_logged_in,
                                               logged_in, logged_in_as_admin, get_em_ex, emulation_exec, get_ex_exec,
-                                              merged_info, kibana_list, kibana, create_ryu, list_ryu) -> None:
+                                              merged_info, kibana_list, kibana, create_ryu, list_ryu,
+                                              create_five_g_core_tunnel, list_five_g_core_tunnels) -> None:
         """
         Testing the HTTPS GET method for the /emulation_executions/id/info resource
-        
+
         :param mocker: the pytest mocker object
-        :param flask_app: the flask_app fixture
+        :param flask_app:  the flask_app fixture
         :param not_logged_in: the not_logged_in fixture
         :param logged_in: the logged_in fixture
         :param logged_in_as_admin: the logged_in_as_admin fixture
-        :param config: the config fixture
-        :param emulations: the emulations fixture
-        :param emulations_images: the emulations_images fixture
-        :param running_emulations: the running_emulations fixture
-        :param given_emulation: the given_emulation fixture
-        :param emulations_ids_not_in_names: the emulations_ids_not_in_names fixture
-        :param emulations_ids_in_names: the emulations_ids_in_names fixture
-        :param get_ex_em_env: the get_ex_em_env fixture
+        :param get_em_ex: the get_em_ex fixture
+        :param emulation_exec: the emulation_exec fixture
+        :param get_ex_exec: the get_ex_exec fixture
+        :param merged_info: the merged_info fixture
+        :param kibana_list: the kibana_list fixture
+        :param kibana: the kibana fixture
+        :param create_ryu: the create_ryu fixture
+        :param list_ryu: the list_ryu fixture
+        :param create_five_g_core_tunnel: the create_five_g_core_tunnel fixture
+        :param list_five_g_core_tunnels: the list_five_g_core_tunnels fixture
         :return: None
         """
         mocker.patch('time.sleep', return_value=None)
@@ -2338,6 +2372,10 @@ class TestResourcesEmulationExecutionsSuite:
                      side_effect=create_ryu)
         mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.list_ryu_tunnels",
                      side_effect=list_ryu)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "create_five_g_core_tunnel", side_effect=create_five_g_core_tunnel)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "list_five_g_core_tunnels", side_effect=list_five_g_core_tunnels)
         mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=not_logged_in)
         response = flask_app.test_client().get(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
                                                f"{api_constants.MGMT_WEBAPP.INFO_SUBRESOURCE}")

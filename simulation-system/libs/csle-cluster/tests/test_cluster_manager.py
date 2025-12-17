@@ -27,6 +27,7 @@ from csle_ryu.dao.avg_port_statistic import AvgPortStatistic
 from csle_ryu.dao.avg_flow_statistic import AvgFlowStatistic
 from csle_cluster.cluster_manager.cluster_manager_pb2 import KibanaTunnelsDTO
 from csle_cluster.cluster_manager.cluster_manager_pb2 import RyuTunnelsDTO
+from csle_cluster.cluster_manager.cluster_manager_pb2 import FiveGCoreTunnelsDTO
 from csle_common.dao.emulation_config.emulation_execution_info import EmulationExecutionInfo
 from csle_cluster.cluster_manager.cluster_manager_pb2 import SnortIdsManagersInfoDTO
 from csle_common.dao.emulation_config.snort_managers_info import SnortIdsManagersInfo
@@ -5187,6 +5188,17 @@ class TestClusterManagerSuite:
         response: KibanaTunnelsDTO = query_cluster_manager.list_kibana_tunnels(stub=grpc_stub)
         assert response.tunnels == []
 
+    def test_list5GCoreTunnels(self, grpc_stub, get_ex_exec: EmulationExecution) -> None:
+        """
+        Tests the list5GCoreTunnels grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param get_ex_exec: fixture that creates an example emulation execution DTO
+        :return: None
+        """
+        response: FiveGCoreTunnelsDTO = query_cluster_manager.list_five_g_core_tunnels(stub=grpc_stub)
+        assert response.tunnels == []
+
     def test_listRyuTunnels(self, grpc_stub, get_ex_exec: EmulationExecution) -> None:
         """
         Tests the listRyuTunnels grpc
@@ -5221,6 +5233,31 @@ class TestClusterManagerSuite:
                      return_value=None)
         response: OperationOutcomeDTO = query_cluster_manager. \
             create_kibana_tunnel(stub=grpc_stub, emulation="JDoeEmulation", ip_first_octet=1)
+        assert not response.outcome
+
+    def test_create5GCoreTunnel(self, grpc_stub, mocker: pytest_mock.MockFixture,
+                                get_ex_exec: EmulationExecution) -> None:
+        """
+        Tests the create5GCoreTunnel grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture which creates an example emulation execution
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        mocker.patch("csle_common.util.general_util.GeneralUtil.get_host_ip",
+                     return_value="123.456.78.99")
+        mocker.patch("csle_common.controllers.emulation_env_controller.EmulationEnvController.create_ssh_tunnel",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager. \
+            create_five_g_core_tunnel(stub=grpc_stub, emulation="JDoeEmulation", ip_first_octet=1)
+        assert response.outcome
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager. \
+            create_five_g_core_tunnel(stub=grpc_stub, emulation="JDoeEmulation", ip_first_octet=1)
         assert not response.outcome
 
     def test_createRyuTunnel(self, grpc_stub, mocker: pytest_mock.MockFixture, get_ex_exec: EmulationExecution) -> None:
@@ -5286,6 +5323,27 @@ class TestClusterManagerSuite:
                      return_value=None)
         response: OperationOutcomeDTO = query_cluster_manager. \
             remove_kibana_tunnel(stub=grpc_stub, emulation="JDoeEmulation", ip_first_octet=1)
+        assert not response.outcome
+
+    def test_remove5GCoreTunnel(self, grpc_stub, mocker: pytest_mock.MockFixture,
+                                get_ex_exec: EmulationExecution) -> None:
+        """
+        Tests the remove5GCoreTunnel grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :param get_ex_exec: fixture which creates an example emulation execution
+        :return: None
+        """
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=get_ex_exec)
+        response: OperationOutcomeDTO = query_cluster_manager. \
+            remove_five_g_core_tunnel(stub=grpc_stub, emulation="JDoeEmulation", ip_first_octet=1)
+        assert response.outcome
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     return_value=None)
+        response: OperationOutcomeDTO = query_cluster_manager. \
+            remove_five_g_core_tunnel(stub=grpc_stub, emulation="JDoeEmulation", ip_first_octet=1)
         assert not response.outcome
 
     def test_stopHostMonitorThreads(self, grpc_stub, mocker: pytest_mock.MockFixture,

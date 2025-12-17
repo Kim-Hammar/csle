@@ -4112,6 +4112,20 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         return ClusterManagerUtil.create_kibana_tunnels_dto_from_dict(
             dict=cluster_constants.KIBANA_TUNNELS.KIBANA_TUNNELS_DICT)
 
+    def list5GCoreTunnels(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.List5GCoreTunnelsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.FiveGCoreTunnelsDTO:
+        """
+        Lists the 5G core tunnels
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an KibanaTunnelsDTO
+        """
+        logging.info("Getting the 5G core tunnels")
+        return ClusterManagerUtil.create_five_g_core_tunnels_dto_from_dict(
+            dict=cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT)
+
     def listRyuTunnels(
             self, request: csle_cluster.cluster_manager.cluster_manager_pb2.ListRyuTunnelsMsg,
             context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.RyuTunnelsDTO:
@@ -4142,6 +4156,26 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is None:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         ClusterManagerUtil.create_kibana_tunnel(execution=execution, logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
+        return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+
+    def create5GCoreTunnel(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Create5GCoreTunnelMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Creates a new 5G core tunnel
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Creating a 5G core tunnel for emulation: {request.emulation}, "
+                     f"execution id: {request.ipFirstOctet}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        ClusterManagerUtil.create_five_g_core_tunnel(execution=execution, logger=logging.getLogger())
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 
@@ -4202,6 +4236,26 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         if execution is None:
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
         ClusterManagerUtil.remove_kibana_tunnel(execution=execution)
+        execution.emulation_env_config.close_all_connections()
+        return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+
+    def remove5GCoreTunnel(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.Remove5GCoreTunnelMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Removes a 5G core tunnel
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Remove the 5G core tunnel for emulation: {request.emulation}, "
+                     f"execution id: {request.ipFirstOctet}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        ClusterManagerUtil.remove_five_g_core_tunnel(execution=execution)
         execution.emulation_env_config.close_all_connections()
         return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
 

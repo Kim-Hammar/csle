@@ -14,7 +14,7 @@ class FiveGCoreManagersInfo(JSONSerializable):
             self, ips: List[str], ports: List[int], emulation_name: str, execution_id: int,
             five_g_core_managers_statuses: List[
                 csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO],
-            five_g_core_managers_running: List[bool]):
+            five_g_core_managers_running: List[bool], local_webui_port: int = 9999):
         """
         Initializes the DTO
 
@@ -24,6 +24,7 @@ class FiveGCoreManagersInfo(JSONSerializable):
         :param emulation_name: the name of the corresponding emulation
         :param execution_id: the ID of the corresponding emulation execution
         :param five_g_core_managers_statuses: a list of statuses of the 5G core managers
+        :param local_webui_port: the local port of the Web UI
         """
         self.five_g_core_managers_running = five_g_core_managers_running
         self.ips = ips
@@ -31,6 +32,7 @@ class FiveGCoreManagersInfo(JSONSerializable):
         self.emulation_name = emulation_name
         self.execution_id = execution_id
         self.five_g_core_managers_statuses = five_g_core_managers_statuses
+        self.local_webui_port = local_webui_port
 
     def __str__(self):
         """
@@ -41,7 +43,7 @@ class FiveGCoreManagersInfo(JSONSerializable):
                f"emulation_name: {self.emulation_name}, " \
                f"execution_id: {self.execution_id}, " \
                f"five_g_core_managers_statuses: {list(map(lambda x: str(x), self.five_g_core_managers_statuses))}," \
-               f" ports: {list(map(lambda x: str(x), self.ports))}"
+               f" ports: {list(map(lambda x: str(x), self.ports))}, local_webui_port: {self.local_webui_port}"
 
     def to_dict(self) -> Dict[str, Any]:
         """
@@ -55,6 +57,7 @@ class FiveGCoreManagersInfo(JSONSerializable):
         d["ports"] = self.ports
         d["emulation_name"] = self.emulation_name
         d["execution_id"] = self.execution_id
+        d["local_webui_port"] = self.local_webui_port
         d["five_g_core_managers_statuses"] = list(map(
             lambda x: five_g_core_manager_util.FiveGCoreManagerUtil.five_g_core_status_dto_to_dict(x),
             self.five_g_core_managers_statuses))
@@ -72,7 +75,9 @@ class FiveGCoreManagersInfo(JSONSerializable):
             emulation_name=d["emulation_name"], execution_id=d["execution_id"],
             five_g_core_managers_statuses=list(map(
                 lambda x: five_g_core_manager_util.FiveGCoreManagerUtil.five_g_core_status_dto_from_dict(x),
-                d["five_g_core_managers_statuses"])))
+                d["five_g_core_managers_statuses"])),
+            local_webui_port=d["local_webui_port"]
+        )
         return dto
 
     @staticmethod
@@ -82,7 +87,7 @@ class FiveGCoreManagersInfo(JSONSerializable):
         """
         return FiveGCoreManagersInfo(
             ips=[], ports=[], emulation_name="", execution_id=-1, five_g_core_managers_statuses=[],
-            five_g_core_managers_running=[])
+            five_g_core_managers_running=[], local_webui_port=9999)
 
     @staticmethod
     def from_json_file(json_file_path: str) -> "FiveGCoreManagersInfo":

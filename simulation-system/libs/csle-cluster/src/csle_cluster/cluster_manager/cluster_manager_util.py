@@ -1644,6 +1644,54 @@ class ClusterManagerUtil:
         return d
 
     @staticmethod
+    def get_empty_five_g_core_tunnel_dto() -> cluster_manager_pb2.FiveGCoreTunnelDTO:
+        """
+        Gets an empty FiveGCoreTunnelDTO
+
+        :return: an empty FiveGCoreTunnelDTO
+        """
+        return cluster_manager_pb2.FiveGCoreTunnelDTO(port=1, ip="", emulation="", ipFirstOctet=-1)
+
+    @staticmethod
+    def get_empty_five_g_core_tunnels_dto() -> cluster_manager_pb2.FiveGCoreTunnelsDTO:
+        """
+        Gets an empty FiveGCoreTunnelsDTO
+
+        :return: an empty FiveGCoreTunnelsDTO
+        """
+        return cluster_manager_pb2.FiveGCoreTunnelsDTO(tunnels=[])
+
+    @staticmethod
+    def five_g_core_tunnel_dto_to_dict(five_g_core_tunnel_dto: cluster_manager_pb2.FiveGCoreTunnelDTO) \
+            -> Dict[str, Any]:
+        """
+        Converts a FiveGCoreTunnelDTO to a dict
+
+        :param five_g_core_tunnel_dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d: Dict[str, Any] = {}
+        d["ip"] = five_g_core_tunnel_dto.ip
+        d["port"] = five_g_core_tunnel_dto.port
+        d["emulation"] = five_g_core_tunnel_dto.emulation
+        d["ipFirstOctet"] = five_g_core_tunnel_dto.ipFirstOctet
+        return d
+
+    @staticmethod
+    def five_g_core_tunnels_dto_to_dict(five_g_core_tunnels_dto: cluster_manager_pb2.FiveGCoreTunnelsDTO) \
+            -> Dict[str, Any]:
+        """
+        Converts a FiveGCoreTunnelsDTO to a dict
+
+        :param five_g_core_tunnels_dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d: Dict[str, Any] = {}
+        d["tunnels"] = list(map(lambda x: ClusterManagerUtil.five_g_core_tunnel_dto_to_dict(five_g_core_tunnel_dto=x),
+                                five_g_core_tunnels_dto.tunnels))
+        return d
+
+    @staticmethod
     def create_kibana_tunnel(execution: EmulationExecution, logger: logging.Logger) -> int:
         """
         Utility method for creating a Kibana tunnel.
@@ -1722,6 +1770,98 @@ class ClusterManagerUtil:
             tunnel_thread_dict[cluster_constants.KIBANA_TUNNELS.THREAD_PROPERTY].shutdown()
             del cluster_constants.KIBANA_TUNNELS.KIBANA_TUNNELS_DICT[
                 execution.emulation_env_config.elk_config.container.docker_gw_bridge_ip]
+
+    @staticmethod
+    def create_five_g_core_tunnel(execution: EmulationExecution, logger: logging.Logger) -> int:
+        """
+        Utility method for creating a 5G core tunnel.
+
+        :param execution: the execution to create the tunnel for
+        :param logger: the logger to use for logging
+        :return: the port of the tunnel
+        """
+        ip = GeneralUtil.get_host_ip()
+        if ip != execution.emulation_env_config.elk_config.container.physical_host_ip:
+            return -1
+        five_g_core_containers = []
+        for c in execution.emulation_env_config.containers_config.containers:
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if ids_image in c.name:
+                    five_g_core_containers.append(c)
+        try:
+            local_5g_core_tunnel_port = (cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNEL_BASE_PORT +
+                                         execution.ip_first_octet)
+            if execution.emulation_env_config.elk_config.container.docker_gw_bridge_ip \
+                    not in cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT:
+                try:
+                    EmulationEnvController.create_ssh_tunnel(
+                        tunnels_dict=cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT,
+                        local_port=local_5g_core_tunnel_port,
+                        remote_port=cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_WEBUI_PORT,
+                        remote_ip=five_g_core_containers[0].docker_gw_bridge_ip,
+                        emulation=execution.emulation_name, execution_id=execution.ip_first_octet)
+                except Exception:
+                    local_5g_core_tunnel_port = local_5g_core_tunnel_port + 100
+                    EmulationEnvController.create_ssh_tunnel(
+                        tunnels_dict=cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT,
+                        local_port=local_5g_core_tunnel_port,
+                        remote_port=cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_WEBUI_PORT,
+                        remote_ip=five_g_core_containers[0].docker_gw_bridge_ip,
+                        emulation=execution.emulation_name, execution_id=execution.ip_first_octet)
+            else:
+                tunnel_thread_dict = cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT[
+                    execution.emulation_env_config.elk_config.container.docker_gw_bridge_ip]
+                try:
+                    response = get(f'{constants.HTTP.HTTP_PROTOCOL_PREFIX}{constants.COMMON.LOCALHOST}:'
+                                   f'{local_5g_core_tunnel_port}', timeout=constants.HTTP.DEFAULT_TIMEOUT)
+                    if response.status_code != constants.HTTPS.OK_STATUS_CODE:
+                        tunnel_thread_dict[cluster_constants.FIVE_G_CORE_TUNNELS.THREAD_PROPERTY].shutdown()
+                        del cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT[
+                            execution.emulation_env_config.elk_config.container.docker_gw_bridge_ip]
+                        EmulationEnvController.create_ssh_tunnel(
+                            tunnels_dict=cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT,
+                            local_port=local_5g_core_tunnel_port,
+                            remote_port=cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_WEBUI_PORT,
+                            remote_ip=five_g_core_containers[0].docker_gw_bridge_ip,
+                            emulation=execution.emulation_name, execution_id=execution.ip_first_octet)
+                except Exception:
+                    tunnel_thread_dict[cluster_constants.FIVE_G_CORE_TUNNELS.THREAD_PROPERTY].shutdown()
+                    if execution.emulation_env_config.elk_config.container.docker_gw_bridge_ip in \
+                            cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT:
+                        del cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT[
+                            execution.emulation_env_config.elk_config.container.docker_gw_bridge_ip]
+                    local_5g_core_tunnel_port = local_5g_core_tunnel_port + 100
+                    EmulationEnvController.create_ssh_tunnel(
+                        tunnels_dict=cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT,
+                        local_port=local_5g_core_tunnel_port,
+                        remote_port=cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_WEBUI_PORT,
+                        remote_ip=five_g_core_containers[0].docker_gw_bridge_ip,
+                        emulation=execution.emulation_name, execution_id=execution.ip_first_octet)
+            return int(local_5g_core_tunnel_port)
+        except Exception as e:
+            logger.warning(f"There was an exception creating the 5G core tunnel: {str(e)}, {repr(e)}")
+            return -1
+
+    @staticmethod
+    def remove_five_g_core_tunnel(execution: EmulationExecution) -> None:
+        """
+        Utility function for removing the 5G core tunnel of a given execution
+
+        :param execution: the execution to remove the tunnel for
+        :return: None
+        """
+        five_g_core_containers = []
+        for c in execution.emulation_env_config.containers_config.containers:
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if ids_image in c.name:
+                    five_g_core_containers.append(c)
+        if execution.emulation_env_config.elk_config.container.docker_gw_bridge_ip in \
+                cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT:
+            tunnel_thread_dict = cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT[
+                five_g_core_containers[0].docker_gw_bridge_ip]
+            tunnel_thread_dict[cluster_constants.FIVE_G_CORE_TUNNELS.THREAD_PROPERTY].shutdown()
+            del cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT[
+                five_g_core_containers[0].docker_gw_bridge_ip]
 
     @staticmethod
     def create_ryu_tunnel(execution: EmulationExecution, logger: logging.Logger) -> int:
@@ -1839,6 +1979,22 @@ class ClusterManagerUtil:
                 ipFirstOctet=v[constants.GENERAL.EXECUTION_ID_PROPERTY]
             ))
         return cluster_manager_pb2.RyuTunnelsDTO(tunnels=ryu_tunnels)
+
+    @staticmethod
+    def create_five_g_core_tunnels_dto_from_dict(dict: Dict[str, Any]) -> cluster_manager_pb2.FiveGCoreTunnelsDTO:
+        """
+        Utility function for creating a 5G core tunnels DTO from a dict with 5G core tunnels
+
+        :param dict: the dict with the tunnels
+        :return: the DTO
+        """
+        ryu_tunnels = []
+        for k, v in dict.items():
+            ryu_tunnels.append(cluster_manager_pb2.FiveGCoreTunnelDTO(
+                ip=k, port=v[constants.GENERAL.PORT_PROPERTY], emulation=v[constants.GENERAL.EMULATION_PROPERTY],
+                ipFirstOctet=v[constants.GENERAL.EXECUTION_ID_PROPERTY]
+            ))
+        return cluster_manager_pb2.FiveGCoreTunnelsDTO(tunnels=ryu_tunnels)
 
     @staticmethod
     def merge_execution_infos(execution_infos: List[cluster_manager_pb2.ExecutionInfoDTO]) -> EmulationExecutionInfo:

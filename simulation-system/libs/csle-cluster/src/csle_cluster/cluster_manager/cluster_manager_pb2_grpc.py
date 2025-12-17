@@ -975,6 +975,21 @@ class ClusterManagerStub(object):
                 request_serializer=cluster__manager__pb2.RemoveRyuTunnelMsg.SerializeToString,
                 response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
                 _registered_method=True)
+        self.list5GCoreTunnels = channel.unary_unary(
+                '/ClusterManager/list5GCoreTunnels',
+                request_serializer=cluster__manager__pb2.List5GCoreTunnelsMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.FiveGCoreTunnelsDTO.FromString,
+                _registered_method=True)
+        self.create5GCoreTunnel = channel.unary_unary(
+                '/ClusterManager/create5GCoreTunnel',
+                request_serializer=cluster__manager__pb2.Create5GCoreTunnelMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.remove5GCoreTunnel = channel.unary_unary(
+                '/ClusterManager/remove5GCoreTunnel',
+                request_serializer=cluster__manager__pb2.Remove5GCoreTunnelMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
         self.stopHostMonitorThreads = channel.unary_unary(
                 '/ClusterManager/stopHostMonitorThreads',
                 request_serializer=cluster__manager__pb2.StopHostMonitorThreadsMsg.SerializeToString,
@@ -2459,6 +2474,24 @@ class ClusterManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def list5GCoreTunnels(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def create5GCoreTunnel(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def remove5GCoreTunnel(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def stopHostMonitorThreads(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -3820,6 +3853,21 @@ def add_ClusterManagerServicer_to_server(servicer, server):
             'removeRyuTunnel': grpc.unary_unary_rpc_method_handler(
                     servicer.removeRyuTunnel,
                     request_deserializer=cluster__manager__pb2.RemoveRyuTunnelMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'list5GCoreTunnels': grpc.unary_unary_rpc_method_handler(
+                    servicer.list5GCoreTunnels,
+                    request_deserializer=cluster__manager__pb2.List5GCoreTunnelsMsg.FromString,
+                    response_serializer=cluster__manager__pb2.FiveGCoreTunnelsDTO.SerializeToString,
+            ),
+            'create5GCoreTunnel': grpc.unary_unary_rpc_method_handler(
+                    servicer.create5GCoreTunnel,
+                    request_deserializer=cluster__manager__pb2.Create5GCoreTunnelMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'remove5GCoreTunnel': grpc.unary_unary_rpc_method_handler(
+                    servicer.remove5GCoreTunnel,
+                    request_deserializer=cluster__manager__pb2.Remove5GCoreTunnelMsg.FromString,
                     response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
             ),
             'stopHostMonitorThreads': grpc.unary_unary_rpc_method_handler(
@@ -9249,6 +9297,87 @@ class ClusterManager(object):
             target,
             '/ClusterManager/removeRyuTunnel',
             cluster__manager__pb2.RemoveRyuTunnelMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def list5GCoreTunnels(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/list5GCoreTunnels',
+            cluster__manager__pb2.List5GCoreTunnelsMsg.SerializeToString,
+            cluster__manager__pb2.FiveGCoreTunnelsDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def create5GCoreTunnel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/create5GCoreTunnel',
+            cluster__manager__pb2.Create5GCoreTunnelMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def remove5GCoreTunnel(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/remove5GCoreTunnel',
+            cluster__manager__pb2.Remove5GCoreTunnelMsg.SerializeToString,
             cluster__manager__pb2.OperationOutcomeDTO.FromString,
             options,
             channel_credentials,

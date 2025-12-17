@@ -139,13 +139,30 @@ def emulation_execution_info(execution_id: int) -> Tuple[Response, int]:
                 ip=execution.emulation_env_config.elk_config.container.physical_host_ip,
                 port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, emulation=execution.emulation_name,
                 ip_first_octet=execution.ip_first_octet)
-            ryu_tunnels_dto = ClusterController.list_ryu_tunnels(
+            five_g_core_tunnels_dto = ClusterController.list_ryu_tunnels(
                 ip=execution.emulation_env_config.sdn_controller_config.container.physical_host_ip,
                 port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT)
-            for ryu_tunnel_dto in ryu_tunnels_dto.tunnels:
-                if ryu_tunnel_dto.ip == \
+            for five_g_core_tunnel_dto in five_g_core_tunnels_dto.tunnels:
+                if five_g_core_tunnel_dto.ip == \
                         execution.emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip:
-                    execution_info.ryu_managers_info.local_controller_web_port = ryu_tunnel_dto.port
+                    execution_info.ryu_managers_info.local_controller_web_port = five_g_core_tunnel_dto.port
+        five_g_core_containers = []
+        for c in execution.emulation_env_config.containers_config.containers:
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if ids_image in c.name:
+                    five_g_core_containers.append(c)
+        if len(five_g_core_containers) > 0 and execution_info.five_g_core_managers_info is not None:
+            ClusterController.create_five_g_core_tunnel(
+                ip=five_g_core_containers[0].physical_host_ip,
+                port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, emulation=execution.emulation_name,
+                ip_first_octet=execution.ip_first_octet)
+            five_g_core_tunnels_dto = ClusterController.list_five_g_core_tunnels(
+                ip=five_g_core_containers[0].physical_host_ip,
+                port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT)
+            for five_g_core_tunnel_dto in five_g_core_tunnels_dto.tunnels:
+                if five_g_core_tunnel_dto.ip == five_g_core_containers[0].docker_gw_bridge_ip:
+                    execution_info.five_g_core_managers_info.local_webui_port = five_g_core_tunnel_dto.port
+
         response = jsonify(execution_info.to_dict())
         response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
         return response, constants.HTTPS.OK_STATUS_CODE
