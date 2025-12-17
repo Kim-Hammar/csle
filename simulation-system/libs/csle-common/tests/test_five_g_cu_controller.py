@@ -2,6 +2,8 @@ from unittest.mock import patch, MagicMock
 import csle_common.constants.constants as constants
 from csle_common.controllers.five_g_cu_controller import FiveGCUController
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
+from csle_common.dao.emulation_config.node_container_config import NodeContainerConfig
+from csle_common.dao.emulation_config.five_g_config import FiveGConfig
 import pytest
 
 
@@ -263,3 +265,44 @@ class TestFiveGCUControllerSuite:
         mock_get_statuses.assert_any_call(
             port=example_emulation_env_config.five_g_config.five_g_cu_manager_port,
             ip=example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip)
+
+    @patch("csle_collector.five_g_cu_manager.query_five_g_cu_manager.init_five_g_cu")
+    @patch("grpc.insecure_channel")
+    def test_init_five_g_cu(self, mock_insecure_channel, mock_init_five_g_cu,
+                            example_emulation_env_config: EmulationEnvConfig,
+                            example_containers_config_five_g: NodeContainerConfig,
+                            example_five_g_config_two: FiveGConfig) -> None:
+        """
+        Test utility function for initializing the 5G UE on a specific IP
+
+        :param mock_insecure_channel: mock_insecure_channel
+        :param mock_init_five_g_cu: mock_init_five_g_cu
+        :param example_emulation_env_config: example_emulation_env_config
+        :param example_containers_config_five_g: example_containers_config_five_g
+        :param example_five_g_config_two: example_five_g_config_two
+        :return: None
+        """
+        constants.GRPC_SERVERS.GRPC_OPTIONS = []
+        mock_channel = MagicMock()
+        mock_insecure_channel.return_value = mock_channel
+        mock_stub = MagicMock()
+        mock_channel.__enter__.return_value = mock_stub
+        result = FiveGCUController.init_five_g_cu(
+            emulation_env_config=example_emulation_env_config,
+            container=example_emulation_env_config.containers_config.containers[0],
+            logger=self.logger)
+        self.logger.info.assert_called_once_with(
+            f"Initializing the 5G CU on container with ip "
+            f"{example_emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip} "
+            f"in execution {example_emulation_env_config.execution_id} "
+            f"of emulation: {example_emulation_env_config.name}")
+        assert result is None
+        example_emulation_env_config.containers_config = example_containers_config_five_g
+        example_emulation_env_config.five_g_config = example_five_g_config_two
+        result = FiveGCUController.init_five_g_cu(
+            emulation_env_config=example_emulation_env_config,
+            container=example_emulation_env_config.containers_config.containers[4],
+            logger=self.logger)
+        assert result is not None
+        mock_insecure_channel.assert_called()
+        mock_init_five_g_cu.assert_called()

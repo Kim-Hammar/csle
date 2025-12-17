@@ -266,32 +266,32 @@ class FiveGDUManagerUtil:
         return dto
 
     @staticmethod
-    def init_du_config_file(cu_backhaul_ip: str, du_backhaul_ip: str) -> bool:
+    def init_du_config_file(cu_fronthaul_ip: str, du_fronthaul_ip: str) -> bool:
         """
         Modifies the /srsRAN_Project/build/apps/du/du.yml configuration file.
 
-        :param cu_backhaul_ip: The IP address of the CU (F1-C interface).
-        :param du_backhaul_ip: The IP address of the DU (F1-U interface).
+        :param cu_fronthaul_ip: The IP address of the CU (F1-C interface).
+        :param du_fronthaul_ip: The IP address of the DU (F1-U interface).
         :return: True if the file was updated successfully, False otherwise.
         """
         config_path = "/srsRAN_Project/build/apps/du/du.yml"
         logging.info(f"Attempting to update DU config at {config_path}")
-        logging.info(f"Setting CU IP (cu_cp_addr) to: {cu_backhaul_ip}")
-        logging.info(f"Setting DU IP (bind_addr) to: {du_backhaul_ip}")
+        logging.info(f"Setting CU IP (cu_cp_addr) to: {cu_fronthaul_ip}")
+        logging.info(f"Setting DU IP (bind_addr) to: {du_fronthaul_ip}")
         try:
             with open(config_path, 'r') as f:
                 config = yaml.safe_load(f)
             try:
                 if 'f1ap' in config:
-                    config['f1ap']['cu_cp_addr'] = cu_backhaul_ip
-                    config['f1ap']['bind_addr'] = du_backhaul_ip
+                    config['f1ap']['cu_cp_addr'] = cu_fronthaul_ip
+                    config['f1ap']['bind_addr'] = du_fronthaul_ip
                 else:
                     logging.error(f"Invalid YAML structure in {config_path}: 'f1ap' section missing.")
                     return False
 
                 if 'f1u' in config and 'socket' in config['f1u']:
                     if isinstance(config['f1u']['socket'], list) and len(config['f1u']['socket']) > 0:
-                        config['f1u']['socket'][0]['bind_addr'] = du_backhaul_ip
+                        config['f1u']['socket'][0]['bind_addr'] = du_fronthaul_ip
                     else:
                         logging.warning(f"{config_path}: 'f1u.socket' list is empty. Skipping F1U update.")
                 else:

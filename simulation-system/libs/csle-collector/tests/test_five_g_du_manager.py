@@ -150,3 +150,30 @@ class TestFiveGDUManagerSuite:
         assert response_2.du_running == mock_status.du_running
         assert response_2.ue_running == mock_status.ue_running
         assert response_2.ip == mock_status.ip
+
+    def test_initFiveGUE(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
+        """
+        Tests the initFiveGUE grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :return: None
+        """
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'init_du_config_file', return_value=None)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'init_ue', return_value=None)
+        mock_status_dict_du = {constants.FIVE_G_DU.DU: True}
+        mock_status_dict_ue = {constants.FIVE_G_DU.UE: False}
+        mock_status = FiveGDUStatusDTO(du_running=True, ue_running=False, ip="0.0.0.0")
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'get_du_status', return_value=mock_status_dict_du)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'get_ue_status', return_value=mock_status_dict_ue)
+        cu_fronthaul_ip = "127.0.0.1"
+        du_fronthaul_ip = "127.0.0.1"
+        response: FiveGDUStatusDTO = csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_ue_du(
+            stub=grpc_stub, cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip)
+        assert response.du_running == mock_status.du_running
+        assert response.ue_running == mock_status.ue_running
+        assert response.ip == mock_status.ip

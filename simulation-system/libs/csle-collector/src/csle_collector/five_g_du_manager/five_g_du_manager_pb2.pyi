@@ -103,8 +103,16 @@ class InitFiveGUEMsg(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    DU_FRONTHAUL_IP_FIELD_NUMBER: builtins.int
+    CU_FRONTHAUL_IP_FIELD_NUMBER: builtins.int
+    du_fronthaul_ip: builtins.str
+    cu_fronthaul_ip: builtins.str
     def __init__(
         self,
+        *,
+        du_fronthaul_ip: builtins.str = ...,
+        cu_fronthaul_ip: builtins.str = ...,
     ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cu_fronthaul_ip", b"cu_fronthaul_ip", "du_fronthaul_ip", b"du_fronthaul_ip"]) -> None: ...
 
 global___InitFiveGUEMsg = InitFiveGUEMsg

@@ -1932,7 +1932,7 @@ def default_five_g_config(network_id: int, level: int, version: str, time_step_l
         ], core_backhaul_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.50",
         cu_backhaul_ips=[f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.51"],
         cu_fronthaul_ips=[f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.51"],
-        du_fronthaul_ips=[f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.52"],
+        du_fronthaul_ips=[f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.52"],
         du_cus=[f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.51"]
     )
     return config

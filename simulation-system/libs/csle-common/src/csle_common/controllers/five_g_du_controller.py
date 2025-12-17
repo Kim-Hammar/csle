@@ -1,8 +1,9 @@
+from typing import List, Union
 import logging
-from typing import List
 import grpc
 import time
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
+from csle_common.dao.emulation_config.node_container_config import NodeContainerConfig
 from csle_common.dao.emulation_config.five_g_du_managers_info import FiveGDUManagersInfo
 import csle_common.constants.constants as constants
 import csle_collector.constants.constants as csle_collector_constants
@@ -369,27 +370,40 @@ class FiveGDUController:
                 continue
             for ids_image in constants.CONTAINER_IMAGES.FIVE_G_DU_IMAGES:
                 if ids_image in c.name:
-                    FiveGDUController.init_five_g_ue(emulation_env_config=emulation_env_config,
-                                                     ip=c.docker_gw_bridge_ip, logger=logger)
+                    FiveGDUController.init_five_g_du_ue(emulation_env_config=emulation_env_config,
+                                                        container=c, logger=logger)
 
     @staticmethod
-    def init_five_g_ue(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) \
-            -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+    def init_five_g_du_ue(emulation_env_config: EmulationEnvConfig, container: NodeContainerConfig,
+                          logger: logging.Logger) \
+            -> Union[csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO, None]:
         """
         Utility method for initializing the 5G UE on a specific container
 
         :param emulation_env_config: the emulation env config
+        :param container: the container env config
         :param ip: the ip of the container
         :param logger: the logger to use for logging
         :return: None
         """
         logger.info(
-            f"Initializing the 5G UE on container with ip {ip} in execution {emulation_env_config.execution_id} "
+            f"Initializing the 5G UE and DU on container with ip {container.docker_gw_bridge_ip} "
+            f"in execution {emulation_env_config.execution_id} "
             f"of emulation: {emulation_env_config.name}")
+        du_fronthaul_ip = ""
+        cu_fronthaul_ip = ""
+        for i, cu_ip in enumerate(emulation_env_config.five_g_config.du_fronthaul_ips):
+            if cu_ip in container.get_ips():
+                du_fronthaul_ip = cu_ip
+                cu_fronthaul_ip = emulation_env_config.five_g_config.du_cus[i]
+        if du_fronthaul_ip == "" or cu_fronthaul_ip == "":
+            return None
         port = emulation_env_config.five_g_config.five_g_du_manager_port
-        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+        with grpc.insecure_channel(f'{container.docker_gw_bridge_ip}:{port}',
+                                   options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub(channel)
-            status = csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_ue(stub=stub)
+            status = csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_ue_du(
+                stub=stub, cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip)
             return status
 
     @staticmethod

@@ -93,19 +93,24 @@ def stop_five_g_ue(
     return five_g_du_status
 
 
-def init_five_g_ue(
+def init_five_g_ue_du(
+        cu_fronthaul_ip: str, du_fronthaul_ip: str,
         stub: csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub,
         timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
     """
-    Sends a request to the 5G du manager for initializing the 5G UE
+    Sends a request to the 5G DU manager for initializing the 5G UE and DU
 
+    :param cu_fronthaul_ip: the fronthaul IP of the CU
+    :param du_fronthaul_ip: the fronthaul IP of the DU
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the timeout for the gRRPC call
     :return: a FiveGDUStatusDTO describing the status of the 5G du
     """
     init_5g_ue_msg = \
-        csle_collector.five_g_du_manager.five_g_du_manager_pb2.InitFiveGUEMsg()
+        csle_collector.five_g_du_manager.five_g_du_manager_pb2.InitFiveGUEMsg(
+            cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip
+        )
     five_g_du_status: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO = \
         stub.initFiveGUE(init_5g_ue_msg, timeout=timeout)
     return five_g_du_status

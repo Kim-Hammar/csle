@@ -7090,7 +7090,7 @@ class TestClusterManagerSuite:
         mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
                      return_value=get_ex_exec)
         mocker.patch('csle_common.controllers.five_g_du_controller.FiveGDUController.'
-                     'init_five_g_ue', return_value=None)
+                     'init_five_g_du_ue', return_value=None)
         container_ip = get_ex_exec.emulation_env_config.containers_config.containers[0].get_ips()[0]
         physical_host_ip = get_ex_exec.emulation_env_config.containers_config.containers[0].physical_host_ip
         mocker.patch('csle_common.util.general_util.GeneralUtil.get_host_ip', return_value=physical_host_ip)
