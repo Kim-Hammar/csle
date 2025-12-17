@@ -33,4 +33,7 @@ message StartFiveGUEMsg {}
 message StopFiveGUEMsg {}
 
 // Message that the client sends to initialize the 5G UE
-message InitFiveGUEMsg {}
+message InitFiveGUEMsg {
+  string cu_backhaul_ip = 1;
+  string cu_fronthaul_ip = 2;
+}

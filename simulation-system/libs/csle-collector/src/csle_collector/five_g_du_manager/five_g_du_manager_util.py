@@ -2,6 +2,7 @@ from typing import Dict, Any
 import subprocess
 import re
 import logging
+import yaml
 import csle_collector.five_g_du_manager.five_g_du_manager_pb2
 import csle_collector.constants.constants as constants
 
@@ -263,3 +264,55 @@ class FiveGDUManagerUtil:
         dto.ue_running = False
         dto.ip = "0.0.0.0"
         return dto
+
+    @staticmethod
+    def init_du_config_file(cu_backhaul_ip: str, du_backhaul_ip: str) -> bool:
+        """
+        Modifies the /srsRAN_Project/build/apps/du/du.yml configuration file.
+
+        :param cu_backhaul_ip: The IP address of the CU (F1-C interface).
+        :param du_backhaul_ip: The IP address of the DU (F1-U interface).
+        :return: True if the file was updated successfully, False otherwise.
+        """
+        config_path = "/srsRAN_Project/build/apps/du/du.yml"
+        logging.info(f"Attempting to update DU config at {config_path}")
+        logging.info(f"Setting CU IP (cu_cp_addr) to: {cu_backhaul_ip}")
+        logging.info(f"Setting DU IP (bind_addr) to: {du_backhaul_ip}")
+        try:
+            with open(config_path, 'r') as f:
+                config = yaml.safe_load(f)
+            try:
+                if 'f1ap' in config:
+                    config['f1ap']['cu_cp_addr'] = cu_backhaul_ip
+                    config['f1ap']['bind_addr'] = du_backhaul_ip
+                else:
+                    logging.error(f"Invalid YAML structure in {config_path}: 'f1ap' section missing.")
+                    return False
+
+                if 'f1u' in config and 'socket' in config['f1u']:
+                    if isinstance(config['f1u']['socket'], list) and len(config['f1u']['socket']) > 0:
+                        config['f1u']['socket'][0]['bind_addr'] = du_backhaul_ip
+                    else:
+                        logging.warning(f"{config_path}: 'f1u.socket' list is empty. Skipping F1U update.")
+                else:
+                    logging.warning(f"{config_path}: 'f1u' section missing. Skipping F1U update.")
+
+            except (TypeError, KeyError, IndexError) as e:
+                logging.error(f"Error modifying DU YAML structure: {e}")
+                return False
+
+            with open(config_path, 'w') as f:
+                yaml.dump(config, f, default_flow_style=False, sort_keys=False)
+
+            logging.info(f"Successfully updated {config_path}")
+            return True
+
+        except FileNotFoundError:
+            logging.error(f"Configuration file not found at {config_path}")
+            return False
+        except PermissionError:
+            logging.error(f"Permission denied. Cannot write to {config_path}.")
+            return False
+        except Exception as e:
+            logging.error(f"An unexpected error occurred processing {config_path}: {e}")
+            return False

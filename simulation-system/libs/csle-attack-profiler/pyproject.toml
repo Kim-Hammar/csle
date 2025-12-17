@@ -19,8 +19,8 @@ classifiers = [
 ]
 dependencies = [
     "mitreattack-python==2.0.14",
-    "csle-base==0.9.28",
-    "csle-common==0.9.28"
+    "csle-base==0.9.29",
+    "csle-common==0.9.29"
 ]
 
 [project.optional-dependencies]
