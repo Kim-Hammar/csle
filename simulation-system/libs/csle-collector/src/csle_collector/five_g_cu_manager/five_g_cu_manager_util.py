@@ -144,17 +144,17 @@ class FiveGCUManagerUtil:
         return dto
 
     @staticmethod
-    def init_config_file(core_ip: str, cu_ip: str) -> bool:
+    def init_config_file(core_backhaul_ip: str, cu_ip: str) -> bool:
         """
         Initializes the /srsRAN_Project/build/apps/cu/cu.yml configuration file.
 
-        :param core_ip: The IP address of the 5G Core (AMF).
+        :param core_backhaul_ip: The backhaul IP address of the 5G Core (AMF).
         :param cu_ip: The IP address of the CU (Central Unit).
         :return: True if the file was updated successfully, False otherwise.
         """
         config_path = "/srsRAN_Project/build/apps/cu/cu.yml"
         logging.info(f"Attempting to update CU config at {config_path}")
-        logging.info(f"Setting Core IP (AMF addr) to: {core_ip}")
+        logging.info(f"Setting Core IP (AMF addr) to: {core_backhaul_ip}")
         logging.info(f"Setting CU IP (AMF bind_addr) to: {cu_ip}")
 
         try:
@@ -162,7 +162,7 @@ class FiveGCUManagerUtil:
                 config = yaml.safe_load(f)
             try:
                 if 'cu_cp' in config and 'amf' in config['cu_cp']:
-                    config['cu_cp']['amf']['addr'] = core_ip
+                    config['cu_cp']['amf']['addr'] = core_backhaul_ip
                     config['cu_cp']['amf']['bind_addr'] = cu_ip
                 else:
                     logging.error(f"Invalid YAML structure in {config_path}: 'cu_cp.amf' section missing.")

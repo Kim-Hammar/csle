@@ -527,7 +527,7 @@ def get_ex_em_env() -> EmulationEnvConfig:
                 imsi="001010123456780", key="00112233445566778899aabbccddeeff",
                 opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10
             )
-        ], core_ip="127.0.0.1"
+        ], core_backhaul_ip="127.0.0.1"
     )
     em_env = EmulationEnvConfig(name="Johndoe", containers_config=c_config, users_config=u_config,
                                 flags_config=FlagsConfig(node_flag_configs=[nf_conf]),

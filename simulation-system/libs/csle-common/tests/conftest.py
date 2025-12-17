@@ -2309,5 +2309,5 @@ def example_five_g_config() -> FiveGConfig:
                 imsi="001010123456780", key="00112233445566778899aabbccddeeff",
                 opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10
             )
-        ], core_ip="127.0.0.1"
+        ], core_backhaul_ip="127.0.0.1"
     )

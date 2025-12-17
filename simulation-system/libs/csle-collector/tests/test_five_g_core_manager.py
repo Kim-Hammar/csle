@@ -425,9 +425,9 @@ class TestFiveGCoreManagerSuite:
                 opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10
             )
         ]
-        core_ip = "127.0.0.1"
+        core_backhaul_ip = "127.0.0.1"
         response: FiveGCoreStatusDTO = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(
-            stub=grpc_stub, subscribers=subscribers, core_ip=core_ip)
+            stub=grpc_stub, subscribers=subscribers, core_backhaul_ip=core_backhaul_ip)
         assert response.mongo_running == mock_status.mongo_running
         assert response.mme_running == mock_status.mme_running
         assert response.sgwc_running == mock_status.sgwc_running
@@ -478,7 +478,7 @@ class TestFiveGCoreManagerSuite:
         mocker.patch('csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.'
                      'get_core_status', return_value=mock_status_dict)
         response_2: FiveGCoreStatusDTO = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(
-            stub=grpc_stub, subscribers=subscribers, core_ip=core_ip)
+            stub=grpc_stub, subscribers=subscribers, core_backhaul_ip=core_backhaul_ip)
         assert response_2.mongo_running == mock_status.mongo_running
         assert response_2.mme_running == mock_status.mme_running
         assert response_2.sgwc_running == mock_status.sgwc_running

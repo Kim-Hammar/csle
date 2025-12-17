@@ -132,18 +132,18 @@ class InitFiveGCoreMsg(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
-    CORE_IP_FIELD_NUMBER: builtins.int
+    CORE_BACKHAUL_IP_FIELD_NUMBER: builtins.int
     SUBSCRIBERS_FIELD_NUMBER: builtins.int
-    core_ip: builtins.str
+    core_backhaul_ip: builtins.str
     @property
     def subscribers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SubscriberDTO]: ...
     def __init__(
         self,
         *,
-        core_ip: builtins.str = ...,
+        core_backhaul_ip: builtins.str = ...,
         subscribers: collections.abc.Iterable[global___SubscriberDTO] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["core_ip", b"core_ip", "subscribers", b"subscribers"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["core_backhaul_ip", b"core_backhaul_ip", "subscribers", b"subscribers"]) -> None: ...
 
 global___InitFiveGCoreMsg = InitFiveGCoreMsg
 

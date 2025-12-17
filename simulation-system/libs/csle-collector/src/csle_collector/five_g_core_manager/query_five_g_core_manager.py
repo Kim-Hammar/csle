@@ -61,19 +61,19 @@ def stop_five_g_core(
 def init_five_g_core(
         stub: csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub,
         subscribers: List[csle_collector.five_g_core_manager.five_g_core_manager_pb2.SubscriberDTO],
-        core_ip: str, timeout=constants.GRPC.TIMEOUT_SECONDS) \
+        core_backhaul_ip: str, timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
     """
     Sends a request to the 5G core manager for stopping the 5G core services
 
     :param stub: the stub to send the remote gRPC to the server
     :param subscribers: list of subscribers
-    :param core_ip: The backhaul IP of the core network
+    :param core_backhaul_ip: The backhaul IP of the core network
     :param timeout: the timeout for the gRRPC call
     :return: a FiveGCoreStatusDTO describing the status of the 5G core
     """
     init_5g_core_msg = csle_collector.five_g_core_manager.five_g_core_manager_pb2.InitFiveGCoreMsg(
-        subscribers=subscribers, core_ip=core_ip)
+        subscribers=subscribers, core_backhaul_ip=core_backhaul_ip)
     five_g_core_status: csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO = \
         stub.initFiveGCore(init_5g_core_msg, timeout=timeout)
     return five_g_core_status

@@ -60,11 +60,11 @@ def stop_5g_core(ip: str, port: int):
 def init_5g_core(
         ip: str, port: int,
         subscribers: List[csle_collector.five_g_core_manager.five_g_core_manager_pb2.SubscriberDTO],
-        core_ip: str):
+        core_backhaul_ip: str):
     with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
         stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
         status = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(
-            stub=stub, subscribers=subscribers, core_ip=core_ip)
+            stub=stub, subscribers=subscribers, core_backhaul_ip=core_backhaul_ip)
         status_str = (f"mongo_running: {status.mongo_running},\nmme_running: {status.mme_running},\n"
                       f"sgwc_running: {status.sgwc_running},\nsmf_running: {status.smf_running},\n"
                       f"amf_running: {status.amf_running},\nsgwu_running: {status.sgwu_running},\n"
@@ -80,7 +80,7 @@ def init_5g_core(
 
 if __name__ == '__main__':
     ip = "172.18.0.6"
-    core_ip = "15.16.3.50"
+    core_backhaul_ip = "15.16.3.50"
     port = 50052
     # get_status(ip, port)
     # start_5g_core(ip, port)
@@ -92,4 +92,4 @@ if __name__ == '__main__':
     #         opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10
     #     )
     # ]
-    # init_5g_core(ip, port, subscribers, core_ip)
+    # init_5g_core(ip, port, subscribers, core_backhaul_ip)

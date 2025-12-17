@@ -156,7 +156,7 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         FiveGCoreManagerUtil.init_subscriber_data(
             control_script_path=constants.FIVE_G_CORE.SUBSCRIBER_CONTROL_SCRIPT_PATH,
             subscribers=list(request.subscribers))
-        FiveGCoreManagerUtil.init_config_files(ip=request.core_ip)
+        FiveGCoreManagerUtil.init_config_files(ip=request.core_backhaul_ip)
         status = FiveGCoreManagerUtil.get_core_status(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(
