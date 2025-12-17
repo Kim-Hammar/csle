@@ -3945,6 +3945,26 @@ class ClusterController:
             return operation_outcome_dto
 
     @staticmethod
+    def init_five_g_cus(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to initialize the 5G CUs of a given execution
+
+        :param ip: the ip of the node where to stop the 5G CUs
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.init_five_g_cus(
+                stub=stub, emulation=emulation, ip_first_octet=ip_first_octet
+            )
+            return operation_outcome_dto
+
+    @staticmethod
     def start_five_g_cu(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
             -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
         """
@@ -3961,6 +3981,26 @@ class ClusterController:
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
             operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.start_five_g_cu(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return operation_outcome_dto
+
+    @staticmethod
+    def init_five_g_cu(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Initializes the 5G CU on a specific node
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the node to initialize the 5G CU
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.init_five_g_cu(
                 stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
             return operation_outcome_dto
 

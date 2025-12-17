@@ -3,6 +3,7 @@ from typing import List
 import grpc
 import time
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
+from csle_common.dao.emulation_config.node_container_config import NodeContainerConfig
 from csle_common.dao.emulation_config.five_g_cu_managers_info import FiveGCUManagersInfo
 import csle_common.constants.constants as constants
 import csle_collector.constants.constants as csle_collector_constants
@@ -320,3 +321,52 @@ class FiveGCUController:
             ports=five_g_core_managers_ports, execution_id=execution_id, emulation_name=emulation_name,
             five_g_cu_managers_statuses=five_g_cu_managers_statuses)
         return five_g_core_manager_info_dto
+
+    @staticmethod
+    def init_five_g_cus(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
+                        logger: logging.Logger) -> None:
+        """
+        Utility method for initializing the 5G CUs of a specific execution
+
+        :param emulation_env_config: the emulation env config
+        :param physical_server_ip: the ip of the physical server
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        for c in emulation_env_config.containers_config.containers:
+            if c.physical_host_ip != physical_server_ip:
+                continue
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CU_IMAGES:
+                if ids_image in c.name:
+                    FiveGCUController.init_five_g_cu(emulation_env_config=emulation_env_config,
+                                                     container=c, logger=logger)
+
+    @staticmethod
+    def init_five_g_cu(emulation_env_config: EmulationEnvConfig, container: NodeContainerConfig,
+                       logger: logging.Logger) \
+            -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
+        """
+        Utility method for initializing the 5G CU on a specific container
+
+        :param emulation_env_config: the emulation env config
+        :param container: the container
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        logger.info(f"Initializing the 5G CU on container with ip {container.docker_gw_bridge_ip} "
+                    f"in execution {emulation_env_config.execution_id} "
+                    f"of emulation: {emulation_env_config.name}")
+        port = emulation_env_config.five_g_config.five_g_cu_manager_port
+        core_backhaul_ip = emulation_env_config.five_g_config.core_backhaul_ip
+        cu_backhaul_ip = ""
+        for cu_ip in emulation_env_config.five_g_config.cu_backhaul_ips:
+            if cu_ip in container.get_ips():
+                cu_backhaul_ip = cu_ip
+        if cu_backhaul_ip == "":
+            raise ValueError("Could not find cu backhaul ip")
+        with grpc.insecure_channel(f'{container.docker_gw_bridge_ip}:{port}',
+                                   options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerStub(channel)
+            status = csle_collector.five_g_cu_manager.query_five_g_cu_manager.init_five_g_cu(
+                core_backhaul_ip=core_backhaul_ip, cu_backhaul_ip=cu_backhaul_ip, stub=stub)
+            return status

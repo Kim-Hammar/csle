@@ -126,3 +126,31 @@ class TestFiveGCUManagerSuite:
                                         get_five_g_cu_status(stub=grpc_stub))
         assert response_2.cu_running == mock_status.cu_running
         assert response_2.ip == mock_status.ip
+
+    def test_initFiveGCU(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
+        """
+        Tests the initFiveGCU grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :return: None
+        """
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
+                     'init_config_file', return_value=None)
+        mock_status_dict = {constants.FIVE_G_CU.CU: False}
+        mock_status = FiveGCUStatusDTO(cu_running=False, ip="0.0.0.0")
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
+                     'get_cu_status', return_value=mock_status_dict)
+        response: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.init_five_g_cu(
+            core_backhaul_ip="127.0.0.1", cu_backhaul_ip="127.0.0.1", stub=grpc_stub)
+        assert response.cu_running == mock_status.cu_running
+        assert response.ip == mock_status.ip
+
+        mock_status_dict = {constants.FIVE_G_CU.CU: True}
+        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0")
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
+                     'get_cu_status', return_value=mock_status_dict)
+        response_2: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.init_five_g_cu(
+            core_backhaul_ip="127.0.0.1", cu_backhaul_ip="127.0.0.1", stub=grpc_stub)
+        assert response_2.cu_running == mock_status.cu_running
+        assert response_2.ip == mock_status.ip

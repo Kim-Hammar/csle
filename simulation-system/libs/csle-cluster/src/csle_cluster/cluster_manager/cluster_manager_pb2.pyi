@@ -6310,7 +6310,7 @@ global___Init5GCoresMsg = Init5GCoresMsg
 
 @typing_extensions.final
 class Start5GCUManagersMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to start 5G cu managers"""
+    """Message that the client sends when requesting to start 5G CU managers"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6330,7 +6330,7 @@ global___Start5GCUManagersMsg = Start5GCUManagersMsg
 
 @typing_extensions.final
 class Stop5GCUManagersMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to stop 5G cu managers"""
+    """Message that the client sends when requesting to stop 5G CU managers"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6350,7 +6350,7 @@ global___Stop5GCUManagersMsg = Stop5GCUManagersMsg
 
 @typing_extensions.final
 class Start5GCUManagerMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to start a specific 5G cu manager"""
+    """Message that the client sends when requesting to start a specific 5G CU manager"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6373,7 +6373,7 @@ global___Start5GCUManagerMsg = Start5GCUManagerMsg
 
 @typing_extensions.final
 class Stop5GCUManagerMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to stop a specific 5G cu manager"""
+    """Message that the client sends when requesting to stop a specific 5G CU manager"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6396,7 +6396,7 @@ global___Stop5GCUManagerMsg = Stop5GCUManagerMsg
 
 @typing_extensions.final
 class Stop5GCUMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to stop a specific 5G cu"""
+    """Message that the client sends when requesting to stop a specific 5G CU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6419,7 +6419,7 @@ global___Stop5GCUMsg = Stop5GCUMsg
 
 @typing_extensions.final
 class Stop5GCUsMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to stop the 5G cus"""
+    """Message that the client sends when requesting to stop the 5G CUs"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6439,7 +6439,7 @@ global___Stop5GCUsMsg = Stop5GCUsMsg
 
 @typing_extensions.final
 class Start5GCUMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to start a specific 5G cu"""
+    """Message that the client sends when requesting to start a specific 5G CU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6462,7 +6462,7 @@ global___Start5GCUMsg = Start5GCUMsg
 
 @typing_extensions.final
 class Start5GCUsMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to start the 5G cus"""
+    """Message that the client sends when requesting to start the 5G CUs"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6481,8 +6481,51 @@ class Start5GCUsMsg(google.protobuf.message.Message):
 global___Start5GCUsMsg = Start5GCUsMsg
 
 @typing_extensions.final
+class Init5GCUMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize a specific 5G CU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Init5GCUMsg = Init5GCUMsg
+
+@typing_extensions.final
+class Init5GCUsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize the 5G CUs"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Init5GCUsMsg = Init5GCUsMsg
+
+@typing_extensions.final
 class Start5GDUManagersMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to start 5G du managers"""
+    """Message that the client sends when requesting to start 5G DU managers"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6502,7 +6545,7 @@ global___Start5GDUManagersMsg = Start5GDUManagersMsg
 
 @typing_extensions.final
 class Stop5GDUManagersMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to stop 5G du managers"""
+    """Message that the client sends when requesting to stop 5G DU managers"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6522,7 +6565,7 @@ global___Stop5GDUManagersMsg = Stop5GDUManagersMsg
 
 @typing_extensions.final
 class Start5GDUManagerMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to start a specific 5G du manager"""
+    """Message that the client sends when requesting to start a specific 5G DU manager"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6545,7 +6588,7 @@ global___Start5GDUManagerMsg = Start5GDUManagerMsg
 
 @typing_extensions.final
 class Stop5GDUManagerMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to stop a specific 5G du manager"""
+    """Message that the client sends when requesting to stop a specific 5G DU manager"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6568,7 +6611,7 @@ global___Stop5GDUManagerMsg = Stop5GDUManagerMsg
 
 @typing_extensions.final
 class Stop5GDUMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to stop a specific 5G du"""
+    """Message that the client sends when requesting to stop a specific 5G DU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6591,7 +6634,7 @@ global___Stop5GDUMsg = Stop5GDUMsg
 
 @typing_extensions.final
 class Stop5GDUsMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to stop the 5G dus"""
+    """Message that the client sends when requesting to stop the 5G DUs"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6611,7 +6654,7 @@ global___Stop5GDUsMsg = Stop5GDUsMsg
 
 @typing_extensions.final
 class Start5GDUMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to start a specific 5G du"""
+    """Message that the client sends when requesting to start a specific 5G DU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6634,7 +6677,7 @@ global___Start5GDUMsg = Start5GDUMsg
 
 @typing_extensions.final
 class Start5GDUsMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to start the 5G dus"""
+    """Message that the client sends when requesting to start the 5G DUs"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 

@@ -86,6 +86,26 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
             ip=self.ip
         )
 
+    def initFiveGCU(self, request: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.InitFiveGCUMsg,
+                    context: grpc.ServicerContext) \
+            -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
+        """
+        Initializes the 5G CU
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the 5g cu
+        """
+        logging.info("Initializing the 5G CU")
+        FiveGCUManagerUtil.init_config_file(core_backhaul_ip=request.core_backhaul_ip,
+                                            cu_ip=request.cu_backhaul_ip)
+        status = FiveGCUManagerUtil.get_cu_status(
+            control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
+            cu_running=status.get(constants.FIVE_G_CU.CU, False),
+            ip=self.ip
+        )
+
 
 def serve(port: int = 50053, log_dir: str = "/", max_workers: int = 100,
           log_file_name: str = "five_g_cu_manager.log") -> None:

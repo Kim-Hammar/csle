@@ -5,6 +5,7 @@ service FiveGCUManager {
   rpc getFiveGCUStatus(GetFiveGCUStatusMsg) returns (FiveGCUStatusDTO) {}
   rpc stopFiveGCU(StopFiveGCUMsg) returns (FiveGCUStatusDTO) {}
   rpc startFiveGCU(StartFiveGCUMsg) returns (FiveGCUStatusDTO) {}
+  rpc initFiveGCU(InitFiveGCUMsg) returns (FiveGCUStatusDTO) {}
 }
 
 // Message that the client sends to get the status of the 5G CU
@@ -21,3 +22,9 @@ message StopFiveGCUMsg {}
 
 // Message that the client sends to start the 5G CU
 message StartFiveGCUMsg {}
+
+// Message that the client sends to init the 5G CU
+message InitFiveGCUMsg {
+  string core_backhaul_ip = 1;
+  string cu_backhaul_ip = 2;
+}

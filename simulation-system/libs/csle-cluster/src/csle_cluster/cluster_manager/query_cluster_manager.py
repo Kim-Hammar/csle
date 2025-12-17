@@ -4827,6 +4827,28 @@ def stop_five_g_cus(
     return operation_outcome_dto
 
 
+def init_five_g_cus(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Initializes the 5G CUs of a given execution
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: an OperationOutcomeDTO with the outcome of the operation
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Init5GCUsMsg(
+        emulation=emulation, ipFirstOctet=ip_first_octet
+    )
+    operation_outcome_dto: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.init5GCUs(operation_msg, timeout=timeout)
+    return operation_outcome_dto
+
+
 def start_five_g_cu(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int, container_ip: str,
@@ -4870,6 +4892,29 @@ def stop_five_g_cu(
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
         stub.stop5GCU(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def init_five_g_cu(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int, container_ip: str,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Initializes the 5G CU on a specific node
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param container_ip: the IP of the node to start the manager
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Init5GCUMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.init5GCU(operation_msg, timeout=timeout)
     return operation_outcome
 
 

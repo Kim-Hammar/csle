@@ -16,7 +16,7 @@ DESCRIPTOR: google.protobuf.descriptor.FileDescriptor
 
 @typing_extensions.final
 class GetFiveGCUStatusMsg(google.protobuf.message.Message):
-    """Message that the client sends to get the status of the 5G core"""
+    """Message that the client sends to get the status of the 5G CU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -28,7 +28,7 @@ global___GetFiveGCUStatusMsg = GetFiveGCUStatusMsg
 
 @typing_extensions.final
 class FiveGCUStatusDTO(google.protobuf.message.Message):
-    """Message that the server returns when asked about the status of the 5G core"""
+    """Message that the server returns when asked about the status of the 5G CU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -48,7 +48,7 @@ global___FiveGCUStatusDTO = FiveGCUStatusDTO
 
 @typing_extensions.final
 class StopFiveGCUMsg(google.protobuf.message.Message):
-    """Message that the client sends to stop the 5G core"""
+    """Message that the client sends to stop the 5G CU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -60,7 +60,7 @@ global___StopFiveGCUMsg = StopFiveGCUMsg
 
 @typing_extensions.final
 class StartFiveGCUMsg(google.protobuf.message.Message):
-    """Message that the client sends to start the 5G core"""
+    """Message that the client sends to start the 5G CU"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -69,3 +69,23 @@ class StartFiveGCUMsg(google.protobuf.message.Message):
     ) -> None: ...
 
 global___StartFiveGCUMsg = StartFiveGCUMsg
+
+@typing_extensions.final
+class InitFiveGCUMsg(google.protobuf.message.Message):
+    """Message that the client sends to init the 5G CU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CORE_BACKHAUL_IP_FIELD_NUMBER: builtins.int
+    CU_BACKHAUL_IP_FIELD_NUMBER: builtins.int
+    core_backhaul_ip: builtins.str
+    cu_backhaul_ip: builtins.str
+    def __init__(
+        self,
+        *,
+        core_backhaul_ip: builtins.str = ...,
+        cu_backhaul_ip: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["core_backhaul_ip", b"core_backhaul_ip", "cu_backhaul_ip", b"cu_backhaul_ip"]) -> None: ...
+
+global___InitFiveGCUMsg = InitFiveGCUMsg

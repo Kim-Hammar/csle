@@ -1185,6 +1185,11 @@ class ClusterManagerStub(object):
                 request_serializer=cluster__manager__pb2.Start5GCUsMsg.SerializeToString,
                 response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
                 _registered_method=True)
+        self.init5GCUs = channel.unary_unary(
+                '/ClusterManager/init5GCUs',
+                request_serializer=cluster__manager__pb2.Init5GCUsMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
         self.stop5GCU = channel.unary_unary(
                 '/ClusterManager/stop5GCU',
                 request_serializer=cluster__manager__pb2.Stop5GCUMsg.SerializeToString,
@@ -1193,6 +1198,11 @@ class ClusterManagerStub(object):
         self.start5GCU = channel.unary_unary(
                 '/ClusterManager/start5GCU',
                 request_serializer=cluster__manager__pb2.Start5GCUMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.init5GCU = channel.unary_unary(
+                '/ClusterManager/init5GCU',
+                request_serializer=cluster__manager__pb2.Init5GCUMsg.SerializeToString,
                 response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
                 _registered_method=True)
         self.start5GDUManagers = channel.unary_unary(
@@ -2701,6 +2711,12 @@ class ClusterManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def init5GCUs(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def stop5GCU(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -2708,6 +2724,12 @@ class ClusterManagerServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def start5GCU(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def init5GCU(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -4010,6 +4032,11 @@ def add_ClusterManagerServicer_to_server(servicer, server):
                     request_deserializer=cluster__manager__pb2.Start5GCUsMsg.FromString,
                     response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
             ),
+            'init5GCUs': grpc.unary_unary_rpc_method_handler(
+                    servicer.init5GCUs,
+                    request_deserializer=cluster__manager__pb2.Init5GCUsMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
             'stop5GCU': grpc.unary_unary_rpc_method_handler(
                     servicer.stop5GCU,
                     request_deserializer=cluster__manager__pb2.Stop5GCUMsg.FromString,
@@ -4018,6 +4045,11 @@ def add_ClusterManagerServicer_to_server(servicer, server):
             'start5GCU': grpc.unary_unary_rpc_method_handler(
                     servicer.start5GCU,
                     request_deserializer=cluster__manager__pb2.Start5GCUMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'init5GCU': grpc.unary_unary_rpc_method_handler(
+                    servicer.init5GCU,
+                    request_deserializer=cluster__manager__pb2.Init5GCUMsg.FromString,
                     response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
             ),
             'start5GDUManagers': grpc.unary_unary_rpc_method_handler(
@@ -10363,6 +10395,33 @@ class ClusterManager(object):
             _registered_method=True)
 
     @staticmethod
+    def init5GCUs(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/init5GCUs',
+            cluster__manager__pb2.Init5GCUsMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
     def stop5GCU(request,
             target,
             options=(),
@@ -10405,6 +10464,33 @@ class ClusterManager(object):
             target,
             '/ClusterManager/start5GCU',
             cluster__manager__pb2.Start5GCUMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def init5GCU(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/init5GCU',
+            cluster__manager__pb2.Init5GCUMsg.SerializeToString,
             cluster__manager__pb2.OperationOutcomeDTO.FromString,
             options,
             channel_credentials,

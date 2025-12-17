@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x66ive_g_cu_manager.proto\"\x15\n\x13GetFiveGCUStatusMsg\"2\n\x10\x46iveGCUStatusDTO\x12\x12\n\ncu_running\x18\x01 \x01(\x08\x12\n\n\x02ip\x18\x02 \x01(\t\"\x10\n\x0eStopFiveGCUMsg\"\x11\n\x0fStartFiveGCUMsg2\xbb\x01\n\x0e\x46iveGCUManager\x12=\n\x10getFiveGCUStatus\x12\x14.GetFiveGCUStatusMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x33\n\x0bstopFiveGCU\x12\x0f.StopFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x35\n\x0cstartFiveGCU\x12\x10.StartFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x66ive_g_cu_manager.proto\"\x15\n\x13GetFiveGCUStatusMsg\"2\n\x10\x46iveGCUStatusDTO\x12\x12\n\ncu_running\x18\x01 \x01(\x08\x12\n\n\x02ip\x18\x02 \x01(\t\"\x10\n\x0eStopFiveGCUMsg\"\x11\n\x0fStartFiveGCUMsg\"B\n\x0eInitFiveGCUMsg\x12\x18\n\x10\x63ore_backhaul_ip\x18\x01 \x01(\t\x12\x16\n\x0e\x63u_backhaul_ip\x18\x02 \x01(\t2\xf0\x01\n\x0e\x46iveGCUManager\x12=\n\x10getFiveGCUStatus\x12\x14.GetFiveGCUStatusMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x33\n\x0bstopFiveGCU\x12\x0f.StopFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x35\n\x0cstartFiveGCU\x12\x10.StartFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x33\n\x0binitFiveGCU\x12\x0f.InitFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -39,6 +39,8 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_STOPFIVEGCUMSG']._serialized_end=118
   _globals['_STARTFIVEGCUMSG']._serialized_start=120
   _globals['_STARTFIVEGCUMSG']._serialized_end=137
-  _globals['_FIVEGCUMANAGER']._serialized_start=140
-  _globals['_FIVEGCUMANAGER']._serialized_end=327
+  _globals['_INITFIVEGCUMSG']._serialized_start=139
+  _globals['_INITFIVEGCUMSG']._serialized_end=205
+  _globals['_FIVEGCUMANAGER']._serialized_start=208
+  _globals['_FIVEGCUMANAGER']._serialized_end=448
 # @@protoc_insertion_point(module_scope)

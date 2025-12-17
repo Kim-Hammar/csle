@@ -50,6 +50,11 @@ class FiveGCUManagerStub(object):
                 request_serializer=five__g__cu__manager__pb2.StartFiveGCUMsg.SerializeToString,
                 response_deserializer=five__g__cu__manager__pb2.FiveGCUStatusDTO.FromString,
                 _registered_method=True)
+        self.initFiveGCU = channel.unary_unary(
+                '/FiveGCUManager/initFiveGCU',
+                request_serializer=five__g__cu__manager__pb2.InitFiveGCUMsg.SerializeToString,
+                response_deserializer=five__g__cu__manager__pb2.FiveGCUStatusDTO.FromString,
+                _registered_method=True)
 
 
 class FiveGCUManagerServicer(object):
@@ -74,6 +79,12 @@ class FiveGCUManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def initFiveGCU(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_FiveGCUManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -90,6 +101,11 @@ def add_FiveGCUManagerServicer_to_server(servicer, server):
             'startFiveGCU': grpc.unary_unary_rpc_method_handler(
                     servicer.startFiveGCU,
                     request_deserializer=five__g__cu__manager__pb2.StartFiveGCUMsg.FromString,
+                    response_serializer=five__g__cu__manager__pb2.FiveGCUStatusDTO.SerializeToString,
+            ),
+            'initFiveGCU': grpc.unary_unary_rpc_method_handler(
+                    servicer.initFiveGCU,
+                    request_deserializer=five__g__cu__manager__pb2.InitFiveGCUMsg.FromString,
                     response_serializer=five__g__cu__manager__pb2.FiveGCUStatusDTO.SerializeToString,
             ),
     }
@@ -174,6 +190,33 @@ class FiveGCUManager(object):
             target,
             '/FiveGCUManager/startFiveGCU',
             five__g__cu__manager__pb2.StartFiveGCUMsg.SerializeToString,
+            five__g__cu__manager__pb2.FiveGCUStatusDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def initFiveGCU(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/FiveGCUManager/initFiveGCU',
+            five__g__cu__manager__pb2.InitFiveGCUMsg.SerializeToString,
             five__g__cu__manager__pb2.FiveGCUStatusDTO.FromString,
             options,
             channel_credentials,
