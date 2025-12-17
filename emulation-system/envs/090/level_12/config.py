@@ -3392,7 +3392,7 @@ def default_five_g_config(network_id: int, level: int, version: str, time_step_l
         five_g_du_manager_log_file=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_FILE,
         five_g_du_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_DIR,
         five_g_du_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
-        subscribers=[]
+        subscribers=[], core_ip="127.0.0.1"
     )
     return config
 

@@ -2,6 +2,7 @@ from typing import Dict, Any, List
 import subprocess
 import re
 import logging
+import yaml
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2
 import csle_collector.constants.constants as constants
 
@@ -247,7 +248,7 @@ class FiveGCoreManagerUtil:
                 sub.key,
                 sub.opc,
                 sub.amf,
-                str(sub.sqn)  # Convert integer SQN to string for command line
+                str(sub.sqn)
             ]
 
             try:
@@ -268,3 +269,71 @@ class FiveGCoreManagerUtil:
 
         logging.info("All subscriber data initialized successfully.")
         return True
+
+    @staticmethod
+    def init_config_files(ip: str) -> bool:
+        """
+        Modifies the Open5GS configuration files to set the bind IP addresses.
+        Specifically updates:
+        1. /etc/open5gs/amf.yaml (amf -> ngap -> server -> address)
+        2. /etc/open5gs/upf.yaml (upf -> pfcp -> server -> address)
+
+        :param ip: The new IP address to set.
+        :return: True if all files were updated successfully, False otherwise.
+        """
+        target_configs = [
+            (
+                "/etc/open5gs/amf.yaml",
+                ["amf", "ngap", "server"]
+            ),
+            (
+                "/etc/open5gs/upf.yaml",
+                ["upf", "pfcp", "server"]
+            )
+        ]
+
+        success = True
+
+        for file_path, key_path in target_configs:
+            logging.info(f"Attempting to update IP to {ip} in {file_path}")
+
+            try:
+                with open(file_path, 'r') as f:
+                    config = yaml.safe_load(f)
+
+                current_node = config
+                path_valid = True
+
+                for key in key_path:
+                    if isinstance(current_node, dict) and key in current_node:
+                        current_node = current_node[key]
+                    else:
+                        logging.error(f"Invalid structure in {file_path}: Key '{key}' not found.")
+                        path_valid = False
+                        break
+
+                if path_valid and isinstance(current_node, list) and len(current_node) > 0:
+                    current_node[0]['address'] = ip
+                elif path_valid:
+                    logging.error(f"Invalid structure in {file_path}: Target key is not a list or is empty.")
+                    success = False
+                    continue
+
+                if path_valid:
+                    with open(file_path, 'w') as f:
+                        yaml.dump(config, f, default_flow_style=False, sort_keys=False)
+                    logging.info(f"Successfully updated {file_path}")
+                else:
+                    success = False
+
+            except FileNotFoundError:
+                logging.error(f"Configuration file not found at {file_path}")
+                success = False
+            except PermissionError:
+                logging.error(f"Permission denied. Cannot write to {file_path}. (Run as root?)")
+                success = False
+            except Exception as e:
+                logging.error(f"An unexpected error occurred processing {file_path}: {e}")
+                success = False
+
+        return success

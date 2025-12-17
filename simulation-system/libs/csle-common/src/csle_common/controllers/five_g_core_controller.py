@@ -323,7 +323,7 @@ class FiveGCoreController:
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
             status = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(
-                stub=stub, subscribers=subscribers)
+                stub=stub, subscribers=subscribers, core_ip=emulation_env_config.five_g_config.core_ip)
             return status
 
     @staticmethod

@@ -43,7 +43,8 @@ message StartFiveGCoreMsg {}
 
 // Message that the client sends to initialize the 5G core
 message InitFiveGCoreMsg {
-  repeated SubscriberDTO subscribers = 1;
+  string core_ip = 1;
+  repeated SubscriberDTO subscribers = 2;
 }
 
 // DTO with subscriber data

@@ -14,6 +14,7 @@ class FiveGConfig(JSONSerializable):
                  five_g_cu_manager_max_workers: int,
                  five_g_du_manager_log_file: str, five_g_du_manager_log_dir: str,
                  five_g_du_manager_max_workers: int, subscribers: List[FiveGSubscriberConfig],
+                 core_ip: str,
                  time_step_len_seconds: int = 15, five_g_core_manager_port: int = 50052,
                  five_g_cu_manager_port: int = 50053, five_g_du_manager_port: int = 50054,
                  version: str = "0.0.1") -> None:
@@ -23,6 +24,7 @@ class FiveGConfig(JSONSerializable):
         :param time_step_len_seconds: the length of a time-step (period for logging)
         :param version: the version
         :param subscribers: the 5G subscribers
+        :param core_ip: the IP of the core network as seen to the RAN
         :param five_g_core_manager_port: the GRPC port of the 5G core manager
         :param five_g_core_manager_log_file: Log file of the 5G core manager
         :param five_g_core_manager_log_dir: Log dir of the 5G core manager
@@ -55,6 +57,7 @@ class FiveGConfig(JSONSerializable):
         self.five_g_du_manager_max_workers = five_g_du_manager_max_workers
 
         self.subscribers = subscribers
+        self.core_ip = core_ip
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> "FiveGConfig":
@@ -78,7 +81,8 @@ class FiveGConfig(JSONSerializable):
             five_g_du_manager_log_dir=d["five_g_du_manager_log_dir"],
             five_g_du_manager_max_workers=d["five_g_du_manager_max_workers"],
             five_g_du_manager_port=d["five_g_du_manager_port"],
-            subscribers=list(map(lambda x: FiveGSubscriberConfig.from_dict(x), d["subscribers"]))
+            subscribers=list(map(lambda x: FiveGSubscriberConfig.from_dict(x), d["subscribers"])),
+            core_ip=d["core_ip"]
         )
         return obj
 
@@ -104,6 +108,7 @@ class FiveGConfig(JSONSerializable):
         d["five_g_du_manager_max_workers"] = self.five_g_du_manager_max_workers
         d["five_g_du_manager_port"] = self.five_g_du_manager_port
         d["subscribers"] = list(map(lambda x: x.to_dict(), self.subscribers))
+        d["core_ip"] = self.core_ip
         return d
 
     def __str__(self) -> str:
@@ -123,7 +128,7 @@ class FiveGConfig(JSONSerializable):
                 f"five_g_du_manager_log_dir: {self.five_g_du_manager_log_dir}, "
                 f"five_g_du_manager_max_workers: {self.five_g_du_manager_max_workers}, "
                 f"five_g_du_manager_port: {self.five_g_du_manager_port}, "
-                f"subscribers: {self.subscribers}")
+                f"subscribers: {self.subscribers}, core_ip: {self.core_ip}")
 
     @staticmethod
     def from_json_file(json_file_path: str) -> "FiveGConfig":
@@ -174,5 +179,5 @@ class FiveGConfig(JSONSerializable):
             five_g_du_manager_port=50052,
             five_g_du_manager_log_dir="/",
             five_g_du_manager_max_workers=10,
-            subscribers=[]
+            subscribers=[], core_ip="127.0.0.1"
         )

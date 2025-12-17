@@ -1,9 +1,9 @@
-csle-base==0.9.21
-csle-common==0.9.21
-csle-collector==0.9.21
-csle-attacker==0.9.21
-csle-defender==0.9.21
-csle-cluster==0.9.21
+csle-base==0.9.22
+csle-common==0.9.22
+csle-collector==0.9.22
+csle-attacker==0.9.22
+csle-defender==0.9.22
+csle-cluster==0.9.22
 gpytorch==1.9.0
 pymc==5.5.0
 pytensor==2.12.3
