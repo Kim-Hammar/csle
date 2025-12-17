@@ -1,6 +1,8 @@
+from typing import List
 import grpc
 import csle_common.constants.constants as constants
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc
+import csle_collector.five_g_core_manager.five_g_core_manager_pb2
 import csle_collector.five_g_core_manager.query_five_g_core_manager
 
 
@@ -55,10 +57,12 @@ def stop_5g_core(ip: str, port: int):
         print(status_str)
 
 
-def init_5g_core(ip: str, port: int):
+def init_5g_core(ip: str, port: int,
+                 subscribers: List[csle_collector.five_g_core_manager.five_g_core_manager_pb2.SubscriberDTO]):
     with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
         stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
-        status = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(stub=stub)
+        status = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(
+            stub=stub, subscribers=subscribers)
         status_str = (f"mongo_running: {status.mongo_running},\nmme_running: {status.mme_running},\n"
                       f"sgwc_running: {status.sgwc_running},\nsmf_running: {status.smf_running},\n"
                       f"amf_running: {status.amf_running},\nsgwu_running: {status.sgwu_running},\n"
@@ -78,4 +82,11 @@ if __name__ == '__main__':
     # get_status(ip, port)
     # start_5g_core(ip, port)
     stop_5g_core(ip, port)
-    # init_5g_core(ip, port)
+    # from csle_common.dao.emulation_config.five_g_subscriber_config import FiveGSubscriberConfig
+    # subscribers = [
+    #     FiveGSubscriberConfig(
+    #         imsi="001010123456780", key="00112233445566778899aabbccddeeff",
+    #         opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10
+    #     )
+    # ]
+    # init_5g_core(ip, port, subscribers)

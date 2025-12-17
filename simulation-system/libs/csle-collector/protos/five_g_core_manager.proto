@@ -42,4 +42,15 @@ message StopFiveGCoreMsg {}
 message StartFiveGCoreMsg {}
 
 // Message that the client sends to initialize the 5G core
-message InitFiveGCoreMsg {}
+message InitFiveGCoreMsg {
+  repeated SubscriberDTO subscribers = 1;
+}
+
+// DTO with subscriber data
+message SubscriberDTO {
+  string imsi = 1;
+  string key = 2;
+  string opc = 3;
+  string amf = 4;
+  int32 sqn = 5;
+}

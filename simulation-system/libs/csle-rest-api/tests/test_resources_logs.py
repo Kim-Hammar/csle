@@ -23,6 +23,7 @@ from csle_common.dao.emulation_config.default_network_firewall_config import Def
 from csle_common.dao.emulation_config.docker_stats_manager_config import DockerStatsManagerConfig
 from csle_common.dao.emulation_config.elk_config import ElkConfig
 from csle_common.dao.emulation_config.five_g_config import FiveGConfig
+from csle_common.dao.emulation_config.five_g_subscriber_config import FiveGSubscriberConfig
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
 from csle_common.dao.emulation_config.emulation_execution import EmulationExecution
 from csle_common.dao.emulation_config.flag import Flag
@@ -696,7 +697,13 @@ class TestResourcesLogsSuite:
                 five_g_du_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_DU_MANAGER_DEFAULT_PORT,
                 five_g_du_manager_log_file=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_FILE,
                 five_g_du_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_DIR,
-                five_g_du_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS
+                five_g_du_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+                subscribers=[
+                    FiveGSubscriberConfig(
+                        imsi="001010123456780", key="00112233445566778899aabbccddeeff",
+                        opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10
+                    )
+                ]
             )
             em_env = EmulationEnvConfig(name=emulation_name, containers_config=c_config, users_config=u_config,
                                         flags_config=FlagsConfig(node_flag_configs=[nf_conf]),

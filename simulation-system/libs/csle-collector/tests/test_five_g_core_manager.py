@@ -419,8 +419,14 @@ class TestFiveGCoreManagerSuite:
             nssf_running=False, bsf_running=False, udr_running=False, webui_running=False, ip="0.0.0.0")
         mocker.patch('csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.'
                      'get_core_status', return_value=mock_status_dict)
+        subscribers = [
+            csle_collector.five_g_core_manager.five_g_core_manager_pb2.SubscriberDTO(
+                imsi="001010123456780", key="00112233445566778899aabbccddeeff",
+                opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10
+            )
+        ]
         response: FiveGCoreStatusDTO = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(
-            stub=grpc_stub)
+            stub=grpc_stub, subscribers=subscribers)
         assert response.mongo_running == mock_status.mongo_running
         assert response.mme_running == mock_status.mme_running
         assert response.sgwc_running == mock_status.sgwc_running
@@ -471,7 +477,7 @@ class TestFiveGCoreManagerSuite:
         mocker.patch('csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.'
                      'get_core_status', return_value=mock_status_dict)
         response_2: FiveGCoreStatusDTO = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(
-            stub=grpc_stub)
+            stub=grpc_stub, subscribers=subscribers)
         assert response_2.mongo_running == mock_status.mongo_running
         assert response_2.mme_running == mock_status.mme_running
         assert response_2.sgwc_running == mock_status.sgwc_running

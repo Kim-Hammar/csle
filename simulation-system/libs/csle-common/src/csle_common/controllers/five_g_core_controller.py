@@ -319,9 +319,11 @@ class FiveGCoreController:
             f"Initializing the 5G core on container with ip {ip} in execution {emulation_env_config.execution_id} "
             f"of emulation: {emulation_env_config.name}")
         port = emulation_env_config.five_g_config.five_g_core_manager_port
+        subscribers = list(map(lambda x: x.to_subscriber_dto(), emulation_env_config.five_g_config.subscribers))
         with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
-            status = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(stub=stub)
+            status = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(
+                stub=stub, subscribers=subscribers)
             return status
 
     @staticmethod

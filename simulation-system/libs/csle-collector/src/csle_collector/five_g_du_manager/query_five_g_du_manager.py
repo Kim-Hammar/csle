@@ -11,6 +11,7 @@ def get_five_g_du_status(
     Queries the 5G du manager for the status of the 5G du
 
     :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the timeout for the gRRPC call
     :return: a FiveGDUStatusDTO describing the status of the 5G du
     """
     get_5g_du_status_msg = \
@@ -28,6 +29,7 @@ def start_five_g_du(
     Sends a request to the 5G du manager for starting the 5G du
 
     :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the timeout for the gRRPC call
     :return: a FiveGDUStatusDTO describing the status of the 5G du
     """
     start_5g_du_msg = \
@@ -45,6 +47,7 @@ def stop_five_g_du(
     Sends a request to the 5G du manager for stopping the 5G du
 
     :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the timeout for the gRRPC call
     :return: a FiveGDUStatusDTO describing the status of the 5G du
     """
     stop_5g_du_msg = \
@@ -62,6 +65,7 @@ def start_five_g_ue(
     Sends a request to the 5G DU manager for starting the 5G UE
 
     :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the timeout for the gRRPC call
     :return: a FiveGDUStatusDTO describing the status of the 5G UE
     """
     start_5g_ue_msg = \
@@ -79,6 +83,7 @@ def stop_five_g_ue(
     Sends a request to the 5G du manager for stopping the 5G UE
 
     :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the timeout for the gRRPC call
     :return: a FiveGDUStatusDTO describing the status of the 5G du
     """
     stop_5g_ue_msg = \
@@ -96,6 +101,7 @@ def init_five_g_ue(
     Sends a request to the 5G du manager for initializing the 5G UE
 
     :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the timeout for the gRRPC call
     :return: a FiveGDUStatusDTO describing the status of the 5G du
     """
     init_5g_ue_msg = \

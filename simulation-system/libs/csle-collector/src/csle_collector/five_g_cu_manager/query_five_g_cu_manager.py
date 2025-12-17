@@ -11,6 +11,7 @@ def get_five_g_cu_status(
     Queries the 5G cu manager for the status of the 5G cu
 
     :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the timeout for the gRRPC call
     :return: a FiveGCUStatusDTO describing the status of the 5G cu
     """
     get_5g_cu_status_msg = \
@@ -28,6 +29,7 @@ def start_five_g_cu(
     Sends a request to the 5G cu manager for starting the 5G cu
 
     :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the timeout for the gRRPC call
     :return: a FiveGCUStatusDTO describing the status of the 5G cu
     """
     start_5g_cu_msg = \
@@ -45,6 +47,7 @@ def stop_five_g_cu(
     Sends a request to the 5G cu manager for stopping the 5G cu
 
     :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the timeout for the gRRPC call
     :return: a FiveGCUStatusDTO describing the status of the 5G cu
     """
     stop_5g_cu_msg = \

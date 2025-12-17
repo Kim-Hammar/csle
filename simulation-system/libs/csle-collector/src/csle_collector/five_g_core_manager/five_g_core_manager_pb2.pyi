@@ -3,7 +3,9 @@
 isort:skip_file
 """
 import builtins
+import collections.abc
 import google.protobuf.descriptor
+import google.protobuf.internal.containers
 import google.protobuf.message
 import sys
 
@@ -130,8 +132,43 @@ class InitFiveGCoreMsg(google.protobuf.message.Message):
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
+    SUBSCRIBERS_FIELD_NUMBER: builtins.int
+    @property
+    def subscribers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SubscriberDTO]: ...
     def __init__(
         self,
+        *,
+        subscribers: collections.abc.Iterable[global___SubscriberDTO] | None = ...,
     ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["subscribers", b"subscribers"]) -> None: ...
 
 global___InitFiveGCoreMsg = InitFiveGCoreMsg
+
+@typing_extensions.final
+class SubscriberDTO(google.protobuf.message.Message):
+    """DTO with subscriber data"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    IMSI_FIELD_NUMBER: builtins.int
+    KEY_FIELD_NUMBER: builtins.int
+    OPC_FIELD_NUMBER: builtins.int
+    AMF_FIELD_NUMBER: builtins.int
+    SQN_FIELD_NUMBER: builtins.int
+    imsi: builtins.str
+    key: builtins.str
+    opc: builtins.str
+    amf: builtins.str
+    sqn: builtins.int
+    def __init__(
+        self,
+        *,
+        imsi: builtins.str = ...,
+        key: builtins.str = ...,
+        opc: builtins.str = ...,
+        amf: builtins.str = ...,
+        sqn: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["amf", b"amf", "imsi", b"imsi", "key", b"key", "opc", b"opc", "sqn", b"sqn"]) -> None: ...
+
+global___SubscriberDTO = SubscriberDTO

@@ -1,5 +1,6 @@
-from typing import Dict, Any, Union
+from typing import Dict, Any, Union, List
 from csle_base.json_serializable import JSONSerializable
+from csle_common.dao.emulation_config.five_g_subscriber_config import FiveGSubscriberConfig
 
 
 class FiveGConfig(JSONSerializable):
@@ -12,7 +13,7 @@ class FiveGConfig(JSONSerializable):
                  five_g_cu_manager_log_file: str, five_g_cu_manager_log_dir: str,
                  five_g_cu_manager_max_workers: int,
                  five_g_du_manager_log_file: str, five_g_du_manager_log_dir: str,
-                 five_g_du_manager_max_workers: int,
+                 five_g_du_manager_max_workers: int, subscribers: List[FiveGSubscriberConfig],
                  time_step_len_seconds: int = 15, five_g_core_manager_port: int = 50052,
                  five_g_cu_manager_port: int = 50053, five_g_du_manager_port: int = 50054,
                  version: str = "0.0.1") -> None:
@@ -21,6 +22,7 @@ class FiveGConfig(JSONSerializable):
 
         :param time_step_len_seconds: the length of a time-step (period for logging)
         :param version: the version
+        :param subscribers: the 5G subscribers
         :param five_g_core_manager_port: the GRPC port of the 5G core manager
         :param five_g_core_manager_log_file: Log file of the 5G core manager
         :param five_g_core_manager_log_dir: Log dir of the 5G core manager
@@ -52,6 +54,8 @@ class FiveGConfig(JSONSerializable):
         self.five_g_du_manager_log_dir = five_g_du_manager_log_dir
         self.five_g_du_manager_max_workers = five_g_du_manager_max_workers
 
+        self.subscribers = subscribers
+
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> "FiveGConfig":
         """
@@ -73,17 +77,18 @@ class FiveGConfig(JSONSerializable):
             five_g_du_manager_log_file=d["five_g_du_manager_log_file"],
             five_g_du_manager_log_dir=d["five_g_du_manager_log_dir"],
             five_g_du_manager_max_workers=d["five_g_du_manager_max_workers"],
-            five_g_du_manager_port=d["five_g_du_manager_port"]
+            five_g_du_manager_port=d["five_g_du_manager_port"],
+            subscribers=list(map(lambda x: FiveGSubscriberConfig.from_dict(x), d["subscribers"]))
         )
         return obj
 
-    def to_dict(self) -> Dict[str, Union[str, int]]:
+    def to_dict(self) -> Dict[str, Union[str, int, List[Dict[str, Union[str, int]]]]]:
         """
         Converts the object to a dict representation
 
         :return: a dict representation of the object
         """
-        d: Dict[str, Union[str, int]] = {}
+        d: Dict[str, Union[str, int, List[Dict[str, Union[str, int]]]]] = {}
         d["time_step_len_seconds"] = self.time_step_len_seconds
         d["version"] = self.version
         d["five_g_core_manager_log_file"] = self.five_g_core_manager_log_file
@@ -98,6 +103,7 @@ class FiveGConfig(JSONSerializable):
         d["five_g_du_manager_log_dir"] = self.five_g_du_manager_log_dir
         d["five_g_du_manager_max_workers"] = self.five_g_du_manager_max_workers
         d["five_g_du_manager_port"] = self.five_g_du_manager_port
+        d["subscribers"] = list(map(lambda x: x.to_dict(), self.subscribers))
         return d
 
     def __str__(self) -> str:
@@ -116,7 +122,8 @@ class FiveGConfig(JSONSerializable):
                 f"five_g_du_manager_log_file: {self.five_g_du_manager_log_file}, "
                 f"five_g_du_manager_log_dir: {self.five_g_du_manager_log_dir}, "
                 f"five_g_du_manager_max_workers: {self.five_g_du_manager_max_workers}, "
-                f"five_g_du_manager_port: {self.five_g_du_manager_port}")
+                f"five_g_du_manager_port: {self.five_g_du_manager_port}, "
+                f"subscribers: {self.subscribers}")
 
     @staticmethod
     def from_json_file(json_file_path: str) -> "FiveGConfig":
@@ -166,5 +173,6 @@ class FiveGConfig(JSONSerializable):
             five_g_du_manager_log_file="five_g_du_manager.log",
             five_g_du_manager_port=50052,
             five_g_du_manager_log_dir="/",
-            five_g_du_manager_max_workers=10
+            five_g_du_manager_max_workers=10,
+            subscribers=[]
         )

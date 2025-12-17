@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Dict, Any, List
 import subprocess
 import re
 import logging
@@ -228,26 +228,43 @@ class FiveGCoreManagerUtil:
         return dto
 
     @staticmethod
-    def init_subscriber_data(control_script_path: str) -> bool:
+    def init_subscriber_data(
+            control_script_path: str,
+            subscribers: List[csle_collector.five_g_core_manager.five_g_core_manager_pb2.SubscriberDTO]) -> bool:
         """
         Initializes the subscriber data for the 5G core.
 
         :param control_script_path: the path to the control script
+        :param subscribers: list of subscribers
         :return: True if the script execution completed successfully, False otherwise.
         """
-        logging.info(f"Attempting to initialize the subscriber data for the 5G core using: {control_script_path}")
-        try:
-            result = subprocess.run([control_script_path], capture_output=True, text=True, check=True, cwd=".")
-            logging.info(f"Subscriber data initialized, command output: {result.stdout.strip()}")
-            return True
+        logging.info(f"Attempting to initialize {len(subscribers)} subscribers using: {control_script_path}")
 
-        except FileNotFoundError:
-            logging.error(f"5G Core control script not found at {control_script_path}")
-            return False
-        except subprocess.CalledProcessError as e:
-            logging.error(f"Script execution failed to initialize subscriber data. Stderr: {e.stderr.strip()}")
-            logging.error(f"Stdout: {e.stdout.strip()}")
-            return False
-        except Exception as e:
-            logging.error(f"An unexpected error occurred during initialization of subscriber data: {e}")
-            return False
+        for sub in subscribers:
+            cmd_args = [
+                control_script_path,
+                sub.imsi,
+                sub.key,
+                sub.opc,
+                sub.amf,
+                str(sub.sqn)  # Convert integer SQN to string for command line
+            ]
+
+            try:
+                logging.debug(f"Adding subscriber IMSI: {sub.imsi}")
+                subprocess.run(cmd_args, capture_output=True, text=True, check=True, cwd=".")
+                logging.info(f"Subscriber {sub.imsi} initialized.")
+
+            except FileNotFoundError:
+                logging.error(f"5G Core control script not found at {control_script_path}")
+                return False
+            except subprocess.CalledProcessError as e:
+                logging.error(f"Failed to initialize subscriber {sub.imsi}. Stderr: {e.stderr.strip()}")
+                logging.error(f"Stdout: {e.stdout.strip()}")
+                return False
+            except Exception as e:
+                logging.error(f"An unexpected error occurred during initialization of subscriber {sub.imsi}: {e}")
+                return False
+
+        logging.info("All subscriber data initialized successfully.")
+        return True
