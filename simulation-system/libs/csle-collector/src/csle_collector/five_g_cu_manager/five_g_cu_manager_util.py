@@ -2,6 +2,7 @@ from typing import Dict, Any
 import subprocess
 import re
 import logging
+import yaml
 import csle_collector.five_g_cu_manager.five_g_cu_manager_pb2
 import csle_collector.constants.constants as constants
 
@@ -141,3 +142,54 @@ class FiveGCUManagerUtil:
         dto.cu_running = False
         dto.ip = "0.0.0.0"
         return dto
+
+    @staticmethod
+    def init_config_file(core_ip: str, cu_ip: str) -> bool:
+        """
+        Initializes the /srsRAN_Project/build/apps/cu/cu.yml configuration file.
+
+        :param core_ip: The IP address of the 5G Core (AMF).
+        :param cu_ip: The IP address of the CU (Central Unit).
+        :return: True if the file was updated successfully, False otherwise.
+        """
+        config_path = "/srsRAN_Project/build/apps/cu/cu.yml"
+        logging.info(f"Attempting to update CU config at {config_path}")
+        logging.info(f"Setting Core IP (AMF addr) to: {core_ip}")
+        logging.info(f"Setting CU IP (AMF bind_addr) to: {cu_ip}")
+
+        try:
+            with open(config_path, 'r') as f:
+                config = yaml.safe_load(f)
+            try:
+                if 'cu_cp' in config and 'amf' in config['cu_cp']:
+                    config['cu_cp']['amf']['addr'] = core_ip
+                    config['cu_cp']['amf']['bind_addr'] = cu_ip
+                else:
+                    logging.error(f"Invalid YAML structure in {config_path}: 'cu_cp.amf' section missing.")
+                    return False
+
+                if 'cu_cp' in config and 'f1ap' in config['cu_cp']:
+                    config['cu_cp']['f1ap']['bind_addr'] = cu_ip
+                if 'cu_up' in config and 'f1u' in config['cu_up'] and 'socket' in config['cu_up']['f1u']:
+                    if len(config['cu_up']['f1u']['socket']) > 0:
+                        config['cu_up']['f1u']['socket'][0]['bind_addr'] = cu_ip
+
+            except (TypeError, KeyError) as e:
+                logging.error(f"Error modifying YAML structure: {e}")
+                return False
+
+            with open(config_path, 'w') as f:
+                yaml.dump(config, f, default_flow_style=False, sort_keys=False)
+
+            logging.info(f"Successfully updated {config_path}")
+            return True
+
+        except FileNotFoundError:
+            logging.error(f"Configuration file not found at {config_path}")
+            return False
+        except PermissionError:
+            logging.error(f"Permission denied. Cannot write to {config_path}.")
+            return False
+        except Exception as e:
+            logging.error(f"An unexpected error occurred processing {config_path}: {e}")
+            return False

@@ -1,6 +1,7 @@
 from typing import Dict, Any, Union, List
 from csle_base.json_serializable import JSONSerializable
 from csle_common.dao.emulation_config.five_g_subscriber_config import FiveGSubscriberConfig
+from csle_common.util.general_util import GeneralUtil
 
 
 class FiveGConfig(JSONSerializable):
@@ -158,6 +159,7 @@ class FiveGConfig(JSONSerializable):
         :return: the new config
         """
         config = self.copy()
+        config.core_ip = GeneralUtil.replace_first_octet_of_ip(ip=config.core_ip, ip_first_octet=ip_first_octet)
         return config
 
     @staticmethod
