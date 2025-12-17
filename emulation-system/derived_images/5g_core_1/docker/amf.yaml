@@ -22,20 +22,20 @@ amf:
         port: 9090
   guami:
     - plmn_id:
-        mcc: 001
-        mnc: 01
+        mcc: "001"
+        mnc: "01"
       amf_id:
         region: 2
         set: 1
   tai:
     - plmn_id:
-        mcc: 001
-        mnc: 01
+        mcc: "001"
+        mnc: "01"
       tac: 1
   plmn_support:
     - plmn_id:
-        mcc: 001
-        mnc: 01
+        mcc: "001"
+        mnc: "01"
       s_nssai:
         - sst: 1
   security:

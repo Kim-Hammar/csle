@@ -288,7 +288,7 @@ class FiveGCoreManagerUtil:
             ),
             (
                 "/etc/open5gs/upf.yaml",
-                ["upf", "pfcp", "server"]
+                ["upf", "gtpu", "server"]
             )
         ]
 

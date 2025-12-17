@@ -159,7 +159,8 @@ class FiveGConfig(JSONSerializable):
         :return: the new config
         """
         config = self.copy()
-        config.core_backhaul_ip = GeneralUtil.replace_first_octet_of_ip(ip=config.core_backhaul_ip, ip_first_octet=ip_first_octet)
+        config.core_backhaul_ip = GeneralUtil.replace_first_octet_of_ip(ip=config.core_backhaul_ip,
+                                                                        ip_first_octet=ip_first_octet)
         return config
 
     @staticmethod
