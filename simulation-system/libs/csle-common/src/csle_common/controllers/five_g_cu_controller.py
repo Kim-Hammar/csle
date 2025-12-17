@@ -364,9 +364,16 @@ class FiveGCUController:
                 cu_backhaul_ip = cu_ip
         if cu_backhaul_ip == "":
             raise ValueError("Could not find cu backhaul ip")
+        cu_fronthaul_ip = ""
+        for cu_ip in emulation_env_config.five_g_config.cu_fronthaul_ips:
+            if cu_ip in container.get_ips():
+                cu_fronthaul_ip = cu_ip
+        if cu_fronthaul_ip == "":
+            raise ValueError("Could not find cu fronthaul ip")
         with grpc.insecure_channel(f'{container.docker_gw_bridge_ip}:{port}',
                                    options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerStub(channel)
             status = csle_collector.five_g_cu_manager.query_five_g_cu_manager.init_five_g_cu(
-                core_backhaul_ip=core_backhaul_ip, cu_backhaul_ip=cu_backhaul_ip, stub=stub)
+                core_backhaul_ip=core_backhaul_ip, cu_backhaul_ip=cu_backhaul_ip, cu_fronthaul_ip=cu_fronthaul_ip,
+                stub=stub)
             return status

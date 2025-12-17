@@ -144,18 +144,20 @@ class FiveGCUManagerUtil:
         return dto
 
     @staticmethod
-    def init_config_file(core_backhaul_ip: str, cu_ip: str) -> bool:
+    def init_config_file(core_backhaul_ip: str, cu_backhaul_ip: str, cu_fronthaul_ip: str) -> bool:
         """
         Initializes the /srsRAN_Project/build/apps/cu/cu.yml configuration file.
 
         :param core_backhaul_ip: The backhaul IP address of the 5G Core (AMF).
-        :param cu_ip: The IP address of the CU (Central Unit).
+        :param cu_backhaul_ip: The backhaul IP address of the CU (Central Unit).
+        :param cu_fronthaul_ip: The fronthaul IP address of the CU (Central Unit).
         :return: True if the file was updated successfully, False otherwise.
         """
         config_path = "/srsRAN_Project/build/apps/cu/cu.yml"
         logging.info(f"Attempting to update CU config at {config_path}")
         logging.info(f"Setting Core IP (AMF addr) to: {core_backhaul_ip}")
-        logging.info(f"Setting CU IP (AMF bind_addr) to: {cu_ip}")
+        logging.info(f"Setting CU backhaul IP (AMF bind_addr) to: {cu_backhaul_ip}")
+        logging.info(f"Setting CU fronthaul IP (cu_up and  f1ap bind_addr) to: {cu_fronthaul_ip}")
 
         try:
             with open(config_path, 'r') as f:
@@ -163,16 +165,16 @@ class FiveGCUManagerUtil:
             try:
                 if 'cu_cp' in config and 'amf' in config['cu_cp']:
                     config['cu_cp']['amf']['addr'] = core_backhaul_ip
-                    config['cu_cp']['amf']['bind_addr'] = cu_ip
+                    config['cu_cp']['amf']['bind_addr'] = cu_backhaul_ip
                 else:
                     logging.error(f"Invalid YAML structure in {config_path}: 'cu_cp.amf' section missing.")
                     return False
 
                 if 'cu_cp' in config and 'f1ap' in config['cu_cp']:
-                    config['cu_cp']['f1ap']['bind_addr'] = cu_ip
+                    config['cu_cp']['f1ap']['bind_addr'] = cu_fronthaul_ip
                 if 'cu_up' in config and 'f1u' in config['cu_up'] and 'socket' in config['cu_up']['f1u']:
                     if len(config['cu_up']['f1u']['socket']) > 0:
-                        config['cu_up']['f1u']['socket'][0]['bind_addr'] = cu_ip
+                        config['cu_up']['f1u']['socket'][0]['bind_addr'] = cu_fronthaul_ip
 
             except (TypeError, KeyError) as e:
                 logging.error(f"Error modifying YAML structure: {e}")

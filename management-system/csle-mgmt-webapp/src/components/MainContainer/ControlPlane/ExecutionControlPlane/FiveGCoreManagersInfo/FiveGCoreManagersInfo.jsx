@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
 import SpinnerOrButton from '../SpinnerOrButton/SpinnerOrButton.jsx'
 import LogsButton from '../LogsButton/LogsButton.jsx'
+import Open5GSImg from './Open5GS.png'
 import {
   FIVE_G_CORE_MANAGER_SUBRESOURCE, FIVE_G_CORE_SUBRESOURCE,
   START_ALL_PROPERTY,
@@ -15,6 +16,33 @@ import {
  * Subcomponent of the /control-plane page that contains information about 5G core managers
  */
 const FiveGCoreManagersInfo = (props) => {
+
+  const renderFiveGCoreTooltip = (props) => {
+    return (<Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
+      View Ryu&apos;s web interface
+    </Tooltip>)
+  }
+
+  const FiveGCoreWebButton = (props) => {
+    if(props.running && props.port !== -1 && !props.loading) {
+      return (
+        <OverlayTrigger
+          placement="top"
+          delay={{show: 0, hide: 0}}
+          overlay={renderFiveGCoreTooltip}
+        >
+          <a href={`${HTTP_PREFIX}${props.ip}:${props.port}`} target="_blank" rel="noopener noreferrer">
+            <Button variant="light" className="startButton" size="sm">
+              <img src={Open5GSImg} alt="Open5Gs" className="img-fluid elastic"/>
+            </Button>
+          </a>
+        </OverlayTrigger>
+      )
+    } else {
+      return (<></>)
+    }
+  }
+
   return (
     <Card className="subCard">
       <Card.Header>
@@ -69,6 +97,15 @@ const FiveGCoreManagersInfo = (props) => {
                   <td>{props.fiveGCoreManagersInfo.ports[index]}</td>
                   {props.activeStatus(props.fiveGCoreManagersInfo.five_g_core_managers_running[index])}
                   <td>
+                    <FiveGCoreWebButton
+                      loading={props.loadingEntities.includes(
+                        `${FIVE_G_CORE_SUBRESOURCE}-`
+                        + `${props.fiveGCoreManagersInfo.ips[index]}`)}
+                      name={props.fiveGCoreManagersInfo.ips[index]}
+                      port={props.fiveGCoreManagersInfo.local_webui_port}
+                      running={status.amf_running}
+                      ip={props.fiveGCoreManagersInfo.physical_server_ip}
+                    />
                     <SpinnerOrButton
                       loading={props.loadingEntities.includes(
                         `${FIVE_G_CORE_MANAGER_SUBRESOURCE}-`

@@ -27,4 +27,5 @@ message StartFiveGCUMsg {}
 message InitFiveGCUMsg {
   string core_backhaul_ip = 1;
   string cu_backhaul_ip = 2;
+  string cu_fronthaul_ip = 3;
 }

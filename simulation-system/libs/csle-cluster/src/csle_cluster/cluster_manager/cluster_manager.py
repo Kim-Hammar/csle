@@ -5363,7 +5363,7 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
         if container_config is not None:
             FiveGCUController.init_five_g_cu(emulation_env_config=execution.emulation_env_config,
-                                             ip=container_config.docker_gw_bridge_ip, logger=logging.getLogger())
+                                             container=container_config, logger=logging.getLogger())
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
         else:

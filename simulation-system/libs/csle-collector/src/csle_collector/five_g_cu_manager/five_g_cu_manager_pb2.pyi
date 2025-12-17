@@ -78,14 +78,17 @@ class InitFiveGCUMsg(google.protobuf.message.Message):
 
     CORE_BACKHAUL_IP_FIELD_NUMBER: builtins.int
     CU_BACKHAUL_IP_FIELD_NUMBER: builtins.int
+    CU_FRONTHAUL_IP_FIELD_NUMBER: builtins.int
     core_backhaul_ip: builtins.str
     cu_backhaul_ip: builtins.str
+    cu_fronthaul_ip: builtins.str
     def __init__(
         self,
         *,
         core_backhaul_ip: builtins.str = ...,
         cu_backhaul_ip: builtins.str = ...,
+        cu_fronthaul_ip: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["core_backhaul_ip", b"core_backhaul_ip", "cu_backhaul_ip", b"cu_backhaul_ip"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["core_backhaul_ip", b"core_backhaul_ip", "cu_backhaul_ip", b"cu_backhaul_ip", "cu_fronthaul_ip", b"cu_fronthaul_ip"]) -> None: ...
 
 global___InitFiveGCUMsg = InitFiveGCUMsg

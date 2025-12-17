@@ -98,7 +98,8 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         """
         logging.info("Initializing the 5G CU")
         FiveGCUManagerUtil.init_config_file(core_backhaul_ip=request.core_backhaul_ip,
-                                            cu_ip=request.cu_backhaul_ip)
+                                            cu_backhaul_ip=request.cu_backhaul_ip,
+                                            cu_fronthaul_ip=request.cu_fronthaul_ip)
         status = FiveGCUManagerUtil.get_cu_status(
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(

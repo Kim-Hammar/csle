@@ -59,7 +59,7 @@ def stop_five_g_cu(
 
 def init_five_g_cu(
         stub: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerStub,
-        core_backhaul_ip: str, cu_backhaul_ip: str,
+        core_backhaul_ip: str, cu_backhaul_ip: str, cu_fronthaul_ip: str,
         timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
     """
@@ -68,12 +68,13 @@ def init_five_g_cu(
     :param stub: the stub to send the remote gRPC to the server
     :param core_backhaul_ip: the backhaul ip of the core network
     :param cu_backhaul_ip: the backhaul ip of the CU network
+    :param cu_fronthaul_ip: the fronthaul ip of the CU network
     :param timeout: the timeout for the gRRPC call
     :return: a FiveGCUStatusDTO describing the status of the 5G cu
     """
     init_5g_cu_msg = \
         csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.InitFiveGCUMsg(
-            core_backhaul_ip=core_backhaul_ip, cu_backhaul_ip=cu_backhaul_ip)
+            core_backhaul_ip=core_backhaul_ip, cu_backhaul_ip=cu_backhaul_ip, cu_fronthaul_ip=cu_fronthaul_ip)
     five_g_cu_status: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO = \
         stub.initFiveGCU(init_5g_cu_msg, timeout=timeout)
     return five_g_cu_status

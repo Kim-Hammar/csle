@@ -286,6 +286,60 @@ const ExecutionControlPlane = (props) => {
         }
     }
 
+    const FiveGCoreManagersInfoOrEmpty = (props) => {
+        if (props.fiveGCoreManagersInfo !== null && props.fiveGCoreManagersInfo !== undefined) {
+            return (
+              <FiveGCoreManagersInfo
+                setFiveGCoreManagersOpen={setFiveGCoreManagersOpen}
+                fiveGCoreManagersOpen={fiveGCoreManagersOpen}
+                loadingEntities={loadingEntities}
+                fiveGCoreManagersInfo={fiveGCoreManagersInfo}
+                getLogs={getLogs}
+                activeStatus={activeStatus}
+                startOrStop={startOrStop}
+              />
+            )
+        } else {
+            return (<></>)
+        }
+    }
+
+    const FiveGCUManagersInfoOrEmpty = (props) => {
+        if (props.fiveGCUManagersInfo !== null && props.fiveGCUManagersInfo !== undefined) {
+            return (
+              <FiveGCUManagersInfo
+                setFiveGCUManagersOpen={setFiveGCUManagersOpen}
+                fiveGCUManagersOpen={fiveGCUManagersOpen}
+                loadingEntities={loadingEntities}
+                fiveGCUManagersInfo={fiveGCUManagersInfo}
+                getLogs={getLogs}
+                activeStatus={activeStatus}
+                startOrStop={startOrStop}
+              />
+            )
+        } else {
+            return (<></>)
+        }
+    }
+
+    const FiveGDUManagersInfoOrEmpty = (props) => {
+        if (props.fiveGDUManagersInfo !== null && props.fiveGDUManagersInfo !== undefined) {
+            return (
+              <FiveGDUManagersInfo
+                setFiveGDUManagersOpen={setFiveGDUManagersOpen}
+                fiveGDUManagersOpen={fiveGDUManagersOpen}
+                loadingEntities={loadingEntities}
+                fiveGDUManagersInfo={fiveGDUManagersInfo}
+                getLogs={getLogs}
+                activeStatus={activeStatus}
+                startOrStop={startOrStop}
+              />
+            )
+        } else {
+            return (<></>)
+        }
+    }
+
     return (<Card key={props.execution.name} ref={props.wrapper}>
         <LogsModal show={showLogsModal} onHide={() => setShowLogsModal(false)} name={nameToGetLogsFor}
                    loading={loadingLogs} logs={logs} entity={entityToGetLogsFor}/>
@@ -342,7 +396,7 @@ const ExecutionControlPlane = (props) => {
                     startOrStop={startOrStop}
                 />
 
-                <HostManagersInfo
+                <FiveGCoreManagersInfoOrEmpty
                     setHostManagersOpen={setHostManagersOpen}
                     hostManagersOpen={hostManagersOpen}
                     loadingEntities={loadingEntities}
@@ -362,7 +416,7 @@ const ExecutionControlPlane = (props) => {
                   startOrStop={startOrStop}
                 />
 
-                <FiveGCUManagersInfo
+                <FiveGCUManagersInfoOrEmpty
                   setFiveGCUManagersOpen={setFiveGCUManagersOpen}
                   fiveGCUManagersOpen={fiveGCUManagersOpen}
                   loadingEntities={loadingEntities}
@@ -372,7 +426,7 @@ const ExecutionControlPlane = (props) => {
                   startOrStop={startOrStop}
                 />
 
-                <FiveGDUManagersInfo
+                <FiveGDUManagersInfoOrEmpty
                   setFiveGDUManagersOpen={setFiveGDUManagersOpen}
                   fiveGDUManagersOpen={fiveGDUManagersOpen}
                   loadingEntities={loadingEntities}
