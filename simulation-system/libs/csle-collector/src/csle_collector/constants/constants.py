@@ -568,6 +568,12 @@ class KAFKA_CONFIG:
     OSSEC_IDS_LOG_TOPIC_NAME = "ossec_ids_log"
     HOST_METRICS_TOPIC_NAME = "host_metrics"
     AMF_METRICS_TOPIC_NAME = "amf_metrics"
+    UPF_METRICS_TOPIC_NAME = "upf_metrics"
+    MME_METRICS_TOPIC_NAME = "mme_metrics"
+    SMF_METRICS_TOPIC_NAME = "smf_metrics"
+    HSS_METRICS_TOPIC_NAME = "hss_metrics"
+    PCRF_METRICS_TOPIC_NAME = "pcrf_metrics"
+    PCF_METRICS_TOPIC_NAME = "pcf_metrics"
     DOCKER_STATS_TOPIC_NAME = "docker_stats"
     DOCKER_HOST_STATS_TOPIC_NAME = "docker_host_stats"
     OPENFLOW_FLOW_STATS_TOPIC_NAME = "openflow_flow_stats"
@@ -655,6 +661,148 @@ class KAFKA_CONFIG:
                             "process_cpu_seconds_total", "process_virtual_memory_bytes",
                             "process_start_time_seconds",
                             "process_start_time_seconds", "process_open_fds"]
+    UPF_TOPIC_ATTRIBUTES = ["timestamp", "ip",
+                            "fivegs_ep_n3_gtp_indatapktn3upf", "fivegs_ep_n3_gtp_outdatapktn3upf",
+                            "fivegs_upffunction_sm_n4sessionestabreq", "fivegs_upffunction_sm_n4sessionreport",
+                            "fivegs_upffunction_sm_n4sessionreportsucc", "fivegs_upffunction_upf_sessionnbr",
+                            "pfcp_peers_active", "process_max_fds", "process_virtual_memory_max_bytes",
+                            "process_cpu_seconds_total", "process_virtual_memory_bytes",
+                            "process_resident_memory_bytes", "process_start_time_seconds", "process_open_fds"]
+    MME_TOPIC_ATTRIBUTES = ["timestamp", "ip",
+                            "enb_ue", "mme_session", "enb", "process_max_fds",
+                            "process_virtual_memory_max_bytes", "process_cpu_seconds_total",
+                            "process_virtual_memory_bytes", "process_resident_memory_bytes",
+                            "process_start_time_seconds", "process_open_fds"]
+    SMF_TOPIC_ATTRIBUTES = [
+        "timestamp",
+        "ip",
+        "gn_rx_createpdpcontextreq",
+        "gn_rx_deletepdpcontextreq",
+        "gtp1_pdpctxs_active",
+        "pfcp_peers_active",
+        "fivegs_smffunction_sm_n4sessionreport",
+        "ues_active",
+        "gtp2_sessions_active",
+        "pfcp_sessions_active",
+        "s5c_rx_createsession",
+        "s5c_rx_deletesession",
+        "gtp_new_node_failed",
+        "s5c_rx_parse_failed",
+        "fivegs_smffunction_sm_n4sessionreportsucc",
+        "fivegs_smffunction_sm_n4sessionestabreq",
+        "bearers_active",
+        "gn_rx_parse_failed",
+        "gtp_peers_active",
+        "fivegs_smffunction_sm_sessionnbr",
+        "fivegs_smffunction_sm_pdusessioncreationreq",
+        "fivegs_smffunction_sm_pdusessioncreationsucc",
+        "fivegs_smffunction_sm_qos_flow_nbr",
+        "fivegs_smffunction_sm_n4sessionestabfail",
+        "fivegs_smffunction_sm_pdusessioncreationfail",
+        "process_max_fds",
+        "process_virtual_memory_max_bytes",
+        "process_cpu_seconds_total",
+        "process_virtual_memory_bytes",
+        "process_resident_memory_bytes",
+        "process_start_time_seconds",
+        "process_open_fds"
+    ]
+
+    HSS_TOPIC_ATTRIBUTES = [
+        "timestamp",
+        "ip",
+        "cx_rx_lir",
+        "cx_rx_uar",
+        "cx_tx_lia",
+        "cx_rx_unknown",
+        "cx_rx_sar",
+        "s6a_rx_pur",
+        "swx_rx_mar_error",
+        "cx_tx_uaa",
+        "s6a_rx_pur_error",
+        "s6a_tx_clr",
+        "cx_tx_saa",
+        "cx_rx_lir_error",
+        "s6a_rx_ulr",
+        "s6a_rx_cla",
+        "s6a_rx_cla_error",
+        "s6a_rx_air",
+        "cx_rx_mar",
+        "swx_rx_sar",
+        "s6a_rx_air_error",
+        "s6a_rx_ida_error",
+        "cx_tx_maa",
+        "swx_rx_mar",
+        "s6a_rx_unknown",
+        "s6a_tx_pua",
+        "swx_rx_unknown",
+        "cx_rx_mar_error",
+        "cx_rx_uar_error",
+        "s6a_tx_ula",
+        "s6a_rx_ulr_error",
+        "s6a_tx_aia",
+        "s6a_tx_idr",
+        "s6a_rx_ida",
+        "cx_rx_sar_error",
+        "swx_rx_sar_error",
+        "swx_tx_maa",
+        "swx_tx_saa",
+        "hss_imsi",
+        "hss_impi",
+        "hss_impu",
+        "process_max_fds",
+        "process_virtual_memory_max_bytes",
+        "process_cpu_seconds_total",
+        "process_virtual_memory_bytes",
+        "process_resident_memory_bytes",
+        "process_start_time_seconds",
+        "process_open_fds"
+    ]
+
+    PCRF_TOPIC_ATTRIBUTES = [
+        "timestamp",
+        "ip",
+        "gx_rx_unknown",
+        "gx_rx_ccr",
+        "gx_rx_ccr_error",
+        "gx_rx_raa",
+        "gx_tx_cca",
+        "gx_tx_rar",
+        "gx_tx_rar_error",
+        "rx_rx_unknown",
+        "rx_rx_aar",
+        "rx_rx_aar_error",
+        "rx_rx_asa",
+        "rx_rx_asa_error",
+        "rx_rx_str_error",
+        "rx_tx_aaa",
+        "rx_tx_sar",
+        "rx_tx_sta",
+        "process_max_fds",
+        "process_virtual_memory_max_bytes",
+        "process_cpu_seconds_total",
+        "process_virtual_memory_bytes",
+        "process_resident_memory_bytes",
+        "process_start_time_seconds",
+        "process_open_fds"
+    ]
+
+    PCF_TOPIC_ATTRIBUTES = [
+        "timestamp",
+        "ip",
+        "fivegs_pcffunction_pa_policyamassoreq",
+        "fivegs_pcffunction_pa_policyamassosucc",
+        "fivegs_pcffunction_pa_policysmassoreq",
+        "fivegs_pcffunction_pa_policysmassosucc",
+        "fivegs_pcffunction_pa_sessionnbr",
+        "process_max_fds",
+        "process_virtual_memory_max_bytes",
+        "process_cpu_seconds_total",
+        "process_virtual_memory_bytes",
+        "process_resident_memory_bytes",
+        "process_start_time_seconds",
+        "process_open_fds"
+    ]
 
     SNORT_IDS_ALERTS_LABELS = [
         "total_alerts", "warning_alerts", "severe_alerts", "alerts_weighted_by_priority",
@@ -797,6 +945,12 @@ class FIVE_G_CORE:
     Constants related to the 5G core
     """
     AMF_METRICS_URL = "http://127.0.0.5:9090/metrics"
+    UPF_METRICS_URL = "http://127.0.0.7:9090/metrics"
+    MME_METRICS_URL = "http://127.0.0.2:9090/metrics"
+    SMF_METRICS_URL = "http://127.0.0.4:9090/metrics"
+    HSS_METRICS_URL = "http://127.0.0.8:9090/metrics"
+    PCRF_METRICS_URL = "http://127.0.0.9:9090/metrics"
+    PCF_METRICS_URL = "http://127.0.0.13:9090/metrics"
     CONTROL_SCRIPT_PATH = "/start_stop_5g.sh"
     SUBSCRIBER_CONTROL_SCRIPT_PATH = "/subscriber_init.sh"
     RUNNING = "RUNNING"

@@ -8,6 +8,12 @@ import time
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2
 import csle_collector.constants.constants as constants
 from csle_collector.five_g_core_manager.dao.AMFMetrics import AMFMetrics
+from csle_collector.five_g_core_manager.dao.UPFMetrics import UPFMetrics
+from csle_collector.five_g_core_manager.dao.MMEMetrics import MMEMetrics
+from csle_collector.five_g_core_manager.dao.SMFMetrics import SMFMetrics
+from csle_collector.five_g_core_manager.dao.HSSMetrics import HSSMetrics
+from csle_collector.five_g_core_manager.dao.PCRFMetrics import PCRFMetrics
+from csle_collector.five_g_core_manager.dao.PCFMetrics import PCFMetrics
 
 
 class FiveGCoreManagerUtil:
@@ -379,4 +385,244 @@ class FiveGCoreManagerUtil:
         filtered_args['ip'] = str(ip)
         filtered_args['ts'] = float(time.time())
 
-        return AMFMetrics(**filtered_args) # type: ignore
+        return AMFMetrics(**filtered_args)  # type: ignore
+
+    @staticmethod
+    def fetch_upf_metrics(ip: str) -> UPFMetrics:
+        """
+        Fetches UPF metrics from the given URL and parses them into an UPFMetrics DTO.
+
+        :param ip: The IP address string to populate the 'ip' field of the DTO
+        :return: A populated UPFMetrics object
+        """
+        try:
+            response = requests.get(constants.FIVE_G_CORE.UPF_METRICS_URL, timeout=5)
+            response.raise_for_status()
+            content = response.text
+        except requests.RequestException as e:
+            print(f"Error fetching metrics from {constants.FIVE_G_CORE.UPF_METRICS_URL}: {e}")
+            return UPFMetrics(ip=ip, ts=time.time())
+
+        parsed_data = {}
+        for line in content.splitlines():
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            raw_key = parts[0]
+            raw_value = parts[-1]
+            metric_name = raw_key.split('{')[0]
+            try:
+                value = int(float(raw_value))
+                parsed_data[metric_name] = value
+            except ValueError:
+                continue
+        valid_args = UPFMetrics.__init__.__code__.co_varnames
+        filtered_args: Dict[str, Union[int, str, float]]
+        filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
+        filtered_args['ip'] = str(ip)
+        filtered_args['ts'] = float(time.time())
+
+        return UPFMetrics(**filtered_args)  # type: ignore
+
+    @staticmethod
+    def fetch_mme_metrics(ip: str) -> UPFMetrics:
+        """
+        Fetches MME metrics from the given URL and parses them into an MMEMetrics DTO.
+
+        :param ip: The IP address string to populate the 'ip' field of the DTO
+        :return: A populated MMEMetrics object
+        """
+        try:
+            response = requests.get(constants.FIVE_G_CORE.MME_METRICS_URL, timeout=5)
+            response.raise_for_status()
+            content = response.text
+        except requests.RequestException as e:
+            print(f"Error fetching metrics from {constants.FIVE_G_CORE.MME_METRICS_URL}: {e}")
+            return MMEMetrics(ip=ip, ts=time.time())
+
+        parsed_data = {}
+        for line in content.splitlines():
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            raw_key = parts[0]
+            raw_value = parts[-1]
+            metric_name = raw_key.split('{')[0]
+            try:
+                value = int(float(raw_value))
+                parsed_data[metric_name] = value
+            except ValueError:
+                continue
+        valid_args = MMEMetrics.__init__.__code__.co_varnames
+        filtered_args: Dict[str, Union[int, str, float]]
+        filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
+        filtered_args['ip'] = str(ip)
+        filtered_args['ts'] = float(time.time())
+
+        return MMEMetrics(**filtered_args)  # type: ignore
+
+    @staticmethod
+    def fetch_smf_metrics(ip: str) -> SMFMetrics:
+        """
+        Fetches SMF metrics from the given URL and parses them into an SMFMetrics DTO.
+
+        :param ip: The IP address string to populate the 'ip' field of the DTO
+        :return: A populated SMFMetrics object
+        """
+        try:
+            response = requests.get(constants.FIVE_G_CORE.SMF_METRICS_URL, timeout=5)
+            response.raise_for_status()
+            content = response.text
+        except requests.RequestException as e:
+            print(f"Error fetching metrics from {constants.FIVE_G_CORE.SMF_METRICS_URL}: {e}")
+            return SMFMetrics(ip=ip, ts=time.time())
+
+        parsed_data = {}
+        for line in content.splitlines():
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            raw_key = parts[0]
+            raw_value = parts[-1]
+            metric_name = raw_key.split('{')[0]
+            try:
+                value = int(float(raw_value))
+                parsed_data[metric_name] = value
+            except ValueError:
+                continue
+        valid_args = SMFMetrics.__init__.__code__.co_varnames
+        filtered_args: Dict[str, Union[int, str, float]]
+        filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
+        filtered_args['ip'] = str(ip)
+        filtered_args['ts'] = float(time.time())
+
+        return SMFMetrics(**filtered_args)  # type: ignore
+
+    @staticmethod
+    def fetch_hss_metrics(ip: str) -> HSSMetrics:
+        """
+        Fetches HSS metrics from the given URL and parses them into an HSSMetrics DTO.
+
+        :param ip: The IP address string to populate the 'ip' field of the DTO
+        :return: A populated HSSMetrics object
+        """
+        try:
+            response = requests.get(constants.FIVE_G_CORE.HSS_METRICS_URL, timeout=5)
+            response.raise_for_status()
+            content = response.text
+        except requests.RequestException as e:
+            print(f"Error fetching metrics from {constants.FIVE_G_CORE.HSS_METRICS_URL}: {e}")
+            return HSSMetrics(ip=ip, ts=time.time())
+
+        parsed_data = {}
+        for line in content.splitlines():
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            raw_key = parts[0]
+            raw_value = parts[-1]
+            metric_name = raw_key.split('{')[0]
+            try:
+                value = int(float(raw_value))
+                parsed_data[metric_name] = value
+            except ValueError:
+                continue
+        valid_args = HSSMetrics.__init__.__code__.co_varnames
+        filtered_args: Dict[str, Union[int, str, float]]
+        filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
+        filtered_args['ip'] = str(ip)
+        filtered_args['ts'] = float(time.time())
+
+        return HSSMetrics(**filtered_args)  # type: ignore
+
+    @staticmethod
+    def fetch_pcrf_metrics(ip: str) -> PCRFMetrics:
+        """
+        Fetches PCRF metrics from the given URL and parses them into an PCRFMetrics DTO.
+
+        :param ip: The IP address string to populate the 'ip' field of the DTO
+        :return: A populated PCRFMetrics object
+        """
+        try:
+            response = requests.get(constants.FIVE_G_CORE.PCRF_METRICS_URL, timeout=5)
+            response.raise_for_status()
+            content = response.text
+        except requests.RequestException as e:
+            print(f"Error fetching metrics from {constants.FIVE_G_CORE.PCRF_METRICS_URL}: {e}")
+            return PCRFMetrics(ip=ip, ts=time.time())
+
+        parsed_data = {}
+        for line in content.splitlines():
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            raw_key = parts[0]
+            raw_value = parts[-1]
+            metric_name = raw_key.split('{')[0]
+            try:
+                value = int(float(raw_value))
+                parsed_data[metric_name] = value
+            except ValueError:
+                continue
+        valid_args = PCRFMetrics.__init__.__code__.co_varnames
+        filtered_args: Dict[str, Union[int, str, float]]
+        filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
+        filtered_args['ip'] = str(ip)
+        filtered_args['ts'] = float(time.time())
+
+        return PCRFMetrics(**filtered_args)  # type: ignore
+
+    @staticmethod
+    def fetch_pcf_metrics(ip: str) -> PCFMetrics:
+        """
+        Fetches PCF metrics from the given URL and parses them into an PCFMetrics DTO.
+
+        :param ip: The IP address string to populate the 'ip' field of the DTO
+        :return: A populated PCFMetrics object
+        """
+        try:
+            response = requests.get(constants.FIVE_G_CORE.PCF_METRICS_URL, timeout=5)
+            response.raise_for_status()
+            content = response.text
+        except requests.RequestException as e:
+            print(f"Error fetching metrics from {constants.FIVE_G_CORE.PCF_METRICS_URL}: {e}")
+            return PCFMetrics(ip=ip, ts=time.time())
+
+        parsed_data = {}
+        for line in content.splitlines():
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            raw_key = parts[0]
+            raw_value = parts[-1]
+            metric_name = raw_key.split('{')[0]
+            try:
+                value = int(float(raw_value))
+                parsed_data[metric_name] = value
+            except ValueError:
+                continue
+        valid_args = PCFMetrics.__init__.__code__.co_varnames
+        filtered_args: Dict[str, Union[int, str, float]]
+        filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
+        filtered_args['ip'] = str(ip)
+        filtered_args['ts'] = float(time.time())
+
+        return PCFMetrics(**filtered_args)  # type: ignore

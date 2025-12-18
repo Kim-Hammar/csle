@@ -7640,7 +7640,7 @@ class TestClusterManagerSuite:
             stop_cu_monitor_thread(stub=grpc_stub, emulation="JDoeEmulation", ip_first_octet=1,
                                    container_ip="123.456.78.99")
         assert not response.outcome
-        
+
     def test_startDUMonitorThreads(self, grpc_stub, mocker: pytest_mock.MockFixture,
                                    get_ex_exec: EmulationExecution) -> None:
         """
