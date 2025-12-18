@@ -2355,12 +2355,14 @@ message FiveGCoreInfoDTO {
   bool udr_running = 18;
   bool webui_running = 19;
   string ip = 20;
+  bool monitor_running = 21;
 }
 
 //Info DTO for the 5G CU
 message FiveGCUInfoDTO {
   bool cu_running = 1;
   string ip = 2;
+  bool monitor_running = 3;
 }
 
 //Info DTO for the 5G DU
@@ -2368,6 +2370,7 @@ message FiveGDUInfoDTO {
   bool du_running = 1;
   bool ue_running = 2;
   string ip = 3;
+  bool monitor_running = 4;
 }
 
 // Message that the server returns when requested for the 5G Core managers info

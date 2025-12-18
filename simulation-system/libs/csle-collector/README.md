@@ -40,6 +40,8 @@ python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --gr
 - `netifaces` (networking utility)
 - `PyYaml` (for parsing yaml files)
 - `pycryptodome` (for cryptographic functions)
+- `websockets` (for monitoring 5G networks)
+- `websocket-client` (for monitoring 5G networks)
 
 ## Development Requirements
 

@@ -34,7 +34,17 @@ pcap:
   f1u_filename: /tmp/du_f1u.pcap
 metrics:
   enable_json: true
+  layers:
+    enable_app_usage: true
+    enable_mac: true
+    enable_rlc: true
+    enable_sched: true
+    enable_du_low: true
+    enable_ru: true
+  periodicity:
+    app_usage_report_period: 1000
+    du_report_period: 1000
 remote_control:
-  bind_addr: 172.18.0.8
+  bind_addr: 127.0.0.1
   port: 55555
   enabled: true

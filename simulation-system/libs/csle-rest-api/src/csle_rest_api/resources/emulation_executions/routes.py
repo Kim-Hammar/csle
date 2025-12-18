@@ -3074,3 +3074,249 @@ def start_stop_five_g_ue(execution_id: int) -> Tuple[Response, int]:
         response = jsonify({})
         response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
         return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+
+
+@emulation_executions_bp.route(f"{constants.COMMANDS.SLASH_DELIM}<execution_id>{constants.COMMANDS.SLASH_DELIM}"
+                               f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}",
+                               methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
+def start_stop_core_monitor_thread(execution_id: int) -> Tuple[Response, int]:
+    """
+    The /emulation-executions/id/core-monitor resource.
+
+    :param execution_id: the id of the execution
+    :return: Starts or stop the 5G core managers of a given execution
+    """
+    requires_admin = False
+    if request.method == api_constants.MGMT_WEBAPP.HTTP_REST_POST:
+        requires_admin = True
+    authorized = rest_api_util.check_if_user_is_authorized(request=request, requires_admin=requires_admin)
+    if authorized is not None:
+        return authorized
+
+    # Extract emulation query parameter
+    emulation = request.args.get(api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM)
+    json_data = json.loads(request.data)
+    # Verify payload
+    if api_constants.MGMT_WEBAPP.IP_PROPERTY not in json_data \
+            or api_constants.MGMT_WEBAPP.START_PROPERTY not in json_data or \
+            api_constants.MGMT_WEBAPP.STOP_PROPERTY not in json_data:
+        response_str = f"{api_constants.MGMT_WEBAPP.IP_PROPERTY} or {api_constants.MGMT_WEBAPP.START_PROPERTY} or " \
+                       f"{api_constants.MGMT_WEBAPP.STOP_PROPERTY} not provided"
+        return (jsonify({api_constants.MGMT_WEBAPP.REASON_PROPERTY: response_str}),
+                constants.HTTPS.BAD_REQUEST_STATUS_CODE)
+    if emulation is not None:
+        config = MetastoreFacade.get_config(id=1)
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=execution_id, emulation_name=emulation)
+        ip = json_data[api_constants.MGMT_WEBAPP.IP_PROPERTY]
+        start = json_data[api_constants.MGMT_WEBAPP.START_PROPERTY]
+        stop = json_data[api_constants.MGMT_WEBAPP.STOP_PROPERTY]
+        if stop:
+            if ip == api_constants.MGMT_WEBAPP.STOP_ALL_PROPERTY:
+                Logger.__call__().get_logger().info(
+                    f"Stopping all 5G core monitors on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.stop_core_monitor_threads(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet)
+            else:
+                Logger.__call__().get_logger().info(
+                    f"Stopping core monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.stop_core_monitor_thread(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet, container_ip=ip)
+        if start:
+            if ip == api_constants.MGMT_WEBAPP.START_ALL_PROPERTY:
+                Logger.__call__().get_logger().info(
+                    f"Starting all core monitors on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.start_core_monitor_threads(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet)
+            else:
+                Logger.__call__().get_logger().info(
+                    f"Starting core monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.start_core_monitor_thread(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet, container_ip=ip)
+        execution_info = ClusterController.get_merged_execution_info(execution=execution)
+        response = jsonify(execution_info.to_dict())
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.OK_STATUS_CODE
+    else:
+        response = jsonify({})
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+
+
+@emulation_executions_bp.route(f"{constants.COMMANDS.SLASH_DELIM}<execution_id>{constants.COMMANDS.SLASH_DELIM}"
+                               f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}",
+                               methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
+def start_stop_cu_monitor_thread(execution_id: int) -> Tuple[Response, int]:
+    """
+    The /emulation-executions/id/cu-monitor resource.
+
+    :param execution_id: the id of the execution
+    :return: Starts or stop the 5G CU managers of a given execution
+    """
+    requires_admin = False
+    if request.method == api_constants.MGMT_WEBAPP.HTTP_REST_POST:
+        requires_admin = True
+    authorized = rest_api_util.check_if_user_is_authorized(request=request, requires_admin=requires_admin)
+    if authorized is not None:
+        return authorized
+
+    # Extract emulation query parameter
+    emulation = request.args.get(api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM)
+    json_data = json.loads(request.data)
+    # Verify payload
+    if api_constants.MGMT_WEBAPP.IP_PROPERTY not in json_data \
+            or api_constants.MGMT_WEBAPP.START_PROPERTY not in json_data or \
+            api_constants.MGMT_WEBAPP.STOP_PROPERTY not in json_data:
+        response_str = f"{api_constants.MGMT_WEBAPP.IP_PROPERTY} or {api_constants.MGMT_WEBAPP.START_PROPERTY} or " \
+                       f"{api_constants.MGMT_WEBAPP.STOP_PROPERTY} not provided"
+        return (jsonify({api_constants.MGMT_WEBAPP.REASON_PROPERTY: response_str}),
+                constants.HTTPS.BAD_REQUEST_STATUS_CODE)
+    if emulation is not None:
+        config = MetastoreFacade.get_config(id=1)
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=execution_id, emulation_name=emulation)
+        ip = json_data[api_constants.MGMT_WEBAPP.IP_PROPERTY]
+        start = json_data[api_constants.MGMT_WEBAPP.START_PROPERTY]
+        stop = json_data[api_constants.MGMT_WEBAPP.STOP_PROPERTY]
+        if stop:
+            if ip == api_constants.MGMT_WEBAPP.STOP_ALL_PROPERTY:
+                Logger.__call__().get_logger().info(
+                    f"Stopping all 5G CU monitors on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.stop_cu_monitor_threads(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet)
+            else:
+                Logger.__call__().get_logger().info(
+                    f"Stopping CU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.stop_cu_monitor_thread(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet, container_ip=ip)
+        if start:
+            if ip == api_constants.MGMT_WEBAPP.START_ALL_PROPERTY:
+                Logger.__call__().get_logger().info(
+                    f"Starting all cu monitors on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.start_cu_monitor_threads(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet)
+            else:
+                Logger.__call__().get_logger().info(
+                    f"Starting CU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.start_cu_monitor_thread(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet, container_ip=ip)
+        execution_info = ClusterController.get_merged_execution_info(execution=execution)
+        response = jsonify(execution_info.to_dict())
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.OK_STATUS_CODE
+    else:
+        response = jsonify({})
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+
+
+@emulation_executions_bp.route(f"{constants.COMMANDS.SLASH_DELIM}<execution_id>{constants.COMMANDS.SLASH_DELIM}"
+                               f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}",
+                               methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
+def start_stop_du_monitor_thread(execution_id: int) -> Tuple[Response, int]:
+    """
+    The /emulation-executions/id/du-monitor resource.
+
+    :param execution_id: the id of the execution
+    :return: Starts or stop the 5G du managers of a given execution
+    """
+    requires_admin = False
+    if request.method == api_constants.MGMT_WEBAPP.HTTP_REST_POST:
+        requires_admin = True
+    authorized = rest_api_util.check_if_user_is_authorized(request=request, requires_admin=requires_admin)
+    if authorized is not None:
+        return authorized
+
+    # Extract emulation query parameter
+    emulation = request.args.get(api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM)
+    json_data = json.loads(request.data)
+    # Verify payload
+    if api_constants.MGMT_WEBAPP.IP_PROPERTY not in json_data \
+            or api_constants.MGMT_WEBAPP.START_PROPERTY not in json_data or \
+            api_constants.MGMT_WEBAPP.STOP_PROPERTY not in json_data:
+        response_str = f"{api_constants.MGMT_WEBAPP.IP_PROPERTY} or {api_constants.MGMT_WEBAPP.START_PROPERTY} or " \
+                       f"{api_constants.MGMT_WEBAPP.STOP_PROPERTY} not provided"
+        return (jsonify({api_constants.MGMT_WEBAPP.REASON_PROPERTY: response_str}),
+                constants.HTTPS.BAD_REQUEST_STATUS_CODE)
+    if emulation is not None:
+        config = MetastoreFacade.get_config(id=1)
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=execution_id, emulation_name=emulation)
+        ip = json_data[api_constants.MGMT_WEBAPP.IP_PROPERTY]
+        start = json_data[api_constants.MGMT_WEBAPP.START_PROPERTY]
+        stop = json_data[api_constants.MGMT_WEBAPP.STOP_PROPERTY]
+        if stop:
+            if ip == api_constants.MGMT_WEBAPP.STOP_ALL_PROPERTY:
+                Logger.__call__().get_logger().info(
+                    f"Stopping all 5G DU monitors on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.stop_du_monitor_threads(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet)
+            else:
+                Logger.__call__().get_logger().info(
+                    f"Stopping DU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.stop_du_monitor_thread(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet, container_ip=ip)
+        if start:
+            if ip == api_constants.MGMT_WEBAPP.START_ALL_PROPERTY:
+                Logger.__call__().get_logger().info(
+                    f"Starting all DU monitors on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.start_du_monitor_threads(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet)
+            else:
+                Logger.__call__().get_logger().info(
+                    f"Starting DU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"execution id: {execution.ip_first_octet}")
+                for node in config.cluster_config.cluster_nodes:
+                    ClusterController.start_du_monitor_thread(
+                        ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                        emulation=execution.emulation_name,
+                        ip_first_octet=execution.ip_first_octet, container_ip=ip)
+        execution_info = ClusterController.get_merged_execution_info(execution=execution)
+        response = jsonify(execution_info.to_dict())
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.OK_STATUS_CODE
+    else:
+        response = jsonify({})
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE

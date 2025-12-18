@@ -4436,7 +4436,8 @@ class ClusterManagerUtil:
             ausf_running=five_g_core_status_dto.ausf_running, udm_running=five_g_core_status_dto.udm_running,
             pcf_running=five_g_core_status_dto.pcf_running, nssf_running=five_g_core_status_dto.nssf_running,
             bsf_running=five_g_core_status_dto.bsf_running, udr_running=five_g_core_status_dto.udr_running,
-            webui_running=five_g_core_status_dto.webui_running, ip=five_g_core_status_dto.ip
+            webui_running=five_g_core_status_dto.webui_running, ip=five_g_core_status_dto.ip,
+            monitor_running=five_g_core_status_dto.monitor_running
         )
 
     @staticmethod
@@ -4450,7 +4451,8 @@ class ClusterManagerUtil:
             mongo_running=False, mme_running=False, sgwc_running=False, smf_running=False, amf_running=False,
             sgwu_running=False, upf_running=False, hss_running=False, pcrf_running=False, nrf_running=False,
             scp_running=False, sepp_running=False, ausf_running=False, udm_running=False, pcf_running=False,
-            nssf_running=False, bsf_running=False, udr_running=False, webui_running=False, ip="")
+            nssf_running=False, bsf_running=False, udr_running=False, webui_running=False, ip="",
+            monitor_running=False)
 
     @staticmethod
     def convert_five_g_core_info_dto_to_five_g_core_status_dto_reverse(
@@ -4475,7 +4477,8 @@ class ClusterManagerUtil:
             ausf_running=five_g_core_info_dto.ausf_running, udm_running=five_g_core_info_dto.udm_running,
             pcf_running=five_g_core_info_dto.pcf_running, nssf_running=five_g_core_info_dto.nssf_running,
             bsf_running=five_g_core_info_dto.bsf_running, udr_running=five_g_core_info_dto.udr_running,
-            webui_running=five_g_core_info_dto.webui_running, ip=five_g_core_info_dto.ip)
+            webui_running=five_g_core_info_dto.webui_running, ip=five_g_core_info_dto.ip,
+            monitor_running=five_g_core_info_dto.monitor_running)
 
     @staticmethod
     def get_empty_five_g_cu_managers_info_dto() -> cluster_manager_pb2.FiveGCUManagersInfoDTO:
@@ -4547,7 +4550,8 @@ class ClusterManagerUtil:
         if five_g_cu_status_dto is None:
             return ClusterManagerUtil.get_empty_five_g_cu_info_dto()
         return cluster_manager_pb2.FiveGCUInfoDTO(cu_running=five_g_cu_status_dto.cu_running,
-                                                  ip=five_g_cu_status_dto.ip)
+                                                  ip=five_g_cu_status_dto.ip,
+                                                  monitor_running=five_g_cu_status_dto.monitor_running)
 
     @staticmethod
     def get_empty_five_g_cu_info_dto() -> cluster_manager_pb2.FiveGCUInfoDTO:
@@ -4556,7 +4560,7 @@ class ClusterManagerUtil:
 
         :return: an empty FiveGCUInfoDTO
         """
-        return cluster_manager_pb2.FiveGCUInfoDTO(cu_running=False, ip="")
+        return cluster_manager_pb2.FiveGCUInfoDTO(cu_running=False, ip="", monitor_running=False)
 
     @staticmethod
     def convert_five_g_cu_info_dto_to_five_g_cu_status_dto_reverse(
@@ -4572,7 +4576,8 @@ class ClusterManagerUtil:
             return ClusterManagerUtil.convert_five_g_cu_info_dto_to_five_g_cu_status_dto_reverse(
                 ClusterManagerUtil.get_empty_five_g_cu_info_dto())
         return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
-            cu_running=five_g_cu_info_dto.cu_running, ip=five_g_cu_info_dto.ip)
+            cu_running=five_g_cu_info_dto.cu_running, ip=five_g_cu_info_dto.ip,
+            monitor_running=five_g_cu_info_dto.monitor_running)
 
     @staticmethod
     def get_empty_five_g_du_managers_info_dto() -> cluster_manager_pb2.FiveGDUManagersInfoDTO:
@@ -4645,7 +4650,7 @@ class ClusterManagerUtil:
             return ClusterManagerUtil.get_empty_five_g_du_info_dto()
         return cluster_manager_pb2.FiveGDUInfoDTO(
             du_running=five_g_du_status_dto.du_running, ue_running=five_g_du_status_dto.ue_running,
-            ip=five_g_du_status_dto.ip)
+            ip=five_g_du_status_dto.ip, monitor_running=five_g_du_status_dto.monitor_running)
 
     @staticmethod
     def get_empty_five_g_du_info_dto() -> cluster_manager_pb2.FiveGDUInfoDTO:
@@ -4654,7 +4659,7 @@ class ClusterManagerUtil:
 
         :return: an empty FiveGDUInfoDTO
         """
-        return cluster_manager_pb2.FiveGDUInfoDTO(du_running=False, ue_running=False, ip="")
+        return cluster_manager_pb2.FiveGDUInfoDTO(du_running=False, ue_running=False, ip="", monitor_running=False)
 
     @staticmethod
     def convert_five_g_du_info_dto_to_five_g_du_status_dto_reverse(
@@ -4671,4 +4676,4 @@ class ClusterManagerUtil:
                 ClusterManagerUtil.get_empty_five_g_du_info_dto())
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
             du_running=five_g_du_info_dto.du_running, ue_running=five_g_du_info_dto.ue_running,
-            ip=five_g_du_info_dto.ip)
+            ip=five_g_du_info_dto.ip, monitor_running=five_g_du_info_dto.monitor_running)

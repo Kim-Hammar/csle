@@ -574,6 +574,12 @@ class KAFKA_CONFIG:
     HSS_METRICS_TOPIC_NAME = "hss_metrics"
     PCRF_METRICS_TOPIC_NAME = "pcrf_metrics"
     PCF_METRICS_TOPIC_NAME = "pcf_metrics"
+    DU_METRICS_TOPIC_NAME = "du_metrics"
+    CELL_METRICS_TOPIC_NAME = "cell_metrics"
+    DU_LOW_METRICS_TOPIC_NAME = "du_low_metrics"
+    RLC_METRICS_TOPIC_NAME = "rlc_metrics"
+    APP_RESOURCE_USAGE_METRICS_TOPIC_NAME = "app_resource_usage_metrics"
+    BUFFER_POOL_METRICS_TOPIC_NAME = "buffer_pool_metrics"
     DOCKER_STATS_TOPIC_NAME = "docker_stats"
     DOCKER_HOST_STATS_TOPIC_NAME = "docker_host_stats"
     OPENFLOW_FLOW_STATS_TOPIC_NAME = "openflow_flow_stats"
@@ -803,6 +809,34 @@ class KAFKA_CONFIG:
         "process_start_time_seconds",
         "process_open_fds"
     ]
+
+    DU_TOPIC_ATTRIBUTES = ["timestamp", "ip", "pci", "average_latency_us", "cpu_usage_percent", "max_latency_us",
+                           "min_latency_us"]
+
+    CELL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "pci", "average_latency",
+                             "max_latency", "pucch_tot_rb_usage_avg", "active_ues",
+                             "dl_brate", "ul_brate", "dl_mcs", "ul_mcs",
+                             "pusch_snr_db", "pucch_snr_db", "cqi", "dl_bler",
+                             "ul_bler"]
+
+    DU_LOW_TOPIC_ATTRIBUTES = ["timestamp", "ip", "dl_avg_latency_us",
+                               "dl_cpu_usage_percent", "dl_max_latency_us",
+                               "dl_fec_tput_mbps", "ul_avg_latency_us",
+                               "ul_cpu_usage_percent", "ul_max_latency_us",
+                               "ul_sinr_db", "ul_ch_est_latency_us",
+                               "ul_ldpc_dec_latency_us", "ul_fec_tput_mbps"]
+
+    RLC_TOPIC_ATTRIBUTES = ["timestamp", "ip", "ue_id", "drb_id", "rx_num_pdus",
+                            "rx_num_bytes", "rx_num_lost_pdus",
+                            "rx_num_malformed_pdus", "tx_num_sdus", "tx_num_bytes",
+                            "tx_num_dropped_sdus", "tx_num_discarded_sdus",
+                            "tx_max_pdu_latency_ns", "tx_sum_pdu_latency_ns",
+                            "tx_sum_sdu_latency_us"]
+
+    APP_RESOURCE_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cpu_usage_percent",
+                                     "memory_usage_mb", "power_consumption_watts"]
+
+    BUFFER_POOL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "central_cache_size"]
 
     SNORT_IDS_ALERTS_LABELS = [
         "total_alerts", "warning_alerts", "severe_alerts", "alerts_weighted_by_priority",

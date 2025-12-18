@@ -7006,6 +7006,7 @@ class FiveGCoreInfoDTO(google.protobuf.message.Message):
     UDR_RUNNING_FIELD_NUMBER: builtins.int
     WEBUI_RUNNING_FIELD_NUMBER: builtins.int
     IP_FIELD_NUMBER: builtins.int
+    MONITOR_RUNNING_FIELD_NUMBER: builtins.int
     mongo_running: builtins.bool
     mme_running: builtins.bool
     sgwc_running: builtins.bool
@@ -7026,6 +7027,7 @@ class FiveGCoreInfoDTO(google.protobuf.message.Message):
     udr_running: builtins.bool
     webui_running: builtins.bool
     ip: builtins.str
+    monitor_running: builtins.bool
     def __init__(
         self,
         *,
@@ -7049,8 +7051,9 @@ class FiveGCoreInfoDTO(google.protobuf.message.Message):
         udr_running: builtins.bool = ...,
         webui_running: builtins.bool = ...,
         ip: builtins.str = ...,
+        monitor_running: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["amf_running", b"amf_running", "ausf_running", b"ausf_running", "bsf_running", b"bsf_running", "hss_running", b"hss_running", "ip", b"ip", "mme_running", b"mme_running", "mongo_running", b"mongo_running", "nrf_running", b"nrf_running", "nssf_running", b"nssf_running", "pcf_running", b"pcf_running", "pcrf_running", b"pcrf_running", "scp_running", b"scp_running", "sepp_running", b"sepp_running", "sgwc_running", b"sgwc_running", "sgwu_running", b"sgwu_running", "smf_running", b"smf_running", "udm_running", b"udm_running", "udr_running", b"udr_running", "upf_running", b"upf_running", "webui_running", b"webui_running"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["amf_running", b"amf_running", "ausf_running", b"ausf_running", "bsf_running", b"bsf_running", "hss_running", b"hss_running", "ip", b"ip", "mme_running", b"mme_running", "mongo_running", b"mongo_running", "monitor_running", b"monitor_running", "nrf_running", b"nrf_running", "nssf_running", b"nssf_running", "pcf_running", b"pcf_running", "pcrf_running", b"pcrf_running", "scp_running", b"scp_running", "sepp_running", b"sepp_running", "sgwc_running", b"sgwc_running", "sgwu_running", b"sgwu_running", "smf_running", b"smf_running", "udm_running", b"udm_running", "udr_running", b"udr_running", "upf_running", b"upf_running", "webui_running", b"webui_running"]) -> None: ...
 
 global___FiveGCoreInfoDTO = FiveGCoreInfoDTO
 
@@ -7062,15 +7065,18 @@ class FiveGCUInfoDTO(google.protobuf.message.Message):
 
     CU_RUNNING_FIELD_NUMBER: builtins.int
     IP_FIELD_NUMBER: builtins.int
+    MONITOR_RUNNING_FIELD_NUMBER: builtins.int
     cu_running: builtins.bool
     ip: builtins.str
+    monitor_running: builtins.bool
     def __init__(
         self,
         *,
         cu_running: builtins.bool = ...,
         ip: builtins.str = ...,
+        monitor_running: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cu_running", b"cu_running", "ip", b"ip"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cu_running", b"cu_running", "ip", b"ip", "monitor_running", b"monitor_running"]) -> None: ...
 
 global___FiveGCUInfoDTO = FiveGCUInfoDTO
 
@@ -7083,17 +7089,20 @@ class FiveGDUInfoDTO(google.protobuf.message.Message):
     DU_RUNNING_FIELD_NUMBER: builtins.int
     UE_RUNNING_FIELD_NUMBER: builtins.int
     IP_FIELD_NUMBER: builtins.int
+    MONITOR_RUNNING_FIELD_NUMBER: builtins.int
     du_running: builtins.bool
     ue_running: builtins.bool
     ip: builtins.str
+    monitor_running: builtins.bool
     def __init__(
         self,
         *,
         du_running: builtins.bool = ...,
         ue_running: builtins.bool = ...,
         ip: builtins.str = ...,
+        monitor_running: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["du_running", b"du_running", "ip", b"ip", "ue_running", b"ue_running"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["du_running", b"du_running", "ip", b"ip", "monitor_running", b"monitor_running", "ue_running", b"ue_running"]) -> None: ...
 
 global___FiveGDUInfoDTO = FiveGDUInfoDTO
 
