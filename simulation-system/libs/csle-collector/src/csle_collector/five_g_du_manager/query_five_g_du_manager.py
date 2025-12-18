@@ -114,3 +114,42 @@ def init_five_g_ue_du(
     five_g_du_status: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO = \
         stub.initFiveGUE(init_5g_ue_msg, timeout=timeout)
     return five_g_du_status
+
+
+def start_du_monitor(stub: csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub,
+                     kafka_ip: str, kafka_port: int, time_step_len_seconds: int,
+                     timeout=constants.GRPC.TIMEOUT_SECONDS) \
+        -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+    """
+    Sends a request to the 5G DU manager to start the DU monitor thread
+
+    :param kafka_ip: the ip of the Kafka server
+    :param kafka_port: the port of the Kafka server
+    :param time_step_len_seconds: the length of one time-step
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :return: a FiveGDUStatusDTO describing the cu status
+    """
+    start_du_monitor_msg = csle_collector.five_g_du_manager.five_g_du_manager_pb2.StartDUMonitorMsg(
+        kafka_ip=kafka_ip, kafka_port=kafka_port, time_step_len_seconds=time_step_len_seconds)
+    du_dto: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO = \
+        stub.startDUMonitor(start_du_monitor_msg, timeout=timeout)
+    return du_dto
+
+
+def stop_du_monitor(
+        stub: csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub,
+        timeout=constants.GRPC.TIMEOUT_SECONDS) \
+        -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+    """
+    Sends a request to the DU manager to stop the DU monitor thread
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :return: a FiveGDUStatusDTO describing the 5G DU status
+    """
+    stop_du_monitor_msg = \
+        csle_collector.five_g_du_manager.five_g_du_manager_pb2.StopDUMonitorMsg()
+    du_dto: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO = \
+        stub.stopDUMonitor(stop_du_monitor_msg, timeout=timeout)
+    return du_dto

@@ -1,3 +1,4 @@
+from typing import Union
 import logging
 import socket
 import netifaces
@@ -7,6 +8,7 @@ import csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc
 import csle_collector.five_g_du_manager.five_g_du_manager_pb2
 import csle_collector.constants.constants as constants
 from csle_collector.five_g_du_manager.five_g_du_manager_util import FiveGDUManagerUtil
+from csle_collector.five_g_du_manager.threads.du_monitor_thread import DUMonitorThread
 
 
 class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerServicer):
@@ -27,6 +29,7 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
             self.ip = socket.gethostbyname(self.hostname)
         self.conf = {constants.KAFKA.BOOTSTRAP_SERVERS_PROPERTY: f"{self.ip}:{constants.KAFKA.PORT}",
                      constants.KAFKA.CLIENT_ID_PROPERTY: self.hostname}
+        self.du_monitor_thread: Union[None, DUMonitorThread] = None
         logging.info(f"Starting the 5G DU manager hostname: {self.hostname} ip: {self.ip}")
 
     def getFiveGDUStatus(
@@ -46,7 +49,7 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
             du_running=status_du.get(constants.FIVE_G_DU.DU, False),
             ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
-            ip=self.ip
+            ip=self.ip, monitor_running=self._is_monitor_running()
         )
 
     def startFiveGDU(self, request: csle_collector.five_g_du_manager.five_g_du_manager_pb2.StartFiveGDUMsg,
@@ -66,7 +69,7 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
             du_running=status_du.get(constants.FIVE_G_DU.DU, False),
             ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
-            ip=self.ip
+            ip=self.ip, monitor_running=self._is_monitor_running()
         )
 
     def stopFiveGDU(self, request: csle_collector.five_g_du_manager.five_g_du_manager_pb2.StopFiveGDUMsg,
@@ -86,7 +89,7 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
             du_running=status_du.get(constants.FIVE_G_DU.DU, False),
             ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
-            ip=self.ip
+            ip=self.ip, monitor_running=self._is_monitor_running()
         )
 
     def stopFiveGUE(self, request: csle_collector.five_g_du_manager.five_g_du_manager_pb2.StopFiveGUEMsg,
@@ -106,7 +109,7 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
             du_running=status_du.get(constants.FIVE_G_DU.DU, False),
             ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
-            ip=self.ip
+            ip=self.ip, monitor_running=self._is_monitor_running()
         )
 
     def startFiveGUE(self, request: csle_collector.five_g_du_manager.five_g_du_manager_pb2.StartFiveGUEMsg,
@@ -126,7 +129,7 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
             du_running=status_du.get(constants.FIVE_G_DU.DU, False),
             ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
-            ip=self.ip
+            ip=self.ip, monitor_running=self._is_monitor_running()
         )
 
     def initFiveGUE(self, request: csle_collector.five_g_du_manager.five_g_du_manager_pb2.InitFiveGUEMsg,
@@ -148,8 +151,69 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
             du_running=status_du.get(constants.FIVE_G_DU.DU, False),
             ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
-            ip=self.ip
+            ip=self.ip, monitor_running=self._is_monitor_running()
         )
+
+    def startDUMonitor(self, request: csle_collector.five_g_du_manager.five_g_du_manager_pb2.StartDUMonitorMsg,
+                       context: grpc.ServicerContext) \
+            -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+        """
+        Starts the DU monitor thread
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the DU monitor thread
+        """
+        logging.info(f"Starting the DUMonitor thread, timestep length: {request.time_step_len_seconds}, "
+                     f"kafka ip: {request.kafka_ip}, "
+                     f"kafka port: {request.kafka_port}")
+        if self.du_monitor_thread is not None:
+            self.du_monitor_thread.running = False
+        self.du_monitor_thread = DUMonitorThread(kafka_ip=request.kafka_ip, kafka_port=request.kafka_port,
+                                                 ip=self.ip, hostname=self.hostname,
+                                                 time_step_len_seconds=request.time_step_len_seconds)
+        self.du_monitor_thread.start()
+        logging.info("Started the DU Monitor thread")
+
+        status_du = FiveGDUManagerUtil.get_du_status(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_ue = FiveGDUManagerUtil.get_ue_status(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
+            du_running=status_du.get(constants.FIVE_G_DU.DU, False),
+            ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
+            ip=self.ip, monitor_running=True
+        )
+
+    def stopDUMonitor(self, request: csle_collector.five_g_du_manager.five_g_du_manager_pb2.StopDUMonitorMsg,
+                      context: grpc.ServicerContext) \
+            -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+        """
+        Stops the DU monitor thread if it is running
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the DU monitor thread
+        """
+        logging.info("Stopping the DU monitor")
+        if self.du_monitor_thread is not None:
+            self.du_monitor_thread.running = False
+        logging.info("DU monitor stopped")
+        status_du = FiveGDUManagerUtil.get_du_status(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
+        status_ue = FiveGDUManagerUtil.get_ue_status(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
+            du_running=status_du.get(constants.FIVE_G_DU.DU, False),
+            ue_running=status_ue.get(constants.FIVE_G_DU.UE, False),
+            ip=self.ip, monitor_running=False
+        )
+
+    def _is_monitor_running(self) -> bool:
+        """
+        Utility method to check if the monitor is running
+
+        :return: True if running else false
+        """
+        if self.du_monitor_thread is not None:
+            return self.du_monitor_thread.running
+        return False
 
 
 def serve(port: int = 50054, log_dir: str = "/", max_workers: int = 100,

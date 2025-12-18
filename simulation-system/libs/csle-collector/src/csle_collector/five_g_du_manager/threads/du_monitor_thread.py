@@ -2,13 +2,13 @@ import time
 import logging
 import threading
 from confluent_kafka import Producer
-from csle_collector.five_g_cu_manager.five_g_cu_manager_util import FiveGCUManagerUtil
+from csle_collector.five_g_du_manager.five_g_du_manager_util import FiveGDUManagerUtil
 import csle_collector.constants.constants as constants
 
 
-class CUMonitorThread(threading.Thread):
+class DUMonitorThread(threading.Thread):
     """
-    Thread that collects the 5G CU statistics and pushes it to Kafka periodically
+    Thread that collects the 5G DU statistics and pushes it to Kafka periodically
     """
 
     def __init__(self, kafka_ip: str, kafka_port: int, ip: str, hostname: str, time_step_len_seconds: int) -> None:
@@ -33,7 +33,7 @@ class CUMonitorThread(threading.Thread):
             constants.KAFKA.CLIENT_ID_PROPERTY: self.hostname}
         self.producer = Producer(**self.conf)
         self.running = True
-        logging.info("CU Monitor thread started successfully")
+        logging.info("DU Monitor thread started successfully")
 
     def run(self) -> None:
         """
@@ -41,15 +41,15 @@ class CUMonitorThread(threading.Thread):
 
         :return: None
         """
-        logging.info("CU Monitor [Running]")
+        logging.info("DU Monitor [Running]")
         while self.running:
             time.sleep(self.time_step_len_seconds)
             try:
-                cu_metrics = FiveGCUManagerUtil.fetch_cu_metrics(ip=self.ip)
-                record = cu_metrics.to_kafka_record(ip=self.ip)
+                du_metrics = FiveGDUManagerUtil.fetch_du_metrics(ip=self.ip)
+                record = du_metrics.to_kafka_record(ip=self.ip)
                 self.producer.produce(constants.KAFKA_CONFIG.AMF_METRICS_TOPIC_NAME, record)
                 self.producer.poll(0)
             except Exception as e:
-                logging.info(f"[CU monitor thread], "
-                             f"There was an exception reading 5G CU metrics and producing to kafka: "
+                logging.info(f"[DU monitor thread], "
+                             f"There was an exception reading 5G DU metrics and producing to kafka: "
                              f"{str(e)}, {repr(e)}")

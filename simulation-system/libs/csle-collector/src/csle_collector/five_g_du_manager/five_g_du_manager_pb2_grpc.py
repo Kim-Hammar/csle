@@ -65,6 +65,16 @@ class FiveGDUManagerStub(object):
                 request_serializer=five__g__du__manager__pb2.InitFiveGUEMsg.SerializeToString,
                 response_deserializer=five__g__du__manager__pb2.FiveGDUStatusDTO.FromString,
                 _registered_method=True)
+        self.startDUMonitor = channel.unary_unary(
+                '/FiveGDUManager/startDUMonitor',
+                request_serializer=five__g__du__manager__pb2.StartDUMonitorMsg.SerializeToString,
+                response_deserializer=five__g__du__manager__pb2.FiveGDUStatusDTO.FromString,
+                _registered_method=True)
+        self.stopDUMonitor = channel.unary_unary(
+                '/FiveGDUManager/stopDUMonitor',
+                request_serializer=five__g__du__manager__pb2.StopDUMonitorMsg.SerializeToString,
+                response_deserializer=five__g__du__manager__pb2.FiveGDUStatusDTO.FromString,
+                _registered_method=True)
 
 
 class FiveGDUManagerServicer(object):
@@ -107,6 +117,18 @@ class FiveGDUManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def startDUMonitor(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def stopDUMonitor(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_FiveGDUManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -138,6 +160,16 @@ def add_FiveGDUManagerServicer_to_server(servicer, server):
             'initFiveGUE': grpc.unary_unary_rpc_method_handler(
                     servicer.initFiveGUE,
                     request_deserializer=five__g__du__manager__pb2.InitFiveGUEMsg.FromString,
+                    response_serializer=five__g__du__manager__pb2.FiveGDUStatusDTO.SerializeToString,
+            ),
+            'startDUMonitor': grpc.unary_unary_rpc_method_handler(
+                    servicer.startDUMonitor,
+                    request_deserializer=five__g__du__manager__pb2.StartDUMonitorMsg.FromString,
+                    response_serializer=five__g__du__manager__pb2.FiveGDUStatusDTO.SerializeToString,
+            ),
+            'stopDUMonitor': grpc.unary_unary_rpc_method_handler(
+                    servicer.stopDUMonitor,
+                    request_deserializer=five__g__du__manager__pb2.StopDUMonitorMsg.FromString,
                     response_serializer=five__g__du__manager__pb2.FiveGDUStatusDTO.SerializeToString,
             ),
     }
@@ -303,6 +335,60 @@ class FiveGDUManager(object):
             target,
             '/FiveGDUManager/initFiveGUE',
             five__g__du__manager__pb2.InitFiveGUEMsg.SerializeToString,
+            five__g__du__manager__pb2.FiveGDUStatusDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def startDUMonitor(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/FiveGDUManager/startDUMonitor',
+            five__g__du__manager__pb2.StartDUMonitorMsg.SerializeToString,
+            five__g__du__manager__pb2.FiveGDUStatusDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def stopDUMonitor(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/FiveGDUManager/stopDUMonitor',
+            five__g__du__manager__pb2.StopDUMonitorMsg.SerializeToString,
             five__g__du__manager__pb2.FiveGDUStatusDTO.FromString,
             options,
             channel_credentials,

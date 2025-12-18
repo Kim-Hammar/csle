@@ -139,8 +139,8 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
         )
 
     def stopCUMonitor(self, request: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StopCUMonitorMsg,
-                        context: grpc.ServicerContext) \
-            -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
+                      context: grpc.ServicerContext) -> (
+            csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO):
         """
         Stops the CU monitor thread if it is running
 

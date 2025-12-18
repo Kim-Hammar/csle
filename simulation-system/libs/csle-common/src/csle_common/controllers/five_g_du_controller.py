@@ -416,7 +416,7 @@ class FiveGDUController:
         :param active_ips: list of active IPs
         :param physical_server_ip: the IP of the physical server
         :param logger: the logger to use for logging
-        :return: a DTO with the status of the 5G core managers
+        :return: a DTO with the status of the 5G DU managers
         """
         five_g_du_managers_ips = FiveGDUController.get_five_g_du_managers_ips(
             emulation_env_config=emulation_env_config)
@@ -450,3 +450,84 @@ class FiveGDUController:
             ports=five_g_core_managers_ports, execution_id=execution_id, emulation_name=emulation_name,
             five_g_du_managers_statuses=five_g_du_managers_statuses)
         return five_g_core_manager_info_dto
+
+    @staticmethod
+    def start_du_monitor_threads(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
+                                 logger: logging.Logger) -> None:
+        """
+        A method that sends a request to the DUManager on every container
+        to start the DU manager and the monitor thread
+
+        :param emulation_env_config: the emulation env config
+        :param physical_server_ip: the ip of the physical server
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        for c in emulation_env_config.containers_config.containers:
+            if c.physical_host_ip != physical_server_ip:
+                continue
+            for container_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if container_image in c.name:
+                    FiveGDUController.start_du_monitor_thread(emulation_env_config=emulation_env_config,
+                                                              ip=c.docker_gw_bridge_ip, logger=logger)
+
+    @staticmethod
+    def start_du_monitor_thread(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) -> None:
+        """
+        A method that sends a request to the FiveGDUManager on a specific IP
+        to start the 5G DU monitor thread
+
+        :param emulation_env_config: the emulation env config
+        :param ip: IP of the container
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        du_status_dto = FiveGDUController.get_five_g_du_status_by_ip_and_port(
+            ip=ip, port=emulation_env_config.five_g_config.five_g_du_manager_port)
+        if not du_status_dto.monitor_running:
+            logger.info(f"DU monitor thread is not running on {ip}, starting it.")
+            # Open a gRPC session
+            with grpc.insecure_channel(
+                    f'{ip}:{emulation_env_config.five_g_config.five_g_du_manager_port}',
+                    options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+                stub = csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub(channel)
+                csle_collector.five_g_du_manager.query_five_g_du_manager.start_du_monitor(
+                    stub=stub, kafka_ip=emulation_env_config.kafka_config.container.get_ips()[0],
+                    kafka_port=emulation_env_config.kafka_config.kafka_port,
+                    time_step_len_seconds=emulation_env_config.kafka_config.time_step_len_seconds)
+
+    @staticmethod
+    def stop_du_monitor_threads(emulation_env_config: EmulationEnvConfig, logger: logging.Logger,
+                                physical_host_ip: str) -> None:
+        """
+        A method that sends a request to the 5G DU on every container to stop the monitor threads
+
+        :param emulation_env_config: the emulation env config
+        :param physical_host_ip: the IP of the physical host
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        for c in emulation_env_config.containers_config.containers:
+            if c.physical_host_ip != physical_host_ip:
+                continue
+            for container_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if container_image in c.name:
+                    FiveGDUController.stop_du_monitor_thread(emulation_env_config=emulation_env_config,
+                                                             ip=c.docker_gw_bridge_ip, logger=logger)
+
+    @staticmethod
+    def stop_du_monitor_thread(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) -> None:
+        """
+        A method that sends a request to the 5G DU Manager on a specific container to stop the monitor thread
+
+        :param emulation_env_config: the emulation env config
+        :param ip: the IP of the container
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{emulation_env_config.five_g_config.five_g_du_manager_port}',
+                                   options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub(channel)
+            logger.info(f"Stopping the 5G DU monitor thread on {ip}.")
+            csle_collector.five_g_du_manager.query_five_g_du_manager.stop_du_monitor(stub=stub)

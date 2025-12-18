@@ -5609,3 +5609,183 @@ def stop_core_monitor_thread(
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
         stub.stopCoreMonitorThread(operation_msg, timeout=timeout)
     return operation_outcome
+
+
+def start_cu_monitor_threads(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Starts the CU monitor threads of a given execution
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartCUMonitorThreadsMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.startCUMonitorThreads(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def start_cu_monitor_thread(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int, container_ip: str,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Starts a specific CU monitor thread
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :param container_ip: the ip of the container
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartCUMonitorThreadMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.startCUMonitorThread(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def stop_cu_monitor_threads(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Stops the CU monitor threads of a given execution
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopCUMonitorThreadsMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.stopCUMonitorThreads(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def stop_cu_monitor_thread(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int, container_ip: str,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Stops a specific CU monitor thread
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :param container_ip: the ip of the container
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopCUMonitorThreadMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.stopCUMonitorThread(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def start_du_monitor_threads(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Starts the DU monitor threads of a given execution
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartDUMonitorThreadsMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.startDUMonitorThreads(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def start_du_monitor_thread(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int, container_ip: str,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Starts a specific Du monitor thread
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :param container_ip: the ip of the container
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartDUMonitorThreadMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.startDUMonitorThread(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def stop_du_monitor_threads(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Stops the DU monitor threads of a given execution
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopDUMonitorThreadsMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.stopDUMonitorThreads(operation_msg, timeout=timeout)
+    return operation_outcome
+
+
+def stop_du_monitor_thread(
+        stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
+        emulation: str, ip_first_octet: int, container_ip: str,
+        timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
+        -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+    """
+    Stops a specific DU monitor thread
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the subnet of the execution
+    :param container_ip: the ip of the container
+    :return: the operation outcome
+    """
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopDUMonitorThreadMsg(
+        ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
+    )
+    operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
+        stub.stopDUMonitorThread(operation_msg, timeout=timeout)
+    return operation_outcome

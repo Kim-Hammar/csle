@@ -5580,3 +5580,159 @@ class ClusterController:
             operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.stop_core_monitor_thread(
                 stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
             return operation_outcome_dto
+
+    @staticmethod
+    def start_cu_monitor_threads(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to start the 5G CU monitor threads of a given execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.start_cu_monitor_threads(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation)
+            return operation_outcome_dto
+
+    @staticmethod
+    def start_cu_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to start the CU monitor thread on a specific container
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.start_cu_monitor_thread(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return operation_outcome_dto
+
+    @staticmethod
+    def stop_cu_monitor_threads(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to stop the 5G CU monitor threads of a given execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.stop_cu_monitor_threads(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation)
+            return operation_outcome_dto
+
+    @staticmethod
+    def stop_cu_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to stop the 5G CU monitor thread on a specific container
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.stop_cu_monitor_thread(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return operation_outcome_dto
+
+    @staticmethod
+    def start_du_monitor_threads(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to start the 5G DU monitor threads of a given execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.start_du_monitor_threads(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation)
+            return operation_outcome_dto
+
+    @staticmethod
+    def start_du_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to start the DU monitor thread on a specific container
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.start_du_monitor_thread(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return operation_outcome_dto
+
+    @staticmethod
+    def stop_du_monitor_threads(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to stop the 5G DU monitor threads of a given execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.stop_du_monitor_threads(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation)
+            return operation_outcome_dto
+
+    @staticmethod
+    def stop_du_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to stop the 5G DU monitor thread on a specific container
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.stop_du_monitor_thread(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return operation_outcome_dto

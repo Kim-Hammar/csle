@@ -269,6 +269,14 @@ service ClusterManager {
   rpc startCoreMonitorThread(StartCoreMonitorThreadMsg) returns (OperationOutcomeDTO) {}
   rpc stopCoreMonitorThreads(StopCoreMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
   rpc stopCoreMonitorThread(StopCoreMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc startCUMonitorThreads(StartCUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc startCUMonitorThread(StartCUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc stopCUMonitorThreads(StopCUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc stopCUMonitorThread(StopCUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc startDUMonitorThreads(StartDUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc startDUMonitorThread(StartDUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc stopDUMonitorThreads(StopDUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc stopDUMonitorThread(StopDUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
 }
 
 // Message that the client sends when requesting to start stop a PID
@@ -2462,6 +2470,58 @@ message StopCoreMonitorThreadsMsg {
 
 // Message that the client sends when requesting to stop the 5G core monitor thread of a specific execution and container
 message StopCoreMonitorThreadMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution
+message StartCUMonitorThreadsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution and container
+message StartCUMonitorThreadMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution
+message StopCUMonitorThreadsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to stop the 5G CU monitor thread of a specific execution and container
+message StopCUMonitorThreadMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution
+message StartDUMonitorThreadsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution and container
+message StartDUMonitorThreadMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution
+message StopDUMonitorThreadsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to stop the 5G DU monitor thread of a specific execution and container
+message StopDUMonitorThreadMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;

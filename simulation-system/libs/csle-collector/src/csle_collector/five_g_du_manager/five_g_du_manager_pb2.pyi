@@ -35,17 +35,20 @@ class FiveGDUStatusDTO(google.protobuf.message.Message):
     DU_RUNNING_FIELD_NUMBER: builtins.int
     UE_RUNNING_FIELD_NUMBER: builtins.int
     IP_FIELD_NUMBER: builtins.int
+    MONITOR_RUNNING_FIELD_NUMBER: builtins.int
     du_running: builtins.bool
     ue_running: builtins.bool
     ip: builtins.str
+    monitor_running: builtins.bool
     def __init__(
         self,
         *,
         du_running: builtins.bool = ...,
         ue_running: builtins.bool = ...,
         ip: builtins.str = ...,
+        monitor_running: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["du_running", b"du_running", "ip", b"ip", "ue_running", b"ue_running"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["du_running", b"du_running", "ip", b"ip", "monitor_running", b"monitor_running", "ue_running", b"ue_running"]) -> None: ...
 
 global___FiveGDUStatusDTO = FiveGDUStatusDTO
 
@@ -116,3 +119,38 @@ class InitFiveGUEMsg(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["cu_fronthaul_ip", b"cu_fronthaul_ip", "du_fronthaul_ip", b"du_fronthaul_ip"]) -> None: ...
 
 global___InitFiveGUEMsg = InitFiveGUEMsg
+
+@typing_extensions.final
+class StartDUMonitorMsg(google.protobuf.message.Message):
+    """Message that the client sends to start the DUMonitor"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KAFKA_IP_FIELD_NUMBER: builtins.int
+    KAFKA_PORT_FIELD_NUMBER: builtins.int
+    TIME_STEP_LEN_SECONDS_FIELD_NUMBER: builtins.int
+    kafka_ip: builtins.str
+    kafka_port: builtins.int
+    time_step_len_seconds: builtins.int
+    def __init__(
+        self,
+        *,
+        kafka_ip: builtins.str = ...,
+        kafka_port: builtins.int = ...,
+        time_step_len_seconds: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["kafka_ip", b"kafka_ip", "kafka_port", b"kafka_port", "time_step_len_seconds", b"time_step_len_seconds"]) -> None: ...
+
+global___StartDUMonitorMsg = StartDUMonitorMsg
+
+@typing_extensions.final
+class StopDUMonitorMsg(google.protobuf.message.Message):
+    """Message that the client sends to stop the DUMonitor"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___StopDUMonitorMsg = StopDUMonitorMsg

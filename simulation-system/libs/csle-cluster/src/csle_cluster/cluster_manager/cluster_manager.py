@@ -6041,6 +6041,202 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
             execution.emulation_env_config.close_all_connections()
             return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
 
+    def startCUMonitorThreads(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.StartCUMonitorThreadsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Starts the cu monitor threads of a specific execution
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Starting 5G CU monitor threads  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        FiveGCUController.start_cu_monitor_threads(emulation_env_config=execution.emulation_env_config,
+                                                   physical_server_ip=GeneralUtil.get_host_ip(),
+                                                   logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
+        return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+
+    def startCUMonitorThread(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.StartCUMonitorThreadMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Starts a specific cu monitor thread
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Starting 5G Cu monitor thread on container with ip: {request.containerIp}  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is not None:
+            FiveGCUController.start_cu_monitor_thread(emulation_env_config=execution.emulation_env_config,
+                                                      ip=container_config.docker_gw_bridge_ip,
+                                                      logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+        else:
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+
+    def stopCUMonitorThreads(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.StopCUMonitorThreadsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Stops the cu monitor threads of a specific execution
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Stopping CU monitor threads  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        FiveGCUController.stop_cu_monitor_threads(emulation_env_config=execution.emulation_env_config,
+                                                  physical_host_ip=GeneralUtil.get_host_ip(),
+                                                  logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
+        return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+
+    def stopCUMonitorThread(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.StopCUMonitorThreadMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Stops a specific cu monitor thread
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Stopping CU monitor thread on container with ip: {request.containerIp}  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is not None:
+            FiveGCUController.stop_cu_monitor_thread(emulation_env_config=execution.emulation_env_config,
+                                                     ip=container_config.docker_gw_bridge_ip,
+                                                     logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+        else:
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+
+    def startDUMonitorThreads(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.StartDUMonitorThreadsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Starts the du monitor threads of a specific execution
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Starting 5G DU monitor threads  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        FiveGDUController.start_du_monitor_threads(emulation_env_config=execution.emulation_env_config,
+                                                   physical_server_ip=GeneralUtil.get_host_ip(),
+                                                   logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
+        return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+
+    def startDUMonitorThread(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.StartDUMonitorThreadMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Starts a specific du monitor thread
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Starting 5G DU monitor thread on container with ip: {request.containerIp}  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is not None:
+            FiveGDUController.start_du_monitor_thread(emulation_env_config=execution.emulation_env_config,
+                                                      ip=container_config.docker_gw_bridge_ip,
+                                                      logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+        else:
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+
+    def stopDUMonitorThreads(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.StopDUMonitorThreadsMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Stops the du monitor threads of a specific execution
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Stopping DU monitor threads  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        FiveGDUController.stop_du_monitor_threads(emulation_env_config=execution.emulation_env_config,
+                                                  physical_host_ip=GeneralUtil.get_host_ip(),
+                                                  logger=logging.getLogger())
+        execution.emulation_env_config.close_all_connections()
+        return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+
+    def stopDUMonitorThread(
+            self, request: csle_cluster.cluster_manager.cluster_manager_pb2.StopDUMonitorThreadMsg,
+            context: grpc.ServicerContext) -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Stops a specific du monitor thread
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: an OperationOutcomeDTO
+        """
+        logging.info(f"Stopping DU monitor thread on container with ip: {request.containerIp}  "
+                     f"in execution with id: {request.ipFirstOctet} and emulation: {request.emulation}")
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=request.ipFirstOctet,
+                                                            emulation_name=request.emulation)
+        if execution is None:
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+        container_config = ClusterManagerUtil.get_container_config(execution=execution, ip=request.containerIp)
+        if container_config is not None:
+            FiveGDUController.stop_du_monitor_thread(emulation_env_config=execution.emulation_env_config,
+                                                     ip=container_config.docker_gw_bridge_ip,
+                                                     logger=logging.getLogger())
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=True)
+        else:
+            execution.emulation_env_config.close_all_connections()
+            return csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO(outcome=False)
+
 
 def serve(port: int = 50041, log_dir: str = "/var/log/csle/", max_workers: int = 10,
           log_file_name: str = "cluster_manager.log") -> None:
