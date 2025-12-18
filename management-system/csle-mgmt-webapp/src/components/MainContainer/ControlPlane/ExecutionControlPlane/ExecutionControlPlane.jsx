@@ -396,7 +396,7 @@ const ExecutionControlPlane = (props) => {
                     startOrStop={startOrStop}
                 />
 
-                <FiveGCoreManagersInfoOrEmpty
+                <HostManagersInfo
                     setHostManagersOpen={setHostManagersOpen}
                     hostManagersOpen={hostManagersOpen}
                     loadingEntities={loadingEntities}
@@ -406,7 +406,7 @@ const ExecutionControlPlane = (props) => {
                     startOrStop={startOrStop}
                 />
 
-                <FiveGCoreManagersInfo
+                <FiveGCoreManagersInfoOrEmpty
                   setFiveGCoreManagersOpen={setFiveGCoreManagersOpen}
                   fiveGCoreManagersOpen={fiveGCoreManagersOpen}
                   loadingEntities={loadingEntities}
