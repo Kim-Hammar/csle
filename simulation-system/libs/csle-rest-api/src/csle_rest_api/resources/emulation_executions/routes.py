@@ -152,6 +152,8 @@ def emulation_execution_info(execution_id: int) -> Tuple[Response, int]:
                 if ids_image in c.name:
                     five_g_core_containers.append(c)
         if len(five_g_core_containers) > 0 and execution_info.five_g_core_managers_info is not None:
+            Logger.__call__().get_logger().info(
+                f"Creating 5G core tunnels for {execution.emulation_name}")
             ClusterController.create_five_g_core_tunnel(
                 ip=five_g_core_containers[0].physical_host_ip,
                 port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, emulation=execution.emulation_name,
@@ -162,6 +164,8 @@ def emulation_execution_info(execution_id: int) -> Tuple[Response, int]:
             for five_g_core_tunnel_dto in five_g_core_tunnels_dto.tunnels:
                 if five_g_core_tunnel_dto.ip == five_g_core_containers[0].docker_gw_bridge_ip:
                     execution_info.five_g_core_managers_info.local_webui_port = five_g_core_tunnel_dto.port
+                    execution_info.five_g_core_managers_info.physical_server_ip = (
+                        five_g_core_containers[0].physical_host_ip)
 
         response = jsonify(execution_info.to_dict())
         response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")

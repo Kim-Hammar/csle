@@ -1780,6 +1780,7 @@ class ClusterManagerUtil:
         :param logger: the logger to use for logging
         :return: the port of the tunnel
         """
+        logger.info("Creating 5G core tunnel")
         ip = GeneralUtil.get_host_ip()
         if ip != execution.emulation_env_config.elk_config.container.physical_host_ip:
             return -1
@@ -1791,8 +1792,16 @@ class ClusterManagerUtil:
         try:
             local_5g_core_tunnel_port = (cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNEL_BASE_PORT +
                                          execution.ip_first_octet)
-            if execution.emulation_env_config.elk_config.container.docker_gw_bridge_ip \
-                    not in cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT:
+            target_gw_ip = execution.emulation_env_config.elk_config.container.docker_gw_bridge_ip
+            tunnels_dict = cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT
+            tunnel_active = False
+            if target_gw_ip in tunnels_dict:
+                tunnel_data = tunnels_dict[target_gw_ip]
+                tunnel_thread = tunnel_data.get(constants.GENERAL.THREAD_PROPERTY)
+                if tunnel_thread and tunnel_thread.is_alive():
+                    tunnel_active = True
+            logger.info(f"Tunnel already active: {tunnel_active}")
+            if not tunnel_active:
                 try:
                     EmulationEnvController.create_ssh_tunnel(
                         tunnels_dict=cluster_constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT,

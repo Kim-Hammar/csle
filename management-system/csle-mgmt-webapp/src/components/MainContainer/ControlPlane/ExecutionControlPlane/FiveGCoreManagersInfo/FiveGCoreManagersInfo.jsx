@@ -4,12 +4,14 @@ import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
 import SpinnerOrButton from '../SpinnerOrButton/SpinnerOrButton.jsx'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 import LogsButton from '../LogsButton/LogsButton.jsx'
 import Open5GSImg from './Open5GS.png'
 import {
   FIVE_G_CORE_MANAGER_SUBRESOURCE, FIVE_G_CORE_SUBRESOURCE,
   START_ALL_PROPERTY,
-  STOP_ALL_PROPERTY
+  STOP_ALL_PROPERTY, HTTP_PREFIX
 } from '../../../../Common/constants'
 
 /**
@@ -19,7 +21,7 @@ const FiveGCoreManagersInfo = (props) => {
 
   const renderFiveGCoreTooltip = (props) => {
     return (<Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
-      View Ryu&apos;s web interface
+      View Open5Gs&apos;s web interface
     </Tooltip>)
   }
 
