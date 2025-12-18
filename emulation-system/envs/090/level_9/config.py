@@ -4239,6 +4239,48 @@ def default_kafka_config(network_id: int, level: int, version: str, time_step_le
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
             attributes=collector_constants.KAFKA_CONFIG.AMF_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.UPF_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.UPF_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.MME_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.MME_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.SMF_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.SMF_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.HSS_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.HSS_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.PCRF_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.PCRF_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.PCF_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.PCF_TOPIC_ATTRIBUTES
         )
     ]
 
