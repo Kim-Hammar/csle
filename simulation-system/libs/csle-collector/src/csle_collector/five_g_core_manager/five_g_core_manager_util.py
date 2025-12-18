@@ -379,4 +379,4 @@ class FiveGCoreManagerUtil:
         filtered_args['ip'] = str(ip)
         filtered_args['ts'] = float(time.time())
 
-        return AMFMetrics(**filtered_args)
+        return AMFMetrics(**filtered_args) # type: ignore
