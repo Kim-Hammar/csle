@@ -1,10 +1,13 @@
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Union
 import subprocess
 import re
 import logging
 import yaml
+import requests
+import time
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2
 import csle_collector.constants.constants as constants
+from csle_collector.five_g_core_manager.dao.AMFMetrics import AMFMetrics
 
 
 class FiveGCoreManagerUtil:
@@ -337,3 +340,43 @@ class FiveGCoreManagerUtil:
                 success = False
 
         return success
+
+    @staticmethod
+    def fetch_amf_metrics(ip: str) -> AMFMetrics:
+        """
+        Fetches AMF metrics from the given URL and parses them into an AMFMetrics DTO.
+
+        :param ip: The IP address string to populate the 'ip' field of the DTO
+        :return: A populated AMFMetrics object
+        """
+        try:
+            response = requests.get(constants.FIVE_G_CORE.AMF_METRICS_URL, timeout=5)
+            response.raise_for_status()
+            content = response.text
+        except requests.RequestException as e:
+            print(f"Error fetching metrics from {constants.FIVE_G_CORE.AMF_METRICS_URL}: {e}")
+            return AMFMetrics(ip=ip, ts=time.time())
+
+        parsed_data = {}
+        for line in content.splitlines():
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            parts = line.split()
+            if len(parts) < 2:
+                continue
+            raw_key = parts[0]
+            raw_value = parts[-1]
+            metric_name = raw_key.split('{')[0]
+            try:
+                value = int(float(raw_value))
+                parsed_data[metric_name] = value
+            except ValueError:
+                continue
+        valid_args = AMFMetrics.__init__.__code__.co_varnames
+        filtered_args: Dict[str, Union[int, str, float]]
+        filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
+        filtered_args['ip'] = str(ip)
+        filtered_args['ts'] = float(time.time())
+
+        return AMFMetrics(**filtered_args)

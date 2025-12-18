@@ -6,6 +6,8 @@ service FiveGCoreManager {
   rpc stopFiveGCore(StopFiveGCoreMsg) returns (FiveGCoreStatusDTO) {}
   rpc startFiveGCore(StartFiveGCoreMsg) returns (FiveGCoreStatusDTO) {}
   rpc initFiveGCore(InitFiveGCoreMsg) returns (FiveGCoreStatusDTO) {}
+  rpc startCoreMonitor(StartCoreMonitorMsg) returns (FiveGCoreStatusDTO) {}
+  rpc stopCoreMonitor(StopCoreMonitorMsg) returns (FiveGCoreStatusDTO) {}
 }
 
 // Message that the client sends to get the status of the 5G core
@@ -33,6 +35,7 @@ message FiveGCoreStatusDTO {
   bool udr_running = 18;
   bool webui_running = 19;
   string ip = 20;
+  bool monitor_running = 21;
 }
 
 // Message that the client sends to stop the 5G core
@@ -55,3 +58,13 @@ message SubscriberDTO {
   string amf = 4;
   int32 sqn = 5;
 }
+
+// Message that the client sends to start the CoreMonitor
+message StartCoreMonitorMsg {
+  string kafka_ip = 1;
+  int32 kafka_port = 2;
+  int32 time_step_len_seconds = 3;
+}
+
+// Message that the client sends to stop the CoreMonitor
+message StopCoreMonitorMsg {}

@@ -77,3 +77,43 @@ def init_five_g_core(
     five_g_core_status: csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO = \
         stub.initFiveGCore(init_5g_core_msg, timeout=timeout)
     return five_g_core_status
+
+
+def start_core_monitor(stub: csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub,
+                       kafka_ip: str, kafka_port: int, time_step_len_seconds: int,
+                       timeout=constants.GRPC.TIMEOUT_SECONDS) \
+        -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
+    """
+    Sends a request to the 5G core manager to start the core monitor thread
+
+    :param kafka_ip: the ip of the Kafka server
+    :param kafka_port: the port of the Kafka server
+    :param time_step_len_seconds: the length of one time-step
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :return: a FiveGCoreStatusDTO describing the core status
+    """
+    start_core_monitor_msg = csle_collector.five_g_core_manager.five_g_core_manager_pb2.StartCoreMonitorMsg(
+        kafka_ip=kafka_ip, kafka_port=kafka_port, time_step_len_seconds=time_step_len_seconds
+    )
+    core_dto: csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO = \
+        stub.startCoreMonitor(start_core_monitor_msg, timeout=timeout)
+    return core_dto
+
+
+def stop_core_monitor(
+        stub: csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub,
+        timeout=constants.GRPC.TIMEOUT_SECONDS) \
+        -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
+    """
+    Sends a request to the Core manager to stop the Core monitor thread
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :return: a FiveGCoreStatusDTO describing the 5G core status
+    """
+    stop_core_monitor_msg = \
+        csle_collector.five_g_core_manager.five_g_core_manager_pb2.StopCoreMonitorMsg()
+    core_dto: csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO = \
+        stub.stopCoreMonitor(stop_core_monitor_msg, timeout=timeout)
+    return core_dto

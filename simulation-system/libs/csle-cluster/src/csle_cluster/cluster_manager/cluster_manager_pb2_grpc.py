@@ -1340,6 +1340,26 @@ class ClusterManagerStub(object):
                 request_serializer=cluster__manager__pb2.Get5GUELogsMsg.SerializeToString,
                 response_deserializer=cluster__manager__pb2.LogsDTO.FromString,
                 _registered_method=True)
+        self.startCoreMonitorThreads = channel.unary_unary(
+                '/ClusterManager/startCoreMonitorThreads',
+                request_serializer=cluster__manager__pb2.StartCoreMonitorThreadsMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.startCoreMonitorThread = channel.unary_unary(
+                '/ClusterManager/startCoreMonitorThread',
+                request_serializer=cluster__manager__pb2.StartCoreMonitorThreadMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.stopCoreMonitorThreads = channel.unary_unary(
+                '/ClusterManager/stopCoreMonitorThreads',
+                request_serializer=cluster__manager__pb2.StopCoreMonitorThreadsMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
+        self.stopCoreMonitorThread = channel.unary_unary(
+                '/ClusterManager/stopCoreMonitorThread',
+                request_serializer=cluster__manager__pb2.StopCoreMonitorThreadMsg.SerializeToString,
+                response_deserializer=cluster__manager__pb2.OperationOutcomeDTO.FromString,
+                _registered_method=True)
 
 
 class ClusterManagerServicer(object):
@@ -2912,6 +2932,30 @@ class ClusterManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def startCoreMonitorThreads(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def startCoreMonitorThread(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def stopCoreMonitorThreads(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def stopCoreMonitorThread(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_ClusterManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -4219,6 +4263,26 @@ def add_ClusterManagerServicer_to_server(servicer, server):
                     servicer.get5GUELogs,
                     request_deserializer=cluster__manager__pb2.Get5GUELogsMsg.FromString,
                     response_serializer=cluster__manager__pb2.LogsDTO.SerializeToString,
+            ),
+            'startCoreMonitorThreads': grpc.unary_unary_rpc_method_handler(
+                    servicer.startCoreMonitorThreads,
+                    request_deserializer=cluster__manager__pb2.StartCoreMonitorThreadsMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'startCoreMonitorThread': grpc.unary_unary_rpc_method_handler(
+                    servicer.startCoreMonitorThread,
+                    request_deserializer=cluster__manager__pb2.StartCoreMonitorThreadMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'stopCoreMonitorThreads': grpc.unary_unary_rpc_method_handler(
+                    servicer.stopCoreMonitorThreads,
+                    request_deserializer=cluster__manager__pb2.StopCoreMonitorThreadsMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
+            ),
+            'stopCoreMonitorThread': grpc.unary_unary_rpc_method_handler(
+                    servicer.stopCoreMonitorThread,
+                    request_deserializer=cluster__manager__pb2.StopCoreMonitorThreadMsg.FromString,
+                    response_serializer=cluster__manager__pb2.OperationOutcomeDTO.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -11269,6 +11333,114 @@ class ClusterManager(object):
             '/ClusterManager/get5GUELogs',
             cluster__manager__pb2.Get5GUELogsMsg.SerializeToString,
             cluster__manager__pb2.LogsDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def startCoreMonitorThreads(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/startCoreMonitorThreads',
+            cluster__manager__pb2.StartCoreMonitorThreadsMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def startCoreMonitorThread(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/startCoreMonitorThread',
+            cluster__manager__pb2.StartCoreMonitorThreadMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def stopCoreMonitorThreads(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/stopCoreMonitorThreads',
+            cluster__manager__pb2.StopCoreMonitorThreadsMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def stopCoreMonitorThread(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/ClusterManager/stopCoreMonitorThread',
+            cluster__manager__pb2.StopCoreMonitorThreadMsg.SerializeToString,
+            cluster__manager__pb2.OperationOutcomeDTO.FromString,
             options,
             channel_credentials,
             insecure,

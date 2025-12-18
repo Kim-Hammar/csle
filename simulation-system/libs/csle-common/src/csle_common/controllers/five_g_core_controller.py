@@ -371,3 +371,80 @@ class FiveGCoreController:
             ports=five_g_core_managers_ports, execution_id=execution_id, emulation_name=emulation_name,
             five_g_core_managers_statuses=five_g_core_managers_statuses)
         return five_g_core_manager_info_dto
+
+    @staticmethod
+    def start_core_monitor_threads(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
+                                   logger: logging.Logger) -> None:
+        """
+        A method that sends a request to the CoreManager on every container
+        to start the Core manager and the monitor thread
+
+        :param emulation_env_config: the emulation env config
+        :param physical_server_ip: the ip of the physical server
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        # Start core monitor on emulation containers
+        for c in emulation_env_config.containers_config.containers:
+            if c.physical_host_ip != physical_server_ip:
+                continue
+            FiveGCoreController.start_core_monitor_thread(emulation_env_config=emulation_env_config,
+                                                          ip=c.docker_gw_bridge_ip, logger=logger)
+
+    @staticmethod
+    def start_core_monitor_thread(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) -> None:
+        """
+        A method that sends a request to the FiveGCoreManager on a specific IP
+        to start the 5G core monitor thread
+
+        :param emulation_env_config: the emulation env config
+        :param ip: IP of the container
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        core_status_dto = FiveGCoreController.get_five_g_core_status_by_ip_and_port(
+            ip=ip, port=emulation_env_config.five_g_config.five_g_core_manager_port)
+        if not core_status_dto.monitor_running:
+            logger.info(f"Core monitor thread is not running on {ip}, starting it.")
+            # Open a gRPC session
+            with grpc.insecure_channel(
+                    f'{ip}:{emulation_env_config.five_g_config.five_g_core_manager_port}',
+                    options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+                stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
+                csle_collector.five_g_core_manager.query_five_g_core_manager.start_core_monitor(
+                    stub=stub, kafka_ip=emulation_env_config.kafka_config.container.get_ips()[0],
+                    kafka_port=emulation_env_config.kafka_config.kafka_port,
+                    time_step_len_seconds=emulation_env_config.kafka_config.time_step_len_seconds)
+
+    @staticmethod
+    def stop_core_monitor_threads(emulation_env_config: EmulationEnvConfig, logger: logging.Logger,
+                                  physical_host_ip: str) -> None:
+        """
+        A method that sends a request to the 5G core on every container to stop the monitor threads
+
+        :param emulation_env_config: the emulation env config
+        :param physical_host_ip: the IP of the physical host
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        for c in emulation_env_config.containers_config.containers:
+            if c.physical_host_ip == physical_host_ip:
+                FiveGCoreController.stop_core_monitor_thread(emulation_env_config=emulation_env_config,
+                                                             ip=c.docker_gw_bridge_ip, logger=logger)
+
+    @staticmethod
+    def stop_core_monitor_thread(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) -> None:
+        """
+        A method that sends a request to the 5G Core Manager on a specific container to stop the monitor thread
+
+        :param emulation_env_config: the emulation env config
+        :param ip: the IP of the container
+        :param logger: the logger to use for logging
+        :return: None
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{emulation_env_config.five_g_config.five_g_core_manager_port}',
+                                   options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
+            logger.info(f"Stopping the 5G core monitor thread on {ip}.")
+            csle_collector.five_g_core_manager.query_five_g_core_manager.stop_core_monitor(stub=stub)

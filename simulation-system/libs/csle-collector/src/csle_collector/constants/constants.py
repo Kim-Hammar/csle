@@ -567,6 +567,7 @@ class KAFKA_CONFIG:
     SNORT_IDS_IP_LOG_TOPIC_NAME = "snort_ids_ip_log"
     OSSEC_IDS_LOG_TOPIC_NAME = "ossec_ids_log"
     HOST_METRICS_TOPIC_NAME = "host_metrics"
+    AMF_METRICS_TOPIC_NAME = "amf_metrics"
     DOCKER_STATS_TOPIC_NAME = "docker_stats"
     DOCKER_HOST_STATS_TOPIC_NAME = "docker_host_stats"
     OPENFLOW_FLOW_STATS_TOPIC_NAME = "openflow_flow_stats"
@@ -641,6 +642,19 @@ class KAFKA_CONFIG:
         "total_num_transmitted_errors", "total_num_received_dropped", "total_num_transmitted_dropped",
         "total_num_received_frame_errors", "total_num_received_overrun_errors",
         "total_num_received_crc_errors", "total_num_collisions", "avg_duration_nanoseconds", "avg_duration_seconds"]
+    AMF_TOPIC_ATTRIBUTES = ["timestamp", "ip",
+                            "fivegs_amffunction_mm_confupdate", "fivegs_amffunction_rm_reginitreq",
+                            "fivegs_amffunction_rm_regemergreq", "fivegs_amffunction_mm_paging5greq",
+                            "fivegs_amffunction_rm_regperiodreq", "fivegs_amffunction_mm_confupdatesucc",
+                            "fivegs_amffunction_rm_reginitsucc", "fivegs_amffunction_amf_authreject",
+                            "fivegs_amffunction_rm_regmobreq", "amf_session",
+                            "fivegs_amffunction_rm_regmobsucc", "fivegs_amffunction_amf_authreq",
+                            "fivegs_amffunction_rm_regemergsucc", "fivegs_amffunction_mm_paging5gsucc",
+                            "ran_ue", "fivegs_amffunction_rm_regperiodsucc",
+                            "process_max_fds", "process_virtual_memory_max_bytes",
+                            "process_cpu_seconds_total", "process_virtual_memory_bytes",
+                            "process_start_time_seconds",
+                            "process_start_time_seconds", "process_open_fds"]
 
     SNORT_IDS_ALERTS_LABELS = [
         "total_alerts", "warning_alerts", "severe_alerts", "alerts_weighted_by_priority",
@@ -782,6 +796,7 @@ class FIVE_G_CORE:
     """
     Constants related to the 5G core
     """
+    AMF_METRICS_URL = "http://127.0.0.5:9090/metrics"
     CONTROL_SCRIPT_PATH = "/start_stop_5g.sh"
     SUBSCRIBER_CONTROL_SCRIPT_PATH = "/subscriber_init.sh"
     RUNNING = "RUNNING"

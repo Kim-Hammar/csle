@@ -7365,3 +7365,89 @@ class Get5GUELogsMsg(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
 global___Get5GUELogsMsg = Get5GUELogsMsg
+
+@typing_extensions.final
+class StartCoreMonitorThreadsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G core monitor threads of a specific execution"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___StartCoreMonitorThreadsMsg = StartCoreMonitorThreadsMsg
+
+@typing_extensions.final
+class StartCoreMonitorThreadMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G core monitor threads of a specific execution and container"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___StartCoreMonitorThreadMsg = StartCoreMonitorThreadMsg
+
+@typing_extensions.final
+class StopCoreMonitorThreadsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G core monitor threads of a specific execution"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___StopCoreMonitorThreadsMsg = StopCoreMonitorThreadsMsg
+
+@typing_extensions.final
+class StopCoreMonitorThreadMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop the 5G core monitor thread of a specific execution and container"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___StopCoreMonitorThreadMsg = StopCoreMonitorThreadMsg

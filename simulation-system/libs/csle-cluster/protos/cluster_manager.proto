@@ -265,6 +265,10 @@ service ClusterManager {
   rpc get5GCULogs(Get5GCULogsMsg) returns (LogsDTO) {}
   rpc get5GDULogs(Get5GDULogsMsg) returns (LogsDTO) {}
   rpc get5GUELogs(Get5GUELogsMsg) returns (LogsDTO) {}
+  rpc startCoreMonitorThreads(StartCoreMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc startCoreMonitorThread(StartCoreMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc stopCoreMonitorThreads(StopCoreMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc stopCoreMonitorThread(StopCoreMonitorThreadMsg) returns (OperationOutcomeDTO) {}
 }
 
 // Message that the client sends when requesting to start stop a PID
@@ -2432,6 +2436,32 @@ message Get5GDULogsMsg {
 
 // Message that the client sends when requesting to get logs of a specific 5G UE
 message Get5GUELogsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to start the 5G core monitor threads of a specific execution
+message StartCoreMonitorThreadsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to start the 5G core monitor threads of a specific execution and container
+message StartCoreMonitorThreadMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+  string containerIp = 3;
+}
+
+// Message that the client sends when requesting to start the 5G core monitor threads of a specific execution
+message StopCoreMonitorThreadsMsg {
+  string emulation = 1;
+  int32 ipFirstOctet = 2;
+}
+
+// Message that the client sends when requesting to stop the 5G core monitor thread of a specific execution and container
+message StopCoreMonitorThreadMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;

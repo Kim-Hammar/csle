@@ -4372,7 +4372,7 @@ class ClusterController:
         :param no_beats: boolean flag indicating whether configuration/starting of beats should be skipped or not
         :return: None
         """
-        steps = 50
+        steps = 51
         if no_traffic:
             steps = steps - 1
         if no_beats:
@@ -4681,6 +4681,18 @@ class ClusterController:
             Logger.__call__().get_logger().info(f"Starting the 5G cores on containers "
                                                 f"in emulation: {execution.emulation_env_config.name} on server: {ip}")
             ClusterController.start_five_g_cores(
+                ip=ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                emulation=execution.emulation_name, ip_first_octet=execution.ip_first_octet)
+
+        time.sleep(5)
+        current_step += 1
+        Logger.__call__().get_logger().info(f"-- Step "
+                                            f"{current_step}/{steps}: Starting 5G core monitors on "
+                                            f"containers --")
+        for ip in physical_servers:
+            Logger.__call__().get_logger().info(f"Starting the 5G core monitors on containers "
+                                                f"in emulation: {execution.emulation_env_config.name} on server: {ip}")
+            ClusterController.start_core_monitor_threads(
                 ip=ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                 emulation=execution.emulation_name, ip_first_octet=execution.ip_first_octet)
 
@@ -5490,3 +5502,81 @@ class ClusterController:
             logs_dto = csle_cluster.cluster_manager.query_cluster_manager.get_five_g_ue_logs(
                 stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
             return ClusterManagerUtil.logs_dto_to_dict(logs_dto=logs_dto)
+
+    @staticmethod
+    def start_core_monitor_threads(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to start the 5G core monitor threads of a given execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.start_core_monitor_threads(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation)
+            return operation_outcome_dto
+
+    @staticmethod
+    def start_core_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to start the core monitor thread on a specific container
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.start_core_monitor_thread(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return operation_outcome_dto
+
+    @staticmethod
+    def stop_core_monitor_threads(ip: str, port: int, emulation: str, ip_first_octet: int) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to stop the 5G core monitor threads of a given execution
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.stop_core_monitor_threads(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation)
+            return operation_outcome_dto
+
+    @staticmethod
+    def stop_core_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+            -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
+        """
+        Sends a request to stop the 5G core monitor thread on a specific container
+
+        :param ip: the ip of the physical node
+        :param port: the port of the cluster manager
+        :param emulation: the emulation of the execution
+        :param ip_first_octet: the ID of the execution
+        :param container_ip: the IP of the container
+        :return: The operation outcome
+        """
+        # Open a gRPC session
+        with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
+            stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
+            operation_outcome_dto = csle_cluster.cluster_manager.query_cluster_manager.stop_core_monitor_thread(
+                stub=stub, ip_first_octet=ip_first_octet, emulation=emulation, container_ip=container_ip)
+            return operation_outcome_dto
