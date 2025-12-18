@@ -1,3 +1,4 @@
+from typing import Union
 import logging
 import socket
 import netifaces
@@ -7,6 +8,7 @@ import csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc
 import csle_collector.five_g_cu_manager.five_g_cu_manager_pb2
 import csle_collector.constants.constants as constants
 from csle_collector.five_g_cu_manager.five_g_cu_manager_util import FiveGCUManagerUtil
+from csle_collector.five_g_cu_manager.threads.cu_monitor_thread import CUMonitorThread
 
 
 class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerServicer):
@@ -27,6 +29,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
             self.ip = socket.gethostbyname(self.hostname)
         self.conf = {constants.KAFKA.BOOTSTRAP_SERVERS_PROPERTY: f"{self.ip}:{constants.KAFKA.PORT}",
                      constants.KAFKA.CLIENT_ID_PROPERTY: self.hostname}
+        self.cu_monitor_thread: Union[None, CUMonitorThread] = None
         logging.info(f"Starting the 5G CU manager hostname: {self.hostname} ip: {self.ip}")
 
     def getFiveGCUStatus(
@@ -45,7 +48,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
             cu_running=status.get(constants.FIVE_G_CU.CU, False),
-            ip=self.ip
+            ip=self.ip, monitor_running=self._is_monitor_running()
         )
 
     def startFiveGCU(self, request: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StartFiveGCUMsg,
@@ -64,7 +67,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
             cu_running=status.get(constants.FIVE_G_CU.CU, False),
-            ip=self.ip
+            ip=self.ip, monitor_running=self._is_monitor_running()
         )
 
     def stopFiveGCU(self, request: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StopFiveGCUMsg,
@@ -83,7 +86,7 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
             cu_running=status.get(constants.FIVE_G_CU.CU, False),
-            ip=self.ip
+            ip=self.ip, monitor_running=self._is_monitor_running()
         )
 
     def initFiveGCU(self, request: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.InitFiveGCUMsg,
@@ -104,8 +107,67 @@ class FiveGCUManagerServicer(csle_collector.five_g_cu_manager.five_g_cu_manager_
             control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
             cu_running=status.get(constants.FIVE_G_CU.CU, False),
-            ip=self.ip
+            ip=self.ip, monitor_running=self._is_monitor_running()
         )
+
+    def startCUMonitor(self, request: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StartCUMonitorMsg,
+                       context: grpc.ServicerContext) \
+            -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
+        """
+        Starts the CU monitor thread
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the CU monitor thread
+        """
+        logging.info(f"Starting the CUMonitor thread, timestep length: {request.time_step_len_seconds}, "
+                     f"kafka ip: {request.kafka_ip}, "
+                     f"kafka port: {request.kafka_port}")
+        if self.cu_monitor_thread is not None:
+            self.cu_monitor_thread.running = False
+        self.cu_monitor_thread = CUMonitorThread(kafka_ip=request.kafka_ip, kafka_port=request.kafka_port,
+                                                 ip=self.ip, hostname=self.hostname,
+                                                 time_step_len_seconds=request.time_step_len_seconds)
+        self.cu_monitor_thread.start()
+        logging.info("Started the CU Monitor thread")
+
+        status = FiveGCUManagerUtil.get_cu_status(
+            control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
+            cu_running=status.get(constants.FIVE_G_CU.CU, False),
+            ip=self.ip, monitor_running=True
+        )
+
+    def stopCUMonitor(self, request: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StopCUMonitorMsg,
+                        context: grpc.ServicerContext) \
+            -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
+        """
+        Stops the CU monitor thread if it is running
+
+        :param request: the gRPC request
+        :param context: the gRPC context
+        :return: a DTO with the status of the CU monitor thread
+        """
+        logging.info("Stopping the CU monitor")
+        if self.cu_monitor_thread is not None:
+            self.cu_monitor_thread.running = False
+        logging.info("CU monitor stopped")
+        status = FiveGCUManagerUtil.get_cu_status(
+            control_script_path=constants.FIVE_G_CU.CONTROL_SCRIPT_PATH)
+        return csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO(
+            cu_running=status.get(constants.FIVE_G_CU.CU, False),
+            ip=self.ip, monitor_running=False
+        )
+
+    def _is_monitor_running(self) -> bool:
+        """
+        Utility method to check if the monitor is running
+
+        :return: True if running else false
+        """
+        if self.cu_monitor_thread is not None:
+            return self.cu_monitor_thread.running
+        return False
 
 
 def serve(port: int = 50053, log_dir: str = "/", max_workers: int = 100,

@@ -6,6 +6,8 @@ service FiveGCUManager {
   rpc stopFiveGCU(StopFiveGCUMsg) returns (FiveGCUStatusDTO) {}
   rpc startFiveGCU(StartFiveGCUMsg) returns (FiveGCUStatusDTO) {}
   rpc initFiveGCU(InitFiveGCUMsg) returns (FiveGCUStatusDTO) {}
+  rpc startCUMonitor(StartCUMonitorMsg) returns (FiveGCUStatusDTO) {}
+  rpc stopCUMonitor(StopCUMonitorMsg) returns (FiveGCUStatusDTO) {}
 }
 
 // Message that the client sends to get the status of the 5G CU
@@ -15,6 +17,7 @@ message GetFiveGCUStatusMsg {}
 message FiveGCUStatusDTO {
   bool cu_running = 1;
   string ip = 2;
+  bool monitor_running = 3;
 }
 
 // Message that the client sends to stop the 5G CU
@@ -29,3 +32,13 @@ message InitFiveGCUMsg {
   string cu_backhaul_ip = 2;
   string cu_fronthaul_ip = 3;
 }
+
+// Message that the client sends to start the CUMonitor
+message StartCUMonitorMsg {
+  string kafka_ip = 1;
+  int32 kafka_port = 2;
+  int32 time_step_len_seconds = 3;
+}
+
+// Message that the client sends to stop the CUMonitor
+message StopCUMonitorMsg {}

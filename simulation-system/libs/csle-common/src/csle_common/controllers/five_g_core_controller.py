@@ -384,12 +384,13 @@ class FiveGCoreController:
         :param logger: the logger to use for logging
         :return: None
         """
-        # Start core monitor on emulation containers
         for c in emulation_env_config.containers_config.containers:
             if c.physical_host_ip != physical_server_ip:
                 continue
-            FiveGCoreController.start_core_monitor_thread(emulation_env_config=emulation_env_config,
-                                                          ip=c.docker_gw_bridge_ip, logger=logger)
+            for container_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if container_image in c.name:
+                    FiveGCoreController.start_core_monitor_thread(emulation_env_config=emulation_env_config,
+                                                                  ip=c.docker_gw_bridge_ip, logger=logger)
 
     @staticmethod
     def start_core_monitor_thread(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) -> None:
@@ -428,9 +429,12 @@ class FiveGCoreController:
         :return: None
         """
         for c in emulation_env_config.containers_config.containers:
-            if c.physical_host_ip == physical_host_ip:
-                FiveGCoreController.stop_core_monitor_thread(emulation_env_config=emulation_env_config,
-                                                             ip=c.docker_gw_bridge_ip, logger=logger)
+            if c.physical_host_ip != physical_host_ip:
+                continue
+            for container_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if container_image in c.name:
+                    FiveGCoreController.stop_core_monitor_thread(emulation_env_config=emulation_env_config,
+                                                                 ip=c.docker_gw_bridge_ip, logger=logger)
 
     @staticmethod
     def stop_core_monitor_thread(emulation_env_config: EmulationEnvConfig, ip: str, logger: logging.Logger) -> None:

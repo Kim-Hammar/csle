@@ -34,15 +34,18 @@ class FiveGCUStatusDTO(google.protobuf.message.Message):
 
     CU_RUNNING_FIELD_NUMBER: builtins.int
     IP_FIELD_NUMBER: builtins.int
+    MONITOR_RUNNING_FIELD_NUMBER: builtins.int
     cu_running: builtins.bool
     ip: builtins.str
+    monitor_running: builtins.bool
     def __init__(
         self,
         *,
         cu_running: builtins.bool = ...,
         ip: builtins.str = ...,
+        monitor_running: builtins.bool = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cu_running", b"cu_running", "ip", b"ip"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cu_running", b"cu_running", "ip", b"ip", "monitor_running", b"monitor_running"]) -> None: ...
 
 global___FiveGCUStatusDTO = FiveGCUStatusDTO
 
@@ -92,3 +95,38 @@ class InitFiveGCUMsg(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["core_backhaul_ip", b"core_backhaul_ip", "cu_backhaul_ip", b"cu_backhaul_ip", "cu_fronthaul_ip", b"cu_fronthaul_ip"]) -> None: ...
 
 global___InitFiveGCUMsg = InitFiveGCUMsg
+
+@typing_extensions.final
+class StartCUMonitorMsg(google.protobuf.message.Message):
+    """Message that the client sends to start the CUMonitor"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KAFKA_IP_FIELD_NUMBER: builtins.int
+    KAFKA_PORT_FIELD_NUMBER: builtins.int
+    TIME_STEP_LEN_SECONDS_FIELD_NUMBER: builtins.int
+    kafka_ip: builtins.str
+    kafka_port: builtins.int
+    time_step_len_seconds: builtins.int
+    def __init__(
+        self,
+        *,
+        kafka_ip: builtins.str = ...,
+        kafka_port: builtins.int = ...,
+        time_step_len_seconds: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["kafka_ip", b"kafka_ip", "kafka_port", b"kafka_port", "time_step_len_seconds", b"time_step_len_seconds"]) -> None: ...
+
+global___StartCUMonitorMsg = StartCUMonitorMsg
+
+@typing_extensions.final
+class StopCUMonitorMsg(google.protobuf.message.Message):
+    """Message that the client sends to stop the CUMonitor"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___StopCUMonitorMsg = StopCUMonitorMsg

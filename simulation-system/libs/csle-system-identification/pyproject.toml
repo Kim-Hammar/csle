@@ -18,12 +18,12 @@ classifiers = [
     "Intended Audience :: Science/Research"
 ]
 dependencies = [
-    "csle-base>=0.9.30",
-    "csle-common>=0.9.30",
-    "csle-collector>=0.9.30",
-    "csle-attacker>=0.9.30",
-    "csle-defender>=0.9.30",
-    "csle-cluster>=0.9.30",
+    "csle-base>=0.9.31",
+    "csle-common>=0.9.31",
+    "csle-collector>=0.9.31",
+    "csle-attacker>=0.9.31",
+    "csle-defender>=0.9.31",
+    "csle-cluster>=0.9.31",
     "gpytorch>=1.9.0",
     "pymc>=5.5.0",
     "pytensor>=2.12.3",

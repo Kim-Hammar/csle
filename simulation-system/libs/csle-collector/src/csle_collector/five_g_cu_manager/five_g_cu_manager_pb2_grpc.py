@@ -55,6 +55,16 @@ class FiveGCUManagerStub(object):
                 request_serializer=five__g__cu__manager__pb2.InitFiveGCUMsg.SerializeToString,
                 response_deserializer=five__g__cu__manager__pb2.FiveGCUStatusDTO.FromString,
                 _registered_method=True)
+        self.startCUMonitor = channel.unary_unary(
+                '/FiveGCUManager/startCUMonitor',
+                request_serializer=five__g__cu__manager__pb2.StartCUMonitorMsg.SerializeToString,
+                response_deserializer=five__g__cu__manager__pb2.FiveGCUStatusDTO.FromString,
+                _registered_method=True)
+        self.stopCUMonitor = channel.unary_unary(
+                '/FiveGCUManager/stopCUMonitor',
+                request_serializer=five__g__cu__manager__pb2.StopCUMonitorMsg.SerializeToString,
+                response_deserializer=five__g__cu__manager__pb2.FiveGCUStatusDTO.FromString,
+                _registered_method=True)
 
 
 class FiveGCUManagerServicer(object):
@@ -85,6 +95,18 @@ class FiveGCUManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def startCUMonitor(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def stopCUMonitor(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_FiveGCUManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -106,6 +128,16 @@ def add_FiveGCUManagerServicer_to_server(servicer, server):
             'initFiveGCU': grpc.unary_unary_rpc_method_handler(
                     servicer.initFiveGCU,
                     request_deserializer=five__g__cu__manager__pb2.InitFiveGCUMsg.FromString,
+                    response_serializer=five__g__cu__manager__pb2.FiveGCUStatusDTO.SerializeToString,
+            ),
+            'startCUMonitor': grpc.unary_unary_rpc_method_handler(
+                    servicer.startCUMonitor,
+                    request_deserializer=five__g__cu__manager__pb2.StartCUMonitorMsg.FromString,
+                    response_serializer=five__g__cu__manager__pb2.FiveGCUStatusDTO.SerializeToString,
+            ),
+            'stopCUMonitor': grpc.unary_unary_rpc_method_handler(
+                    servicer.stopCUMonitor,
+                    request_deserializer=five__g__cu__manager__pb2.StopCUMonitorMsg.FromString,
                     response_serializer=five__g__cu__manager__pb2.FiveGCUStatusDTO.SerializeToString,
             ),
     }
@@ -217,6 +249,60 @@ class FiveGCUManager(object):
             target,
             '/FiveGCUManager/initFiveGCU',
             five__g__cu__manager__pb2.InitFiveGCUMsg.SerializeToString,
+            five__g__cu__manager__pb2.FiveGCUStatusDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def startCUMonitor(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/FiveGCUManager/startCUMonitor',
+            five__g__cu__manager__pb2.StartCUMonitorMsg.SerializeToString,
+            five__g__cu__manager__pb2.FiveGCUStatusDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def stopCUMonitor(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/FiveGCUManager/stopCUMonitor',
+            five__g__cu__manager__pb2.StopCUMonitorMsg.SerializeToString,
             five__g__cu__manager__pb2.FiveGCUStatusDTO.FromString,
             options,
             channel_credentials,

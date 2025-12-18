@@ -78,3 +78,43 @@ def init_five_g_cu(
     five_g_cu_status: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO = \
         stub.initFiveGCU(init_5g_cu_msg, timeout=timeout)
     return five_g_cu_status
+
+
+def start_cu_monitor(stub: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerStub,
+                     kafka_ip: str, kafka_port: int, time_step_len_seconds: int,
+                     timeout=constants.GRPC.TIMEOUT_SECONDS) \
+        -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
+    """
+    Sends a request to the 5G CU manager to start the CU monitor thread
+
+    :param kafka_ip: the ip of the Kafka server
+    :param kafka_port: the port of the Kafka server
+    :param time_step_len_seconds: the length of one time-step
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :return: a FiveGCUStatusDTO describing the cu status
+    """
+    start_cu_monitor_msg = csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StartCUMonitorMsg(
+        kafka_ip=kafka_ip, kafka_port=kafka_port, time_step_len_seconds=time_step_len_seconds
+    )
+    cu_dto: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO = \
+        stub.startCUMonitor(start_cu_monitor_msg, timeout=timeout)
+    return cu_dto
+
+
+def stop_cu_monitor(
+        stub: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerStub,
+        timeout=constants.GRPC.TIMEOUT_SECONDS) \
+        -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
+    """
+    Sends a request to the CU manager to stop the CU monitor thread
+
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the GRPC timeout (seconds)
+    :return: a FiveGCUStatusDTO describing the 5G cu status
+    """
+    stop_cu_monitor_msg = \
+        csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StopCUMonitorMsg()
+    cu_dto: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO = \
+        stub.stopCUMonitor(stop_cu_monitor_msg, timeout=timeout)
+    return cu_dto
