@@ -510,7 +510,7 @@ class FiveGDUController:
         for c in emulation_env_config.containers_config.containers:
             if c.physical_host_ip != physical_host_ip:
                 continue
-            for container_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+            for container_image in constants.CONTAINER_IMAGES.FIVE_G_DU_IMAGES:
                 if container_image in c.name:
                     FiveGDUController.stop_du_monitor_thread(emulation_env_config=emulation_env_config,
                                                              ip=c.docker_gw_bridge_ip, logger=logger)

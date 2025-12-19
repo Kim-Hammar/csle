@@ -10,7 +10,7 @@ import {
   FIVE_G_DU_SUBRESOURCE,
   FIVE_G_UE_SUBRESOURCE,
   START_ALL_PROPERTY,
-  STOP_ALL_PROPERTY
+  STOP_ALL_PROPERTY, DU_MONITOR_SUBRESOURCE
 } from '../../../../Common/constants'
 
 /**
@@ -50,6 +50,58 @@ const FiveGDUManagersInfo = (props) => {
               name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
+
+            <span className="aggregateActions">Stop all monitors:</span>
+            <SpinnerOrButton
+              loading={props.loadingEntities.includes(
+                `${DU_MONITOR_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
+              running={true} entity={DU_MONITOR_SUBRESOURCE}
+              name={STOP_ALL_PROPERTY} ip={STOP_ALL_PROPERTY}
+              startOrStop={props.startOrStop}
+            />
+            <span className="aggregateActions">Start all monitors:</span>
+            <SpinnerOrButton
+              loading={props.loadingEntities.includes(
+                `${DU_MONITOR_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
+              running={false} entity={DU_MONITOR_SUBRESOURCE}
+              name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
+              startOrStop={props.startOrStop}
+            />
+
+            <span className="aggregateActions">Stop all DUs:</span>
+            <SpinnerOrButton
+              loading={props.loadingEntities.includes(
+                `${FIVE_G_DU_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
+              running={true} entity={FIVE_G_DU_SUBRESOURCE}
+              name={STOP_ALL_PROPERTY} ip={STOP_ALL_PROPERTY}
+              startOrStop={props.startOrStop}
+            />
+            <span className="aggregateActions">Start all DUs:</span>
+            <SpinnerOrButton
+              loading={props.loadingEntities.includes(
+                `${FIVE_G_DU_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
+              running={false} entity={FIVE_G_DU_SUBRESOURCE}
+              name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
+              startOrStop={props.startOrStop}
+            />
+
+            <span className="aggregateActions">Stop all UEs:</span>
+            <SpinnerOrButton
+              loading={props.loadingEntities.includes(
+                `${FIVE_G_UE_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
+              running={true} entity={FIVE_G_UE_SUBRESOURCE}
+              name={STOP_ALL_PROPERTY} ip={STOP_ALL_PROPERTY}
+              startOrStop={props.startOrStop}
+            />
+            <span className="aggregateActions">Start all UEs:</span>
+            <SpinnerOrButton
+              loading={props.loadingEntities.includes(
+                `${FIVE_G_UE_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
+              running={false} entity={FIVE_G_UE_SUBRESOURCE}
+              name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
+              startOrStop={props.startOrStop}
+            />
+
           </div>
 
           <div className="table-responsive">
@@ -132,6 +184,31 @@ const FiveGDUManagersInfo = (props) => {
                     />
                     <LogsButton name={props.fiveGDUManagersInfo.ips[index]}
                                 entity={FIVE_G_UE_SUBRESOURCE}
+                                getLogs={props.getLogs}
+                    />
+                  </td>
+                </tr>
+              )}
+
+              {props.fiveGDUManagersInfo.five_g_du_managers_statuses.map((status, index) =>
+                <tr key={`${DU_MONITOR_SUBRESOURCE}-${index}`}>
+                  <td>DU monitor thread</td>
+                  <td>{props.fiveGDUManagersInfo.ips[index]}</td>
+                  <td></td>
+                  {props.activeStatus(status.monitor_running)}
+                  <td>
+                    <SpinnerOrButton
+                      loading={props.loadingEntities.includes(
+                        `${DU_MONITOR_SUBRESOURCE}-`
+                        + `${props.fiveGDUManagersInfo.ips[index]}`)}
+                      running={status.monitor_running}
+                      entity={DU_MONITOR_SUBRESOURCE}
+                      name={DU_MONITOR_SUBRESOURCE}
+                      ip={props.fiveGDUManagersInfo.ips[index]}
+                      startOrStop={props.startOrStop}
+                    />
+                    <LogsButton name={props.fiveGDUManagersInfo.ips[index]}
+                                entity={DU_MONITOR_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
                   </td>

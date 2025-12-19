@@ -3,8 +3,7 @@ f1ap:
   bind_addr: 15.16.4.52
 f1u:
   socket:
-    -
-      bind_addr: 15.16.4.52
+    - bind_addr: 15.16.4.52
 ru_sdr:
   device_driver: zmq
   device_args: tx_port=tcp://127.0.0.1:2000,rx_port=tcp://127.0.0.1:2001,base_srate=5.76e6

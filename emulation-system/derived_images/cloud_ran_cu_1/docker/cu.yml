@@ -14,11 +14,28 @@ cu_cp:
 cu_up:
   f1u:
     socket:
-      -
-        bind_addr: 15.16.4.51
+      - bind_addr: 15.16.4.51
 log:
   filename: /tmp/cu.log
   all_level: warning
 pcap:
   ngap_enable: false
   ngap_filename: /tmp/cu_ngap.pcap
+
+metrics:
+  enable_json: true
+  layers:
+    enable_app_usage: true
+    enable_ngap: true
+    enable_e1ap: true
+    enable_pdcp: true
+    enable_rrc: true
+  periodicity:
+    app_usage_report_period: 1000
+    cu_cp_report_period: 1000
+    cu_up_report_period: 1000
+
+remote_control:
+  bind_addr: 127.0.0.1
+  port: 55556
+  enabled: true

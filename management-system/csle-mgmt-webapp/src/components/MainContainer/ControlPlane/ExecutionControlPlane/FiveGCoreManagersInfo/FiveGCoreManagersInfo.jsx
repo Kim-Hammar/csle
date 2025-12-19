@@ -4,14 +4,14 @@ import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
 import Collapse from 'react-bootstrap/Collapse'
 import SpinnerOrButton from '../SpinnerOrButton/SpinnerOrButton.jsx'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
 import LogsButton from '../LogsButton/LogsButton.jsx'
 import Open5GSImg from './Open5GS.png'
 import {
   FIVE_G_CORE_MANAGER_SUBRESOURCE, FIVE_G_CORE_SUBRESOURCE,
   START_ALL_PROPERTY,
-  STOP_ALL_PROPERTY, HTTP_PREFIX
+  STOP_ALL_PROPERTY, HTTP_PREFIX, CORE_MONITOR_SUBRESOURCE
 } from '../../../../Common/constants'
 
 /**
@@ -26,16 +26,16 @@ const FiveGCoreManagersInfo = (props) => {
   }
 
   const FiveGCoreWebButton = (props) => {
-    if(props.running && props.port !== -1 && !props.loading) {
+    if (props.running && props.port !== -1 && !props.loading) {
       return (
         <OverlayTrigger
           placement="top"
-          delay={{show: 0, hide: 0}}
+          delay={{ show: 0, hide: 0 }}
           overlay={renderFiveGCoreTooltip}
         >
           <a href={`${HTTP_PREFIX}${props.ip}:${props.port}`} target="_blank" rel="noopener noreferrer">
             <Button variant="light" className="startButton" size="sm">
-              <img src={Open5GSImg} alt="Open5Gs" className="img-fluid elastic"/>
+              <img src={Open5GSImg} alt="Open5Gs" className="img-fluid elastic" />
             </Button>
           </a>
         </OverlayTrigger>
@@ -78,6 +78,41 @@ const FiveGCoreManagersInfo = (props) => {
               name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
+
+            <span className="aggregateActions">Stop all monitors:</span>
+            <SpinnerOrButton
+              loading={props.loadingEntities.includes(
+                `${CORE_MONITOR_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
+              running={true} entity={CORE_MONITOR_SUBRESOURCE}
+              name={STOP_ALL_PROPERTY} ip={STOP_ALL_PROPERTY}
+              startOrStop={props.startOrStop}
+            />
+            <span className="aggregateActions">Start all monitors:</span>
+            <SpinnerOrButton
+              loading={props.loadingEntities.includes(
+                `${CORE_MONITOR_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
+              running={false} entity={CORE_MONITOR_SUBRESOURCE}
+              name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
+              startOrStop={props.startOrStop}
+            />
+
+            <span className="aggregateActions">Stop all Cores:</span>
+            <SpinnerOrButton
+              loading={props.loadingEntities.includes(
+                `${FIVE_G_CORE_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
+              running={true} entity={FIVE_G_CORE_SUBRESOURCE}
+              name={STOP_ALL_PROPERTY} ip={STOP_ALL_PROPERTY}
+              startOrStop={props.startOrStop}
+            />
+            <span className="aggregateActions">Start all Cores:</span>
+            <SpinnerOrButton
+              loading={props.loadingEntities.includes(
+                `${FIVE_G_CORE_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
+              running={false} entity={FIVE_G_CORE_SUBRESOURCE}
+              name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
+              startOrStop={props.startOrStop}
+            />
+
           </div>
 
           <div className="table-responsive">
@@ -149,6 +184,32 @@ const FiveGCoreManagersInfo = (props) => {
                   </td>
                 </tr>
               )}
+
+              {props.fiveGCoreManagersInfo.five_g_core_managers_statuses.map((status, index) =>
+                <tr key={`${CORE_MONITOR_SUBRESOURCE}-${index}`}>
+                  <td>Core monitor thread</td>
+                  <td>{props.fiveGCoreManagersInfo.ips[index]}</td>
+                  <td></td>
+                  {props.activeStatus(status.monitor_running)}
+                  <td>
+                    <SpinnerOrButton
+                      loading={props.loadingEntities.includes(
+                        `${CORE_MONITOR_SUBRESOURCE}-`
+                        + `${props.fiveGCoreManagersInfo.ips[index]}`)}
+                      running={status.monitor_running}
+                      entity={CORE_MONITOR_SUBRESOURCE}
+                      name={CORE_MONITOR_SUBRESOURCE}
+                      ip={props.fiveGCoreManagersInfo.ips[index]}
+                      startOrStop={props.startOrStop}
+                    />
+                    <LogsButton name={props.fiveGCoreManagersInfo.ips[index]}
+                                entity={CORE_MONITOR_SUBRESOURCE}
+                                getLogs={props.getLogs}
+                    />
+                  </td>
+                </tr>
+              )}
+
               </tbody>
             </Table>
           </div>

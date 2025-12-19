@@ -45,10 +45,11 @@ class CUMonitorThread(threading.Thread):
         while self.running:
             time.sleep(self.time_step_len_seconds)
             try:
-                cu_metrics = FiveGCUManagerUtil.fetch_cu_metrics(ip=self.ip)
-                record = cu_metrics.to_kafka_record(ip=self.ip)
-                self.producer.produce(constants.KAFKA_CONFIG.AMF_METRICS_TOPIC_NAME, record)
-                self.producer.poll(0)
+                print("todo")
+                # cu_metrics = FiveGCUManagerUtil.fetch_cu_metrics(ip=self.ip)
+                # record = cu_metrics.to_kafka_record(ip=self.ip)
+                # self.producer.produce(constants.KAFKA_CONFIG.AMF_METRICS_TOPIC_NAME, record)
+                # self.producer.poll(0)
             except Exception as e:
                 logging.info(f"[CU monitor thread], "
                              f"There was an exception reading 5G CU metrics and producing to kafka: "
