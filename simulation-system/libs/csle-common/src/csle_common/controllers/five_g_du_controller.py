@@ -420,7 +420,7 @@ class FiveGDUController:
         """
         five_g_du_managers_ips = FiveGDUController.get_five_g_du_managers_ips(
             emulation_env_config=emulation_env_config)
-        five_g_core_managers_ports = FiveGDUController.get_five_g_du_managers_ports(
+        five_g_du_managers_ports = FiveGDUController.get_five_g_du_managers_ports(
             emulation_env_config=emulation_env_config)
         five_g_du_managers_statuses = []
         five_g_du_managers_running = []
@@ -445,11 +445,11 @@ class FiveGDUController:
             five_g_du_managers_running.append(running)
         execution_id = emulation_env_config.execution_id
         emulation_name = emulation_env_config.name
-        five_g_core_manager_info_dto = FiveGDUManagersInfo(
+        five_g_du_manager_info_dto = FiveGDUManagersInfo(
             five_g_du_managers_running=five_g_du_managers_running, ips=five_g_du_managers_ips,
-            ports=five_g_core_managers_ports, execution_id=execution_id, emulation_name=emulation_name,
+            ports=five_g_du_managers_ports, execution_id=execution_id, emulation_name=emulation_name,
             five_g_du_managers_statuses=five_g_du_managers_statuses)
-        return five_g_core_manager_info_dto
+        return five_g_du_manager_info_dto
 
     @staticmethod
     def start_du_monitor_threads(emulation_env_config: EmulationEnvConfig, physical_server_ip: str,
@@ -466,7 +466,7 @@ class FiveGDUController:
         for c in emulation_env_config.containers_config.containers:
             if c.physical_host_ip != physical_server_ip:
                 continue
-            for container_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+            for container_image in constants.CONTAINER_IMAGES.FIVE_G_DU_IMAGES:
                 if container_image in c.name:
                     FiveGDUController.start_du_monitor_thread(emulation_env_config=emulation_env_config,
                                                               ip=c.docker_gw_bridge_ip, logger=logger)

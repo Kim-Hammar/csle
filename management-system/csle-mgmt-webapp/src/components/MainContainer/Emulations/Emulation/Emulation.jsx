@@ -30,10 +30,12 @@ const Emulation = (props) => {
     const [containersOpen, setContainersOpen] = useState(false);
     const [flagsOpen, setFlagsOpen] = useState(false);
     const [usersOpen, setUsersOpen] = useState(false);
+    const [subscribersOpen, setSubscribersOpen] = useState(false);
     const [servicesOpen, setServicesOpen] = useState(false);
     const [vulnerabilitiesOpen, setVulnerabilitiesOpen] = useState(false);
     const [resourcesOpen, setResourcesOpen] = useState(false);
     const [networkInterfacesOpen, setNetworkInterfacesOpen] = useState(false);
+    const [fiveGConfigOpen, setFiveGConfigOpen] = useState(false);
     const [clientPopulationOpen, setClientPopulationOpen] = useState(false);
     const [clientsOpen, setClientsOpen] = useState(false);
     const [trafficOpen, setTrafficOpen] = useState(false);
@@ -636,6 +638,49 @@ const Emulation = (props) => {
                     <Card className="subCard">
                         <Card.Header>
                             <Button
+                              onClick={() => setSubscribersOpen(!subscribersOpen)}
+                              aria-controls="subscribersBody"
+                              aria-expanded={subscribersOpen}
+                              variant="link"
+                            >
+                                <h5 className="semiTitle">
+                                    5G subscribers <i className="fa fa-user headerIcon" aria-hidden="true"></i>
+                                </h5>
+                            </Button>
+                        </Card.Header>
+                        <Collapse in={subscribersOpen}>
+                            <div id="subscribersBody" className="cardBodyHidden">
+                                <div className="table-responsive">
+                                    <Table striped bordered hover>
+                                        <thead>
+                                        <tr>
+                                            <th>IMSI</th>
+                                            <th>Private key</th>
+                                            <th>Operator key</th>
+                                            <th>AMF</th>
+                                            <th>Password</th>
+                                            <th>SQN</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {emulation.five_g_config.subscribers.map((subscriber) =>
+                                            <tr key={subscriber.imsi}>
+                                                <td>{subscriber.imsi}</td>
+                                                <td>{subscriber.key}</td>
+                                                <td>{subscriber.opc}</td>
+                                                <td>{subscriber.amf}</td>
+                                                <td>{subscriber.sqn}</td>
+                                            </tr>)}
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </div>
+                        </Collapse>
+                    </Card>
+
+                    <Card className="subCard">
+                        <Card.Header>
+                            <Button
                                 onClick={() => setServicesOpen(!servicesOpen)}
                                 aria-controls="servicesBody"
                                 aria-expanded={servicesOpen}
@@ -828,6 +873,47 @@ const Emulation = (props) => {
                             </div>
                         </Collapse>
                     </Card>
+
+                    <Card className="subCard">
+                        <Card.Header>
+                            <Button
+                              onClick={() => setFiveGConfigOpen(!fiveGConfigOpen)}
+                              aria-controls="fiveGConfigOpenBody"
+                              aria-expanded={fiveGConfigOpen}
+                              variant="link"
+                            >
+                                <h5 className="semiTitle">
+                                    5G configuration <i className="fa fa-podcast headerIcon" aria-hidden="true"></i>
+                                </h5>
+                            </Button>
+                        </Card.Header>
+                        <Collapse in={fiveGConfigOpen}>
+                            <div id="fiveGConfigBody" className="cardBodyHidden">
+                                <div className="table-responsive">
+                                    <Table striped bordered hover>
+                                        <thead>
+                                        <tr>
+                                            <th>Core backhaul IP</th>
+                                            <th>CU backhaul IPs</th>
+                                            <th>CU fronthaul IPs</th>
+                                            <th>DU fronthaul IPs</th>
+                                            <th>DU CUs</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr key={emulation.five_g_config.core_backhaul_ip}>
+                                            <td>{emulation.five_g_config.cu_backhaul_ips}</td>
+                                            <td>{emulation.five_g_config.cu_fronthaul_ips}</td>
+                                            <td>{emulation.five_g_config.du_fronthaul_ips}</td>
+                                            <td>{emulation.five_g_config.du_cus}</td>
+                                        </tr>
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </div>
+                        </Collapse>
+                    </Card>
+
                     <Card className="subCard">
                         <Card.Header>
                             <Button
