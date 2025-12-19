@@ -392,18 +392,21 @@ class FiveGDUController:
             f"of emulation: {emulation_env_config.name}")
         du_fronthaul_ip = ""
         cu_fronthaul_ip = ""
+        subscriber = None
         for i, cu_ip in enumerate(emulation_env_config.five_g_config.du_fronthaul_ips):
             if cu_ip in container.get_ips():
                 du_fronthaul_ip = cu_ip
                 cu_fronthaul_ip = emulation_env_config.five_g_config.du_cus[i]
-        if du_fronthaul_ip == "" or cu_fronthaul_ip == "":
+                subscriber = emulation_env_config.five_g_config.subscribers[i]
+        if du_fronthaul_ip == "" or cu_fronthaul_ip == "" or subscriber is None:
             return None
         port = emulation_env_config.five_g_config.five_g_du_manager_port
         with grpc.insecure_channel(f'{container.docker_gw_bridge_ip}:{port}',
                                    options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
             stub = csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub(channel)
             status = csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_du_ue(
-                stub=stub, cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip)
+                stub=stub, cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip,
+                imsi=subscriber.imsi, key=subscriber.key, opc=subscriber.opc, sqn=subscriber.sqn, amf=subscriber.amf)
             return status
 
     @staticmethod

@@ -39,6 +39,11 @@ message StopFiveGUEMsg {}
 message InitFiveGDUUEMsg {
   string du_fronthaul_ip = 1;
   string cu_fronthaul_ip = 2;
+  string imsi = 3;
+  string key = 4;
+  string opc = 5;
+  string amf = 6;
+  int32 sqn = 7;
 }
 
 // Message that the client sends to start the 5G DUMonitor

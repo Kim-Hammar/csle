@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x66ive_g_du_manager.proto\"\x15\n\x13GetFiveGDUStatusMsg\"_\n\x10\x46iveGDUStatusDTO\x12\x12\n\ndu_running\x18\x01 \x01(\x08\x12\x12\n\nue_running\x18\x02 \x01(\x08\x12\n\n\x02ip\x18\x03 \x01(\t\x12\x17\n\x0fmonitor_running\x18\x04 \x01(\x08\"\x10\n\x0eStopFiveGDUMsg\"\x11\n\x0fStartFiveGDUMsg\"\x11\n\x0fStartFiveGUEMsg\"\x10\n\x0eStopFiveGUEMsg\"D\n\x10InitFiveGDUUEMsg\x12\x17\n\x0f\x64u_fronthaul_ip\x18\x01 \x01(\t\x12\x17\n\x0f\x63u_fronthaul_ip\x18\x02 \x01(\t\"]\n\x16StartFiveGDUMonitorMsg\x12\x10\n\x08kafka_ip\x18\x01 \x01(\t\x12\x12\n\nkafka_port\x18\x02 \x01(\x05\x12\x1d\n\x15time_step_len_seconds\x18\x03 \x01(\x05\"\x17\n\x15StopFiveGDUMonitorMsg2\xe8\x03\n\x0e\x46iveGDUManager\x12=\n\x10getFiveGDUStatus\x12\x14.GetFiveGDUStatusMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x33\n\x0bstopFiveGDU\x12\x0f.StopFiveGDUMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x35\n\x0cstartFiveGDU\x12\x10.StartFiveGDUMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x33\n\x0bstopFiveGUE\x12\x0f.StopFiveGUEMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x35\n\x0cstartFiveGUE\x12\x10.StartFiveGUEMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x37\n\rinitFiveGDUUE\x12\x11.InitFiveGDUUEMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x43\n\x13startFiveGDUMonitor\x12\x17.StartFiveGDUMonitorMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x41\n\x12stopFiveGDUMonitor\x12\x16.StopFiveGDUMonitorMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x66ive_g_du_manager.proto\"\x15\n\x13GetFiveGDUStatusMsg\"_\n\x10\x46iveGDUStatusDTO\x12\x12\n\ndu_running\x18\x01 \x01(\x08\x12\x12\n\nue_running\x18\x02 \x01(\x08\x12\n\n\x02ip\x18\x03 \x01(\t\x12\x17\n\x0fmonitor_running\x18\x04 \x01(\x08\"\x10\n\x0eStopFiveGDUMsg\"\x11\n\x0fStartFiveGDUMsg\"\x11\n\x0fStartFiveGUEMsg\"\x10\n\x0eStopFiveGUEMsg\"\x86\x01\n\x10InitFiveGDUUEMsg\x12\x17\n\x0f\x64u_fronthaul_ip\x18\x01 \x01(\t\x12\x17\n\x0f\x63u_fronthaul_ip\x18\x02 \x01(\t\x12\x0c\n\x04imsi\x18\x03 \x01(\t\x12\x0b\n\x03key\x18\x04 \x01(\t\x12\x0b\n\x03opc\x18\x05 \x01(\t\x12\x0b\n\x03\x61mf\x18\x06 \x01(\t\x12\x0b\n\x03sqn\x18\x07 \x01(\x05\"]\n\x16StartFiveGDUMonitorMsg\x12\x10\n\x08kafka_ip\x18\x01 \x01(\t\x12\x12\n\nkafka_port\x18\x02 \x01(\x05\x12\x1d\n\x15time_step_len_seconds\x18\x03 \x01(\x05\"\x17\n\x15StopFiveGDUMonitorMsg2\xe8\x03\n\x0e\x46iveGDUManager\x12=\n\x10getFiveGDUStatus\x12\x14.GetFiveGDUStatusMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x33\n\x0bstopFiveGDU\x12\x0f.StopFiveGDUMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x35\n\x0cstartFiveGDU\x12\x10.StartFiveGDUMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x33\n\x0bstopFiveGUE\x12\x0f.StopFiveGUEMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x35\n\x0cstartFiveGUE\x12\x10.StartFiveGUEMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x37\n\rinitFiveGDUUE\x12\x11.InitFiveGDUUEMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x43\n\x13startFiveGDUMonitor\x12\x17.StartFiveGDUMonitorMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x12\x41\n\x12stopFiveGDUMonitor\x12\x16.StopFiveGDUMonitorMsg\x1a\x11.FiveGDUStatusDTO\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -43,12 +43,12 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_STARTFIVEGUEMSG']._serialized_end=201
   _globals['_STOPFIVEGUEMSG']._serialized_start=203
   _globals['_STOPFIVEGUEMSG']._serialized_end=219
-  _globals['_INITFIVEGDUUEMSG']._serialized_start=221
-  _globals['_INITFIVEGDUUEMSG']._serialized_end=289
-  _globals['_STARTFIVEGDUMONITORMSG']._serialized_start=291
-  _globals['_STARTFIVEGDUMONITORMSG']._serialized_end=384
-  _globals['_STOPFIVEGDUMONITORMSG']._serialized_start=386
-  _globals['_STOPFIVEGDUMONITORMSG']._serialized_end=409
-  _globals['_FIVEGDUMANAGER']._serialized_start=412
-  _globals['_FIVEGDUMANAGER']._serialized_end=900
+  _globals['_INITFIVEGDUUEMSG']._serialized_start=222
+  _globals['_INITFIVEGDUUEMSG']._serialized_end=356
+  _globals['_STARTFIVEGDUMONITORMSG']._serialized_start=358
+  _globals['_STARTFIVEGDUMONITORMSG']._serialized_end=451
+  _globals['_STOPFIVEGDUMONITORMSG']._serialized_start=453
+  _globals['_STOPFIVEGDUMONITORMSG']._serialized_end=476
+  _globals['_FIVEGDUMANAGER']._serialized_start=479
+  _globals['_FIVEGDUMANAGER']._serialized_end=967
 # @@protoc_insertion_point(module_scope)

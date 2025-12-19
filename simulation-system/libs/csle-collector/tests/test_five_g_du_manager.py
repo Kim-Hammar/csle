@@ -192,8 +192,14 @@ class TestFiveGDUManagerSuite:
                      '_is_monitor_running', return_value=mock_status.monitor_running)
         cu_fronthaul_ip = "127.0.0.1"
         du_fronthaul_ip = "127.0.0.1"
+        imsi = "imsi"
+        key = "key"
+        opc = "opc"
+        amf = "amf"
+        sqn = 1
         response: FiveGDUStatusDTO = csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_du_ue(
-            stub=grpc_stub, cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip)
+            stub=grpc_stub, cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip, imsi=imsi, key=key,
+            opc=opc, amf=amf, sqn=sqn)
         assert response.du_running == mock_status.du_running
         assert response.ue_running == mock_status.ue_running
         assert response.ip == mock_status.ip
