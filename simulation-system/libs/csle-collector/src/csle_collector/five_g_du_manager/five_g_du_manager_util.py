@@ -3,10 +3,8 @@ import subprocess
 import re
 import logging
 import yaml
-import time
 import csle_collector.five_g_du_manager.five_g_du_manager_pb2
 import csle_collector.constants.constants as constants
-from csle_collector.five_g_du_manager.dao.DUMetrics import DUMetrics
 
 
 class FiveGDUManagerUtil:
@@ -318,13 +316,3 @@ class FiveGDUManagerUtil:
         except Exception as e:
             logging.error(f"An unexpected error occurred processing {config_path}: {e}")
             return False
-
-    @staticmethod
-    def fetch_du_metrics(ip: str) -> DUMetrics:
-        """
-        Fetches DU metrics from the given URL and parses them into an DUMetrics DTO.
-
-        :param ip: The IP address string
-        :return: A populated DUMetrics object
-        """
-        return DUMetrics(ip=ip, ts=float(time.time()))

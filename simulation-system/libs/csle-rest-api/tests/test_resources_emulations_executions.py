@@ -741,6 +741,198 @@ class TestResourcesEmulationExecutionsSuite:
         return stop_host_monitor_thread_mocker
 
     @pytest.fixture
+    def stop_five_g_core_monitor_plural(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the stop_five_g_core_monitor_threads method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def stop_five_g_core_monitor_threads(ip: str, port: int, emulation: str,
+                                             ip_first_octet: int) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=False)
+
+        stop_five_g_core_monitor_threads_mocker = mocker.MagicMock(side_effect=stop_five_g_core_monitor_threads)
+        return stop_five_g_core_monitor_threads_mocker
+
+    @pytest.fixture
+    def start_five_g_core_monitor_plural(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the start_five_g_core_monitor_threads method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def start_five_g_core_monitor_threads(ip: str, port: int, emulation: str,
+                                              ip_first_octet: int) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=True)
+
+        start_five_g_core_monitor_threads_mocker = mocker.MagicMock(side_effect=start_five_g_core_monitor_threads)
+        return start_five_g_core_monitor_threads_mocker
+
+    @pytest.fixture
+    def start_five_g_core_monitor(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the start_five_g_core_monitor_thread method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def start_five_g_core_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int,
+                                             container_ip: str) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=True)
+
+        start_five_g_core_monitor_thread_mocker = mocker.MagicMock(side_effect=start_five_g_core_monitor_thread)
+        return start_five_g_core_monitor_thread_mocker
+
+    @pytest.fixture
+    def stop_five_g_core_monitor(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the stop_five_g_core_monitor method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def stop_five_g_core_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int,
+                                            container_ip: str) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=False)
+
+        stop_five_g_core_monitor_thread_mocker = mocker.MagicMock(side_effect=stop_five_g_core_monitor_thread)
+        return stop_five_g_core_monitor_thread_mocker
+
+    @pytest.fixture
+    def stop_five_g_cu_monitor_plural(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the stop_five_g_cu_monitor_threads method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def stop_five_g_cu_monitor_threads(ip: str, port: int, emulation: str,
+                                           ip_first_octet: int) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=False)
+
+        stop_five_g_cu_monitor_threads_mocker = mocker.MagicMock(side_effect=stop_five_g_cu_monitor_threads)
+        return stop_five_g_cu_monitor_threads_mocker
+
+    @pytest.fixture
+    def start_five_g_cu_monitor_plural(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the start_five_g_cu_monitor_threads method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def start_five_g_cu_monitor_threads(ip: str, port: int, emulation: str,
+                                            ip_first_octet: int) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=True)
+
+        start_five_g_cu_monitor_threads_mocker = mocker.MagicMock(side_effect=start_five_g_cu_monitor_threads)
+        return start_five_g_cu_monitor_threads_mocker
+
+    @pytest.fixture
+    def start_five_g_cu_monitor(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the start_five_g_cu_monitor_thread method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def start_five_g_cu_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int,
+                                           container_ip: str) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=True)
+
+        start_five_g_cu_monitor_thread_mocker = mocker.MagicMock(side_effect=start_five_g_cu_monitor_thread)
+        return start_five_g_cu_monitor_thread_mocker
+
+    @pytest.fixture
+    def stop_five_g_cu_monitor(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the stop_five_g_cu_monitor method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def stop_five_g_cu_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int,
+                                          container_ip: str) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=False)
+
+        stop_five_g_cu_monitor_thread_mocker = mocker.MagicMock(side_effect=stop_five_g_cu_monitor_thread)
+        return stop_five_g_cu_monitor_thread_mocker
+
+    @pytest.fixture
+    def stop_five_g_du_monitor_plural(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the stop_five_g_du_monitor_threads method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def stop_five_g_du_monitor_threads(ip: str, port: int, emulation: str,
+                                           ip_first_octet: int) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=False)
+
+        stop_five_g_du_monitor_threads_mocker = mocker.MagicMock(side_effect=stop_five_g_du_monitor_threads)
+        return stop_five_g_du_monitor_threads_mocker
+
+    @pytest.fixture
+    def start_five_g_du_monitor_plural(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the start_five_g_du_monitor_threads method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def start_five_g_du_monitor_threads(ip: str, port: int, emulation: str,
+                                            ip_first_octet: int) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=True)
+
+        start_five_g_du_monitor_threads_mocker = mocker.MagicMock(side_effect=start_five_g_du_monitor_threads)
+        return start_five_g_du_monitor_threads_mocker
+
+    @pytest.fixture
+    def start_five_g_du_monitor(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the start_five_g_du_monitor_thread method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def start_five_g_du_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int,
+                                           container_ip: str) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=True)
+
+        start_five_g_du_monitor_thread_mocker = mocker.MagicMock(side_effect=start_five_g_du_monitor_thread)
+        return start_five_g_du_monitor_thread_mocker
+
+    @pytest.fixture
+    def stop_five_g_du_monitor(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the stop_five_g_du_monitor method
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def stop_five_g_du_monitor_thread(ip: str, port: int, emulation: str, ip_first_octet: int,
+                                          container_ip: str) -> OperationOutcomeDTO:
+            return OperationOutcomeDTO(outcome=False)
+
+        stop_five_g_du_monitor_thread_mocker = mocker.MagicMock(side_effect=stop_five_g_du_monitor_thread)
+        return stop_five_g_du_monitor_thread_mocker
+
+    @pytest.fixture
     def start_cont(self, mocker: pytest_mock.MockFixture):
         """
         Pytest fixture for mocking the start_container method
@@ -3871,10 +4063,10 @@ class TestResourcesEmulationExecutionsSuite:
         :param get_em_ex: the get_em_ex fixture
         :param merged_info: the merged_info fixture
         :param get_ex_exec: the get_ex_exec fixture
-        :param stop_ossec_id_mon: the start_ossec_mng fixture
-        :param start_ossec_id_mon_plural: the start_ossec_mng_plural fixture
-        :param stop_ossec_id_mon: the stop_ossec_mng fixture
-        :param stop_ossec_id_mon_plural: the stop_ossec_mng_plural fixture
+        :param start_host_mon: the start_host_mon fixture
+        :param stop_host_mon: the stop_host_mon fixture
+        :param stop_host_mon_plural: the stop_host_mon_plural fixture
+        :param start_host_mon_plural: the start_host_mon_plural fixture
         :param config: the config fixture
         :return: None
         """
@@ -6894,6 +7086,408 @@ class TestResourcesEmulationExecutionsSuite:
             assert data_dict[k] == exp_exec_info_dict[k]
         response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
                                                 f"{api_constants.MGMT_WEBAPP.FIVE_G_UE_SUBRESOURCE}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY: "123.456.78.99"
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert response.status_code == constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        assert response_data_dict == {}
+
+    def test_emulation_execution_five_g_core_monitor(
+            self, mocker: pytest_mock.MockFixture, flask_app, not_logged_in, logged_in, logged_in_as_admin, get_em_ex,
+            merged_info, start_five_g_core_monitor, stop_five_g_core_monitor, stop_five_g_core_monitor_plural,
+            start_five_g_core_monitor_plural, config) -> None:
+        """
+        Testing the HTTPS GET method for the /emulation-executions/id/core-monitor resource
+
+        :param mocker: the pytest mocker object
+        :param flask_app: the flask_app fixture
+        :param not_logged_in: the not_logged_in fixture
+        :param logged_in: the logged_in fixture
+        :param logged_in_as_admin: the logged_in_as_admin fixture
+        :param get_em_ex: the get_em_ex fixture
+        :param merged_info: the merged_info fixture
+        :param get_ex_exec: the get_ex_exec fixture
+        :param start_five_g_core_monitor: the start_five_g_core_monitor fixture
+        :param stop_five_g_core_monitor: the stop_five_g_core_monitor fixture
+        :param stop_five_g_core_monitor_plural: the stop_five_g_core_monitor_plural fixture
+        :param start_five_g_core_monitor_plural: the start_five_g_core_monitor_plural fixture
+        :param config: the config fixture
+        :return: None
+        """
+        mocker.patch('time.sleep', return_value=None)
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     side_effect=get_em_ex)
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_config", side_effect=config)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.get_merged_execution_info",
+                     side_effect=merged_info)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_core_monitor_thread",
+                     side_effect=stop_five_g_core_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_core_monitor_thread",
+                     side_effect=start_five_g_core_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_core_monitor_threads",
+                     side_effect=start_five_g_core_monitor_plural)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_core_monitor_threads",
+                     side_effect=stop_five_g_core_monitor_plural)
+        mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=not_logged_in)
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({"bla": "bla"}))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert response.status_code == constants.HTTPS.UNAUTHORIZED_STATUS_CODE
+        assert response_data_dict == {}
+        mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=logged_in)
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({"bla": "bla"}))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert response.status_code == constants.HTTPS.UNAUTHORIZED_STATUS_CODE
+        assert response_data_dict == {}
+        mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=logged_in_as_admin)
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({"bla": "bla"}))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert api_constants.MGMT_WEBAPP.REASON_PROPERTY in response_data_dict
+        assert response.status_code == constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY: "123.456.78.99"
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY: "123.456.78.99"
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY:
+                                                                     api_constants.MGMT_WEBAPP.STOP_ALL_PROPERTY
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY:
+                                                                     api_constants.MGMT_WEBAPP.START_ALL_PROPERTY
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY: "123.456.78.99"
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert response.status_code == constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        assert response_data_dict == {}
+
+    def test_emulation_execution_five_g_cu_monitor(
+            self, mocker: pytest_mock.MockFixture, flask_app, not_logged_in, logged_in, logged_in_as_admin, get_em_ex,
+            merged_info, start_five_g_cu_monitor, stop_five_g_cu_monitor, stop_five_g_cu_monitor_plural,
+            start_five_g_cu_monitor_plural, config) -> None:
+        """
+        Testing the HTTPS GET method for the /emulation-executions/id/cu-monitor resource
+
+        :param mocker: the pytest mocker object
+        :param flask_app: the flask_app fixture
+        :param not_logged_in: the not_logged_in fixture
+        :param logged_in: the logged_in fixture
+        :param logged_in_as_admin: the logged_in_as_admin fixture
+        :param get_em_ex: the get_em_ex fixture
+        :param merged_info: the merged_info fixture
+        :param get_ex_exec: the get_ex_exec fixture
+        :param start_five_g_cu_monitor: the start_five_g_cu_monitor fixture
+        :param stop_five_g_cu_monitor: the stop_five_g_cu_monitor fixture
+        :param stop_five_g_cu_monitor_plural: the stop_five_g_cu_monitor_plural fixture
+        :param start_five_g_cu_monitor_plural: the start_five_g_cu_monitor_plural fixture
+        :param config: the config fixture
+        :return: None
+        """
+        mocker.patch('time.sleep', return_value=None)
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     side_effect=get_em_ex)
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_config", side_effect=config)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.get_merged_execution_info",
+                     side_effect=merged_info)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_cu_monitor_thread",
+                     side_effect=stop_five_g_cu_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_cu_monitor_thread",
+                     side_effect=start_five_g_cu_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_cu_monitor_threads",
+                     side_effect=start_five_g_cu_monitor_plural)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_cu_monitor_threads",
+                     side_effect=stop_five_g_cu_monitor_plural)
+        mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=not_logged_in)
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({"bla": "bla"}))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert response.status_code == constants.HTTPS.UNAUTHORIZED_STATUS_CODE
+        assert response_data_dict == {}
+        mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=logged_in)
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({"bla": "bla"}))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert response.status_code == constants.HTTPS.UNAUTHORIZED_STATUS_CODE
+        assert response_data_dict == {}
+        mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=logged_in_as_admin)
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({"bla": "bla"}))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert api_constants.MGMT_WEBAPP.REASON_PROPERTY in response_data_dict
+        assert response.status_code == constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY: "123.456.78.99"
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY: "123.456.78.99"
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY:
+                                                                     api_constants.MGMT_WEBAPP.STOP_ALL_PROPERTY
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY:
+                                                                     api_constants.MGMT_WEBAPP.START_ALL_PROPERTY
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY: "123.456.78.99"
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert response.status_code == constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        assert response_data_dict == {}
+
+    def test_emulation_execution_five_g_du_monitor(
+            self, mocker: pytest_mock.MockFixture, flask_app, not_logged_in, logged_in, logged_in_as_admin, get_em_ex,
+            merged_info, start_five_g_du_monitor, stop_five_g_du_monitor, stop_five_g_du_monitor_plural,
+            start_five_g_du_monitor_plural, config) -> None:
+        """
+        Testing the HTTPS GET method for the /emulation-executions/id/du-monitor resource
+
+        :param mocker: the pytest mocker object
+        :param flask_app: the flask_app fixture
+        :param not_logged_in: the not_logged_in fixture
+        :param logged_in: the logged_in fixture
+        :param logged_in_as_admin: the logged_in_as_admin fixture
+        :param get_em_ex: the get_em_ex fixture
+        :param merged_info: the merged_info fixture
+        :param get_ex_exec: the get_ex_exec fixture
+        :param start_five_g_du_monitor: the start_five_g_du_monitor fixture
+        :param stop_five_g_du_monitor: the stop_five_g_du_monitor fixture
+        :param stop_five_g_du_monitor_plural: the stop_five_g_du_monitor_plural fixture
+        :param start_five_g_du_monitor_plural: the start_five_g_du_monitor_plural fixture
+        :param config: the config fixture
+        :return: None
+        """
+        mocker.patch('time.sleep', return_value=None)
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_emulation_execution",
+                     side_effect=get_em_ex)
+        mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_config", side_effect=config)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.get_merged_execution_info",
+                     side_effect=merged_info)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_du_monitor_thread",
+                     side_effect=stop_five_g_du_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_du_monitor_thread",
+                     side_effect=start_five_g_du_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_du_monitor_threads",
+                     side_effect=start_five_g_du_monitor_plural)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_du_monitor_threads",
+                     side_effect=stop_five_g_du_monitor_plural)
+        mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=not_logged_in)
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({"bla": "bla"}))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert response.status_code == constants.HTTPS.UNAUTHORIZED_STATUS_CODE
+        assert response_data_dict == {}
+        mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=logged_in)
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({"bla": "bla"}))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert response.status_code == constants.HTTPS.UNAUTHORIZED_STATUS_CODE
+        assert response_data_dict == {}
+        mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=logged_in_as_admin)
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}",
+                                                data=json.dumps({"bla": "bla"}))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        assert api_constants.MGMT_WEBAPP.REASON_PROPERTY in response_data_dict
+        assert response.status_code == constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY: "123.456.78.99"
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY: "123.456.78.99"
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY:
+                                                                     api_constants.MGMT_WEBAPP.STOP_ALL_PROPERTY
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}"
+                                                f"?{api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM}",
+                                                data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: True,
+                                                                 api_constants.MGMT_WEBAPP.STOP_PROPERTY: False,
+                                                                 api_constants.MGMT_WEBAPP.IP_PROPERTY:
+                                                                     api_constants.MGMT_WEBAPP.START_ALL_PROPERTY
+                                                                 }))
+        response_data = response.data.decode("utf-8")
+        response_data_dict = json.loads(response_data)
+        format_data = EmulationExecutionInfo.from_dict(response_data_dict)
+        data_dict = format_data.to_dict()
+        exp_ex_info = TestResourcesEmulationExecutionsSuite.get_exec_info()
+        exp_exec_info_dict = exp_ex_info.to_dict()
+        for k in response_data_dict:
+            assert data_dict[k] == exp_exec_info_dict[k]
+        response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
+                                                f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}",
                                                 data=json.dumps({api_constants.MGMT_WEBAPP.START_PROPERTY: True,
                                                                  api_constants.MGMT_WEBAPP.STOP_PROPERTY: False,
                                                                  api_constants.MGMT_WEBAPP.IP_PROPERTY: "123.456.78.99"

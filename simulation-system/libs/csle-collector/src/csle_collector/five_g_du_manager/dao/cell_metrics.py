@@ -1,4 +1,4 @@
-from typing import Dict, Any, Union, List
+from typing import Dict, Any, Union
 import time
 import datetime
 from csle_base.json_serializable import JSONSerializable

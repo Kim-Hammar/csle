@@ -5,7 +5,7 @@ import logging
 import yaml
 import time
 import csle_collector.five_g_cu_manager.five_g_cu_manager_pb2
-from csle_collector.five_g_cu_manager.dao.CUMetrics import CUMetrics
+from csle_collector.five_g_cu_manager.dao.cu_metrics import CUMetrics
 import csle_collector.constants.constants as constants
 
 

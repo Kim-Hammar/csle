@@ -1,3 +1,4 @@
+from typing import Optional
 import time
 import logging
 import threading
@@ -41,7 +42,7 @@ class DUMonitorThread(threading.Thread):
         }
         self.producer = Producer(**self.conf)
         self.running = True
-        self.ws = None
+        self.ws: Optional[websocket.WebSocketApp] = None
 
         logging.info(f"DU Monitor thread initialized. Target DU: {self.ip}:{self.du_port}")
 
@@ -132,7 +133,7 @@ class DUMonitorThread(threading.Thread):
         while self.running:
             try:
                 # Initialize WebSocket App
-                self.ws = websocket.WebSocketApp(
+                app = websocket.WebSocketApp(
                     ws_url,
                     on_open=self._on_open,
                     on_message=self._on_message,
@@ -140,9 +141,11 @@ class DUMonitorThread(threading.Thread):
                     on_close=self._on_close
                 )
 
+                self.ws = app
+
                 # Run the blocking loop
                 # ping_interval keeps connection alive through silence
-                self.ws.run_forever(ping_interval=30, ping_timeout=10)
+                app.run_forever(ping_interval=30, ping_timeout=10)
 
             except Exception as e:
                 logging.error(f"[DU Monitor] Connection failed: {e}")
@@ -150,13 +153,3 @@ class DUMonitorThread(threading.Thread):
             if self.running:
                 logging.info("[DU Monitor] Reconnecting in 5 seconds...")
                 time.sleep(5)
-
-    def stop(self) -> None:
-        """
-        Stops the thread and closes the WebSocket
-        """
-        self.running = False
-        if self.ws:
-            self.ws.close()
-        self.producer.flush()
-        logging.info("DU Monitor [Stopped]")

@@ -7,13 +7,13 @@ import requests
 import time
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2
 import csle_collector.constants.constants as constants
-from csle_collector.five_g_core_manager.dao.AMFMetrics import AMFMetrics
-from csle_collector.five_g_core_manager.dao.UPFMetrics import UPFMetrics
-from csle_collector.five_g_core_manager.dao.MMEMetrics import MMEMetrics
-from csle_collector.five_g_core_manager.dao.SMFMetrics import SMFMetrics
-from csle_collector.five_g_core_manager.dao.HSSMetrics import HSSMetrics
-from csle_collector.five_g_core_manager.dao.PCRFMetrics import PCRFMetrics
-from csle_collector.five_g_core_manager.dao.PCFMetrics import PCFMetrics
+from csle_collector.five_g_core_manager.dao.amf_metrics import AMFMetrics
+from csle_collector.five_g_core_manager.dao.upf_metrics import UPFMetrics
+from csle_collector.five_g_core_manager.dao.mme_metrics import MMEMetrics
+from csle_collector.five_g_core_manager.dao.smf_metrics import SMFMetrics
+from csle_collector.five_g_core_manager.dao.hss_metrics import HSSMetrics
+from csle_collector.five_g_core_manager.dao.pcrf_metrics import PCRFMetrics
+from csle_collector.five_g_core_manager.dao.pcf_metrics import PCFMetrics
 
 
 class FiveGCoreManagerUtil:
