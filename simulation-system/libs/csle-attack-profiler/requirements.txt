@@ -1,3 +1,3 @@
-csle-base==0.9.33
-csle-common==0.9.33
+csle-base==0.9.34
+csle-common==0.9.34
 mitreattack-python==2.0.14

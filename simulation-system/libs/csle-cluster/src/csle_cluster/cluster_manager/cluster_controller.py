@@ -4372,7 +4372,7 @@ class ClusterController:
         :param no_beats: boolean flag indicating whether configuration/starting of beats should be skipped or not
         :return: None
         """
-        steps = 51
+        steps = 53
         if no_traffic:
             steps = steps - 1
         if no_beats:
@@ -4730,6 +4730,18 @@ class ClusterController:
                 ip=ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                 emulation=execution.emulation_name, ip_first_octet=execution.ip_first_octet)
 
+        time.sleep(5)
+        current_step += 1
+        Logger.__call__().get_logger().info(f"-- Step "
+                                            f"{current_step}/{steps}: Starting 5G CU monitors on "
+                                            f"containers --")
+        for ip in physical_servers:
+            Logger.__call__().get_logger().info(f"Starting the 5G CU monitors on containers "
+                                                f"in emulation: {execution.emulation_env_config.name} on server: {ip}")
+            ClusterController.start_cu_monitor_threads(
+                ip=ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                emulation=execution.emulation_name, ip_first_octet=execution.ip_first_octet)
+
         current_step += 1
         Logger.__call__().get_logger().info(f"-- Step "
                                             f"{current_step}/{steps}: Starting the 5G DU managers on containers --")
@@ -4773,6 +4785,18 @@ class ClusterController:
             Logger.__call__().get_logger().info(f"Starting the 5G UEs on containers "
                                                 f"in emulation: {execution.emulation_env_config.name} on server: {ip}")
             ClusterController.start_five_g_ues(
+                ip=ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
+                emulation=execution.emulation_name, ip_first_octet=execution.ip_first_octet)
+
+        time.sleep(5)
+        current_step += 1
+        Logger.__call__().get_logger().info(f"-- Step "
+                                            f"{current_step}/{steps}: Starting 5G DU monitors on "
+                                            f"containers --")
+        for ip in physical_servers:
+            Logger.__call__().get_logger().info(f"Starting the 5G DU monitors on containers "
+                                                f"in emulation: {execution.emulation_env_config.name} on server: {ip}")
+            ClusterController.start_du_monitor_threads(
                 ip=ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                 emulation=execution.emulation_name, ip_first_octet=execution.ip_first_octet)
 
