@@ -17,6 +17,9 @@ from csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics import FiveGDURL
 from csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics import FiveGDUCellMetrics
 from csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics import FiveGDUBufferPoolMetrics
 from csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics import FiveGDUAppResourceUsageMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics import FiveGCUCPMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_buffer_pool_metrics import FiveGCUBufferPoolMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_app_resource_usage_metrics import FiveGCUAppResourceUsageMetrics
 from csle_collector.docker_stats_manager.dao.docker_stats import DockerStats
 from csle_collector.host_manager.dao.host_metrics import HostMetrics
 from csle_ryu.dao.avg_port_statistic import AvgPortStatistic
@@ -66,8 +69,10 @@ class EmulationMetricsTimeSeries(JSONSerializable):
                  five_g_du_rlc_metrics: Dict[str, List[FiveGDURLCMetrics]],
                  five_g_du_cell_metrics: Dict[str, List[FiveGDUCellMetrics]],
                  five_g_du_buffer_pool_metrics: Dict[str, List[FiveGDUBufferPoolMetrics]],
-                 five_g_du_app_resource_usage_metrics: Dict[str, List[FiveGDUAppResourceUsageMetrics]]
-                 ):
+                 five_g_du_app_resource_usage_metrics: Dict[str, List[FiveGDUAppResourceUsageMetrics]],
+                 five_g_cu_cp_metrics: Dict[str, List[FiveGCUCPMetrics]],
+                 five_g_cu_buffer_pool_metrics: Dict[str, List[FiveGCUBufferPoolMetrics]],
+                 five_g_cu_app_resource_usage_metrics: Dict[str, List[FiveGCUAppResourceUsageMetrics]]):
         """
         Initializes the DTO
 
@@ -109,6 +114,11 @@ class EmulationMetricsTimeSeries(JSONSerializable):
         :param five_g_du_cell_metrics: Time series data with 5G DU cell metrics per host
         :param five_g_du_buffer_pool_metrics: Time series data with 5G DU buffer pool metrics per host
         :param five_g_du_app_resource_usage_metrics: Time series data with 5G DU app resource usage metrics per host
+        :param five_g_du_app_resource_usage_metrics: Time series data with 5G DU app resource usage metrics per host
+        :param five_g_du_app_resource_usage_metrics: Time series data with 5G DU app resource usage metrics per host
+        :param five_g_cu_cp_metrics: Time series data with 5G CU CP metrics per host
+        :param five_g_cu_buffer_pool_metrics: Time series data with 5G CU buffer pool metrics per host
+        :param five_g_cu_app_resource_usage_metrics: Time series data with 5G CU app resource usage metrics per host
         """
         self.client_metrics = client_metrics
         self.aggregated_docker_stats = aggregated_docker_stats
@@ -148,6 +158,9 @@ class EmulationMetricsTimeSeries(JSONSerializable):
         self.five_g_du_cell_metrics = five_g_du_cell_metrics
         self.five_g_du_buffer_pool_metrics = five_g_du_buffer_pool_metrics
         self.five_g_du_app_resource_usage_metrics = five_g_du_app_resource_usage_metrics
+        self.five_g_cu_cp_metrics = five_g_cu_cp_metrics
+        self.five_g_cu_buffer_pool_metrics = five_g_cu_buffer_pool_metrics
+        self.five_g_cu_app_resource_usage_metrics = five_g_cu_app_resource_usage_metrics
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> "EmulationMetricsTimeSeries":
@@ -260,6 +273,19 @@ class EmulationMetricsTimeSeries(JSONSerializable):
             five_g_du_app_resource_usage_metrics[k] = list(map(lambda x: FiveGDUAppResourceUsageMetrics.from_dict(x),
                                                                v))
 
+        five_g_cu_cp_metrics = {}
+        for k, v in d["five_g_cu_cp_metrics"].items():
+            five_g_cu_cp_metrics[k] = list(map(lambda x: FiveGCUCPMetrics.from_dict(x), v))
+
+        five_g_cu_buffer_pool_metrics = {}
+        for k, v in d["five_g_cu_buffer_pool_metrics"].items():
+            five_g_cu_buffer_pool_metrics[k] = list(map(lambda x: FiveGCUBufferPoolMetrics.from_dict(x), v))
+
+        five_g_cu_app_resource_usage_metrics = {}
+        for k, v in d["five_g_cu_app_resource_usage_metrics"].items():
+            five_g_cu_app_resource_usage_metrics[k] = list(map(lambda x: FiveGCUAppResourceUsageMetrics.from_dict(x),
+                                                               v))
+
         obj = EmulationMetricsTimeSeries(
             client_metrics=list(map(lambda x: ClientPopulationMetrics.from_dict(x), d["client_metrics"])),
             aggregated_docker_stats=list(map(lambda x: DockerStats.from_dict(x), d["aggregated_docker_stats"])),
@@ -294,7 +320,9 @@ class EmulationMetricsTimeSeries(JSONSerializable):
             five_g_core_hss_metrics=five_g_core_hss_metrics, five_g_du_metrics=five_g_du_metrics,
             five_g_du_low_metrics=five_g_du_low_metrics, five_g_du_rlc_metrics=five_g_du_rlc_metrics,
             five_g_du_cell_metrics=five_g_du_cell_metrics, five_g_du_buffer_pool_metrics=five_g_du_buffer_pool_metrics,
-            five_g_du_app_resource_usage_metrics=five_g_du_app_resource_usage_metrics)
+            five_g_du_app_resource_usage_metrics=five_g_du_app_resource_usage_metrics,
+            five_g_cu_cp_metrics=five_g_cu_cp_metrics, five_g_cu_buffer_pool_metrics=five_g_cu_buffer_pool_metrics,
+            five_g_cu_app_resource_usage_metrics=five_g_cu_app_resource_usage_metrics)
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -415,6 +443,18 @@ class EmulationMetricsTimeSeries(JSONSerializable):
         for k, v in self.five_g_du_app_resource_usage_metrics.items():
             d["five_g_du_app_resource_usage_metrics"][k] = list(map(lambda x: x.to_dict(), v))
 
+        d["five_g_cu_cp_metrics"] = {}
+        for k, v in self.five_g_cu_cp_metrics.items():
+            d["five_g_cu_cp_metrics"][k] = list(map(lambda x: x.to_dict(), v))
+
+        d["five_g_cu_buffer_pool_metrics"] = {}
+        for k, v in self.five_g_cu_buffer_pool_metrics.items():
+            d["five_g_cu_buffer_pool_metrics"][k] = list(map(lambda x: x.to_dict(), v))
+
+        d["five_g_cu_app_resource_usage_metrics"] = {}
+        for k, v in self.five_g_cu_app_resource_usage_metrics.items():
+            d["five_g_cu_app_resource_usage_metrics"][k] = list(map(lambda x: x.to_dict(), v))
+
         return d
 
     def __str__(self) -> str:
@@ -458,7 +498,11 @@ class EmulationMetricsTimeSeries(JSONSerializable):
                f"five_g_du_cell_metrics: {list(map(lambda x: str(x), self.five_g_du_cell_metrics))}," \
                f"five_g_du_buffer_pool_metrics: {list(map(lambda x: str(x), self.five_g_du_buffer_pool_metrics))}," \
                f"five_g_du_app_resource_usage_metrics: " \
-               f"{list(map(lambda x: str(x), self.five_g_du_app_resource_usage_metrics))}."
+               f"{list(map(lambda x: str(x), self.five_g_du_app_resource_usage_metrics))}." \
+               f"five_g_cu_cp_metrics: {list(map(lambda x: str(x), self.five_g_cu_cp_metrics))}," \
+               f"five_g_cu_buffer_pool_metrics: {list(map(lambda x: str(x), self.five_g_cu_buffer_pool_metrics))}," \
+               f"five_g_cu_app_resource_usage_metrics: " \
+               f"{list(map(lambda x: str(x), self.five_g_cu_app_resource_usage_metrics))},"
 
     @staticmethod
     def from_json_file(json_file_path: str) -> "EmulationMetricsTimeSeries":

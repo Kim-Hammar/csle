@@ -111,13 +111,13 @@ class InitFiveGDUUEMsg(google.protobuf.message.Message):
     IMSI_FIELD_NUMBER: builtins.int
     KEY_FIELD_NUMBER: builtins.int
     OPC_FIELD_NUMBER: builtins.int
-    SQN_FIELD_NUMBER: builtins.int
+    IMEI_FIELD_NUMBER: builtins.int
     du_fronthaul_ip: builtins.str
     cu_fronthaul_ip: builtins.str
     imsi: builtins.str
     key: builtins.str
     opc: builtins.str
-    sqn: builtins.int
+    imei: builtins.str
     def __init__(
         self,
         *,
@@ -126,9 +126,9 @@ class InitFiveGDUUEMsg(google.protobuf.message.Message):
         imsi: builtins.str = ...,
         key: builtins.str = ...,
         opc: builtins.str = ...,
-        sqn: builtins.int = ...,
+        imei: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["cu_fronthaul_ip", b"cu_fronthaul_ip", "du_fronthaul_ip", b"du_fronthaul_ip", "imsi", b"imsi", "key", b"key", "opc", b"opc", "sqn", b"sqn"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cu_fronthaul_ip", b"cu_fronthaul_ip", "du_fronthaul_ip", b"du_fronthaul_ip", "imei", b"imei", "imsi", b"imsi", "key", b"key", "opc", b"opc"]) -> None: ...
 
 global___InitFiveGDUUEMsg = InitFiveGDUUEMsg
 

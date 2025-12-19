@@ -321,7 +321,7 @@ class FiveGDUManagerUtil:
             return False
 
     @staticmethod
-    def init_ue_config_file(imsi: str, key: str, opc: str, sqn: int) -> bool:
+    def init_ue_config_file(imsi: str, key: str, opc: str, imei: str) -> bool:
         """
         Modifies the /srsRAN_4G/build/srsue/src/ue.conf configuration file.
         Updates the [usim] section with subscriber data.
@@ -329,12 +329,12 @@ class FiveGDUManagerUtil:
         :param imsi: The imsi of the UE.
         :param key: The private key of the UE.
         :param opc: The operator key of the UE.
-        :param sqn: The sqn of the UE.
+        :param imei: The imei of the UE.
         :return: True if the file was updated successfully, False otherwise.
         """
         config_path = "/srsRAN_4G/build/srsue/src/ue.conf"
         logging.info(f"Attempting to update UE config at {config_path}")
-        logging.info(f"Setting subscriber data. imsi: {imsi}, key: {key}, opc: {opc}, sqn: {sqn}, amf: {amf}")
+        logging.info(f"Setting subscriber data. imsi: {imsi}, key: {key}, opc: {opc}, imei: {imei}")
 
         # Define a helper class to handle case-sensitivity correctly
         class CaseSensitiveConfigParser(configparser.ConfigParser):
@@ -362,7 +362,7 @@ class FiveGDUManagerUtil:
             config['usim']['imsi'] = imsi
             config['usim']['k'] = key
             config['usim']['opc'] = opc
-            config['usim']['sqn'] = str(sqn)
+            config['usim']['imei'] = imei
 
             with open(config_path, 'w') as f:
                 config.write(f)

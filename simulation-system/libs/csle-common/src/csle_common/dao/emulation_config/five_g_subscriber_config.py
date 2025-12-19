@@ -8,7 +8,7 @@ class FiveGSubscriberConfig(JSONSerializable):
     DTO representing the configuration of a 5G subscriber
     """
 
-    def __init__(self, imsi: str, key: str, opc: str, amf: str, sqn: int) -> None:
+    def __init__(self, imsi: str, key: str, opc: str, amf: str, sqn: int, imei: str) -> None:
         """
         Initializes the DTO
 
@@ -17,12 +17,14 @@ class FiveGSubscriberConfig(JSONSerializable):
         :param opc: the operator key
         :param amf: the AMF (Authentication Management Field)
         :param sqn: the sequence number (SQN)
+        :param imei: the IMEI of the subscriber
         """
         self.imsi = imsi
         self.key = key
         self.opc = opc
         self.amf = amf
         self.sqn = sqn
+        self.imei = imei
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> "FiveGSubscriberConfig":
@@ -32,7 +34,8 @@ class FiveGSubscriberConfig(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = FiveGSubscriberConfig(imsi=d["imsi"], key=d["key"], opc=d["opc"], amf=d["amf"], sqn=d["sqn"])
+        obj = FiveGSubscriberConfig(imsi=d["imsi"], key=d["key"], opc=d["opc"], amf=d["amf"], sqn=d["sqn"],
+                                    imei=d["imei"])
         return obj
 
     def to_dict(self) -> Dict[str, Union[str, int]]:
@@ -47,6 +50,7 @@ class FiveGSubscriberConfig(JSONSerializable):
         d["opc"] = self.opc
         d["amf"] = self.amf
         d["sqn"] = self.sqn
+        d["imei"] = self.imei
         return d
 
     def to_subscriber_dto(self) -> FiveGSubscriberDTO:
@@ -55,13 +59,15 @@ class FiveGSubscriberConfig(JSONSerializable):
 
         :return: the created SubscriberDTO
         """
-        return FiveGSubscriberDTO(imsi=self.imsi, key=self.key, opc=self.opc, amf=self.amf, sqn=self.sqn)
+        return FiveGSubscriberDTO(imsi=self.imsi, key=self.key, opc=self.opc, amf=self.amf, sqn=self.sqn,
+                                  imei=self.imei)
 
     def __str__(self) -> str:
         """
         :return: a string representation of the object
         """
-        return f"imsi: {self.imsi}, key: {self.key}, opc: {self.opc}, amf: {self.amf}, sqn: {self.sqn}"
+        return (f"imsi: {self.imsi}, key: {self.key}, opc: {self.opc}, amf: {self.amf}, sqn: {self.sqn}, "
+                f"imei: {self.imei}")
 
     @staticmethod
     def from_json_file(json_file_path: str) -> "FiveGSubscriberConfig":
@@ -100,5 +106,5 @@ class FiveGSubscriberConfig(JSONSerializable):
         """
         return FiveGSubscriberConfig(
             imsi="001010123456780", key="00112233445566778899aabbccddeeff", opc="63BFA50EE6523365FF14C1F45F88737D",
-            amf="8000", sqn=10
+            amf="8000", sqn=10, imei="353490069873319"
         )

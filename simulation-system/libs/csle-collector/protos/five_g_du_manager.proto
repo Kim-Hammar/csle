@@ -42,7 +42,7 @@ message InitFiveGDUUEMsg {
   string imsi = 3;
   string key = 4;
   string opc = 5;
-  int32 sqn = 6;
+  string imei = 6;
 }
 
 // Message that the client sends to start the 5G DUMonitor

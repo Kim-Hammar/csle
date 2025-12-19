@@ -2039,7 +2039,7 @@ def default_five_g_config(network_id: int, level: int, version: str, time_step_l
         subscribers=[
             FiveGSubscriberConfig(
                 imsi="001010123456780", key="00112233445566778899aabbccddeeff",
-                opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10
+                opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10, imei="353490069873319"
             )
         ], core_backhaul_ip=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.50",
         cu_backhaul_ips=[f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.51"],

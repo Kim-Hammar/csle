@@ -161,11 +161,13 @@ class FiveGSubscriberDTO(google.protobuf.message.Message):
     OPC_FIELD_NUMBER: builtins.int
     AMF_FIELD_NUMBER: builtins.int
     SQN_FIELD_NUMBER: builtins.int
+    IMEI_FIELD_NUMBER: builtins.int
     imsi: builtins.str
     key: builtins.str
     opc: builtins.str
     amf: builtins.str
     sqn: builtins.int
+    imei: builtins.str
     def __init__(
         self,
         *,
@@ -174,8 +176,9 @@ class FiveGSubscriberDTO(google.protobuf.message.Message):
         opc: builtins.str = ...,
         amf: builtins.str = ...,
         sqn: builtins.int = ...,
+        imei: builtins.str = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["amf", b"amf", "imsi", b"imsi", "key", b"key", "opc", b"opc", "sqn", b"sqn"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["amf", b"amf", "imei", b"imei", "imsi", b"imsi", "key", b"key", "opc", b"opc", "sqn", b"sqn"]) -> None: ...
 
 global___FiveGSubscriberDTO = FiveGSubscriberDTO
 

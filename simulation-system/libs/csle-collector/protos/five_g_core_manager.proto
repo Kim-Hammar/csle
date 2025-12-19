@@ -57,6 +57,7 @@ message FiveGSubscriberDTO {
   string opc = 3;
   string amf = 4;
   int32 sqn = 5;
+  string imei = 6;
 }
 
 // Message that the client sends to start the 5G CoreMonitor

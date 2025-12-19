@@ -451,7 +451,7 @@ class TestFiveGCoreManagerSuite:
         subscribers = [
             csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGSubscriberDTO(
                 imsi="001010123456780", key="00112233445566778899aabbccddeeff",
-                opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10
+                opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10, imei="353490069873319"
             )
         ]
         core_backhaul_ip = "127.0.0.1"

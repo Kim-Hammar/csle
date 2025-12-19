@@ -95,7 +95,7 @@ def stop_five_g_ue(
 
 def init_five_g_du_ue(
         cu_fronthaul_ip: str, du_fronthaul_ip: str,
-        imsi: str, key: str, opc: str, sqn: int,
+        imsi: str, key: str, opc: str, imei: str,
         stub: csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub,
         timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
@@ -107,7 +107,7 @@ def init_five_g_du_ue(
     :param imsi: IMSI of the UE subscriber
     :param key: private key of the UE subscriber
     :param opc: key of the operator of the UE subscriber
-    :param sqn: sqn of the UE subscriber
+    :param imei: imei of the UE subscriber
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the timeout for the gRRPC call
     :return: a FiveGDUStatusDTO describing the status of the 5G du
@@ -115,7 +115,7 @@ def init_five_g_du_ue(
     init_5g_du_ue_msg = \
         csle_collector.five_g_du_manager.five_g_du_manager_pb2.InitFiveGDUUEMsg(
             cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip,
-            imsi=imsi, key=key, opc=opc, sqn=sqn
+            imsi=imsi, key=key, opc=opc, imei=imei
         )
     five_g_du_status: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO = \
         stub.initFiveGDUUE(init_5g_du_ue_msg, timeout=timeout)
