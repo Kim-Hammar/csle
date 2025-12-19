@@ -3,6 +3,8 @@ import subprocess
 import re
 import logging
 import yaml
+import os
+import configparser
 import csle_collector.five_g_du_manager.five_g_du_manager_pb2
 import csle_collector.constants.constants as constants
 
@@ -311,6 +313,63 @@ class FiveGDUManagerUtil:
         except FileNotFoundError:
             logging.error(f"Configuration file not found at {config_path}")
             return False
+        except PermissionError:
+            logging.error(f"Permission denied. Cannot write to {config_path}.")
+            return False
+        except Exception as e:
+            logging.error(f"An unexpected error occurred processing {config_path}: {e}")
+            return False
+
+    @staticmethod
+    def init_ue_config_file(imsi: str, key: str, opc: str, sqn: int) -> bool:
+        """
+        Modifies the /srsRAN_4G/build/srsue/src/ue.conf configuration file.
+        Updates the [usim] section with subscriber data.
+
+        :param imsi: The imsi of the UE.
+        :param key: The private key of the UE.
+        :param opc: The operator key of the UE.
+        :param sqn: The sqn of the UE.
+        :return: True if the file was updated successfully, False otherwise.
+        """
+        config_path = "/srsRAN_4G/build/srsue/src/ue.conf"
+        logging.info(f"Attempting to update UE config at {config_path}")
+        logging.info(f"Setting subscriber data. imsi: {imsi}, key: {key}, opc: {opc}, sqn: {sqn}, amf: {amf}")
+
+        # Define a helper class to handle case-sensitivity correctly
+        class CaseSensitiveConfigParser(configparser.ConfigParser):
+            def optionxform(self, optionstr: str) -> str:
+                return optionstr
+
+        try:
+            if not os.path.exists(config_path):
+                logging.error(f"Configuration file not found at {config_path}")
+                return False
+
+            # Use the custom class instead of patching the instance
+            config = CaseSensitiveConfigParser()
+
+            files_read = config.read(config_path)
+            if not files_read:
+                logging.error(f"Failed to read/parse configuration file at {config_path}")
+                return False
+
+            if 'usim' not in config:
+                logging.error(f"Invalid INI structure in {config_path}: '[usim]' section missing.")
+                return False
+
+            # Update the subscriber data
+            config['usim']['imsi'] = imsi
+            config['usim']['k'] = key
+            config['usim']['opc'] = opc
+            config['usim']['sqn'] = str(sqn)
+
+            with open(config_path, 'w') as f:
+                config.write(f)
+
+            logging.info(f"Successfully updated {config_path}")
+            return True
+
         except PermissionError:
             logging.error(f"Permission denied. Cannot write to {config_path}.")
             return False

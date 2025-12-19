@@ -406,7 +406,7 @@ class FiveGDUController:
             stub = csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub(channel)
             status = csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_du_ue(
                 stub=stub, cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip,
-                imsi=subscriber.imsi, key=subscriber.key, opc=subscriber.opc, sqn=subscriber.sqn, amf=subscriber.amf)
+                imsi=subscriber.imsi, key=subscriber.key, opc=subscriber.opc, sqn=subscriber.sqn)
             return status
 
     @staticmethod

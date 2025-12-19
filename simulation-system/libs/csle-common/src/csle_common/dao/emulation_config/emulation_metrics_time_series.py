@@ -4,6 +4,13 @@ from csle_collector.snort_ids_manager.dao.snort_ids_ip_alert_counters import Sno
 from csle_collector.snort_ids_manager.dao.snort_ids_rule_counters import SnortIdsRuleCounters
 from csle_collector.ossec_ids_manager.dao.ossec_ids_alert_counters import OSSECIdsAlertCounters
 from csle_collector.client_manager.client_population_metrics import ClientPopulationMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_amf_metrics import FiveGCoreAMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_hss_metrics import FiveGCoreHSSMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_mme_metrics import FiveGCoreMMEMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_upf_metrics import FiveGCoreUPFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcf_metrics import FiveGCorePCFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcrf_metrics import FiveGCorePCRFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics import FiveGCoreSMFMetrics
 from csle_collector.docker_stats_manager.dao.docker_stats import DockerStats
 from csle_collector.host_manager.dao.host_metrics import HostMetrics
 from csle_ryu.dao.avg_port_statistic import AvgPortStatistic
@@ -40,7 +47,15 @@ class EmulationMetricsTimeSeries(JSONSerializable):
                  snort_ids_ip_metrics: Dict[str, List[SnortIdsIPAlertCounters]],
                  agg_snort_ids_rule_metrics: List[SnortIdsRuleCounters],
                  snort_alert_metrics_per_ids: Dict[str, List[SnortIdsAlertCounters]],
-                 snort_rule_metrics_per_ids: Dict[str, List[SnortIdsRuleCounters]]):
+                 snort_rule_metrics_per_ids: Dict[str, List[SnortIdsRuleCounters]],
+                 five_g_core_amf_metrics: Dict[str, List[FiveGCoreAMFMetrics]],
+                 five_g_core_mme_metrics: Dict[str, List[FiveGCoreMMEMetrics]],
+                 five_g_core_upf_metrics: Dict[str, List[FiveGCoreUPFMetrics]],
+                 five_g_core_pcf_metrics: Dict[str, List[FiveGCorePCFMetrics]],
+                 five_g_core_pcrf_metrics: Dict[str, List[FiveGCorePCRFMetrics]],
+                 five_g_core_smf_metrics: Dict[str, List[FiveGCoreSMFMetrics]],
+                 five_g_core_hss_metrics: Dict[str, List[FiveGCoreHSSMetrics]]
+                 ):
         """
         Initializes the DTO
 
@@ -69,6 +84,13 @@ class EmulationMetricsTimeSeries(JSONSerializable):
         :param agg_snort_ids_rule_metrics: Time series data with Snort IDS metrics per rule
         :param snort_alert_metrics_per_ids: Time series data with Snort IDS alert metrics per IDS
         :param snort_rule_metrics_per_ids: Time series data with Snort IDS rule metrics per IDS
+        :param five_g_core_amf_metrics: Time series data with FiveGCore AMF metrics per host
+        :param five_g_core_mme_metrics: Time series data with FiveGCore MME metrics per host
+        :param five_g_core_upf_metrics: Time series data with FiveGCore UPF metrics per host
+        :param five_g_core_pcf_metrics: Time series data with FiveGCore PCF metrics per host
+        :param five_g_core_pcrf_metrics: Time series data with FiveGCore PCRF metrics per host
+        :param five_g_core_smf_metrics: Time series data with FiveGCore SMF metrics per host
+        :param five_g_core_hss_metrics: Time series data with FiveGCore HSS metrics per host
         """
         self.client_metrics = client_metrics
         self.aggregated_docker_stats = aggregated_docker_stats
@@ -95,6 +117,13 @@ class EmulationMetricsTimeSeries(JSONSerializable):
         self.agg_snort_ids_rule_metrics = agg_snort_ids_rule_metrics
         self.snort_alert_metrics_per_ids = snort_alert_metrics_per_ids
         self.snort_rule_metrics_per_ids = snort_rule_metrics_per_ids
+        self.five_g_core_amf_metrics = five_g_core_amf_metrics
+        self.five_g_core_mme_metrics = five_g_core_mme_metrics
+        self.five_g_core_upf_metrics = five_g_core_upf_metrics
+        self.five_g_core_pcf_metrics = five_g_core_pcf_metrics
+        self.five_g_core_pcrf_metrics = five_g_core_pcrf_metrics
+        self.five_g_core_smf_metrics = five_g_core_smf_metrics
+        self.five_g_core_hss_metrics = five_g_core_hss_metrics
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> "EmulationMetricsTimeSeries":
@@ -146,6 +175,42 @@ class EmulationMetricsTimeSeries(JSONSerializable):
         for k, v in d["snort_rule_metrics_per_ids"].items():
             snort_rule_metrics_per_ids[k] = list(map(lambda x: SnortIdsRuleCounters.from_dict(x), v))
 
+        five_g_core_amf_metrics = {}
+        for k, v in d["five_g_core_amf_metrics"].items():
+            five_g_core_amf_metrics[k] = list(map(lambda x: FiveGCoreAMFMetrics.from_dict(x), v))
+
+        five_g_core_mme_metrics = {}
+        for k, v in d["five_g_core_mme_metrics"].items():
+            five_g_core_mme_metrics[k] = list(map(lambda x: FiveGCoreMMEMetrics.from_dict(x), v))
+
+        five_g_core_upf_metrics = {}
+        for k, v in d["five_g_core_upf_metrics"].items():
+            five_g_core_upf_metrics[k] = list(map(lambda x: FiveGCoreUPFMetrics.from_dict(x), v))
+
+        five_g_core_pcf_metrics = {}
+        for k, v in d["five_g_core_pcf_metrics"].items():
+            five_g_core_pcf_metrics[k] = list(map(lambda x: FiveGCorePCFMetrics.from_dict(x), v))
+
+        five_g_core_pcrf_metrics = {}
+        for k, v in d["five_g_core_pcrf_metrics"].items():
+            five_g_core_pcrf_metrics[k] = list(map(lambda x: FiveGCorePCRFMetrics.from_dict(x), v))
+
+        five_g_core_mme_metrics = {}
+        for k, v in d["five_g_core_mme_metrics"].items():
+            five_g_core_mme_metrics[k] = list(map(lambda x: FiveGCoreMMEMetrics.from_dict(x), v))
+
+        five_g_core_smf_metrics = {}
+        for k, v in d["five_g_core_smf_metrics"].items():
+            five_g_core_smf_metrics[k] = list(map(lambda x: FiveGCoreSMFMetrics.from_dict(x), v))
+
+        five_g_core_mme_metrics = {}
+        for k, v in d["five_g_core_mme_metrics"].items():
+            five_g_core_mme_metrics[k] = list(map(lambda x: FiveGCoreMMEMetrics.from_dict(x), v))
+
+        five_g_core_hss_metrics = {}
+        for k, v in d["five_g_core_hss_metrics"].items():
+            five_g_core_hss_metrics[k] = list(map(lambda x: FiveGCoreHSSMetrics.from_dict(x), v))
+
         obj = EmulationMetricsTimeSeries(
             client_metrics=list(map(lambda x: ClientPopulationMetrics.from_dict(x), d["client_metrics"])),
             aggregated_docker_stats=list(map(lambda x: DockerStats.from_dict(x), d["aggregated_docker_stats"])),
@@ -173,7 +238,11 @@ class EmulationMetricsTimeSeries(JSONSerializable):
             agg_snort_ids_rule_metrics=list(map(lambda x: SnortIdsRuleCounters.from_dict(x),
                                                 d["agg_snort_ids_rule_metrics"])),
             snort_alert_metrics_per_ids=snort_alert_metrics_per_ids,
-            snort_rule_metrics_per_ids=snort_rule_metrics_per_ids)
+            snort_rule_metrics_per_ids=snort_rule_metrics_per_ids,
+            five_g_core_amf_metrics=five_g_core_amf_metrics, five_g_core_mme_metrics=five_g_core_mme_metrics,
+            five_g_core_upf_metrics=five_g_core_upf_metrics, five_g_core_pcf_metrics=five_g_core_pcf_metrics,
+            five_g_core_pcrf_metrics=five_g_core_pcrf_metrics, five_g_core_smf_metrics=five_g_core_smf_metrics,
+            five_g_core_hss_metrics=five_g_core_hss_metrics)
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -242,6 +311,34 @@ class EmulationMetricsTimeSeries(JSONSerializable):
         for k, v in self.snort_rule_metrics_per_ids.items():
             d["snort_rule_metrics_per_ids"][k] = list(map(lambda x: x.to_dict(), v))
 
+        d["five_g_core_amf_metrics"] = {}
+        for k, v in self.five_g_core_amf_metrics.items():
+            d["five_g_core_amf_metrics"][k] = list(map(lambda x: x.to_dict(), v))
+
+        d["five_g_core_mme_metrics"] = {}
+        for k, v in self.five_g_core_mme_metrics.items():
+            d["five_g_core_mme_metrics"][k] = list(map(lambda x: x.to_dict(), v))
+
+        d["five_g_core_upf_metrics"] = {}
+        for k, v in self.five_g_core_upf_metrics.items():
+            d["five_g_core_upf_metrics"][k] = list(map(lambda x: x.to_dict(), v))
+
+        d["five_g_core_pcf_metrics"] = {}
+        for k, v in self.five_g_core_pcf_metrics.items():
+            d["five_g_core_pcf_metrics"][k] = list(map(lambda x: x.to_dict(), v))
+
+        d["five_g_core_pcrf_metrics"] = {}
+        for k, v in self.five_g_core_pcrf_metrics.items():
+            d["five_g_core_pcrf_metrics"][k] = list(map(lambda x: x.to_dict(), v))
+
+        d["five_g_core_smf_metrics"] = {}
+        for k, v in self.five_g_core_smf_metrics.items():
+            d["five_g_core_smf_metrics"][k] = list(map(lambda x: x.to_dict(), v))
+
+        d["five_g_core_hss_metrics"] = {}
+        for k, v in self.five_g_core_hss_metrics.items():
+            d["five_g_core_hss_metrics"][k] = list(map(lambda x: x.to_dict(), v))
+
         return d
 
     def __str__(self) -> str:
@@ -271,9 +368,17 @@ class EmulationMetricsTimeSeries(JSONSerializable):
                f"snort_ids_ip_metrics: {self.snort_ids_ip_metrics}," \
                f"agg_snort_ids_rule_metrics: {self.agg_snort_ids_rule_metrics}," \
                f"snort_alert_metrics_per_ids: {self.snort_alert_metrics_per_ids}," \
-               f"snort_rule_metrics_per_ids: {self.snort_rule_metrics_per_ids}"
+               f"snort_rule_metrics_per_ids: {self.snort_rule_metrics_per_ids}" \
+               f"five_g_core_amf_metrics: {list(map(lambda x: str(x), self.five_g_core_amf_metrics))}," \
+               f"five_g_core_mme_metrics: {list(map(lambda x: str(x), self.five_g_core_mme_metrics))}," \
+               f"five_g_core_upf_metrics: {list(map(lambda x: str(x), self.five_g_core_upf_metrics))}," \
+               f"five_g_core_pcf_metrics: {list(map(lambda x: str(x), self.five_g_core_pcf_metrics))}," \
+               f"five_g_core_pcrf_metrics: {list(map(lambda x: str(x), self.five_g_core_pcrf_metrics))}," \
+               f"five_g_core_smf_metrics: {list(map(lambda x: str(x), self.five_g_core_smf_metrics))}," \
+               f"five_g_core_hss_metrics: {list(map(lambda x: str(x), self.five_g_core_hss_metrics))}," \
+ \
+            @ staticmethod
 
-    @staticmethod
     def from_json_file(json_file_path: str) -> "EmulationMetricsTimeSeries":
         """
         Reads a json file and converts it to a DTO
