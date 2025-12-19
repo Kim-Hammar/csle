@@ -3,9 +3,7 @@ import subprocess
 import re
 import logging
 import yaml
-import time
 import csle_collector.five_g_cu_manager.five_g_cu_manager_pb2
-from csle_collector.five_g_cu_manager.dao.cu_metrics import CUMetrics
 import csle_collector.constants.constants as constants
 
 
@@ -197,13 +195,3 @@ class FiveGCUManagerUtil:
         except Exception as e:
             logging.error(f"An unexpected error occurred processing {config_path}: {e}")
             return False
-
-    @staticmethod
-    def fetch_cu_metrics(ip: str) -> CUMetrics:
-        """
-        Fetches CU metrics from the given URL and parses them into an CUMetrics DTO.
-
-        :param ip: The IP address string
-        :return: A populated CUMetrics object
-        """
-        return CUMetrics(ip=ip, ts=float(time.time()))

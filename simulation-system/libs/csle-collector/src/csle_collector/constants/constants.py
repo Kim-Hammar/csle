@@ -580,6 +580,9 @@ class KAFKA_CONFIG:
     RLC_METRICS_TOPIC_NAME = "rlc_metrics"
     APP_RESOURCE_USAGE_METRICS_TOPIC_NAME = "app_resource_usage_metrics"
     BUFFER_POOL_METRICS_TOPIC_NAME = "buffer_pool_metrics"
+    CU_CP_METRICS_TOPIC_NAME = "cu_cp_metrics"
+    CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME = "cu_app_resource_usage_metrics"
+    CU_BUFFER_POOL_METRICS_TOPIC_NAME = "cu_buffer_pool_metrics"
     DOCKER_STATS_TOPIC_NAME = "docker_stats"
     DOCKER_HOST_STATS_TOPIC_NAME = "docker_host_stats"
     OPENFLOW_FLOW_STATS_TOPIC_NAME = "openflow_flow_stats"
@@ -837,6 +840,31 @@ class KAFKA_CONFIG:
                                      "memory_usage_mb", "power_consumption_watts"]
 
     BUFFER_POOL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "central_cache_size"]
+
+    CUCP_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cu_cp_id", "amf_connected",
+                             "nof_cn_initiated_paging_requests",
+                             "nof_pdu_sessions_requested_to_setup",
+                             "nof_pdu_sessions_successfully_setup",
+                             "nof_pdu_sessions_failed_to_setup_total",
+                             "nof_handover_preparations_requested",
+                             "nof_successful_handover_preparations",
+                             "rrc_establishments_attempted_total",
+                             "rrc_establishments_successful_total",
+                             "rrc_establishments_attempted_mo_data",
+                             "rrc_establishments_successful_mo_data",
+                             "rrc_establishments_attempted_mo_sig",
+                             "rrc_establishments_successful_mo_sig",
+                             "max_nof_rrc_connections",
+                             "mean_nof_rrc_connections",
+                             "rrc_reestablishments_attempted",
+                             "rrc_reestablishments_successful",
+                             "nof_handover_executions_requested",
+                             "nof_successful_handover_executions"]
+
+    CU_APP_RESOURCE_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cpu_usage_percent",
+                                        "memory_usage_mb", "power_consumption_watts"]
+
+    CU_BUFFER_POOL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "central_cache_size"]
 
     SNORT_IDS_ALERTS_LABELS = [
         "total_alerts", "warning_alerts", "severe_alerts", "alerts_weighted_by_priority",

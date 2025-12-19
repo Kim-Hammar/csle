@@ -170,7 +170,8 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
         if self.du_monitor_thread is not None:
             self.du_monitor_thread.running = False
         self.du_monitor_thread = DUMonitorThread(kafka_ip=request.kafka_ip, kafka_port=request.kafka_port,
-                                                 ip=self.ip, hostname=self.hostname)
+                                                 ip=self.ip, hostname=self.hostname,
+                                                 time_step_len_seconds=request.time_step_len_seconds,)
         self.du_monitor_thread.start()
         logging.info("Started the DU Monitor thread")
 
