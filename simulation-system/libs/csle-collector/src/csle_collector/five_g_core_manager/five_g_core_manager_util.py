@@ -174,6 +174,7 @@ class FiveGCoreManagerUtil:
         d["bsf_running"] = five_g_core_status_dto.bsf_running
         d["udr_running"] = five_g_core_status_dto.udr_running
         d["webui_running"] = five_g_core_status_dto.webui_running
+        d["monitor_running"] = five_g_core_status_dto.monitor_running
         d["ip"] = five_g_core_status_dto.ip
         return d
 

@@ -18,7 +18,6 @@ import {
  * Subcomponent of the /control-plane page that contains information about 5G core managers
  */
 const FiveGCoreManagersInfo = (props) => {
-
   const renderFiveGCoreTooltip = (props) => {
     return (<Tooltip id="button-tooltip" {...props} className="toolTipRefresh">
       View Open5Gs&apos;s web interface
@@ -187,7 +186,7 @@ const FiveGCoreManagersInfo = (props) => {
 
               {props.fiveGCoreManagersInfo.five_g_core_managers_statuses.map((status, index) =>
                 <tr key={`${FIVE_G_CORE_MONITOR_SUBRESOURCE}-${index}`}>
-                  <td>Core monitor thread</td>
+                  <td>5G core monitor thread</td>
                   <td>{props.fiveGCoreManagersInfo.ips[index]}</td>
                   <td></td>
                   {props.activeStatus(status.monitor_running)}
@@ -203,7 +202,7 @@ const FiveGCoreManagersInfo = (props) => {
                       startOrStop={props.startOrStop}
                     />
                     <LogsButton name={props.fiveGCoreManagersInfo.ips[index]}
-                                entity={FIVE_G_CORE_MONITOR_SUBRESOURCE}
+                                entity={FIVE_G_CORE_MANAGER_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
                   </td>

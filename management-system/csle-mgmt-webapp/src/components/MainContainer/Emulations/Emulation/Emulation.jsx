@@ -658,7 +658,6 @@ const Emulation = (props) => {
                                             <th>Private key</th>
                                             <th>Operator key</th>
                                             <th>AMF</th>
-                                            <th>Password</th>
                                             <th>SQN</th>
                                         </tr>
                                         </thead>
@@ -902,6 +901,7 @@ const Emulation = (props) => {
                                         </thead>
                                         <tbody>
                                         <tr key={emulation.five_g_config.core_backhaul_ip}>
+                                            <td>{emulation.five_g_config.core_backhaul_ip}</td>
                                             <td>{emulation.five_g_config.cu_backhaul_ips}</td>
                                             <td>{emulation.five_g_config.cu_fronthaul_ips}</td>
                                             <td>{emulation.five_g_config.du_fronthaul_ips}</td>

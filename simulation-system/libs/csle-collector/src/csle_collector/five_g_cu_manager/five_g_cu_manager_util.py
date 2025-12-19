@@ -116,6 +116,7 @@ class FiveGCUManagerUtil:
         """
         d: Dict[str, Any] = {}
         d["cu_running"] = five_g_cu_status_dto.cu_running
+        d["monitor_running"] = five_g_cu_status_dto.monitor_running
         d["ip"] = five_g_cu_status_dto.ip
         return d
 

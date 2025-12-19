@@ -236,6 +236,7 @@ class FiveGDUManagerUtil:
         d: Dict[str, Any] = {}
         d["du_running"] = five_g_du_status_dto.du_running
         d["ue_running"] = five_g_du_status_dto.ue_running
+        d["monitor_running"] = five_g_du_status_dto.monitor_running
         d["ip"] = five_g_du_status_dto.ip
         return d
 

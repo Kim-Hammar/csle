@@ -2103,17 +2103,17 @@ class ClusterManagerUtil:
 
         stopped_containers = list(filter(lambda x: x.name not in running_container_names, stopped_containers))
         merged_snort_ids_managers_info = snort_ids_managers_info[0]
-        for five_g_core_manager_info in snort_ids_managers_info[1:]:
+        for snort_ids_mng_info in snort_ids_managers_info[1:]:
             merged_snort_ids_managers_info.ips = (list(merged_snort_ids_managers_info.ips) +
-                                                  list(five_g_core_manager_info.ips))
+                                                  list(snort_ids_mng_info.ips))
             merged_snort_ids_managers_info.ports = (list(merged_snort_ids_managers_info.ports) +
-                                                    list(five_g_core_manager_info.ports))
+                                                    list(snort_ids_mng_info.ports))
             merged_snort_ids_managers_info.snort_ids_managers_running = \
                 list(merged_snort_ids_managers_info.snort_ids_managers_running) + \
-                list(five_g_core_manager_info.snort_ids_managers_running)
+                list(snort_ids_mng_info.snort_ids_managers_running)
             merged_snort_ids_managers_info.snort_ids_managers_statuses = \
                 (list(merged_snort_ids_managers_info.snort_ids_managers_statuses) +
-                 list(five_g_core_manager_info.snort_ids_managers_statuses))
+                 list(snort_ids_mng_info.snort_ids_managers_statuses))
 
         merged_ossec_ids_managers_info = ossec_ids_managers_info[0]
         for ossec_ids_manager_info in ossec_ids_managers_info[1:]:
@@ -2209,17 +2209,17 @@ class ClusterManagerUtil:
                 list(ryu_manager_info.ryu_managers_statuses)
 
         merged_five_g_core_managers_info = five_g_core_managers_info[0]
-        for five_g_core_manager_info in five_g_core_managers_info[1:]:
+        for five_g_core_mng_info in five_g_core_managers_info[1:]:
             merged_five_g_core_managers_info.ips = (list(merged_five_g_core_managers_info.ips) +
-                                                    list(five_g_core_manager_info.ips))
+                                                    list(five_g_core_mng_info.ips))
             merged_five_g_core_managers_info.ports = (list(merged_five_g_core_managers_info.ports) +
-                                                      list(five_g_core_manager_info.ports))
+                                                      list(five_g_core_mng_info.ports))
             merged_five_g_core_managers_info.five_g_core_managers_running = \
                 list(merged_five_g_core_managers_info.five_g_core_managers_running) + \
-                list(five_g_core_manager_info.five_g_core_managers_running)
+                list(five_g_core_mng_info.five_g_core_managers_running)
             merged_five_g_core_managers_info.five_g_core_managers_statuses = \
                 (list(merged_five_g_core_managers_info.five_g_core_managers_statuses) +
-                 list(five_g_core_manager_info.five_g_core_managers_statuses))
+                 list(five_g_core_mng_info.five_g_core_managers_statuses))
 
         merged_five_g_cu_managers_info = five_g_cu_managers_info[0]
         for five_g_cu_manager_info in five_g_cu_managers_info[1:]:

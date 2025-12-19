@@ -149,7 +149,7 @@ const FiveGCUManagersInfo = (props) => {
 
               {props.fiveGCUManagersInfo.five_g_cu_managers_statuses.map((status, index) =>
                 <tr key={`${FIVE_G_CU_MONITOR_SUBRESOURCE}-${index}`}>
-                  <td>CU monitor thread</td>
+                  <td>5G CU monitor thread</td>
                   <td>{props.fiveGCUManagersInfo.ips[index]}</td>
                   <td></td>
                   {props.activeStatus(status.monitor_running)}
@@ -165,7 +165,7 @@ const FiveGCUManagersInfo = (props) => {
                       startOrStop={props.startOrStop}
                     />
                     <LogsButton name={props.fiveGCUManagersInfo.ips[index]}
-                                entity={FIVE_G_CU_MONITOR_SUBRESOURCE}
+                                entity={FIVE_G_CU_MANAGER_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
                   </td>

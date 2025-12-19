@@ -192,7 +192,7 @@ const FiveGDUManagersInfo = (props) => {
 
               {props.fiveGDUManagersInfo.five_g_du_managers_statuses.map((status, index) =>
                 <tr key={`${FIVE_G_DU_MONITOR_SUBRESOURCE}-${index}`}>
-                  <td>DU monitor thread</td>
+                  <td>5G DU monitor thread</td>
                   <td>{props.fiveGDUManagersInfo.ips[index]}</td>
                   <td></td>
                   {props.activeStatus(status.monitor_running)}
@@ -208,7 +208,7 @@ const FiveGDUManagersInfo = (props) => {
                       startOrStop={props.startOrStop}
                     />
                     <LogsButton name={props.fiveGDUManagersInfo.ips[index]}
-                                entity={FIVE_G_DU_MONITOR_SUBRESOURCE}
+                                entity={FIVE_G_DU_MANAGER_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
                   </td>
