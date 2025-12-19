@@ -3079,9 +3079,9 @@ def start_stop_five_g_ue(execution_id: int) -> Tuple[Response, int]:
 @emulation_executions_bp.route(f"{constants.COMMANDS.SLASH_DELIM}<execution_id>{constants.COMMANDS.SLASH_DELIM}"
                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}",
                                methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
-def start_stop_core_monitor_thread(execution_id: int) -> Tuple[Response, int]:
+def start_stop_five_g_core_monitor_thread(execution_id: int) -> Tuple[Response, int]:
     """
-    The /emulation-executions/id/core-monitor resource.
+    The /emulation-executions/id/five-g-core-monitor resource.
 
     :param execution_id: the id of the execution
     :return: Starts or stop the 5G core managers of a given execution
@@ -3116,35 +3116,35 @@ def start_stop_core_monitor_thread(execution_id: int) -> Tuple[Response, int]:
                     f"Stopping all 5G core monitors on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.stop_core_monitor_threads(
+                    ClusterController.stop_five_g_core_monitor_threads(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet)
             else:
                 Logger.__call__().get_logger().info(
-                    f"Stopping core monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"Stopping 5G core monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.stop_core_monitor_thread(
+                    ClusterController.stop_five_g_core_monitor_thread(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet, container_ip=ip)
         if start:
             if ip == api_constants.MGMT_WEBAPP.START_ALL_PROPERTY:
                 Logger.__call__().get_logger().info(
-                    f"Starting all core monitors on emulation: {execution.emulation_env_config.name}, "
+                    f"Starting all 5G core monitors on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.start_core_monitor_threads(
+                    ClusterController.start_five_g_core_monitor_threads(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet)
             else:
                 Logger.__call__().get_logger().info(
-                    f"Starting core monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"Starting 5G core monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.start_core_monitor_thread(
+                    ClusterController.start_five_g_core_monitor_thread(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet, container_ip=ip)
@@ -3161,9 +3161,9 @@ def start_stop_core_monitor_thread(execution_id: int) -> Tuple[Response, int]:
 @emulation_executions_bp.route(f"{constants.COMMANDS.SLASH_DELIM}<execution_id>{constants.COMMANDS.SLASH_DELIM}"
                                f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}",
                                methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
-def start_stop_cu_monitor_thread(execution_id: int) -> Tuple[Response, int]:
+def start_stop_five_g_cu_monitor_thread(execution_id: int) -> Tuple[Response, int]:
     """
-    The /emulation-executions/id/cu-monitor resource.
+    The /emulation-executions/id/five-g-cu-monitor resource.
 
     :param execution_id: the id of the execution
     :return: Starts or stop the 5G CU managers of a given execution
@@ -3198,35 +3198,35 @@ def start_stop_cu_monitor_thread(execution_id: int) -> Tuple[Response, int]:
                     f"Stopping all 5G CU monitors on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.stop_cu_monitor_threads(
+                    ClusterController.stop_five_g_cu_monitor_threads(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet)
             else:
                 Logger.__call__().get_logger().info(
-                    f"Stopping CU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"Stopping 5G CU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.stop_cu_monitor_thread(
+                    ClusterController.stop_five_g_cu_monitor_thread(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet, container_ip=ip)
         if start:
             if ip == api_constants.MGMT_WEBAPP.START_ALL_PROPERTY:
                 Logger.__call__().get_logger().info(
-                    f"Starting all cu monitors on emulation: {execution.emulation_env_config.name}, "
+                    f"Starting all 5G CU monitors on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.start_cu_monitor_threads(
+                    ClusterController.start_five_g_cu_monitor_threads(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet)
             else:
                 Logger.__call__().get_logger().info(
-                    f"Starting CU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"Starting 5G CU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.start_cu_monitor_thread(
+                    ClusterController.start_five_g_cu_monitor_thread(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet, container_ip=ip)
@@ -3243,9 +3243,9 @@ def start_stop_cu_monitor_thread(execution_id: int) -> Tuple[Response, int]:
 @emulation_executions_bp.route(f"{constants.COMMANDS.SLASH_DELIM}<execution_id>{constants.COMMANDS.SLASH_DELIM}"
                                f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}",
                                methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
-def start_stop_du_monitor_thread(execution_id: int) -> Tuple[Response, int]:
+def start_stop_five_g_du_monitor_thread(execution_id: int) -> Tuple[Response, int]:
     """
-    The /emulation-executions/id/du-monitor resource.
+    The /emulation-executions/id/five-g-du-monitor resource.
 
     :param execution_id: the id of the execution
     :return: Starts or stop the 5G du managers of a given execution
@@ -3280,35 +3280,35 @@ def start_stop_du_monitor_thread(execution_id: int) -> Tuple[Response, int]:
                     f"Stopping all 5G DU monitors on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.stop_du_monitor_threads(
+                    ClusterController.stop_five_g_du_monitor_threads(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet)
             else:
                 Logger.__call__().get_logger().info(
-                    f"Stopping DU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"Stopping 5G DU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.stop_du_monitor_thread(
+                    ClusterController.stop_five_g_du_monitor_thread(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet, container_ip=ip)
         if start:
             if ip == api_constants.MGMT_WEBAPP.START_ALL_PROPERTY:
                 Logger.__call__().get_logger().info(
-                    f"Starting all DU monitors on emulation: {execution.emulation_env_config.name}, "
+                    f"Starting all 5G DU monitors on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.start_du_monitor_threads(
+                    ClusterController.start_five_g_du_monitor_threads(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet)
             else:
                 Logger.__call__().get_logger().info(
-                    f"Starting DU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
+                    f"Starting 5G DU monitor with IP:{ip} on emulation: {execution.emulation_env_config.name}, "
                     f"execution id: {execution.ip_first_octet}")
                 for node in config.cluster_config.cluster_nodes:
-                    ClusterController.start_du_monitor_thread(
+                    ClusterController.start_five_g_du_monitor_thread(
                         ip=node.ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT,
                         emulation=execution.emulation_name,
                         ip_first_octet=execution.ip_first_octet, container_ip=ip)

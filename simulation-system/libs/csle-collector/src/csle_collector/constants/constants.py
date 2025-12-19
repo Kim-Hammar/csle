@@ -567,22 +567,22 @@ class KAFKA_CONFIG:
     SNORT_IDS_IP_LOG_TOPIC_NAME = "snort_ids_ip_log"
     OSSEC_IDS_LOG_TOPIC_NAME = "ossec_ids_log"
     HOST_METRICS_TOPIC_NAME = "host_metrics"
-    AMF_METRICS_TOPIC_NAME = "amf_metrics"
-    UPF_METRICS_TOPIC_NAME = "upf_metrics"
-    MME_METRICS_TOPIC_NAME = "mme_metrics"
-    SMF_METRICS_TOPIC_NAME = "smf_metrics"
-    HSS_METRICS_TOPIC_NAME = "hss_metrics"
-    PCRF_METRICS_TOPIC_NAME = "pcrf_metrics"
-    PCF_METRICS_TOPIC_NAME = "pcf_metrics"
-    DU_METRICS_TOPIC_NAME = "du_metrics"
-    CELL_METRICS_TOPIC_NAME = "cell_metrics"
-    DU_LOW_METRICS_TOPIC_NAME = "du_low_metrics"
-    RLC_METRICS_TOPIC_NAME = "rlc_metrics"
-    APP_RESOURCE_USAGE_METRICS_TOPIC_NAME = "app_resource_usage_metrics"
-    BUFFER_POOL_METRICS_TOPIC_NAME = "buffer_pool_metrics"
-    CU_CP_METRICS_TOPIC_NAME = "cu_cp_metrics"
-    CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME = "cu_app_resource_usage_metrics"
-    CU_BUFFER_POOL_METRICS_TOPIC_NAME = "cu_buffer_pool_metrics"
+    FIVE_G_CORE_AMF_METRICS_TOPIC_NAME = "five_g_core_amf_metrics"
+    FIVE_G_CORE_UPF_METRICS_TOPIC_NAME = "five_g_core_upf_metrics"
+    FIVE_G_CORE_MME_METRICS_TOPIC_NAME = "five_g_core_mme_metrics"
+    FIVE_G_CORE_SMF_METRICS_TOPIC_NAME = "five_g_core_smf_metrics"
+    FIVE_G_CORE_HSS_METRICS_TOPIC_NAME = "five_g_core_hss_metrics"
+    FIVE_G_CORE_PCRF_METRICS_TOPIC_NAME = "five_g_core_pcrf_metrics"
+    FIVE_G_CORE_PCF_METRICS_TOPIC_NAME = "five_g_core_pcf_metrics"
+    FIVE_G_DU_METRICS_TOPIC_NAME = "five_g_du_metrics"
+    FIVE_G_DU_CELL_METRICS_TOPIC_NAME = "five_g_du_cell_metrics"
+    FIVE_G_DU_LOW_METRICS_TOPIC_NAME = "five_g_du_low_metrics"
+    FIVE_G_RLC_METRICS_TOPIC_NAME = "five_g_rlc_metrics"
+    FIVE_G_DU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME = "five_g_du_app_resource_usage_metrics"
+    FIVE_G_DU_BUFFER_POOL_METRICS_TOPIC_NAME = "five_g_du_buffer_pool_metrics"
+    FIVE_G_CU_CP_METRICS_TOPIC_NAME = "five_g_cu_cp_metrics"
+    FIVE_G_CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME = "five_g_cu_app_resource_usage_metrics"
+    FIVE_G_CU_BUFFER_POOL_METRICS_TOPIC_NAME = "five_g_cu_buffer_pool_metrics"
     DOCKER_STATS_TOPIC_NAME = "docker_stats"
     DOCKER_HOST_STATS_TOPIC_NAME = "docker_host_stats"
     OPENFLOW_FLOW_STATS_TOPIC_NAME = "openflow_flow_stats"
@@ -657,32 +657,35 @@ class KAFKA_CONFIG:
         "total_num_transmitted_errors", "total_num_received_dropped", "total_num_transmitted_dropped",
         "total_num_received_frame_errors", "total_num_received_overrun_errors",
         "total_num_received_crc_errors", "total_num_collisions", "avg_duration_nanoseconds", "avg_duration_seconds"]
-    AMF_TOPIC_ATTRIBUTES = ["timestamp", "ip",
-                            "fivegs_amffunction_mm_confupdate", "fivegs_amffunction_rm_reginitreq",
-                            "fivegs_amffunction_rm_regemergreq", "fivegs_amffunction_mm_paging5greq",
-                            "fivegs_amffunction_rm_regperiodreq", "fivegs_amffunction_mm_confupdatesucc",
-                            "fivegs_amffunction_rm_reginitsucc", "fivegs_amffunction_amf_authreject",
-                            "fivegs_amffunction_rm_regmobreq", "amf_session",
-                            "fivegs_amffunction_rm_regmobsucc", "fivegs_amffunction_amf_authreq",
-                            "fivegs_amffunction_rm_regemergsucc", "fivegs_amffunction_mm_paging5gsucc",
-                            "ran_ue", "fivegs_amffunction_rm_regperiodsucc",
-                            "process_max_fds", "process_virtual_memory_max_bytes",
-                            "process_cpu_seconds_total", "process_virtual_memory_bytes",
-                            "process_start_time_seconds",
-                            "process_start_time_seconds", "process_open_fds"]
-    UPF_TOPIC_ATTRIBUTES = ["timestamp", "ip",
-                            "fivegs_ep_n3_gtp_indatapktn3upf", "fivegs_ep_n3_gtp_outdatapktn3upf",
-                            "fivegs_upffunction_sm_n4sessionestabreq", "fivegs_upffunction_sm_n4sessionreport",
-                            "fivegs_upffunction_sm_n4sessionreportsucc", "fivegs_upffunction_upf_sessionnbr",
-                            "pfcp_peers_active", "process_max_fds", "process_virtual_memory_max_bytes",
-                            "process_cpu_seconds_total", "process_virtual_memory_bytes",
-                            "process_resident_memory_bytes", "process_start_time_seconds", "process_open_fds"]
-    MME_TOPIC_ATTRIBUTES = ["timestamp", "ip",
-                            "enb_ue", "mme_session", "enb", "process_max_fds",
-                            "process_virtual_memory_max_bytes", "process_cpu_seconds_total",
-                            "process_virtual_memory_bytes", "process_resident_memory_bytes",
-                            "process_start_time_seconds", "process_open_fds"]
-    SMF_TOPIC_ATTRIBUTES = [
+    FIVE_G_CORE_AMF_TOPIC_ATTRIBUTES = ["timestamp", "ip",
+                                        "fivegs_amffunction_mm_confupdate", "fivegs_amffunction_rm_reginitreq",
+                                        "fivegs_amffunction_rm_regemergreq", "fivegs_amffunction_mm_paging5greq",
+                                        "fivegs_amffunction_rm_regperiodreq", "fivegs_amffunction_mm_confupdatesucc",
+                                        "fivegs_amffunction_rm_reginitsucc", "fivegs_amffunction_amf_authreject",
+                                        "fivegs_amffunction_rm_regmobreq", "amf_session",
+                                        "fivegs_amffunction_rm_regmobsucc", "fivegs_amffunction_amf_authreq",
+                                        "fivegs_amffunction_rm_regemergsucc", "fivegs_amffunction_mm_paging5gsucc",
+                                        "ran_ue", "fivegs_amffunction_rm_regperiodsucc",
+                                        "process_max_fds", "process_virtual_memory_max_bytes",
+                                        "process_cpu_seconds_total", "process_virtual_memory_bytes",
+                                        "process_start_time_seconds",
+                                        "process_start_time_seconds", "process_open_fds"]
+    FIVE_G_CORE_UPF_TOPIC_ATTRIBUTES = ["timestamp", "ip",
+                                        "fivegs_ep_n3_gtp_indatapktn3upf", "fivegs_ep_n3_gtp_outdatapktn3upf",
+                                        "fivegs_upffunction_sm_n4sessionestabreq",
+                                        "fivegs_upffunction_sm_n4sessionreport",
+                                        "fivegs_upffunction_sm_n4sessionreportsucc",
+                                        "fivegs_upffunction_upf_sessionnbr",
+                                        "pfcp_peers_active", "process_max_fds", "process_virtual_memory_max_bytes",
+                                        "process_cpu_seconds_total", "process_virtual_memory_bytes",
+                                        "process_resident_memory_bytes", "process_start_time_seconds",
+                                        "process_open_fds"]
+    FIVE_G_CORE_MME_TOPIC_ATTRIBUTES = ["timestamp", "ip",
+                                        "enb_ue", "mme_session", "enb", "process_max_fds",
+                                        "process_virtual_memory_max_bytes", "process_cpu_seconds_total",
+                                        "process_virtual_memory_bytes", "process_resident_memory_bytes",
+                                        "process_start_time_seconds", "process_open_fds"]
+    FIVE_G_CORE_SMF_TOPIC_ATTRIBUTES = [
         "timestamp",
         "ip",
         "gn_rx_createpdpcontextreq",
@@ -717,7 +720,7 @@ class KAFKA_CONFIG:
         "process_open_fds"
     ]
 
-    HSS_TOPIC_ATTRIBUTES = [
+    FIVE_G_CORE_HSS_TOPIC_ATTRIBUTES = [
         "timestamp",
         "ip",
         "cx_rx_lir",
@@ -768,7 +771,7 @@ class KAFKA_CONFIG:
         "process_open_fds"
     ]
 
-    PCRF_TOPIC_ATTRIBUTES = [
+    FIVE_G_CORE_PCRF_TOPIC_ATTRIBUTES = [
         "timestamp",
         "ip",
         "gx_rx_unknown",
@@ -796,7 +799,7 @@ class KAFKA_CONFIG:
         "process_open_fds"
     ]
 
-    PCF_TOPIC_ATTRIBUTES = [
+    FIVE_G_CORE_PCF_TOPIC_ATTRIBUTES = [
         "timestamp",
         "ip",
         "fivegs_pcffunction_pa_policyamassoreq",
@@ -813,58 +816,58 @@ class KAFKA_CONFIG:
         "process_open_fds"
     ]
 
-    DU_TOPIC_ATTRIBUTES = ["timestamp", "ip", "pci", "average_latency_us", "cpu_usage_percent", "max_latency_us",
-                           "min_latency_us"]
+    FIVE_G_DU_TOPIC_ATTRIBUTES = ["timestamp", "ip", "pci", "average_latency_us", "cpu_usage_percent", "max_latency_us",
+                                  "min_latency_us"]
 
-    CELL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "pci", "average_latency",
-                             "max_latency", "pucch_tot_rb_usage_avg", "active_ues",
-                             "dl_brate", "ul_brate", "dl_mcs", "ul_mcs",
-                             "pusch_snr_db", "pucch_snr_db", "cqi", "dl_bler",
-                             "ul_bler"]
+    FIVE_G_DU_CELL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "pci", "average_latency",
+                                       "max_latency", "pucch_tot_rb_usage_avg", "active_ues",
+                                       "dl_brate", "ul_brate", "dl_mcs", "ul_mcs",
+                                       "pusch_snr_db", "pucch_snr_db", "cqi", "dl_bler",
+                                       "ul_bler"]
 
-    DU_LOW_TOPIC_ATTRIBUTES = ["timestamp", "ip", "dl_avg_latency_us",
-                               "dl_cpu_usage_percent", "dl_max_latency_us",
-                               "dl_fec_tput_mbps", "ul_avg_latency_us",
-                               "ul_cpu_usage_percent", "ul_max_latency_us",
-                               "ul_sinr_db", "ul_ch_est_latency_us",
-                               "ul_ldpc_dec_latency_us", "ul_fec_tput_mbps"]
+    FIVE_G_DU_LOW_TOPIC_ATTRIBUTES = ["timestamp", "ip", "dl_avg_latency_us",
+                                      "dl_cpu_usage_percent", "dl_max_latency_us",
+                                      "dl_fec_tput_mbps", "ul_avg_latency_us",
+                                      "ul_cpu_usage_percent", "ul_max_latency_us",
+                                      "ul_sinr_db", "ul_ch_est_latency_us",
+                                      "ul_ldpc_dec_latency_us", "ul_fec_tput_mbps"]
 
-    RLC_TOPIC_ATTRIBUTES = ["timestamp", "ip", "ue_id", "drb_id", "rx_num_pdus",
-                            "rx_num_bytes", "rx_num_lost_pdus",
-                            "rx_num_malformed_pdus", "tx_num_sdus", "tx_num_bytes",
-                            "tx_num_dropped_sdus", "tx_num_discarded_sdus",
-                            "tx_max_pdu_latency_ns", "tx_sum_pdu_latency_ns",
-                            "tx_sum_sdu_latency_us"]
+    FIVE_G_DU_RLC_TOPIC_ATTRIBUTES = ["timestamp", "ip", "ue_id", "drb_id", "rx_num_pdus",
+                                      "rx_num_bytes", "rx_num_lost_pdus",
+                                      "rx_num_malformed_pdus", "tx_num_sdus", "tx_num_bytes",
+                                      "tx_num_dropped_sdus", "tx_num_discarded_sdus",
+                                      "tx_max_pdu_latency_ns", "tx_sum_pdu_latency_ns",
+                                      "tx_sum_sdu_latency_us"]
 
-    APP_RESOURCE_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cpu_usage_percent",
-                                     "memory_usage_mb", "power_consumption_watts"]
+    FIVE_G_DU_APP_RESOURCE_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cpu_usage_percent",
+                                               "memory_usage_mb", "power_consumption_watts"]
 
-    BUFFER_POOL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "central_cache_size"]
+    FIVE_G_DU_BUFFER_POOL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "central_cache_size"]
 
-    CUCP_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cu_cp_id", "amf_connected",
-                             "nof_cn_initiated_paging_requests",
-                             "nof_pdu_sessions_requested_to_setup",
-                             "nof_pdu_sessions_successfully_setup",
-                             "nof_pdu_sessions_failed_to_setup_total",
-                             "nof_handover_preparations_requested",
-                             "nof_successful_handover_preparations",
-                             "rrc_establishments_attempted_total",
-                             "rrc_establishments_successful_total",
-                             "rrc_establishments_attempted_mo_data",
-                             "rrc_establishments_successful_mo_data",
-                             "rrc_establishments_attempted_mo_sig",
-                             "rrc_establishments_successful_mo_sig",
-                             "max_nof_rrc_connections",
-                             "mean_nof_rrc_connections",
-                             "rrc_reestablishments_attempted",
-                             "rrc_reestablishments_successful",
-                             "nof_handover_executions_requested",
-                             "nof_successful_handover_executions"]
+    FIVE_G_CU_CP_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cu_cp_id", "amf_connected",
+                                     "nof_cn_initiated_paging_requests",
+                                     "nof_pdu_sessions_requested_to_setup",
+                                     "nof_pdu_sessions_successfully_setup",
+                                     "nof_pdu_sessions_failed_to_setup_total",
+                                     "nof_handover_preparations_requested",
+                                     "nof_successful_handover_preparations",
+                                     "rrc_establishments_attempted_total",
+                                     "rrc_establishments_successful_total",
+                                     "rrc_establishments_attempted_mo_data",
+                                     "rrc_establishments_successful_mo_data",
+                                     "rrc_establishments_attempted_mo_sig",
+                                     "rrc_establishments_successful_mo_sig",
+                                     "max_nof_rrc_connections",
+                                     "mean_nof_rrc_connections",
+                                     "rrc_reestablishments_attempted",
+                                     "rrc_reestablishments_successful",
+                                     "nof_handover_executions_requested",
+                                     "nof_successful_handover_executions"]
 
-    CU_APP_RESOURCE_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cpu_usage_percent",
-                                        "memory_usage_mb", "power_consumption_watts"]
+    FIVE_G_CU_APP_RESOURCE_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cpu_usage_percent",
+                                               "memory_usage_mb", "power_consumption_watts"]
 
-    CU_BUFFER_POOL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "central_cache_size"]
+    FIVE_G_CU_BUFFER_POOL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "central_cache_size"]
 
     SNORT_IDS_ALERTS_LABELS = [
         "total_alerts", "warning_alerts", "severe_alerts", "alerts_weighted_by_priority",

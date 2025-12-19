@@ -9,7 +9,7 @@ import {
   FIVE_G_CU_MANAGER_SUBRESOURCE,
   FIVE_G_CU_SUBRESOURCE,
   START_ALL_PROPERTY,
-  STOP_ALL_PROPERTY, CU_MONITOR_SUBRESOURCE
+  STOP_ALL_PROPERTY, FIVE_G_CU_MONITOR_SUBRESOURCE
 } from '../../../../Common/constants'
 
 /**
@@ -53,16 +53,16 @@ const FiveGCUManagersInfo = (props) => {
             <span className="aggregateActions">Stop all monitors:</span>
             <SpinnerOrButton
               loading={props.loadingEntities.includes(
-                `${CU_MONITOR_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
-              running={true} entity={CU_MONITOR_SUBRESOURCE}
+                `${FIVE_G_CU_MONITOR_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
+              running={true} entity={FIVE_G_CU_MONITOR_SUBRESOURCE}
               name={STOP_ALL_PROPERTY} ip={STOP_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
             <span className="aggregateActions">Start all monitors:</span>
             <SpinnerOrButton
               loading={props.loadingEntities.includes(
-                `${CU_MONITOR_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
-              running={false} entity={CU_MONITOR_SUBRESOURCE}
+                `${FIVE_G_CU_MONITOR_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
+              running={false} entity={FIVE_G_CU_MONITOR_SUBRESOURCE}
               name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
@@ -148,7 +148,7 @@ const FiveGCUManagersInfo = (props) => {
               )}
 
               {props.fiveGCUManagersInfo.five_g_cu_managers_statuses.map((status, index) =>
-                <tr key={`${CU_MONITOR_SUBRESOURCE}-${index}`}>
+                <tr key={`${FIVE_G_CU_MONITOR_SUBRESOURCE}-${index}`}>
                   <td>CU monitor thread</td>
                   <td>{props.fiveGCUManagersInfo.ips[index]}</td>
                   <td></td>
@@ -156,16 +156,16 @@ const FiveGCUManagersInfo = (props) => {
                   <td>
                     <SpinnerOrButton
                       loading={props.loadingEntities.includes(
-                        `${CU_MONITOR_SUBRESOURCE}-`
+                        `${FIVE_G_CU_MONITOR_SUBRESOURCE}-`
                         + `${props.fiveGCUManagersInfo.ips[index]}`)}
                       running={status.monitor_running}
-                      entity={CU_MONITOR_SUBRESOURCE}
-                      name={CU_MONITOR_SUBRESOURCE}
+                      entity={FIVE_G_CU_MONITOR_SUBRESOURCE}
+                      name={FIVE_G_CU_MONITOR_SUBRESOURCE}
                       ip={props.fiveGCUManagersInfo.ips[index]}
                       startOrStop={props.startOrStop}
                     />
                     <LogsButton name={props.fiveGCUManagersInfo.ips[index]}
-                                entity={CU_MONITOR_SUBRESOURCE}
+                                entity={FIVE_G_CU_MONITOR_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
                   </td>

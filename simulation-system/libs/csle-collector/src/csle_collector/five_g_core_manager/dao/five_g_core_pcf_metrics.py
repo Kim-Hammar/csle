@@ -3,7 +3,7 @@ import time
 from csle_base.json_serializable import JSONSerializable
 
 
-class PCFMetrics(JSONSerializable):
+class FiveGCorePCFMetrics(JSONSerializable):
     """
     DTO class containing 5G Core PCF metrics
     """
@@ -71,7 +71,7 @@ class PCFMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "PCFMetrics":
+    def from_kafka_record(record: str) -> "FiveGCorePCFMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -79,19 +79,19 @@ class PCFMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = PCFMetrics(ip=parts[1], ts=float(parts[0]),
-                         fivegs_pcffunction_pa_policyamassoreq=int(parts[2]),
-                         fivegs_pcffunction_pa_policyamassosucc=int(parts[3]),
-                         fivegs_pcffunction_pa_policysmassoreq=int(parts[4]),
-                         fivegs_pcffunction_pa_policysmassosucc=int(parts[5]),
-                         fivegs_pcffunction_pa_sessionnbr=int(parts[6]),
-                         process_max_fds=int(parts[7]),
-                         process_virtual_memory_max_bytes=int(parts[8]),
-                         process_cpu_seconds_total=int(parts[9]),
-                         process_virtual_memory_bytes=int(parts[10]),
-                         process_resident_memory_bytes=int(parts[11]),
-                         process_start_time_seconds=int(parts[12]),
-                         process_open_fds=int(parts[13]))
+        obj = FiveGCorePCFMetrics(ip=parts[1], ts=float(parts[0]),
+                                  fivegs_pcffunction_pa_policyamassoreq=int(parts[2]),
+                                  fivegs_pcffunction_pa_policyamassosucc=int(parts[3]),
+                                  fivegs_pcffunction_pa_policysmassoreq=int(parts[4]),
+                                  fivegs_pcffunction_pa_policysmassosucc=int(parts[5]),
+                                  fivegs_pcffunction_pa_sessionnbr=int(parts[6]),
+                                  process_max_fds=int(parts[7]),
+                                  process_virtual_memory_max_bytes=int(parts[8]),
+                                  process_cpu_seconds_total=int(parts[9]),
+                                  process_virtual_memory_bytes=int(parts[10]),
+                                  process_resident_memory_bytes=int(parts[11]),
+                                  process_start_time_seconds=int(parts[12]),
+                                  process_open_fds=int(parts[13]))
         return obj
 
     def update_with_kafka_record(self, record: str, ip: str) -> None:
@@ -138,26 +138,26 @@ class PCFMetrics(JSONSerializable):
                 f"process_open_fds: {self.process_open_fds}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "PCFMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGCorePCFMetrics":
         """
         Converts a dict representation to an instance
 
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = PCFMetrics(ip=d["ip"], ts=d["ts"],
-                         fivegs_pcffunction_pa_policyamassoreq=d["fivegs_pcffunction_pa_policyamassoreq"],
-                         fivegs_pcffunction_pa_policyamassosucc=d["fivegs_pcffunction_pa_policyamassosucc"],
-                         fivegs_pcffunction_pa_policysmassoreq=d["fivegs_pcffunction_pa_policysmassoreq"],
-                         fivegs_pcffunction_pa_policysmassosucc=d["fivegs_pcffunction_pa_policysmassosucc"],
-                         fivegs_pcffunction_pa_sessionnbr=d["fivegs_pcffunction_pa_sessionnbr"],
-                         process_max_fds=d["process_max_fds"],
-                         process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                         process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                         process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                         process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                         process_start_time_seconds=d["process_start_time_seconds"],
-                         process_open_fds=d["process_open_fds"])
+        obj = FiveGCorePCFMetrics(ip=d["ip"], ts=d["ts"],
+                                  fivegs_pcffunction_pa_policyamassoreq=d["fivegs_pcffunction_pa_policyamassoreq"],
+                                  fivegs_pcffunction_pa_policyamassosucc=d["fivegs_pcffunction_pa_policyamassosucc"],
+                                  fivegs_pcffunction_pa_policysmassoreq=d["fivegs_pcffunction_pa_policysmassoreq"],
+                                  fivegs_pcffunction_pa_policysmassosucc=d["fivegs_pcffunction_pa_policysmassosucc"],
+                                  fivegs_pcffunction_pa_sessionnbr=d["fivegs_pcffunction_pa_sessionnbr"],
+                                  process_max_fds=d["process_max_fds"],
+                                  process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
+                                  process_cpu_seconds_total=d["process_cpu_seconds_total"],
+                                  process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
+                                  process_resident_memory_bytes=d["process_resident_memory_bytes"],
+                                  process_start_time_seconds=d["process_start_time_seconds"],
+                                  process_open_fds=d["process_open_fds"])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -181,11 +181,11 @@ class PCFMetrics(JSONSerializable):
         d["process_open_fds"] = self.process_open_fds
         return d
 
-    def copy(self) -> "PCFMetrics":
+    def copy(self) -> "FiveGCorePCFMetrics":
         """
         :return: a copy of the object
         """
-        c = PCFMetrics.from_dict(self.to_dict())
+        c = FiveGCorePCFMetrics.from_dict(self.to_dict())
         return c
 
     def num_attributes(self) -> int:
@@ -195,14 +195,14 @@ class PCFMetrics(JSONSerializable):
         return 14
 
     @staticmethod
-    def schema() -> "PCFMetrics":
+    def schema() -> "FiveGCorePCFMetrics":
         """
         :return: get the schema of the DTO
         """
-        return PCFMetrics()
+        return FiveGCorePCFMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "PCFMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGCorePCFMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -213,4 +213,4 @@ class PCFMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return PCFMetrics.from_dict(json.loads(json_str))
+        return FiveGCorePCFMetrics.from_dict(json.loads(json_str))

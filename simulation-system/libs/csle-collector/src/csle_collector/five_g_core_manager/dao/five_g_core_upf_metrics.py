@@ -3,7 +3,7 @@ import time
 from csle_base.json_serializable import JSONSerializable
 
 
-class UPFMetrics(JSONSerializable):
+class FiveGCoreUPFMetrics(JSONSerializable):
     """
     DTO class containing 5G Core UPF metrics
     """
@@ -69,7 +69,7 @@ class UPFMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "UPFMetrics":
+    def from_kafka_record(record: str) -> "FiveGCoreUPFMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -77,21 +77,21 @@ class UPFMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = UPFMetrics(ip=parts[1], ts=float(parts[0]),
-                         fivegs_ep_n3_gtp_indatapktn3upf=int(parts[2]),
-                         fivegs_ep_n3_gtp_outdatapktn3upf=int(parts[3]),
-                         fivegs_upffunction_sm_n4sessionestabreq=int(parts[4]),
-                         fivegs_upffunction_sm_n4sessionreport=int(parts[5]),
-                         fivegs_upffunction_sm_n4sessionreportsucc=int(parts[6]),
-                         fivegs_upffunction_upf_sessionnbr=int(parts[7]),
-                         pfcp_peers_active=int(parts[8]),
-                         process_max_fds=int(parts[9]),
-                         process_virtual_memory_max_bytes=int(parts[10]),
-                         process_cpu_seconds_total=int(parts[11]),
-                         process_virtual_memory_bytes=int(parts[12]),
-                         process_resident_memory_bytes=int(parts[13]),
-                         process_start_time_seconds=int(parts[14]),
-                         process_open_fds=int(parts[15]))
+        obj = FiveGCoreUPFMetrics(ip=parts[1], ts=float(parts[0]),
+                                  fivegs_ep_n3_gtp_indatapktn3upf=int(parts[2]),
+                                  fivegs_ep_n3_gtp_outdatapktn3upf=int(parts[3]),
+                                  fivegs_upffunction_sm_n4sessionestabreq=int(parts[4]),
+                                  fivegs_upffunction_sm_n4sessionreport=int(parts[5]),
+                                  fivegs_upffunction_sm_n4sessionreportsucc=int(parts[6]),
+                                  fivegs_upffunction_upf_sessionnbr=int(parts[7]),
+                                  pfcp_peers_active=int(parts[8]),
+                                  process_max_fds=int(parts[9]),
+                                  process_virtual_memory_max_bytes=int(parts[10]),
+                                  process_cpu_seconds_total=int(parts[11]),
+                                  process_virtual_memory_bytes=int(parts[12]),
+                                  process_resident_memory_bytes=int(parts[13]),
+                                  process_start_time_seconds=int(parts[14]),
+                                  process_open_fds=int(parts[15]))
         return obj
 
     def update_with_kafka_record(self, record: str, ip: str) -> None:
@@ -142,27 +142,28 @@ class UPFMetrics(JSONSerializable):
                 f"process_open_fds: {self.process_open_fds}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "UPFMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGCoreUPFMetrics":
         """
         Converts a dict representation to an instance
 
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = UPFMetrics(ip=d["ip"], ts=d["ts"],
-                         fivegs_ep_n3_gtp_indatapktn3upf=d["fivegs_ep_n3_gtp_indatapktn3upf"],
-                         fivegs_ep_n3_gtp_outdatapktn3upf=d["fivegs_ep_n3_gtp_outdatapktn3upf"],
-                         fivegs_upffunction_sm_n4sessionestabreq=d["fivegs_upffunction_sm_n4sessionestabreq"],
-                         fivegs_upffunction_sm_n4sessionreport=d["fivegs_upffunction_sm_n4sessionreport"],
-                         fivegs_upffunction_sm_n4sessionreportsucc=d["fivegs_upffunction_sm_n4sessionreportsucc"],
-                         fivegs_upffunction_upf_sessionnbr=d["fivegs_upffunction_upf_sessionnbr"],
-                         pfcp_peers_active=d["pfcp_peers_active"],
-                         process_max_fds=d["process_max_fds"],
-                         process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                         process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                         process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                         process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                         process_open_fds=d["process_open_fds"])
+        obj = FiveGCoreUPFMetrics(ip=d["ip"], ts=d["ts"],
+                                  fivegs_ep_n3_gtp_indatapktn3upf=d["fivegs_ep_n3_gtp_indatapktn3upf"],
+                                  fivegs_ep_n3_gtp_outdatapktn3upf=d["fivegs_ep_n3_gtp_outdatapktn3upf"],
+                                  fivegs_upffunction_sm_n4sessionestabreq=d["fivegs_upffunction_sm_n4sessionestabreq"],
+                                  fivegs_upffunction_sm_n4sessionreport=d["fivegs_upffunction_sm_n4sessionreport"],
+                                  fivegs_upffunction_sm_n4sessionreportsucc=d[
+                                      "fivegs_upffunction_sm_n4sessionreportsucc"],
+                                  fivegs_upffunction_upf_sessionnbr=d["fivegs_upffunction_upf_sessionnbr"],
+                                  pfcp_peers_active=d["pfcp_peers_active"],
+                                  process_max_fds=d["process_max_fds"],
+                                  process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
+                                  process_cpu_seconds_total=d["process_cpu_seconds_total"],
+                                  process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
+                                  process_resident_memory_bytes=d["process_resident_memory_bytes"],
+                                  process_open_fds=d["process_open_fds"])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -188,11 +189,11 @@ class UPFMetrics(JSONSerializable):
         d["process_open_fds"] = self.process_open_fds
         return d
 
-    def copy(self) -> "UPFMetrics":
+    def copy(self) -> "FiveGCoreUPFMetrics":
         """
         :return: a copy of the object
         """
-        c = UPFMetrics(ip=self.ip, ts=self.ts)
+        c = FiveGCoreUPFMetrics(ip=self.ip, ts=self.ts)
         return c
 
     def num_attributes(self) -> int:
@@ -202,14 +203,14 @@ class UPFMetrics(JSONSerializable):
         return 16
 
     @staticmethod
-    def schema() -> "UPFMetrics":
+    def schema() -> "FiveGCoreUPFMetrics":
         """
         :return: get the schema of the DTO
         """
-        return UPFMetrics()
+        return FiveGCoreUPFMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "UPFMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGCoreUPFMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -220,4 +221,4 @@ class UPFMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return UPFMetrics.from_dict(json.loads(json_str))
+        return FiveGCoreUPFMetrics.from_dict(json.loads(json_str))

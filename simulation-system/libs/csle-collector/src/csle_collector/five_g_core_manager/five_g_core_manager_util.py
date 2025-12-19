@@ -7,13 +7,13 @@ import requests
 import time
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2
 import csle_collector.constants.constants as constants
-from csle_collector.five_g_core_manager.dao.amf_metrics import AMFMetrics
-from csle_collector.five_g_core_manager.dao.upf_metrics import UPFMetrics
-from csle_collector.five_g_core_manager.dao.mme_metrics import MMEMetrics
-from csle_collector.five_g_core_manager.dao.smf_metrics import SMFMetrics
-from csle_collector.five_g_core_manager.dao.hss_metrics import HSSMetrics
-from csle_collector.five_g_core_manager.dao.pcrf_metrics import PCRFMetrics
-from csle_collector.five_g_core_manager.dao.pcf_metrics import PCFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_amf_metrics import FiveGCoreAMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_upf_metrics import FiveGCoreUPFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_mme_metrics import FiveGCoreMMEMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics import FiveGCoreSMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_hss_metrics import FiveGCoreHSSMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcrf_metrics import FiveGCorePCRFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcf_metrics import FiveGCorePCFMetrics
 
 
 class FiveGCoreManagerUtil:
@@ -240,7 +240,7 @@ class FiveGCoreManagerUtil:
     @staticmethod
     def init_subscriber_data(
             control_script_path: str,
-            subscribers: List[csle_collector.five_g_core_manager.five_g_core_manager_pb2.SubscriberDTO]) -> bool:
+            subscribers: List[csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGSubscriberDTO]) -> bool:
         """
         Initializes the subscriber data for the 5G core.
 
@@ -348,7 +348,7 @@ class FiveGCoreManagerUtil:
         return success
 
     @staticmethod
-    def fetch_amf_metrics(ip: str) -> AMFMetrics:
+    def fetch_amf_metrics(ip: str) -> FiveGCoreAMFMetrics:
         """
         Fetches AMF metrics from the given URL and parses them into an AMFMetrics DTO.
 
@@ -361,7 +361,7 @@ class FiveGCoreManagerUtil:
             content = response.text
         except requests.RequestException as e:
             print(f"Error fetching metrics from {constants.FIVE_G_CORE.AMF_METRICS_URL}: {e}")
-            return AMFMetrics(ip=ip, ts=time.time())
+            return FiveGCoreAMFMetrics(ip=ip, ts=time.time())
 
         parsed_data = {}
         for line in content.splitlines():
@@ -379,16 +379,16 @@ class FiveGCoreManagerUtil:
                 parsed_data[metric_name] = value
             except ValueError:
                 continue
-        valid_args = AMFMetrics.__init__.__code__.co_varnames
+        valid_args = FiveGCoreAMFMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
         filtered_args['ip'] = str(ip)
         filtered_args['ts'] = float(time.time())
 
-        return AMFMetrics(**filtered_args)  # type: ignore
+        return FiveGCoreAMFMetrics(**filtered_args)  # type: ignore
 
     @staticmethod
-    def fetch_upf_metrics(ip: str) -> UPFMetrics:
+    def fetch_upf_metrics(ip: str) -> FiveGCoreUPFMetrics:
         """
         Fetches UPF metrics from the given URL and parses them into an UPFMetrics DTO.
 
@@ -401,7 +401,7 @@ class FiveGCoreManagerUtil:
             content = response.text
         except requests.RequestException as e:
             print(f"Error fetching metrics from {constants.FIVE_G_CORE.UPF_METRICS_URL}: {e}")
-            return UPFMetrics(ip=ip, ts=time.time())
+            return FiveGCoreUPFMetrics(ip=ip, ts=time.time())
 
         parsed_data = {}
         for line in content.splitlines():
@@ -419,16 +419,16 @@ class FiveGCoreManagerUtil:
                 parsed_data[metric_name] = value
             except ValueError:
                 continue
-        valid_args = UPFMetrics.__init__.__code__.co_varnames
+        valid_args = FiveGCoreUPFMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
         filtered_args['ip'] = str(ip)
         filtered_args['ts'] = float(time.time())
 
-        return UPFMetrics(**filtered_args)  # type: ignore
+        return FiveGCoreUPFMetrics(**filtered_args)  # type: ignore
 
     @staticmethod
-    def fetch_mme_metrics(ip: str) -> UPFMetrics:
+    def fetch_mme_metrics(ip: str) -> FiveGCoreMMEMetrics:
         """
         Fetches MME metrics from the given URL and parses them into an MMEMetrics DTO.
 
@@ -441,7 +441,7 @@ class FiveGCoreManagerUtil:
             content = response.text
         except requests.RequestException as e:
             print(f"Error fetching metrics from {constants.FIVE_G_CORE.MME_METRICS_URL}: {e}")
-            return MMEMetrics(ip=ip, ts=time.time())
+            return FiveGCoreMMEMetrics(ip=ip, ts=time.time())
 
         parsed_data = {}
         for line in content.splitlines():
@@ -459,16 +459,16 @@ class FiveGCoreManagerUtil:
                 parsed_data[metric_name] = value
             except ValueError:
                 continue
-        valid_args = MMEMetrics.__init__.__code__.co_varnames
+        valid_args = FiveGCoreMMEMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
         filtered_args['ip'] = str(ip)
         filtered_args['ts'] = float(time.time())
 
-        return MMEMetrics(**filtered_args)  # type: ignore
+        return FiveGCoreMMEMetrics(**filtered_args)  # type: ignore
 
     @staticmethod
-    def fetch_smf_metrics(ip: str) -> SMFMetrics:
+    def fetch_smf_metrics(ip: str) -> FiveGCoreSMFMetrics:
         """
         Fetches SMF metrics from the given URL and parses them into an SMFMetrics DTO.
 
@@ -481,7 +481,7 @@ class FiveGCoreManagerUtil:
             content = response.text
         except requests.RequestException as e:
             print(f"Error fetching metrics from {constants.FIVE_G_CORE.SMF_METRICS_URL}: {e}")
-            return SMFMetrics(ip=ip, ts=time.time())
+            return FiveGCoreSMFMetrics(ip=ip, ts=time.time())
 
         parsed_data = {}
         for line in content.splitlines():
@@ -499,16 +499,16 @@ class FiveGCoreManagerUtil:
                 parsed_data[metric_name] = value
             except ValueError:
                 continue
-        valid_args = SMFMetrics.__init__.__code__.co_varnames
+        valid_args = FiveGCoreSMFMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
         filtered_args['ip'] = str(ip)
         filtered_args['ts'] = float(time.time())
 
-        return SMFMetrics(**filtered_args)  # type: ignore
+        return FiveGCoreSMFMetrics(**filtered_args)  # type: ignore
 
     @staticmethod
-    def fetch_hss_metrics(ip: str) -> HSSMetrics:
+    def fetch_hss_metrics(ip: str) -> FiveGCoreHSSMetrics:
         """
         Fetches HSS metrics from the given URL and parses them into an HSSMetrics DTO.
 
@@ -521,7 +521,7 @@ class FiveGCoreManagerUtil:
             content = response.text
         except requests.RequestException as e:
             print(f"Error fetching metrics from {constants.FIVE_G_CORE.HSS_METRICS_URL}: {e}")
-            return HSSMetrics(ip=ip, ts=time.time())
+            return FiveGCoreHSSMetrics(ip=ip, ts=time.time())
 
         parsed_data = {}
         for line in content.splitlines():
@@ -539,16 +539,16 @@ class FiveGCoreManagerUtil:
                 parsed_data[metric_name] = value
             except ValueError:
                 continue
-        valid_args = HSSMetrics.__init__.__code__.co_varnames
+        valid_args = FiveGCoreHSSMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
         filtered_args['ip'] = str(ip)
         filtered_args['ts'] = float(time.time())
 
-        return HSSMetrics(**filtered_args)  # type: ignore
+        return FiveGCoreHSSMetrics(**filtered_args)  # type: ignore
 
     @staticmethod
-    def fetch_pcrf_metrics(ip: str) -> PCRFMetrics:
+    def fetch_pcrf_metrics(ip: str) -> FiveGCorePCRFMetrics:
         """
         Fetches PCRF metrics from the given URL and parses them into an PCRFMetrics DTO.
 
@@ -561,7 +561,7 @@ class FiveGCoreManagerUtil:
             content = response.text
         except requests.RequestException as e:
             print(f"Error fetching metrics from {constants.FIVE_G_CORE.PCRF_METRICS_URL}: {e}")
-            return PCRFMetrics(ip=ip, ts=time.time())
+            return FiveGCorePCRFMetrics(ip=ip, ts=time.time())
 
         parsed_data = {}
         for line in content.splitlines():
@@ -579,16 +579,16 @@ class FiveGCoreManagerUtil:
                 parsed_data[metric_name] = value
             except ValueError:
                 continue
-        valid_args = PCRFMetrics.__init__.__code__.co_varnames
+        valid_args = FiveGCorePCRFMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
         filtered_args['ip'] = str(ip)
         filtered_args['ts'] = float(time.time())
 
-        return PCRFMetrics(**filtered_args)  # type: ignore
+        return FiveGCorePCRFMetrics(**filtered_args)  # type: ignore
 
     @staticmethod
-    def fetch_pcf_metrics(ip: str) -> PCFMetrics:
+    def fetch_pcf_metrics(ip: str) -> FiveGCorePCFMetrics:
         """
         Fetches PCF metrics from the given URL and parses them into an PCFMetrics DTO.
 
@@ -601,7 +601,7 @@ class FiveGCoreManagerUtil:
             content = response.text
         except requests.RequestException as e:
             print(f"Error fetching metrics from {constants.FIVE_G_CORE.PCF_METRICS_URL}: {e}")
-            return PCFMetrics(ip=ip, ts=time.time())
+            return FiveGCorePCFMetrics(ip=ip, ts=time.time())
 
         parsed_data = {}
         for line in content.splitlines():
@@ -619,10 +619,10 @@ class FiveGCoreManagerUtil:
                 parsed_data[metric_name] = value
             except ValueError:
                 continue
-        valid_args = PCFMetrics.__init__.__code__.co_varnames
+        valid_args = FiveGCorePCFMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
         filtered_args['ip'] = str(ip)
         filtered_args['ts'] = float(time.time())
 
-        return PCFMetrics(**filtered_args)  # type: ignore
+        return FiveGCorePCFMetrics(**filtered_args)  # type: ignore

@@ -3,7 +3,7 @@ import time
 from csle_base.json_serializable import JSONSerializable
 
 
-class SMFMetrics(JSONSerializable):
+class FiveGCoreSMFMetrics(JSONSerializable):
     """
     DTO class containing 5G Core SMF metrics
     """
@@ -125,7 +125,7 @@ class SMFMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "SMFMetrics":
+    def from_kafka_record(record: str) -> "FiveGCoreSMFMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -133,37 +133,37 @@ class SMFMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = SMFMetrics(ip=parts[1], ts=float(parts[0]),
-                         gn_rx_createpdpcontextreq=int(parts[2]),
-                         gn_rx_deletepdpcontextreq=int(parts[3]),
-                         gtp1_pdpctxs_active=int(parts[4]),
-                         pfcp_peers_active=int(parts[5]),
-                         fivegs_smffunction_sm_n4sessionreport=int(parts[6]),
-                         ues_active=int(parts[7]),
-                         gtp2_sessions_active=int(parts[8]),
-                         pfcp_sessions_active=int(parts[9]),
-                         s5c_rx_createsession=int(parts[10]),
-                         s5c_rx_deletesession=int(parts[11]),
-                         gtp_new_node_failed=int(parts[12]),
-                         s5c_rx_parse_failed=int(parts[13]),
-                         fivegs_smffunction_sm_n4sessionreportsucc=int(parts[14]),
-                         fivegs_smffunction_sm_n4sessionestabreq=int(parts[15]),
-                         bearers_active=int(parts[16]),
-                         gn_rx_parse_failed=int(parts[17]),
-                         gtp_peers_active=int(parts[18]),
-                         fivegs_smffunction_sm_sessionnbr=int(parts[19]),
-                         fivegs_smffunction_sm_pdusessioncreationreq=int(parts[20]),
-                         fivegs_smffunction_sm_pdusessioncreationsucc=int(parts[21]),
-                         fivegs_smffunction_sm_qos_flow_nbr=int(parts[22]),
-                         fivegs_smffunction_sm_n4sessionestabfail=int(parts[23]),
-                         fivegs_smffunction_sm_pdusessioncreationfail=int(parts[24]),
-                         process_max_fds=int(parts[25]),
-                         process_virtual_memory_max_bytes=int(parts[26]),
-                         process_cpu_seconds_total=int(parts[27]),
-                         process_virtual_memory_bytes=int(parts[28]),
-                         process_resident_memory_bytes=int(parts[29]),
-                         process_start_time_seconds=int(parts[30]),
-                         process_open_fds=int(parts[31]))
+        obj = FiveGCoreSMFMetrics(ip=parts[1], ts=float(parts[0]),
+                                  gn_rx_createpdpcontextreq=int(parts[2]),
+                                  gn_rx_deletepdpcontextreq=int(parts[3]),
+                                  gtp1_pdpctxs_active=int(parts[4]),
+                                  pfcp_peers_active=int(parts[5]),
+                                  fivegs_smffunction_sm_n4sessionreport=int(parts[6]),
+                                  ues_active=int(parts[7]),
+                                  gtp2_sessions_active=int(parts[8]),
+                                  pfcp_sessions_active=int(parts[9]),
+                                  s5c_rx_createsession=int(parts[10]),
+                                  s5c_rx_deletesession=int(parts[11]),
+                                  gtp_new_node_failed=int(parts[12]),
+                                  s5c_rx_parse_failed=int(parts[13]),
+                                  fivegs_smffunction_sm_n4sessionreportsucc=int(parts[14]),
+                                  fivegs_smffunction_sm_n4sessionestabreq=int(parts[15]),
+                                  bearers_active=int(parts[16]),
+                                  gn_rx_parse_failed=int(parts[17]),
+                                  gtp_peers_active=int(parts[18]),
+                                  fivegs_smffunction_sm_sessionnbr=int(parts[19]),
+                                  fivegs_smffunction_sm_pdusessioncreationreq=int(parts[20]),
+                                  fivegs_smffunction_sm_pdusessioncreationsucc=int(parts[21]),
+                                  fivegs_smffunction_sm_qos_flow_nbr=int(parts[22]),
+                                  fivegs_smffunction_sm_n4sessionestabfail=int(parts[23]),
+                                  fivegs_smffunction_sm_pdusessioncreationfail=int(parts[24]),
+                                  process_max_fds=int(parts[25]),
+                                  process_virtual_memory_max_bytes=int(parts[26]),
+                                  process_cpu_seconds_total=int(parts[27]),
+                                  process_virtual_memory_bytes=int(parts[28]),
+                                  process_resident_memory_bytes=int(parts[29]),
+                                  process_start_time_seconds=int(parts[30]),
+                                  process_open_fds=int(parts[31]))
         return obj
 
     def update_with_kafka_record(self, record: str, ip: str) -> None:
@@ -246,44 +246,49 @@ class SMFMetrics(JSONSerializable):
                 f"process_open_fds: {self.process_open_fds}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "SMFMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGCoreSMFMetrics":
         """
         Converts a dict representation to an instance
 
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = SMFMetrics(ip=d["ip"], ts=d["ts"],
-                         gn_rx_createpdpcontextreq=d["gn_rx_createpdpcontextreq"],
-                         gn_rx_deletepdpcontextreq=d["gn_rx_deletepdpcontextreq"],
-                         gtp1_pdpctxs_active=d["gtp1_pdpctxs_active"],
-                         pfcp_peers_active=d["pfcp_peers_active"],
-                         fivegs_smffunction_sm_n4sessionreport=d["fivegs_smffunction_sm_n4sessionreport"],
-                         ues_active=d["ues_active"],
-                         gtp2_sessions_active=d["gtp2_sessions_active"],
-                         pfcp_sessions_active=d["pfcp_sessions_active"],
-                         s5c_rx_createsession=d["s5c_rx_createsession"],
-                         s5c_rx_deletesession=d["s5c_rx_deletesession"],
-                         gtp_new_node_failed=d["gtp_new_node_failed"],
-                         s5c_rx_parse_failed=d["s5c_rx_parse_failed"],
-                         fivegs_smffunction_sm_n4sessionreportsucc=d["fivegs_smffunction_sm_n4sessionreportsucc"],
-                         fivegs_smffunction_sm_n4sessionestabreq=d["fivegs_smffunction_sm_n4sessionestabreq"],
-                         bearers_active=d["bearers_active"],
-                         gn_rx_parse_failed=d["gn_rx_parse_failed"],
-                         gtp_peers_active=d["gtp_peers_active"],
-                         fivegs_smffunction_sm_sessionnbr=d["fivegs_smffunction_sm_sessionnbr"],
-                         fivegs_smffunction_sm_pdusessioncreationreq=d["fivegs_smffunction_sm_pdusessioncreationreq"],
-                         fivegs_smffunction_sm_pdusessioncreationsucc=d["fivegs_smffunction_sm_pdusessioncreationsucc"],
-                         fivegs_smffunction_sm_qos_flow_nbr=d["fivegs_smffunction_sm_qos_flow_nbr"],
-                         fivegs_smffunction_sm_n4sessionestabfail=d["fivegs_smffunction_sm_n4sessionestabfail"],
-                         fivegs_smffunction_sm_pdusessioncreationfail=d["fivegs_smffunction_sm_pdusessioncreationfail"],
-                         process_max_fds=d["process_max_fds"],
-                         process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                         process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                         process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                         process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                         process_open_fds=d["process_open_fds"],
-                         process_start_time_seconds=d["process_start_time_seconds"])
+        obj = FiveGCoreSMFMetrics(ip=d["ip"], ts=d["ts"],
+                                  gn_rx_createpdpcontextreq=d["gn_rx_createpdpcontextreq"],
+                                  gn_rx_deletepdpcontextreq=d["gn_rx_deletepdpcontextreq"],
+                                  gtp1_pdpctxs_active=d["gtp1_pdpctxs_active"],
+                                  pfcp_peers_active=d["pfcp_peers_active"],
+                                  fivegs_smffunction_sm_n4sessionreport=d["fivegs_smffunction_sm_n4sessionreport"],
+                                  ues_active=d["ues_active"],
+                                  gtp2_sessions_active=d["gtp2_sessions_active"],
+                                  pfcp_sessions_active=d["pfcp_sessions_active"],
+                                  s5c_rx_createsession=d["s5c_rx_createsession"],
+                                  s5c_rx_deletesession=d["s5c_rx_deletesession"],
+                                  gtp_new_node_failed=d["gtp_new_node_failed"],
+                                  s5c_rx_parse_failed=d["s5c_rx_parse_failed"],
+                                  fivegs_smffunction_sm_n4sessionreportsucc=d[
+                                      "fivegs_smffunction_sm_n4sessionreportsucc"],
+                                  fivegs_smffunction_sm_n4sessionestabreq=d["fivegs_smffunction_sm_n4sessionestabreq"],
+                                  bearers_active=d["bearers_active"],
+                                  gn_rx_parse_failed=d["gn_rx_parse_failed"],
+                                  gtp_peers_active=d["gtp_peers_active"],
+                                  fivegs_smffunction_sm_sessionnbr=d["fivegs_smffunction_sm_sessionnbr"],
+                                  fivegs_smffunction_sm_pdusessioncreationreq=d[
+                                      "fivegs_smffunction_sm_pdusessioncreationreq"],
+                                  fivegs_smffunction_sm_pdusessioncreationsucc=d[
+                                      "fivegs_smffunction_sm_pdusessioncreationsucc"],
+                                  fivegs_smffunction_sm_qos_flow_nbr=d["fivegs_smffunction_sm_qos_flow_nbr"],
+                                  fivegs_smffunction_sm_n4sessionestabfail=d[
+                                      "fivegs_smffunction_sm_n4sessionestabfail"],
+                                  fivegs_smffunction_sm_pdusessioncreationfail=d[
+                                      "fivegs_smffunction_sm_pdusessioncreationfail"],
+                                  process_max_fds=d["process_max_fds"],
+                                  process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
+                                  process_cpu_seconds_total=d["process_cpu_seconds_total"],
+                                  process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
+                                  process_resident_memory_bytes=d["process_resident_memory_bytes"],
+                                  process_open_fds=d["process_open_fds"],
+                                  process_start_time_seconds=d["process_start_time_seconds"])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -325,16 +330,16 @@ class SMFMetrics(JSONSerializable):
         d["process_open_fds"] = self.process_open_fds
         return d
 
-    def copy(self) -> "SMFMetrics":
+    def copy(self) -> "FiveGCoreSMFMetrics":
         """
         :return: a copy of the object
         """
-        c = SMFMetrics(ip=self.ip, ts=self.ts)
+        c = FiveGCoreSMFMetrics(ip=self.ip, ts=self.ts)
         # We must copy all fields to be safe, but adhering to the original simplified pattern
         # usually suggests the caller might rely on to_dict/from_dict for deep copies or
         # just needs a shallow copy of the object shell.
         # To be fully correct per the pattern:
-        c = SMFMetrics.from_dict(self.to_dict())
+        c = FiveGCoreSMFMetrics.from_dict(self.to_dict())
         return c
 
     def num_attributes(self) -> int:
@@ -344,14 +349,14 @@ class SMFMetrics(JSONSerializable):
         return 32
 
     @staticmethod
-    def schema() -> "SMFMetrics":
+    def schema() -> "FiveGCoreSMFMetrics":
         """
         :return: get the schema of the DTO
         """
-        return SMFMetrics()
+        return FiveGCoreSMFMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "SMFMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGCoreSMFMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -362,4 +367,4 @@ class SMFMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return SMFMetrics.from_dict(json.loads(json_str))
+        return FiveGCoreSMFMetrics.from_dict(json.loads(json_str))

@@ -4,31 +4,27 @@ import datetime
 from csle_base.json_serializable import JSONSerializable
 
 
-class DUMetrics(JSONSerializable):
+class FiveGCUAppResourceUsageMetrics(JSONSerializable):
     """
-    DTO class containing srsRAN DU High-MAC metrics
+    DTO class containing srsRAN CU (Central Unit) Application Resource Usage metrics.
+    Captures system-level performance indicators for the application process.
     """
 
-    def __init__(self, pci: int = 0, average_latency_us: float = 0.0,
-                 cpu_usage_percent: float = 0.0, max_latency_us: float = 0.0,
-                 min_latency_us: float = 0.0, ip: Union[None, str] = None,
+    def __init__(self, cpu_usage_percent: float = 0.0, memory_usage_mb: float = 0.0,
+                 power_consumption_watts: float = 0.0, ip: Union[None, str] = None,
                  ts: Union[float, None] = None) -> None:
         """
         Initializes the DTO
 
-        :param pci: The Physical Cell ID
-        :param average_latency_us: Average CPU processing latency in microseconds
-        :param cpu_usage_percent: CPU usage percentage
-        :param max_latency_us: Maximum latency in microseconds
-        :param min_latency_us: Minimum latency in microseconds
-        :param ip: The IP of the DU
+        :param cpu_usage_percent: CPU usage percentage (can exceed 100% on multi-core)
+        :param memory_usage_mb: Resident memory usage in Megabytes
+        :param power_consumption_watts: Estimated power consumption in Watts
+        :param ip: The IP of the CU
         :param ts: The timestamp the metrics were measured
         """
-        self.pci = pci
-        self.average_latency_us = average_latency_us
         self.cpu_usage_percent = cpu_usage_percent
-        self.max_latency_us = max_latency_us
-        self.min_latency_us = min_latency_us
+        self.memory_usage_mb = memory_usage_mb
+        self.power_consumption_watts = power_consumption_watts
         self.ip = ip
         self.ts = ts
 
@@ -40,13 +36,12 @@ class DUMetrics(JSONSerializable):
         :return: a comma separated string representing the kafka record
         """
         ts = self.ts if self.ts else time.time()
-        record_str = (f"{ts},{ip},{self.pci},{self.average_latency_us},"
-                      f"{self.cpu_usage_percent},{self.max_latency_us},"
-                      f"{self.min_latency_us}")
+        record_str = (f"{ts},{ip},{self.cpu_usage_percent},"
+                      f"{self.memory_usage_mb},{self.power_consumption_watts}")
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "DUMetrics":
+    def from_kafka_record(record: str) -> "FiveGCUAppResourceUsageMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -54,14 +49,12 @@ class DUMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = DUMetrics(
+        obj = FiveGCUAppResourceUsageMetrics(
             ts=float(parts[0]),
             ip=parts[1],
-            pci=int(parts[2]),
-            average_latency_us=float(parts[3]),
-            cpu_usage_percent=float(parts[4]),
-            max_latency_us=float(parts[5]),
-            min_latency_us=float(parts[6])
+            cpu_usage_percent=float(parts[2]),
+            memory_usage_mb=float(parts[3]),
+            power_consumption_watts=float(parts[4])
         )
         return obj
 
@@ -77,25 +70,20 @@ class DUMetrics(JSONSerializable):
         if parts[1] == ip:
             self.ts = float(parts[0])
             self.ip = parts[1]
-            self.pci = int(parts[2])
-            self.average_latency_us = float(parts[3])
-            self.cpu_usage_percent = float(parts[4])
-            self.max_latency_us = float(parts[5])
-            self.min_latency_us = float(parts[6])
+            self.cpu_usage_percent = float(parts[2])
+            self.memory_usage_mb = float(parts[3])
+            self.power_consumption_watts = float(parts[4])
 
     def __str__(self) -> str:
         """
         :return: a string representation of the object
         """
         return (f"ts: {self.ts}, ip: {self.ip}, "
-                f"pci: {self.pci}, "
-                f"average_latency_us: {self.average_latency_us}, "
-                f"cpu_usage_percent: {self.cpu_usage_percent}, "
-                f"max_latency_us: {self.max_latency_us}, "
-                f"min_latency_us: {self.min_latency_us}")
+                f"cpu: {self.cpu_usage_percent}%, mem: {self.memory_usage_mb}MB, "
+                f"power: {self.power_consumption_watts}W")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "DUMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGCUAppResourceUsageMetrics":
         """
         Converts a dict representation to an instance.
         Expects the flat dictionary format produced by to_dict().
@@ -103,24 +91,23 @@ class DUMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = DUMetrics(
-            pci=d.get("pci", 0),
-            average_latency_us=d.get("average_latency_us", 0.0),
+        obj = FiveGCUAppResourceUsageMetrics(
             cpu_usage_percent=d.get("cpu_usage_percent", 0.0),
-            max_latency_us=d.get("max_latency_us", 0.0),
-            min_latency_us=d.get("min_latency_us", 0.0),
+            memory_usage_mb=d.get("memory_usage_mb", 0.0),
+            power_consumption_watts=d.get("power_consumption_watts", 0.0),
             ip=d.get("ip"),
             ts=d.get("ts")
         )
         return obj
 
     @staticmethod
-    def from_ws_dict(d: Dict[str, Any], ip: str) -> "DUMetrics":
+    def from_ws_dict(d: Dict[str, Any], ip: str) -> "FiveGCUAppResourceUsageMetrics":
         """
         Converts the raw dictionary from the WebSocket JSON stream to an instance.
+        Handles the nested "app_resource_usage" structure.
 
         :param d: the raw dictionary from srsRAN WebSocket
-        :param ip: the IP of the source DU
+        :param ip: the IP of the source CU
         :return: the created instance
         """
         ts = time.time()
@@ -132,18 +119,15 @@ class DUMetrics(JSONSerializable):
                 pass
 
         data = {}
-        try:
-            # Navigate nested structure: du -> du_high -> mac -> dl -> [0]
-            data = d["du"]["du_high"]["mac"]["dl"][0]
-        except (KeyError, IndexError, TypeError):
-            pass
+        if "app_resource_usage" in d:
+            data = d["app_resource_usage"]
+        else:
+            data = d
 
-        obj = DUMetrics(
-            pci=data.get("pci", 0),
-            average_latency_us=data.get("average_latency_us", 0.0),
+        obj = FiveGCUAppResourceUsageMetrics(
             cpu_usage_percent=data.get("cpu_usage_percent", 0.0),
-            max_latency_us=data.get("max_latency_us", 0.0),
-            min_latency_us=data.get("min_latency_us", 0.0),
+            memory_usage_mb=data.get("memory_usage_mb", 0.0),
+            power_consumption_watts=data.get("power_consumption_watts", 0.0),
             ip=ip,
             ts=ts
         )
@@ -156,25 +140,20 @@ class DUMetrics(JSONSerializable):
         d: Dict[str, Any] = {}
         d["ts"] = self.ts
         d["ip"] = self.ip
-        d["pci"] = self.pci
-        d["average_latency_us"] = self.average_latency_us
         d["cpu_usage_percent"] = self.cpu_usage_percent
-        d["max_latency_us"] = self.max_latency_us
-        d["min_latency_us"] = self.min_latency_us
+        d["memory_usage_mb"] = self.memory_usage_mb
+        d["power_consumption_watts"] = self.power_consumption_watts
         return d
 
-    def copy(self) -> "DUMetrics":
+    def copy(self) -> "FiveGCUAppResourceUsageMetrics":
         """
         :return: a copy of the object
         """
-        c = DUMetrics(
-            pci=self.pci,
-            average_latency_us=self.average_latency_us,
+        c = FiveGCUAppResourceUsageMetrics(
             cpu_usage_percent=self.cpu_usage_percent,
-            max_latency_us=self.max_latency_us,
-            min_latency_us=self.min_latency_us,
-            ip=self.ip,
-            ts=self.ts
+            memory_usage_mb=self.memory_usage_mb,
+            power_consumption_watts=self.power_consumption_watts,
+            ip=self.ip, ts=self.ts
         )
         return c
 
@@ -182,17 +161,17 @@ class DUMetrics(JSONSerializable):
         """
         :return: The number of attributes of the DTO
         """
-        return 7
+        return 5
 
     @staticmethod
-    def schema() -> "DUMetrics":
+    def schema() -> "FiveGCUAppResourceUsageMetrics":
         """
         :return: get the schema of the DTO
         """
-        return DUMetrics()
+        return FiveGCUAppResourceUsageMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "DUMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGCUAppResourceUsageMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -203,4 +182,4 @@ class DUMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return DUMetrics.from_dict(json.loads(json_str))
+        return FiveGCUAppResourceUsageMetrics.from_dict(json.loads(json_str))

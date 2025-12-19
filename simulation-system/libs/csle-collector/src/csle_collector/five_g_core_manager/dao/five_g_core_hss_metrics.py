@@ -3,7 +3,7 @@ import time
 from csle_base.json_serializable import JSONSerializable
 
 
-class HSSMetrics(JSONSerializable):
+class FiveGCoreHSSMetrics(JSONSerializable):
     """
     DTO class containing 5G Core HSS metrics
     """
@@ -149,7 +149,7 @@ class HSSMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "HSSMetrics":
+    def from_kafka_record(record: str) -> "FiveGCoreHSSMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -157,24 +157,28 @@ class HSSMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = HSSMetrics(ip=parts[1], ts=float(parts[0]),
-                         cx_rx_lir=int(parts[2]), cx_rx_uar=int(parts[3]), cx_tx_lia=int(parts[4]),
-                         cx_rx_unknown=int(parts[5]), cx_rx_sar=int(parts[6]), s6a_rx_pur=int(parts[7]),
-                         swx_rx_mar_error=int(parts[8]), cx_tx_uaa=int(parts[9]), s6a_rx_pur_error=int(parts[10]),
-                         s6a_tx_clr=int(parts[11]), cx_tx_saa=int(parts[12]), cx_rx_lir_error=int(parts[13]),
-                         s6a_rx_ulr=int(parts[14]), s6a_rx_cla=int(parts[15]), s6a_rx_cla_error=int(parts[16]),
-                         s6a_rx_air=int(parts[17]), cx_rx_mar=int(parts[18]), swx_rx_sar=int(parts[19]),
-                         s6a_rx_air_error=int(parts[20]), s6a_rx_ida_error=int(parts[21]), cx_tx_maa=int(parts[22]),
-                         swx_rx_mar=int(parts[23]), s6a_rx_unknown=int(parts[24]), s6a_tx_pua=int(parts[25]),
-                         swx_rx_unknown=int(parts[26]), cx_rx_mar_error=int(parts[27]), cx_rx_uar_error=int(parts[28]),
-                         s6a_tx_ula=int(parts[29]), s6a_rx_ulr_error=int(parts[30]), s6a_tx_aia=int(parts[31]),
-                         s6a_tx_idr=int(parts[32]), s6a_rx_ida=int(parts[33]), cx_rx_sar_error=int(parts[34]),
-                         swx_rx_sar_error=int(parts[35]), swx_tx_maa=int(parts[36]), swx_tx_saa=int(parts[37]),
-                         hss_imsi=int(parts[38]), hss_impi=int(parts[39]), hss_impu=int(parts[40]),
-                         process_max_fds=int(parts[41]), process_virtual_memory_max_bytes=int(parts[42]),
-                         process_cpu_seconds_total=int(parts[43]), process_virtual_memory_bytes=int(parts[44]),
-                         process_resident_memory_bytes=int(parts[45]), process_start_time_seconds=int(parts[46]),
-                         process_open_fds=int(parts[47]))
+        obj = FiveGCoreHSSMetrics(ip=parts[1], ts=float(parts[0]),
+                                  cx_rx_lir=int(parts[2]), cx_rx_uar=int(parts[3]), cx_tx_lia=int(parts[4]),
+                                  cx_rx_unknown=int(parts[5]), cx_rx_sar=int(parts[6]), s6a_rx_pur=int(parts[7]),
+                                  swx_rx_mar_error=int(parts[8]), cx_tx_uaa=int(parts[9]),
+                                  s6a_rx_pur_error=int(parts[10]),
+                                  s6a_tx_clr=int(parts[11]), cx_tx_saa=int(parts[12]), cx_rx_lir_error=int(parts[13]),
+                                  s6a_rx_ulr=int(parts[14]), s6a_rx_cla=int(parts[15]), s6a_rx_cla_error=int(parts[16]),
+                                  s6a_rx_air=int(parts[17]), cx_rx_mar=int(parts[18]), swx_rx_sar=int(parts[19]),
+                                  s6a_rx_air_error=int(parts[20]), s6a_rx_ida_error=int(parts[21]),
+                                  cx_tx_maa=int(parts[22]),
+                                  swx_rx_mar=int(parts[23]), s6a_rx_unknown=int(parts[24]), s6a_tx_pua=int(parts[25]),
+                                  swx_rx_unknown=int(parts[26]), cx_rx_mar_error=int(parts[27]),
+                                  cx_rx_uar_error=int(parts[28]),
+                                  s6a_tx_ula=int(parts[29]), s6a_rx_ulr_error=int(parts[30]), s6a_tx_aia=int(parts[31]),
+                                  s6a_tx_idr=int(parts[32]), s6a_rx_ida=int(parts[33]), cx_rx_sar_error=int(parts[34]),
+                                  swx_rx_sar_error=int(parts[35]), swx_tx_maa=int(parts[36]), swx_tx_saa=int(parts[37]),
+                                  hss_imsi=int(parts[38]), hss_impi=int(parts[39]), hss_impu=int(parts[40]),
+                                  process_max_fds=int(parts[41]), process_virtual_memory_max_bytes=int(parts[42]),
+                                  process_cpu_seconds_total=int(parts[43]), process_virtual_memory_bytes=int(parts[44]),
+                                  process_resident_memory_bytes=int(parts[45]),
+                                  process_start_time_seconds=int(parts[46]),
+                                  process_open_fds=int(parts[47]))
         return obj
 
     def update_with_kafka_record(self, record: str, ip: str) -> None:
@@ -269,36 +273,42 @@ class HSSMetrics(JSONSerializable):
                 f"process_open_fds: {self.process_open_fds}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "HSSMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGCoreHSSMetrics":
         """
         Converts a dict representation to an instance
 
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = HSSMetrics(ip=d["ip"], ts=d["ts"],
-                         cx_rx_lir=d["cx_rx_lir"], cx_rx_uar=d["cx_rx_uar"], cx_tx_lia=d["cx_tx_lia"],
-                         cx_rx_unknown=d["cx_rx_unknown"], cx_rx_sar=d["cx_rx_sar"], s6a_rx_pur=d["s6a_rx_pur"],
-                         swx_rx_mar_error=d["swx_rx_mar_error"], cx_tx_uaa=d["cx_tx_uaa"],
-                         s6a_rx_pur_error=d["s6a_rx_pur_error"], s6a_tx_clr=d["s6a_tx_clr"], cx_tx_saa=d["cx_tx_saa"],
-                         cx_rx_lir_error=d["cx_rx_lir_error"], s6a_rx_ulr=d["s6a_rx_ulr"], s6a_rx_cla=d["s6a_rx_cla"],
-                         s6a_rx_cla_error=d["s6a_rx_cla_error"], s6a_rx_air=d["s6a_rx_air"], cx_rx_mar=d["cx_rx_mar"],
-                         swx_rx_sar=d["swx_rx_sar"], s6a_rx_air_error=d["s6a_rx_air_error"],
-                         s6a_rx_ida_error=d["s6a_rx_ida_error"], cx_tx_maa=d["cx_tx_maa"], swx_rx_mar=d["swx_rx_mar"],
-                         s6a_rx_unknown=d["s6a_rx_unknown"], s6a_tx_pua=d["s6a_tx_pua"],
-                         swx_rx_unknown=d["swx_rx_unknown"], cx_rx_mar_error=d["cx_rx_mar_error"],
-                         cx_rx_uar_error=d["cx_rx_uar_error"], s6a_tx_ula=d["s6a_tx_ula"],
-                         s6a_rx_ulr_error=d["s6a_rx_ulr_error"], s6a_tx_aia=d["s6a_tx_aia"], s6a_tx_idr=d["s6a_tx_idr"],
-                         s6a_rx_ida=d["s6a_rx_ida"], cx_rx_sar_error=d["cx_rx_sar_error"],
-                         swx_rx_sar_error=d["swx_rx_sar_error"], swx_tx_maa=d["swx_tx_maa"],
-                         swx_tx_saa=d["swx_tx_saa"], hss_imsi=d["hss_imsi"], hss_impi=d["hss_impi"],
-                         hss_impu=d["hss_impu"], process_max_fds=d["process_max_fds"],
-                         process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                         process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                         process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                         process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                         process_start_time_seconds=d["process_start_time_seconds"],
-                         process_open_fds=d["process_open_fds"])
+        obj = FiveGCoreHSSMetrics(ip=d["ip"], ts=d["ts"],
+                                  cx_rx_lir=d["cx_rx_lir"], cx_rx_uar=d["cx_rx_uar"], cx_tx_lia=d["cx_tx_lia"],
+                                  cx_rx_unknown=d["cx_rx_unknown"], cx_rx_sar=d["cx_rx_sar"],
+                                  s6a_rx_pur=d["s6a_rx_pur"],
+                                  swx_rx_mar_error=d["swx_rx_mar_error"], cx_tx_uaa=d["cx_tx_uaa"],
+                                  s6a_rx_pur_error=d["s6a_rx_pur_error"], s6a_tx_clr=d["s6a_tx_clr"],
+                                  cx_tx_saa=d["cx_tx_saa"],
+                                  cx_rx_lir_error=d["cx_rx_lir_error"], s6a_rx_ulr=d["s6a_rx_ulr"],
+                                  s6a_rx_cla=d["s6a_rx_cla"],
+                                  s6a_rx_cla_error=d["s6a_rx_cla_error"], s6a_rx_air=d["s6a_rx_air"],
+                                  cx_rx_mar=d["cx_rx_mar"],
+                                  swx_rx_sar=d["swx_rx_sar"], s6a_rx_air_error=d["s6a_rx_air_error"],
+                                  s6a_rx_ida_error=d["s6a_rx_ida_error"], cx_tx_maa=d["cx_tx_maa"],
+                                  swx_rx_mar=d["swx_rx_mar"],
+                                  s6a_rx_unknown=d["s6a_rx_unknown"], s6a_tx_pua=d["s6a_tx_pua"],
+                                  swx_rx_unknown=d["swx_rx_unknown"], cx_rx_mar_error=d["cx_rx_mar_error"],
+                                  cx_rx_uar_error=d["cx_rx_uar_error"], s6a_tx_ula=d["s6a_tx_ula"],
+                                  s6a_rx_ulr_error=d["s6a_rx_ulr_error"], s6a_tx_aia=d["s6a_tx_aia"],
+                                  s6a_tx_idr=d["s6a_tx_idr"],
+                                  s6a_rx_ida=d["s6a_rx_ida"], cx_rx_sar_error=d["cx_rx_sar_error"],
+                                  swx_rx_sar_error=d["swx_rx_sar_error"], swx_tx_maa=d["swx_tx_maa"],
+                                  swx_tx_saa=d["swx_tx_saa"], hss_imsi=d["hss_imsi"], hss_impi=d["hss_impi"],
+                                  hss_impu=d["hss_impu"], process_max_fds=d["process_max_fds"],
+                                  process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
+                                  process_cpu_seconds_total=d["process_cpu_seconds_total"],
+                                  process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
+                                  process_resident_memory_bytes=d["process_resident_memory_bytes"],
+                                  process_start_time_seconds=d["process_start_time_seconds"],
+                                  process_open_fds=d["process_open_fds"])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -356,11 +366,11 @@ class HSSMetrics(JSONSerializable):
         d["process_open_fds"] = self.process_open_fds
         return d
 
-    def copy(self) -> "HSSMetrics":
+    def copy(self) -> "FiveGCoreHSSMetrics":
         """
         :return: a copy of the object
         """
-        c = HSSMetrics.from_dict(self.to_dict())
+        c = FiveGCoreHSSMetrics.from_dict(self.to_dict())
         return c
 
     def num_attributes(self) -> int:
@@ -370,14 +380,14 @@ class HSSMetrics(JSONSerializable):
         return 48
 
     @staticmethod
-    def schema() -> "HSSMetrics":
+    def schema() -> "FiveGCoreHSSMetrics":
         """
         :return: get the schema of the DTO
         """
-        return HSSMetrics()
+        return FiveGCoreHSSMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "HSSMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGCoreHSSMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -388,4 +398,4 @@ class HSSMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return HSSMetrics.from_dict(json.loads(json_str))
+        return FiveGCoreHSSMetrics.from_dict(json.loads(json_str))

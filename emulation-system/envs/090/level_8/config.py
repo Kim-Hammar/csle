@@ -4004,116 +4004,116 @@ def default_kafka_config(network_id: int, level: int, version: str, time_step_le
             attributes=collector_constants.KAFKA_CONFIG.SNORT_IDS_IP_LOG_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.AMF_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_AMF_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.AMF_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_AMF_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.UPF_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_UPF_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.UPF_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_UPF_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.MME_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_MME_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.MME_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_MME_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.SMF_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_SMF_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.SMF_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_SMF_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.HSS_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_HSS_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.HSS_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_HSS_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.PCRF_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCRF_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.PCRF_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCRF_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.PCF_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCF_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.PCF_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCF_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.DU_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.DU_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.CELL_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_CELL_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.CELL_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_CELL_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.DU_LOW_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_LOW_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.DU_LOW_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_LOW_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.RLC_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_RLC_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.RLC_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_RLC_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.APP_RESOURCE_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_APP_RESOURCE_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.BUFFER_POOL_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_BUFFER_POOL_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.BUFFER_POOL_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_BUFFER_POOL_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.CU_CP_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CU_CP_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.CUCP_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CU_CP_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.CU_APP_RESOURCE_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CU_APP_RESOURCE_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.CU_BUFFER_POOL_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CU_BUFFER_POOL_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
-            attributes=collector_constants.KAFKA_CONFIG.CU_APP_RESOURCE_TOPIC_ATTRIBUTES
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CU_APP_RESOURCE_TOPIC_ATTRIBUTES
         )
     ]
 

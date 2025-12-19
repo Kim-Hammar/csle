@@ -93,7 +93,7 @@ def stop_five_g_ue(
     return five_g_du_status
 
 
-def init_five_g_ue_du(
+def init_five_g_du_ue(
         cu_fronthaul_ip: str, du_fronthaul_ip: str,
         stub: csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub,
         timeout=constants.GRPC.TIMEOUT_SECONDS) \
@@ -107,21 +107,21 @@ def init_five_g_ue_du(
     :param timeout: the timeout for the gRRPC call
     :return: a FiveGDUStatusDTO describing the status of the 5G du
     """
-    init_5g_ue_msg = \
-        csle_collector.five_g_du_manager.five_g_du_manager_pb2.InitFiveGUEMsg(
+    init_5g_du_ue_msg = \
+        csle_collector.five_g_du_manager.five_g_du_manager_pb2.InitFiveGDUUEMsg(
             cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip
         )
     five_g_du_status: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO = \
-        stub.initFiveGUE(init_5g_ue_msg, timeout=timeout)
+        stub.initFiveGDUUE(init_5g_du_ue_msg, timeout=timeout)
     return five_g_du_status
 
 
-def start_du_monitor(stub: csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub,
-                     kafka_ip: str, kafka_port: int, time_step_len_seconds: int,
-                     timeout=constants.GRPC.TIMEOUT_SECONDS) \
+def start_five_g_du_monitor(stub: csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub,
+                            kafka_ip: str, kafka_port: int, time_step_len_seconds: int,
+                            timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
     """
-    Sends a request to the 5G DU manager to start the DU monitor thread
+    Sends a request to the 5G DU manager to start the 5G DU monitor thread
 
     :param kafka_ip: the ip of the Kafka server
     :param kafka_port: the port of the Kafka server
@@ -130,26 +130,26 @@ def start_du_monitor(stub: csle_collector.five_g_du_manager.five_g_du_manager_pb
     :param timeout: the GRPC timeout (seconds)
     :return: a FiveGDUStatusDTO describing the cu status
     """
-    start_du_monitor_msg = csle_collector.five_g_du_manager.five_g_du_manager_pb2.StartDUMonitorMsg(
+    start_du_monitor_msg = csle_collector.five_g_du_manager.five_g_du_manager_pb2.StartFiveGDUMonitorMsg(
         kafka_ip=kafka_ip, kafka_port=kafka_port, time_step_len_seconds=time_step_len_seconds)
     du_dto: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO = \
-        stub.startDUMonitor(start_du_monitor_msg, timeout=timeout)
+        stub.startFiveGDUMonitor(start_du_monitor_msg, timeout=timeout)
     return du_dto
 
 
-def stop_du_monitor(
+def stop_five_g_du_monitor(
         stub: csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub,
         timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
     """
-    Sends a request to the DU manager to stop the DU monitor thread
+    Sends a request to the 5G DU manager to stop the 5G DU monitor thread
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
     :return: a FiveGDUStatusDTO describing the 5G DU status
     """
     stop_du_monitor_msg = \
-        csle_collector.five_g_du_manager.five_g_du_manager_pb2.StopDUMonitorMsg()
+        csle_collector.five_g_du_manager.five_g_du_manager_pb2.StopFiveGDUMonitorMsg()
     du_dto: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO = \
-        stub.stopDUMonitor(stop_du_monitor_msg, timeout=timeout)
+        stub.stopFiveGDUMonitor(stop_du_monitor_msg, timeout=timeout)
     return du_dto

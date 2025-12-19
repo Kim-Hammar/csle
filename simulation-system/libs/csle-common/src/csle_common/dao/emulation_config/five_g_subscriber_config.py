@@ -1,6 +1,6 @@
 from typing import Dict, Any, Union
 from csle_base.json_serializable import JSONSerializable
-from csle_collector.five_g_core_manager.five_g_core_manager_pb2 import SubscriberDTO
+from csle_collector.five_g_core_manager.five_g_core_manager_pb2 import FiveGSubscriberDTO
 
 
 class FiveGSubscriberConfig(JSONSerializable):
@@ -49,13 +49,13 @@ class FiveGSubscriberConfig(JSONSerializable):
         d["sqn"] = self.sqn
         return d
 
-    def to_subscriber_dto(self) -> SubscriberDTO:
+    def to_subscriber_dto(self) -> FiveGSubscriberDTO:
         """
         Converts the object to a SubscriberDTO
 
         :return: the created SubscriberDTO
         """
-        return SubscriberDTO(imsi=self.imsi, key=self.key, opc=self.opc, amf=self.amf, sqn=self.sqn)
+        return FiveGSubscriberDTO(imsi=self.imsi, key=self.key, opc=self.opc, amf=self.amf, sqn=self.sqn)
 
     def __str__(self) -> str:
         """

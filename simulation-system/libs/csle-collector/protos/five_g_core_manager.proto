@@ -6,8 +6,8 @@ service FiveGCoreManager {
   rpc stopFiveGCore(StopFiveGCoreMsg) returns (FiveGCoreStatusDTO) {}
   rpc startFiveGCore(StartFiveGCoreMsg) returns (FiveGCoreStatusDTO) {}
   rpc initFiveGCore(InitFiveGCoreMsg) returns (FiveGCoreStatusDTO) {}
-  rpc startCoreMonitor(StartCoreMonitorMsg) returns (FiveGCoreStatusDTO) {}
-  rpc stopCoreMonitor(StopCoreMonitorMsg) returns (FiveGCoreStatusDTO) {}
+  rpc startFiveGCoreMonitor(StartFiveGCoreMonitorMsg) returns (FiveGCoreStatusDTO) {}
+  rpc stopFiveGCoreMonitor(StopFiveGCoreMonitorMsg) returns (FiveGCoreStatusDTO) {}
 }
 
 // Message that the client sends to get the status of the 5G core
@@ -47,11 +47,11 @@ message StartFiveGCoreMsg {}
 // Message that the client sends to initialize the 5G core
 message InitFiveGCoreMsg {
   string core_backhaul_ip = 1;
-  repeated SubscriberDTO subscribers = 2;
+  repeated FiveGSubscriberDTO subscribers = 2;
 }
 
-// DTO with subscriber data
-message SubscriberDTO {
+// DTO with 5G subscriber data
+message FiveGSubscriberDTO {
   string imsi = 1;
   string key = 2;
   string opc = 3;
@@ -59,12 +59,12 @@ message SubscriberDTO {
   int32 sqn = 5;
 }
 
-// Message that the client sends to start the CoreMonitor
-message StartCoreMonitorMsg {
+// Message that the client sends to start the 5G CoreMonitor
+message StartFiveGCoreMonitorMsg {
   string kafka_ip = 1;
   int32 kafka_port = 2;
   int32 time_step_len_seconds = 3;
 }
 
-// Message that the client sends to stop the CoreMonitor
-message StopCoreMonitorMsg {}
+// Message that the client sends to stop the 5G CoreMonitor
+message StopFiveGCoreMonitorMsg {}

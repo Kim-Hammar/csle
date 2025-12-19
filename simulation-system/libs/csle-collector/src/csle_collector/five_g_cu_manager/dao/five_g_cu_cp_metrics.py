@@ -4,7 +4,7 @@ import datetime
 from csle_base.json_serializable import JSONSerializable
 
 
-class CUCPMetrics(JSONSerializable):
+class FiveGCUCPMetrics(JSONSerializable):
     """
     DTO class containing srsRAN CU-CP (Central Unit - Control Plane) metrics.
     Captures NGAP (AMF interface) and RRC (UE/DU interface) statistics.
@@ -120,7 +120,7 @@ class CUCPMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "CUCPMetrics":
+    def from_kafka_record(record: str) -> "FiveGCUCPMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -131,7 +131,7 @@ class CUCPMetrics(JSONSerializable):
         # Handling boolean conversion from string
         amf_conn = parts[3].lower() == 'true'
 
-        obj = CUCPMetrics(
+        obj = FiveGCUCPMetrics(
             ts=float(parts[0]),
             ip=parts[1],
             cu_cp_id=parts[2],
@@ -199,7 +199,7 @@ class CUCPMetrics(JSONSerializable):
                 f"pdu_success: {self.nof_pdu_sessions_successfully_setup}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "CUCPMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGCUCPMetrics":
         """
         Converts a dict representation to an instance.
         Expects the flat dictionary format produced by to_dict().
@@ -207,7 +207,7 @@ class CUCPMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = CUCPMetrics(
+        obj = FiveGCUCPMetrics(
             cu_cp_id=d.get("cu_cp_id", ""),
             amf_connected=d.get("amf_connected", False),
             nof_cn_initiated_paging_requests=d.get("nof_cn_initiated_paging_requests", 0),
@@ -236,7 +236,7 @@ class CUCPMetrics(JSONSerializable):
         return obj
 
     @staticmethod
-    def from_ws_dict(d: Dict[str, Any], ip: str) -> "CUCPMetrics":
+    def from_ws_dict(d: Dict[str, Any], ip: str) -> "FiveGCUCPMetrics":
         """
         Converts the raw dictionary from the WebSocket JSON stream to an instance.
         Handles the nested "cu-cp" structure.
@@ -338,7 +338,7 @@ class CUCPMetrics(JSONSerializable):
         ho_exec_req = rrcs.get("nof_handover_executions_requested", 0)
         ho_exec_succ = rrcs.get("nof_successful_handover_executions", 0)
 
-        obj = CUCPMetrics(
+        obj = FiveGCUCPMetrics(
             cu_cp_id=root.get("id", ""),
             amf_connected=amf_connected,
             nof_cn_initiated_paging_requests=paging_reqs,
@@ -396,11 +396,11 @@ class CUCPMetrics(JSONSerializable):
         d["nof_successful_handover_executions"] = self.nof_successful_handover_executions
         return d
 
-    def copy(self) -> "CUCPMetrics":
+    def copy(self) -> "FiveGCUCPMetrics":
         """
         :return: a copy of the object
         """
-        c = CUCPMetrics(
+        c = FiveGCUCPMetrics(
             cu_cp_id=self.cu_cp_id, amf_connected=self.amf_connected,
             nof_cn_initiated_paging_requests=self.nof_cn_initiated_paging_requests,
             nof_pdu_sessions_requested_to_setup=self.nof_pdu_sessions_requested_to_setup,
@@ -431,14 +431,14 @@ class CUCPMetrics(JSONSerializable):
         return 22
 
     @staticmethod
-    def schema() -> "CUCPMetrics":
+    def schema() -> "FiveGCUCPMetrics":
         """
         :return: get the schema of the DTO
         """
-        return CUCPMetrics()
+        return FiveGCUCPMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "CUCPMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGCUCPMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -449,4 +449,4 @@ class CUCPMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return CUCPMetrics.from_dict(json.loads(json_str))
+        return FiveGCUCPMetrics.from_dict(json.loads(json_str))

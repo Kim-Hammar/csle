@@ -60,7 +60,7 @@ def stop_five_g_core(
 
 def init_five_g_core(
         stub: csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub,
-        subscribers: List[csle_collector.five_g_core_manager.five_g_core_manager_pb2.SubscriberDTO],
+        subscribers: List[csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGSubscriberDTO],
         core_backhaul_ip: str, timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
     """
@@ -79,9 +79,9 @@ def init_five_g_core(
     return five_g_core_status
 
 
-def start_core_monitor(stub: csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub,
-                       kafka_ip: str, kafka_port: int, time_step_len_seconds: int,
-                       timeout=constants.GRPC.TIMEOUT_SECONDS) \
+def start_five_g_core_monitor(
+        stub: csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub,
+        kafka_ip: str, kafka_port: int, time_step_len_seconds: int, timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
     """
     Sends a request to the 5G core manager to start the core monitor thread
@@ -93,27 +93,27 @@ def start_core_monitor(stub: csle_collector.five_g_core_manager.five_g_core_mana
     :param timeout: the GRPC timeout (seconds)
     :return: a FiveGCoreStatusDTO describing the core status
     """
-    start_core_monitor_msg = csle_collector.five_g_core_manager.five_g_core_manager_pb2.StartCoreMonitorMsg(
+    start_core_monitor_msg = csle_collector.five_g_core_manager.five_g_core_manager_pb2.StartFiveGCoreMonitorMsg(
         kafka_ip=kafka_ip, kafka_port=kafka_port, time_step_len_seconds=time_step_len_seconds
     )
     core_dto: csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO = \
-        stub.startCoreMonitor(start_core_monitor_msg, timeout=timeout)
+        stub.startFiveGCoreMonitor(start_core_monitor_msg, timeout=timeout)
     return core_dto
 
 
-def stop_core_monitor(
+def stop_five_g_core_monitor(
         stub: csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub,
         timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
     """
-    Sends a request to the Core manager to stop the Core monitor thread
+    Sends a request to the 5G Core manager to stop the 5G Core monitor thread
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
     :return: a FiveGCoreStatusDTO describing the 5G core status
     """
     stop_core_monitor_msg = \
-        csle_collector.five_g_core_manager.five_g_core_manager_pb2.StopCoreMonitorMsg()
+        csle_collector.five_g_core_manager.five_g_core_manager_pb2.StopFiveGCoreMonitorMsg()
     core_dto: csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO = \
-        stub.stopCoreMonitor(stop_core_monitor_msg, timeout=timeout)
+        stub.stopFiveGCoreMonitor(stop_core_monitor_msg, timeout=timeout)
     return core_dto

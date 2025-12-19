@@ -80,9 +80,9 @@ def init_five_g_cu(
     return five_g_cu_status
 
 
-def start_cu_monitor(stub: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerStub,
-                     kafka_ip: str, kafka_port: int, time_step_len_seconds: int,
-                     timeout=constants.GRPC.TIMEOUT_SECONDS) \
+def start_five_g_cu_monitor(stub: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerStub,
+                            kafka_ip: str, kafka_port: int, time_step_len_seconds: int,
+                            timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
     """
     Sends a request to the 5G CU manager to start the CU monitor thread
@@ -94,27 +94,27 @@ def start_cu_monitor(stub: csle_collector.five_g_cu_manager.five_g_cu_manager_pb
     :param timeout: the GRPC timeout (seconds)
     :return: a FiveGCUStatusDTO describing the cu status
     """
-    start_cu_monitor_msg = csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StartCUMonitorMsg(
+    start_cu_monitor_msg = csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StartFiveGCUMonitorMsg(
         kafka_ip=kafka_ip, kafka_port=kafka_port, time_step_len_seconds=time_step_len_seconds
     )
     cu_dto: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO = \
-        stub.startCUMonitor(start_cu_monitor_msg, timeout=timeout)
+        stub.startFiveGCUMonitor(start_cu_monitor_msg, timeout=timeout)
     return cu_dto
 
 
-def stop_cu_monitor(
+def stop_five_g_cu_monitor(
         stub: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2_grpc.FiveGCUManagerStub,
         timeout=constants.GRPC.TIMEOUT_SECONDS) \
         -> csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO:
     """
-    Sends a request to the CU manager to stop the CU monitor thread
+    Sends a request to the 5G CU manager to stop the CU monitor thread
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
     :return: a FiveGCUStatusDTO describing the 5G cu status
     """
     stop_cu_monitor_msg = \
-        csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StopCUMonitorMsg()
+        csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.StopFiveGCUMonitorMsg()
     cu_dto: csle_collector.five_g_cu_manager.five_g_cu_manager_pb2.FiveGCUStatusDTO = \
-        stub.stopCUMonitor(stop_cu_monitor_msg, timeout=timeout)
+        stub.stopFiveGCUMonitor(stop_cu_monitor_msg, timeout=timeout)
     return cu_dto

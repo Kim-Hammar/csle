@@ -7100,7 +7100,7 @@ class TestResourcesEmulationExecutionsSuite:
             merged_info, start_five_g_core_monitor, stop_five_g_core_monitor, stop_five_g_core_monitor_plural,
             start_five_g_core_monitor_plural, config) -> None:
         """
-        Testing the HTTPS GET method for the /emulation-executions/id/core-monitor resource
+        Testing the HTTPS GET method for the /emulation-executions/id/five-g-core-monitor resource
 
         :param mocker: the pytest mocker object
         :param flask_app: the flask_app fixture
@@ -7123,14 +7123,14 @@ class TestResourcesEmulationExecutionsSuite:
         mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_config", side_effect=config)
         mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.get_merged_execution_info",
                      side_effect=merged_info)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_core_monitor_thread",
-                     side_effect=stop_five_g_core_monitor)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_core_monitor_thread",
-                     side_effect=start_five_g_core_monitor)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_core_monitor_threads",
-                     side_effect=start_five_g_core_monitor_plural)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_core_monitor_threads",
-                     side_effect=stop_five_g_core_monitor_plural)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "stop_five_g_core_monitor_thread", side_effect=stop_five_g_core_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "start_five_g_core_monitor_thread", side_effect=start_five_g_core_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "start_five_g_core_monitor_threads", side_effect=start_five_g_core_monitor_plural)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "stop_five_g_core_monitor_threads", side_effect=stop_five_g_core_monitor_plural)
         mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=not_logged_in)
         response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
                                                 f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MONITOR_SUBRESOURCE}",
@@ -7234,7 +7234,7 @@ class TestResourcesEmulationExecutionsSuite:
             merged_info, start_five_g_cu_monitor, stop_five_g_cu_monitor, stop_five_g_cu_monitor_plural,
             start_five_g_cu_monitor_plural, config) -> None:
         """
-        Testing the HTTPS GET method for the /emulation-executions/id/cu-monitor resource
+        Testing the HTTPS GET method for the /emulation-executions/id/five-g-cu-monitor resource
 
         :param mocker: the pytest mocker object
         :param flask_app: the flask_app fixture
@@ -7257,14 +7257,14 @@ class TestResourcesEmulationExecutionsSuite:
         mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_config", side_effect=config)
         mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.get_merged_execution_info",
                      side_effect=merged_info)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_cu_monitor_thread",
-                     side_effect=stop_five_g_cu_monitor)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_cu_monitor_thread",
-                     side_effect=start_five_g_cu_monitor)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_cu_monitor_threads",
-                     side_effect=start_five_g_cu_monitor_plural)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_cu_monitor_threads",
-                     side_effect=stop_five_g_cu_monitor_plural)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "stop_five_g_cu_monitor_thread", side_effect=stop_five_g_cu_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "start_five_g_cu_monitor_thread", side_effect=start_five_g_cu_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "start_five_g_cu_monitor_threads", side_effect=start_five_g_cu_monitor_plural)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "stop_five_g_cu_monitor_threads", side_effect=stop_five_g_cu_monitor_plural)
         mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=not_logged_in)
         response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
                                                 f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MONITOR_SUBRESOURCE}",
@@ -7368,7 +7368,7 @@ class TestResourcesEmulationExecutionsSuite:
             merged_info, start_five_g_du_monitor, stop_five_g_du_monitor, stop_five_g_du_monitor_plural,
             start_five_g_du_monitor_plural, config) -> None:
         """
-        Testing the HTTPS GET method for the /emulation-executions/id/du-monitor resource
+        Testing the HTTPS GET method for the /emulation-executions/id/five-g-du-monitor resource
 
         :param mocker: the pytest mocker object
         :param flask_app: the flask_app fixture
@@ -7391,14 +7391,14 @@ class TestResourcesEmulationExecutionsSuite:
         mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_config", side_effect=config)
         mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.get_merged_execution_info",
                      side_effect=merged_info)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_du_monitor_thread",
-                     side_effect=stop_five_g_du_monitor)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_du_monitor_thread",
-                     side_effect=start_five_g_du_monitor)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.start_du_monitor_threads",
-                     side_effect=start_five_g_du_monitor_plural)
-        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.stop_du_monitor_threads",
-                     side_effect=stop_five_g_du_monitor_plural)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "stop_five_g_du_monitor_thread", side_effect=stop_five_g_du_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "start_five_g_du_monitor_thread", side_effect=start_five_g_du_monitor)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "start_five_g_du_monitor_threads", side_effect=start_five_g_du_monitor_plural)
+        mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController."
+                     "stop_five_g_du_monitor_threads", side_effect=stop_five_g_du_monitor_plural)
         mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=not_logged_in)
         response = flask_app.test_client().post(f"{api_constants.MGMT_WEBAPP.EMULATION_EXECUTIONS_RESOURCE}/-1/"
                                                 f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MONITOR_SUBRESOURCE}",

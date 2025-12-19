@@ -4,7 +4,7 @@ import datetime
 from csle_base.json_serializable import JSONSerializable
 
 
-class RLCMetrics(JSONSerializable):
+class FiveGDURLCMetrics(JSONSerializable):
     """
     DTO class containing srsRAN DU RLC layer metrics
     """
@@ -69,7 +69,7 @@ class RLCMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "RLCMetrics":
+    def from_kafka_record(record: str) -> "FiveGDURLCMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -77,7 +77,7 @@ class RLCMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = RLCMetrics(
+        obj = FiveGDURLCMetrics(
             ts=float(parts[0]),
             ip=parts[1],
             ue_id=int(parts[2]),
@@ -131,7 +131,7 @@ class RLCMetrics(JSONSerializable):
                 f"lost: {self.rx_num_lost_pdus}, tx_sdus: {self.tx_num_sdus}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "RLCMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGDURLCMetrics":
         """
         Converts a dict representation to an instance.
         Expects the flat dictionary format produced by to_dict().
@@ -139,7 +139,7 @@ class RLCMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = RLCMetrics(
+        obj = FiveGDURLCMetrics(
             ue_id=d.get("ue_id", 0),
             drb_id=d.get("drb_id", 0),
             rx_num_pdus=d.get("rx_num_pdus", 0),
@@ -159,7 +159,7 @@ class RLCMetrics(JSONSerializable):
         return obj
 
     @staticmethod
-    def from_ws_dict(d: Dict[str, Any], ip: str) -> "RLCMetrics":
+    def from_ws_dict(d: Dict[str, Any], ip: str) -> "FiveGDURLCMetrics":
         """
         Converts the raw dictionary from the WebSocket JSON stream to an instance.
         Handles the nested "rlc_metrics" -> "rx"/"tx" structure.
@@ -185,7 +185,7 @@ class RLCMetrics(JSONSerializable):
         rx = data.get("rx", {})
         tx = data.get("tx", {})
 
-        obj = RLCMetrics(
+        obj = FiveGDURLCMetrics(
             ue_id=data.get("ue_id", 0),
             drb_id=data.get("drb_id", 0),
             rx_num_pdus=rx.get("num_pdus", 0),
@@ -226,11 +226,11 @@ class RLCMetrics(JSONSerializable):
         d["tx_sum_sdu_latency_us"] = self.tx_sum_sdu_latency_us
         return d
 
-    def copy(self) -> "RLCMetrics":
+    def copy(self) -> "FiveGDURLCMetrics":
         """
         :return: a copy of the object
         """
-        c = RLCMetrics(
+        c = FiveGDURLCMetrics(
             ue_id=self.ue_id, drb_id=self.drb_id, rx_num_pdus=self.rx_num_pdus,
             rx_num_bytes=self.rx_num_bytes, rx_num_lost_pdus=self.rx_num_lost_pdus,
             rx_num_malformed_pdus=self.rx_num_malformed_pdus,
@@ -251,14 +251,14 @@ class RLCMetrics(JSONSerializable):
         return 15
 
     @staticmethod
-    def schema() -> "RLCMetrics":
+    def schema() -> "FiveGDURLCMetrics":
         """
         :return: get the schema of the DTO
         """
-        return RLCMetrics()
+        return FiveGDURLCMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "RLCMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGDURLCMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -269,4 +269,4 @@ class RLCMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return RLCMetrics.from_dict(json.loads(json_str))
+        return FiveGDURLCMetrics.from_dict(json.loads(json_str))

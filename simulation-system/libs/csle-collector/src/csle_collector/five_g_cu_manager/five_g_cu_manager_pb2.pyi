@@ -97,8 +97,8 @@ class InitFiveGCUMsg(google.protobuf.message.Message):
 global___InitFiveGCUMsg = InitFiveGCUMsg
 
 @typing_extensions.final
-class StartCUMonitorMsg(google.protobuf.message.Message):
-    """Message that the client sends to start the CUMonitor"""
+class StartFiveGCUMonitorMsg(google.protobuf.message.Message):
+    """Message that the client sends to start the 5G CUMonitor"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -117,11 +117,11 @@ class StartCUMonitorMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["kafka_ip", b"kafka_ip", "kafka_port", b"kafka_port", "time_step_len_seconds", b"time_step_len_seconds"]) -> None: ...
 
-global___StartCUMonitorMsg = StartCUMonitorMsg
+global___StartFiveGCUMonitorMsg = StartFiveGCUMonitorMsg
 
 @typing_extensions.final
-class StopCUMonitorMsg(google.protobuf.message.Message):
-    """Message that the client sends to stop the CUMonitor"""
+class StopFiveGCUMonitorMsg(google.protobuf.message.Message):
+    """Message that the client sends to stop the 5G CUMonitor"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -129,4 +129,4 @@ class StopCUMonitorMsg(google.protobuf.message.Message):
         self,
     ) -> None: ...
 
-global___StopCUMonitorMsg = StopCUMonitorMsg
+global___StopFiveGCUMonitorMsg = StopFiveGCUMonitorMsg

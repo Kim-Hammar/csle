@@ -56,22 +56,28 @@ class TestFiveGCUManagerSuite:
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'start_cu', return_value=None)
         mock_status_dict = {constants.FIVE_G_CU.CU: True}
-        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0")
+        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0", monitor_running=False)
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
         response: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.start_five_g_cu(
             stub=grpc_stub)
         assert response.cu_running == mock_status.cu_running
         assert response.ip == mock_status.ip
+        assert response.monitor_running == mock_status.monitor_running
 
         mock_status_dict = {constants.FIVE_G_CU.CU: True}
-        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0")
+        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0", monitor_running=False)
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
         response_2: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.start_five_g_cu(
             stub=grpc_stub)
         assert response_2.cu_running == mock_status.cu_running
         assert response_2.ip == mock_status.ip
+        assert response_2.monitor_running == mock_status.monitor_running
 
     def test_stopFiveGCU(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
         """
@@ -84,22 +90,28 @@ class TestFiveGCUManagerSuite:
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'stop_cu', return_value=None)
         mock_status_dict = {constants.FIVE_G_CU.CU: False}
-        mock_status = FiveGCUStatusDTO(cu_running=False, ip="0.0.0.0")
+        mock_status = FiveGCUStatusDTO(cu_running=False, ip="0.0.0.0", monitor_running=False)
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
         response: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.stop_five_g_cu(
             stub=grpc_stub)
         assert response.cu_running == mock_status.cu_running
         assert response.ip == mock_status.ip
+        assert response.monitor_running == mock_status.monitor_running
 
         mock_status_dict = {constants.FIVE_G_CU.CU: True}
-        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0")
+        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0", monitor_running=True)
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
         response_2: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.stop_five_g_cu(
             stub=grpc_stub)
         assert response_2.cu_running == mock_status.cu_running
         assert response_2.ip == mock_status.ip
+        assert response_2.monitor_running == mock_status.monitor_running
 
     def test_getFiveGCUStatus(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
         """
@@ -110,22 +122,28 @@ class TestFiveGCUManagerSuite:
         :return: None
         """
         mock_status_dict = {constants.FIVE_G_CU.CU: False}
-        mock_status = FiveGCUStatusDTO(cu_running=False, ip="0.0.0.0")
+        mock_status = FiveGCUStatusDTO(cu_running=False, ip="0.0.0.0", monitor_running=False)
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
         response: FiveGCUStatusDTO = (csle_collector.five_g_cu_manager.query_five_g_cu_manager.
                                       get_five_g_cu_status(stub=grpc_stub))
         assert response.cu_running == mock_status.cu_running
         assert response.ip == mock_status.ip
+        assert response.monitor_running == mock_status.monitor_running
 
         mock_status_dict = {constants.FIVE_G_CU.CU: True}
-        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0")
+        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0", monitor_running=True)
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
         response_2: FiveGCUStatusDTO = (csle_collector.five_g_cu_manager.query_five_g_cu_manager.
                                         get_five_g_cu_status(stub=grpc_stub))
         assert response_2.cu_running == mock_status.cu_running
         assert response_2.ip == mock_status.ip
+        assert response_2.monitor_running == mock_status.monitor_running
 
     def test_initFiveGCU(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
         """
@@ -138,19 +156,98 @@ class TestFiveGCUManagerSuite:
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'init_config_file', return_value=None)
         mock_status_dict = {constants.FIVE_G_CU.CU: False}
-        mock_status = FiveGCUStatusDTO(cu_running=False, ip="0.0.0.0")
+        mock_status = FiveGCUStatusDTO(cu_running=False, ip="0.0.0.0", monitor_running=False)
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
         response: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.init_five_g_cu(
             core_backhaul_ip="127.0.0.1", cu_backhaul_ip="127.0.0.1", cu_fronthaul_ip="127.0.0.1", stub=grpc_stub)
         assert response.cu_running == mock_status.cu_running
         assert response.ip == mock_status.ip
+        assert response.monitor_running == mock_status.monitor_running
 
         mock_status_dict = {constants.FIVE_G_CU.CU: True}
-        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0")
+        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0", monitor_running=True)
         mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
                      'get_cu_status', return_value=mock_status_dict)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
         response_2: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.init_five_g_cu(
             core_backhaul_ip="127.0.0.1", cu_backhaul_ip="127.0.0.1", cu_fronthaul_ip="127.0.0.1", stub=grpc_stub)
         assert response_2.cu_running == mock_status.cu_running
+        assert response_2.ip == mock_status.ip
+        assert response_2.monitor_running == mock_status.monitor_running
+
+    def test_stopFiveGCUMonitor(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
+        """
+        Tests the stopFiveGCUMonitor grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :return: None
+        """
+        mock_status_dict_cu = {constants.FIVE_G_CU.CU: True}
+        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0", monitor_running=True)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
+                     'get_cu_status', return_value=mock_status_dict_cu)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
+        response: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.stop_five_g_cu_monitor(
+            stub=grpc_stub)
+        assert response.cu_running == mock_status.cu_running
+        assert not response.monitor_running
+        assert response.ip == mock_status.ip
+
+        mock_status_dict_cu = {constants.FIVE_G_CU.CU: True}
+        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0", monitor_running=False)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
+                     'get_cu_status', return_value=mock_status_dict_cu)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
+        response_2: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.stop_five_g_cu_monitor(
+            stub=grpc_stub)
+        assert response_2.cu_running == mock_status.cu_running
+        assert not response_2.monitor_running
+        assert response_2.ip == mock_status.ip
+
+    def test_startFiveGCUMonitor(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
+        """
+        Tests the startFiveGCUMonitor grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :return: None
+        """
+        mocker.patch('csle_collector.five_g_cu_manager.threads.five_g_cu_monitor_thread.'
+                     'FiveGCUMonitorThread.run', return_value=True)
+        mocker.patch('csle_collector.five_g_cu_manager.threads.five_g_cu_monitor_thread.'
+                     'FiveGCUMonitorThread.__init__', return_value=None)
+        mocker.patch('csle_collector.five_g_cu_manager.threads.five_g_cu_monitor_thread.'
+                     'FiveGCUMonitorThread.start', return_value=True)
+        mock_status_dict_cu = {constants.FIVE_G_CU.CU: True}
+        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0", monitor_running=True)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
+                     'get_cu_status', return_value=mock_status_dict_cu)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
+        kafka_ip = "test_kafka_ip"
+        kafka_port = 9292
+        time_step_len_seconds = 30
+        response: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.start_five_g_cu_monitor(
+            stub=grpc_stub, kafka_port=kafka_port, time_step_len_seconds=time_step_len_seconds, kafka_ip=kafka_ip)
+        assert response.cu_running == mock_status.cu_running
+        assert response.monitor_running
+        assert response.ip == mock_status.ip
+
+        mock_status_dict_cu = {constants.FIVE_G_CU.CU: True}
+        mock_status = FiveGCUStatusDTO(cu_running=True, ip="0.0.0.0", monitor_running=False)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.'
+                     'get_cu_status', return_value=mock_status_dict_cu)
+        mocker.patch('csle_collector.five_g_cu_manager.five_g_cu_manager.FiveGCUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
+        response_2: FiveGCUStatusDTO = csle_collector.five_g_cu_manager.query_five_g_cu_manager.start_five_g_cu_monitor(
+            stub=grpc_stub, kafka_port=kafka_port, time_step_len_seconds=time_step_len_seconds, kafka_ip=kafka_ip)
+        assert response_2.cu_running == mock_status.cu_running
+        assert response_2.monitor_running
         assert response_2.ip == mock_status.ip

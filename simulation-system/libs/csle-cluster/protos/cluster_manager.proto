@@ -253,8 +253,8 @@ service ClusterManager {
   rpc start5GUEs(Start5GUEsMsg) returns (OperationOutcomeDTO) {}
   rpc stop5GUE(Stop5GUEMsg) returns (OperationOutcomeDTO) {}
   rpc start5GUE(Start5GUEMsg) returns (OperationOutcomeDTO) {}
-  rpc init5GUEs(Init5GUEsMsg) returns (OperationOutcomeDTO) {}
-  rpc init5GUE(Init5GUEMsg) returns (OperationOutcomeDTO) {}
+  rpc init5GDUUEs(Init5GDUUEsMsg) returns (OperationOutcomeDTO) {}
+  rpc init5GDUUE(Init5GDUUEMsg) returns (OperationOutcomeDTO) {}
   rpc get5GCoreManagersInfo(Get5GCoreManagersInfoMsg) returns (FiveGCoreManagersInfoDTO) {}
   rpc get5GCUManagersInfo(Get5GCUManagersInfoMsg) returns (FiveGCUManagersInfoDTO) {}
   rpc get5GDUManagersInfo(Get5GDUManagersInfoMsg) returns (FiveGDUManagersInfoDTO) {}
@@ -265,18 +265,18 @@ service ClusterManager {
   rpc get5GCULogs(Get5GCULogsMsg) returns (LogsDTO) {}
   rpc get5GDULogs(Get5GDULogsMsg) returns (LogsDTO) {}
   rpc get5GUELogs(Get5GUELogsMsg) returns (LogsDTO) {}
-  rpc startCoreMonitorThreads(StartCoreMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
-  rpc startCoreMonitorThread(StartCoreMonitorThreadMsg) returns (OperationOutcomeDTO) {}
-  rpc stopCoreMonitorThreads(StopCoreMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
-  rpc stopCoreMonitorThread(StopCoreMonitorThreadMsg) returns (OperationOutcomeDTO) {}
-  rpc startCUMonitorThreads(StartCUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
-  rpc startCUMonitorThread(StartCUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
-  rpc stopCUMonitorThreads(StopCUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
-  rpc stopCUMonitorThread(StopCUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
-  rpc startDUMonitorThreads(StartDUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
-  rpc startDUMonitorThread(StartDUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
-  rpc stopDUMonitorThreads(StopDUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
-  rpc stopDUMonitorThread(StopDUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCoreMonitorThreads(Start5GCoreMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCoreMonitorThread(Start5GCoreMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCoreMonitorThreads(Stop5GCoreMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCoreMonitorThread(Stop5GCoreMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCUMonitorThreads(Start5GCUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GCUMonitorThread(Start5GCUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCUMonitorThreads(Stop5GCUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GCUMonitorThread(Stop5GCUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GDUMonitorThreads(Start5GDUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc start5GDUMonitorThread(Start5GDUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GDUMonitorThreads(Stop5GDUMonitorThreadsMsg) returns (OperationOutcomeDTO) {}
+  rpc stop5GDUMonitorThread(Stop5GDUMonitorThreadMsg) returns (OperationOutcomeDTO) {}
 }
 
 // Message that the client sends when requesting to start stop a PID
@@ -2302,15 +2302,15 @@ message Start5GUEsMsg {
   int32 ipFirstOctet = 2;
 }
 
-// Message that the client sends when requesting to initialize a specific 5G UE
-message Init5GUEMsg {
+// Message that the client sends when requesting to initialize a specific 5G DU and UE
+message Init5GDUUEMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;
 }
 
-// Message that the client sends when requesting to initialize the 5G UEs
-message Init5GUEsMsg {
+// Message that the client sends when requesting to initialize the 5G DUs and UEs
+message Init5GDUUEsMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }
@@ -2453,78 +2453,78 @@ message Get5GUELogsMsg {
 }
 
 // Message that the client sends when requesting to start the 5G core monitor threads of a specific execution
-message StartCoreMonitorThreadsMsg {
+message Start5GCoreMonitorThreadsMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }
 
 // Message that the client sends when requesting to start the 5G core monitor threads of a specific execution and container
-message StartCoreMonitorThreadMsg {
+message Start5GCoreMonitorThreadMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;
 }
 
 // Message that the client sends when requesting to start the 5G core monitor threads of a specific execution
-message StopCoreMonitorThreadsMsg {
+message Stop5GCoreMonitorThreadsMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }
 
 // Message that the client sends when requesting to stop the 5G core monitor thread of a specific execution and container
-message StopCoreMonitorThreadMsg {
+message Stop5GCoreMonitorThreadMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;
 }
 
 // Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution
-message StartCUMonitorThreadsMsg {
+message Start5GCUMonitorThreadsMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }
 
 // Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution and container
-message StartCUMonitorThreadMsg {
+message Start5GCUMonitorThreadMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;
 }
 
 // Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution
-message StopCUMonitorThreadsMsg {
+message Stop5GCUMonitorThreadsMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }
 
 // Message that the client sends when requesting to stop the 5G CU monitor thread of a specific execution and container
-message StopCUMonitorThreadMsg {
+message Stop5GCUMonitorThreadMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;
 }
 
 // Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution
-message StartDUMonitorThreadsMsg {
+message Start5GDUMonitorThreadsMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }
 
 // Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution and container
-message StartDUMonitorThreadMsg {
+message Start5GDUMonitorThreadMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;
 }
 
 // Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution
-message StopDUMonitorThreadsMsg {
+message Stop5GDUMonitorThreadsMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
 }
 
 // Message that the client sends when requesting to stop the 5G DU monitor thread of a specific execution and container
-message StopDUMonitorThreadMsg {
+message Stop5GDUMonitorThreadMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;

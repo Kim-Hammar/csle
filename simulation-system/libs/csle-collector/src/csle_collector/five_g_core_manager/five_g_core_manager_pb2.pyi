@@ -139,20 +139,20 @@ class InitFiveGCoreMsg(google.protobuf.message.Message):
     SUBSCRIBERS_FIELD_NUMBER: builtins.int
     core_backhaul_ip: builtins.str
     @property
-    def subscribers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SubscriberDTO]: ...
+    def subscribers(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGSubscriberDTO]: ...
     def __init__(
         self,
         *,
         core_backhaul_ip: builtins.str = ...,
-        subscribers: collections.abc.Iterable[global___SubscriberDTO] | None = ...,
+        subscribers: collections.abc.Iterable[global___FiveGSubscriberDTO] | None = ...,
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["core_backhaul_ip", b"core_backhaul_ip", "subscribers", b"subscribers"]) -> None: ...
 
 global___InitFiveGCoreMsg = InitFiveGCoreMsg
 
 @typing_extensions.final
-class SubscriberDTO(google.protobuf.message.Message):
-    """DTO with subscriber data"""
+class FiveGSubscriberDTO(google.protobuf.message.Message):
+    """DTO with 5G subscriber data"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -177,11 +177,11 @@ class SubscriberDTO(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["amf", b"amf", "imsi", b"imsi", "key", b"key", "opc", b"opc", "sqn", b"sqn"]) -> None: ...
 
-global___SubscriberDTO = SubscriberDTO
+global___FiveGSubscriberDTO = FiveGSubscriberDTO
 
 @typing_extensions.final
-class StartCoreMonitorMsg(google.protobuf.message.Message):
-    """Message that the client sends to start the CoreMonitor"""
+class StartFiveGCoreMonitorMsg(google.protobuf.message.Message):
+    """Message that the client sends to start the 5G CoreMonitor"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -200,11 +200,11 @@ class StartCoreMonitorMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["kafka_ip", b"kafka_ip", "kafka_port", b"kafka_port", "time_step_len_seconds", b"time_step_len_seconds"]) -> None: ...
 
-global___StartCoreMonitorMsg = StartCoreMonitorMsg
+global___StartFiveGCoreMonitorMsg = StartFiveGCoreMonitorMsg
 
 @typing_extensions.final
-class StopCoreMonitorMsg(google.protobuf.message.Message):
-    """Message that the client sends to stop the CoreMonitor"""
+class StopFiveGCoreMonitorMsg(google.protobuf.message.Message):
+    """Message that the client sends to stop the 5G CoreMonitor"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -212,4 +212,4 @@ class StopCoreMonitorMsg(google.protobuf.message.Message):
         self,
     ) -> None: ...
 
-global___StopCoreMonitorMsg = StopCoreMonitorMsg
+global___StopFiveGCoreMonitorMsg = StopFiveGCoreMonitorMsg

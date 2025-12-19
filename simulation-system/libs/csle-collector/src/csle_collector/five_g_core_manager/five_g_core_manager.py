@@ -8,7 +8,7 @@ import csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc
 import csle_collector.five_g_core_manager.five_g_core_manager_pb2
 import csle_collector.constants.constants as constants
 from csle_collector.five_g_core_manager.five_g_core_manager_util import FiveGCoreManagerUtil
-from csle_collector.five_g_core_manager.threads.core_monitor_thread import CoreMonitorThread
+from csle_collector.five_g_core_manager.threads.five_g_core_monitor_thread import FiveGCoreMonitorThread
 
 
 class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.
@@ -30,7 +30,7 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
             self.ip = socket.gethostbyname(self.hostname)
         self.conf = {constants.KAFKA.BOOTSTRAP_SERVERS_PROPERTY: f"{self.ip}:{constants.KAFKA.PORT}",
                      constants.KAFKA.CLIENT_ID_PROPERTY: self.hostname}
-        self.core_monitor_thread: Union[None, CoreMonitorThread] = None
+        self.core_monitor_thread: Union[None, FiveGCoreMonitorThread] = None
         logging.info(f"Starting the 5G Core manager hostname: {self.hostname} ip: {self.ip}")
 
     def getFiveGCoreStatus(
@@ -185,26 +185,27 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
             ip=self.ip, monitor_running=self._is_monitor_running()
         )
 
-    def startCoreMonitor(self, request: csle_collector.five_g_core_manager.five_g_core_manager_pb2.StartCoreMonitorMsg,
-                         context: grpc.ServicerContext) \
+    def startFiveGCoreMonitor(
+            self, request: csle_collector.five_g_core_manager.five_g_core_manager_pb2.StartFiveGCoreMonitorMsg,
+            context: grpc.ServicerContext) \
             -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
         """
-        Starts the Core monitor thread
+        Starts the 5G Core monitor thread
 
         :param request: the gRPC request
         :param context: the gRPC context
         :return: a DTO with the status of the Core monitor thread
         """
-        logging.info(f"Starting the CoreMonitor thread, timestep length: {request.time_step_len_seconds}, "
+        logging.info(f"Starting the 5G CoreMonitor thread, timestep length: {request.time_step_len_seconds}, "
                      f"kafka ip: {request.kafka_ip}, "
                      f"kafka port: {request.kafka_port}")
         if self.core_monitor_thread is not None:
             self.core_monitor_thread.running = False
-        self.core_monitor_thread = CoreMonitorThread(kafka_ip=request.kafka_ip, kafka_port=request.kafka_port,
-                                                     ip=self.ip, hostname=self.hostname,
-                                                     time_step_len_seconds=request.time_step_len_seconds)
+        self.core_monitor_thread = FiveGCoreMonitorThread(kafka_ip=request.kafka_ip, kafka_port=request.kafka_port,
+                                                          ip=self.ip, hostname=self.hostname,
+                                                          time_step_len_seconds=request.time_step_len_seconds)
         self.core_monitor_thread.start()
-        logging.info("Started the CoreMonitor thread")
+        logging.info("Started the 5G CoreMonitor thread")
 
         status = FiveGCoreManagerUtil.get_core_status(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
@@ -231,8 +232,9 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
             ip=self.ip, monitor_running=self._is_monitor_running()
         )
 
-    def stopCoreMonitor(self, request: csle_collector.five_g_core_manager.five_g_core_manager_pb2.StopCoreMonitorMsg,
-                        context: grpc.ServicerContext) \
+    def stopFiveGCoreMonitor(
+            self, request: csle_collector.five_g_core_manager.five_g_core_manager_pb2.StopFiveGCoreMonitorMsg,
+            context: grpc.ServicerContext) \
             -> csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO:
         """
         Stops the Core monitor thread if it is running
@@ -241,10 +243,10 @@ class FiveGCoreManagerServicer(csle_collector.five_g_core_manager.five_g_core_ma
         :param context: the gRPC context
         :return: a DTO with the status of the Core monitor thread
         """
-        logging.info("Stopping the core monitor")
+        logging.info("Stopping the 5G core monitor")
         if self.core_monitor_thread is not None:
             self.core_monitor_thread.running = False
-        logging.info("Core monitor stopped")
+        logging.info("5G Core monitor stopped")
         status = FiveGCoreManagerUtil.get_core_status(
             control_script_path=constants.FIVE_G_CORE.CONTROL_SCRIPT_PATH)
         return csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO(

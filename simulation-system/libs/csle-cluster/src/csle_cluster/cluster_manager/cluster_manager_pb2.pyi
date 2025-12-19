@@ -6878,8 +6878,8 @@ class Start5GUEsMsg(google.protobuf.message.Message):
 global___Start5GUEsMsg = Start5GUEsMsg
 
 @typing_extensions.final
-class Init5GUEMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to initialize a specific 5G UE"""
+class Init5GDUUEMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize a specific 5G DU and UE"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6898,11 +6898,11 @@ class Init5GUEMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___Init5GUEMsg = Init5GUEMsg
+global___Init5GDUUEMsg = Init5GDUUEMsg
 
 @typing_extensions.final
-class Init5GUEsMsg(google.protobuf.message.Message):
-    """Message that the client sends when requesting to initialize the 5G UEs"""
+class Init5GDUUEsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize the 5G DUs and UEs"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -6918,7 +6918,7 @@ class Init5GUEsMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___Init5GUEsMsg = Init5GUEsMsg
+global___Init5GDUUEsMsg = Init5GDUUEsMsg
 
 @typing_extensions.final
 class Get5GCoreManagersInfoMsg(google.protobuf.message.Message):
@@ -7376,7 +7376,7 @@ class Get5GUELogsMsg(google.protobuf.message.Message):
 global___Get5GUELogsMsg = Get5GUELogsMsg
 
 @typing_extensions.final
-class StartCoreMonitorThreadsMsg(google.protobuf.message.Message):
+class Start5GCoreMonitorThreadsMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start the 5G core monitor threads of a specific execution"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7393,10 +7393,10 @@ class StartCoreMonitorThreadsMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StartCoreMonitorThreadsMsg = StartCoreMonitorThreadsMsg
+global___Start5GCoreMonitorThreadsMsg = Start5GCoreMonitorThreadsMsg
 
 @typing_extensions.final
-class StartCoreMonitorThreadMsg(google.protobuf.message.Message):
+class Start5GCoreMonitorThreadMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start the 5G core monitor threads of a specific execution and container"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7416,10 +7416,10 @@ class StartCoreMonitorThreadMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StartCoreMonitorThreadMsg = StartCoreMonitorThreadMsg
+global___Start5GCoreMonitorThreadMsg = Start5GCoreMonitorThreadMsg
 
 @typing_extensions.final
-class StopCoreMonitorThreadsMsg(google.protobuf.message.Message):
+class Stop5GCoreMonitorThreadsMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start the 5G core monitor threads of a specific execution"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7436,10 +7436,10 @@ class StopCoreMonitorThreadsMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StopCoreMonitorThreadsMsg = StopCoreMonitorThreadsMsg
+global___Stop5GCoreMonitorThreadsMsg = Stop5GCoreMonitorThreadsMsg
 
 @typing_extensions.final
-class StopCoreMonitorThreadMsg(google.protobuf.message.Message):
+class Stop5GCoreMonitorThreadMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to stop the 5G core monitor thread of a specific execution and container"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7459,10 +7459,10 @@ class StopCoreMonitorThreadMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StopCoreMonitorThreadMsg = StopCoreMonitorThreadMsg
+global___Stop5GCoreMonitorThreadMsg = Stop5GCoreMonitorThreadMsg
 
 @typing_extensions.final
-class StartCUMonitorThreadsMsg(google.protobuf.message.Message):
+class Start5GCUMonitorThreadsMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7479,10 +7479,10 @@ class StartCUMonitorThreadsMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StartCUMonitorThreadsMsg = StartCUMonitorThreadsMsg
+global___Start5GCUMonitorThreadsMsg = Start5GCUMonitorThreadsMsg
 
 @typing_extensions.final
-class StartCUMonitorThreadMsg(google.protobuf.message.Message):
+class Start5GCUMonitorThreadMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution and container"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7502,10 +7502,10 @@ class StartCUMonitorThreadMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StartCUMonitorThreadMsg = StartCUMonitorThreadMsg
+global___Start5GCUMonitorThreadMsg = Start5GCUMonitorThreadMsg
 
 @typing_extensions.final
-class StopCUMonitorThreadsMsg(google.protobuf.message.Message):
+class Stop5GCUMonitorThreadsMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7522,10 +7522,10 @@ class StopCUMonitorThreadsMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StopCUMonitorThreadsMsg = StopCUMonitorThreadsMsg
+global___Stop5GCUMonitorThreadsMsg = Stop5GCUMonitorThreadsMsg
 
 @typing_extensions.final
-class StopCUMonitorThreadMsg(google.protobuf.message.Message):
+class Stop5GCUMonitorThreadMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to stop the 5G CU monitor thread of a specific execution and container"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7545,10 +7545,10 @@ class StopCUMonitorThreadMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StopCUMonitorThreadMsg = StopCUMonitorThreadMsg
+global___Stop5GCUMonitorThreadMsg = Stop5GCUMonitorThreadMsg
 
 @typing_extensions.final
-class StartDUMonitorThreadsMsg(google.protobuf.message.Message):
+class Start5GDUMonitorThreadsMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7565,10 +7565,10 @@ class StartDUMonitorThreadsMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StartDUMonitorThreadsMsg = StartDUMonitorThreadsMsg
+global___Start5GDUMonitorThreadsMsg = Start5GDUMonitorThreadsMsg
 
 @typing_extensions.final
-class StartDUMonitorThreadMsg(google.protobuf.message.Message):
+class Start5GDUMonitorThreadMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution and container"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7588,10 +7588,10 @@ class StartDUMonitorThreadMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StartDUMonitorThreadMsg = StartDUMonitorThreadMsg
+global___Start5GDUMonitorThreadMsg = Start5GDUMonitorThreadMsg
 
 @typing_extensions.final
-class StopDUMonitorThreadsMsg(google.protobuf.message.Message):
+class Stop5GDUMonitorThreadsMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7608,10 +7608,10 @@ class StopDUMonitorThreadsMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StopDUMonitorThreadsMsg = StopDUMonitorThreadsMsg
+global___Stop5GDUMonitorThreadsMsg = Stop5GDUMonitorThreadsMsg
 
 @typing_extensions.final
-class StopDUMonitorThreadMsg(google.protobuf.message.Message):
+class Stop5GDUMonitorThreadMsg(google.protobuf.message.Message):
     """Message that the client sends when requesting to stop the 5G DU monitor thread of a specific execution and container"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
@@ -7631,4 +7631,4 @@ class StopDUMonitorThreadMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
 
-global___StopDUMonitorThreadMsg = StopDUMonitorThreadMsg
+global___Stop5GDUMonitorThreadMsg = Stop5GDUMonitorThreadMsg

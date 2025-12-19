@@ -5249,13 +5249,13 @@ def start_five_g_ues(
     return operation_outcome_dto
 
 
-def init_five_g_ue(
+def init_five_g_du_ue(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int, container_ip: str,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Initializes the 5G UE on a specific node
+    Initializes the 5G DU and UE on a specific node
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5264,21 +5264,21 @@ def init_five_g_ue(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Init5GUEMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Init5GDUUEMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.init5GUE(operation_msg, timeout=timeout)
+        stub.init5GDUUE(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def init_five_g_ues(
+def init_five_g_dus_ues(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Initializes the 5G UEs of a given execution
+    Initializes the 5G DUs and UEs of a given execution
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5286,11 +5286,11 @@ def init_five_g_ues(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: an OperationOutcomeDTO with the outcome of the operation
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Init5GUEsMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Init5GDUUEsMsg(
         emulation=emulation, ipFirstOctet=ip_first_octet
     )
     operation_outcome_dto: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.init5GUEs(operation_msg, timeout=timeout)
+        stub.init5GDUUEs(operation_msg, timeout=timeout)
     return operation_outcome_dto
 
 
@@ -5521,13 +5521,13 @@ def get_five_g_ue_logs(
     return logs
 
 
-def start_core_monitor_threads(
+def start_five_g_core_monitor_threads(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Starts the core monitor threads of a given execution
+    Starts the 5G core monitor threads of a given execution
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5535,21 +5535,21 @@ def start_core_monitor_threads(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartCoreMonitorThreadsMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCoreMonitorThreadsMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.startCoreMonitorThreads(operation_msg, timeout=timeout)
+        stub.start5GCoreMonitorThreads(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def start_core_monitor_thread(
+def start_five_g_core_monitor_thread(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int, container_ip: str,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Starts a specific core monitor thread
+    Starts a specific 5G core monitor thread
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5558,21 +5558,21 @@ def start_core_monitor_thread(
     :param container_ip: the ip of the container
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartCoreMonitorThreadMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCoreMonitorThreadMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.startCoreMonitorThread(operation_msg, timeout=timeout)
+        stub.start5GCoreMonitorThread(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def stop_core_monitor_threads(
+def stop_five_g_core_monitor_threads(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Stops the core monitor threads of a given execution
+    Stops the 5G core monitor threads of a given execution
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5580,21 +5580,21 @@ def stop_core_monitor_threads(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopCoreMonitorThreadsMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCoreMonitorThreadsMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.stopCoreMonitorThreads(operation_msg, timeout=timeout)
+        stub.stop5GCoreMonitorThreads(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def stop_core_monitor_thread(
+def stop_five_g_core_monitor_thread(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int, container_ip: str,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Stops a specific core monitor thread
+    Stops a specific 5G core monitor thread
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5603,21 +5603,21 @@ def stop_core_monitor_thread(
     :param container_ip: the ip of the container
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopCoreMonitorThreadMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCoreMonitorThreadMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.stopCoreMonitorThread(operation_msg, timeout=timeout)
+        stub.stop5GCoreMonitorThread(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def start_cu_monitor_threads(
+def start_five_g_cu_monitor_threads(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Starts the CU monitor threads of a given execution
+    Starts the 5G CU monitor threads of a given execution
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5625,21 +5625,21 @@ def start_cu_monitor_threads(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartCUMonitorThreadsMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCUMonitorThreadsMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.startCUMonitorThreads(operation_msg, timeout=timeout)
+        stub.start5GCUMonitorThreads(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def start_cu_monitor_thread(
+def start_five_g_cu_monitor_thread(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int, container_ip: str,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Starts a specific CU monitor thread
+    Starts a specific 5G CU monitor thread
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5648,21 +5648,21 @@ def start_cu_monitor_thread(
     :param container_ip: the ip of the container
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartCUMonitorThreadMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Start5GCUMonitorThreadMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.startCUMonitorThread(operation_msg, timeout=timeout)
+        stub.start5GCUMonitorThread(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def stop_cu_monitor_threads(
+def stop_five_g_cu_monitor_threads(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Stops the CU monitor threads of a given execution
+    Stops the 5G CU monitor threads of a given execution
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5670,21 +5670,21 @@ def stop_cu_monitor_threads(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopCUMonitorThreadsMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCUMonitorThreadsMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.stopCUMonitorThreads(operation_msg, timeout=timeout)
+        stub.stop5GCUMonitorThreads(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def stop_cu_monitor_thread(
+def stop_five_g_cu_monitor_thread(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int, container_ip: str,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Stops a specific CU monitor thread
+    Stops a specific 5G CU monitor thread
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5693,21 +5693,21 @@ def stop_cu_monitor_thread(
     :param container_ip: the ip of the container
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopCUMonitorThreadMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GCUMonitorThreadMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.stopCUMonitorThread(operation_msg, timeout=timeout)
+        stub.stop5GCUMonitorThread(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def start_du_monitor_threads(
+def start_five_g_du_monitor_threads(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Starts the DU monitor threads of a given execution
+    Starts the 5G DU monitor threads of a given execution
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5715,21 +5715,21 @@ def start_du_monitor_threads(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartDUMonitorThreadsMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Start5GDUMonitorThreadsMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.startDUMonitorThreads(operation_msg, timeout=timeout)
+        stub.start5GDUMonitorThreads(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def start_du_monitor_thread(
+def start_five_g_du_monitor_thread(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int, container_ip: str,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Starts a specific Du monitor thread
+    Starts a specific 5G DU monitor thread
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5738,21 +5738,21 @@ def start_du_monitor_thread(
     :param container_ip: the ip of the container
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StartDUMonitorThreadMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Start5GDUMonitorThreadMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.startDUMonitorThread(operation_msg, timeout=timeout)
+        stub.start5GDUMonitorThread(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def stop_du_monitor_threads(
+def stop_five_g_du_monitor_threads(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Stops the DU monitor threads of a given execution
+    Stops the 5G DU monitor threads of a given execution
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5760,21 +5760,21 @@ def stop_du_monitor_threads(
     :param ip_first_octet: the first octet of the subnet of the execution
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopDUMonitorThreadsMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GDUMonitorThreadsMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.stopDUMonitorThreads(operation_msg, timeout=timeout)
+        stub.stop5GDUMonitorThreads(operation_msg, timeout=timeout)
     return operation_outcome
 
 
-def stop_du_monitor_thread(
+def stop_five_g_du_monitor_thread(
         stub: csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub,
         emulation: str, ip_first_octet: int, container_ip: str,
         timeout=constants.GRPC.OPERATION_TIMEOUT_SECONDS) \
         -> csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO:
     """
-    Stops a specific DU monitor thread
+    Stops a specific 5G DU monitor thread
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
@@ -5783,9 +5783,9 @@ def stop_du_monitor_thread(
     :param container_ip: the ip of the container
     :return: the operation outcome
     """
-    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.StopDUMonitorThreadMsg(
+    operation_msg = csle_cluster.cluster_manager.cluster_manager_pb2.Stop5GDUMonitorThreadMsg(
         ipFirstOctet=ip_first_octet, emulation=emulation, containerIp=container_ip
     )
     operation_outcome: csle_cluster.cluster_manager.cluster_manager_pb2.OperationOutcomeDTO = \
-        stub.stopDUMonitorThread(operation_msg, timeout=timeout)
+        stub.stop5GDUMonitorThread(operation_msg, timeout=timeout)
     return operation_outcome

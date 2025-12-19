@@ -4,27 +4,22 @@ import datetime
 from csle_base.json_serializable import JSONSerializable
 
 
-class AppResourceUsageMetrics(JSONSerializable):
+class FiveGCUBufferPoolMetrics(JSONSerializable):
     """
-    DTO class containing srsRAN DU Application Resource Usage metrics.
-    Captures system-level performance indicators for the application process.
+    DTO class containing srsRAN CU (Central Unit) Buffer Pool metrics
     """
 
-    def __init__(self, cpu_usage_percent: float = 0.0, memory_usage_mb: float = 0.0,
-                 power_consumption_watts: float = 0.0, ip: Union[None, str] = None,
+    def __init__(self, central_cache_size: int = 0, ip: Union[None, str] = None,
                  ts: Union[float, None] = None) -> None:
         """
         Initializes the DTO
 
-        :param cpu_usage_percent: CPU usage percentage (can exceed 100% on multi-core)
-        :param memory_usage_mb: Resident memory usage in Megabytes
-        :param power_consumption_watts: Estimated power consumption in Watts
-        :param ip: The IP of the DU
+        :param central_cache_size: The current size (in bytes/entries) of the central memory pool used for
+                                   zero-copy buffer allocation across layers
+        :param ip: The IP of the CU
         :param ts: The timestamp the metrics were measured
         """
-        self.cpu_usage_percent = cpu_usage_percent
-        self.memory_usage_mb = memory_usage_mb
-        self.power_consumption_watts = power_consumption_watts
+        self.central_cache_size = central_cache_size
         self.ip = ip
         self.ts = ts
 
@@ -36,12 +31,11 @@ class AppResourceUsageMetrics(JSONSerializable):
         :return: a comma separated string representing the kafka record
         """
         ts = self.ts if self.ts else time.time()
-        record_str = (f"{ts},{ip},{self.cpu_usage_percent},"
-                      f"{self.memory_usage_mb},{self.power_consumption_watts}")
+        record_str = (f"{ts},{ip},{self.central_cache_size}")
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "AppResourceUsageMetrics":
+    def from_kafka_record(record: str) -> "FiveGCUBufferPoolMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -49,12 +43,10 @@ class AppResourceUsageMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = AppResourceUsageMetrics(
+        obj = FiveGCUBufferPoolMetrics(
             ts=float(parts[0]),
             ip=parts[1],
-            cpu_usage_percent=float(parts[2]),
-            memory_usage_mb=float(parts[3]),
-            power_consumption_watts=float(parts[4])
+            central_cache_size=int(parts[2])
         )
         return obj
 
@@ -70,20 +62,17 @@ class AppResourceUsageMetrics(JSONSerializable):
         if parts[1] == ip:
             self.ts = float(parts[0])
             self.ip = parts[1]
-            self.cpu_usage_percent = float(parts[2])
-            self.memory_usage_mb = float(parts[3])
-            self.power_consumption_watts = float(parts[4])
+            self.central_cache_size = int(parts[2])
 
     def __str__(self) -> str:
         """
         :return: a string representation of the object
         """
         return (f"ts: {self.ts}, ip: {self.ip}, "
-                f"cpu: {self.cpu_usage_percent}%, mem: {self.memory_usage_mb}MB, "
-                f"power: {self.power_consumption_watts}W")
+                f"central_cache_size: {self.central_cache_size}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "AppResourceUsageMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGCUBufferPoolMetrics":
         """
         Converts a dict representation to an instance.
         Expects the flat dictionary format produced by to_dict().
@@ -91,23 +80,21 @@ class AppResourceUsageMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = AppResourceUsageMetrics(
-            cpu_usage_percent=d.get("cpu_usage_percent", 0.0),
-            memory_usage_mb=d.get("memory_usage_mb", 0.0),
-            power_consumption_watts=d.get("power_consumption_watts", 0.0),
+        obj = FiveGCUBufferPoolMetrics(
+            central_cache_size=d.get("central_cache_size", 0),
             ip=d.get("ip"),
             ts=d.get("ts")
         )
         return obj
 
     @staticmethod
-    def from_ws_dict(d: Dict[str, Any], ip: str) -> "AppResourceUsageMetrics":
+    def from_ws_dict(d: Dict[str, Any], ip: str) -> "FiveGCUBufferPoolMetrics":
         """
         Converts the raw dictionary from the WebSocket JSON stream to an instance.
-        Handles the nested "app_resource_usage" structure.
+        Handles the nested "buffer_pool" structure.
 
         :param d: the raw dictionary from srsRAN WebSocket
-        :param ip: the IP of the source DU
+        :param ip: the IP of the source CU
         :return: the created instance
         """
         ts = time.time()
@@ -119,15 +106,13 @@ class AppResourceUsageMetrics(JSONSerializable):
                 pass
 
         data = {}
-        if "app_resource_usage" in d:
-            data = d["app_resource_usage"]
+        if "buffer_pool" in d:
+            data = d["buffer_pool"]
         else:
             data = d
 
-        obj = AppResourceUsageMetrics(
-            cpu_usage_percent=data.get("cpu_usage_percent", 0.0),
-            memory_usage_mb=data.get("memory_usage_mb", 0.0),
-            power_consumption_watts=data.get("power_consumption_watts", 0.0),
+        obj = FiveGCUBufferPoolMetrics(
+            central_cache_size=data.get("central_cache_size", 0),
             ip=ip,
             ts=ts
         )
@@ -140,19 +125,15 @@ class AppResourceUsageMetrics(JSONSerializable):
         d: Dict[str, Any] = {}
         d["ts"] = self.ts
         d["ip"] = self.ip
-        d["cpu_usage_percent"] = self.cpu_usage_percent
-        d["memory_usage_mb"] = self.memory_usage_mb
-        d["power_consumption_watts"] = self.power_consumption_watts
+        d["central_cache_size"] = self.central_cache_size
         return d
 
-    def copy(self) -> "AppResourceUsageMetrics":
+    def copy(self) -> "FiveGCUBufferPoolMetrics":
         """
         :return: a copy of the object
         """
-        c = AppResourceUsageMetrics(
-            cpu_usage_percent=self.cpu_usage_percent,
-            memory_usage_mb=self.memory_usage_mb,
-            power_consumption_watts=self.power_consumption_watts,
+        c = FiveGCUBufferPoolMetrics(
+            central_cache_size=self.central_cache_size,
             ip=self.ip, ts=self.ts
         )
         return c
@@ -161,17 +142,17 @@ class AppResourceUsageMetrics(JSONSerializable):
         """
         :return: The number of attributes of the DTO
         """
-        return 5
+        return 3
 
     @staticmethod
-    def schema() -> "AppResourceUsageMetrics":
+    def schema() -> "FiveGCUBufferPoolMetrics":
         """
         :return: get the schema of the DTO
         """
-        return AppResourceUsageMetrics()
+        return FiveGCUBufferPoolMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "AppResourceUsageMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGCUBufferPoolMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -182,4 +163,4 @@ class AppResourceUsageMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return AppResourceUsageMetrics.from_dict(json.loads(json_str))
+        return FiveGCUBufferPoolMetrics.from_dict(json.loads(json_str))

@@ -6,12 +6,12 @@ import websocket
 from typing import Optional, Dict, Any
 from confluent_kafka import Producer
 import csle_collector.constants.constants as constants
-from csle_collector.five_g_cu_manager.dao.cu_cp_metrics import CUCPMetrics
-from csle_collector.five_g_cu_manager.dao.cu_app_resource_usage_metrics import CUAppResourceUsageMetrics
-from csle_collector.five_g_cu_manager.dao.cu_buffer_pool_metrics import CUBufferPoolMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics import FiveGCUCPMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_app_resource_usage_metrics import FiveGCUAppResourceUsageMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_buffer_pool_metrics import FiveGCUBufferPoolMetrics
 
 
-class CUMonitorThread(threading.Thread):
+class FiveGCUMonitorThread(threading.Thread):
     """
     Thread that collects the 5G CU (Central Unit) statistics via WebSockets and pushes them to Kafka
     periodically.
@@ -48,7 +48,8 @@ class CUMonitorThread(threading.Thread):
         self.buffer_lock = threading.Lock()
 
         logging.info(
-            f"CU Monitor thread initialized. Target: {self.ip}:{self.cu_port}, Interval: {self.time_step_len_seconds}s")
+            f"5G CU Monitor thread initialized. Target: {self.ip}:{self.cu_port}, "
+            f"Interval: {self.time_step_len_seconds}s")
 
     def _on_open(self, ws) -> None:
         """
@@ -57,7 +58,7 @@ class CUMonitorThread(threading.Thread):
         :param ws: the websocket connection
         :return: None
         """
-        logging.info(f"[CU Monitor] Connected to {self.ip}.")
+        logging.info(f"[5G CU Monitor] Connected to {self.ip}.")
         ws.send(json.dumps({"cmd": "metrics_subscribe"}))
 
     def _on_message(self, ws, message):
@@ -74,22 +75,22 @@ class CUMonitorThread(threading.Thread):
             dto = None
             key = None
             if "cu-cp" in data:
-                dto = CUCPMetrics.from_ws_dict(data, ip=self.ip)
+                dto = FiveGCUCPMetrics.from_ws_dict(data, ip=self.ip)
                 key = "cu_cp"
             elif "app_resource_usage" in data:
-                dto = CUAppResourceUsageMetrics.from_ws_dict(data, ip=self.ip)
+                dto = FiveGCUAppResourceUsageMetrics.from_ws_dict(data, ip=self.ip)
                 key = "app"
             elif "buffer_pool" in data:
-                dto = CUBufferPoolMetrics.from_ws_dict(data, ip=self.ip)
+                dto = FiveGCUBufferPoolMetrics.from_ws_dict(data, ip=self.ip)
                 key = "buffer"
             if dto and key:
                 with self.buffer_lock:
                     self.metrics_buffer[key] = dto
 
         except json.JSONDecodeError:
-            logging.error("[CU Monitor] Received non-JSON message")
+            logging.error("[5G CU Monitor] Received non-JSON message")
         except Exception as e:
-            logging.error(f"[CU Monitor] Error parsing message: {e}")
+            logging.error(f"[5G CU Monitor] Error parsing message: {e}")
 
     def _on_error(self, ws, error) -> None:
         """
@@ -99,7 +100,7 @@ class CUMonitorThread(threading.Thread):
         :param error: the error that occurred
         :return: None
         """
-        logging.error(f"[CU Monitor] WebSocket Error: {error}")
+        logging.error(f"[5G CU Monitor] WebSocket Error: {error}")
 
     def _on_close(self, ws, close_status_code, close_msg) -> None:
         """
@@ -110,7 +111,7 @@ class CUMonitorThread(threading.Thread):
         :param close_msg: the closing msg from the connection
         :return: None
         """
-        logging.warning(f"[CU Monitor] WebSocket Closed: {close_msg}")
+        logging.warning(f"[5G CU Monitor] WebSocket Closed: {close_msg}")
 
     def _run_ws_client(self):
         """
@@ -123,7 +124,7 @@ class CUMonitorThread(threading.Thread):
 
         while self.running:
             try:
-                logging.info(f"[CU Monitor] Connecting WS to {ws_url}...")
+                logging.info(f"[5G CU Monitor] Connecting WS to {ws_url}...")
                 self.ws = websocket.WebSocketApp(
                     ws_url,
                     on_open=self._on_open,
@@ -133,7 +134,7 @@ class CUMonitorThread(threading.Thread):
                 )
                 self.ws.run_forever(ping_interval=30, ping_timeout=10)
             except Exception as e:
-                logging.error(f"[CU Monitor] WS Connection failed: {e}")
+                logging.error(f"[5G CU Monitor] WS Connection failed: {e}")
 
             if self.running:
                 time.sleep(5)  # Wait before reconnecting
@@ -146,7 +147,7 @@ class CUMonitorThread(threading.Thread):
 
         :return: None
         """
-        logging.info("CU Monitor [Running]")
+        logging.info("5G CU Monitor [Running]")
         self.ws_thread = threading.Thread(target=self._run_ws_client, daemon=True)
         self.ws_thread.start()
 
@@ -161,17 +162,18 @@ class CUMonitorThread(threading.Thread):
                     snapshot = self.metrics_buffer.copy()
                 if "cu_cp" in snapshot:
                     record = snapshot["cu_cp"].to_kafka_record(ip=self.ip)
-                    self.producer.produce(constants.KAFKA_CONFIG.CU_CP_METRICS_TOPIC_NAME, record)
+                    self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_CU_CP_METRICS_TOPIC_NAME, record)
                 if "app" in snapshot:
                     record = snapshot["app"].to_kafka_record(ip=self.ip)
-                    self.producer.produce(constants.KAFKA_CONFIG.CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME, record)
+                    self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
+                                          record)
                 if "buffer" in snapshot:
                     record = snapshot["buffer"].to_kafka_record(ip=self.ip)
-                    self.producer.produce(constants.KAFKA_CONFIG.CU_BUFFER_POOL_METRICS_TOPIC_NAME, record)
+                    self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_CU_BUFFER_POOL_METRICS_TOPIC_NAME, record)
                 self.producer.poll(0)
 
             except Exception as e:
-                logging.error(f"[CU Monitor] Error in reporting loop: {e}")
+                logging.error(f"[5G CU Monitor] Error in reporting loop: {e}")
 
     def stop(self) -> None:
         """
@@ -182,4 +184,4 @@ class CUMonitorThread(threading.Thread):
         if self.ws is not None:
             self.ws.close()
         self.producer.flush()
-        logging.info("CU Monitor [Stopped]")
+        logging.info("5G CU Monitor [Stopped]")

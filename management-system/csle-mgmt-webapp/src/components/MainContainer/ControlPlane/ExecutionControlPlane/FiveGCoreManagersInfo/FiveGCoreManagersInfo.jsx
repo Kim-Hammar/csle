@@ -11,7 +11,7 @@ import Open5GSImg from './Open5GS.png'
 import {
   FIVE_G_CORE_MANAGER_SUBRESOURCE, FIVE_G_CORE_SUBRESOURCE,
   START_ALL_PROPERTY,
-  STOP_ALL_PROPERTY, HTTP_PREFIX, CORE_MONITOR_SUBRESOURCE
+  STOP_ALL_PROPERTY, HTTP_PREFIX, FIVE_G_CORE_MONITOR_SUBRESOURCE
 } from '../../../../Common/constants'
 
 /**
@@ -82,16 +82,16 @@ const FiveGCoreManagersInfo = (props) => {
             <span className="aggregateActions">Stop all monitors:</span>
             <SpinnerOrButton
               loading={props.loadingEntities.includes(
-                `${CORE_MONITOR_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
-              running={true} entity={CORE_MONITOR_SUBRESOURCE}
+                `${FIVE_G_CORE_MONITOR_SUBRESOURCE}-${STOP_ALL_PROPERTY}`)}
+              running={true} entity={FIVE_G_CORE_MONITOR_SUBRESOURCE}
               name={STOP_ALL_PROPERTY} ip={STOP_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
             <span className="aggregateActions">Start all monitors:</span>
             <SpinnerOrButton
               loading={props.loadingEntities.includes(
-                `${CORE_MONITOR_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
-              running={false} entity={CORE_MONITOR_SUBRESOURCE}
+                `${FIVE_G_CORE_MONITOR_SUBRESOURCE}-${START_ALL_PROPERTY}`)}
+              running={false} entity={FIVE_G_CORE_MONITOR_SUBRESOURCE}
               name={START_ALL_PROPERTY} ip={START_ALL_PROPERTY}
               startOrStop={props.startOrStop}
             />
@@ -186,7 +186,7 @@ const FiveGCoreManagersInfo = (props) => {
               )}
 
               {props.fiveGCoreManagersInfo.five_g_core_managers_statuses.map((status, index) =>
-                <tr key={`${CORE_MONITOR_SUBRESOURCE}-${index}`}>
+                <tr key={`${FIVE_G_CORE_MONITOR_SUBRESOURCE}-${index}`}>
                   <td>Core monitor thread</td>
                   <td>{props.fiveGCoreManagersInfo.ips[index]}</td>
                   <td></td>
@@ -194,16 +194,16 @@ const FiveGCoreManagersInfo = (props) => {
                   <td>
                     <SpinnerOrButton
                       loading={props.loadingEntities.includes(
-                        `${CORE_MONITOR_SUBRESOURCE}-`
+                        `${FIVE_G_CORE_MONITOR_SUBRESOURCE}-`
                         + `${props.fiveGCoreManagersInfo.ips[index]}`)}
                       running={status.monitor_running}
-                      entity={CORE_MONITOR_SUBRESOURCE}
-                      name={CORE_MONITOR_SUBRESOURCE}
+                      entity={FIVE_G_CORE_MONITOR_SUBRESOURCE}
+                      name={FIVE_G_CORE_MONITOR_SUBRESOURCE}
                       ip={props.fiveGCoreManagersInfo.ips[index]}
                       startOrStop={props.startOrStop}
                     />
                     <LogsButton name={props.fiveGCoreManagersInfo.ips[index]}
-                                entity={CORE_MONITOR_SUBRESOURCE}
+                                entity={FIVE_G_CORE_MONITOR_SUBRESOURCE}
                                 getLogs={props.getLogs}
                     />
                   </td>

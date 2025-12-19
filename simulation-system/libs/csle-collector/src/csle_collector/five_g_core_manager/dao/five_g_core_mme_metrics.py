@@ -3,7 +3,7 @@ import time
 from csle_base.json_serializable import JSONSerializable
 
 
-class MMEMetrics(JSONSerializable):
+class FiveGCoreMMEMetrics(JSONSerializable):
     """
     DTO class containing 5G Core MME metrics
     """
@@ -57,7 +57,7 @@ class MMEMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "MMEMetrics":
+    def from_kafka_record(record: str) -> "FiveGCoreMMEMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -65,17 +65,17 @@ class MMEMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = MMEMetrics(ip=parts[1], ts=float(parts[0]),
-                         enb_ue=int(parts[2]),
-                         mme_session=int(parts[3]),
-                         enb=int(parts[4]),
-                         process_max_fds=int(parts[5]),
-                         process_virtual_memory_max_bytes=int(parts[6]),
-                         process_cpu_seconds_total=int(parts[7]),
-                         process_virtual_memory_bytes=int(parts[8]),
-                         process_resident_memory_bytes=int(parts[9]),
-                         process_start_time_seconds=int(parts[10]),
-                         process_open_fds=int(parts[11]))
+        obj = FiveGCoreMMEMetrics(ip=parts[1], ts=float(parts[0]),
+                                  enb_ue=int(parts[2]),
+                                  mme_session=int(parts[3]),
+                                  enb=int(parts[4]),
+                                  process_max_fds=int(parts[5]),
+                                  process_virtual_memory_max_bytes=int(parts[6]),
+                                  process_cpu_seconds_total=int(parts[7]),
+                                  process_virtual_memory_bytes=int(parts[8]),
+                                  process_resident_memory_bytes=int(parts[9]),
+                                  process_start_time_seconds=int(parts[10]),
+                                  process_open_fds=int(parts[11]))
         return obj
 
     def update_with_kafka_record(self, record: str, ip: str) -> None:
@@ -118,24 +118,24 @@ class MMEMetrics(JSONSerializable):
                 f"process_open_fds: {self.process_open_fds}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "MMEMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGCoreMMEMetrics":
         """
         Converts a dict representation to an instance
 
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = MMEMetrics(ip=d["ip"], ts=d["ts"],
-                         enb_ue=d["enb_ue"],
-                         mme_session=d["mme_session"],
-                         enb=d["enb"],
-                         process_max_fds=d["process_max_fds"],
-                         process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                         process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                         process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                         process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                         process_start_time_seconds=d["process_start_time_seconds"],
-                         process_open_fds=d["process_open_fds"])
+        obj = FiveGCoreMMEMetrics(ip=d["ip"], ts=d["ts"],
+                                  enb_ue=d["enb_ue"],
+                                  mme_session=d["mme_session"],
+                                  enb=d["enb"],
+                                  process_max_fds=d["process_max_fds"],
+                                  process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
+                                  process_cpu_seconds_total=d["process_cpu_seconds_total"],
+                                  process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
+                                  process_resident_memory_bytes=d["process_resident_memory_bytes"],
+                                  process_start_time_seconds=d["process_start_time_seconds"],
+                                  process_open_fds=d["process_open_fds"])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -157,11 +157,11 @@ class MMEMetrics(JSONSerializable):
         d["process_open_fds"] = self.process_open_fds
         return d
 
-    def copy(self) -> "MMEMetrics":
+    def copy(self) -> "FiveGCoreMMEMetrics":
         """
         :return: a copy of the object
         """
-        c = MMEMetrics(ip=self.ip, ts=self.ts)
+        c = FiveGCoreMMEMetrics(ip=self.ip, ts=self.ts)
         return c
 
     def num_attributes(self) -> int:
@@ -171,14 +171,14 @@ class MMEMetrics(JSONSerializable):
         return 16
 
     @staticmethod
-    def schema() -> "MMEMetrics":
+    def schema() -> "FiveGCoreMMEMetrics":
         """
         :return: get the schema of the DTO
         """
-        return MMEMetrics()
+        return FiveGCoreMMEMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "MMEMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGCoreMMEMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -189,4 +189,4 @@ class MMEMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return MMEMetrics.from_dict(json.loads(json_str))
+        return FiveGCoreMMEMetrics.from_dict(json.loads(json_str))

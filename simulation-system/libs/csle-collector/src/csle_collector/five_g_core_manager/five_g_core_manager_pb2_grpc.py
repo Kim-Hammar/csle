@@ -55,14 +55,14 @@ class FiveGCoreManagerStub(object):
                 request_serializer=five__g__core__manager__pb2.InitFiveGCoreMsg.SerializeToString,
                 response_deserializer=five__g__core__manager__pb2.FiveGCoreStatusDTO.FromString,
                 _registered_method=True)
-        self.startCoreMonitor = channel.unary_unary(
-                '/FiveGCoreManager/startCoreMonitor',
-                request_serializer=five__g__core__manager__pb2.StartCoreMonitorMsg.SerializeToString,
+        self.startFiveGCoreMonitor = channel.unary_unary(
+                '/FiveGCoreManager/startFiveGCoreMonitor',
+                request_serializer=five__g__core__manager__pb2.StartFiveGCoreMonitorMsg.SerializeToString,
                 response_deserializer=five__g__core__manager__pb2.FiveGCoreStatusDTO.FromString,
                 _registered_method=True)
-        self.stopCoreMonitor = channel.unary_unary(
-                '/FiveGCoreManager/stopCoreMonitor',
-                request_serializer=five__g__core__manager__pb2.StopCoreMonitorMsg.SerializeToString,
+        self.stopFiveGCoreMonitor = channel.unary_unary(
+                '/FiveGCoreManager/stopFiveGCoreMonitor',
+                request_serializer=five__g__core__manager__pb2.StopFiveGCoreMonitorMsg.SerializeToString,
                 response_deserializer=five__g__core__manager__pb2.FiveGCoreStatusDTO.FromString,
                 _registered_method=True)
 
@@ -95,13 +95,13 @@ class FiveGCoreManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def startCoreMonitor(self, request, context):
+    def startFiveGCoreMonitor(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def stopCoreMonitor(self, request, context):
+    def stopFiveGCoreMonitor(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -130,14 +130,14 @@ def add_FiveGCoreManagerServicer_to_server(servicer, server):
                     request_deserializer=five__g__core__manager__pb2.InitFiveGCoreMsg.FromString,
                     response_serializer=five__g__core__manager__pb2.FiveGCoreStatusDTO.SerializeToString,
             ),
-            'startCoreMonitor': grpc.unary_unary_rpc_method_handler(
-                    servicer.startCoreMonitor,
-                    request_deserializer=five__g__core__manager__pb2.StartCoreMonitorMsg.FromString,
+            'startFiveGCoreMonitor': grpc.unary_unary_rpc_method_handler(
+                    servicer.startFiveGCoreMonitor,
+                    request_deserializer=five__g__core__manager__pb2.StartFiveGCoreMonitorMsg.FromString,
                     response_serializer=five__g__core__manager__pb2.FiveGCoreStatusDTO.SerializeToString,
             ),
-            'stopCoreMonitor': grpc.unary_unary_rpc_method_handler(
-                    servicer.stopCoreMonitor,
-                    request_deserializer=five__g__core__manager__pb2.StopCoreMonitorMsg.FromString,
+            'stopFiveGCoreMonitor': grpc.unary_unary_rpc_method_handler(
+                    servicer.stopFiveGCoreMonitor,
+                    request_deserializer=five__g__core__manager__pb2.StopFiveGCoreMonitorMsg.FromString,
                     response_serializer=five__g__core__manager__pb2.FiveGCoreStatusDTO.SerializeToString,
             ),
     }
@@ -261,7 +261,7 @@ class FiveGCoreManager(object):
             _registered_method=True)
 
     @staticmethod
-    def startCoreMonitor(request,
+    def startFiveGCoreMonitor(request,
             target,
             options=(),
             channel_credentials=None,
@@ -274,8 +274,8 @@ class FiveGCoreManager(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/FiveGCoreManager/startCoreMonitor',
-            five__g__core__manager__pb2.StartCoreMonitorMsg.SerializeToString,
+            '/FiveGCoreManager/startFiveGCoreMonitor',
+            five__g__core__manager__pb2.StartFiveGCoreMonitorMsg.SerializeToString,
             five__g__core__manager__pb2.FiveGCoreStatusDTO.FromString,
             options,
             channel_credentials,
@@ -288,7 +288,7 @@ class FiveGCoreManager(object):
             _registered_method=True)
 
     @staticmethod
-    def stopCoreMonitor(request,
+    def stopFiveGCoreMonitor(request,
             target,
             options=(),
             channel_credentials=None,
@@ -301,8 +301,8 @@ class FiveGCoreManager(object):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/FiveGCoreManager/stopCoreMonitor',
-            five__g__core__manager__pb2.StopCoreMonitorMsg.SerializeToString,
+            '/FiveGCoreManager/stopFiveGCoreMonitor',
+            five__g__core__manager__pb2.StopFiveGCoreMonitorMsg.SerializeToString,
             five__g__core__manager__pb2.FiveGCoreStatusDTO.FromString,
             options,
             channel_credentials,

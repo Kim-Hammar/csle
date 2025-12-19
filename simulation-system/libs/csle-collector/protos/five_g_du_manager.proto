@@ -7,9 +7,9 @@ service FiveGDUManager {
   rpc startFiveGDU(StartFiveGDUMsg) returns (FiveGDUStatusDTO) {}
   rpc stopFiveGUE(StopFiveGUEMsg) returns (FiveGDUStatusDTO) {}
   rpc startFiveGUE(StartFiveGUEMsg) returns (FiveGDUStatusDTO) {}
-  rpc initFiveGUE(InitFiveGUEMsg) returns (FiveGDUStatusDTO) {}
-  rpc startDUMonitor(StartDUMonitorMsg) returns (FiveGDUStatusDTO) {}
-  rpc stopDUMonitor(StopDUMonitorMsg) returns (FiveGDUStatusDTO) {}
+  rpc initFiveGDUUE(InitFiveGDUUEMsg) returns (FiveGDUStatusDTO) {}
+  rpc startFiveGDUMonitor(StartFiveGDUMonitorMsg) returns (FiveGDUStatusDTO) {}
+  rpc stopFiveGDUMonitor(StopFiveGDUMonitorMsg) returns (FiveGDUStatusDTO) {}
 }
 
 // Message that the client sends to get the status of the 5G DU
@@ -36,17 +36,17 @@ message StartFiveGUEMsg {}
 message StopFiveGUEMsg {}
 
 // Message that the client sends to initialize the 5G DU & UE
-message InitFiveGUEMsg {
+message InitFiveGDUUEMsg {
   string du_fronthaul_ip = 1;
   string cu_fronthaul_ip = 2;
 }
 
-// Message that the client sends to start the DUMonitor
-message StartDUMonitorMsg {
+// Message that the client sends to start the 5G DUMonitor
+message StartFiveGDUMonitorMsg {
   string kafka_ip = 1;
   int32 kafka_port = 2;
   int32 time_step_len_seconds = 3;
 }
 
-// Message that the client sends to stop the DUMonitor
-message StopDUMonitorMsg {}
+// Message that the client sends to stop the 5G DUMonitor
+message StopFiveGDUMonitorMsg {}

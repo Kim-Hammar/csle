@@ -343,7 +343,7 @@ class TestFiveGDUControllerSuite:
         """
         constants.CONTAINER_IMAGES.FIVE_G_DU_IMAGES = \
             [example_emulation_env_config.containers_config.containers[0].name]
-        FiveGDUController.init_five_g_ues(
+        FiveGDUController.init_five_g_dus_ues(
             emulation_env_config=example_emulation_env_config,
             physical_server_ip=example_emulation_env_config.containers_config.containers[0].physical_host_ip,
             logger=self.logger)
@@ -352,9 +352,9 @@ class TestFiveGDUControllerSuite:
             container=example_emulation_env_config.containers_config.containers[0],
             logger=self.logger)
 
-    @patch("csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_ue_du")
+    @patch("csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_du_ue")
     @patch("grpc.insecure_channel")
-    def test_init_five_g_ue(self, mock_insecure_channel, mock_init_five_g_ue_du,
+    def test_init_five_g_ue(self, mock_insecure_channel, mock_init_five_g_du_ue,
                             example_emulation_env_config: EmulationEnvConfig,
                             example_containers_config_five_g: NodeContainerConfig,
                             example_five_g_config_two: FiveGConfig) -> None:
@@ -362,7 +362,7 @@ class TestFiveGDUControllerSuite:
         Test utility function for initializing the 5G UE on a specific IP
 
         :param mock_insecure_channel: mock_insecure_channel
-        :param mock_init_five_g_ue_du: mock_init_five_g_ue
+        :param mock_init_five_g_du_ue: mock_init_five_g_du_ue
         :param example_emulation_env_config: example_emulation_env_config
         :param example_containers_config_five_g: example_containers_config_five_g
         :param example_five_g_config_two: example_five_g_config_two
@@ -391,7 +391,7 @@ class TestFiveGDUControllerSuite:
             logger=self.logger)
         assert result is not None
         mock_insecure_channel.assert_called()
-        mock_init_five_g_ue_du.assert_called()
+        mock_init_five_g_du_ue.assert_called()
 
     @patch("csle_common.controllers.five_g_du_controller.FiveGDUController.get_five_g_du_managers_ips")
     @patch("csle_common.controllers.five_g_du_controller.FiveGDUController.get_five_g_du_managers_ports")

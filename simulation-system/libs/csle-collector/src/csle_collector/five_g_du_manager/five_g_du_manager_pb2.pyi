@@ -101,8 +101,8 @@ class StopFiveGUEMsg(google.protobuf.message.Message):
 global___StopFiveGUEMsg = StopFiveGUEMsg
 
 @typing_extensions.final
-class InitFiveGUEMsg(google.protobuf.message.Message):
-    """Message that the client sends to initialize the 5G UE"""
+class InitFiveGDUUEMsg(google.protobuf.message.Message):
+    """Message that the client sends to initialize the 5G DU & UE"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -118,11 +118,11 @@ class InitFiveGUEMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["cu_fronthaul_ip", b"cu_fronthaul_ip", "du_fronthaul_ip", b"du_fronthaul_ip"]) -> None: ...
 
-global___InitFiveGUEMsg = InitFiveGUEMsg
+global___InitFiveGDUUEMsg = InitFiveGDUUEMsg
 
 @typing_extensions.final
-class StartDUMonitorMsg(google.protobuf.message.Message):
-    """Message that the client sends to start the DUMonitor"""
+class StartFiveGDUMonitorMsg(google.protobuf.message.Message):
+    """Message that the client sends to start the 5G DUMonitor"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -141,11 +141,11 @@ class StartDUMonitorMsg(google.protobuf.message.Message):
     ) -> None: ...
     def ClearField(self, field_name: typing_extensions.Literal["kafka_ip", b"kafka_ip", "kafka_port", b"kafka_port", "time_step_len_seconds", b"time_step_len_seconds"]) -> None: ...
 
-global___StartDUMonitorMsg = StartDUMonitorMsg
+global___StartFiveGDUMonitorMsg = StartFiveGDUMonitorMsg
 
 @typing_extensions.final
-class StopDUMonitorMsg(google.protobuf.message.Message):
-    """Message that the client sends to stop the DUMonitor"""
+class StopFiveGDUMonitorMsg(google.protobuf.message.Message):
+    """Message that the client sends to stop the 5G DUMonitor"""
 
     DESCRIPTOR: google.protobuf.descriptor.Descriptor
 
@@ -153,4 +153,4 @@ class StopDUMonitorMsg(google.protobuf.message.Message):
         self,
     ) -> None: ...
 
-global___StopDUMonitorMsg = StopDUMonitorMsg
+global___StopFiveGDUMonitorMsg = StopFiveGDUMonitorMsg

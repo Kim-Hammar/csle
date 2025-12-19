@@ -4,7 +4,7 @@ import datetime
 from csle_base.json_serializable import JSONSerializable
 
 
-class CellMetrics(JSONSerializable):
+class FiveGDUCellMetrics(JSONSerializable):
     """
     DTO class containing srsRAN DU Cell metrics
     """
@@ -70,7 +70,7 @@ class CellMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "CellMetrics":
+    def from_kafka_record(record: str) -> "FiveGDUCellMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -78,7 +78,7 @@ class CellMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = CellMetrics(
+        obj = FiveGDUCellMetrics(
             ts=float(parts[0]),
             ip=parts[1],
             pci=int(parts[2]),
@@ -134,7 +134,7 @@ class CellMetrics(JSONSerializable):
                 f"ul_brate: {self.ul_brate}, pusch_snr: {self.pusch_snr_db}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "CellMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGDUCellMetrics":
         """
         Converts a dict representation to an instance.
         Expects the flat dictionary format produced by to_dict().
@@ -142,7 +142,7 @@ class CellMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = CellMetrics(
+        obj = FiveGDUCellMetrics(
             pci=d.get("pci", 0),
             average_latency=d.get("average_latency", 0.0),
             max_latency=d.get("max_latency", 0.0),
@@ -163,7 +163,7 @@ class CellMetrics(JSONSerializable):
         return obj
 
     @staticmethod
-    def from_ws_dict(d: Dict[str, Any], ip: str) -> "CellMetrics":
+    def from_ws_dict(d: Dict[str, Any], ip: str) -> "FiveGDUCellMetrics":
         """
         Converts the raw dictionary from the WebSocket JSON stream to an instance.
         Handles the nested "cells" list and aggregates UE metrics.
@@ -228,7 +228,7 @@ class CellMetrics(JSONSerializable):
         if (total_ul_ok + total_ul_nok) > 0:
             ul_bler = total_ul_nok / (total_ul_ok + total_ul_nok)
 
-        obj = CellMetrics(
+        obj = FiveGDUCellMetrics(
             pci=cell_data.get("pci", 0),
             average_latency=cell_data.get("average_latency", 0.0),
             max_latency=cell_data.get("max_latency", 0.0),
@@ -271,11 +271,11 @@ class CellMetrics(JSONSerializable):
         d["ul_bler"] = self.ul_bler
         return d
 
-    def copy(self) -> "CellMetrics":
+    def copy(self) -> "FiveGDUCellMetrics":
         """
         :return: a copy of the object
         """
-        c = CellMetrics(
+        c = FiveGDUCellMetrics(
             pci=self.pci, average_latency=self.average_latency,
             max_latency=self.max_latency,
             pucch_tot_rb_usage_avg=self.pucch_tot_rb_usage_avg,
@@ -294,14 +294,14 @@ class CellMetrics(JSONSerializable):
         return 16
 
     @staticmethod
-    def schema() -> "CellMetrics":
+    def schema() -> "FiveGDUCellMetrics":
         """
         :return: get the schema of the DTO
         """
-        return CellMetrics()
+        return FiveGDUCellMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "CellMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGDUCellMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -312,4 +312,4 @@ class CellMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return CellMetrics.from_dict(json.loads(json_str))
+        return FiveGDUCellMetrics.from_dict(json.loads(json_str))

@@ -3,7 +3,7 @@ import time
 from csle_base.json_serializable import JSONSerializable
 
 
-class PCRFMetrics(JSONSerializable):
+class FiveGCorePCRFMetrics(JSONSerializable):
     """
     DTO class containing 5G Core PCRF metrics (Gx and Rx interfaces)
     """
@@ -93,7 +93,7 @@ class PCRFMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "PCRFMetrics":
+    def from_kafka_record(record: str) -> "FiveGCorePCRFMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -101,22 +101,22 @@ class PCRFMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = PCRFMetrics(ip=parts[1], ts=float(parts[0]),
-                          gx_rx_unknown=int(parts[2]), gx_rx_ccr=int(parts[3]),
-                          gx_rx_ccr_error=int(parts[4]), gx_rx_raa=int(parts[5]),
-                          gx_tx_cca=int(parts[6]), gx_tx_rar=int(parts[7]),
-                          gx_tx_rar_error=int(parts[8]), rx_rx_unknown=int(parts[9]),
-                          rx_rx_aar=int(parts[10]), rx_rx_aar_error=int(parts[11]),
-                          rx_rx_asa=int(parts[12]), rx_rx_asa_error=int(parts[13]),
-                          rx_rx_str_error=int(parts[14]), rx_tx_aaa=int(parts[15]),
-                          rx_tx_sar=int(parts[16]), rx_tx_sta=int(parts[17]),
-                          process_max_fds=int(parts[18]),
-                          process_virtual_memory_max_bytes=int(parts[19]),
-                          process_cpu_seconds_total=int(parts[20]),
-                          process_virtual_memory_bytes=int(parts[21]),
-                          process_resident_memory_bytes=int(parts[22]),
-                          process_start_time_seconds=int(parts[23]),
-                          process_open_fds=int(parts[24]))
+        obj = FiveGCorePCRFMetrics(ip=parts[1], ts=float(parts[0]),
+                                   gx_rx_unknown=int(parts[2]), gx_rx_ccr=int(parts[3]),
+                                   gx_rx_ccr_error=int(parts[4]), gx_rx_raa=int(parts[5]),
+                                   gx_tx_cca=int(parts[6]), gx_tx_rar=int(parts[7]),
+                                   gx_tx_rar_error=int(parts[8]), rx_rx_unknown=int(parts[9]),
+                                   rx_rx_aar=int(parts[10]), rx_rx_aar_error=int(parts[11]),
+                                   rx_rx_asa=int(parts[12]), rx_rx_asa_error=int(parts[13]),
+                                   rx_rx_str_error=int(parts[14]), rx_tx_aaa=int(parts[15]),
+                                   rx_tx_sar=int(parts[16]), rx_tx_sta=int(parts[17]),
+                                   process_max_fds=int(parts[18]),
+                                   process_virtual_memory_max_bytes=int(parts[19]),
+                                   process_cpu_seconds_total=int(parts[20]),
+                                   process_virtual_memory_bytes=int(parts[21]),
+                                   process_resident_memory_bytes=int(parts[22]),
+                                   process_start_time_seconds=int(parts[23]),
+                                   process_open_fds=int(parts[24]))
         return obj
 
     def update_with_kafka_record(self, record: str, ip: str) -> None:
@@ -177,29 +177,29 @@ class PCRFMetrics(JSONSerializable):
                 f"process_open_fds: {self.process_open_fds}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "PCRFMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGCorePCRFMetrics":
         """
         Converts a dict representation to an instance
 
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = PCRFMetrics(ip=d["ip"], ts=d["ts"],
-                          gx_rx_unknown=d["gx_rx_unknown"], gx_rx_ccr=d["gx_rx_ccr"],
-                          gx_rx_ccr_error=d["gx_rx_ccr_error"], gx_rx_raa=d["gx_rx_raa"],
-                          gx_tx_cca=d["gx_tx_cca"], gx_tx_rar=d["gx_tx_rar"],
-                          gx_tx_rar_error=d["gx_tx_rar_error"], rx_rx_unknown=d["rx_rx_unknown"],
-                          rx_rx_aar=d["rx_rx_aar"], rx_rx_aar_error=d["rx_rx_aar_error"],
-                          rx_rx_asa=d["rx_rx_asa"], rx_rx_asa_error=d["rx_rx_asa_error"],
-                          rx_rx_str_error=d["rx_rx_str_error"], rx_tx_aaa=d["rx_tx_aaa"],
-                          rx_tx_sar=d["rx_tx_sar"], rx_tx_sta=d["rx_tx_sta"],
-                          process_max_fds=d["process_max_fds"],
-                          process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                          process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                          process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                          process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                          process_start_time_seconds=d["process_start_time_seconds"],
-                          process_open_fds=d["process_open_fds"])
+        obj = FiveGCorePCRFMetrics(ip=d["ip"], ts=d["ts"],
+                                   gx_rx_unknown=d["gx_rx_unknown"], gx_rx_ccr=d["gx_rx_ccr"],
+                                   gx_rx_ccr_error=d["gx_rx_ccr_error"], gx_rx_raa=d["gx_rx_raa"],
+                                   gx_tx_cca=d["gx_tx_cca"], gx_tx_rar=d["gx_tx_rar"],
+                                   gx_tx_rar_error=d["gx_tx_rar_error"], rx_rx_unknown=d["rx_rx_unknown"],
+                                   rx_rx_aar=d["rx_rx_aar"], rx_rx_aar_error=d["rx_rx_aar_error"],
+                                   rx_rx_asa=d["rx_rx_asa"], rx_rx_asa_error=d["rx_rx_asa_error"],
+                                   rx_rx_str_error=d["rx_rx_str_error"], rx_tx_aaa=d["rx_tx_aaa"],
+                                   rx_tx_sar=d["rx_tx_sar"], rx_tx_sta=d["rx_tx_sta"],
+                                   process_max_fds=d["process_max_fds"],
+                                   process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
+                                   process_cpu_seconds_total=d["process_cpu_seconds_total"],
+                                   process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
+                                   process_resident_memory_bytes=d["process_resident_memory_bytes"],
+                                   process_start_time_seconds=d["process_start_time_seconds"],
+                                   process_open_fds=d["process_open_fds"])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -234,11 +234,11 @@ class PCRFMetrics(JSONSerializable):
         d["process_open_fds"] = self.process_open_fds
         return d
 
-    def copy(self) -> "PCRFMetrics":
+    def copy(self) -> "FiveGCorePCRFMetrics":
         """
         :return: a copy of the object
         """
-        c = PCRFMetrics.from_dict(self.to_dict())
+        c = FiveGCorePCRFMetrics.from_dict(self.to_dict())
         return c
 
     def num_attributes(self) -> int:
@@ -248,14 +248,14 @@ class PCRFMetrics(JSONSerializable):
         return 25
 
     @staticmethod
-    def schema() -> "PCRFMetrics":
+    def schema() -> "FiveGCorePCRFMetrics":
         """
         :return: get the schema of the DTO
         """
-        return PCRFMetrics()
+        return FiveGCorePCRFMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "PCRFMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGCorePCRFMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -266,4 +266,4 @@ class PCRFMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return PCRFMetrics.from_dict(json.loads(json_str))
+        return FiveGCorePCRFMetrics.from_dict(json.loads(json_str))

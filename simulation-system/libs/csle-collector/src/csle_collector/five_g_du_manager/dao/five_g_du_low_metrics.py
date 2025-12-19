@@ -4,7 +4,7 @@ import datetime
 from csle_base.json_serializable import JSONSerializable
 
 
-class DULowMetrics(JSONSerializable):
+class FiveGDULowMetrics(JSONSerializable):
     """
     DTO class containing srsRAN DU Low-PHY metrics.
     Captures Downlink (DL) and Uplink (UL) performance at the physical layer.
@@ -65,7 +65,7 @@ class DULowMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "DULowMetrics":
+    def from_kafka_record(record: str) -> "FiveGDULowMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -73,7 +73,7 @@ class DULowMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = DULowMetrics(
+        obj = FiveGDULowMetrics(
             ts=float(parts[0]),
             ip=parts[1],
             dl_avg_latency_us=float(parts[2]),
@@ -123,7 +123,7 @@ class DULowMetrics(JSONSerializable):
                 f"ul_sinr: {self.ul_sinr_db}dB")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "DULowMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGDULowMetrics":
         """
         Converts a dict representation to an instance.
         Expects the flat dictionary format produced by to_dict().
@@ -131,7 +131,7 @@ class DULowMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = DULowMetrics(
+        obj = FiveGDULowMetrics(
             dl_avg_latency_us=d.get("dl_avg_latency_us", 0.0),
             dl_cpu_usage_percent=d.get("dl_cpu_usage_percent", 0.0),
             dl_max_latency_us=d.get("dl_max_latency_us", 0.0),
@@ -151,7 +151,7 @@ class DULowMetrics(JSONSerializable):
         return obj
 
     @staticmethod
-    def from_ws_dict(d: Dict[str, Any], ip: str) -> "DULowMetrics":
+    def from_ws_dict(d: Dict[str, Any], ip: str) -> "FiveGDULowMetrics":
         """
         Converts the raw dictionary from the WebSocket JSON stream to an instance.
         Handles the nested "du_low" structure.
@@ -185,7 +185,7 @@ class DULowMetrics(JSONSerializable):
         ul_ldpc = ul_data.get("ldpc_decoder", {})
         ul_fec = ul_data.get("fec", {})
 
-        obj = DULowMetrics(
+        obj = FiveGDULowMetrics(
             dl_avg_latency_us=dl_data.get("average_latency_us", 0.0),
             dl_cpu_usage_percent=dl_data.get("cpu_usage_percent", 0.0),
             dl_max_latency_us=dl_data.get("max_latency_us", 0.0),
@@ -224,11 +224,11 @@ class DULowMetrics(JSONSerializable):
         d["ul_fec_tput_mbps"] = self.ul_fec_tput_mbps
         return d
 
-    def copy(self) -> "DULowMetrics":
+    def copy(self) -> "FiveGDULowMetrics":
         """
         :return: a copy of the object
         """
-        c = DULowMetrics(
+        c = FiveGDULowMetrics(
             dl_avg_latency_us=self.dl_avg_latency_us,
             dl_cpu_usage_percent=self.dl_cpu_usage_percent,
             dl_max_latency_us=self.dl_max_latency_us,
@@ -251,14 +251,14 @@ class DULowMetrics(JSONSerializable):
         return 13
 
     @staticmethod
-    def schema() -> "DULowMetrics":
+    def schema() -> "FiveGDULowMetrics":
         """
         :return: get the schema of the DTO
         """
-        return DULowMetrics()
+        return FiveGDULowMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "DULowMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGDULowMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -269,4 +269,4 @@ class DULowMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return DULowMetrics.from_dict(json.loads(json_str))
+        return FiveGDULowMetrics.from_dict(json.loads(json_str))

@@ -3,9 +3,9 @@ import time
 from csle_base.json_serializable import JSONSerializable
 
 
-class AMFMetrics(JSONSerializable):
+class FiveGCoreAMFMetrics(JSONSerializable):
     """
-    DTO class containing 5G core metrics
+    DTO class containing 5G core metrics related to the AMF service
     """
 
     def __init__(self, gnb: int = 0, fivegs_amffunction_mm_confupdate: int = 0,
@@ -105,7 +105,7 @@ class AMFMetrics(JSONSerializable):
         return record_str
 
     @staticmethod
-    def from_kafka_record(record: str) -> "AMFMetrics":
+    def from_kafka_record(record: str) -> "FiveGCoreAMFMetrics":
         """
         Converts the Kafka record string to a DTO
 
@@ -113,7 +113,7 @@ class AMFMetrics(JSONSerializable):
         :return: the created DTO
         """
         parts = record.split(",")
-        obj = AMFMetrics(
+        obj = FiveGCoreAMFMetrics(
             ip=parts[1], ts=float(parts[0]), fivegs_amffunction_mm_confupdate=int(parts[2]),
             fivegs_amffunction_rm_reginitreq=int(parts[3]), fivegs_amffunction_rm_regemergreq=int(parts[4]),
             fivegs_amffunction_mm_paging5greq=int(parts[5]), fivegs_amffunction_rm_regperiodreq=int(parts[6]),
@@ -196,14 +196,14 @@ class AMFMetrics(JSONSerializable):
                 f"process_open_fds: {self.process_open_fds}")
 
     @staticmethod
-    def from_dict(d: Dict[str, Any]) -> "AMFMetrics":
+    def from_dict(d: Dict[str, Any]) -> "FiveGCoreAMFMetrics":
         """
         Converts a dict representation to an instance
 
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = AMFMetrics(
+        obj = FiveGCoreAMFMetrics(
             ip=d["ip"],
             ts=d["ts"],
             fivegs_amffunction_mm_confupdate=d["fivegs_amffunction_mm_confupdate"],
@@ -263,11 +263,11 @@ class AMFMetrics(JSONSerializable):
         d["process_open_fds"] = self.process_open_fds
         return d
 
-    def copy(self) -> "AMFMetrics":
+    def copy(self) -> "FiveGCoreAMFMetrics":
         """
         :return: a copy of the object
         """
-        c = AMFMetrics(
+        c = FiveGCoreAMFMetrics(
             ip=self.ip, ts=self.ts, fivegs_amffunction_mm_confupdate=self.fivegs_amffunction_mm_confupdate,
             fivegs_amffunction_rm_reginitreq=self.fivegs_amffunction_rm_reginitreq,
             fivegs_amffunction_rm_regemergreq=self.fivegs_amffunction_rm_regemergreq,
@@ -297,14 +297,14 @@ class AMFMetrics(JSONSerializable):
         return 25
 
     @staticmethod
-    def schema() -> "AMFMetrics":
+    def schema() -> "FiveGCoreAMFMetrics":
         """
         :return: get the schema of the DTO
         """
-        return AMFMetrics()
+        return FiveGCoreAMFMetrics()
 
     @staticmethod
-    def from_json_file(json_file_path: str) -> "AMFMetrics":
+    def from_json_file(json_file_path: str) -> "FiveGCoreAMFMetrics":
         """
         Reads a json file and converts it to a DTO
 
@@ -315,4 +315,4 @@ class AMFMetrics(JSONSerializable):
         import json
         with io.open(json_file_path, 'r') as f:
             json_str = f.read()
-        return AMFMetrics.from_dict(json.loads(json_str))
+        return FiveGCoreAMFMetrics.from_dict(json.loads(json_str))

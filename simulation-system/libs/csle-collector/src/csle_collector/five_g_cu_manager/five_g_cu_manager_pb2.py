@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x66ive_g_cu_manager.proto\"\x15\n\x13GetFiveGCUStatusMsg\"K\n\x10\x46iveGCUStatusDTO\x12\x12\n\ncu_running\x18\x01 \x01(\x08\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x17\n\x0fmonitor_running\x18\x03 \x01(\x08\"\x10\n\x0eStopFiveGCUMsg\"\x11\n\x0fStartFiveGCUMsg\"[\n\x0eInitFiveGCUMsg\x12\x18\n\x10\x63ore_backhaul_ip\x18\x01 \x01(\t\x12\x16\n\x0e\x63u_backhaul_ip\x18\x02 \x01(\t\x12\x17\n\x0f\x63u_fronthaul_ip\x18\x03 \x01(\t\"X\n\x11StartCUMonitorMsg\x12\x10\n\x08kafka_ip\x18\x01 \x01(\t\x12\x12\n\nkafka_port\x18\x02 \x01(\x05\x12\x1d\n\x15time_step_len_seconds\x18\x03 \x01(\x05\"\x12\n\x10StopCUMonitorMsg2\xe4\x02\n\x0e\x46iveGCUManager\x12=\n\x10getFiveGCUStatus\x12\x14.GetFiveGCUStatusMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x33\n\x0bstopFiveGCU\x12\x0f.StopFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x35\n\x0cstartFiveGCU\x12\x10.StartFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x33\n\x0binitFiveGCU\x12\x0f.InitFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x39\n\x0estartCUMonitor\x12\x12.StartCUMonitorMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x37\n\rstopCUMonitor\x12\x11.StopCUMonitorMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x17\x66ive_g_cu_manager.proto\"\x15\n\x13GetFiveGCUStatusMsg\"K\n\x10\x46iveGCUStatusDTO\x12\x12\n\ncu_running\x18\x01 \x01(\x08\x12\n\n\x02ip\x18\x02 \x01(\t\x12\x17\n\x0fmonitor_running\x18\x03 \x01(\x08\"\x10\n\x0eStopFiveGCUMsg\"\x11\n\x0fStartFiveGCUMsg\"[\n\x0eInitFiveGCUMsg\x12\x18\n\x10\x63ore_backhaul_ip\x18\x01 \x01(\t\x12\x16\n\x0e\x63u_backhaul_ip\x18\x02 \x01(\t\x12\x17\n\x0f\x63u_fronthaul_ip\x18\x03 \x01(\t\"]\n\x16StartFiveGCUMonitorMsg\x12\x10\n\x08kafka_ip\x18\x01 \x01(\t\x12\x12\n\nkafka_port\x18\x02 \x01(\x05\x12\x1d\n\x15time_step_len_seconds\x18\x03 \x01(\x05\"\x17\n\x15StopFiveGCUMonitorMsg2\xf8\x02\n\x0e\x46iveGCUManager\x12=\n\x10getFiveGCUStatus\x12\x14.GetFiveGCUStatusMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x33\n\x0bstopFiveGCU\x12\x0f.StopFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x35\n\x0cstartFiveGCU\x12\x10.StartFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x33\n\x0binitFiveGCU\x12\x0f.InitFiveGCUMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x43\n\x13startFiveGCUMonitor\x12\x17.StartFiveGCUMonitorMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x12\x41\n\x12stopFiveGCUMonitor\x12\x16.StopFiveGCUMonitorMsg\x1a\x11.FiveGCUStatusDTO\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -41,10 +41,10 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_STARTFIVEGCUMSG']._serialized_end=162
   _globals['_INITFIVEGCUMSG']._serialized_start=164
   _globals['_INITFIVEGCUMSG']._serialized_end=255
-  _globals['_STARTCUMONITORMSG']._serialized_start=257
-  _globals['_STARTCUMONITORMSG']._serialized_end=345
-  _globals['_STOPCUMONITORMSG']._serialized_start=347
-  _globals['_STOPCUMONITORMSG']._serialized_end=365
-  _globals['_FIVEGCUMANAGER']._serialized_start=368
-  _globals['_FIVEGCUMANAGER']._serialized_end=724
+  _globals['_STARTFIVEGCUMONITORMSG']._serialized_start=257
+  _globals['_STARTFIVEGCUMONITORMSG']._serialized_end=350
+  _globals['_STOPFIVEGCUMONITORMSG']._serialized_start=352
+  _globals['_STOPFIVEGCUMONITORMSG']._serialized_end=375
+  _globals['_FIVEGCUMANAGER']._serialized_start=378
+  _globals['_FIVEGCUMANAGER']._serialized_end=754
 # @@protoc_insertion_point(module_scope)
