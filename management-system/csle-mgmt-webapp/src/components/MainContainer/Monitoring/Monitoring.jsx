@@ -9,6 +9,8 @@ import ContainerMetrics from "./ContainerMetrics/ContainerMetrics.jsx";
 import AggregateMetrics from "./AggregateMetrics/AggregateMetrics.jsx";
 import OpenFlowSwitchesStats from "./OpenFlowSwitchesStats/OpenFlowSwitchesStats.jsx";
 import SnortMetrics from "./SnortMetrics/SnortMetrics.jsx";
+import FiveGDUMetrics from "./FiveGDUMetrics/FiveGDUMetrics.jsx";
+import FiveGDULowMetrics from "./FiveGDULowMetrics/FiveGDULowMetrics.jsx";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import DataCollection from './MonitoringSetup.png'
@@ -115,6 +117,8 @@ const Monitoring = (props) => {
     const [selectedOpenFlowSwitch, setSelectedOpenFlowSwitch] = useState(null);
     const [snortIdsOptions, setSnortIdsOptions] = useState([]);
     const [selectedSnortIds, setSelectedSnortIds] = useState(null);
+    const [fiveGDUOptions, setFiveGDUOptions] = useState([]);
+    const [selectedFiveGDU, setSelectedFiveGDU] = useState(null);
     const ip = serverIp
     const port = serverPort
     const navigate = useNavigate();
@@ -169,6 +173,17 @@ const Monitoring = (props) => {
                 setSnortIdsOptions(snortIdsOptions)
                 if (snortIdsOptions.length > 0) {
                     setSelectedSnortIds(snortIdsOptions[0])
+                }
+                var fiveGDUOptions = []
+                fiveGDUOptions = Object.keys(response.five_g_du_metrics).map((five_g_du_ip) => {
+                    return {
+                        value: five_g_du_ip,
+                        label: five_g_du_ip
+                    }
+                })
+                setFiveGDUOptions(fiveGDUOptions)
+                if (fiveGDUOptions.length > 0) {
+                    setSelectedFiveGDU(fiveGDUOptions[0])
                 }
             })
             .catch(error => console.log("error:" + error)),
@@ -285,6 +300,22 @@ const Monitoring = (props) => {
         }
     }
 
+    const getSpecificFiveGDUMetrics = () => {
+        if (monitoringData !== null && selectedFiveGDU !== null) {
+            return monitoringData.five_g_du_metrics[selectedFiveGDU.label]
+        } else {
+            return null
+        }
+    }
+
+    const getSpecificFiveGDULowMetrics = () => {
+        if (monitoringData !== null && selectedFiveGDU !== null) {
+            return monitoringData.five_g_du_low_metrics[selectedFiveGDU.label]
+        } else {
+            return null
+        }
+    }
+
     const getOSSECHostMetrics = () => {
         if (monitoringData !== null) {
             return monitoringData.ossec_host_alert_counters[selectedContainer.label]
@@ -364,6 +395,10 @@ const Monitoring = (props) => {
 
     const updateSnortIds = (snortIds) => {
         setSelectedSnortIds(snortIds)
+    }
+
+    const updateFiveGDU = (fiveGDU) => {
+        setSelectedFiveGDU(fiveGDU)
     }
 
     const refresh = () => {
@@ -609,6 +644,34 @@ const Monitoring = (props) => {
                                       animationDurationFactor={props.animationDurationFactor}
                                       snortIdsMetrics={getSpecificSnortIdsMetrics()}
                     />
+
+                    <div className="row hostMetricsDropdownRow">
+                        <div className="col-sm-12">
+                            <h5 className="text-center inline-block monitoringHeader">
+                                <SelectFiveGDUDropdownOrSpinner
+                                  loading={props.loadingSelectedEmulationExecution}
+                                  selectedEmulation={props.selectedEmulationExecution.emulation_env_config}
+                                  selectedFiveGDU={props.selectedFiveGDU}
+                                  fiveGDUOptions={props.fiveGDUOptions}
+                                />
+                            </h5>
+                        </div>
+                    </div>
+                    <hr/>
+                    <FiveGDUMetrics key={`five-g-du-${props.animationDuration.value}`}
+                                  loading={props.loadingSelectedEmulationExecution}
+                                  animation={props.animation}
+                                  animationDuration={props.animationDuration.value}
+                                  animationDurationFactor={props.animationDurationFactor}
+                                  fiveGDUMetrics={getSpecificFiveGDUMetrics()}
+                    />
+                    <FiveGDULowMetrics key={`five-g-du-${props.animationDuration.value}`}
+                                    loading={props.loadingSelectedEmulationExecution}
+                                    animation={props.animation}
+                                    animationDuration={props.animationDuration.value}
+                                    animationDurationFactor={props.animationDurationFactor}
+                                    fiveGDULowMetrics={getSpecificFiveGDULowMetrics()}
+                    />
                 </div>
             )
         }
@@ -775,6 +838,38 @@ const Monitoring = (props) => {
         }
     }
 
+    const SelectFiveGDUDropdownOrSpinner = (props) => {
+        if (!props.loading && (props.selectedEmulation === null || props.selectedFiveGDU === null)) {
+            return (<></>)
+        }
+        if ((props.loading || props.selectedEmulation === null) || props.selectedFiveGDU === null) {
+            return (
+              <Spinner animation="border" role="status" className="dropdownSpinner">
+                  <span className="visually-hidden"></span>
+              </Spinner>)
+        } else {
+            return (
+              <div>
+                  <h4>
+                      5G DU:
+                      <div className="conditionalDist inline-block selectEmulation">
+                          <div className="conditionalDist inline-block" style={{width: "300px"}}>
+                              <Select
+                                style={{display: 'inline-block', width: "1000px"}}
+                                value={props.selectedFiveGDU}
+                                defaultValue={props.selectedFiveGDU}
+                                options={props.fiveGDUOptions}
+                                onChange={updateFiveGDU}
+                                placeholder="Select a 5G DU"
+                              />
+                          </div>
+                      </div>
+                  </h4>
+              </div>
+            )
+        }
+    }
+
 
     useEffect(() => {
         setLoading(true)
@@ -828,6 +923,8 @@ const Monitoring = (props) => {
                                    loadingMonitoringData={loadingMonitoringData}
                                    snortIdsOptions={snortIdsOptions}
                                    selectedIds={selectedSnortIds}
+                                   fiveGDUOptions={fiveGDUOptions}
+                                   selectedFiveGDU={selectedFiveGDU}
             />
         </div>
     );

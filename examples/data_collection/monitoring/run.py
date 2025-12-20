@@ -1,5 +1,3 @@
-from typing import List
-from csle_collector.snort_ids_manager.dao.snort_ids_ip_alert_counters import SnortIdsIPAlertCounters
 from csle_common.metastore.metastore_facade import MetastoreFacade
 import csle_common.constants.constants as constants
 from csle_cluster.cluster_manager.cluster_controller import ClusterController
@@ -17,8 +15,5 @@ if __name__ == '__main__':
         ip=execution.emulation_env_config.kafka_config.container.physical_host_ip,
         port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, minutes=15,
         ip_first_octet=execution.ip_first_octet, emulation=execution.emulation_env_config.name)
-    print(list(time_series.five_g_du_metrics.keys()))
-    # snort_ids_ip_alert_counters: List[SnortIdsIPAlertCounters] = time_series.snort_ids_ip_metrics[
-    #     "csle_ftp_1_1-level9-15"]
-    # print(snort_ids_ip_alert_counters)
-    # print(snort_ids_ip_alert_counters[0].priority_alerts)
+    print(list(time_series.five_g_du_rlc_metrics.keys()))
+    print(time_series.five_g_du_low_metrics["csle_cloud_ran_du_1_1-level16-15"][-1])

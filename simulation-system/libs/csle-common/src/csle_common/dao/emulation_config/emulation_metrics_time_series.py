@@ -256,9 +256,9 @@ class EmulationMetricsTimeSeries(JSONSerializable):
         for k, v in d["five_g_du_low_metrics"].items():
             five_g_du_low_metrics[k] = list(map(lambda x: FiveGDULowMetrics.from_dict(x), v))
 
-        five_g_du_rlc_metrics: Dict[str, FiveGDURLCMetrics] = {}
+        five_g_du_rlc_metrics = {}
         for k, v in d["five_g_du_rlc_metrics"].items():
-            five_g_du_metrics[k] = list(map(lambda x: FiveGDURLCMetrics.from_dict(x), v))
+            five_g_du_rlc_metrics[k] = list(map(lambda x: FiveGDURLCMetrics.from_dict(x), v))
 
         five_g_du_cell_metrics = {}
         for k, v in d["five_g_du_cell_metrics"].items():

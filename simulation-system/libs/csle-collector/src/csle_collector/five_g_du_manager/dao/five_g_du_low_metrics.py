@@ -116,11 +116,15 @@ class FiveGDULowMetrics(JSONSerializable):
 
     def __str__(self) -> str:
         """
-        :return: a string representation of the object
+        :return: A structured string representation of all metrics with units.
         """
-        return (f"ts: {self.ts}, ip: {self.ip}, "
-                f"dl_lat: {self.dl_avg_latency_us}us, ul_lat: {self.ul_avg_latency_us}us, "
-                f"ul_sinr: {self.ul_sinr_db}dB")
+        return (f"FiveGDULowMetrics(ts={self.ts}, ip={self.ip}, "
+                f"DL=[avg_lat={self.dl_avg_latency_us}us, max_lat={self.dl_max_latency_us}us, "
+                f"cpu={self.dl_cpu_usage_percent}%, tput={self.dl_fec_tput_mbps}Mbps], "
+                f"UL=[avg_lat={self.ul_avg_latency_us}us, max_lat={self.ul_max_latency_us}us, "
+                f"cpu={self.ul_cpu_usage_percent}%, sinr={self.ul_sinr_db}dB, "
+                f"ch_est={self.ul_ch_est_latency_us}us, ldpc={self.ul_ldpc_dec_latency_us}us, "
+                f"tput={self.ul_fec_tput_mbps}Mbps])")
 
     @staticmethod
     def from_dict(d: Dict[str, Any]) -> "FiveGDULowMetrics":
