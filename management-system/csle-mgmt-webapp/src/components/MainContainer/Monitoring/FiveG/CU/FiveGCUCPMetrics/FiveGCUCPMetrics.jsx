@@ -1,7 +1,7 @@
 import React from 'react'
 import './FiveGCUCPMetrics.css'
-import FiveGDULatencyChart from '../../DU/FiveGDULatencyChart/FiveGDULatencyChart.jsx'
-import FiveGDUCPUUsageChart from '../../DU/FiveGDUCPUUsageChart/FiveGDUCPUUsageChart.jsx'
+import FiveGDULatencyChart from '../../DU/DU/FiveGDULatencyChart/FiveGDULatencyChart.jsx'
+import FiveGDUCPUUsageChart from '../../DU/DU/FiveGDUCPUUsageChart/FiveGDUCPUUsageChart.jsx'
 import Spinner from 'react-bootstrap/Spinner'
 
 /**

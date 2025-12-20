@@ -13,7 +13,7 @@ import {
 
 
 /**
- * Component containing a plot showing the average PDU latency of the DU
+ * Component containing a plot showing the average SDU latency of the DU
  */
 const FiveGDURLCSDULatencyChart = React.memo((props) => {
     const margin = {
@@ -25,9 +25,11 @@ const FiveGDURLCSDULatencyChart = React.memo((props) => {
 
     if (props.stats !== undefined && props.stats.length > 0) {
       const data = props.stats.map((five_g_du_rlc_metrics, index) => {
+        const totalLatencyUs = Number(five_g_du_rlc_metrics.tx_sum_sdu_latency_us) || 0;
+        const count = Number(five_g_du_rlc_metrics.rx_num_sdus) || 0;
         return {
           't': (index + 1),
-          'Service Data Unit (SDU)': parseFloat(five_g_du_rlc_metrics.tx_sum_pdu_latency_us/five_g_du_rlc_metrics.rx_num_pdus)
+          'Service Data Unit (SDU)': count > 0 ? (totalLatencyUs / count) : 0
         }
       })
       var domain = [0, Math.max(1, data.length)]

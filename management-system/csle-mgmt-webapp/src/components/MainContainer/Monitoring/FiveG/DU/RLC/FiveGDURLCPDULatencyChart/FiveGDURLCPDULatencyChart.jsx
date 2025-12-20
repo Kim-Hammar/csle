@@ -25,9 +25,12 @@ const FiveGDURLCPDULatencyChart = React.memo((props) => {
 
     if (props.stats !== undefined && props.stats.length > 0) {
       const data = props.stats.map((five_g_du_rlc_metrics, index) => {
+        const totalLatencyNs = Number(five_g_du_rlc_metrics.tx_sum_pdu_latency_ns) || 0;
+        const countPdus = Number(five_g_du_rlc_metrics.rx_num_pdus) || 0;
+        const avgLatency = countPdus > 0 ? (totalLatencyNs / countPdus) : 0;
         return {
           't': (index + 1),
-          'Protocol Data Unit (PDU)': parseFloat(five_g_du_rlc_metrics.tx_sum_pdu_latency_ns/five_g_du_rlc_metrics.rx_num_pdus)
+          'Protocol Data Unit (PDU)': avgLatency
         }
       })
       var domain = [0, Math.max(1, data.length)]

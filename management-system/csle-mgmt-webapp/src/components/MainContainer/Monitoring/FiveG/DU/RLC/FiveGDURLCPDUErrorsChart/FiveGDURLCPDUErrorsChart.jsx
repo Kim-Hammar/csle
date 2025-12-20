@@ -25,10 +25,15 @@ const FiveGDURLCPDUErrorsChart = React.memo((props) => {
 
     if (props.stats !== undefined && props.stats.length > 0) {
       const data = props.stats.map((five_g_du_rlc_metrics, index) => {
+        const totalPdus = Number(five_g_du_rlc_metrics.rx_num_pdus) || 0;
+        const safeCalc = (numerator) => {
+          if (totalPdus === 0) return 0;
+          return (numerator / totalPdus);
+        };
         return {
           't': (index + 1),
-          'Lost PDUs (%)': parseFloat(five_g_du_rlc_metrics.rx_num_lost_pdus/five_g_du_rlc_metrics.rx_num_pdus),
-          'Malformed PDUs (%)': parseFloat(five_g_du_rlc_metrics.rx_num_malformed_pdus/five_g_du_rlc_metrics.rx_num_pdus)
+          'Lost PDUs (%)': safeCalc(five_g_du_rlc_metrics.rx_num_lost_pdus),
+          'Malformed PDUs (%)': safeCalc(five_g_du_rlc_metrics.rx_num_malformed_pdus)
         }
       })
       var domain = [0, Math.max(1, data.length)]
