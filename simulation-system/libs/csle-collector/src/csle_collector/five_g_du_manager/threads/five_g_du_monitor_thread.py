@@ -194,7 +194,7 @@ class FiveGDUMonitorThread(threading.Thread):
 
                 if "rlc" in snapshot:
                     record = snapshot["rlc"].to_kafka_record(ip=self.ip)
-                    self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_RLC_METRICS_TOPIC_NAME, record)
+                    self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_DU_RLC_METRICS_TOPIC_NAME, record)
 
                 if "app" in snapshot:
                     record = snapshot["app"].to_kafka_record(ip=self.ip)

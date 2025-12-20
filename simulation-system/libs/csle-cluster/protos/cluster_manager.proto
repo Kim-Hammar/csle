@@ -349,6 +349,22 @@ message EmulationMetricsTimeSeriesDTO {
   repeated SnortIdsIpAlertCountersDict snort_ids_ip_metrics = 23;
   repeated SnortIdsRuleCountersDict snort_rule_metrics_per_ids = 24;
   repeated SnortIdsAlertCountersDict snort_alert_metrics_per_ids = 25;
+  repeated FiveGCoreAMFMetricsDict five_g_core_amf_metrics = 26;
+  repeated FiveGCoreHSSMetricsDict five_g_core_hss_metrics = 27;
+  repeated FiveGCoreMMEMetricsDict five_g_core_mme_metrics = 28;
+  repeated FiveGCorePCFMetricsDict five_g_core_pcf_metrics = 29;
+  repeated FiveGCorePCRFMetricsDict five_g_core_pcrf_metrics = 30;
+  repeated FiveGCoreSMFMetricsDict five_g_core_smf_metrics = 31;
+  repeated FiveGCoreUPFMetricsDict five_g_core_upf_metrics = 32;
+  repeated FiveGCUAppResourceUsageMetricsDict five_g_cu_app_resource_usage_metrics = 33;
+  repeated FiveGCUBufferPoolMetricsDict five_g_cu_buffer_pool_metrics = 34;
+  repeated FiveGCUCPMetricsDict five_g_cu_cp_metrics = 35;
+  repeated FiveGDUAppResourceUsageMetricsDict five_g_du_app_resource_usage_metrics = 36;
+  repeated FiveGDUBufferPoolMetricsDict five_g_du_buffer_pool_metrics = 37;
+  repeated FiveGDUCellMetricsDict five_g_du_cell_metrics = 38;
+  repeated FiveGDULowMetricsDict five_g_du_low_metrics = 39;
+  repeated FiveGDUMetricsDict five_g_du_metrics = 40;
+  repeated FiveGDURLCMetricsDict five_g_du_rlc_metrics = 41;
 }
 
 // Dict which maps a string key to a AvgPortStatisticDTO
@@ -2528,4 +2544,428 @@ message Stop5GDUMonitorThreadMsg {
   string emulation = 1;
   int32 ipFirstOctet = 2;
   string containerIp = 3;
+}
+
+// Dict which maps a string key to a FiveGCoreAMFMetricsDTO
+message FiveGCoreAMFMetricsDict {
+  string key = 1;
+  repeated FiveGCoreAMFMetricsDTO dtos = 2;
+}
+
+// DTO with data about the AMF service from the 5G core
+message FiveGCoreAMFMetricsDTO {
+  int32 gnb = 1;
+  int32 fivegs_amffunction_mm_confupdate = 2;
+  int32 fivegs_amffunction_rm_reginitreq = 3;
+  int32 fivegs_amffunction_rm_regemergreq = 4;
+  int32 fivegs_amffunction_mm_paging5greq = 5;
+  int32 fivegs_amffunction_rm_regperiodreq = 6;
+  int32 fivegs_amffunction_mm_confupdatesucc = 7;
+  int32 fivegs_amffunction_rm_reginitsucc = 8;
+  int32 fivegs_amffunction_amf_authreject = 9;
+  int32 fivegs_amffunction_rm_regmobreq = 10;
+  int32 amf_session = 11;
+  int32 fivegs_amffunction_rm_regmobsucc = 12;
+  int32 fivegs_amffunction_amf_authreq = 13;
+  int32 fivegs_amffunction_rm_regemergsucc = 14;
+  int32 fivegs_amffunction_mm_paging5gsucc = 15;
+  int32 ran_ue = 16;
+  int32 fivegs_amffunction_rm_regperiodsucc = 17;
+  int32 process_max_fds = 18;
+  int32 process_virtual_memory_max_bytes = 19;
+  int32 process_cpu_seconds_total = 20;
+  int32 process_virtual_memory_bytes = 21;
+  int32 process_resident_memory_bytes = 22;
+  int32 process_start_time_seconds = 23;
+  int32 process_open_fds = 24;
+  string ip = 25;
+  float ts = 26;
+}
+
+// Dict which maps a string key to a FiveGCoreHSSMetricsDTO
+message FiveGCoreHSSMetricsDict {
+  string key = 1;
+  repeated FiveGCoreHSSMetricsDTO dtos = 2;
+}
+
+// DTO with data about the HSS service from the 5G core
+message FiveGCoreHSSMetricsDTO {
+  int32 cx_rx_lir = 1;
+  int32 cx_rx_uar = 2;
+  int32 cx_tx_lia = 3;
+  int32 cx_rx_unknown = 4;
+  int32 cx_rx_sar = 5;
+  int32 s6a_rx_pur = 6;
+  int32 swx_rx_mar_error = 7;
+  int32 cx_tx_uaa = 8;
+  int32 s6a_rx_pur_error = 9;
+  int32 s6a_tx_clr = 10;
+  int32 cx_tx_saa = 11;
+  int32 cx_rx_lir_error = 12;
+  int32 s6a_rx_ulr = 13;
+  int32 s6a_rx_cla = 14;
+  int32 s6a_rx_cla_error = 15;
+  int32 s6a_rx_air = 16;
+  int32 cx_rx_mar = 17;
+  int32 swx_rx_sar = 18;
+  int32 s6a_rx_air_error = 19;
+  int32 s6a_rx_ida_error = 20;
+  int32 cx_tx_maa = 21;
+  int32 swx_rx_mar = 22;
+  int32 s6a_rx_unknown = 23;
+  int32 s6a_tx_pua = 24;
+  int32 swx_rx_unknown = 25;
+  int32 cx_rx_mar_error = 26;
+  int32 cx_rx_uar_error = 27;
+  int32 s6a_tx_ula = 28;
+  int32 s6a_rx_ulr_error = 29;
+  int32 s6a_tx_aia = 30;
+  int32 s6a_tx_idr = 31;
+  int32 s6a_rx_ida = 32;
+  int32 cx_rx_sar_error = 33;
+  int32 swx_rx_sar_error = 34;
+  int32 swx_tx_maa = 35;
+  int32 swx_tx_saa = 36;
+  int32 hss_imsi = 37;
+  int32 hss_impi = 38;
+  int32 hss_impu = 39;
+  int32 process_max_fds = 40;
+  int32 process_virtual_memory_max_bytes = 41;
+  int32 process_cpu_seconds_total = 42;
+  int32 process_virtual_memory_bytes = 43;
+  int32 process_resident_memory_bytes = 44;
+  int32 process_start_time_seconds = 45;
+  int32 process_open_fds = 46;
+  string ip = 47;
+  float ts = 48;
+}
+
+// Dict which maps a string key to a FiveGCoreMMEMetricsDTO
+message FiveGCoreMMEMetricsDict {
+  string key = 1;
+  repeated FiveGCoreMMEMetricsDTO dtos = 2;
+}
+
+// DTO with data about the MME service from the 5G core
+message FiveGCoreMMEMetricsDTO {
+  int32 enb_ue = 1;
+  int32 mme_session = 2;
+  int32 enb = 3;
+  int32 process_max_fds = 4;
+  int32 process_virtual_memory_max_bytes = 5;
+  int32 process_cpu_seconds_total = 6;
+  int32 process_virtual_memory_bytes = 7;
+  int32 process_resident_memory_bytes = 8;
+  int32 process_start_time_seconds = 9;
+  int32 process_open_fds = 10;
+  string ip = 11;
+  float ts = 12;
+}
+
+// Dict which maps a string key to a FiveGCorePCFMetricsDTO
+message FiveGCorePCFMetricsDict {
+  string key = 1;
+  repeated FiveGCorePCFMetricsDTO dtos = 2;
+}
+
+// DTO with data about the PCF service from the 5G core
+message FiveGCorePCFMetricsDTO {
+  int32 fivegs_pcffunction_pa_policyamassoreq = 1;
+  int32 fivegs_pcffunction_pa_policyamassosucc = 2;
+  int32 fivegs_pcffunction_pa_policysmassoreq = 3;
+  int32 fivegs_pcffunction_pa_policysmassosucc = 4;
+  int32 fivegs_pcffunction_pa_sessionnbr = 5;
+  int32 process_max_fds = 6;
+  int32 process_virtual_memory_max_bytes = 7;
+  int32 process_cpu_seconds_total = 8;
+  int32 process_virtual_memory_bytes = 9;
+  int32 process_resident_memory_bytes = 10;
+  int32 process_start_time_seconds = 11;
+  int32 process_open_fds = 12;
+  string ip = 13;
+  float ts = 14;
+}
+
+// Dict which maps a string key to a FiveGCorePCRFMetricsDTO
+message FiveGCorePCRFMetricsDict {
+  string key = 1;
+  repeated FiveGCorePCRFMetricsDTO dtos = 2;
+}
+
+// DTO with data about the PCRF service from the 5G core (Gx and Rx interfaces)
+message FiveGCorePCRFMetricsDTO {
+  int32 gx_rx_unknown = 1;
+  int32 gx_rx_ccr = 2;
+  int32 gx_rx_ccr_error = 3;
+  int32 gx_rx_raa = 4;
+  int32 gx_tx_cca = 5;
+  int32 gx_tx_rar = 6;
+  int32 gx_tx_rar_error = 7;
+  int32 rx_rx_unknown = 8;
+  int32 rx_rx_aar = 9;
+  int32 rx_rx_aar_error = 10;
+  int32 rx_rx_asa = 11;
+  int32 rx_rx_asa_error = 12;
+  int32 rx_rx_str_error = 13;
+  int32 rx_tx_aaa = 14;
+  int32 rx_tx_sar = 15;
+  int32 rx_tx_sta = 16;
+  int32 process_max_fds = 17;
+  int32 process_virtual_memory_max_bytes = 18;
+  int32 process_cpu_seconds_total = 19;
+  int32 process_virtual_memory_bytes = 20;
+  int32 process_resident_memory_bytes = 21;
+  int32 process_start_time_seconds = 22;
+  int32 process_open_fds = 23;
+  string ip = 24;
+  float ts = 25;
+}
+
+// Dict which maps a string key to a FiveGCoreSMFMetricsDTO
+message FiveGCoreSMFMetricsDict {
+  string key = 1;
+  repeated FiveGCoreSMFMetricsDTO dtos = 2;
+}
+
+// DTO with data about the SMF service from the 5G core
+message FiveGCoreSMFMetricsDTO {
+  int32 gn_rx_createpdpcontextreq = 1;
+  int32 gn_rx_deletepdpcontextreq = 2;
+  int32 gtp1_pdpctxs_active = 3;
+  int32 pfcp_peers_active = 4;
+  int32 fivegs_smffunction_sm_n4sessionreport = 5;
+  int32 ues_active = 6;
+  int32 gtp2_sessions_active = 7;
+  int32 pfcp_sessions_active = 8;
+  int32 s5c_rx_createsession = 9;
+  int32 s5c_rx_deletesession = 10;
+  int32 gtp_new_node_failed = 11;
+  int32 s5c_rx_parse_failed = 12;
+  int32 fivegs_smffunction_sm_n4sessionreportsucc = 13;
+  int32 fivegs_smffunction_sm_n4sessionestabreq = 14;
+  int32 bearers_active = 15;
+  int32 gn_rx_parse_failed = 16;
+  int32 gtp_peers_active = 17;
+  int32 fivegs_smffunction_sm_sessionnbr = 18;
+  int32 fivegs_smffunction_sm_pdusessioncreationreq = 19;
+  int32 fivegs_smffunction_sm_pdusessioncreationsucc = 20;
+  int32 fivegs_smffunction_sm_qos_flow_nbr = 21;
+  int32 fivegs_smffunction_sm_n4sessionestabfail = 22;
+  int32 fivegs_smffunction_sm_pdusessioncreationfail = 23;
+  int32 process_max_fds = 24;
+  int32 process_virtual_memory_max_bytes = 25;
+  int32 process_cpu_seconds_total = 26;
+  int32 process_virtual_memory_bytes = 27;
+  int32 process_resident_memory_bytes = 28;
+  int32 process_start_time_seconds = 29;
+  int32 process_open_fds = 30;
+  string ip = 31;
+  float ts = 32;
+}
+
+// Dict which maps a string key to a FiveGCoreUPFMetricsDTO
+message FiveGCoreUPFMetricsDict {
+  string key = 1;
+  repeated FiveGCoreUPFMetricsDTO dtos = 2;
+}
+
+// DTO with data about the UPF service from the 5G core
+message FiveGCoreUPFMetricsDTO {
+  int32 fivegs_ep_n3_gtp_indatapktn3upf = 1;
+  int32 fivegs_ep_n3_gtp_outdatapktn3upf = 2;
+  int32 fivegs_upffunction_sm_n4sessionestabreq = 3;
+  int32 fivegs_upffunction_sm_n4sessionreport = 4;
+  int32 fivegs_upffunction_sm_n4sessionreportsucc = 5;
+  int32 fivegs_upffunction_upf_sessionnbr = 6;
+  int32 pfcp_peers_active = 7;
+  int32 process_max_fds = 8;
+  int32 process_virtual_memory_max_bytes = 9;
+  int32 process_cpu_seconds_total = 10;
+  int32 process_virtual_memory_bytes = 11;
+  int32 process_resident_memory_bytes = 12;
+  int32 process_start_time_seconds = 13;
+  int32 process_open_fds = 14;
+  string ip = 15;
+  float ts = 16;
+}
+
+// Dict which maps a string key to a FiveGCUAppResourceUsageMetricsDTO
+message FiveGCUAppResourceUsageMetricsDict {
+  string key = 1;
+  repeated FiveGCUAppResourceUsageMetricsDTO dtos = 2;
+}
+
+// DTO class containing srsRAN CU (Central Unit) Application Resource Usage metrics.
+message FiveGCUAppResourceUsageMetricsDTO {
+  float cpu_usage_percent = 1;
+  float memory_usage_mb = 2;
+  float power_consumption_watts = 3;
+  string ip = 4;
+  float ts = 5;
+}
+
+// Dict which maps a string key to a FiveGCUBufferPoolMetricsDTO
+message FiveGCUBufferPoolMetricsDict {
+  string key = 1;
+  repeated FiveGCUBufferPoolMetricsDTO dtos = 2;
+}
+
+// DTO class containing srsRAN CU (Central Unit) Buffer Pool metrics
+message FiveGCUBufferPoolMetricsDTO {
+  int32 central_cache_size = 1;
+  string ip = 2;
+  float ts = 3;
+}
+
+// Dict which maps a string key to a FiveGCUCPMetricsDTO
+message FiveGCUCPMetricsDict {
+  string key = 1;
+  repeated FiveGCUCPMetricsDTO dtos = 2;
+}
+
+// DTO class containing srsRAN CU-CP (Central Unit - Control Plane) metrics.
+// Captures NGAP (AMF interface) and RRC (UE/DU interface) statistics.
+message FiveGCUCPMetricsDTO {
+  string cu_cp_id = 1;
+  bool amf_connected = 2;
+  int32 nof_cn_initiated_paging_requests = 3;
+  int32 nof_pdu_sessions_requested_to_setup = 4;
+  int32 nof_pdu_sessions_successfully_setup = 5;
+  int32 nof_pdu_sessions_failed_to_setup_total = 6;
+  int32 nof_handover_preparations_requested = 7;
+  int32 nof_successful_handover_preparations = 8;
+  int32 rrc_establishments_attempted_total = 9;
+  int32 rrc_establishments_successful_total = 10;
+  int32 rrc_establishments_attempted_mo_data = 11;
+  int32 rrc_establishments_successful_mo_data = 12;
+  int32 rrc_establishments_attempted_mo_sig = 13;
+  int32 rrc_establishments_successful_mo_sig = 14;
+  int32 max_nof_rrc_connections = 15;
+  int32 mean_nof_rrc_connections = 16;
+  int32 rrc_reestablishments_attempted = 17;
+  int32 rrc_reestablishments_successful = 18;
+  int32 nof_handover_executions_requested = 19;
+  int32 nof_successful_handover_executions = 20;
+  string ip = 21;
+  float ts = 22;
+}
+
+// Dict which maps a string key to a FiveGDUAppResourceUsageMetricsDTO
+message FiveGDUAppResourceUsageMetricsDict {
+  string key = 1;
+  repeated FiveGDUAppResourceUsageMetricsDTO dtos = 2;
+}
+
+// DTO class containing srsRAN DU Application Resource Usage metrics.
+message FiveGDUAppResourceUsageMetricsDTO {
+  float cpu_usage_percent = 1;
+  float memory_usage_mb = 2;
+  float power_consumption_watts = 3;
+  string ip = 4;
+  float ts = 5;
+}
+
+// Dict which maps a string key to a FiveGDUBufferPoolMetricsDTO
+message FiveGDUBufferPoolMetricsDict {
+  string key = 1;
+  repeated FiveGDUBufferPoolMetricsDTO dtos = 2;
+}
+
+// DTO class containing srsRAN DU Buffer Pool metrics
+message FiveGDUBufferPoolMetricsDTO {
+  int32 central_cache_size = 1;
+  string ip = 2;
+  float ts = 3;
+}
+
+// Dict which maps a string key to a FiveGDUCellMetricsDTO
+message FiveGDUCellMetricsDict {
+  string key = 1;
+  repeated FiveGDUCellMetricsDTO dtos = 2;
+}
+
+// DTO class containing srsRAN DU Cell metrics
+message FiveGDUCellMetricsDTO {
+  int32 pci = 1;
+  float average_latency = 2;
+  float max_latency = 3;
+  float pucch_tot_rb_usage_avg = 4;
+  int32 active_ues = 5;
+  float dl_brate = 6;
+  float ul_brate = 7;
+  float dl_mcs = 8;
+  float ul_mcs = 9;
+  float pusch_snr_db = 10;
+  float pucch_snr_db = 11;
+  float cqi = 12;
+  float dl_bler = 13;
+  float ul_bler = 14;
+  string ip = 15;
+  float ts = 16;
+}
+
+// Dict which maps a string key to a FiveGDULowMetricsDTO
+message FiveGDULowMetricsDict {
+  string key = 1;
+  repeated FiveGDULowMetricsDTO dtos = 2;
+}
+
+// DTO class containing srsRAN DU Low-PHY metrics.
+// Captures Downlink (DL) and Uplink (UL) performance at the physical layer.
+message FiveGDULowMetricsDTO {
+  float dl_avg_latency_us = 1;
+  float dl_cpu_usage_percent = 2;
+  float dl_max_latency_us = 3;
+  float dl_fec_tput_mbps = 4;
+  float ul_avg_latency_us = 5;
+  float ul_cpu_usage_percent = 6;
+  float ul_max_latency_us = 7;
+  float ul_sinr_db = 8;
+  float ul_ch_est_latency_us = 9;
+  float ul_ldpc_dec_latency_us = 10;
+  float ul_fec_tput_mbps = 11;
+  string ip = 12;
+  float ts = 13;
+}
+
+// Dict which maps a string key to a FiveGDUMetricsDTO
+message FiveGDUMetricsDict {
+  string key = 1;
+  repeated FiveGDUMetricsDTO dtos = 2;
+}
+
+// DTO class containing srsRAN DU High-MAC metrics
+message FiveGDUMetricsDTO {
+  int32 pci = 1;
+  float average_latency_us = 2;
+  float cpu_usage_percent = 3;
+  float max_latency_us = 4;
+  float min_latency_us = 5;
+  string ip = 6;
+  float ts = 7;
+}
+
+// Dict which maps a string key to a FiveGDURLCMetricsDTO
+message FiveGDURLCMetricsDict {
+  string key = 1;
+  repeated FiveGDURLCMetricsDTO dtos = 2;
+}
+
+// DTO class containing srsRAN DU RLC layer metrics
+message FiveGDURLCMetricsDTO {
+  int32 ue_id = 1;
+  int32 drb_id = 2;
+  int32 rx_num_pdus = 3;
+  int32 rx_num_bytes = 4;
+  int32 rx_num_lost_pdus = 5;
+  int32 rx_num_malformed_pdus = 6;
+  int32 tx_num_sdus = 7;
+  int32 tx_num_bytes = 8;
+  int32 tx_num_dropped_sdus = 9;
+  int32 tx_num_discarded_sdus = 10;
+  int32 tx_max_pdu_latency_ns = 11;
+  int32 tx_sum_pdu_latency_ns = 12;
+  int32 tx_sum_sdu_latency_us = 13;
+  string ip = 14;
+  float ts = 15;
 }

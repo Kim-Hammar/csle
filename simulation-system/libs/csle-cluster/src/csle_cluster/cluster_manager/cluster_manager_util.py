@@ -33,6 +33,22 @@ from csle_collector.ossec_ids_manager.dao.ossec_ids_alert_counters import OSSECI
 from csle_collector.client_manager.client_population_metrics import ClientPopulationMetrics
 from csle_collector.docker_stats_manager.dao.docker_stats import DockerStats
 from csle_collector.host_manager.dao.host_metrics import HostMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_amf_metrics import FiveGCoreAMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_hss_metrics import FiveGCoreHSSMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_mme_metrics import FiveGCoreMMEMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_upf_metrics import FiveGCoreUPFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcf_metrics import FiveGCorePCFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcrf_metrics import FiveGCorePCRFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics import FiveGCoreSMFMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_metrics import FiveGDUMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_low_metrics import FiveGDULowMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics import FiveGDURLCMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics import FiveGDUCellMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics import FiveGDUBufferPoolMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics import FiveGDUAppResourceUsageMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics import FiveGCUCPMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_buffer_pool_metrics import FiveGCUBufferPoolMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_app_resource_usage_metrics import FiveGCUAppResourceUsageMetrics
 import csle_collector.client_manager.client_manager_pb2
 import csle_collector.traffic_manager.traffic_manager_pb2
 import csle_collector.docker_stats_manager.docker_stats_manager_pb2
@@ -4156,7 +4172,23 @@ class ClusterManagerUtil:
             agg_snort_ids_rule_metrics=[ClusterManagerUtil.get_empty_snort_ids_rule_counters_dto()],
             snort_ids_ip_metrics=ClusterManagerUtil.get_empty_snort_ids_ip_alert_counters_dict(),
             snort_alert_metrics_per_ids=ClusterManagerUtil.get_empty_snort_ids_alert_counters_dict(),
-            snort_rule_metrics_per_ids=ClusterManagerUtil.get_empty_snort_ids_rule_counters_dict()
+            snort_rule_metrics_per_ids=ClusterManagerUtil.get_empty_snort_ids_rule_counters_dict(),
+            five_g_core_amf_metrics=ClusterManagerUtil.get_empty_five_g_core_amf_metrics_dict(),
+            five_g_core_hss_metrics=ClusterManagerUtil.get_empty_five_g_core_hss_metrics_dict(),
+            five_g_core_mme_metrics=ClusterManagerUtil.get_empty_five_g_core_mme_metrics_dict(),
+            five_g_core_pcf_metrics=ClusterManagerUtil.get_empty_five_g_core_pcf_metrics_dict(),
+            five_g_core_pcrf_metrics=ClusterManagerUtil.get_empty_five_g_core_pcrf_metrics_dict(),
+            five_g_core_smf_metrics=ClusterManagerUtil.get_empty_five_g_core_smf_metrics_dict(),
+            five_g_core_upf_metrics=ClusterManagerUtil.get_empty_five_g_core_upf_metrics_dict(),
+            five_g_cu_app_resource_usage_metrics=ClusterManagerUtil.get_empty_five_g_cu_app_resource_usage_metrics_dict(),
+            five_g_cu_buffer_pool_metrics=ClusterManagerUtil.get_empty_five_g_cu_buffer_pool_metrics_dict(),
+            five_g_cu_cp_metrics=ClusterManagerUtil.get_empty_five_g_cu_cp_metrics_dict(),
+            five_g_du_app_resource_usage_metrics=ClusterManagerUtil.get_empty_five_g_du_app_resource_usage_metrics_dict(),
+            five_g_du_buffer_pool_metrics=ClusterManagerUtil.get_empty_five_g_du_buffer_pool_metrics_dict(),
+            five_g_du_cell_metrics=ClusterManagerUtil.get_empty_five_g_du_cell_metrics_dict(),
+            five_g_du_low_metrics=ClusterManagerUtil.get_empty_five_g_du_low_metrics_dict(),
+            five_g_du_metrics=ClusterManagerUtil.get_empty_five_g_du_metrics_dict(),
+            five_g_du_rlc_metrics=ClusterManagerUtil.get_empty_five_g_du_rlc_metrics_dict()
         )
 
     @staticmethod
@@ -4219,7 +4251,39 @@ class ClusterManagerUtil:
                 snort_rule_metrics_per_ids=ClusterManagerUtil.convert_snort_ids_rule_counters_dict(
                     time_series_dto.snort_rule_metrics_per_ids),
                 snort_alert_metrics_per_ids=ClusterManagerUtil.convert_snort_ids_alert_counters_dict(
-                    time_series_dto.snort_alert_metrics_per_ids)
+                    time_series_dto.snort_alert_metrics_per_ids),
+                five_g_core_amf_metrics=ClusterManagerUtil.convert_five_g_core_amf_metrics_dict(
+                    time_series_dto.five_g_core_amf_metrics),
+                five_g_core_hss_metrics=ClusterManagerUtil.convert_five_g_core_hss_metrics_dict(
+                    time_series_dto.five_g_core_hss_metrics),
+                five_g_core_mme_metrics=ClusterManagerUtil.convert_five_g_core_mme_metrics_dict(
+                    time_series_dto.five_g_core_mme_metrics),
+                five_g_core_pcf_metrics=ClusterManagerUtil.convert_five_g_core_pcf_metrics_dict(
+                    time_series_dto.five_g_core_pcf_metrics),
+                five_g_core_pcrf_metrics=ClusterManagerUtil.convert_five_g_core_pcrf_metrics_dict(
+                    time_series_dto.five_g_core_pcrf_metrics),
+                five_g_core_smf_metrics=ClusterManagerUtil.convert_five_g_core_smf_metrics_dict(
+                    time_series_dto.five_g_core_smf_metrics),
+                five_g_core_upf_metrics=ClusterManagerUtil.convert_five_g_core_upf_metrics_dict(
+                    time_series_dto.five_g_core_upf_metrics),
+                five_g_cu_app_resource_usage_metrics=ClusterManagerUtil.
+                convert_five_g_cu_app_resource_usage_metrics_dict(time_series_dto.five_g_cu_app_resource_usage_metrics),
+                five_g_cu_buffer_pool_metrics=ClusterManagerUtil.convert_five_g_cu_buffer_pool_metrics_dict(
+                    time_series_dto.five_g_cu_buffer_pool_metrics),
+                five_g_cu_cp_metrics=ClusterManagerUtil.convert_five_g_cu_cp_metrics_dict(
+                    time_series_dto.five_g_cu_cp_metrics),
+                five_g_du_app_resource_usage_metrics=ClusterManagerUtil.
+                convert_five_g_du_app_resource_usage_metrics_dict(time_series_dto.five_g_du_app_resource_usage_metrics),
+                five_g_du_buffer_pool_metrics=ClusterManagerUtil.convert_five_g_du_buffer_pool_metrics_dict(
+                    time_series_dto.five_g_du_buffer_pool_metrics),
+                five_g_du_cell_metrics=ClusterManagerUtil.convert_five_g_du_cell_metrics_dict(
+                    time_series_dto.five_g_du_cell_metrics),
+                five_g_du_low_metrics=ClusterManagerUtil.convert_five_g_du_low_metrics_dict(
+                    time_series_dto.five_g_du_low_metrics),
+                five_g_du_metrics=ClusterManagerUtil.convert_five_g_du_metrics_dict(
+                    time_series_dto.five_g_du_metrics),
+                five_g_du_rlc_metrics=ClusterManagerUtil.convert_five_g_du_rlc_metrics_dict(
+                    time_series_dto.five_g_du_rlc_metrics)
             )
 
     @staticmethod
@@ -4288,7 +4352,41 @@ class ClusterManagerUtil:
                 snort_rule_metrics_per_ids=ClusterManagerUtil.convert_snort_ids_rule_counters_dict_reverse(
                     list(time_series_dto.snort_rule_metrics_per_ids)),
                 snort_alert_metrics_per_ids=ClusterManagerUtil.convert_snort_ids_alert_counters_dict_reverse(
-                    list(time_series_dto.snort_alert_metrics_per_ids))
+                    list(time_series_dto.snort_alert_metrics_per_ids)),
+                five_g_core_amf_metrics=ClusterManagerUtil.convert_five_g_core_amf_metrics_dict_reverse(
+                    list(time_series_dto.five_g_core_amf_metrics)),
+                five_g_core_hss_metrics=ClusterManagerUtil.convert_five_g_core_hss_metrics_dict_reverse(
+                    list(time_series_dto.five_g_core_hss_metrics)),
+                five_g_core_mme_metrics=ClusterManagerUtil.convert_five_g_core_mme_metrics_dict_reverse(
+                    list(time_series_dto.five_g_core_mme_metrics)),
+                five_g_core_pcf_metrics=ClusterManagerUtil.convert_five_g_core_pcf_metrics_dict_reverse(
+                    list(time_series_dto.five_g_core_pcf_metrics)),
+                five_g_core_pcrf_metrics=ClusterManagerUtil.convert_five_g_core_pcrf_metrics_dict_reverse(
+                    list(time_series_dto.five_g_core_pcrf_metrics)),
+                five_g_core_smf_metrics=ClusterManagerUtil.convert_five_g_core_smf_metrics_dict_reverse(
+                    list(time_series_dto.five_g_core_smf_metrics)),
+                five_g_core_upf_metrics=ClusterManagerUtil.convert_five_g_core_upf_metrics_dict_reverse(
+                    list(time_series_dto.five_g_core_upf_metrics)),
+                five_g_cu_app_resource_usage_metrics=
+                ClusterManagerUtil.convert_five_g_cu_app_resource_usage_metrics_dict_reverse(
+                    list(time_series_dto.five_g_cu_app_resource_usage_metrics)),
+                five_g_cu_buffer_pool_metrics=ClusterManagerUtil.convert_five_g_cu_buffer_pool_metrics_dict_reverse(
+                    list(time_series_dto.five_g_cu_buffer_pool_metrics)),
+                five_g_cu_cp_metrics=ClusterManagerUtil.convert_five_g_cu_cp_metrics_dict_reverse(
+                    list(time_series_dto.five_g_cu_cp_metrics)),
+                five_g_du_app_resource_usage_metrics=
+                ClusterManagerUtil.convert_five_g_du_app_resource_usage_metrics_dict_reverse(
+                    list(time_series_dto.five_g_du_app_resource_usage_metrics)),
+                five_g_du_buffer_pool_metrics=ClusterManagerUtil.convert_five_g_du_buffer_pool_metrics_dict_reverse(
+                    list(time_series_dto.five_g_du_buffer_pool_metrics)),
+                five_g_du_cell_metrics=ClusterManagerUtil.convert_five_g_du_cell_metrics_dict_reverse(
+                    list(time_series_dto.five_g_du_cell_metrics)),
+                five_g_du_low_metrics=ClusterManagerUtil.convert_five_g_du_low_metrics_dict_reverse(
+                    list(time_series_dto.five_g_du_low_metrics)),
+                five_g_du_metrics=ClusterManagerUtil.convert_five_g_du_metrics_dict_reverse(
+                    list(time_series_dto.five_g_du_metrics)),
+                five_g_du_rlc_metrics=ClusterManagerUtil.convert_five_g_du_rlc_metrics_dict_reverse(
+                    list(time_series_dto.five_g_du_rlc_metrics))
             )
 
     @staticmethod
@@ -4677,3 +4775,2589 @@ class ClusterManagerUtil:
         return csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO(
             du_running=five_g_du_info_dto.du_running, ue_running=five_g_du_info_dto.ue_running,
             ip=five_g_du_info_dto.ip, monitor_running=five_g_du_info_dto.monitor_running)
+
+    @staticmethod
+    def convert_five_g_core_amf_metrics_dto_reverse(
+            five_g_core_amf_metrics_dto: Union[None, cluster_manager_pb2.FiveGCoreAMFMetricsDTO]) \
+            -> FiveGCoreAMFMetrics:
+        """
+        Converts a FiveGCoreAMFMetricsDTO to a FiveGCoreAMFMetrics
+
+        :param five_g_core_amf_metrics_dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if five_g_core_amf_metrics_dto is None:
+            return ClusterManagerUtil.convert_five_g_core_amf_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_amf_metrics_dto())
+        else:
+            return FiveGCoreAMFMetrics(
+                gnb=five_g_core_amf_metrics_dto.gnb,
+                fivegs_amffunction_mm_confupdate=five_g_core_amf_metrics_dto.fivegs_amffunction_mm_confupdate,
+                fivegs_amffunction_rm_reginitreq=five_g_core_amf_metrics_dto.fivegs_amffunction_rm_reginitreq,
+                fivegs_amffunction_rm_regemergreq=five_g_core_amf_metrics_dto.fivegs_amffunction_rm_regemergreq,
+                fivegs_amffunction_mm_paging5greq=five_g_core_amf_metrics_dto.fivegs_amffunction_mm_paging5greq,
+                fivegs_amffunction_rm_regperiodreq=five_g_core_amf_metrics_dto.fivegs_amffunction_rm_regperiodreq,
+                fivegs_amffunction_mm_confupdatesucc=five_g_core_amf_metrics_dto.fivegs_amffunction_mm_confupdatesucc,
+                fivegs_amffunction_rm_reginitsucc=five_g_core_amf_metrics_dto.fivegs_amffunction_rm_reginitsucc,
+                fivegs_amffunction_amf_authreject=five_g_core_amf_metrics_dto.fivegs_amffunction_amf_authreject,
+                fivegs_amffunction_rm_regmobreq=five_g_core_amf_metrics_dto.fivegs_amffunction_rm_regmobreq,
+                amf_session=five_g_core_amf_metrics_dto.amf_session,
+                fivegs_amffunction_rm_regmobsucc=five_g_core_amf_metrics_dto.fivegs_amffunction_rm_regmobsucc,
+                fivegs_amffunction_amf_authreq=five_g_core_amf_metrics_dto.fivegs_amffunction_amf_authreq,
+                fivegs_amffunction_rm_regemergsucc=five_g_core_amf_metrics_dto.fivegs_amffunction_rm_regemergsucc,
+                fivegs_amffunction_mm_paging5gsucc=five_g_core_amf_metrics_dto.fivegs_amffunction_mm_paging5gsucc,
+                ran_ue=five_g_core_amf_metrics_dto.ran_ue,
+                fivegs_amffunction_rm_regperiodsucc=five_g_core_amf_metrics_dto.fivegs_amffunction_rm_regperiodsucc,
+                process_max_fds=five_g_core_amf_metrics_dto.process_max_fds,
+                process_virtual_memory_max_bytes=five_g_core_amf_metrics_dto.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=five_g_core_amf_metrics_dto.process_cpu_seconds_total,
+                process_virtual_memory_bytes=five_g_core_amf_metrics_dto.process_virtual_memory_bytes,
+                process_resident_memory_bytes=five_g_core_amf_metrics_dto.process_resident_memory_bytes,
+                process_start_time_seconds=five_g_core_amf_metrics_dto.process_start_time_seconds,
+                process_open_fds=five_g_core_amf_metrics_dto.process_open_fds,
+                ip=five_g_core_amf_metrics_dto.ip,
+                ts=five_g_core_amf_metrics_dto.ts
+            )
+
+    @staticmethod
+    def get_empty_five_g_core_amf_metrics_dto() -> cluster_manager_pb2.FiveGCoreAMFMetricsDTO:
+        """
+        Gets an empty FiveGCoreAMFMetricsDTO
+
+        :return: an empty FiveGCoreAMFMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGCoreAMFMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_core_amf_metrics_dto_to_dict(
+            dto: cluster_manager_pb2.FiveGCoreAMFMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGCoreAMFMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["gnb"] = dto.gnb
+        d["fivegs_amffunction_mm_confupdate"] = dto.fivegs_amffunction_mm_confupdate
+        d["fivegs_amffunction_rm_reginitreq"] = dto.fivegs_amffunction_rm_reginitreq
+        d["fivegs_amffunction_rm_regemergreq"] = dto.fivegs_amffunction_rm_regemergreq
+        d["fivegs_amffunction_mm_paging5greq"] = dto.fivegs_amffunction_mm_paging5greq
+        d["fivegs_amffunction_rm_regperiodreq"] = dto.fivegs_amffunction_rm_regperiodreq
+        d["fivegs_amffunction_mm_confupdatesucc"] = dto.fivegs_amffunction_mm_confupdatesucc
+        d["fivegs_amffunction_rm_reginitsucc"] = dto.fivegs_amffunction_rm_reginitsucc
+        d["fivegs_amffunction_amf_authreject"] = dto.fivegs_amffunction_amf_authreject
+        d["fivegs_amffunction_rm_regmobreq"] = dto.fivegs_amffunction_rm_regmobreq
+        d["amf_session"] = dto.amf_session
+        d["fivegs_amffunction_rm_regmobsucc"] = dto.fivegs_amffunction_rm_regmobsucc
+        d["fivegs_amffunction_amf_authreq"] = dto.fivegs_amffunction_amf_authreq
+        d["fivegs_amffunction_rm_regemergsucc"] = dto.fivegs_amffunction_rm_regemergsucc
+        d["fivegs_amffunction_mm_paging5gsucc"] = dto.fivegs_amffunction_mm_paging5gsucc
+        d["ran_ue"] = dto.ran_ue
+        d["fivegs_amffunction_rm_regperiodsucc"] = dto.fivegs_amffunction_rm_regperiodsucc
+        d["process_max_fds"] = dto.process_max_fds
+        d["process_virtual_memory_max_bytes"] = dto.process_virtual_memory_max_bytes
+        d["process_cpu_seconds_total"] = dto.process_cpu_seconds_total
+        d["process_virtual_memory_bytes"] = dto.process_virtual_memory_bytes
+        d["process_resident_memory_bytes"] = dto.process_resident_memory_bytes
+        d["process_start_time_seconds"] = dto.process_start_time_seconds
+        d["process_open_fds"] = dto.process_open_fds
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        return d
+
+    @staticmethod
+    def convert_five_g_core_hss_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGCoreHSSMetricsDTO]) -> FiveGCoreHSSMetrics:
+        """
+        Converts a FiveGCoreHSSMetricsDTO to a FiveGCoreHSSMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_core_hss_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_hss_metrics_dto())
+        else:
+            return FiveGCoreHSSMetrics(
+                ip=dto.ip, ts=dto.ts,
+                cx_rx_lir=dto.cx_rx_lir, cx_rx_uar=dto.cx_rx_uar, cx_tx_lia=dto.cx_tx_lia,
+                cx_rx_unknown=dto.cx_rx_unknown, cx_rx_sar=dto.cx_rx_sar, s6a_rx_pur=dto.s6a_rx_pur,
+                swx_rx_mar_error=dto.swx_rx_mar_error, cx_tx_uaa=dto.cx_tx_uaa,
+                s6a_rx_pur_error=dto.s6a_rx_pur_error, s6a_tx_clr=dto.s6a_tx_clr, cx_tx_saa=dto.cx_tx_saa,
+                cx_rx_lir_error=dto.cx_rx_lir_error, s6a_rx_ulr=dto.s6a_rx_ulr, s6a_rx_cla=dto.s6a_rx_cla,
+                s6a_rx_cla_error=dto.s6a_rx_cla_error, s6a_rx_air=dto.s6a_rx_air, cx_rx_mar=dto.cx_rx_mar,
+                swx_rx_sar=dto.swx_rx_sar, s6a_rx_air_error=dto.s6a_rx_air_error,
+                s6a_rx_ida_error=dto.s6a_rx_ida_error, cx_tx_maa=dto.cx_tx_maa, swx_rx_mar=dto.swx_rx_mar,
+                s6a_rx_unknown=dto.s6a_rx_unknown, s6a_tx_pua=dto.s6a_tx_pua,
+                swx_rx_unknown=dto.swx_rx_unknown, cx_rx_mar_error=dto.cx_rx_mar_error,
+                cx_rx_uar_error=dto.cx_rx_uar_error, s6a_tx_ula=dto.s6a_tx_ula,
+                s6a_rx_ulr_error=dto.s6a_rx_ulr_error, s6a_tx_aia=dto.s6a_tx_aia, s6a_tx_idr=dto.s6a_tx_idr,
+                s6a_rx_ida=dto.s6a_rx_ida, cx_rx_sar_error=dto.cx_rx_sar_error,
+                swx_rx_sar_error=dto.swx_rx_sar_error, swx_tx_maa=dto.swx_tx_maa, swx_tx_saa=dto.swx_tx_saa,
+                hss_imsi=dto.hss_imsi, hss_impi=dto.hss_impi, hss_impu=dto.hss_impu,
+                process_max_fds=dto.process_max_fds,
+                process_virtual_memory_max_bytes=dto.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=dto.process_cpu_seconds_total,
+                process_virtual_memory_bytes=dto.process_virtual_memory_bytes,
+                process_resident_memory_bytes=dto.process_resident_memory_bytes,
+                process_start_time_seconds=dto.process_start_time_seconds,
+                process_open_fds=dto.process_open_fds
+            )
+
+    @staticmethod
+    def get_empty_five_g_core_hss_metrics_dto() -> cluster_manager_pb2.FiveGCoreHSSMetricsDTO:
+        """
+        Gets an empty FiveGCoreHSSMetricsDTO
+
+        :return: an empty FiveGCoreHSSMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGCoreHSSMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_core_hss_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGCoreHSSMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGCoreHSSMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["cx_rx_lir"] = dto.cx_rx_lir
+        d["cx_rx_uar"] = dto.cx_rx_uar
+        d["cx_tx_lia"] = dto.cx_tx_lia
+        d["cx_rx_unknown"] = dto.cx_rx_unknown
+        d["cx_rx_sar"] = dto.cx_rx_sar
+        d["s6a_rx_pur"] = dto.s6a_rx_pur
+        d["swx_rx_mar_error"] = dto.swx_rx_mar_error
+        d["cx_tx_uaa"] = dto.cx_tx_uaa
+        d["s6a_rx_pur_error"] = dto.s6a_rx_pur_error
+        d["s6a_tx_clr"] = dto.s6a_tx_clr
+        d["cx_tx_saa"] = dto.cx_tx_saa
+        d["cx_rx_lir_error"] = dto.cx_rx_lir_error
+        d["s6a_rx_ulr"] = dto.s6a_rx_ulr
+        d["s6a_rx_cla"] = dto.s6a_rx_cla
+        d["s6a_rx_cla_error"] = dto.s6a_rx_cla_error
+        d["s6a_rx_air"] = dto.s6a_rx_air
+        d["cx_rx_mar"] = dto.cx_rx_mar
+        d["swx_rx_sar"] = dto.swx_rx_sar
+        d["s6a_rx_air_error"] = dto.s6a_rx_air_error
+        d["s6a_rx_ida_error"] = dto.s6a_rx_ida_error
+        d["cx_tx_maa"] = dto.cx_tx_maa
+        d["swx_rx_mar"] = dto.swx_rx_mar
+        d["s6a_rx_unknown"] = dto.s6a_rx_unknown
+        d["s6a_tx_pua"] = dto.s6a_tx_pua
+        d["swx_rx_unknown"] = dto.swx_rx_unknown
+        d["cx_rx_mar_error"] = dto.cx_rx_mar_error
+        d["cx_rx_uar_error"] = dto.cx_rx_uar_error
+        d["s6a_tx_ula"] = dto.s6a_tx_ula
+        d["s6a_rx_ulr_error"] = dto.s6a_rx_ulr_error
+        d["s6a_tx_aia"] = dto.s6a_tx_aia
+        d["s6a_tx_idr"] = dto.s6a_tx_idr
+        d["s6a_rx_ida"] = dto.s6a_rx_ida
+        d["cx_rx_sar_error"] = dto.cx_rx_sar_error
+        d["swx_rx_sar_error"] = dto.swx_rx_sar_error
+        d["swx_tx_maa"] = dto.swx_tx_maa
+        d["swx_tx_saa"] = dto.swx_tx_saa
+        d["hss_imsi"] = dto.hss_imsi
+        d["hss_impi"] = dto.hss_impi
+        d["hss_impu"] = dto.hss_impu
+        d["process_max_fds"] = dto.process_max_fds
+        d["process_virtual_memory_max_bytes"] = dto.process_virtual_memory_max_bytes
+        d["process_cpu_seconds_total"] = dto.process_cpu_seconds_total
+        d["process_virtual_memory_bytes"] = dto.process_virtual_memory_bytes
+        d["process_resident_memory_bytes"] = dto.process_resident_memory_bytes
+        d["process_start_time_seconds"] = dto.process_start_time_seconds
+        d["process_open_fds"] = dto.process_open_fds
+        return d
+
+    @staticmethod
+    def convert_five_g_core_mme_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGCoreMMEMetricsDTO]) -> FiveGCoreMMEMetrics:
+        """
+        Converts a FiveGCoreMMEMetricsDTO to a FiveGCoreMMEMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_core_mme_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_mme_metrics_dto())
+        else:
+            return FiveGCoreMMEMetrics(
+                ip=dto.ip, ts=dto.ts, enb_ue=dto.enb_ue, mme_session=dto.mme_session, enb=dto.enb,
+                process_max_fds=dto.process_max_fds,
+                process_virtual_memory_max_bytes=dto.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=dto.process_cpu_seconds_total,
+                process_virtual_memory_bytes=dto.process_virtual_memory_bytes,
+                process_resident_memory_bytes=dto.process_resident_memory_bytes,
+                process_start_time_seconds=dto.process_start_time_seconds,
+                process_open_fds=dto.process_open_fds
+            )
+
+    @staticmethod
+    def get_empty_five_g_core_mme_metrics_dto() -> cluster_manager_pb2.FiveGCoreMMEMetricsDTO:
+        """
+        Gets an empty FiveGCoreMMEMetricsDTO
+
+        :return: an empty FiveGCoreMMEMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGCoreMMEMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_core_mme_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGCoreMMEMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGCoreMMEMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["enb_ue"] = dto.enb_ue
+        d["mme_session"] = dto.mme_session
+        d["enb"] = dto.enb
+        d["process_max_fds"] = dto.process_max_fds
+        d["process_virtual_memory_max_bytes"] = dto.process_virtual_memory_max_bytes
+        d["process_cpu_seconds_total"] = dto.process_cpu_seconds_total
+        d["process_virtual_memory_bytes"] = dto.process_virtual_memory_bytes
+        d["process_resident_memory_bytes"] = dto.process_resident_memory_bytes
+        d["process_start_time_seconds"] = dto.process_start_time_seconds
+        d["process_open_fds"] = dto.process_open_fds
+        return d
+
+    @staticmethod
+    def convert_five_g_core_upf_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGCoreUPFMetricsDTO]) -> FiveGCoreUPFMetrics:
+        """
+        Converts a FiveGCoreUPFMetricsDTO to a FiveGCoreUPFMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_core_upf_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_upf_metrics_dto())
+        else:
+            return FiveGCoreUPFMetrics(
+                ip=dto.ip, ts=dto.ts,
+                fivegs_ep_n3_gtp_indatapktn3upf=dto.fivegs_ep_n3_gtp_indatapktn3upf,
+                fivegs_ep_n3_gtp_outdatapktn3upf=dto.fivegs_ep_n3_gtp_outdatapktn3upf,
+                fivegs_upffunction_sm_n4sessionestabreq=dto.fivegs_upffunction_sm_n4sessionestabreq,
+                fivegs_upffunction_sm_n4sessionreport=dto.fivegs_upffunction_sm_n4sessionreport,
+                fivegs_upffunction_sm_n4sessionreportsucc=dto.fivegs_upffunction_sm_n4sessionreportsucc,
+                fivegs_upffunction_upf_sessionnbr=dto.fivegs_upffunction_upf_sessionnbr,
+                pfcp_peers_active=dto.pfcp_peers_active,
+                process_max_fds=dto.process_max_fds,
+                process_virtual_memory_max_bytes=dto.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=dto.process_cpu_seconds_total,
+                process_virtual_memory_bytes=dto.process_virtual_memory_bytes,
+                process_resident_memory_bytes=dto.process_resident_memory_bytes,
+                process_start_time_seconds=dto.process_start_time_seconds,
+                process_open_fds=dto.process_open_fds
+            )
+
+    @staticmethod
+    def get_empty_five_g_core_upf_metrics_dto() -> cluster_manager_pb2.FiveGCoreUPFMetricsDTO:
+        """
+        Gets an empty FiveGCoreUPFMetricsDTO
+
+        :return: an empty FiveGCoreUPFMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGCoreUPFMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_core_upf_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGCoreUPFMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGCoreUPFMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["fivegs_ep_n3_gtp_indatapktn3upf"] = dto.fivegs_ep_n3_gtp_indatapktn3upf
+        d["fivegs_ep_n3_gtp_outdatapktn3upf"] = dto.fivegs_ep_n3_gtp_outdatapktn3upf
+        d["fivegs_upffunction_sm_n4sessionestabreq"] = dto.fivegs_upffunction_sm_n4sessionestabreq
+        d["fivegs_upffunction_sm_n4sessionreport"] = dto.fivegs_upffunction_sm_n4sessionreport
+        d["fivegs_upffunction_sm_n4sessionreportsucc"] = dto.fivegs_upffunction_sm_n4sessionreportsucc
+        d["fivegs_upffunction_upf_sessionnbr"] = dto.fivegs_upffunction_upf_sessionnbr
+        d["pfcp_peers_active"] = dto.pfcp_peers_active
+        d["process_max_fds"] = dto.process_max_fds
+        d["process_virtual_memory_max_bytes"] = dto.process_virtual_memory_max_bytes
+        d["process_cpu_seconds_total"] = dto.process_cpu_seconds_total
+        d["process_virtual_memory_bytes"] = dto.process_virtual_memory_bytes
+        d["process_resident_memory_bytes"] = dto.process_resident_memory_bytes
+        d["process_start_time_seconds"] = dto.process_start_time_seconds
+        d["process_open_fds"] = dto.process_open_fds
+        return d
+
+    @staticmethod
+    def convert_five_g_core_pcf_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGCorePCFMetricsDTO]) -> FiveGCorePCFMetrics:
+        """
+        Converts a FiveGCorePCFMetricsDTO to a FiveGCorePCFMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_core_pcf_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_pcf_metrics_dto())
+        else:
+            return FiveGCorePCFMetrics(
+                ip=dto.ip, ts=dto.ts,
+                fivegs_pcffunction_pa_policyamassoreq=dto.fivegs_pcffunction_pa_policyamassoreq,
+                fivegs_pcffunction_pa_policyamassosucc=dto.fivegs_pcffunction_pa_policyamassosucc,
+                fivegs_pcffunction_pa_policysmassoreq=dto.fivegs_pcffunction_pa_policysmassoreq,
+                fivegs_pcffunction_pa_policysmassosucc=dto.fivegs_pcffunction_pa_policysmassosucc,
+                fivegs_pcffunction_pa_sessionnbr=dto.fivegs_pcffunction_pa_sessionnbr,
+                process_max_fds=dto.process_max_fds,
+                process_virtual_memory_max_bytes=dto.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=dto.process_cpu_seconds_total,
+                process_virtual_memory_bytes=dto.process_virtual_memory_bytes,
+                process_resident_memory_bytes=dto.process_resident_memory_bytes,
+                process_start_time_seconds=dto.process_start_time_seconds,
+                process_open_fds=dto.process_open_fds
+            )
+
+    @staticmethod
+    def get_empty_five_g_core_pcf_metrics_dto() -> cluster_manager_pb2.FiveGCorePCFMetricsDTO:
+        """
+        Gets an empty FiveGCorePCFMetricsDTO
+
+        :return: an empty FiveGCorePCFMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGCorePCFMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_core_pcf_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGCorePCFMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGCorePCFMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["fivegs_pcffunction_pa_policyamassoreq"] = dto.fivegs_pcffunction_pa_policyamassoreq
+        d["fivegs_pcffunction_pa_policyamassosucc"] = dto.fivegs_pcffunction_pa_policyamassosucc
+        d["fivegs_pcffunction_pa_policysmassoreq"] = dto.fivegs_pcffunction_pa_policysmassoreq
+        d["fivegs_pcffunction_pa_policysmassosucc"] = dto.fivegs_pcffunction_pa_policysmassosucc
+        d["fivegs_pcffunction_pa_sessionnbr"] = dto.fivegs_pcffunction_pa_sessionnbr
+        d["process_max_fds"] = dto.process_max_fds
+        d["process_virtual_memory_max_bytes"] = dto.process_virtual_memory_max_bytes
+        d["process_cpu_seconds_total"] = dto.process_cpu_seconds_total
+        d["process_virtual_memory_bytes"] = dto.process_virtual_memory_bytes
+        d["process_resident_memory_bytes"] = dto.process_resident_memory_bytes
+        d["process_start_time_seconds"] = dto.process_start_time_seconds
+        d["process_open_fds"] = dto.process_open_fds
+        return d
+
+    @staticmethod
+    def convert_five_g_core_pcrf_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGCorePCRFMetricsDTO]) -> FiveGCorePCRFMetrics:
+        """
+        Converts a FiveGCorePCRFMetricsDTO to a FiveGCorePCRFMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_core_pcrf_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_pcrf_metrics_dto())
+        else:
+            return FiveGCorePCRFMetrics(
+                ip=dto.ip, ts=dto.ts,
+                gx_rx_unknown=dto.gx_rx_unknown, gx_rx_ccr=dto.gx_rx_ccr, gx_rx_ccr_error=dto.gx_rx_ccr_error,
+                gx_rx_raa=dto.gx_rx_raa, gx_tx_cca=dto.gx_tx_cca, gx_tx_rar=dto.gx_tx_rar,
+                gx_tx_rar_error=dto.gx_tx_rar_error, rx_rx_unknown=dto.rx_rx_unknown, rx_rx_aar=dto.rx_rx_aar,
+                rx_rx_aar_error=dto.rx_rx_aar_error, rx_rx_asa=dto.rx_rx_asa, rx_rx_asa_error=dto.rx_rx_asa_error,
+                rx_rx_str_error=dto.rx_rx_str_error, rx_tx_aaa=dto.rx_tx_aaa, rx_tx_sar=dto.rx_tx_sar,
+                rx_tx_sta=dto.rx_tx_sta, process_max_fds=dto.process_max_fds,
+                process_virtual_memory_max_bytes=dto.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=dto.process_cpu_seconds_total,
+                process_virtual_memory_bytes=dto.process_virtual_memory_bytes,
+                process_resident_memory_bytes=dto.process_resident_memory_bytes,
+                process_start_time_seconds=dto.process_start_time_seconds,
+                process_open_fds=dto.process_open_fds
+            )
+
+    @staticmethod
+    def get_empty_five_g_core_pcrf_metrics_dto() -> cluster_manager_pb2.FiveGCorePCRFMetricsDTO:
+        """
+        Gets an empty FiveGCorePCRFMetricsDTO
+
+        :return: an empty FiveGCorePCRFMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGCorePCRFMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_core_pcrf_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGCorePCRFMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGCorePCRFMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["gx_rx_unknown"] = dto.gx_rx_unknown
+        d["gx_rx_ccr"] = dto.gx_rx_ccr
+        d["gx_rx_ccr_error"] = dto.gx_rx_ccr_error
+        d["gx_rx_raa"] = dto.gx_rx_raa
+        d["gx_tx_cca"] = dto.gx_tx_cca
+        d["gx_tx_rar"] = dto.gx_tx_rar
+        d["gx_tx_rar_error"] = dto.gx_tx_rar_error
+        d["rx_rx_unknown"] = dto.rx_rx_unknown
+        d["rx_rx_aar"] = dto.rx_rx_aar
+        d["rx_rx_aar_error"] = dto.rx_rx_aar_error
+        d["rx_rx_asa"] = dto.rx_rx_asa
+        d["rx_rx_asa_error"] = dto.rx_rx_asa_error
+        d["rx_rx_str_error"] = dto.rx_rx_str_error
+        d["rx_tx_aaa"] = dto.rx_tx_aaa
+        d["rx_tx_sar"] = dto.rx_tx_sar
+        d["rx_tx_sta"] = dto.rx_tx_sta
+        d["process_max_fds"] = dto.process_max_fds
+        d["process_virtual_memory_max_bytes"] = dto.process_virtual_memory_max_bytes
+        d["process_cpu_seconds_total"] = dto.process_cpu_seconds_total
+        d["process_virtual_memory_bytes"] = dto.process_virtual_memory_bytes
+        d["process_resident_memory_bytes"] = dto.process_resident_memory_bytes
+        d["process_start_time_seconds"] = dto.process_start_time_seconds
+        d["process_open_fds"] = dto.process_open_fds
+        return d
+
+    @staticmethod
+    def convert_five_g_core_smf_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGCoreSMFMetricsDTO]) -> FiveGCoreSMFMetrics:
+        """
+        Converts a FiveGCoreSMFMetricsDTO to a FiveGCoreSMFMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_core_smf_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_smf_metrics_dto())
+        else:
+            return FiveGCoreSMFMetrics(
+                ip=dto.ip, ts=dto.ts,
+                gn_rx_createpdpcontextreq=dto.gn_rx_createpdpcontextreq,
+                gn_rx_deletepdpcontextreq=dto.gn_rx_deletepdpcontextreq,
+                gtp1_pdpctxs_active=dto.gtp1_pdpctxs_active,
+                pfcp_peers_active=dto.pfcp_peers_active,
+                fivegs_smffunction_sm_n4sessionreport=dto.fivegs_smffunction_sm_n4sessionreport,
+                ues_active=dto.ues_active,
+                gtp2_sessions_active=dto.gtp2_sessions_active,
+                pfcp_sessions_active=dto.pfcp_sessions_active,
+                s5c_rx_createsession=dto.s5c_rx_createsession,
+                s5c_rx_deletesession=dto.s5c_rx_deletesession,
+                gtp_new_node_failed=dto.gtp_new_node_failed,
+                s5c_rx_parse_failed=dto.s5c_rx_parse_failed,
+                fivegs_smffunction_sm_n4sessionreportsucc=dto.fivegs_smffunction_sm_n4sessionreportsucc,
+                fivegs_smffunction_sm_n4sessionestabreq=dto.fivegs_smffunction_sm_n4sessionestabreq,
+                bearers_active=dto.bearers_active,
+                gn_rx_parse_failed=dto.gn_rx_parse_failed,
+                gtp_peers_active=dto.gtp_peers_active,
+                fivegs_smffunction_sm_sessionnbr=dto.fivegs_smffunction_sm_sessionnbr,
+                fivegs_smffunction_sm_pdusessioncreationreq=dto.fivegs_smffunction_sm_pdusessioncreationreq,
+                fivegs_smffunction_sm_pdusessioncreationsucc=dto.fivegs_smffunction_sm_pdusessioncreationsucc,
+                fivegs_smffunction_sm_qos_flow_nbr=dto.fivegs_smffunction_sm_qos_flow_nbr,
+                fivegs_smffunction_sm_n4sessionestabfail=dto.fivegs_smffunction_sm_n4sessionestabfail,
+                fivegs_smffunction_sm_pdusessioncreationfail=dto.fivegs_smffunction_sm_pdusessioncreationfail,
+                process_max_fds=dto.process_max_fds,
+                process_virtual_memory_max_bytes=dto.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=dto.process_cpu_seconds_total,
+                process_virtual_memory_bytes=dto.process_virtual_memory_bytes,
+                process_resident_memory_bytes=dto.process_resident_memory_bytes,
+                process_start_time_seconds=dto.process_start_time_seconds,
+                process_open_fds=dto.process_open_fds
+            )
+
+    @staticmethod
+    def get_empty_five_g_core_smf_metrics_dto() -> cluster_manager_pb2.FiveGCoreSMFMetricsDTO:
+        """
+        Gets an empty FiveGCoreSMFMetricsDTO
+
+        :return: an empty FiveGCoreSMFMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGCoreSMFMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_core_smf_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGCoreSMFMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGCoreSMFMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["gn_rx_createpdpcontextreq"] = dto.gn_rx_createpdpcontextreq
+        d["gn_rx_deletepdpcontextreq"] = dto.gn_rx_deletepdpcontextreq
+        d["gtp1_pdpctxs_active"] = dto.gtp1_pdpctxs_active
+        d["pfcp_peers_active"] = dto.pfcp_peers_active
+        d["fivegs_smffunction_sm_n4sessionreport"] = dto.fivegs_smffunction_sm_n4sessionreport
+        d["ues_active"] = dto.ues_active
+        d["gtp2_sessions_active"] = dto.gtp2_sessions_active
+        d["pfcp_sessions_active"] = dto.pfcp_sessions_active
+        d["s5c_rx_createsession"] = dto.s5c_rx_createsession
+        d["s5c_rx_deletesession"] = dto.s5c_rx_deletesession
+        d["gtp_new_node_failed"] = dto.gtp_new_node_failed
+        d["s5c_rx_parse_failed"] = dto.s5c_rx_parse_failed
+        d["fivegs_smffunction_sm_n4sessionreportsucc"] = dto.fivegs_smffunction_sm_n4sessionreportsucc
+        d["fivegs_smffunction_sm_n4sessionestabreq"] = dto.fivegs_smffunction_sm_n4sessionestabreq
+        d["bearers_active"] = dto.bearers_active
+        d["gn_rx_parse_failed"] = dto.gn_rx_parse_failed
+        d["gtp_peers_active"] = dto.gtp_peers_active
+        d["fivegs_smffunction_sm_sessionnbr"] = dto.fivegs_smffunction_sm_sessionnbr
+        d["fivegs_smffunction_sm_pdusessioncreationreq"] = dto.fivegs_smffunction_sm_pdusessioncreationreq
+        d["fivegs_smffunction_sm_pdusessioncreationsucc"] = dto.fivegs_smffunction_sm_pdusessioncreationsucc
+        d["fivegs_smffunction_sm_qos_flow_nbr"] = dto.fivegs_smffunction_sm_qos_flow_nbr
+        d["fivegs_smffunction_sm_n4sessionestabfail"] = dto.fivegs_smffunction_sm_n4sessionestabfail
+        d["fivegs_smffunction_sm_pdusessioncreationfail"] = dto.fivegs_smffunction_sm_pdusessioncreationfail
+        d["process_max_fds"] = dto.process_max_fds
+        d["process_virtual_memory_max_bytes"] = dto.process_virtual_memory_max_bytes
+        d["process_cpu_seconds_total"] = dto.process_cpu_seconds_total
+        d["process_virtual_memory_bytes"] = dto.process_virtual_memory_bytes
+        d["process_resident_memory_bytes"] = dto.process_resident_memory_bytes
+        d["process_start_time_seconds"] = dto.process_start_time_seconds
+        d["process_open_fds"] = dto.process_open_fds
+        return d
+
+    @staticmethod
+    def convert_five_g_du_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGDUMetricsDTO]) -> FiveGDUMetrics:
+        """
+        Converts a FiveGDUMetricsDTO to a FiveGDUMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_du_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_metrics_dto())
+        else:
+            return FiveGDUMetrics(
+                pci=dto.pci, average_latency_us=dto.average_latency_us, cpu_usage_percent=dto.cpu_usage_percent,
+                max_latency_us=dto.max_latency_us, min_latency_us=dto.min_latency_us, ip=dto.ip, ts=dto.ts
+            )
+
+    @staticmethod
+    def get_empty_five_g_du_metrics_dto() -> cluster_manager_pb2.FiveGDUMetricsDTO:
+        """
+        Gets an empty FiveGDUMetricsDTO
+
+        :return: an empty FiveGDUMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGDUMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_du_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGDUMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGDUMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["pci"] = dto.pci
+        d["average_latency_us"] = dto.average_latency_us
+        d["cpu_usage_percent"] = dto.cpu_usage_percent
+        d["max_latency_us"] = dto.max_latency_us
+        d["min_latency_us"] = dto.min_latency_us
+        return d
+
+    @staticmethod
+    def convert_five_g_du_low_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGDULowMetricsDTO]) -> FiveGDULowMetrics:
+        """
+        Converts a FiveGDULowMetricsDTO to a FiveGDULowMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_du_low_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_low_metrics_dto())
+        else:
+            return FiveGDULowMetrics(
+                dl_avg_latency_us=dto.dl_avg_latency_us, dl_cpu_usage_percent=dto.dl_cpu_usage_percent,
+                dl_max_latency_us=dto.dl_max_latency_us, dl_fec_tput_mbps=dto.dl_fec_tput_mbps,
+                ul_avg_latency_us=dto.ul_avg_latency_us, ul_cpu_usage_percent=dto.ul_cpu_usage_percent,
+                ul_max_latency_us=dto.ul_max_latency_us, ul_sinr_db=dto.ul_sinr_db,
+                ul_ch_est_latency_us=dto.ul_ch_est_latency_us, ul_ldpc_dec_latency_us=dto.ul_ldpc_dec_latency_us,
+                ul_fec_tput_mbps=dto.ul_fec_tput_mbps, ip=dto.ip, ts=dto.ts
+            )
+
+    @staticmethod
+    def get_empty_five_g_du_low_metrics_dto() -> cluster_manager_pb2.FiveGDULowMetricsDTO:
+        """
+        Gets an empty FiveGDULowMetricsDTO
+
+        :return: an empty FiveGDULowMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGDULowMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_du_low_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGDULowMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGDULowMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["dl_avg_latency_us"] = dto.dl_avg_latency_us
+        d["dl_cpu_usage_percent"] = dto.dl_cpu_usage_percent
+        d["dl_max_latency_us"] = dto.dl_max_latency_us
+        d["dl_fec_tput_mbps"] = dto.dl_fec_tput_mbps
+        d["ul_avg_latency_us"] = dto.ul_avg_latency_us
+        d["ul_cpu_usage_percent"] = dto.ul_cpu_usage_percent
+        d["ul_max_latency_us"] = dto.ul_max_latency_us
+        d["ul_sinr_db"] = dto.ul_sinr_db
+        d["ul_ch_est_latency_us"] = dto.ul_ch_est_latency_us
+        d["ul_ldpc_dec_latency_us"] = dto.ul_ldpc_dec_latency_us
+        d["ul_fec_tput_mbps"] = dto.ul_fec_tput_mbps
+        return d
+
+    @staticmethod
+    def convert_five_g_du_rlc_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGDURLCMetricsDTO]) -> FiveGDURLCMetrics:
+        """
+        Converts a FiveGDURLCMetricsDTO to a FiveGDURLCMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_du_rlc_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_rlc_metrics_dto())
+        else:
+            return FiveGDURLCMetrics(
+                ue_id=dto.ue_id, drb_id=dto.drb_id, rx_num_pdus=dto.rx_num_pdus, rx_num_bytes=dto.rx_num_bytes,
+                rx_num_lost_pdus=dto.rx_num_lost_pdus, rx_num_malformed_pdus=dto.rx_num_malformed_pdus,
+                tx_num_sdus=dto.tx_num_sdus, tx_num_bytes=dto.tx_num_bytes,
+                tx_num_dropped_sdus=dto.tx_num_dropped_sdus, tx_num_discarded_sdus=dto.tx_num_discarded_sdus,
+                tx_max_pdu_latency_ns=dto.tx_max_pdu_latency_ns, tx_sum_pdu_latency_ns=dto.tx_sum_pdu_latency_ns,
+                tx_sum_sdu_latency_us=dto.tx_sum_sdu_latency_us, ip=dto.ip, ts=dto.ts
+            )
+
+    @staticmethod
+    def get_empty_five_g_du_rlc_metrics_dto() -> cluster_manager_pb2.FiveGDURLCMetricsDTO:
+        """
+        Gets an empty FiveGDURLCMetricsDTO
+
+        :return: an empty FiveGDURLCMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGDURLCMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_du_rlc_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGDURLCMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGDURLCMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["ue_id"] = dto.ue_id
+        d["drb_id"] = dto.drb_id
+        d["rx_num_pdus"] = dto.rx_num_pdus
+        d["rx_num_bytes"] = dto.rx_num_bytes
+        d["rx_num_lost_pdus"] = dto.rx_num_lost_pdus
+        d["rx_num_malformed_pdus"] = dto.rx_num_malformed_pdus
+        d["tx_num_sdus"] = dto.tx_num_sdus
+        d["tx_num_bytes"] = dto.tx_num_bytes
+        d["tx_num_dropped_sdus"] = dto.tx_num_dropped_sdus
+        d["tx_num_discarded_sdus"] = dto.tx_num_discarded_sdus
+        d["tx_max_pdu_latency_ns"] = dto.tx_max_pdu_latency_ns
+        d["tx_sum_pdu_latency_ns"] = dto.tx_sum_pdu_latency_ns
+        d["tx_sum_sdu_latency_us"] = dto.tx_sum_sdu_latency_us
+        return d
+
+    @staticmethod
+    def convert_five_g_du_cell_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGDUCellMetricsDTO]) -> FiveGDUCellMetrics:
+        """
+        Converts a FiveGDUCellMetricsDTO to a FiveGDUCellMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_du_cell_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_cell_metrics_dto())
+        else:
+            return FiveGDUCellMetrics(
+                pci=dto.pci, average_latency=dto.average_latency, max_latency=dto.max_latency,
+                pucch_tot_rb_usage_avg=dto.pucch_tot_rb_usage_avg, active_ues=dto.active_ues, dl_brate=dto.dl_brate,
+                ul_brate=dto.ul_brate, dl_mcs=dto.dl_mcs, ul_mcs=dto.ul_mcs, pusch_snr_db=dto.pusch_snr_db,
+                pucch_snr_db=dto.pucch_snr_db, cqi=dto.cqi, dl_bler=dto.dl_bler, ul_bler=dto.ul_bler, ip=dto.ip,
+                ts=dto.ts
+            )
+
+    @staticmethod
+    def get_empty_five_g_du_cell_metrics_dto() -> cluster_manager_pb2.FiveGDUCellMetricsDTO:
+        """
+        Gets an empty FiveGDUCellMetricsDTO
+
+        :return: an empty FiveGDUCellMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGDUCellMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_du_cell_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGDUCellMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGDUCellMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["pci"] = dto.pci
+        d["average_latency"] = dto.average_latency
+        d["max_latency"] = dto.max_latency
+        d["pucch_tot_rb_usage_avg"] = dto.pucch_tot_rb_usage_avg
+        d["active_ues"] = dto.active_ues
+        d["dl_brate"] = dto.dl_brate
+        d["ul_brate"] = dto.ul_brate
+        d["dl_mcs"] = dto.dl_mcs
+        d["ul_mcs"] = dto.ul_mcs
+        d["pusch_snr_db"] = dto.pusch_snr_db
+        d["pucch_snr_db"] = dto.pucch_snr_db
+        d["cqi"] = dto.cqi
+        d["dl_bler"] = dto.dl_bler
+        d["ul_bler"] = dto.ul_bler
+        return d
+
+    @staticmethod
+    def convert_five_g_du_buffer_pool_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGDUBufferPoolMetricsDTO]) -> FiveGDUBufferPoolMetrics:
+        """
+        Converts a FiveGDUBufferPoolMetricsDTO to a FiveGDUBufferPoolMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_du_buffer_pool_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_buffer_pool_metrics_dto())
+        else:
+            return FiveGDUBufferPoolMetrics(
+                central_cache_size=dto.central_cache_size, ip=dto.ip, ts=dto.ts
+            )
+
+    @staticmethod
+    def get_empty_five_g_du_buffer_pool_metrics_dto() -> cluster_manager_pb2.FiveGDUBufferPoolMetricsDTO:
+        """
+        Gets an empty FiveGDUBufferPoolMetricsDTO
+
+        :return: an empty FiveGDUBufferPoolMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGDUBufferPoolMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_du_buffer_pool_metrics_dto_to_dict(
+            dto: cluster_manager_pb2.FiveGDUBufferPoolMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGDUBufferPoolMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["central_cache_size"] = dto.central_cache_size
+        return d
+
+    @staticmethod
+    def convert_five_g_du_app_resource_usage_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDTO]) -> FiveGDUAppResourceUsageMetrics:
+        """
+        Converts a FiveGDUAppResourceUsageMetricsDTO to a FiveGDUAppResourceUsageMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_du_app_resource_usage_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_app_resource_usage_metrics_dto())
+        else:
+            return FiveGDUAppResourceUsageMetrics(
+                cpu_usage_percent=dto.cpu_usage_percent, memory_usage_mb=dto.memory_usage_mb,
+                power_consumption_watts=dto.power_consumption_watts, ip=dto.ip, ts=dto.ts
+            )
+
+    @staticmethod
+    def get_empty_five_g_du_app_resource_usage_metrics_dto() -> cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDTO:
+        """
+        Gets an empty FiveGDUAppResourceUsageMetricsDTO
+
+        :return: an empty FiveGDUAppResourceUsageMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_du_app_resource_usage_metrics_dto_to_dict(
+            dto: cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGDUAppResourceUsageMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["cpu_usage_percent"] = dto.cpu_usage_percent
+        d["memory_usage_mb"] = dto.memory_usage_mb
+        d["power_consumption_watts"] = dto.power_consumption_watts
+        return d
+
+    @staticmethod
+    def convert_five_g_cu_cp_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGCUCPMetricsDTO]) -> FiveGCUCPMetrics:
+        """
+        Converts a FiveGCUCPMetricsDTO to a FiveGCUCPMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_cu_cp_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_cu_cp_metrics_dto())
+        else:
+            return FiveGCUCPMetrics(
+                cu_cp_id=dto.cu_cp_id, amf_connected=dto.amf_connected,
+                nof_cn_initiated_paging_requests=dto.nof_cn_initiated_paging_requests,
+                nof_pdu_sessions_requested_to_setup=dto.nof_pdu_sessions_requested_to_setup,
+                nof_pdu_sessions_successfully_setup=dto.nof_pdu_sessions_successfully_setup,
+                nof_pdu_sessions_failed_to_setup_total=dto.nof_pdu_sessions_failed_to_setup_total,
+                nof_handover_preparations_requested=dto.nof_handover_preparations_requested,
+                nof_successful_handover_preparations=dto.nof_successful_handover_preparations,
+                rrc_establishments_attempted_total=dto.rrc_establishments_attempted_total,
+                rrc_establishments_successful_total=dto.rrc_establishments_successful_total,
+                rrc_establishments_attempted_mo_data=dto.rrc_establishments_attempted_mo_data,
+                rrc_establishments_successful_mo_data=dto.rrc_establishments_successful_mo_data,
+                rrc_establishments_attempted_mo_sig=dto.rrc_establishments_attempted_mo_sig,
+                rrc_establishments_successful_mo_sig=dto.rrc_establishments_successful_mo_sig,
+                max_nof_rrc_connections=dto.max_nof_rrc_connections,
+                mean_nof_rrc_connections=dto.mean_nof_rrc_connections,
+                rrc_reestablishments_attempted=dto.rrc_reestablishments_attempted,
+                rrc_reestablishments_successful=dto.rrc_reestablishments_successful,
+                nof_handover_executions_requested=dto.nof_handover_executions_requested,
+                nof_successful_handover_executions=dto.nof_successful_handover_executions,
+                ip=dto.ip, ts=dto.ts
+            )
+
+    @staticmethod
+    def get_empty_five_g_cu_cp_metrics_dto() -> cluster_manager_pb2.FiveGCUCPMetricsDTO:
+        """
+        Gets an empty FiveGCUCPMetricsDTO
+
+        :return: an empty FiveGCUCPMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGCUCPMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_cu_cp_metrics_dto_to_dict(dto: cluster_manager_pb2.FiveGCUCPMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGCUCPMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["cu_cp_id"] = dto.cu_cp_id
+        d["amf_connected"] = dto.amf_connected
+        d["nof_cn_initiated_paging_requests"] = dto.nof_cn_initiated_paging_requests
+        d["nof_pdu_sessions_requested_to_setup"] = dto.nof_pdu_sessions_requested_to_setup
+        d["nof_pdu_sessions_successfully_setup"] = dto.nof_pdu_sessions_successfully_setup
+        d["nof_pdu_sessions_failed_to_setup_total"] = dto.nof_pdu_sessions_failed_to_setup_total
+        d["nof_handover_preparations_requested"] = dto.nof_handover_preparations_requested
+        d["nof_successful_handover_preparations"] = dto.nof_successful_handover_preparations
+        d["rrc_establishments_attempted_total"] = dto.rrc_establishments_attempted_total
+        d["rrc_establishments_successful_total"] = dto.rrc_establishments_successful_total
+        d["rrc_establishments_attempted_mo_data"] = dto.rrc_establishments_attempted_mo_data
+        d["rrc_establishments_successful_mo_data"] = dto.rrc_establishments_successful_mo_data
+        d["rrc_establishments_attempted_mo_sig"] = dto.rrc_establishments_attempted_mo_sig
+        d["rrc_establishments_successful_mo_sig"] = dto.rrc_establishments_successful_mo_sig
+        d["max_nof_rrc_connections"] = dto.max_nof_rrc_connections
+        d["mean_nof_rrc_connections"] = dto.mean_nof_rrc_connections
+        d["rrc_reestablishments_attempted"] = dto.rrc_reestablishments_attempted
+        d["rrc_reestablishments_successful"] = dto.rrc_reestablishments_successful
+        d["nof_handover_executions_requested"] = dto.nof_handover_executions_requested
+        d["nof_successful_handover_executions"] = dto.nof_successful_handover_executions
+        return d
+
+    @staticmethod
+    def convert_five_g_cu_buffer_pool_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGCUBufferPoolMetricsDTO]) -> FiveGCUBufferPoolMetrics:
+        """
+        Converts a FiveGCUBufferPoolMetricsDTO to a FiveGCUBufferPoolMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_cu_buffer_pool_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_cu_buffer_pool_metrics_dto())
+        else:
+            return FiveGCUBufferPoolMetrics(
+                central_cache_size=dto.central_cache_size, ip=dto.ip, ts=dto.ts
+            )
+
+    @staticmethod
+    def get_empty_five_g_cu_buffer_pool_metrics_dto() -> cluster_manager_pb2.FiveGCUBufferPoolMetricsDTO:
+        """
+        Gets an empty FiveGCUAppResourceUsageMetricsDTO
+
+        :return: an empty FiveGCUAppResourceUsageMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGCUBufferPoolMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_cu_buffer_pool_metrics_dto_to_dict(
+            dto: cluster_manager_pb2.FiveGCUBufferPoolMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGCUBufferPoolMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["central_cache_size"] = dto.central_cache_size
+        return d
+
+    @staticmethod
+    def convert_five_g_cu_app_resource_usage_metrics_dto_reverse(
+            dto: Union[None, cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDTO]) -> FiveGCUAppResourceUsageMetrics:
+        """
+        Converts a FiveGCUAppResourceUsageMetricsDTO to a FiveGCUAppResourceUsageMetrics
+
+        :param dto: the DTO to convert
+        :return: the converted DTO
+        """
+        if dto is None:
+            return ClusterManagerUtil.convert_five_g_cu_app_resource_usage_metrics_dto_reverse(
+                ClusterManagerUtil.get_empty_five_g_cu_app_resource_usage_metrics_dto())
+        else:
+            return FiveGCUAppResourceUsageMetrics(
+                cpu_usage_percent=dto.cpu_usage_percent, memory_usage_mb=dto.memory_usage_mb,
+                power_consumption_watts=dto.power_consumption_watts, ip=dto.ip, ts=dto.ts
+            )
+
+    @staticmethod
+    def get_empty_five_g_cu_app_resource_usage_metrics_dto() -> cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDTO:
+        """
+        Gets an empty FiveGCUAppResourceUsageMetricsDTO
+
+        :return: an empty FiveGCUAppResourceUsageMetricsDTO
+        """
+        return cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDTO(ip="", ts=0.0)
+
+    @staticmethod
+    def five_g_cu_app_resource_usage_metrics_dto_to_dict(
+            dto: cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDTO) -> Dict[str, Any]:
+        """
+        Converts a FiveGCUAppResourceUsageMetricsDTO to a dict
+
+        :param dto: the dto to convert
+        :return: a dict representation of the DTO
+        """
+        d = {}
+        d["ip"] = dto.ip
+        d["ts"] = dto.ts
+        d["cpu_usage_percent"] = dto.cpu_usage_percent
+        d["memory_usage_mb"] = dto.memory_usage_mb
+        d["power_consumption_watts"] = dto.power_consumption_watts
+        return d
+
+    @staticmethod
+    def convert_five_g_core_amf_metrics_dto(
+            five_g_core_amf_metrics: FiveGCoreAMFMetrics) -> cluster_manager_pb2.FiveGCoreAMFMetricsDTO:
+        """
+        Converts a FiveGCoreAMFMetrics object to a FiveGCoreAMFMetricsDTO
+
+        :param five_g_core_amf_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_core_amf_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_core_amf_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGCoreAMFMetricsDTO(
+                gnb=five_g_core_amf_metrics.gnb,
+                fivegs_amffunction_mm_confupdate=five_g_core_amf_metrics.fivegs_amffunction_mm_confupdate,
+                fivegs_amffunction_rm_reginitreq=five_g_core_amf_metrics.fivegs_amffunction_rm_reginitreq,
+                fivegs_amffunction_rm_regemergreq=five_g_core_amf_metrics.fivegs_amffunction_rm_regemergreq,
+                fivegs_amffunction_mm_paging5greq=five_g_core_amf_metrics.fivegs_amffunction_mm_paging5greq,
+                fivegs_amffunction_rm_regperiodreq=five_g_core_amf_metrics.fivegs_amffunction_rm_regperiodreq,
+                fivegs_amffunction_mm_confupdatesucc=five_g_core_amf_metrics.fivegs_amffunction_mm_confupdatesucc,
+                fivegs_amffunction_rm_reginitsucc=five_g_core_amf_metrics.fivegs_amffunction_rm_reginitsucc,
+                fivegs_amffunction_amf_authreject=five_g_core_amf_metrics.fivegs_amffunction_amf_authreject,
+                fivegs_amffunction_rm_regmobreq=five_g_core_amf_metrics.fivegs_amffunction_rm_regmobreq,
+                amf_session=five_g_core_amf_metrics.amf_session,
+                fivegs_amffunction_rm_regmobsucc=five_g_core_amf_metrics.fivegs_amffunction_rm_regmobsucc,
+                fivegs_amffunction_amf_authreq=five_g_core_amf_metrics.fivegs_amffunction_amf_authreq,
+                fivegs_amffunction_rm_regemergsucc=five_g_core_amf_metrics.fivegs_amffunction_rm_regemergsucc,
+                fivegs_amffunction_mm_paging5gsucc=five_g_core_amf_metrics.fivegs_amffunction_mm_paging5gsucc,
+                ran_ue=five_g_core_amf_metrics.ran_ue,
+                fivegs_amffunction_rm_regperiodsucc=five_g_core_amf_metrics.fivegs_amffunction_rm_regperiodsucc,
+                process_max_fds=five_g_core_amf_metrics.process_max_fds,
+                process_virtual_memory_max_bytes=five_g_core_amf_metrics.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=five_g_core_amf_metrics.process_cpu_seconds_total,
+                process_virtual_memory_bytes=five_g_core_amf_metrics.process_virtual_memory_bytes,
+                process_resident_memory_bytes=five_g_core_amf_metrics.process_resident_memory_bytes,
+                process_start_time_seconds=five_g_core_amf_metrics.process_start_time_seconds,
+                process_open_fds=five_g_core_amf_metrics.process_open_fds,
+                ip=five_g_core_amf_metrics.ip,
+                ts=five_g_core_amf_metrics.ts
+            )
+
+    @staticmethod
+    def convert_five_g_core_hss_metrics_dto(
+            five_g_core_hss_metrics: FiveGCoreHSSMetrics) -> cluster_manager_pb2.FiveGCoreHSSMetricsDTO:
+        """
+        Converts a FiveGCoreHSSMetrics object to a FiveGCoreHSSMetricsDTO
+
+        :param five_g_core_hss_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_core_hss_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_core_hss_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGCoreHSSMetricsDTO(
+                ip=five_g_core_hss_metrics.ip, ts=five_g_core_hss_metrics.ts,
+                cx_rx_lir=five_g_core_hss_metrics.cx_rx_lir, cx_rx_uar=five_g_core_hss_metrics.cx_rx_uar,
+                cx_tx_lia=five_g_core_hss_metrics.cx_tx_lia, cx_rx_unknown=five_g_core_hss_metrics.cx_rx_unknown,
+                cx_rx_sar=five_g_core_hss_metrics.cx_rx_sar, s6a_rx_pur=five_g_core_hss_metrics.s6a_rx_pur,
+                swx_rx_mar_error=five_g_core_hss_metrics.swx_rx_mar_error,
+                cx_tx_uaa=five_g_core_hss_metrics.cx_tx_uaa,
+                s6a_rx_pur_error=five_g_core_hss_metrics.s6a_rx_pur_error,
+                s6a_tx_clr=five_g_core_hss_metrics.s6a_tx_clr,
+                cx_tx_saa=five_g_core_hss_metrics.cx_tx_saa,
+                cx_rx_lir_error=five_g_core_hss_metrics.cx_rx_lir_error,
+                s6a_rx_ulr=five_g_core_hss_metrics.s6a_rx_ulr, s6a_rx_cla=five_g_core_hss_metrics.s6a_rx_cla,
+                s6a_rx_cla_error=five_g_core_hss_metrics.s6a_rx_cla_error,
+                s6a_rx_air=five_g_core_hss_metrics.s6a_rx_air,
+                cx_rx_mar=five_g_core_hss_metrics.cx_rx_mar, swx_rx_sar=five_g_core_hss_metrics.swx_rx_sar,
+                s6a_rx_air_error=five_g_core_hss_metrics.s6a_rx_air_error,
+                s6a_rx_ida_error=five_g_core_hss_metrics.s6a_rx_ida_error,
+                cx_tx_maa=five_g_core_hss_metrics.cx_tx_maa,
+                swx_rx_mar=five_g_core_hss_metrics.swx_rx_mar,
+                s6a_rx_unknown=five_g_core_hss_metrics.s6a_rx_unknown,
+                s6a_tx_pua=five_g_core_hss_metrics.s6a_tx_pua,
+                swx_rx_unknown=five_g_core_hss_metrics.swx_rx_unknown,
+                cx_rx_mar_error=five_g_core_hss_metrics.cx_rx_mar_error,
+                cx_rx_uar_error=five_g_core_hss_metrics.cx_rx_uar_error,
+                s6a_tx_ula=five_g_core_hss_metrics.s6a_tx_ula,
+                s6a_rx_ulr_error=five_g_core_hss_metrics.s6a_rx_ulr_error,
+                s6a_tx_aia=five_g_core_hss_metrics.s6a_tx_aia,
+                s6a_tx_idr=five_g_core_hss_metrics.s6a_tx_idr, s6a_rx_ida=five_g_core_hss_metrics.s6a_rx_ida,
+                cx_rx_sar_error=five_g_core_hss_metrics.cx_rx_sar_error,
+                swx_rx_sar_error=five_g_core_hss_metrics.swx_rx_sar_error,
+                swx_tx_maa=five_g_core_hss_metrics.swx_tx_maa, swx_tx_saa=five_g_core_hss_metrics.swx_tx_saa,
+                hss_imsi=five_g_core_hss_metrics.hss_imsi, hss_impi=five_g_core_hss_metrics.hss_impi,
+                hss_impu=five_g_core_hss_metrics.hss_impu, process_max_fds=five_g_core_hss_metrics.process_max_fds,
+                process_virtual_memory_max_bytes=five_g_core_hss_metrics.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=five_g_core_hss_metrics.process_cpu_seconds_total,
+                process_virtual_memory_bytes=five_g_core_hss_metrics.process_virtual_memory_bytes,
+                process_resident_memory_bytes=five_g_core_hss_metrics.process_resident_memory_bytes,
+                process_start_time_seconds=five_g_core_hss_metrics.process_start_time_seconds,
+                process_open_fds=five_g_core_hss_metrics.process_open_fds
+            )
+
+    @staticmethod
+    def convert_five_g_core_mme_metrics_dto(
+            five_g_core_mme_metrics: FiveGCoreMMEMetrics) -> cluster_manager_pb2.FiveGCoreMMEMetricsDTO:
+        """
+        Converts a FiveGCoreMMEMetrics object to a FiveGCoreMMEMetricsDTO
+
+        :param five_g_core_mme_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_core_mme_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_core_mme_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGCoreMMEMetricsDTO(
+                ip=five_g_core_mme_metrics.ip, ts=five_g_core_mme_metrics.ts,
+                enb_ue=five_g_core_mme_metrics.enb_ue, mme_session=five_g_core_mme_metrics.mme_session,
+                enb=five_g_core_mme_metrics.enb, process_max_fds=five_g_core_mme_metrics.process_max_fds,
+                process_virtual_memory_max_bytes=five_g_core_mme_metrics.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=five_g_core_mme_metrics.process_cpu_seconds_total,
+                process_virtual_memory_bytes=five_g_core_mme_metrics.process_virtual_memory_bytes,
+                process_resident_memory_bytes=five_g_core_mme_metrics.process_resident_memory_bytes,
+                process_start_time_seconds=five_g_core_mme_metrics.process_start_time_seconds,
+                process_open_fds=five_g_core_mme_metrics.process_open_fds
+            )
+
+    @staticmethod
+    def convert_five_g_core_upf_metrics_dto(
+            five_g_core_upf_metrics: FiveGCoreUPFMetrics) -> cluster_manager_pb2.FiveGCoreUPFMetricsDTO:
+        """
+        Converts a FiveGCoreUPFMetrics object to a FiveGCoreUPFMetricsDTO
+
+        :param five_g_core_upf_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_core_upf_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_core_upf_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGCoreUPFMetricsDTO(
+                ip=five_g_core_upf_metrics.ip, ts=five_g_core_upf_metrics.ts,
+                fivegs_ep_n3_gtp_indatapktn3upf=five_g_core_upf_metrics.fivegs_ep_n3_gtp_indatapktn3upf,
+                fivegs_ep_n3_gtp_outdatapktn3upf=five_g_core_upf_metrics.fivegs_ep_n3_gtp_outdatapktn3upf,
+                fivegs_upffunction_sm_n4sessionestabreq=five_g_core_upf_metrics.fivegs_upffunction_sm_n4sessionestabreq,
+                fivegs_upffunction_sm_n4sessionreport=five_g_core_upf_metrics.fivegs_upffunction_sm_n4sessionreport,
+                fivegs_upffunction_sm_n4sessionreportsucc=five_g_core_upf_metrics.fivegs_upffunction_sm_n4sessionreportsucc,
+                fivegs_upffunction_upf_sessionnbr=five_g_core_upf_metrics.fivegs_upffunction_upf_sessionnbr,
+                pfcp_peers_active=five_g_core_upf_metrics.pfcp_peers_active,
+                process_max_fds=five_g_core_upf_metrics.process_max_fds,
+                process_virtual_memory_max_bytes=five_g_core_upf_metrics.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=five_g_core_upf_metrics.process_cpu_seconds_total,
+                process_virtual_memory_bytes=five_g_core_upf_metrics.process_virtual_memory_bytes,
+                process_resident_memory_bytes=five_g_core_upf_metrics.process_resident_memory_bytes,
+                process_start_time_seconds=five_g_core_upf_metrics.process_start_time_seconds,
+                process_open_fds=five_g_core_upf_metrics.process_open_fds
+            )
+
+    @staticmethod
+    def convert_five_g_core_pcf_metrics_dto(
+            five_g_core_pcf_metrics: FiveGCorePCFMetrics) -> cluster_manager_pb2.FiveGCorePCFMetricsDTO:
+        """
+        Converts a FiveGCorePCFMetrics object to a FiveGCorePCFMetricsDTO
+
+        :param five_g_core_pcf_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_core_pcf_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_core_pcf_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGCorePCFMetricsDTO(
+                ip=five_g_core_pcf_metrics.ip, ts=five_g_core_pcf_metrics.ts,
+                fivegs_pcffunction_pa_policyamassoreq=five_g_core_pcf_metrics.fivegs_pcffunction_pa_policyamassoreq,
+                fivegs_pcffunction_pa_policyamassosucc=five_g_core_pcf_metrics.fivegs_pcffunction_pa_policyamassosucc,
+                fivegs_pcffunction_pa_policysmassoreq=five_g_core_pcf_metrics.fivegs_pcffunction_pa_policysmassoreq,
+                fivegs_pcffunction_pa_policysmassosucc=five_g_core_pcf_metrics.fivegs_pcffunction_pa_policysmassosucc,
+                fivegs_pcffunction_pa_sessionnbr=five_g_core_pcf_metrics.fivegs_pcffunction_pa_sessionnbr,
+                process_max_fds=five_g_core_pcf_metrics.process_max_fds,
+                process_virtual_memory_max_bytes=five_g_core_pcf_metrics.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=five_g_core_pcf_metrics.process_cpu_seconds_total,
+                process_virtual_memory_bytes=five_g_core_pcf_metrics.process_virtual_memory_bytes,
+                process_resident_memory_bytes=five_g_core_pcf_metrics.process_resident_memory_bytes,
+                process_start_time_seconds=five_g_core_pcf_metrics.process_start_time_seconds,
+                process_open_fds=five_g_core_pcf_metrics.process_open_fds
+            )
+
+    @staticmethod
+    def convert_five_g_core_pcrf_metrics_dto(
+            five_g_core_pcrf_metrics: FiveGCorePCRFMetrics) -> cluster_manager_pb2.FiveGCorePCRFMetricsDTO:
+        """
+        Converts a FiveGCorePCRFMetrics object to a FiveGCorePCRFMetricsDTO
+
+        :param five_g_core_pcrf_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_core_pcrf_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_core_pcrf_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGCorePCRFMetricsDTO(
+                ip=five_g_core_pcrf_metrics.ip, ts=five_g_core_pcrf_metrics.ts,
+                gx_rx_unknown=five_g_core_pcrf_metrics.gx_rx_unknown, gx_rx_ccr=five_g_core_pcrf_metrics.gx_rx_ccr,
+                gx_rx_ccr_error=five_g_core_pcrf_metrics.gx_rx_ccr_error,
+                gx_rx_raa=five_g_core_pcrf_metrics.gx_rx_raa,
+                gx_tx_cca=five_g_core_pcrf_metrics.gx_tx_cca, gx_tx_rar=five_g_core_pcrf_metrics.gx_tx_rar,
+                gx_tx_rar_error=five_g_core_pcrf_metrics.gx_tx_rar_error,
+                rx_rx_unknown=five_g_core_pcrf_metrics.rx_rx_unknown, rx_rx_aar=five_g_core_pcrf_metrics.rx_rx_aar,
+                rx_rx_aar_error=five_g_core_pcrf_metrics.rx_rx_aar_error,
+                rx_rx_asa=five_g_core_pcrf_metrics.rx_rx_asa,
+                rx_rx_asa_error=five_g_core_pcrf_metrics.rx_rx_asa_error,
+                rx_rx_str_error=five_g_core_pcrf_metrics.rx_rx_str_error,
+                rx_tx_aaa=five_g_core_pcrf_metrics.rx_tx_aaa,
+                rx_tx_sar=five_g_core_pcrf_metrics.rx_tx_sar, rx_tx_sta=five_g_core_pcrf_metrics.rx_tx_sta,
+                process_max_fds=five_g_core_pcrf_metrics.process_max_fds,
+                process_virtual_memory_max_bytes=five_g_core_pcrf_metrics.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=five_g_core_pcrf_metrics.process_cpu_seconds_total,
+                process_virtual_memory_bytes=five_g_core_pcrf_metrics.process_virtual_memory_bytes,
+                process_resident_memory_bytes=five_g_core_pcrf_metrics.process_resident_memory_bytes,
+                process_start_time_seconds=five_g_core_pcrf_metrics.process_start_time_seconds,
+                process_open_fds=five_g_core_pcrf_metrics.process_open_fds
+            )
+
+    @staticmethod
+    def convert_five_g_core_smf_metrics_dto(
+            five_g_core_smf_metrics: FiveGCoreSMFMetrics) -> cluster_manager_pb2.FiveGCoreSMFMetricsDTO:
+        """
+        Converts a FiveGCoreSMFMetrics object to a FiveGCoreSMFMetricsDTO
+
+        :param five_g_core_smf_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_core_smf_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_core_smf_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGCoreSMFMetricsDTO(
+                ip=five_g_core_smf_metrics.ip, ts=five_g_core_smf_metrics.ts,
+                gn_rx_createpdpcontextreq=five_g_core_smf_metrics.gn_rx_createpdpcontextreq,
+                gn_rx_deletepdpcontextreq=five_g_core_smf_metrics.gn_rx_deletepdpcontextreq,
+                gtp1_pdpctxs_active=five_g_core_smf_metrics.gtp1_pdpctxs_active,
+                pfcp_peers_active=five_g_core_smf_metrics.pfcp_peers_active,
+                fivegs_smffunction_sm_n4sessionreport=five_g_core_smf_metrics.fivegs_smffunction_sm_n4sessionreport,
+                ues_active=five_g_core_smf_metrics.ues_active,
+                gtp2_sessions_active=five_g_core_smf_metrics.gtp2_sessions_active,
+                pfcp_sessions_active=five_g_core_smf_metrics.pfcp_sessions_active,
+                s5c_rx_createsession=five_g_core_smf_metrics.s5c_rx_createsession,
+                s5c_rx_deletesession=five_g_core_smf_metrics.s5c_rx_deletesession,
+                gtp_new_node_failed=five_g_core_smf_metrics.gtp_new_node_failed,
+                s5c_rx_parse_failed=five_g_core_smf_metrics.s5c_rx_parse_failed,
+                fivegs_smffunction_sm_n4sessionreportsucc=five_g_core_smf_metrics.fivegs_smffunction_sm_n4sessionreportsucc,
+                fivegs_smffunction_sm_n4sessionestabreq=five_g_core_smf_metrics.fivegs_smffunction_sm_n4sessionestabreq,
+                bearers_active=five_g_core_smf_metrics.bearers_active,
+                gn_rx_parse_failed=five_g_core_smf_metrics.gn_rx_parse_failed,
+                gtp_peers_active=five_g_core_smf_metrics.gtp_peers_active,
+                fivegs_smffunction_sm_sessionnbr=five_g_core_smf_metrics.fivegs_smffunction_sm_sessionnbr,
+                fivegs_smffunction_sm_pdusessioncreationreq=five_g_core_smf_metrics.fivegs_smffunction_sm_pdusessioncreationreq,
+                fivegs_smffunction_sm_pdusessioncreationsucc=five_g_core_smf_metrics.fivegs_smffunction_sm_pdusessioncreationsucc,
+                fivegs_smffunction_sm_qos_flow_nbr=five_g_core_smf_metrics.fivegs_smffunction_sm_qos_flow_nbr,
+                fivegs_smffunction_sm_n4sessionestabfail=five_g_core_smf_metrics.fivegs_smffunction_sm_n4sessionestabfail,
+                fivegs_smffunction_sm_pdusessioncreationfail=five_g_core_smf_metrics.fivegs_smffunction_sm_pdusessioncreationfail,
+                process_max_fds=five_g_core_smf_metrics.process_max_fds,
+                process_virtual_memory_max_bytes=five_g_core_smf_metrics.process_virtual_memory_max_bytes,
+                process_cpu_seconds_total=five_g_core_smf_metrics.process_cpu_seconds_total,
+                process_virtual_memory_bytes=five_g_core_smf_metrics.process_virtual_memory_bytes,
+                process_resident_memory_bytes=five_g_core_smf_metrics.process_resident_memory_bytes,
+                process_start_time_seconds=five_g_core_smf_metrics.process_start_time_seconds,
+                process_open_fds=five_g_core_smf_metrics.process_open_fds
+            )
+
+    @staticmethod
+    def convert_five_g_du_metrics_dto(
+            five_g_du_metrics: FiveGDUMetrics) -> cluster_manager_pb2.FiveGDUMetricsDTO:
+        """
+        Converts a FiveGDUMetrics object to a FiveGDUMetricsDTO
+
+        :param five_g_du_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_du_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_du_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGDUMetricsDTO(
+                pci=five_g_du_metrics.pci,
+                average_latency_us=five_g_du_metrics.average_latency_us,
+                cpu_usage_percent=five_g_du_metrics.cpu_usage_percent,
+                max_latency_us=five_g_du_metrics.max_latency_us,
+                min_latency_us=five_g_du_metrics.min_latency_us,
+                ip=five_g_du_metrics.ip,
+                ts=five_g_du_metrics.ts
+            )
+
+    @staticmethod
+    def convert_five_g_du_low_metrics_dto(
+            five_g_du_low_metrics: FiveGDULowMetrics) -> cluster_manager_pb2.FiveGDULowMetricsDTO:
+        """
+        Converts a FiveGDULowMetrics object to a FiveGDULowMetricsDTO
+
+        :param five_g_du_low_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_du_low_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_du_low_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGDULowMetricsDTO(
+                dl_avg_latency_us=five_g_du_low_metrics.dl_avg_latency_us,
+                dl_cpu_usage_percent=five_g_du_low_metrics.dl_cpu_usage_percent,
+                dl_max_latency_us=five_g_du_low_metrics.dl_max_latency_us,
+                dl_fec_tput_mbps=five_g_du_low_metrics.dl_fec_tput_mbps,
+                ul_avg_latency_us=five_g_du_low_metrics.ul_avg_latency_us,
+                ul_cpu_usage_percent=five_g_du_low_metrics.ul_cpu_usage_percent,
+                ul_max_latency_us=five_g_du_low_metrics.ul_max_latency_us,
+                ul_sinr_db=five_g_du_low_metrics.ul_sinr_db,
+                ul_ch_est_latency_us=five_g_du_low_metrics.ul_ch_est_latency_us,
+                ul_ldpc_dec_latency_us=five_g_du_low_metrics.ul_ldpc_dec_latency_us,
+                ul_fec_tput_mbps=five_g_du_low_metrics.ul_fec_tput_mbps,
+                ip=five_g_du_low_metrics.ip,
+                ts=five_g_du_low_metrics.ts
+            )
+
+    @staticmethod
+    def convert_five_g_du_rlc_metrics_dto(
+            five_g_du_rlc_metrics: FiveGDURLCMetrics) -> cluster_manager_pb2.FiveGDURLCMetricsDTO:
+        """
+        Converts a FiveGDURLCMetrics object to a FiveGDURLCMetricsDTO
+
+        :param five_g_du_rlc_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_du_rlc_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_du_rlc_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGDURLCMetricsDTO(
+                ue_id=five_g_du_rlc_metrics.ue_id,
+                drb_id=five_g_du_rlc_metrics.drb_id,
+                rx_num_pdus=five_g_du_rlc_metrics.rx_num_pdus,
+                rx_num_bytes=five_g_du_rlc_metrics.rx_num_bytes,
+                rx_num_lost_pdus=five_g_du_rlc_metrics.rx_num_lost_pdus,
+                rx_num_malformed_pdus=five_g_du_rlc_metrics.rx_num_malformed_pdus,
+                tx_num_sdus=five_g_du_rlc_metrics.tx_num_sdus,
+                tx_num_bytes=five_g_du_rlc_metrics.tx_num_bytes,
+                tx_num_dropped_sdus=five_g_du_rlc_metrics.tx_num_dropped_sdus,
+                tx_num_discarded_sdus=five_g_du_rlc_metrics.tx_num_discarded_sdus,
+                tx_max_pdu_latency_ns=five_g_du_rlc_metrics.tx_max_pdu_latency_ns,
+                tx_sum_pdu_latency_ns=five_g_du_rlc_metrics.tx_sum_pdu_latency_ns,
+                tx_sum_sdu_latency_us=five_g_du_rlc_metrics.tx_sum_sdu_latency_us,
+                ip=five_g_du_rlc_metrics.ip,
+                ts=five_g_du_rlc_metrics.ts
+            )
+
+    @staticmethod
+    def convert_five_g_du_cell_metrics_dto(
+            five_g_du_cell_metrics: FiveGDUCellMetrics) -> cluster_manager_pb2.FiveGDUCellMetricsDTO:
+        """
+        Converts a FiveGDUCellMetrics object to a FiveGDUCellMetricsDTO
+
+        :param five_g_du_cell_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_du_cell_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_du_cell_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGDUCellMetricsDTO(
+                pci=five_g_du_cell_metrics.pci,
+                average_latency=five_g_du_cell_metrics.average_latency,
+                max_latency=five_g_du_cell_metrics.max_latency,
+                pucch_tot_rb_usage_avg=five_g_du_cell_metrics.pucch_tot_rb_usage_avg,
+                active_ues=five_g_du_cell_metrics.active_ues,
+                dl_brate=five_g_du_cell_metrics.dl_brate,
+                ul_brate=five_g_du_cell_metrics.ul_brate,
+                dl_mcs=five_g_du_cell_metrics.dl_mcs,
+                ul_mcs=five_g_du_cell_metrics.ul_mcs,
+                pusch_snr_db=five_g_du_cell_metrics.pusch_snr_db,
+                pucch_snr_db=five_g_du_cell_metrics.pucch_snr_db,
+                cqi=five_g_du_cell_metrics.cqi,
+                dl_bler=five_g_du_cell_metrics.dl_bler,
+                ul_bler=five_g_du_cell_metrics.ul_bler,
+                ip=five_g_du_cell_metrics.ip,
+                ts=five_g_du_cell_metrics.ts
+            )
+
+    @staticmethod
+    def convert_five_g_du_buffer_pool_metrics_dto(
+            five_g_du_buffer_pool_metrics: FiveGDUBufferPoolMetrics) -> \
+            cluster_manager_pb2.FiveGDUBufferPoolMetricsDTO:
+        """
+        Converts a FiveGDUBufferPoolMetrics object to a FiveGDUBufferPoolMetricsDTO
+
+        :param five_g_du_buffer_pool_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_du_buffer_pool_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_du_buffer_pool_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGDUBufferPoolMetricsDTO(
+                central_cache_size=five_g_du_buffer_pool_metrics.central_cache_size,
+                ip=five_g_du_buffer_pool_metrics.ip,
+                ts=five_g_du_buffer_pool_metrics.ts
+            )
+
+    @staticmethod
+    def convert_five_g_du_app_resource_usage_metrics_dto(
+            five_g_du_app_resource_usage_metrics: FiveGDUAppResourceUsageMetrics) -> \
+            cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDTO:
+        """
+        Converts a FiveGDUAppResourceUsageMetrics object to a FiveGDUAppResourceUsageMetricsDTO
+
+        :param five_g_du_app_resource_usage_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_du_app_resource_usage_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_du_app_resource_usage_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDTO(
+                cpu_usage_percent=five_g_du_app_resource_usage_metrics.cpu_usage_percent,
+                memory_usage_mb=five_g_du_app_resource_usage_metrics.memory_usage_mb,
+                power_consumption_watts=five_g_du_app_resource_usage_metrics.power_consumption_watts,
+                ip=five_g_du_app_resource_usage_metrics.ip,
+                ts=five_g_du_app_resource_usage_metrics.ts
+            )
+
+    @staticmethod
+    def convert_five_g_cu_cp_metrics_dto(
+            five_g_cu_cp_metrics: FiveGCUCPMetrics) -> cluster_manager_pb2.FiveGCUCPMetricsDTO:
+        """
+        Converts a FiveGCUCPMetrics object to a FiveGCUCPMetricsDTO
+
+        :param five_g_cu_cp_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_cu_cp_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_cu_cp_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGCUCPMetricsDTO(
+                cu_cp_id=five_g_cu_cp_metrics.cu_cp_id,
+                amf_connected=five_g_cu_cp_metrics.amf_connected,
+                nof_cn_initiated_paging_requests=five_g_cu_cp_metrics.nof_cn_initiated_paging_requests,
+                nof_pdu_sessions_requested_to_setup=five_g_cu_cp_metrics.nof_pdu_sessions_requested_to_setup,
+                nof_pdu_sessions_successfully_setup=five_g_cu_cp_metrics.nof_pdu_sessions_successfully_setup,
+                nof_pdu_sessions_failed_to_setup_total=five_g_cu_cp_metrics.nof_pdu_sessions_failed_to_setup_total,
+                nof_handover_preparations_requested=five_g_cu_cp_metrics.nof_handover_preparations_requested,
+                nof_successful_handover_preparations=five_g_cu_cp_metrics.nof_successful_handover_preparations,
+                rrc_establishments_attempted_total=five_g_cu_cp_metrics.rrc_establishments_attempted_total,
+                rrc_establishments_successful_total=five_g_cu_cp_metrics.rrc_establishments_successful_total,
+                rrc_establishments_attempted_mo_data=five_g_cu_cp_metrics.rrc_establishments_attempted_mo_data,
+                rrc_establishments_successful_mo_data=five_g_cu_cp_metrics.rrc_establishments_successful_mo_data,
+                rrc_establishments_attempted_mo_sig=five_g_cu_cp_metrics.rrc_establishments_attempted_mo_sig,
+                rrc_establishments_successful_mo_sig=five_g_cu_cp_metrics.rrc_establishments_successful_mo_sig,
+                max_nof_rrc_connections=five_g_cu_cp_metrics.max_nof_rrc_connections,
+                mean_nof_rrc_connections=five_g_cu_cp_metrics.mean_nof_rrc_connections,
+                rrc_reestablishments_attempted=five_g_cu_cp_metrics.rrc_reestablishments_attempted,
+                rrc_reestablishments_successful=five_g_cu_cp_metrics.rrc_reestablishments_successful,
+                nof_handover_executions_requested=five_g_cu_cp_metrics.nof_handover_executions_requested,
+                nof_successful_handover_executions=five_g_cu_cp_metrics.nof_successful_handover_executions,
+                ip=five_g_cu_cp_metrics.ip,
+                ts=five_g_cu_cp_metrics.ts
+            )
+
+    @staticmethod
+    def convert_five_g_cu_buffer_pool_metrics_dto(
+            five_g_cu_buffer_pool_metrics: FiveGCUBufferPoolMetrics) -> \
+            cluster_manager_pb2.FiveGCUBufferPoolMetricsDTO:
+        """
+        Converts a FiveGCUBufferPoolMetrics object to a FiveGCUBufferPoolMetricsDTO
+
+        :param five_g_cu_buffer_pool_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_cu_buffer_pool_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_cu_buffer_pool_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGCUBufferPoolMetricsDTO(
+                central_cache_size=five_g_cu_buffer_pool_metrics.central_cache_size,
+                ip=five_g_cu_buffer_pool_metrics.ip,
+                ts=five_g_cu_buffer_pool_metrics.ts
+            )
+
+    @staticmethod
+    def convert_five_g_cu_app_resource_usage_metrics_dto(
+            five_g_cu_app_resource_usage_metrics: FiveGCUAppResourceUsageMetrics) -> \
+            cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDTO:
+        """
+        Converts a FiveGCUAppResourceUsageMetrics object to a FiveGCUAppResourceUsageMetricsDTO
+
+        :param five_g_cu_app_resource_usage_metrics: the object to convert
+        :return: the converted objected
+        """
+        if five_g_cu_app_resource_usage_metrics is None:
+            return ClusterManagerUtil.get_empty_five_g_cu_app_resource_usage_metrics_dto()
+        else:
+            return cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDTO(
+                cpu_usage_percent=five_g_cu_app_resource_usage_metrics.cpu_usage_percent,
+                memory_usage_mb=five_g_cu_app_resource_usage_metrics.memory_usage_mb,
+                power_consumption_watts=five_g_cu_app_resource_usage_metrics.power_consumption_watts,
+                ip=five_g_cu_app_resource_usage_metrics.ip,
+                ts=five_g_cu_app_resource_usage_metrics.ts
+            )
+
+    @staticmethod
+    def convert_five_g_core_amf_metrics_dict(
+            five_g_core_amf_metrics_d: Union[Dict[str, List[FiveGCoreAMFMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGCoreAMFMetricsDict]:
+        """
+        Converts a dict to list of FiveGCoreAMFMetricsDict
+
+        :param five_g_core_amf_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_core_amf_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_core_amf_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_core_amf_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGCoreAMFMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_core_amf_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_core_amf_metrics_dict_reverse(
+            five_g_core_amf_metrics_dict: Union[List[cluster_manager_pb2.FiveGCoreAMFMetricsDict], None]) \
+            -> Dict[str, List[FiveGCoreAMFMetrics]]:
+        """
+        Converts a list of FiveGCoreAMFMetricsDict to a dict
+
+        :param five_g_core_amf_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_core_amf_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_core_amf_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_amf_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_core_amf_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_core_amf_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_core_amf_metrics_dict() -> List[cluster_manager_pb2.FiveGCoreAMFMetricsDict]:
+        """
+        Gets an empty list of FiveGCoreAMFMetricsDict
+
+        :return: an empty list of FiveGCoreAMFMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_core_amf_metrics_dict_to_dict(
+            five_g_core_amf_metrics_dict: cluster_manager_pb2.FiveGCoreAMFMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_core_amf_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_core_amf_metrics_dict.key
+        dtos = []
+        for dto in five_g_core_amf_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_core_amf_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    @staticmethod
+    def convert_five_g_core_hss_metrics_dict(
+            five_g_core_hss_metrics_d: Union[Dict[str, List[FiveGCoreHSSMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGCoreHSSMetricsDict]:
+        """
+        Converts a dict to list of FiveGCoreHSSMetricsDict
+
+        :param five_g_core_hss_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_core_hss_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_core_hss_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_core_hss_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGCoreHSSMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_core_hss_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_core_hss_metrics_dict_reverse(
+            five_g_core_hss_metrics_dict: Union[List[cluster_manager_pb2.FiveGCoreHSSMetricsDict], None]) \
+            -> Dict[str, List[FiveGCoreHSSMetrics]]:
+        """
+        Converts a list of FiveGCoreHSSMetricsDict to a dict
+
+        :param five_g_core_hss_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_core_hss_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_core_hss_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_hss_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_core_hss_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_core_hss_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_core_hss_metrics_dict() -> List[cluster_manager_pb2.FiveGCoreHSSMetricsDict]:
+        """
+        Gets an empty list of FiveGCoreHSSMetricsDict
+
+        :return: an empty list of FiveGCoreHSSMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_core_hss_metrics_dict_to_dict(
+            five_g_core_hss_metrics_dict: cluster_manager_pb2.FiveGCoreHSSMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_core_hss_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_core_hss_metrics_dict.key
+        dtos = []
+        for dto in five_g_core_hss_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_core_hss_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    @staticmethod
+    def convert_five_g_core_mme_metrics_dict(
+            five_g_core_mme_metrics_d: Union[Dict[str, List[FiveGCoreMMEMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGCoreMMEMetricsDict]:
+        """
+        Converts a dict to list of FiveGCoreMMEMetricsDict
+
+        :param five_g_core_mme_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_core_mme_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_core_mme_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_core_mme_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGCoreMMEMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_core_mme_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_core_mme_metrics_dict_reverse(
+            five_g_core_mme_metrics_dict: Union[List[cluster_manager_pb2.FiveGCoreMMEMetricsDict], None]) \
+            -> Dict[str, List[FiveGCoreMMEMetrics]]:
+        """
+        Converts a list of FiveGCoreMMEMetricsDict to a dict
+
+        :param five_g_core_mme_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_core_mme_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_core_mme_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_mme_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_core_mme_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_core_mme_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_core_mme_metrics_dict() -> List[cluster_manager_pb2.FiveGCoreMMEMetricsDict]:
+        """
+        Gets an empty list of FiveGCoreMMEMetricsDict
+
+        :return: an empty list of FiveGCoreMMEMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_core_mme_metrics_dict_to_dict(
+            five_g_core_mme_metrics_dict: cluster_manager_pb2.FiveGCoreMMEMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_core_mme_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_core_mme_metrics_dict.key
+        dtos = []
+        for dto in five_g_core_mme_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_core_mme_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    @staticmethod
+    def convert_five_g_core_pcf_metrics_dict(
+            five_g_core_pcf_metrics_d: Union[Dict[str, List[FiveGCorePCFMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGCorePCFMetricsDict]:
+        """
+        Converts a dict to list of FiveGCorePCFMetricsDict
+
+        :param five_g_core_pcf_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_core_pcf_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_core_pcf_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_core_pcf_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGCorePCFMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_core_pcf_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_core_pcf_metrics_dict_reverse(
+            five_g_core_pcf_metrics_dict: Union[List[cluster_manager_pb2.FiveGCorePCFMetricsDict], None]) \
+            -> Dict[str, List[FiveGCorePCFMetrics]]:
+        """
+        Converts a list of FiveGCorePCFMetricsDict to a dict
+
+        :param five_g_core_pcf_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_core_pcf_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_core_pcf_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_pcf_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_core_pcf_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_core_pcf_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_core_pcf_metrics_dict() -> List[cluster_manager_pb2.FiveGCorePCFMetricsDict]:
+        """
+        Gets an empty list of FiveGCorePCFMetricsDict
+
+        :return: an empty list of FiveGCorePCFMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_core_pcf_metrics_dict_to_dict(
+            five_g_core_pcf_metrics_dict: cluster_manager_pb2.FiveGCorePCFMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_core_pcf_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_core_pcf_metrics_dict.key
+        dtos = []
+        for dto in five_g_core_pcf_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_core_pcf_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    @staticmethod
+    def convert_five_g_core_pcrf_metrics_dict(
+            five_g_core_pcrf_metrics_d: Union[Dict[str, List[FiveGCorePCRFMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGCorePCRFMetricsDict]:
+        """
+        Converts a dict to list of FiveGCorePCRFMetricsDict
+
+        :param five_g_core_pcrf_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_core_pcrf_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_core_pcrf_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_core_pcrf_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGCorePCRFMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_core_pcrf_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_core_pcrf_metrics_dict_reverse(
+            five_g_core_pcrf_metrics_dict: Union[List[cluster_manager_pb2.FiveGCorePCRFMetricsDict], None]) \
+            -> Dict[str, List[FiveGCorePCRFMetrics]]:
+        """
+        Converts a list of FiveGCorePCRFMetricsDict to a dict
+
+        :param five_g_core_pcrf_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_core_pcrf_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_core_pcrf_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_pcrf_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_core_pcrf_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_core_pcrf_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_core_pcrf_metrics_dict() -> List[cluster_manager_pb2.FiveGCorePCRFMetricsDict]:
+        """
+        Gets an empty list of FiveGCorePCRFMetricsDict
+
+        :return: an empty list of FiveGCorePCRFMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_core_pcrf_metrics_dict_to_dict(
+            five_g_core_pcrf_metrics_dict: cluster_manager_pb2.FiveGCorePCRFMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_core_pcrf_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_core_pcrf_metrics_dict.key
+        dtos = []
+        for dto in five_g_core_pcrf_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_core_pcrf_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    @staticmethod
+    def convert_five_g_core_smf_metrics_dict(
+            five_g_core_smf_metrics_d: Union[Dict[str, List[FiveGCoreSMFMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGCoreSMFMetricsDict]:
+        """
+        Converts a dict to list of FiveGCoreSMFMetricsDict
+
+        :param five_g_core_smf_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_core_smf_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_core_smf_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_core_smf_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGCoreSMFMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_core_smf_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_core_smf_metrics_dict_reverse(
+            five_g_core_smf_metrics_dict: Union[List[cluster_manager_pb2.FiveGCoreSMFMetricsDict], None]) \
+            -> Dict[str, List[FiveGCoreSMFMetrics]]:
+        """
+        Converts a list of FiveGCoreSMFMetricsDict to a dict
+
+        :param five_g_core_smf_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_core_smf_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_core_smf_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_smf_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_core_smf_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_core_smf_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_core_smf_metrics_dict() -> List[cluster_manager_pb2.FiveGCoreSMFMetricsDict]:
+        """
+        Gets an empty list of FiveGCoreSMFMetricsDict
+
+        :return: an empty list of FiveGCoreSMFMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_core_smf_metrics_dict_to_dict(
+            five_g_core_smf_metrics_dict: cluster_manager_pb2.FiveGCoreSMFMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_core_smf_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_core_smf_metrics_dict.key
+        dtos = []
+        for dto in five_g_core_smf_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_core_smf_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    @staticmethod
+    def convert_five_g_core_upf_metrics_dict(
+            five_g_core_upf_metrics_d: Union[Dict[str, List[FiveGCoreUPFMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGCoreUPFMetricsDict]:
+        """
+        Converts a dict to list of FiveGCoreUPFMetricsDict
+
+        :param five_g_core_upf_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_core_upf_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_core_upf_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_core_upf_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGCoreUPFMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_core_upf_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_core_upf_metrics_dict_reverse(
+            five_g_core_upf_metrics_dict: Union[List[cluster_manager_pb2.FiveGCoreUPFMetricsDict], None]) \
+            -> Dict[str, List[FiveGCoreUPFMetrics]]:
+        """
+        Converts a list of FiveGCoreUPFMetricsDict to a dict
+
+        :param five_g_core_upf_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_core_upf_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_core_upf_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_core_upf_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_core_upf_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_core_upf_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_core_upf_metrics_dict() -> List[cluster_manager_pb2.FiveGCoreUPFMetricsDict]:
+        """
+        Gets an empty list of FiveGCoreUPFMetricsDict
+
+        :return: an empty list of FiveGCoreUPFMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_core_upf_metrics_dict_to_dict(
+            five_g_core_upf_metrics_dict: cluster_manager_pb2.FiveGCoreUPFMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_core_upf_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_core_upf_metrics_dict.key
+        dtos = []
+        for dto in five_g_core_upf_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_core_upf_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    @staticmethod
+    def convert_five_g_cu_app_resource_usage_metrics_dict(
+            five_g_cu_app_resource_usage_metrics_d: Union[Dict[str, List[FiveGCUAppResourceUsageMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDict]:
+        """
+        Converts a dict to list of FiveGCUAppResourceUsageMetricsDict
+
+        :param five_g_cu_app_resource_usage_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_cu_app_resource_usage_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_cu_app_resource_usage_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_cu_app_resource_usage_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDict(
+                    key=k, dtos=list(
+                        map(lambda x: ClusterManagerUtil.convert_five_g_cu_app_resource_usage_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_cu_app_resource_usage_metrics_dict_reverse(
+            five_g_cu_app_resource_usage_metrics_dict: Union[
+                List[cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDict], None]) \
+            -> Dict[str, List[FiveGCUAppResourceUsageMetrics]]:
+        """
+        Converts a list of FiveGCUAppResourceUsageMetricsDict to a dict
+
+        :param five_g_cu_app_resource_usage_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_cu_app_resource_usage_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_cu_app_resource_usage_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_cu_app_resource_usage_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_cu_app_resource_usage_metrics_dict:
+                d[ds.key] = list(
+                    map(lambda x: ClusterManagerUtil.convert_five_g_cu_app_resource_usage_metrics_dto_reverse(x),
+                        ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_cu_app_resource_usage_metrics_dict() -> \
+            List[cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDict]:
+        """
+        Gets an empty list of FiveGCUAppResourceUsageMetricsDict
+
+        :return: an empty list of FiveGCUAppResourceUsageMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_cu_app_resource_usage_metrics_dict_to_dict(
+            five_g_cu_app_resource_usage_metrics_dict: cluster_manager_pb2.FiveGCUAppResourceUsageMetricsDict) -> \
+            Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_cu_app_resource_usage_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_cu_app_resource_usage_metrics_dict.key
+        dtos = []
+        for dto in five_g_cu_app_resource_usage_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_cu_app_resource_usage_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    # ---------------------------------------------------------------------------------------------------------
+    # FiveGCUBufferPoolMetrics Dictionary Helpers
+    # ---------------------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def convert_five_g_cu_buffer_pool_metrics_dict(
+            five_g_cu_buffer_pool_metrics_d: Union[Dict[str, List[FiveGCUBufferPoolMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGCUBufferPoolMetricsDict]:
+        """
+        Converts a dict to list of FiveGCUBufferPoolMetricsDict
+
+        :param five_g_cu_buffer_pool_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_cu_buffer_pool_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_cu_buffer_pool_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_cu_buffer_pool_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGCUBufferPoolMetricsDict(
+                    key=k,
+                    dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_cu_buffer_pool_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_cu_buffer_pool_metrics_dict_reverse(
+            five_g_cu_buffer_pool_metrics_dict: Union[List[cluster_manager_pb2.FiveGCUBufferPoolMetricsDict], None]) \
+            -> Dict[str, List[FiveGCUBufferPoolMetrics]]:
+        """
+        Converts a list of FiveGCUBufferPoolMetricsDict to a dict
+
+        :param five_g_cu_buffer_pool_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_cu_buffer_pool_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_cu_buffer_pool_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_cu_buffer_pool_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_cu_buffer_pool_metrics_dict:
+                d[ds.key] = list(
+                    map(lambda x: ClusterManagerUtil.convert_five_g_cu_buffer_pool_metrics_dto_reverse(x),
+                        ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_cu_buffer_pool_metrics_dict() -> List[cluster_manager_pb2.FiveGCUBufferPoolMetricsDict]:
+        """
+        Gets an empty list of FiveGCUBufferPoolMetricsDict
+
+        :return: an empty list of FiveGCUBufferPoolMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_cu_buffer_pool_metrics_dict_to_dict(
+            five_g_cu_buffer_pool_metrics_dict: cluster_manager_pb2.FiveGCUBufferPoolMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_cu_buffer_pool_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_cu_buffer_pool_metrics_dict.key
+        dtos = []
+        for dto in five_g_cu_buffer_pool_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_cu_buffer_pool_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    # ---------------------------------------------------------------------------------------------------------
+    # FiveGCUCPMetrics Dictionary Helpers
+    # ---------------------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def convert_five_g_cu_cp_metrics_dict(
+            five_g_cu_cp_metrics_d: Union[Dict[str, List[FiveGCUCPMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGCUCPMetricsDict]:
+        """
+        Converts a dict to list of FiveGCUCPMetricsDict
+
+        :param five_g_cu_cp_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_cu_cp_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_cu_cp_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_cu_cp_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGCUCPMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_cu_cp_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_cu_cp_metrics_dict_reverse(
+            five_g_cu_cp_metrics_dict: Union[List[cluster_manager_pb2.FiveGCUCPMetricsDict], None]) \
+            -> Dict[str, List[FiveGCUCPMetrics]]:
+        """
+        Converts a list of FiveGCUCPMetricsDict to a dict
+
+        :param five_g_cu_cp_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_cu_cp_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_cu_cp_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_cu_cp_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_cu_cp_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_cu_cp_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_cu_cp_metrics_dict() -> List[cluster_manager_pb2.FiveGCUCPMetricsDict]:
+        """
+        Gets an empty list of FiveGCUCPMetricsDict
+
+        :return: an empty list of FiveGCUCPMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_cu_cp_metrics_dict_to_dict(
+            five_g_cu_cp_metrics_dict: cluster_manager_pb2.FiveGCUCPMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_cu_cp_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_cu_cp_metrics_dict.key
+        dtos = []
+        for dto in five_g_cu_cp_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_cu_cp_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    # ---------------------------------------------------------------------------------------------------------
+    # FiveGDUAppResourceUsageMetrics Dictionary Helpers
+    # ---------------------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def convert_five_g_du_app_resource_usage_metrics_dict(
+            five_g_du_app_resource_usage_metrics_d: Union[Dict[str, List[FiveGDUAppResourceUsageMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDict]:
+        """
+        Converts a dict to list of FiveGDUAppResourceUsageMetricsDict
+
+        :param five_g_du_app_resource_usage_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_du_app_resource_usage_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_du_app_resource_usage_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_du_app_resource_usage_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDict(
+                    key=k, dtos=list(
+                        map(lambda x: ClusterManagerUtil.convert_five_g_du_app_resource_usage_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_du_app_resource_usage_metrics_dict_reverse(
+            five_g_du_app_resource_usage_metrics_dict: Union[
+                List[cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDict], None]) \
+            -> Dict[str, List[FiveGDUAppResourceUsageMetrics]]:
+        """
+        Converts a list of FiveGDUAppResourceUsageMetricsDict to a dict
+
+        :param five_g_du_app_resource_usage_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_du_app_resource_usage_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_du_app_resource_usage_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_app_resource_usage_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_du_app_resource_usage_metrics_dict:
+                d[ds.key] = list(
+                    map(lambda x: ClusterManagerUtil.convert_five_g_du_app_resource_usage_metrics_dto_reverse(x),
+                        ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_du_app_resource_usage_metrics_dict() -> \
+            List[cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDict]:
+        """
+        Gets an empty list of FiveGDUAppResourceUsageMetricsDict
+
+        :return: an empty list of FiveGDUAppResourceUsageMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_du_app_resource_usage_metrics_dict_to_dict(
+            five_g_du_app_resource_usage_metrics_dict: cluster_manager_pb2.FiveGDUAppResourceUsageMetricsDict) -> \
+            Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_du_app_resource_usage_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_du_app_resource_usage_metrics_dict.key
+        dtos = []
+        for dto in five_g_du_app_resource_usage_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_du_app_resource_usage_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    # ---------------------------------------------------------------------------------------------------------
+    # FiveGDUBufferPoolMetrics Dictionary Helpers
+    # ---------------------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def convert_five_g_du_buffer_pool_metrics_dict(
+            five_g_du_buffer_pool_metrics_d: Union[Dict[str, List[FiveGDUBufferPoolMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGDUBufferPoolMetricsDict]:
+        """
+        Converts a dict to list of FiveGDUBufferPoolMetricsDict
+
+        :param five_g_du_buffer_pool_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_du_buffer_pool_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_du_buffer_pool_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_du_buffer_pool_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGDUBufferPoolMetricsDict(
+                    key=k,
+                    dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_du_buffer_pool_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_du_buffer_pool_metrics_dict_reverse(
+            five_g_du_buffer_pool_metrics_dict: Union[List[cluster_manager_pb2.FiveGDUBufferPoolMetricsDict], None]) \
+            -> Dict[str, List[FiveGDUBufferPoolMetrics]]:
+        """
+        Converts a list of FiveGDUBufferPoolMetricsDict to a dict
+
+        :param five_g_du_buffer_pool_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_du_buffer_pool_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_du_buffer_pool_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_buffer_pool_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_du_buffer_pool_metrics_dict:
+                d[ds.key] = list(
+                    map(lambda x: ClusterManagerUtil.convert_five_g_du_buffer_pool_metrics_dto_reverse(x),
+                        ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_du_buffer_pool_metrics_dict() -> List[cluster_manager_pb2.FiveGDUBufferPoolMetricsDict]:
+        """
+        Gets an empty list of FiveGDUBufferPoolMetricsDict
+
+        :return: an empty list of FiveGDUBufferPoolMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_du_buffer_pool_metrics_dict_to_dict(
+            five_g_du_buffer_pool_metrics_dict: cluster_manager_pb2.FiveGDUBufferPoolMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_du_buffer_pool_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_du_buffer_pool_metrics_dict.key
+        dtos = []
+        for dto in five_g_du_buffer_pool_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_du_buffer_pool_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    @staticmethod
+    def convert_five_g_du_cell_metrics_dict(
+            five_g_du_cell_metrics_d: Union[Dict[str, List[FiveGDUCellMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGDUCellMetricsDict]:
+        """
+        Converts a dict to list of FiveGDUCellMetricsDict
+
+        :param five_g_du_cell_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_du_cell_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_du_cell_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_du_cell_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGDUCellMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_du_cell_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_du_cell_metrics_dict_reverse(
+            five_g_du_cell_metrics_dict: Union[List[cluster_manager_pb2.FiveGDUCellMetricsDict], None]) \
+            -> Dict[str, List[FiveGDUCellMetrics]]:
+        """
+        Converts a list of FiveGDUCellMetricsDict to a dict
+
+        :param five_g_du_cell_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_du_cell_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_du_cell_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_cell_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_du_cell_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_du_cell_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_du_cell_metrics_dict() -> List[cluster_manager_pb2.FiveGDUCellMetricsDict]:
+        """
+        Gets an empty list of FiveGDUCellMetricsDict
+
+        :return: an empty list of FiveGDUCellMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_du_cell_metrics_dict_to_dict(
+            five_g_du_cell_metrics_dict: cluster_manager_pb2.FiveGDUCellMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_du_cell_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_du_cell_metrics_dict.key
+        dtos = []
+        for dto in five_g_du_cell_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_du_cell_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    # ---------------------------------------------------------------------------------------------------------
+    # FiveGDULowMetrics Dictionary Helpers
+    # ---------------------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def convert_five_g_du_low_metrics_dict(
+            five_g_du_low_metrics_d: Union[Dict[str, List[FiveGDULowMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGDULowMetricsDict]:
+        """
+        Converts a dict to list of FiveGDULowMetricsDict
+
+        :param five_g_du_low_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_du_low_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_du_low_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_du_low_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGDULowMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_du_low_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_du_low_metrics_dict_reverse(
+            five_g_du_low_metrics_dict: Union[List[cluster_manager_pb2.FiveGDULowMetricsDict], None]) \
+            -> Dict[str, List[FiveGDULowMetrics]]:
+        """
+        Converts a list of FiveGDULowMetricsDict to a dict
+
+        :param five_g_du_low_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_du_low_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_du_low_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_low_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_du_low_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_du_low_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_du_low_metrics_dict() -> List[cluster_manager_pb2.FiveGDULowMetricsDict]:
+        """
+        Gets an empty list of FiveGDULowMetricsDict
+
+        :return: an empty list of FiveGDULowMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_du_low_metrics_dict_to_dict(
+            five_g_du_low_metrics_dict: cluster_manager_pb2.FiveGDULowMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_du_low_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_du_low_metrics_dict.key
+        dtos = []
+        for dto in five_g_du_low_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_du_low_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    # ---------------------------------------------------------------------------------------------------------
+    # FiveGDUMetrics (High-MAC) Dictionary Helpers
+    # ---------------------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def convert_five_g_du_metrics_dict(
+            five_g_du_metrics_d: Union[Dict[str, List[FiveGDUMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGDUMetricsDict]:
+        """
+        Converts a dict to list of FiveGDUMetricsDict
+
+        :param five_g_du_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_du_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_du_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_du_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGDUMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_du_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_du_metrics_dict_reverse(
+            five_g_du_metrics_dict: Union[List[cluster_manager_pb2.FiveGDUMetricsDict], None]) \
+            -> Dict[str, List[FiveGDUMetrics]]:
+        """
+        Converts a list of FiveGDUMetricsDict to a dict
+
+        :param five_g_du_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_du_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_du_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_du_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_du_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_du_metrics_dict() -> List[cluster_manager_pb2.FiveGDUMetricsDict]:
+        """
+        Gets an empty list of FiveGDUMetricsDict
+
+        :return: an empty list of FiveGDUMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_du_metrics_dict_to_dict(
+            five_g_du_metrics_dict: cluster_manager_pb2.FiveGDUMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_du_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_du_metrics_dict.key
+        dtos = []
+        for dto in five_g_du_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_du_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d
+
+    # ---------------------------------------------------------------------------------------------------------
+    # FiveGDURLCMetrics Dictionary Helpers
+    # ---------------------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def convert_five_g_du_rlc_metrics_dict(
+            five_g_du_rlc_metrics_d: Union[Dict[str, List[FiveGDURLCMetrics]], None]) \
+            -> List[cluster_manager_pb2.FiveGDURLCMetricsDict]:
+        """
+        Converts a dict to list of FiveGDURLCMetricsDict
+
+        :param five_g_du_rlc_metrics_d: the dict to convert
+        :return: the converted objected
+        """
+        if five_g_du_rlc_metrics_d is None:
+            return ClusterManagerUtil.get_empty_five_g_du_rlc_metrics_dict()
+        else:
+            dict_list = []
+            for k, v in five_g_du_rlc_metrics_d.items():
+                dict_list.append(cluster_manager_pb2.FiveGDURLCMetricsDict(
+                    key=k, dtos=list(map(lambda x: ClusterManagerUtil.convert_five_g_du_rlc_metrics_dto(x), v))))
+            return dict_list
+
+    @staticmethod
+    def convert_five_g_du_rlc_metrics_dict_reverse(
+            five_g_du_rlc_metrics_dict: Union[List[cluster_manager_pb2.FiveGDURLCMetricsDict], None]) \
+            -> Dict[str, List[FiveGDURLCMetrics]]:
+        """
+        Converts a list of FiveGDURLCMetricsDict to a dict
+
+        :param five_g_du_rlc_metrics_dict: the list to convert
+        :return: the converted DTO
+        """
+        if five_g_du_rlc_metrics_dict is None:
+            return ClusterManagerUtil.convert_five_g_du_rlc_metrics_dict_reverse(
+                ClusterManagerUtil.get_empty_five_g_du_rlc_metrics_dict())
+        else:
+            d: Dict[str, Any] = {}
+            for ds in five_g_du_rlc_metrics_dict:
+                d[ds.key] = list(map(lambda x: ClusterManagerUtil.convert_five_g_du_rlc_metrics_dto_reverse(x),
+                                     ds.dtos))
+            return d
+
+    @staticmethod
+    def get_empty_five_g_du_rlc_metrics_dict() -> List[cluster_manager_pb2.FiveGDURLCMetricsDict]:
+        """
+        Gets an empty list of FiveGDURLCMetricsDict
+
+        :return: an empty list of FiveGDURLCMetricsDict
+        """
+        return []
+
+    @staticmethod
+    def five_g_du_rlc_metrics_dict_to_dict(
+            five_g_du_rlc_metrics_dict: cluster_manager_pb2.FiveGDURLCMetricsDict) -> Dict[str, Any]:
+        """
+        Converts a DTO to a dict
+
+        :param five_g_du_rlc_metrics_dict: the DTO to convert
+        :return: the dict
+        """
+        d: Dict[str, Any] = {}
+        d["key"] = five_g_du_rlc_metrics_dict.key
+        dtos = []
+        for dto in five_g_du_rlc_metrics_dict.dtos:
+            dtos.append(ClusterManagerUtil.five_g_du_rlc_metrics_dto_to_dict(dto))
+        d["dtos"] = dtos
+        return d

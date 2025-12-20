@@ -577,7 +577,7 @@ class KAFKA_CONFIG:
     FIVE_G_DU_METRICS_TOPIC_NAME = "five_g_du_metrics"
     FIVE_G_DU_CELL_METRICS_TOPIC_NAME = "five_g_du_cell_metrics"
     FIVE_G_DU_LOW_METRICS_TOPIC_NAME = "five_g_du_low_metrics"
-    FIVE_G_RLC_METRICS_TOPIC_NAME = "five_g_rlc_metrics"
+    FIVE_G_DU_RLC_METRICS_TOPIC_NAME = "five_g_du_rlc_metrics"
     FIVE_G_DU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME = "five_g_du_app_resource_usage_metrics"
     FIVE_G_DU_BUFFER_POOL_METRICS_TOPIC_NAME = "five_g_du_buffer_pool_metrics"
     FIVE_G_CU_CP_METRICS_TOPIC_NAME = "five_g_cu_cp_metrics"

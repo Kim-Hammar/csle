@@ -18,8 +18,8 @@ classifiers = [
     "Intended Audience :: Science/Research"
 ]
 dependencies = [
-    "csle-base>=0.9.40",
-    "csle-common>=0.9.40"
+    "csle-base>=0.9.41",
+    "csle-common>=0.9.41"
 ]
 
 [project.optional-dependencies]

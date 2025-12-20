@@ -15575,7 +15575,7 @@ def default_kafka_config(network_id: int, level: int, version: str, time_step_le
             attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_LOW_TOPIC_ATTRIBUTES
         ),
         KafkaTopic(
-            name=collector_constants.KAFKA_CONFIG.FIVE_G_RLC_METRICS_TOPIC_NAME,
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_RLC_METRICS_TOPIC_NAME,
             num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
