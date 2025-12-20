@@ -7,8 +7,8 @@ import BlockIOChart from "../BlockIOChart/BlockIOChart.jsx";
 import PidsChart from "../PidsChart/PidsChart.jsx";
 import LoginsChart from "../LoginsChart/LoginsChart.jsx";
 import ConnectionsChart from "../ConnectionsChart/ConnectionsChart.jsx";
-import OssecAlertsChart from "../OssecAlertsChart/OssecAlertsChart.jsx";
-import SnortAlertsChart from "../SnortAlertsChart/SnortAlertsChart.jsx";
+import OssecAlertsChart from "../../IDS/OssecAlertsChart/OssecAlertsChart.jsx";
+import SnortAlertsChart from "../../IDS/SnortAlertsChart/SnortAlertsChart.jsx";
 
 /**
  * Component containing a plot showing a number of container-specific plots

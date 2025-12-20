@@ -1,5 +1,5 @@
 import React from 'react'
-import './FiveGDULowLatencyChart.css'
+import './FiveGDURLCSDUErrorsChart.css'
 import {
   CartesianGrid,
   Label,
@@ -13,9 +13,9 @@ import {
 
 
 /**
- * Component containing a plot showing the average low level processing latency over time
+ * Component containing a plot showing the error statistics of SDUs at the DU
  */
-const FiveGDULowLatencyChart = React.memo((props) => {
+const FiveGDURLCSDUErrorsChart = React.memo((props) => {
     const margin = {
       top: 10,
       right: 30,
@@ -24,11 +24,11 @@ const FiveGDULowLatencyChart = React.memo((props) => {
     }
 
     if (props.stats !== undefined && props.stats.length > 0) {
-      const data = props.stats.map((five_g_du_low_metrics, index) => {
+      const data = props.stats.map((five_g_du_rlc_metrics, index) => {
         return {
           't': (index + 1),
-          'DL': parseFloat(five_g_du_low_metrics.dl_avg_latency_us),
-          'UL': parseFloat(five_g_du_low_metrics.ul_avg_latency_us)
+          'Dropped SDUs (%)': parseFloat(five_g_du_rlc_metrics.rx_num_dropped_sdus/five_g_du_rlc_metrics.rx_num_sdus),
+          'Discarded SDUs (%)': parseFloat(five_g_du_rlc_metrics.rx_num_discarded_sdus/five_g_du_rlc_metrics.rx_num_sdus)
         }
       })
       var domain = [0, Math.max(1, data.length)]
@@ -44,7 +44,7 @@ const FiveGDULowLatencyChart = React.memo((props) => {
                 <Label value="Time-step t" offset={-20} position="insideBottom" className="largeFont" />
               </XAxis>
               <YAxis type="number">
-                <Label angle={270} value="Processing latency (ms)" offset={0} position="insideLeft"
+                <Label angle={270} value="Processing latency (ns)" offset={0} position="insideLeft"
                        className="largeFont"
                        dy={50} />
               </YAxis>
@@ -52,11 +52,11 @@ const FiveGDULowLatencyChart = React.memo((props) => {
               <Legend verticalAlign="top" wrapperStyle={{ position: 'relative', fontSize: '15px' }}
                       className="largeFont" />
               <Line isAnimationActive={props.animation} animation={props.animation} type="monotone"
-                    dataKey="DL"
+                    dataKey="Dropped SDUs (%)"
                     stroke="#8884d8" addDot={false} activeDot={{ r: 8 }}
                     animationEasing={'linear'}
                     animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)} />
-              <Line animation={props.animation} type="monotone" dataKey="UL"
+              <Line animation={props.animation} type="monotone" dataKey="Discarded SDUs (%)"
                     stroke="#8b0000" animationEasing={'linear'}
                     animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)}
                     isAnimationActive={props.animation} />
@@ -72,7 +72,7 @@ const FiveGDULowLatencyChart = React.memo((props) => {
     }
   }
 )
-FiveGDULowLatencyChart.displayName = 'FiveGDULowLatencyChart'
-FiveGDULowLatencyChart.propTypes = {}
-FiveGDULowLatencyChart.defaultProps = {}
-export default FiveGDULowLatencyChart
+FiveGDURLCSDUErrorsChart.displayName = 'FiveGDURLCSDUErrorsChart'
+FiveGDURLCSDUErrorsChart.propTypes = {}
+FiveGDURLCSDUErrorsChart.defaultProps = {}
+export default FiveGDURLCSDUErrorsChart

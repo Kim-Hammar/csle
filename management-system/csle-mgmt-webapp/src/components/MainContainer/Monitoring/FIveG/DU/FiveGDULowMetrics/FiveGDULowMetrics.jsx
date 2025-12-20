@@ -8,7 +8,7 @@ import FiveGDULowFECThroughputChart from '../FiveGDULowFECThroughputChart/FiveGD
 import Spinner from 'react-bootstrap/Spinner'
 
 /**
- * Component containing plots of 5G DU Lowmetrics
+ * Component containing plots of 5G DU Low metrics
  */
 const FiveGDULowMetrics = React.memo((props) => {
     if (!props.loading && (props.fiveGDULowMetrics === null)) {
@@ -25,7 +25,7 @@ const FiveGDULowMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Physical layer processing latency</h3>
+              <h3 className="chartsTitle">Physical layer processing latency (us)</h3>
               <FiveGDULowLatencyChart stats={props.fiveGDULowMetrics}
                                       animation={props.animation} animationDuration={props.animationDuration}
                                       animationDurationFactor={props.animationDurationFactor} />
@@ -48,7 +48,7 @@ const FiveGDULowMetrics = React.memo((props) => {
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Channel estimation and decoding latency (ms)</h3>
+              <h3 className="chartsTitle">Channel estimation and decoding latency (us)</h3>
               <FiveGDULowDecodingLatencyChart stats={props.fiveGDULowMetrics}
                                               animation={props.animation} animationDuration={props.animationDuration}
                                               animationDurationFactor={props.animationDurationFactor} />
