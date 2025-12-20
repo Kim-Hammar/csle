@@ -12,6 +12,22 @@ from csle_common.dao.emulation_action.defender.emulation_defender_action_id impo
 from csle_collector.snort_ids_manager.dao.snort_ids_ip_alert_counters import SnortIdsIPAlertCounters
 from csle_collector.ossec_ids_manager.dao.ossec_ids_alert_counters import OSSECIdsAlertCounters
 from csle_collector.snort_ids_manager.dao.snort_ids_rule_counters import SnortIdsRuleCounters
+from csle_collector.five_g_core_manager.dao.five_g_core_amf_metrics import FiveGCoreAMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics import FiveGCoreSMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_upf_metrics import FiveGCoreUPFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_mme_metrics import FiveGCoreMMEMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcf_metrics import FiveGCorePCFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_hss_metrics import FiveGCoreHSSMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcrf_metrics import FiveGCorePCRFMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_metrics import FiveGDUMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics import FiveGDURLCMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics import FiveGDUCellMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_low_metrics import FiveGDULowMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics import FiveGDUAppResourceUsageMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics import FiveGDUBufferPoolMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics import FiveGCUCPMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_buffer_pool_metrics import FiveGCUBufferPoolMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_app_resource_usage_metrics import FiveGCUAppResourceUsageMetrics
 from csle_ryu.dao.agg_flow_statistic import AggFlowStatistic
 from csle_ryu.dao.flow_statistic import FlowStatistic
 from csle_ryu.dao.port_statistic import PortStatistic
@@ -541,6 +557,23 @@ class TestClusterManagerSuite:
                                          total_num_flows=10)
         snort_ipa = SnortIdsIPAlertCounters()
         snort_rule = SnortIdsRuleCounters()
+        amf_metrics = FiveGCoreAMFMetrics()
+        hss_metrics = FiveGCoreHSSMetrics()
+        mme_metrics = FiveGCoreMMEMetrics()
+        upf_metrics = FiveGCoreUPFMetrics()
+        pcf_metrics = FiveGCorePCFMetrics()
+        pcrf_metrics = FiveGCorePCRFMetrics()
+        smf_metrics = FiveGCoreSMFMetrics()
+        du_metrics = FiveGDUMetrics()
+        du_low_metrics = FiveGDULowMetrics()
+        du_rlc_metrics = FiveGDURLCMetrics()
+        du_cell_metrics = FiveGDUCellMetrics()
+        du_buffer_pool = FiveGDUBufferPoolMetrics()
+        du_app_usage = FiveGDUAppResourceUsageMetrics()
+        cu_cp_metrics = FiveGCUCPMetrics()
+        cu_buffer_pool = FiveGCUBufferPoolMetrics()
+        cu_app_usage = FiveGCUAppResourceUsageMetrics()
+
         emulation_metric_time_series = EmulationMetricsTimeSeries(
             client_metrics=[cp_metrics], aggregated_docker_stats=[docker_stats],
             docker_host_stats={"docker_stats": [docker_stats]}, host_metrics={"host_metrics": [host_metrics]},
@@ -558,7 +591,24 @@ class TestClusterManagerSuite:
             snort_ids_ip_metrics={"snort_ids_ip": [snort_ipa]},
             agg_snort_ids_rule_metrics=[snort_rule],
             snort_alert_metrics_per_ids={"snort_alert_metrics": [snort_ids]},
-            snort_rule_metrics_per_ids={"snort_rule_metrics": [snort_rule]})
+            snort_rule_metrics_per_ids={"snort_rule_metrics": [snort_rule]},
+            five_g_core_amf_metrics={"amf_metrics": [amf_metrics]},
+            five_g_core_hss_metrics={"hss_metrics": [hss_metrics]},
+            five_g_core_mme_metrics={"mme_metrics": [mme_metrics]},
+            five_g_core_upf_metrics={"upf_metrics": [upf_metrics]},
+            five_g_core_pcf_metrics={"pcf_metrics": [pcf_metrics]},
+            five_g_core_pcrf_metrics={"pcrf_metrics": [pcrf_metrics]},
+            five_g_core_smf_metrics={"smf_metrics": [smf_metrics]},
+            five_g_du_metrics={"du_metrics": [du_metrics]},
+            five_g_du_low_metrics={"du_low_metrics": [du_low_metrics]},
+            five_g_du_rlc_metrics={"du_rlc_metrics": [du_rlc_metrics]},
+            five_g_du_cell_metrics={"du_cell_metrics": [du_cell_metrics]},
+            five_g_du_buffer_pool_metrics={"du_buffer_pool_metrics": [du_buffer_pool]},
+            five_g_du_app_resource_usage_metrics={"du_app_resource_usage_metrics": [du_app_usage]},
+            five_g_cu_cp_metrics={"cu_cp_metrics": [cu_cp_metrics]},
+            five_g_cu_buffer_pool_metrics={"cu_buffer_pool_metrics": [cu_buffer_pool]},
+            five_g_cu_app_resource_usage_metrics={"cu_app_resource_usage_metrics": [cu_app_usage]}
+        )
         return emulation_metric_time_series
 
     def test_getNodeStatus(self, grpc_stub, mocker: pytest_mock.MockFixture, example_config: Config) -> None:
@@ -6055,6 +6105,22 @@ class TestClusterManagerSuite:
         assert response.snort_alert_metrics_per_ids[0].key == "snort_alert_metrics"
         assert response.snort_alert_metrics_per_ids[0].dtos[0].priority_alerts == [0] * 4
         assert response.snort_alert_metrics_per_ids[0].dtos[0].class_alerts == [0] * 34
+        assert response.five_g_core_amf_metrics is not None
+        assert response.five_g_core_hss_metrics is not None
+        assert response.five_g_core_pcrf_metrics is not None
+        assert response.five_g_core_upf_metrics is not None
+        assert response.five_g_core_smf_metrics is not None
+        assert response.five_g_core_mme_metrics is not None
+        assert response.five_g_core_pcf_metrics is not None
+        assert response.five_g_du_metrics is not None
+        assert response.five_g_du_low_metrics is not None
+        assert response.five_g_du_cell_metrics is not None
+        assert response.five_g_du_buffer_pool_metrics is not None
+        assert response.five_g_du_app_resource_usage_metrics is not None
+        assert response.five_g_du_rlc_metrics is not None
+        assert response.five_g_cu_cp_metrics is not None
+        assert response.five_g_cu_buffer_pool_metrics is not None
+        assert response.five_g_cu_buffer_pool_metrics is not None
 
     def test_startSparkServer(self, grpc_stub, mocker: pytest_mock.MockFixture,
                               get_ex_exec: EmulationExecution) -> None:

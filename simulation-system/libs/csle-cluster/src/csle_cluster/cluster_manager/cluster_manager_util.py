@@ -4180,10 +4180,12 @@ class ClusterManagerUtil:
             five_g_core_pcrf_metrics=ClusterManagerUtil.get_empty_five_g_core_pcrf_metrics_dict(),
             five_g_core_smf_metrics=ClusterManagerUtil.get_empty_five_g_core_smf_metrics_dict(),
             five_g_core_upf_metrics=ClusterManagerUtil.get_empty_five_g_core_upf_metrics_dict(),
-            five_g_cu_app_resource_usage_metrics=ClusterManagerUtil.get_empty_five_g_cu_app_resource_usage_metrics_dict(),
+            five_g_cu_app_resource_usage_metrics=(ClusterManagerUtil.
+                                                  get_empty_five_g_cu_app_resource_usage_metrics_dict()),
             five_g_cu_buffer_pool_metrics=ClusterManagerUtil.get_empty_five_g_cu_buffer_pool_metrics_dict(),
             five_g_cu_cp_metrics=ClusterManagerUtil.get_empty_five_g_cu_cp_metrics_dict(),
-            five_g_du_app_resource_usage_metrics=ClusterManagerUtil.get_empty_five_g_du_app_resource_usage_metrics_dict(),
+            five_g_du_app_resource_usage_metrics=(ClusterManagerUtil.
+                                                  get_empty_five_g_du_app_resource_usage_metrics_dict()),
             five_g_du_buffer_pool_metrics=ClusterManagerUtil.get_empty_five_g_du_buffer_pool_metrics_dict(),
             five_g_du_cell_metrics=ClusterManagerUtil.get_empty_five_g_du_cell_metrics_dict(),
             five_g_du_low_metrics=ClusterManagerUtil.get_empty_five_g_du_low_metrics_dict(),
@@ -4367,16 +4369,16 @@ class ClusterManagerUtil:
                     list(time_series_dto.five_g_core_smf_metrics)),
                 five_g_core_upf_metrics=ClusterManagerUtil.convert_five_g_core_upf_metrics_dict_reverse(
                     list(time_series_dto.five_g_core_upf_metrics)),
-                five_g_cu_app_resource_usage_metrics=
-                ClusterManagerUtil.convert_five_g_cu_app_resource_usage_metrics_dict_reverse(
-                    list(time_series_dto.five_g_cu_app_resource_usage_metrics)),
+                five_g_cu_app_resource_usage_metrics=(
+                    ClusterManagerUtil.convert_five_g_cu_app_resource_usage_metrics_dict_reverse(
+                        list(time_series_dto.five_g_cu_app_resource_usage_metrics))),
                 five_g_cu_buffer_pool_metrics=ClusterManagerUtil.convert_five_g_cu_buffer_pool_metrics_dict_reverse(
                     list(time_series_dto.five_g_cu_buffer_pool_metrics)),
                 five_g_cu_cp_metrics=ClusterManagerUtil.convert_five_g_cu_cp_metrics_dict_reverse(
                     list(time_series_dto.five_g_cu_cp_metrics)),
-                five_g_du_app_resource_usage_metrics=
-                ClusterManagerUtil.convert_five_g_du_app_resource_usage_metrics_dict_reverse(
-                    list(time_series_dto.five_g_du_app_resource_usage_metrics)),
+                five_g_du_app_resource_usage_metrics=(
+                    ClusterManagerUtil.convert_five_g_du_app_resource_usage_metrics_dict_reverse(
+                        list(time_series_dto.five_g_du_app_resource_usage_metrics))),
                 five_g_du_buffer_pool_metrics=ClusterManagerUtil.convert_five_g_du_buffer_pool_metrics_dict_reverse(
                     list(time_series_dto.five_g_du_buffer_pool_metrics)),
                 five_g_du_cell_metrics=ClusterManagerUtil.convert_five_g_du_cell_metrics_dict_reverse(
@@ -5931,7 +5933,8 @@ class ClusterManagerUtil:
                 fivegs_ep_n3_gtp_outdatapktn3upf=five_g_core_upf_metrics.fivegs_ep_n3_gtp_outdatapktn3upf,
                 fivegs_upffunction_sm_n4sessionestabreq=five_g_core_upf_metrics.fivegs_upffunction_sm_n4sessionestabreq,
                 fivegs_upffunction_sm_n4sessionreport=five_g_core_upf_metrics.fivegs_upffunction_sm_n4sessionreport,
-                fivegs_upffunction_sm_n4sessionreportsucc=five_g_core_upf_metrics.fivegs_upffunction_sm_n4sessionreportsucc,
+                fivegs_upffunction_sm_n4sessionreportsucc=(five_g_core_upf_metrics.
+                                                           fivegs_upffunction_sm_n4sessionreportsucc),
                 fivegs_upffunction_upf_sessionnbr=five_g_core_upf_metrics.fivegs_upffunction_upf_sessionnbr,
                 pfcp_peers_active=five_g_core_upf_metrics.pfcp_peers_active,
                 process_max_fds=five_g_core_upf_metrics.process_max_fds,
@@ -6032,17 +6035,22 @@ class ClusterManagerUtil:
                 s5c_rx_deletesession=five_g_core_smf_metrics.s5c_rx_deletesession,
                 gtp_new_node_failed=five_g_core_smf_metrics.gtp_new_node_failed,
                 s5c_rx_parse_failed=five_g_core_smf_metrics.s5c_rx_parse_failed,
-                fivegs_smffunction_sm_n4sessionreportsucc=five_g_core_smf_metrics.fivegs_smffunction_sm_n4sessionreportsucc,
+                fivegs_smffunction_sm_n4sessionreportsucc=(five_g_core_smf_metrics.
+                                                           fivegs_smffunction_sm_n4sessionreportsucc),
                 fivegs_smffunction_sm_n4sessionestabreq=five_g_core_smf_metrics.fivegs_smffunction_sm_n4sessionestabreq,
                 bearers_active=five_g_core_smf_metrics.bearers_active,
                 gn_rx_parse_failed=five_g_core_smf_metrics.gn_rx_parse_failed,
                 gtp_peers_active=five_g_core_smf_metrics.gtp_peers_active,
                 fivegs_smffunction_sm_sessionnbr=five_g_core_smf_metrics.fivegs_smffunction_sm_sessionnbr,
-                fivegs_smffunction_sm_pdusessioncreationreq=five_g_core_smf_metrics.fivegs_smffunction_sm_pdusessioncreationreq,
-                fivegs_smffunction_sm_pdusessioncreationsucc=five_g_core_smf_metrics.fivegs_smffunction_sm_pdusessioncreationsucc,
+                fivegs_smffunction_sm_pdusessioncreationreq=(five_g_core_smf_metrics.
+                                                             fivegs_smffunction_sm_pdusessioncreationreq),
+                fivegs_smffunction_sm_pdusessioncreationsucc=(five_g_core_smf_metrics.
+                                                              fivegs_smffunction_sm_pdusessioncreationsucc),
                 fivegs_smffunction_sm_qos_flow_nbr=five_g_core_smf_metrics.fivegs_smffunction_sm_qos_flow_nbr,
-                fivegs_smffunction_sm_n4sessionestabfail=five_g_core_smf_metrics.fivegs_smffunction_sm_n4sessionestabfail,
-                fivegs_smffunction_sm_pdusessioncreationfail=five_g_core_smf_metrics.fivegs_smffunction_sm_pdusessioncreationfail,
+                fivegs_smffunction_sm_n4sessionestabfail=(five_g_core_smf_metrics.
+                                                          fivegs_smffunction_sm_n4sessionestabfail),
+                fivegs_smffunction_sm_pdusessioncreationfail=(five_g_core_smf_metrics.
+                                                              fivegs_smffunction_sm_pdusessioncreationfail),
                 process_max_fds=five_g_core_smf_metrics.process_max_fds,
                 process_virtual_memory_max_bytes=five_g_core_smf_metrics.process_virtual_memory_max_bytes,
                 process_cpu_seconds_total=five_g_core_smf_metrics.process_cpu_seconds_total,

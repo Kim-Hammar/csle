@@ -181,6 +181,8 @@ class TestFiveGDUManagerSuite:
                      'init_du_config_file', return_value=None)
         mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
                      'init_ue', return_value=None)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'init_ue_config_file', return_value=None)
         mock_status_dict_du = {constants.FIVE_G_DU.DU: True}
         mock_status_dict_ue = {constants.FIVE_G_DU.UE: False}
         mock_status = FiveGDUStatusDTO(du_running=True, ue_running=False, ip="0.0.0.0", monitor_running=False)

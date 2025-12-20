@@ -655,6 +655,7 @@ const Emulation = (props) => {
                                         <thead>
                                         <tr>
                                             <th>IMSI</th>
+                                            <th>IMEI</th>
                                             <th>Private key</th>
                                             <th>Operator key</th>
                                             <th>AMF</th>
@@ -665,6 +666,7 @@ const Emulation = (props) => {
                                         {emulation.five_g_config.subscribers.map((subscriber) =>
                                             <tr key={subscriber.imsi}>
                                                 <td>{subscriber.imsi}</td>
+                                                <td>{subscriber.imei}</td>
                                                 <td>{subscriber.key}</td>
                                                 <td>{subscriber.opc}</td>
                                                 <td>{subscriber.amf}</td>

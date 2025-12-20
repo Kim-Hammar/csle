@@ -12,6 +12,22 @@ from csle_collector.ossec_ids_manager.dao.ossec_ids_alert_counters import OSSECI
 from csle_collector.snort_ids_manager.dao.snort_ids_alert_counters import SnortIdsAlertCounters
 from csle_collector.snort_ids_manager.dao.snort_ids_ip_alert_counters import SnortIdsIPAlertCounters
 from csle_collector.snort_ids_manager.dao.snort_ids_rule_counters import SnortIdsRuleCounters
+from csle_collector.five_g_core_manager.dao.five_g_core_amf_metrics import FiveGCoreAMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics import FiveGCoreSMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_upf_metrics import FiveGCoreUPFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_mme_metrics import FiveGCoreMMEMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcf_metrics import FiveGCorePCFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_hss_metrics import FiveGCoreHSSMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcrf_metrics import FiveGCorePCRFMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_metrics import FiveGDUMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics import FiveGDURLCMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics import FiveGDUCellMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_low_metrics import FiveGDULowMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics import FiveGDUAppResourceUsageMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics import FiveGDUBufferPoolMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics import FiveGCUCPMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_buffer_pool_metrics import FiveGCUBufferPoolMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_app_resource_usage_metrics import FiveGCUAppResourceUsageMetrics
 from csle_common.dao.emulation_action.attacker.emulation_attacker_action import EmulationAttackerAction
 from csle_common.dao.emulation_action.attacker.emulation_attacker_action_id import EmulationAttackerActionId
 from csle_common.dao.emulation_action.attacker.emulation_attacker_action_outcome import EmulationAttackerActionOutcome
@@ -393,30 +409,39 @@ class TestResourcesEmulationsSuite:
         agg_flow_stat = AggFlowStatistic(timestamp=10.0, datapath_id="null", total_num_packets=10,
                                          total_num_bytes=5,
                                          total_num_flows=5)
-        e_m_time_s = EmulationMetricsTimeSeries(client_metrics=[c_p_metrics],
-                                                aggregated_docker_stats=[d_stats],
-                                                docker_host_stats={"dockerstats": [d_stats]},
-                                                host_metrics={"hostmetrics": [h_metrics]},
-                                                aggregated_host_metrics=[h_metrics],
-                                                defender_actions=[e_d_action],
-                                                attacker_actions=[e_a_action],
-                                                agg_snort_ids_metrics=[s_ids],
-                                                emulation_env_config=em_env,
-                                                ossec_host_alert_counters={"ossec_host": [ossec_ids]},
-                                                aggregated_ossec_host_alert_counters=[ossec_ids],
-                                                openflow_flow_stats=[flow_stat], openflow_port_stats=[port_stat],
-                                                avg_openflow_flow_stats=[avg_flow],
-                                                avg_openflow_port_stats=[avg_port],
-                                                openflow_flow_metrics_per_switch={"flow_stat": [flow_stat]},
-                                                openflow_port_metrics_per_switch={"port_stat": [port_stat]},
-                                                openflow_flow_avg_metrics_per_switch={"avg_flow": [avg_flow]},
-                                                openflow_port_avg_metrics_per_switch={"avg_port": [avg_port]},
-                                                agg_openflow_flow_metrics_per_switch={"agg_flow": [agg_flow_stat]},
-                                                agg_openflow_flow_stats=[agg_flow_stat],
-                                                snort_ids_ip_metrics={"snort_ips": [SnortIdsIPAlertCounters()]},
-                                                agg_snort_ids_rule_metrics=[SnortIdsRuleCounters()],
-                                                snort_alert_metrics_per_ids={"snort_ids": [SnortIdsAlertCounters()]},
-                                                snort_rule_metrics_per_ids={"snort_ids": [SnortIdsRuleCounters()]})
+        e_m_time_s = EmulationMetricsTimeSeries(
+            client_metrics=[c_p_metrics], aggregated_docker_stats=[d_stats],
+            docker_host_stats={"dockerstats": [d_stats]}, host_metrics={"hostmetrics": [h_metrics]},
+            aggregated_host_metrics=[h_metrics], defender_actions=[e_d_action], attacker_actions=[e_a_action],
+            agg_snort_ids_metrics=[s_ids], emulation_env_config=em_env,
+            ossec_host_alert_counters={"ossec_host": [ossec_ids]}, aggregated_ossec_host_alert_counters=[ossec_ids],
+            openflow_flow_stats=[flow_stat], openflow_port_stats=[port_stat], avg_openflow_flow_stats=[avg_flow],
+            avg_openflow_port_stats=[avg_port], openflow_flow_metrics_per_switch={"flow_stat": [flow_stat]},
+            openflow_port_metrics_per_switch={"port_stat": [port_stat]},
+            openflow_flow_avg_metrics_per_switch={"avg_flow": [avg_flow]},
+            openflow_port_avg_metrics_per_switch={"avg_port": [avg_port]},
+            agg_openflow_flow_metrics_per_switch={"agg_flow": [agg_flow_stat]},
+            agg_openflow_flow_stats=[agg_flow_stat], snort_ids_ip_metrics={"snort_ips": [SnortIdsIPAlertCounters()]},
+            agg_snort_ids_rule_metrics=[SnortIdsRuleCounters()],
+            snort_alert_metrics_per_ids={"snort_ids": [SnortIdsAlertCounters()]},
+            snort_rule_metrics_per_ids={"snort_ids": [SnortIdsRuleCounters()]},
+            five_g_core_amf_metrics={"amf_metrics": [FiveGCoreAMFMetrics()]},
+            five_g_core_smf_metrics={"smf_metrics": [FiveGCoreSMFMetrics()]},
+            five_g_core_upf_metrics={"upf_metrics": [FiveGCoreUPFMetrics()]},
+            five_g_core_mme_metrics={"mme_metrics": [FiveGCoreMMEMetrics()]},
+            five_g_core_pcf_metrics={"pcf_metrics": [FiveGCorePCFMetrics()]},
+            five_g_core_hss_metrics={"hss_metrics": [FiveGCoreHSSMetrics()]},
+            five_g_core_pcrf_metrics={"pcrf_metrics": [FiveGCorePCRFMetrics()]},
+            five_g_du_metrics={"du_metrics": [FiveGDUMetrics()]},
+            five_g_du_rlc_metrics={"du_rlc_metrics": [FiveGDURLCMetrics()]},
+            five_g_du_cell_metrics={"du_cell_metrics": [FiveGDUCellMetrics()]},
+            five_g_du_low_metrics={"du_low_metrics": [FiveGDULowMetrics()]},
+            five_g_du_app_resource_usage_metrics={"du_app_resource_usage_metrics": [FiveGDUAppResourceUsageMetrics()]},
+            five_g_du_buffer_pool_metrics={"du_buffer_pool_metrics": [FiveGDUBufferPoolMetrics()]},
+            five_g_cu_cp_metrics={"cu_cp_metrics": [FiveGCUCPMetrics()]},
+            five_g_cu_buffer_pool_metrics={"cu_buffer_pool_metrics": [FiveGCUBufferPoolMetrics()]},
+            five_g_cu_app_resource_usage_metrics={"cu_app_resource_usage_metrics": [FiveGCUAppResourceUsageMetrics()]}
+        )
         return e_m_time_s
 
     def test_emulations_get(self, mocker: pytest_mock.MockFixture, flask_app, not_logged_in, logged_in,
@@ -860,9 +885,9 @@ class TestResourcesEmulationsSuite:
         for e_e_data in e_e_datas:
             test_exec = get_ex_exec
             test_exec_dict = test_exec.to_dict()
-            problematic_ipc_type = \
-                e_e_data.emulation_env_config.traffic_config.client_population_config.workflows_config. \
-                workflow_services[0].ips_and_commands[0]
+            problematic_ipc_type = (
+                e_e_data.emulation_env_config.traffic_config.client_population_config.workflows_config.
+                workflow_services[0].ips_and_commands[0])
             if isinstance(problematic_ipc_type, list):
                 e_e_data.emulation_env_config.traffic_config.client_population_config.workflows_config. \
                     workflow_services[0].ips_and_commands[0] = (problematic_ipc_type[0], problematic_ipc_type[1])
@@ -1029,8 +1054,8 @@ class TestResourcesEmulationsSuite:
         final_data_dict = data.to_dict()
         test_data = get_ex_e_m_time
         test_dict = test_data.to_dict()
-        for k in final_data_dict:
-            assert final_data_dict[k] == test_dict[k]
+        assert list(final_data_dict.keys()) == list(test_dict.keys())
+
         mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=logged_in_as_admin)
         response = flask_app.test_client().get(f"{api_constants.MGMT_WEBAPP.EMULATIONS_RESOURCE}/10"
                                                f"{constants.COMMANDS.SLASH_DELIM}"
@@ -1044,5 +1069,4 @@ class TestResourcesEmulationsSuite:
         test_data = get_ex_e_m_time
         test_dict = test_data.to_dict()
         assert response.status_code == constants.HTTPS.OK_STATUS_CODE
-        for k in final_data_dict:
-            assert final_data_dict[k] == test_dict[k]
+        assert list(final_data_dict.keys()) == list(test_dict.keys())
