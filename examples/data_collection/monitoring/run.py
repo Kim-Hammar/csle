@@ -15,5 +15,5 @@ if __name__ == '__main__':
         ip=execution.emulation_env_config.kafka_config.container.physical_host_ip,
         port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, minutes=15,
         ip_first_octet=execution.ip_first_octet, emulation=execution.emulation_env_config.name)
-    print(list(time_series.five_g_du_cell_metrics.keys()))
-    print(time_series.five_g_du_cell_metrics["csle_cloud_ran_du_1_1-level16-15"])
+    print(list(time_series.five_g_du_app_resource_usage_metrics.keys()))
+    print(time_series.five_g_du_app_resource_usage_metrics["csle_cloud_ran_du_1_1-level16-15"])

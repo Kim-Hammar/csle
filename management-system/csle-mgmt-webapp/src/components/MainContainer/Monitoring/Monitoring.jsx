@@ -9,11 +9,12 @@ import ContainerMetrics from "./General/ContainerMetrics/ContainerMetrics.jsx";
 import AggregateMetrics from "./General/AggregateMetrics/AggregateMetrics.jsx";
 import OpenFlowSwitchesStats from "./OVS/OpenFlowSwitchesStats/OpenFlowSwitchesStats.jsx";
 import SnortMetrics from "./IDS/SnortMetrics/SnortMetrics.jsx";
-import FiveGDUMetrics from "./FIveG/DU/DU/FiveGDUMetrics/FiveGDUMetrics.jsx";
-import FiveGDULowMetrics from "./FIveG/DU/Low/FiveGDULowMetrics/FiveGDULowMetrics.jsx";
-import FiveGDURLCMetrics from "./FIveG/DU/RLC/FiveGDURLCMetrics/FiveGDURLCMetrics.jsx";
-import FiveGDUCellMetrics from "./FIveG/DU/Cell/FiveGDUCellMetrics/FiveGDUCellMetrics.jsx";
-import FiveGCUCPMetrics from "./FIveG/CU/FiveGCUCPMetrics/FiveGCUCPMetrics.jsx";
+import FiveGDUMetrics from "./FiveG/DU/DU/FiveGDUMetrics/FiveGDUMetrics.jsx";
+import FiveGDULowMetrics from "./FiveG/DU/Low/FiveGDULowMetrics/FiveGDULowMetrics.jsx";
+import FiveGDURLCMetrics from "./FiveG/DU/RLC/FiveGDURLCMetrics/FiveGDURLCMetrics.jsx";
+import FiveGDUCellMetrics from "./FiveG/DU/Cell/FiveGDUCellMetrics/FiveGDUCellMetrics.jsx";
+import FiveGCUCPMetrics from "./FiveG/CU/CUCP/FiveGCUCPMetrics/FiveGCUCPMetrics.jsx";
+import FiveGCUAppResourceUsageMetrics from "./FiveG/CU/AppResourceUsage/FiveGCUAppResourceUsageMetrics/FiveGCUAppResourceUsageMetrics.jsx";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import DataCollection from './MonitoringSetup.png'
@@ -351,6 +352,14 @@ const Monitoring = (props) => {
     const getSpecificFiveGCUCPMetrics = () => {
         if (monitoringData !== null && selectedFiveGCU !== null) {
             return monitoringData.five_g_cu_cp_metrics[selectedFiveGCU.label]
+        } else {
+            return null
+        }
+    }
+
+    const getSpecificFiveGCUAppResourceUsageMetrics = () => {
+        if (monitoringData !== null && selectedFiveGCU !== null) {
+            return monitoringData.five_g_cu_app_resource_usage_metrics[selectedFiveGCU.label]
         } else {
             return null
         }
@@ -749,6 +758,13 @@ const Monitoring = (props) => {
                                     animationDuration={props.animationDuration.value}
                                     animationDurationFactor={props.animationDurationFactor}
                                     fiveGCUMetrics={getSpecificFiveGCUCPMetrics()}
+                    />
+                    <FiveGCUAppResourceUsageMetrics key={`five-g-cu-app-resource-usage-${props.animationDuration.value}`}
+                                      loading={props.loadingSelectedEmulationExecution}
+                                      animation={props.animation}
+                                      animationDuration={props.animationDuration.value}
+                                      animationDurationFactor={props.animationDurationFactor}
+                                      fiveGCUMetrics={getSpecificFiveGCUAppResourceUsageMetrics()}
                     />
 
                 </div>
