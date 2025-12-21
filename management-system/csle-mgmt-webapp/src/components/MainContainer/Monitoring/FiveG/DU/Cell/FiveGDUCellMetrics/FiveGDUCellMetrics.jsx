@@ -13,10 +13,10 @@ import Spinner from 'react-bootstrap/Spinner'
  * Component containing plots of 5G DU Cell metrics
  */
 const FiveGDUCellMetrics = React.memo((props) => {
-    if (!props.loading && (props.fiveGDULowMetrics === null)) {
+    if (!props.loading && (props.fiveGDUCellMetrics === null)) {
       return (<></>)
     }
-    if (props.loading || props.fiveGDULowMetrics === null) {
+    if (props.loading || props.fiveGDUCellMetrics === null) {
       return (
         <Spinner animation="border" role="status" className="aggregatedMetricsSpinner">
           <span className="visually-hidden"></span>

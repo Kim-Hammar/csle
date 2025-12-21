@@ -11,10 +11,10 @@ import Spinner from 'react-bootstrap/Spinner'
  * Component containing plots of 5G DU app resource usage metrics
  */
 const FiveGDUAppResourceUsageMetrics = React.memo((props) => {
-    if (!props.loading && (props.fiveGDUMetrics === null)) {
+    if (!props.loading && (props.fiveGDUAppResourceUsageMetrics === null)) {
       return (<></>)
     }
-    if (props.loading || props.fiveGDUMetrics === null) {
+    if (props.loading || props.fiveGDUAppResourceUsageMetrics === null) {
       return (
         <Spinner animation="border" role="status" className="aggregatedMetricsSpinner">
           <span className="visually-hidden"></span>

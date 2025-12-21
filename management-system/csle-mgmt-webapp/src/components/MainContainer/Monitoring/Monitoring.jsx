@@ -346,7 +346,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGDUMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_du_metrics !== null && monitoringData.five_g_du_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_du_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_du_metrics[selectedFiveGDU.label]
     } else {
       return null
@@ -354,7 +356,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGDULowMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_du_low_metrics !== null && monitoringData.five_g_du_low_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_du_low_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_du_low_metrics[selectedFiveGDU.label]
     } else {
       return null
@@ -362,7 +366,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGDURLCMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_du_rlc_metrics !== null && monitoringData.five_g_du_rlc_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_du_rlc_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_du_rlc_metrics[selectedFiveGDU.label]
     } else {
       return null
@@ -370,7 +376,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGDUCellMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_du_cell_metrics !== null && monitoringData.five_g_du_cell_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_du_cell_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_du_cell_metrics[selectedFiveGDU.label]
     } else {
       return null
@@ -378,7 +386,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGDUBufferPoolMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_du_buffer_pool_metrics !== null && monitoringData.five_g_du_buffer_pool_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_du_buffer_pool_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_du_buffer_pool_metrics[selectedFiveGDU.label]
     } else {
       return null
@@ -386,7 +396,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGDUAppResourceUsageMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_du_app_resource_usage_metrics !== null && monitoringData.five_g_du_app_resource_usage_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_du_app_resource_usage_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_du_app_resource_usage_metrics[selectedFiveGDU.label]
     } else {
       return null
@@ -394,7 +406,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCUCPMetrics = () => {
-    if (monitoringData !== null && selectedFiveGCU !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_cu_cp_metrics !== null && monitoringData.five_g_cu_cp_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_cu_cp_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_cu_cp_metrics[selectedFiveGCU.label]
     } else {
       return null
@@ -402,7 +416,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCUAppResourceUsageMetrics = () => {
-    if (monitoringData !== null && selectedFiveGCU !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_cu_app_resource_usage_metrics !== null && monitoringData.five_g_cu_app_resource_usage_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_cu_app_resource_usage_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_cu_app_resource_usage_metrics[selectedFiveGCU.label]
     } else {
       return null
@@ -410,7 +426,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCUBufferPoolMetrics = () => {
-    if (monitoringData !== null && selectedFiveGCU !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_cu_buffer_pool_metrics !== null && monitoringData.five_g_cu_buffer_pool_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_cu_buffer_pool_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_cu_buffer_pool_metrics[selectedFiveGCU.label]
     } else {
       return null
@@ -418,7 +436,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCoreAMFMetrics = () => {
-    if (monitoringData !== null && selectedFiveGCore !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_core_amf_metrics !== null && monitoringData.five_g_core_amf_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_core_amf_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_core_amf_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -426,7 +446,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCoreHSSMetrics = () => {
-    if (monitoringData !== null && selectedFiveGCore !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_core_hss_metrics !== null && monitoringData.five_g_core_hss_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_core_hss_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_core_hss_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -434,7 +456,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCoreSMFMetrics = () => {
-    if (monitoringData !== null && selectedFiveGCore !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_core_smf_metrics !== null && monitoringData.five_g_core_smf_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_core_smf_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_core_smf_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -442,7 +466,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCorePCRFMetrics = () => {
-    if (monitoringData !== null && selectedFiveGCore !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_core_pcrf_metrics !== null && monitoringData.five_g_core_pcrf_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_core_pcrf_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_core_pcrf_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -450,7 +476,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCorePCFMetrics = () => {
-    if (monitoringData !== null && selectedFiveGCore !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_core_pcf_metrics !== null && monitoringData.five_g_core_pcf_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_core_pcf_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_core_pcf_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -458,7 +486,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCoreMMEMetrics = () => {
-    if (monitoringData !== null && selectedFiveGCore !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_core_mme_metrics !== null && monitoringData.five_g_core_mme_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_core_mme_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_core_mme_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -466,7 +496,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCoreUPFMetrics = () => {
-    if (monitoringData !== null && selectedFiveGCore !== null) {
+    if (monitoringData !== null && selectedFiveGDU !== null
+      && monitoringData.five_g_core_upf_metrics !== null && monitoringData.five_g_core_upf_metrics[selectedFiveGDU.label] !== null
+      && monitoringData.five_g_core_upf_metrics[selectedFiveGDU.label].length > 0) {
       return monitoringData.five_g_core_upf_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -915,11 +947,11 @@ const Monitoring = (props) => {
           </div>
           <hr />
           <FiveGCoreAMFMetrics key={`five-g-core-amf-${props.animationDuration.value}`}
-                            loading={props.loadingSelectedEmulationExecution}
-                            animation={props.animation}
-                            animationDuration={props.animationDuration.value}
-                            animationDurationFactor={props.animationDurationFactor}
-                            fiveGCoreAMFMetrics={getSpecificFiveGCoreAMFMetrics()}
+                               loading={props.loadingSelectedEmulationExecution}
+                               animation={props.animation}
+                               animationDuration={props.animationDuration.value}
+                               animationDurationFactor={props.animationDurationFactor}
+                               fiveGCoreAMFMetrics={getSpecificFiveGCoreAMFMetrics()}
           />
 
           <FiveGCoreHSSMetrics key={`five-g-core-hss-${props.animationDuration.value}`}
@@ -955,14 +987,14 @@ const Monitoring = (props) => {
           />
 
           <FiveGCorePCRFMetrics key={`five-g-core-pcrf-${props.animationDuration.value}`}
-                               loading={props.loadingSelectedEmulationExecution}
-                               animation={props.animation}
-                               animationDuration={props.animationDuration.value}
-                               animationDurationFactor={props.animationDurationFactor}
-                               fiveGCorePCRFMetrics={getSpecificFiveGCorePCRFMetrics()}
+                                loading={props.loadingSelectedEmulationExecution}
+                                animation={props.animation}
+                                animationDuration={props.animationDuration.value}
+                                animationDurationFactor={props.animationDurationFactor}
+                                fiveGCorePCRFMetrics={getSpecificFiveGCorePCRFMetrics()}
           />
 
-          <FiveGCoreSMFMetrics key={`five-g-core-hss-${props.animationDuration.value}`}
+          <FiveGCoreSMFMetrics key={`five-g-core-smf-${props.animationDuration.value}`}
                                loading={props.loadingSelectedEmulationExecution}
                                animation={props.animation}
                                animationDuration={props.animationDuration.value}
