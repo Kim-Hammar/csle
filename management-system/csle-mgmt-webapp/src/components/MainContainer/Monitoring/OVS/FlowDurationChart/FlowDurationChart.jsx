@@ -22,7 +22,7 @@ const FlowDurationChart = React.memo((props) => {
             bottom: 25
         }
 
-        if (props.stats !== undefined && props.stats.length > 0) {
+        if (props.stats !== undefined && props.stats !== null && props.stats.length > 0) {
             var minDuration = 1000000000000
             var maxDuration = 0
             const data = props.stats.map((flow_stats, index) => {

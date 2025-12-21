@@ -23,7 +23,7 @@ const FlowPriorityChart = React.memo((props) => {
             bottom: 25
         }
 
-        if (props.stats !== undefined && props.stats.length > 0) {
+        if (props.stats !== undefined && props.stats !== null && props.stats.length > 0) {
             var minPriority = 1000000000000
             var maxPriority = 0
             const data = props.stats.map((flow_stats, index) => {

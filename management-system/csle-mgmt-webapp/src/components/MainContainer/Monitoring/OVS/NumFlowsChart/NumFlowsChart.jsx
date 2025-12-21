@@ -23,7 +23,7 @@ const NumFlowsChart = React.memo((props) => {
             bottom: 25
         }
 
-        if (props.stats !== undefined && props.stats.length > 0) {
+        if (props.stats !== undefined && props.stats !== null && props.stats.length > 0) {
             var minFlows = 1000000000000
             var maxFlows = 0
             const data = props.stats.map((port_stats, index) => {
