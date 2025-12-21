@@ -23,7 +23,7 @@ const ReceivedErrorsChart = React.memo((props) => {
             bottom: 25
         }
 
-        if (props.stats !== undefined && props.stats.length > 0) {
+        if (props.stats !== undefined && props.stats !== null && props.stats.length > 0) {
             var minReceivedErrors = 1000000000000
             var maxReceivedErrors = 0
             const data = props.stats.map((port_stats, index) => {

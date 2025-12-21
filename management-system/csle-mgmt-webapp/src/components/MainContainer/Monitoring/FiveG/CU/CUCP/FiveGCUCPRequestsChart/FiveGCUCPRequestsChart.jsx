@@ -23,7 +23,7 @@ const FiveGCUCPRequestsChart = React.memo((props) => {
       bottom: 25
     }
 
-    if (props.stats !== undefined && props.stats.length > 0) {
+    if (props.stats !== undefined && props.stats !== null && props.stats.length > 0) {
       const data = props.stats.map((cu_cp_metrics, index) => {
         return {
           't': (index + 1),

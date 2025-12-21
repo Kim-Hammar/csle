@@ -23,7 +23,7 @@ const ReceivedDroppedChart = React.memo((props) => {
             bottom: 25
         }
 
-        if (props.stats !== undefined && props.stats.length > 0) {
+        if (props.stats !== undefined && props.stats !== null && props.stats.length > 0) {
             var minReceivedDropped = 1000000000000
             var maxReceivedDropped = 0
             const data = props.stats.map((port_stats, index) => {
