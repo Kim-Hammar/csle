@@ -1,6 +1,10 @@
 import React from 'react'
 import './FiveGCUAppResourceUsageMetrics.css'
 import FiveGDUAppResourceUsageCPUChart from '../FiveGCUAppResourceUsageCPUChart/FiveGDUAppResourceUsageCPUChart.jsx'
+import FiveGCUAppResourceUsageMemoryChart
+  from '../FiveGCUAppResourceUsageMemoryChart/FiveGDUAppResourceUsageMemoryChart.jsx'
+import FiveGCUAppResourceUsagePowerConsumptionChart
+  from '../FiveGCUAppResourceUsagePowerConsumptionChart/FiveGDUAppResourceUsagePowerConsumptionChart.jsx'
 import Spinner from 'react-bootstrap/Spinner'
 
 /**
@@ -23,15 +27,25 @@ const FiveGCUAppResourceUsageMetrics = React.memo((props) => {
 
               <h3 className="chartsTitle">Application CPU usage %</h3>
               <FiveGDUAppResourceUsageCPUChart stats={props.fiveGCUMetrics}
-                                      animation={props.animation} animationDuration={props.animationDuration}
-                                      animationDurationFactor={props.animationDurationFactor} />
+                                               animation={props.animation} animationDuration={props.animationDuration}
+                                               animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">PDU Session events</h3>
-              <FiveGDUAppResourceUsageCPUChart stats={props.fiveGCUMetrics}
-                                       animation={props.animation} animationDuration={props.animationDuration}
-                                       animationDurationFactor={props.animationDurationFactor} />
+              <h3 className="chartsTitle">Application memory usage (mb)</h3>
+              <FiveGCUAppResourceUsageMemoryChart stats={props.fiveGCUMetrics}
+                                                  animation={props.animation} animationDuration={props.animationDuration}
+                                                  animationDurationFactor={props.animationDurationFactor} />
+            </div>
+          </div>
+          <div className="row chartsRow">
+            <div className="col-sm-12 chartsCol">
+
+              <h3 className="chartsTitle">Application power consumption (watts)</h3>
+              <FiveGCUAppResourceUsagePowerConsumptionChart stats={props.fiveGCUMetrics}
+                                                            animation={props.animation}
+                                                            animationDuration={props.animationDuration}
+                                                            animationDurationFactor={props.animationDurationFactor} />
             </div>
           </div>
         </div>
