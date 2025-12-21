@@ -4,55 +4,55 @@ import subprocess
 
 RELEASE_CONFIG = {
     "csle-base": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-ryu": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-collector": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-common": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-attacker": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-defender": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-system-identification": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "gym-csle-stopping-game": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "gym-csle-intrusion-response-game": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-agents": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-rest-api": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-cli": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-cluster": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-tolerance": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "gym-csle-apt-game": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "gym-csle-cyborg": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     },
     "csle-attack-profiler": {
-        "new_version": "'0.9.11'"
+        "new_version": "'0.9.43'"
     }
 }
 

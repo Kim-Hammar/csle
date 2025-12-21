@@ -22,6 +22,7 @@ from csle_common.dao.emulation_config.ossec_ids_manager_config import OSSECIDSMa
 from csle_common.dao.emulation_config.docker_stats_manager_config import DockerStatsManagerConfig
 from csle_common.dao.emulation_config.beats_config import BeatsConfig
 from csle_common.dao.emulation_config.elk_config import ElkConfig
+from csle_common.dao.emulation_config.five_g_config import FiveGConfig
 from csle_common.dao.emulation_config.container_network import ContainerNetwork
 from csle_common.util.ssh_util import SSHUtil
 from csle_common.logging.log import Logger
@@ -43,7 +44,7 @@ class EmulationEnvConfig(JSONSerializable):
                  host_manager_config: HostManagerConfig, snort_ids_manager_config: SnortIDSManagerConfig,
                  ossec_ids_manager_config: OSSECIDSManagerConfig,
                  docker_stats_manager_config: DockerStatsManagerConfig, elk_config: ElkConfig,
-                 beats_config: BeatsConfig,
+                 five_g_config: FiveGConfig, beats_config: BeatsConfig,
                  level: int, version: str, execution_id: int,
                  csle_collector_version: str = collector_constants.LATEST_VERSION,
                  csle_ryu_version: str = collector_constants.LATEST_VERSION):
@@ -69,6 +70,7 @@ class EmulationEnvConfig(JSONSerializable):
         :param docker_stats_manager_config: the Docker stats manager config
         :param beats_config: the beats config
         :param elk_config: the ELK config
+        :param five_g_config: the 5G config
         :param level: the level of the emulation
         :param version: the version of the emulation
         :param execution_id: the execution id of the emulation
@@ -105,6 +107,7 @@ class EmulationEnvConfig(JSONSerializable):
         self.docker_stats_manager_config = docker_stats_manager_config
         self.elk_config = elk_config
         self.beats_config = beats_config
+        self.five_g_config = five_g_config
         self.csle_collector_version = csle_collector_version
         self.csle_ryu_version = csle_ryu_version
 
@@ -141,7 +144,8 @@ class EmulationEnvConfig(JSONSerializable):
             snort_ids_manager_config=SnortIDSManagerConfig.from_dict(d["snort_ids_manager_config"]),
             docker_stats_manager_config=DockerStatsManagerConfig.from_dict(d["docker_stats_manager_config"]),
             elk_config=ElkConfig.from_dict(d["elk_config"]), csle_collector_version=d["csle_collector_version"],
-            beats_config=BeatsConfig.from_dict(d["beats_config"]), csle_ryu_version=d["csle_ryu_version"]
+            beats_config=BeatsConfig.from_dict(d["beats_config"]), csle_ryu_version=d["csle_ryu_version"],
+            five_g_config=FiveGConfig.from_dict(d["five_g_config"]),
         )
         obj.running = d["running"]
         obj.image = d["image"]
@@ -187,6 +191,7 @@ class EmulationEnvConfig(JSONSerializable):
         d["ossec_ids_manager_config"] = self.ossec_ids_manager_config.to_dict()
         d["docker_stats_manager_config"] = self.docker_stats_manager_config.to_dict()
         d["elk_config"] = self.elk_config.to_dict()
+        d["five_g_config"] = self.five_g_config.to_dict()
         d["csle_collector_version"] = self.csle_collector_version
         d["beats_config"] = self.beats_config.to_dict()
         d["csle_ryu_version"] = self.csle_ryu_version
@@ -359,7 +364,7 @@ class EmulationEnvConfig(JSONSerializable):
                f"ossec_ids_manager_config: {self.ossec_ids_manager_config}, " \
                f"docker_stats_manager_config: {self.docker_stats_manager_config}, elk_config: {self.elk_config}," \
                f" csle_collector_version: {self.csle_collector_version}, beats_config: {self.beats_config}," \
-               f" csle_ryu_version: {self.csle_ryu_version}"
+               f" csle_ryu_version: {self.csle_ryu_version}, five_g_config: {self.five_g_config},"
 
     def get_all_ips(self) -> List[str]:
         """
@@ -425,6 +430,7 @@ class EmulationEnvConfig(JSONSerializable):
         config.elk_config = config.elk_config.create_execution_config(
             ip_first_octet=ip_first_octet, physical_servers=physical_servers)
         config.beats_config = config.beats_config.create_execution_config(ip_first_octet=ip_first_octet)
+        config.five_g_config = config.five_g_config.create_execution_config(ip_first_octet=ip_first_octet)
         if config.sdn_controller_config is not None:
             config.sdn_controller_config = config.sdn_controller_config.create_execution_config(
                 ip_first_octet=ip_first_octet, physical_servers=physical_servers)

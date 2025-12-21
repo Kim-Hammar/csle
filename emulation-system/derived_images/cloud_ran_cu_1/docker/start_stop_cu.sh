@@ -4,7 +4,7 @@
 BASE_PATH="/srsRAN_Project/build/apps/cu"
 BINARY="srscu"
 CONF_FILE="cu.yml"
-LOG_FILE="cu.log"
+LOG_FILE="/cu.log"
 
 FULL_BIN="${BASE_PATH}/${BINARY}"
 FULL_CONF="${BASE_PATH}/${CONF_FILE}"
@@ -55,12 +55,12 @@ stop_cu() {
 }
 
 status_cu() {
-    local pid=$(get_pid)
+    local pid=$(get_pid | head -n1)
 
     if [ -n "$pid" ]; then
-        echo "$BINARY is RUNNING (PID: $pid)."
+        echo "$BINARY RUNNING (PID: $pid)"
     else
-        echo "$BINARY is STOPPED."
+        echo "$BINARY STOPPED"
     fi
 }
 

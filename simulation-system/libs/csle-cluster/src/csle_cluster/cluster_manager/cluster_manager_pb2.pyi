@@ -190,6 +190,22 @@ class EmulationMetricsTimeSeriesDTO(google.protobuf.message.Message):
     SNORT_IDS_IP_METRICS_FIELD_NUMBER: builtins.int
     SNORT_RULE_METRICS_PER_IDS_FIELD_NUMBER: builtins.int
     SNORT_ALERT_METRICS_PER_IDS_FIELD_NUMBER: builtins.int
+    FIVE_G_CORE_AMF_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_CORE_HSS_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_CORE_MME_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_CORE_PCF_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_CORE_PCRF_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_CORE_SMF_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_CORE_UPF_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_CU_APP_RESOURCE_USAGE_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_CU_BUFFER_POOL_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_CU_CP_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_DU_APP_RESOURCE_USAGE_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_DU_BUFFER_POOL_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_DU_CELL_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_DU_LOW_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_DU_METRICS_FIELD_NUMBER: builtins.int
+    FIVE_G_DU_RLC_METRICS_FIELD_NUMBER: builtins.int
     @property
     def client_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___ClientPopulationMetricsDTO]: ...
     @property
@@ -239,6 +255,38 @@ class EmulationMetricsTimeSeriesDTO(google.protobuf.message.Message):
     def snort_rule_metrics_per_ids(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SnortIdsRuleCountersDict]: ...
     @property
     def snort_alert_metrics_per_ids(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___SnortIdsAlertCountersDict]: ...
+    @property
+    def five_g_core_amf_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreAMFMetricsDict]: ...
+    @property
+    def five_g_core_hss_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreHSSMetricsDict]: ...
+    @property
+    def five_g_core_mme_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreMMEMetricsDict]: ...
+    @property
+    def five_g_core_pcf_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCorePCFMetricsDict]: ...
+    @property
+    def five_g_core_pcrf_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCorePCRFMetricsDict]: ...
+    @property
+    def five_g_core_smf_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreSMFMetricsDict]: ...
+    @property
+    def five_g_core_upf_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreUPFMetricsDict]: ...
+    @property
+    def five_g_cu_app_resource_usage_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCUAppResourceUsageMetricsDict]: ...
+    @property
+    def five_g_cu_buffer_pool_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCUBufferPoolMetricsDict]: ...
+    @property
+    def five_g_cu_cp_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCUCPMetricsDict]: ...
+    @property
+    def five_g_du_app_resource_usage_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDUAppResourceUsageMetricsDict]: ...
+    @property
+    def five_g_du_buffer_pool_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDUBufferPoolMetricsDict]: ...
+    @property
+    def five_g_du_cell_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDUCellMetricsDict]: ...
+    @property
+    def five_g_du_low_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDULowMetricsDict]: ...
+    @property
+    def five_g_du_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDUMetricsDict]: ...
+    @property
+    def five_g_du_rlc_metrics(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDURLCMetricsDict]: ...
     def __init__(
         self,
         *,
@@ -267,8 +315,24 @@ class EmulationMetricsTimeSeriesDTO(google.protobuf.message.Message):
         snort_ids_ip_metrics: collections.abc.Iterable[global___SnortIdsIpAlertCountersDict] | None = ...,
         snort_rule_metrics_per_ids: collections.abc.Iterable[global___SnortIdsRuleCountersDict] | None = ...,
         snort_alert_metrics_per_ids: collections.abc.Iterable[global___SnortIdsAlertCountersDict] | None = ...,
+        five_g_core_amf_metrics: collections.abc.Iterable[global___FiveGCoreAMFMetricsDict] | None = ...,
+        five_g_core_hss_metrics: collections.abc.Iterable[global___FiveGCoreHSSMetricsDict] | None = ...,
+        five_g_core_mme_metrics: collections.abc.Iterable[global___FiveGCoreMMEMetricsDict] | None = ...,
+        five_g_core_pcf_metrics: collections.abc.Iterable[global___FiveGCorePCFMetricsDict] | None = ...,
+        five_g_core_pcrf_metrics: collections.abc.Iterable[global___FiveGCorePCRFMetricsDict] | None = ...,
+        five_g_core_smf_metrics: collections.abc.Iterable[global___FiveGCoreSMFMetricsDict] | None = ...,
+        five_g_core_upf_metrics: collections.abc.Iterable[global___FiveGCoreUPFMetricsDict] | None = ...,
+        five_g_cu_app_resource_usage_metrics: collections.abc.Iterable[global___FiveGCUAppResourceUsageMetricsDict] | None = ...,
+        five_g_cu_buffer_pool_metrics: collections.abc.Iterable[global___FiveGCUBufferPoolMetricsDict] | None = ...,
+        five_g_cu_cp_metrics: collections.abc.Iterable[global___FiveGCUCPMetricsDict] | None = ...,
+        five_g_du_app_resource_usage_metrics: collections.abc.Iterable[global___FiveGDUAppResourceUsageMetricsDict] | None = ...,
+        five_g_du_buffer_pool_metrics: collections.abc.Iterable[global___FiveGDUBufferPoolMetricsDict] | None = ...,
+        five_g_du_cell_metrics: collections.abc.Iterable[global___FiveGDUCellMetricsDict] | None = ...,
+        five_g_du_low_metrics: collections.abc.Iterable[global___FiveGDULowMetricsDict] | None = ...,
+        five_g_du_metrics: collections.abc.Iterable[global___FiveGDUMetricsDict] | None = ...,
+        five_g_du_rlc_metrics: collections.abc.Iterable[global___FiveGDURLCMetricsDict] | None = ...,
     ) -> None: ...
-    def ClearField(self, field_name: typing_extensions.Literal["agg_openflow_flow_metrics_per_switch", b"agg_openflow_flow_metrics_per_switch", "agg_openflow_flow_stats", b"agg_openflow_flow_stats", "agg_snort_ids_metrics", b"agg_snort_ids_metrics", "agg_snort_ids_rule_metrics", b"agg_snort_ids_rule_metrics", "aggregated_docker_stats", b"aggregated_docker_stats", "aggregated_host_metrics", b"aggregated_host_metrics", "aggregated_ossec_host_alert_counters", b"aggregated_ossec_host_alert_counters", "attacker_actions", b"attacker_actions", "avg_openflow_flow_stats", b"avg_openflow_flow_stats", "avg_openflow_port_stats", b"avg_openflow_port_stats", "client_metrics", b"client_metrics", "defender_actions", b"defender_actions", "docker_host_stats", b"docker_host_stats", "emulation_id", b"emulation_id", "host_metrics", b"host_metrics", "openflow_flow_avg_metrics_per_switch", b"openflow_flow_avg_metrics_per_switch", "openflow_flow_metrics_per_switch", b"openflow_flow_metrics_per_switch", "openflow_flow_stats", b"openflow_flow_stats", "openflow_port_avg_metrics_per_switch", b"openflow_port_avg_metrics_per_switch", "openflow_port_metrics_per_switch", b"openflow_port_metrics_per_switch", "openflow_port_stats", b"openflow_port_stats", "ossec_host_alert_counters", b"ossec_host_alert_counters", "snort_alert_metrics_per_ids", b"snort_alert_metrics_per_ids", "snort_ids_ip_metrics", b"snort_ids_ip_metrics", "snort_rule_metrics_per_ids", b"snort_rule_metrics_per_ids"]) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["agg_openflow_flow_metrics_per_switch", b"agg_openflow_flow_metrics_per_switch", "agg_openflow_flow_stats", b"agg_openflow_flow_stats", "agg_snort_ids_metrics", b"agg_snort_ids_metrics", "agg_snort_ids_rule_metrics", b"agg_snort_ids_rule_metrics", "aggregated_docker_stats", b"aggregated_docker_stats", "aggregated_host_metrics", b"aggregated_host_metrics", "aggregated_ossec_host_alert_counters", b"aggregated_ossec_host_alert_counters", "attacker_actions", b"attacker_actions", "avg_openflow_flow_stats", b"avg_openflow_flow_stats", "avg_openflow_port_stats", b"avg_openflow_port_stats", "client_metrics", b"client_metrics", "defender_actions", b"defender_actions", "docker_host_stats", b"docker_host_stats", "emulation_id", b"emulation_id", "five_g_core_amf_metrics", b"five_g_core_amf_metrics", "five_g_core_hss_metrics", b"five_g_core_hss_metrics", "five_g_core_mme_metrics", b"five_g_core_mme_metrics", "five_g_core_pcf_metrics", b"five_g_core_pcf_metrics", "five_g_core_pcrf_metrics", b"five_g_core_pcrf_metrics", "five_g_core_smf_metrics", b"five_g_core_smf_metrics", "five_g_core_upf_metrics", b"five_g_core_upf_metrics", "five_g_cu_app_resource_usage_metrics", b"five_g_cu_app_resource_usage_metrics", "five_g_cu_buffer_pool_metrics", b"five_g_cu_buffer_pool_metrics", "five_g_cu_cp_metrics", b"five_g_cu_cp_metrics", "five_g_du_app_resource_usage_metrics", b"five_g_du_app_resource_usage_metrics", "five_g_du_buffer_pool_metrics", b"five_g_du_buffer_pool_metrics", "five_g_du_cell_metrics", b"five_g_du_cell_metrics", "five_g_du_low_metrics", b"five_g_du_low_metrics", "five_g_du_metrics", b"five_g_du_metrics", "five_g_du_rlc_metrics", b"five_g_du_rlc_metrics", "host_metrics", b"host_metrics", "openflow_flow_avg_metrics_per_switch", b"openflow_flow_avg_metrics_per_switch", "openflow_flow_metrics_per_switch", b"openflow_flow_metrics_per_switch", "openflow_flow_stats", b"openflow_flow_stats", "openflow_port_avg_metrics_per_switch", b"openflow_port_avg_metrics_per_switch", "openflow_port_metrics_per_switch", b"openflow_port_metrics_per_switch", "openflow_port_stats", b"openflow_port_stats", "ossec_host_alert_counters", b"ossec_host_alert_counters", "snort_alert_metrics_per_ids", b"snort_alert_metrics_per_ids", "snort_ids_ip_metrics", b"snort_ids_ip_metrics", "snort_rule_metrics_per_ids", b"snort_rule_metrics_per_ids"]) -> None: ...
 
 global___EmulationMetricsTimeSeriesDTO = EmulationMetricsTimeSeriesDTO
 
@@ -1618,6 +1682,102 @@ class KibanaTunnelDTO(google.protobuf.message.Message):
     def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ip", b"ip", "ipFirstOctet", b"ipFirstOctet", "port", b"port"]) -> None: ...
 
 global___KibanaTunnelDTO = KibanaTunnelDTO
+
+@typing_extensions.final
+class Remove5GCoreTunnelMsg(google.protobuf.message.Message):
+    """Message that the client sends to remove a 5G core tunnel"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Remove5GCoreTunnelMsg = Remove5GCoreTunnelMsg
+
+@typing_extensions.final
+class Create5GCoreTunnelMsg(google.protobuf.message.Message):
+    """Message that the client sends to create a 5G core tunnel"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Create5GCoreTunnelMsg = Create5GCoreTunnelMsg
+
+@typing_extensions.final
+class List5GCoreTunnelsMsg(google.protobuf.message.Message):
+    """Message that the client sends to request information about 5G core tunnels"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    def __init__(
+        self,
+    ) -> None: ...
+
+global___List5GCoreTunnelsMsg = List5GCoreTunnelsMsg
+
+@typing_extensions.final
+class FiveGCoreTunnelsDTO(google.protobuf.message.Message):
+    """Message that the server returns when the client requests information about the 5G core tunnels"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TUNNELS_FIELD_NUMBER: builtins.int
+    @property
+    def tunnels(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreTunnelDTO]: ...
+    def __init__(
+        self,
+        *,
+        tunnels: collections.abc.Iterable[global___FiveGCoreTunnelDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["tunnels", b"tunnels"]) -> None: ...
+
+global___FiveGCoreTunnelsDTO = FiveGCoreTunnelsDTO
+
+@typing_extensions.final
+class FiveGCoreTunnelDTO(google.protobuf.message.Message):
+    """Message that the server returns when the client requests information about the 5G core tunnels"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PORT_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    port: builtins.int
+    ip: builtins.str
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        port: builtins.int = ...,
+        ip: builtins.str = ...,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ip", b"ip", "ipFirstOctet", b"ipFirstOctet", "port", b"port"]) -> None: ...
+
+global___FiveGCoreTunnelDTO = FiveGCoreTunnelDTO
 
 @typing_extensions.final
 class RemoveRyuTunnelMsg(google.protobuf.message.Message):
@@ -3164,6 +3324,9 @@ class ExecutionInfoDTO(google.protobuf.message.Message):
     ACTIVENETWORKS_FIELD_NUMBER: builtins.int
     ELKMANAGERSINFODTO_FIELD_NUMBER: builtins.int
     RYUMANAGERSINFODTO_FIELD_NUMBER: builtins.int
+    FIVEGCOREMANAGERSINFODTO_FIELD_NUMBER: builtins.int
+    FIVEGCUMANAGERSINFODTO_FIELD_NUMBER: builtins.int
+    FIVEGDUMANAGERSINFODTO_FIELD_NUMBER: builtins.int
     emulationName: builtins.str
     executionId: builtins.int
     @property
@@ -3190,6 +3353,12 @@ class ExecutionInfoDTO(google.protobuf.message.Message):
     def elkManagersInfoDTO(self) -> global___ElkManagersInfoDTO: ...
     @property
     def ryuManagersInfoDTO(self) -> global___RyuManagersInfoDTO: ...
+    @property
+    def fiveGCoreManagersInfoDTO(self) -> global___FiveGCoreManagersInfoDTO: ...
+    @property
+    def fiveGCUManagersInfoDTO(self) -> global___FiveGCUManagersInfoDTO: ...
+    @property
+    def fiveGDUManagersInfoDTO(self) -> global___FiveGDUManagersInfoDTO: ...
     def __init__(
         self,
         *,
@@ -3207,9 +3376,12 @@ class ExecutionInfoDTO(google.protobuf.message.Message):
         activeNetworks: global___DockerNetworksDTO | None = ...,
         elkManagersInfoDTO: global___ElkManagersInfoDTO | None = ...,
         ryuManagersInfoDTO: global___RyuManagersInfoDTO | None = ...,
+        fiveGCoreManagersInfoDTO: global___FiveGCoreManagersInfoDTO | None = ...,
+        fiveGCUManagersInfoDTO: global___FiveGCUManagersInfoDTO | None = ...,
+        fiveGDUManagersInfoDTO: global___FiveGDUManagersInfoDTO | None = ...,
     ) -> None: ...
-    def HasField(self, field_name: typing_extensions.Literal["activeNetworks", b"activeNetworks", "clientManagersInfo", b"clientManagersInfo", "dockerStatsManagersInfo", b"dockerStatsManagersInfo", "elkManagersInfoDTO", b"elkManagersInfoDTO", "hostManagersInfo", b"hostManagersInfo", "kafkaManagersInfo", b"kafkaManagersInfo", "ossecIdsManagersInfo", b"ossecIdsManagersInfo", "runningContainers", b"runningContainers", "ryuManagersInfoDTO", b"ryuManagersInfoDTO", "snortIdsManagersInfo", b"snortIdsManagersInfo", "stoppedContainers", b"stoppedContainers", "trafficManagersInfoDTO", b"trafficManagersInfoDTO"]) -> builtins.bool: ...
-    def ClearField(self, field_name: typing_extensions.Literal["activeNetworks", b"activeNetworks", "clientManagersInfo", b"clientManagersInfo", "dockerStatsManagersInfo", b"dockerStatsManagersInfo", "elkManagersInfoDTO", b"elkManagersInfoDTO", "emulationName", b"emulationName", "executionId", b"executionId", "hostManagersInfo", b"hostManagersInfo", "kafkaManagersInfo", b"kafkaManagersInfo", "ossecIdsManagersInfo", b"ossecIdsManagersInfo", "runningContainers", b"runningContainers", "ryuManagersInfoDTO", b"ryuManagersInfoDTO", "snortIdsManagersInfo", b"snortIdsManagersInfo", "stoppedContainers", b"stoppedContainers", "trafficManagersInfoDTO", b"trafficManagersInfoDTO"]) -> None: ...
+    def HasField(self, field_name: typing_extensions.Literal["activeNetworks", b"activeNetworks", "clientManagersInfo", b"clientManagersInfo", "dockerStatsManagersInfo", b"dockerStatsManagersInfo", "elkManagersInfoDTO", b"elkManagersInfoDTO", "fiveGCUManagersInfoDTO", b"fiveGCUManagersInfoDTO", "fiveGCoreManagersInfoDTO", b"fiveGCoreManagersInfoDTO", "fiveGDUManagersInfoDTO", b"fiveGDUManagersInfoDTO", "hostManagersInfo", b"hostManagersInfo", "kafkaManagersInfo", b"kafkaManagersInfo", "ossecIdsManagersInfo", b"ossecIdsManagersInfo", "runningContainers", b"runningContainers", "ryuManagersInfoDTO", b"ryuManagersInfoDTO", "snortIdsManagersInfo", b"snortIdsManagersInfo", "stoppedContainers", b"stoppedContainers", "trafficManagersInfoDTO", b"trafficManagersInfoDTO"]) -> builtins.bool: ...
+    def ClearField(self, field_name: typing_extensions.Literal["activeNetworks", b"activeNetworks", "clientManagersInfo", b"clientManagersInfo", "dockerStatsManagersInfo", b"dockerStatsManagersInfo", "elkManagersInfoDTO", b"elkManagersInfoDTO", "emulationName", b"emulationName", "executionId", b"executionId", "fiveGCUManagersInfoDTO", b"fiveGCUManagersInfoDTO", "fiveGCoreManagersInfoDTO", b"fiveGCoreManagersInfoDTO", "fiveGDUManagersInfoDTO", b"fiveGDUManagersInfoDTO", "hostManagersInfo", b"hostManagersInfo", "kafkaManagersInfo", b"kafkaManagersInfo", "ossecIdsManagersInfo", b"ossecIdsManagersInfo", "runningContainers", b"runningContainers", "ryuManagersInfoDTO", b"ryuManagersInfoDTO", "snortIdsManagersInfo", b"snortIdsManagersInfo", "stoppedContainers", b"stoppedContainers", "trafficManagersInfoDTO", b"trafficManagersInfoDTO"]) -> None: ...
 
 global___ExecutionInfoDTO = ExecutionInfoDTO
 
@@ -6080,3 +6252,2797 @@ class StopDockerEngineMsg(google.protobuf.message.Message):
     ) -> None: ...
 
 global___StopDockerEngineMsg = StopDockerEngineMsg
+
+@typing_extensions.final
+class Start5GCoreManagersMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start 5G core managers"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCoreManagersMsg = Start5GCoreManagersMsg
+
+@typing_extensions.final
+class Stop5GCoreManagersMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop 5G core managers"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCoreManagersMsg = Stop5GCoreManagersMsg
+
+@typing_extensions.final
+class Start5GCoreManagerMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start a specific 5G core manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCoreManagerMsg = Start5GCoreManagerMsg
+
+@typing_extensions.final
+class Stop5GCoreManagerMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop a specific 5G core manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCoreManagerMsg = Stop5GCoreManagerMsg
+
+@typing_extensions.final
+class Stop5GCoreMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop a specific 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCoreMsg = Stop5GCoreMsg
+
+@typing_extensions.final
+class Stop5GCoresMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop the 5G cores"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCoresMsg = Stop5GCoresMsg
+
+@typing_extensions.final
+class Start5GCoreMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start a specific 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCoreMsg = Start5GCoreMsg
+
+@typing_extensions.final
+class Start5GCoresMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G cores"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCoresMsg = Start5GCoresMsg
+
+@typing_extensions.final
+class Init5GCoreMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize a specific 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Init5GCoreMsg = Init5GCoreMsg
+
+@typing_extensions.final
+class Init5GCoresMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize the 5G cores"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Init5GCoresMsg = Init5GCoresMsg
+
+@typing_extensions.final
+class Start5GCUManagersMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start 5G CU managers"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCUManagersMsg = Start5GCUManagersMsg
+
+@typing_extensions.final
+class Stop5GCUManagersMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop 5G CU managers"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCUManagersMsg = Stop5GCUManagersMsg
+
+@typing_extensions.final
+class Start5GCUManagerMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start a specific 5G CU manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCUManagerMsg = Start5GCUManagerMsg
+
+@typing_extensions.final
+class Stop5GCUManagerMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop a specific 5G CU manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCUManagerMsg = Stop5GCUManagerMsg
+
+@typing_extensions.final
+class Stop5GCUMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop a specific 5G CU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCUMsg = Stop5GCUMsg
+
+@typing_extensions.final
+class Stop5GCUsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop the 5G CUs"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCUsMsg = Stop5GCUsMsg
+
+@typing_extensions.final
+class Start5GCUMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start a specific 5G CU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCUMsg = Start5GCUMsg
+
+@typing_extensions.final
+class Start5GCUsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G CUs"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCUsMsg = Start5GCUsMsg
+
+@typing_extensions.final
+class Init5GCUMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize a specific 5G CU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Init5GCUMsg = Init5GCUMsg
+
+@typing_extensions.final
+class Init5GCUsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize the 5G CUs"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Init5GCUsMsg = Init5GCUsMsg
+
+@typing_extensions.final
+class Start5GDUManagersMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start 5G DU managers"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GDUManagersMsg = Start5GDUManagersMsg
+
+@typing_extensions.final
+class Stop5GDUManagersMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop 5G DU managers"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GDUManagersMsg = Stop5GDUManagersMsg
+
+@typing_extensions.final
+class Start5GDUManagerMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start a specific 5G DU manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GDUManagerMsg = Start5GDUManagerMsg
+
+@typing_extensions.final
+class Stop5GDUManagerMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop a specific 5G DU manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GDUManagerMsg = Stop5GDUManagerMsg
+
+@typing_extensions.final
+class Stop5GDUMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop a specific 5G DU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GDUMsg = Stop5GDUMsg
+
+@typing_extensions.final
+class Stop5GDUsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop the 5G DUs"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GDUsMsg = Stop5GDUsMsg
+
+@typing_extensions.final
+class Start5GDUMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start a specific 5G DU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GDUMsg = Start5GDUMsg
+
+@typing_extensions.final
+class Start5GDUsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G DUs"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GDUsMsg = Start5GDUsMsg
+
+@typing_extensions.final
+class Stop5GUEMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop a specific 5G UE"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GUEMsg = Stop5GUEMsg
+
+@typing_extensions.final
+class Stop5GUEsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop the 5G UEs"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GUEsMsg = Stop5GUEsMsg
+
+@typing_extensions.final
+class Start5GUEMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start a specific 5G UE"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GUEMsg = Start5GUEMsg
+
+@typing_extensions.final
+class Start5GUEsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G UEs"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GUEsMsg = Start5GUEsMsg
+
+@typing_extensions.final
+class Init5GDUUEMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize a specific 5G DU and UE"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Init5GDUUEMsg = Init5GDUUEMsg
+
+@typing_extensions.final
+class Init5GDUUEsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to initialize the 5G DUs and UEs"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Init5GDUUEsMsg = Init5GDUUEsMsg
+
+@typing_extensions.final
+class Get5GCoreManagersInfoMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get the 5G core managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCoreManagersInfoMsg = Get5GCoreManagersInfoMsg
+
+@typing_extensions.final
+class Get5GCUManagersInfoMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get the 5G CU managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCUManagersInfoMsg = Get5GCUManagersInfoMsg
+
+@typing_extensions.final
+class Get5GDUManagersInfoMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get the 5G DU managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GDUManagersInfoMsg = Get5GDUManagersInfoMsg
+
+@typing_extensions.final
+class FiveGCoreInfoDTO(google.protobuf.message.Message):
+    """Info DTO for the 5G Core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    MONGO_RUNNING_FIELD_NUMBER: builtins.int
+    MME_RUNNING_FIELD_NUMBER: builtins.int
+    SGWC_RUNNING_FIELD_NUMBER: builtins.int
+    SMF_RUNNING_FIELD_NUMBER: builtins.int
+    AMF_RUNNING_FIELD_NUMBER: builtins.int
+    SGWU_RUNNING_FIELD_NUMBER: builtins.int
+    UPF_RUNNING_FIELD_NUMBER: builtins.int
+    HSS_RUNNING_FIELD_NUMBER: builtins.int
+    PCRF_RUNNING_FIELD_NUMBER: builtins.int
+    NRF_RUNNING_FIELD_NUMBER: builtins.int
+    SCP_RUNNING_FIELD_NUMBER: builtins.int
+    SEPP_RUNNING_FIELD_NUMBER: builtins.int
+    AUSF_RUNNING_FIELD_NUMBER: builtins.int
+    UDM_RUNNING_FIELD_NUMBER: builtins.int
+    PCF_RUNNING_FIELD_NUMBER: builtins.int
+    NSSF_RUNNING_FIELD_NUMBER: builtins.int
+    BSF_RUNNING_FIELD_NUMBER: builtins.int
+    UDR_RUNNING_FIELD_NUMBER: builtins.int
+    WEBUI_RUNNING_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    MONITOR_RUNNING_FIELD_NUMBER: builtins.int
+    mongo_running: builtins.bool
+    mme_running: builtins.bool
+    sgwc_running: builtins.bool
+    smf_running: builtins.bool
+    amf_running: builtins.bool
+    sgwu_running: builtins.bool
+    upf_running: builtins.bool
+    hss_running: builtins.bool
+    pcrf_running: builtins.bool
+    nrf_running: builtins.bool
+    scp_running: builtins.bool
+    sepp_running: builtins.bool
+    ausf_running: builtins.bool
+    udm_running: builtins.bool
+    pcf_running: builtins.bool
+    nssf_running: builtins.bool
+    bsf_running: builtins.bool
+    udr_running: builtins.bool
+    webui_running: builtins.bool
+    ip: builtins.str
+    monitor_running: builtins.bool
+    def __init__(
+        self,
+        *,
+        mongo_running: builtins.bool = ...,
+        mme_running: builtins.bool = ...,
+        sgwc_running: builtins.bool = ...,
+        smf_running: builtins.bool = ...,
+        amf_running: builtins.bool = ...,
+        sgwu_running: builtins.bool = ...,
+        upf_running: builtins.bool = ...,
+        hss_running: builtins.bool = ...,
+        pcrf_running: builtins.bool = ...,
+        nrf_running: builtins.bool = ...,
+        scp_running: builtins.bool = ...,
+        sepp_running: builtins.bool = ...,
+        ausf_running: builtins.bool = ...,
+        udm_running: builtins.bool = ...,
+        pcf_running: builtins.bool = ...,
+        nssf_running: builtins.bool = ...,
+        bsf_running: builtins.bool = ...,
+        udr_running: builtins.bool = ...,
+        webui_running: builtins.bool = ...,
+        ip: builtins.str = ...,
+        monitor_running: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["amf_running", b"amf_running", "ausf_running", b"ausf_running", "bsf_running", b"bsf_running", "hss_running", b"hss_running", "ip", b"ip", "mme_running", b"mme_running", "mongo_running", b"mongo_running", "monitor_running", b"monitor_running", "nrf_running", b"nrf_running", "nssf_running", b"nssf_running", "pcf_running", b"pcf_running", "pcrf_running", b"pcrf_running", "scp_running", b"scp_running", "sepp_running", b"sepp_running", "sgwc_running", b"sgwc_running", "sgwu_running", b"sgwu_running", "smf_running", b"smf_running", "udm_running", b"udm_running", "udr_running", b"udr_running", "upf_running", b"upf_running", "webui_running", b"webui_running"]) -> None: ...
+
+global___FiveGCoreInfoDTO = FiveGCoreInfoDTO
+
+@typing_extensions.final
+class FiveGCUInfoDTO(google.protobuf.message.Message):
+    """Info DTO for the 5G CU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CU_RUNNING_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    MONITOR_RUNNING_FIELD_NUMBER: builtins.int
+    cu_running: builtins.bool
+    ip: builtins.str
+    monitor_running: builtins.bool
+    def __init__(
+        self,
+        *,
+        cu_running: builtins.bool = ...,
+        ip: builtins.str = ...,
+        monitor_running: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cu_running", b"cu_running", "ip", b"ip", "monitor_running", b"monitor_running"]) -> None: ...
+
+global___FiveGCUInfoDTO = FiveGCUInfoDTO
+
+@typing_extensions.final
+class FiveGDUInfoDTO(google.protobuf.message.Message):
+    """Info DTO for the 5G DU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DU_RUNNING_FIELD_NUMBER: builtins.int
+    UE_RUNNING_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    MONITOR_RUNNING_FIELD_NUMBER: builtins.int
+    du_running: builtins.bool
+    ue_running: builtins.bool
+    ip: builtins.str
+    monitor_running: builtins.bool
+    def __init__(
+        self,
+        *,
+        du_running: builtins.bool = ...,
+        ue_running: builtins.bool = ...,
+        ip: builtins.str = ...,
+        monitor_running: builtins.bool = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["du_running", b"du_running", "ip", b"ip", "monitor_running", b"monitor_running", "ue_running", b"ue_running"]) -> None: ...
+
+global___FiveGDUInfoDTO = FiveGDUInfoDTO
+
+@typing_extensions.final
+class FiveGCoreManagersInfoDTO(google.protobuf.message.Message):
+    """Message that the server returns when requested for the 5G Core managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    IPS_FIELD_NUMBER: builtins.int
+    PORTS_FIELD_NUMBER: builtins.int
+    EMULATIONNAME_FIELD_NUMBER: builtins.int
+    EXECUTIONID_FIELD_NUMBER: builtins.int
+    FIVEGCOREMANAGERSRUNNING_FIELD_NUMBER: builtins.int
+    FIVEGCOREMANAGERSSTATUSES_FIELD_NUMBER: builtins.int
+    @property
+    def ips(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    @property
+    def ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    emulationName: builtins.str
+    executionId: builtins.int
+    @property
+    def fiveGCoreManagersRunning(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
+    @property
+    def fiveGCoreManagersStatuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreInfoDTO]: ...
+    def __init__(
+        self,
+        *,
+        ips: collections.abc.Iterable[builtins.str] | None = ...,
+        ports: collections.abc.Iterable[builtins.int] | None = ...,
+        emulationName: builtins.str = ...,
+        executionId: builtins.int = ...,
+        fiveGCoreManagersRunning: collections.abc.Iterable[builtins.bool] | None = ...,
+        fiveGCoreManagersStatuses: collections.abc.Iterable[global___FiveGCoreInfoDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulationName", b"emulationName", "executionId", b"executionId", "fiveGCoreManagersRunning", b"fiveGCoreManagersRunning", "fiveGCoreManagersStatuses", b"fiveGCoreManagersStatuses", "ips", b"ips", "ports", b"ports"]) -> None: ...
+
+global___FiveGCoreManagersInfoDTO = FiveGCoreManagersInfoDTO
+
+@typing_extensions.final
+class FiveGCUManagersInfoDTO(google.protobuf.message.Message):
+    """Message that the server returns when requested for the 5G CU managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    IPS_FIELD_NUMBER: builtins.int
+    PORTS_FIELD_NUMBER: builtins.int
+    EMULATIONNAME_FIELD_NUMBER: builtins.int
+    EXECUTIONID_FIELD_NUMBER: builtins.int
+    FIVEGCUMANAGERSRUNNING_FIELD_NUMBER: builtins.int
+    FIVEGCUMANAGERSSTATUSES_FIELD_NUMBER: builtins.int
+    @property
+    def ips(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    @property
+    def ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    emulationName: builtins.str
+    executionId: builtins.int
+    @property
+    def fiveGCUManagersRunning(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
+    @property
+    def fiveGCUManagersStatuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCUInfoDTO]: ...
+    def __init__(
+        self,
+        *,
+        ips: collections.abc.Iterable[builtins.str] | None = ...,
+        ports: collections.abc.Iterable[builtins.int] | None = ...,
+        emulationName: builtins.str = ...,
+        executionId: builtins.int = ...,
+        fiveGCUManagersRunning: collections.abc.Iterable[builtins.bool] | None = ...,
+        fiveGCUManagersStatuses: collections.abc.Iterable[global___FiveGCUInfoDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulationName", b"emulationName", "executionId", b"executionId", "fiveGCUManagersRunning", b"fiveGCUManagersRunning", "fiveGCUManagersStatuses", b"fiveGCUManagersStatuses", "ips", b"ips", "ports", b"ports"]) -> None: ...
+
+global___FiveGCUManagersInfoDTO = FiveGCUManagersInfoDTO
+
+@typing_extensions.final
+class FiveGDUManagersInfoDTO(google.protobuf.message.Message):
+    """Message that the server returns when requested for the 5G DU managers info"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    IPS_FIELD_NUMBER: builtins.int
+    PORTS_FIELD_NUMBER: builtins.int
+    EMULATIONNAME_FIELD_NUMBER: builtins.int
+    EXECUTIONID_FIELD_NUMBER: builtins.int
+    FIVEGDUMANAGERSRUNNING_FIELD_NUMBER: builtins.int
+    FIVEGDUMANAGERSSTATUSES_FIELD_NUMBER: builtins.int
+    @property
+    def ips(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.str]: ...
+    @property
+    def ports(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.int]: ...
+    emulationName: builtins.str
+    executionId: builtins.int
+    @property
+    def fiveGDUManagersRunning(self) -> google.protobuf.internal.containers.RepeatedScalarFieldContainer[builtins.bool]: ...
+    @property
+    def fiveGDUManagersStatuses(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDUInfoDTO]: ...
+    def __init__(
+        self,
+        *,
+        ips: collections.abc.Iterable[builtins.str] | None = ...,
+        ports: collections.abc.Iterable[builtins.int] | None = ...,
+        emulationName: builtins.str = ...,
+        executionId: builtins.int = ...,
+        fiveGDUManagersRunning: collections.abc.Iterable[builtins.bool] | None = ...,
+        fiveGDUManagersStatuses: collections.abc.Iterable[global___FiveGDUInfoDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulationName", b"emulationName", "executionId", b"executionId", "fiveGDUManagersRunning", b"fiveGDUManagersRunning", "fiveGDUManagersStatuses", b"fiveGDUManagersStatuses", "ips", b"ips", "ports", b"ports"]) -> None: ...
+
+global___FiveGDUManagersInfoDTO = FiveGDUManagersInfoDTO
+
+@typing_extensions.final
+class Get5GCoreManagerLogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G core manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCoreManagerLogsMsg = Get5GCoreManagerLogsMsg
+
+@typing_extensions.final
+class Get5GCUManagerLogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G CU manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCUManagerLogsMsg = Get5GCUManagerLogsMsg
+
+@typing_extensions.final
+class Get5GDUManagerLogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G DU manager"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GDUManagerLogsMsg = Get5GDUManagerLogsMsg
+
+@typing_extensions.final
+class Get5GCoreLogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCoreLogsMsg = Get5GCoreLogsMsg
+
+@typing_extensions.final
+class Get5GCULogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G CU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GCULogsMsg = Get5GCULogsMsg
+
+@typing_extensions.final
+class Get5GDULogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G DU"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GDULogsMsg = Get5GDULogsMsg
+
+@typing_extensions.final
+class Get5GUELogsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to get logs of a specific 5G UE"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Get5GUELogsMsg = Get5GUELogsMsg
+
+@typing_extensions.final
+class Start5GCoreMonitorThreadsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G core monitor threads of a specific execution"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCoreMonitorThreadsMsg = Start5GCoreMonitorThreadsMsg
+
+@typing_extensions.final
+class Start5GCoreMonitorThreadMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G core monitor threads of a specific execution and container"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCoreMonitorThreadMsg = Start5GCoreMonitorThreadMsg
+
+@typing_extensions.final
+class Stop5GCoreMonitorThreadsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G core monitor threads of a specific execution"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCoreMonitorThreadsMsg = Stop5GCoreMonitorThreadsMsg
+
+@typing_extensions.final
+class Stop5GCoreMonitorThreadMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop the 5G core monitor thread of a specific execution and container"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCoreMonitorThreadMsg = Stop5GCoreMonitorThreadMsg
+
+@typing_extensions.final
+class Start5GCUMonitorThreadsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCUMonitorThreadsMsg = Start5GCUMonitorThreadsMsg
+
+@typing_extensions.final
+class Start5GCUMonitorThreadMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution and container"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GCUMonitorThreadMsg = Start5GCUMonitorThreadMsg
+
+@typing_extensions.final
+class Stop5GCUMonitorThreadsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G CU monitor threads of a specific execution"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCUMonitorThreadsMsg = Stop5GCUMonitorThreadsMsg
+
+@typing_extensions.final
+class Stop5GCUMonitorThreadMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop the 5G CU monitor thread of a specific execution and container"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GCUMonitorThreadMsg = Stop5GCUMonitorThreadMsg
+
+@typing_extensions.final
+class Start5GDUMonitorThreadsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GDUMonitorThreadsMsg = Start5GDUMonitorThreadsMsg
+
+@typing_extensions.final
+class Start5GDUMonitorThreadMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution and container"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Start5GDUMonitorThreadMsg = Start5GDUMonitorThreadMsg
+
+@typing_extensions.final
+class Stop5GDUMonitorThreadsMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to start the 5G DU monitor threads of a specific execution"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GDUMonitorThreadsMsg = Stop5GDUMonitorThreadsMsg
+
+@typing_extensions.final
+class Stop5GDUMonitorThreadMsg(google.protobuf.message.Message):
+    """Message that the client sends when requesting to stop the 5G DU monitor thread of a specific execution and container"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    EMULATION_FIELD_NUMBER: builtins.int
+    IPFIRSTOCTET_FIELD_NUMBER: builtins.int
+    CONTAINERIP_FIELD_NUMBER: builtins.int
+    emulation: builtins.str
+    ipFirstOctet: builtins.int
+    containerIp: builtins.str
+    def __init__(
+        self,
+        *,
+        emulation: builtins.str = ...,
+        ipFirstOctet: builtins.int = ...,
+        containerIp: builtins.str = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["containerIp", b"containerIp", "emulation", b"emulation", "ipFirstOctet", b"ipFirstOctet"]) -> None: ...
+
+global___Stop5GDUMonitorThreadMsg = Stop5GDUMonitorThreadMsg
+
+@typing_extensions.final
+class FiveGCoreAMFMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGCoreAMFMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreAMFMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGCoreAMFMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGCoreAMFMetricsDict = FiveGCoreAMFMetricsDict
+
+@typing_extensions.final
+class FiveGCoreAMFMetricsDTO(google.protobuf.message.Message):
+    """DTO with data about the AMF service from the 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    GNB_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_MM_CONFUPDATE_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_RM_REGINITREQ_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_RM_REGEMERGREQ_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_MM_PAGING5GREQ_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_RM_REGPERIODREQ_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_MM_CONFUPDATESUCC_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_RM_REGINITSUCC_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_AMF_AUTHREJECT_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_RM_REGMOBREQ_FIELD_NUMBER: builtins.int
+    AMF_SESSION_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_RM_REGMOBSUCC_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_AMF_AUTHREQ_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_RM_REGEMERGSUCC_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_MM_PAGING5GSUCC_FIELD_NUMBER: builtins.int
+    RAN_UE_FIELD_NUMBER: builtins.int
+    FIVEGS_AMFFUNCTION_RM_REGPERIODSUCC_FIELD_NUMBER: builtins.int
+    PROCESS_MAX_FDS_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_MAX_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_CPU_SECONDS_TOTAL_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_RESIDENT_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_START_TIME_SECONDS_FIELD_NUMBER: builtins.int
+    PROCESS_OPEN_FDS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    gnb: builtins.int
+    fivegs_amffunction_mm_confupdate: builtins.int
+    fivegs_amffunction_rm_reginitreq: builtins.int
+    fivegs_amffunction_rm_regemergreq: builtins.int
+    fivegs_amffunction_mm_paging5greq: builtins.int
+    fivegs_amffunction_rm_regperiodreq: builtins.int
+    fivegs_amffunction_mm_confupdatesucc: builtins.int
+    fivegs_amffunction_rm_reginitsucc: builtins.int
+    fivegs_amffunction_amf_authreject: builtins.int
+    fivegs_amffunction_rm_regmobreq: builtins.int
+    amf_session: builtins.int
+    fivegs_amffunction_rm_regmobsucc: builtins.int
+    fivegs_amffunction_amf_authreq: builtins.int
+    fivegs_amffunction_rm_regemergsucc: builtins.int
+    fivegs_amffunction_mm_paging5gsucc: builtins.int
+    ran_ue: builtins.int
+    fivegs_amffunction_rm_regperiodsucc: builtins.int
+    process_max_fds: builtins.int
+    process_virtual_memory_max_bytes: builtins.int
+    process_cpu_seconds_total: builtins.int
+    process_virtual_memory_bytes: builtins.int
+    process_resident_memory_bytes: builtins.int
+    process_start_time_seconds: builtins.int
+    process_open_fds: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        gnb: builtins.int = ...,
+        fivegs_amffunction_mm_confupdate: builtins.int = ...,
+        fivegs_amffunction_rm_reginitreq: builtins.int = ...,
+        fivegs_amffunction_rm_regemergreq: builtins.int = ...,
+        fivegs_amffunction_mm_paging5greq: builtins.int = ...,
+        fivegs_amffunction_rm_regperiodreq: builtins.int = ...,
+        fivegs_amffunction_mm_confupdatesucc: builtins.int = ...,
+        fivegs_amffunction_rm_reginitsucc: builtins.int = ...,
+        fivegs_amffunction_amf_authreject: builtins.int = ...,
+        fivegs_amffunction_rm_regmobreq: builtins.int = ...,
+        amf_session: builtins.int = ...,
+        fivegs_amffunction_rm_regmobsucc: builtins.int = ...,
+        fivegs_amffunction_amf_authreq: builtins.int = ...,
+        fivegs_amffunction_rm_regemergsucc: builtins.int = ...,
+        fivegs_amffunction_mm_paging5gsucc: builtins.int = ...,
+        ran_ue: builtins.int = ...,
+        fivegs_amffunction_rm_regperiodsucc: builtins.int = ...,
+        process_max_fds: builtins.int = ...,
+        process_virtual_memory_max_bytes: builtins.int = ...,
+        process_cpu_seconds_total: builtins.int = ...,
+        process_virtual_memory_bytes: builtins.int = ...,
+        process_resident_memory_bytes: builtins.int = ...,
+        process_start_time_seconds: builtins.int = ...,
+        process_open_fds: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["amf_session", b"amf_session", "fivegs_amffunction_amf_authreject", b"fivegs_amffunction_amf_authreject", "fivegs_amffunction_amf_authreq", b"fivegs_amffunction_amf_authreq", "fivegs_amffunction_mm_confupdate", b"fivegs_amffunction_mm_confupdate", "fivegs_amffunction_mm_confupdatesucc", b"fivegs_amffunction_mm_confupdatesucc", "fivegs_amffunction_mm_paging5greq", b"fivegs_amffunction_mm_paging5greq", "fivegs_amffunction_mm_paging5gsucc", b"fivegs_amffunction_mm_paging5gsucc", "fivegs_amffunction_rm_regemergreq", b"fivegs_amffunction_rm_regemergreq", "fivegs_amffunction_rm_regemergsucc", b"fivegs_amffunction_rm_regemergsucc", "fivegs_amffunction_rm_reginitreq", b"fivegs_amffunction_rm_reginitreq", "fivegs_amffunction_rm_reginitsucc", b"fivegs_amffunction_rm_reginitsucc", "fivegs_amffunction_rm_regmobreq", b"fivegs_amffunction_rm_regmobreq", "fivegs_amffunction_rm_regmobsucc", b"fivegs_amffunction_rm_regmobsucc", "fivegs_amffunction_rm_regperiodreq", b"fivegs_amffunction_rm_regperiodreq", "fivegs_amffunction_rm_regperiodsucc", b"fivegs_amffunction_rm_regperiodsucc", "gnb", b"gnb", "ip", b"ip", "process_cpu_seconds_total", b"process_cpu_seconds_total", "process_max_fds", b"process_max_fds", "process_open_fds", b"process_open_fds", "process_resident_memory_bytes", b"process_resident_memory_bytes", "process_start_time_seconds", b"process_start_time_seconds", "process_virtual_memory_bytes", b"process_virtual_memory_bytes", "process_virtual_memory_max_bytes", b"process_virtual_memory_max_bytes", "ran_ue", b"ran_ue", "ts", b"ts"]) -> None: ...
+
+global___FiveGCoreAMFMetricsDTO = FiveGCoreAMFMetricsDTO
+
+@typing_extensions.final
+class FiveGCoreHSSMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGCoreHSSMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreHSSMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGCoreHSSMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGCoreHSSMetricsDict = FiveGCoreHSSMetricsDict
+
+@typing_extensions.final
+class FiveGCoreHSSMetricsDTO(google.protobuf.message.Message):
+    """DTO with data about the HSS service from the 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CX_RX_LIR_FIELD_NUMBER: builtins.int
+    CX_RX_UAR_FIELD_NUMBER: builtins.int
+    CX_TX_LIA_FIELD_NUMBER: builtins.int
+    CX_RX_UNKNOWN_FIELD_NUMBER: builtins.int
+    CX_RX_SAR_FIELD_NUMBER: builtins.int
+    S6A_RX_PUR_FIELD_NUMBER: builtins.int
+    SWX_RX_MAR_ERROR_FIELD_NUMBER: builtins.int
+    CX_TX_UAA_FIELD_NUMBER: builtins.int
+    S6A_RX_PUR_ERROR_FIELD_NUMBER: builtins.int
+    S6A_TX_CLR_FIELD_NUMBER: builtins.int
+    CX_TX_SAA_FIELD_NUMBER: builtins.int
+    CX_RX_LIR_ERROR_FIELD_NUMBER: builtins.int
+    S6A_RX_ULR_FIELD_NUMBER: builtins.int
+    S6A_RX_CLA_FIELD_NUMBER: builtins.int
+    S6A_RX_CLA_ERROR_FIELD_NUMBER: builtins.int
+    S6A_RX_AIR_FIELD_NUMBER: builtins.int
+    CX_RX_MAR_FIELD_NUMBER: builtins.int
+    SWX_RX_SAR_FIELD_NUMBER: builtins.int
+    S6A_RX_AIR_ERROR_FIELD_NUMBER: builtins.int
+    S6A_RX_IDA_ERROR_FIELD_NUMBER: builtins.int
+    CX_TX_MAA_FIELD_NUMBER: builtins.int
+    SWX_RX_MAR_FIELD_NUMBER: builtins.int
+    S6A_RX_UNKNOWN_FIELD_NUMBER: builtins.int
+    S6A_TX_PUA_FIELD_NUMBER: builtins.int
+    SWX_RX_UNKNOWN_FIELD_NUMBER: builtins.int
+    CX_RX_MAR_ERROR_FIELD_NUMBER: builtins.int
+    CX_RX_UAR_ERROR_FIELD_NUMBER: builtins.int
+    S6A_TX_ULA_FIELD_NUMBER: builtins.int
+    S6A_RX_ULR_ERROR_FIELD_NUMBER: builtins.int
+    S6A_TX_AIA_FIELD_NUMBER: builtins.int
+    S6A_TX_IDR_FIELD_NUMBER: builtins.int
+    S6A_RX_IDA_FIELD_NUMBER: builtins.int
+    CX_RX_SAR_ERROR_FIELD_NUMBER: builtins.int
+    SWX_RX_SAR_ERROR_FIELD_NUMBER: builtins.int
+    SWX_TX_MAA_FIELD_NUMBER: builtins.int
+    SWX_TX_SAA_FIELD_NUMBER: builtins.int
+    HSS_IMSI_FIELD_NUMBER: builtins.int
+    HSS_IMPI_FIELD_NUMBER: builtins.int
+    HSS_IMPU_FIELD_NUMBER: builtins.int
+    PROCESS_MAX_FDS_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_MAX_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_CPU_SECONDS_TOTAL_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_RESIDENT_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_START_TIME_SECONDS_FIELD_NUMBER: builtins.int
+    PROCESS_OPEN_FDS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    cx_rx_lir: builtins.int
+    cx_rx_uar: builtins.int
+    cx_tx_lia: builtins.int
+    cx_rx_unknown: builtins.int
+    cx_rx_sar: builtins.int
+    s6a_rx_pur: builtins.int
+    swx_rx_mar_error: builtins.int
+    cx_tx_uaa: builtins.int
+    s6a_rx_pur_error: builtins.int
+    s6a_tx_clr: builtins.int
+    cx_tx_saa: builtins.int
+    cx_rx_lir_error: builtins.int
+    s6a_rx_ulr: builtins.int
+    s6a_rx_cla: builtins.int
+    s6a_rx_cla_error: builtins.int
+    s6a_rx_air: builtins.int
+    cx_rx_mar: builtins.int
+    swx_rx_sar: builtins.int
+    s6a_rx_air_error: builtins.int
+    s6a_rx_ida_error: builtins.int
+    cx_tx_maa: builtins.int
+    swx_rx_mar: builtins.int
+    s6a_rx_unknown: builtins.int
+    s6a_tx_pua: builtins.int
+    swx_rx_unknown: builtins.int
+    cx_rx_mar_error: builtins.int
+    cx_rx_uar_error: builtins.int
+    s6a_tx_ula: builtins.int
+    s6a_rx_ulr_error: builtins.int
+    s6a_tx_aia: builtins.int
+    s6a_tx_idr: builtins.int
+    s6a_rx_ida: builtins.int
+    cx_rx_sar_error: builtins.int
+    swx_rx_sar_error: builtins.int
+    swx_tx_maa: builtins.int
+    swx_tx_saa: builtins.int
+    hss_imsi: builtins.int
+    hss_impi: builtins.int
+    hss_impu: builtins.int
+    process_max_fds: builtins.int
+    process_virtual_memory_max_bytes: builtins.int
+    process_cpu_seconds_total: builtins.int
+    process_virtual_memory_bytes: builtins.int
+    process_resident_memory_bytes: builtins.int
+    process_start_time_seconds: builtins.int
+    process_open_fds: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        cx_rx_lir: builtins.int = ...,
+        cx_rx_uar: builtins.int = ...,
+        cx_tx_lia: builtins.int = ...,
+        cx_rx_unknown: builtins.int = ...,
+        cx_rx_sar: builtins.int = ...,
+        s6a_rx_pur: builtins.int = ...,
+        swx_rx_mar_error: builtins.int = ...,
+        cx_tx_uaa: builtins.int = ...,
+        s6a_rx_pur_error: builtins.int = ...,
+        s6a_tx_clr: builtins.int = ...,
+        cx_tx_saa: builtins.int = ...,
+        cx_rx_lir_error: builtins.int = ...,
+        s6a_rx_ulr: builtins.int = ...,
+        s6a_rx_cla: builtins.int = ...,
+        s6a_rx_cla_error: builtins.int = ...,
+        s6a_rx_air: builtins.int = ...,
+        cx_rx_mar: builtins.int = ...,
+        swx_rx_sar: builtins.int = ...,
+        s6a_rx_air_error: builtins.int = ...,
+        s6a_rx_ida_error: builtins.int = ...,
+        cx_tx_maa: builtins.int = ...,
+        swx_rx_mar: builtins.int = ...,
+        s6a_rx_unknown: builtins.int = ...,
+        s6a_tx_pua: builtins.int = ...,
+        swx_rx_unknown: builtins.int = ...,
+        cx_rx_mar_error: builtins.int = ...,
+        cx_rx_uar_error: builtins.int = ...,
+        s6a_tx_ula: builtins.int = ...,
+        s6a_rx_ulr_error: builtins.int = ...,
+        s6a_tx_aia: builtins.int = ...,
+        s6a_tx_idr: builtins.int = ...,
+        s6a_rx_ida: builtins.int = ...,
+        cx_rx_sar_error: builtins.int = ...,
+        swx_rx_sar_error: builtins.int = ...,
+        swx_tx_maa: builtins.int = ...,
+        swx_tx_saa: builtins.int = ...,
+        hss_imsi: builtins.int = ...,
+        hss_impi: builtins.int = ...,
+        hss_impu: builtins.int = ...,
+        process_max_fds: builtins.int = ...,
+        process_virtual_memory_max_bytes: builtins.int = ...,
+        process_cpu_seconds_total: builtins.int = ...,
+        process_virtual_memory_bytes: builtins.int = ...,
+        process_resident_memory_bytes: builtins.int = ...,
+        process_start_time_seconds: builtins.int = ...,
+        process_open_fds: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cx_rx_lir", b"cx_rx_lir", "cx_rx_lir_error", b"cx_rx_lir_error", "cx_rx_mar", b"cx_rx_mar", "cx_rx_mar_error", b"cx_rx_mar_error", "cx_rx_sar", b"cx_rx_sar", "cx_rx_sar_error", b"cx_rx_sar_error", "cx_rx_uar", b"cx_rx_uar", "cx_rx_uar_error", b"cx_rx_uar_error", "cx_rx_unknown", b"cx_rx_unknown", "cx_tx_lia", b"cx_tx_lia", "cx_tx_maa", b"cx_tx_maa", "cx_tx_saa", b"cx_tx_saa", "cx_tx_uaa", b"cx_tx_uaa", "hss_impi", b"hss_impi", "hss_impu", b"hss_impu", "hss_imsi", b"hss_imsi", "ip", b"ip", "process_cpu_seconds_total", b"process_cpu_seconds_total", "process_max_fds", b"process_max_fds", "process_open_fds", b"process_open_fds", "process_resident_memory_bytes", b"process_resident_memory_bytes", "process_start_time_seconds", b"process_start_time_seconds", "process_virtual_memory_bytes", b"process_virtual_memory_bytes", "process_virtual_memory_max_bytes", b"process_virtual_memory_max_bytes", "s6a_rx_air", b"s6a_rx_air", "s6a_rx_air_error", b"s6a_rx_air_error", "s6a_rx_cla", b"s6a_rx_cla", "s6a_rx_cla_error", b"s6a_rx_cla_error", "s6a_rx_ida", b"s6a_rx_ida", "s6a_rx_ida_error", b"s6a_rx_ida_error", "s6a_rx_pur", b"s6a_rx_pur", "s6a_rx_pur_error", b"s6a_rx_pur_error", "s6a_rx_ulr", b"s6a_rx_ulr", "s6a_rx_ulr_error", b"s6a_rx_ulr_error", "s6a_rx_unknown", b"s6a_rx_unknown", "s6a_tx_aia", b"s6a_tx_aia", "s6a_tx_clr", b"s6a_tx_clr", "s6a_tx_idr", b"s6a_tx_idr", "s6a_tx_pua", b"s6a_tx_pua", "s6a_tx_ula", b"s6a_tx_ula", "swx_rx_mar", b"swx_rx_mar", "swx_rx_mar_error", b"swx_rx_mar_error", "swx_rx_sar", b"swx_rx_sar", "swx_rx_sar_error", b"swx_rx_sar_error", "swx_rx_unknown", b"swx_rx_unknown", "swx_tx_maa", b"swx_tx_maa", "swx_tx_saa", b"swx_tx_saa", "ts", b"ts"]) -> None: ...
+
+global___FiveGCoreHSSMetricsDTO = FiveGCoreHSSMetricsDTO
+
+@typing_extensions.final
+class FiveGCoreMMEMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGCoreMMEMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreMMEMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGCoreMMEMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGCoreMMEMetricsDict = FiveGCoreMMEMetricsDict
+
+@typing_extensions.final
+class FiveGCoreMMEMetricsDTO(google.protobuf.message.Message):
+    """DTO with data about the MME service from the 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    ENB_UE_FIELD_NUMBER: builtins.int
+    MME_SESSION_FIELD_NUMBER: builtins.int
+    ENB_FIELD_NUMBER: builtins.int
+    PROCESS_MAX_FDS_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_MAX_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_CPU_SECONDS_TOTAL_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_RESIDENT_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_START_TIME_SECONDS_FIELD_NUMBER: builtins.int
+    PROCESS_OPEN_FDS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    enb_ue: builtins.int
+    mme_session: builtins.int
+    enb: builtins.int
+    process_max_fds: builtins.int
+    process_virtual_memory_max_bytes: builtins.int
+    process_cpu_seconds_total: builtins.int
+    process_virtual_memory_bytes: builtins.int
+    process_resident_memory_bytes: builtins.int
+    process_start_time_seconds: builtins.int
+    process_open_fds: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        enb_ue: builtins.int = ...,
+        mme_session: builtins.int = ...,
+        enb: builtins.int = ...,
+        process_max_fds: builtins.int = ...,
+        process_virtual_memory_max_bytes: builtins.int = ...,
+        process_cpu_seconds_total: builtins.int = ...,
+        process_virtual_memory_bytes: builtins.int = ...,
+        process_resident_memory_bytes: builtins.int = ...,
+        process_start_time_seconds: builtins.int = ...,
+        process_open_fds: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["enb", b"enb", "enb_ue", b"enb_ue", "ip", b"ip", "mme_session", b"mme_session", "process_cpu_seconds_total", b"process_cpu_seconds_total", "process_max_fds", b"process_max_fds", "process_open_fds", b"process_open_fds", "process_resident_memory_bytes", b"process_resident_memory_bytes", "process_start_time_seconds", b"process_start_time_seconds", "process_virtual_memory_bytes", b"process_virtual_memory_bytes", "process_virtual_memory_max_bytes", b"process_virtual_memory_max_bytes", "ts", b"ts"]) -> None: ...
+
+global___FiveGCoreMMEMetricsDTO = FiveGCoreMMEMetricsDTO
+
+@typing_extensions.final
+class FiveGCorePCFMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGCorePCFMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCorePCFMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGCorePCFMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGCorePCFMetricsDict = FiveGCorePCFMetricsDict
+
+@typing_extensions.final
+class FiveGCorePCFMetricsDTO(google.protobuf.message.Message):
+    """DTO with data about the PCF service from the 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FIVEGS_PCFFUNCTION_PA_POLICYAMASSOREQ_FIELD_NUMBER: builtins.int
+    FIVEGS_PCFFUNCTION_PA_POLICYAMASSOSUCC_FIELD_NUMBER: builtins.int
+    FIVEGS_PCFFUNCTION_PA_POLICYSMASSOREQ_FIELD_NUMBER: builtins.int
+    FIVEGS_PCFFUNCTION_PA_POLICYSMASSOSUCC_FIELD_NUMBER: builtins.int
+    FIVEGS_PCFFUNCTION_PA_SESSIONNBR_FIELD_NUMBER: builtins.int
+    PROCESS_MAX_FDS_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_MAX_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_CPU_SECONDS_TOTAL_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_RESIDENT_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_START_TIME_SECONDS_FIELD_NUMBER: builtins.int
+    PROCESS_OPEN_FDS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    fivegs_pcffunction_pa_policyamassoreq: builtins.int
+    fivegs_pcffunction_pa_policyamassosucc: builtins.int
+    fivegs_pcffunction_pa_policysmassoreq: builtins.int
+    fivegs_pcffunction_pa_policysmassosucc: builtins.int
+    fivegs_pcffunction_pa_sessionnbr: builtins.int
+    process_max_fds: builtins.int
+    process_virtual_memory_max_bytes: builtins.int
+    process_cpu_seconds_total: builtins.int
+    process_virtual_memory_bytes: builtins.int
+    process_resident_memory_bytes: builtins.int
+    process_start_time_seconds: builtins.int
+    process_open_fds: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        fivegs_pcffunction_pa_policyamassoreq: builtins.int = ...,
+        fivegs_pcffunction_pa_policyamassosucc: builtins.int = ...,
+        fivegs_pcffunction_pa_policysmassoreq: builtins.int = ...,
+        fivegs_pcffunction_pa_policysmassosucc: builtins.int = ...,
+        fivegs_pcffunction_pa_sessionnbr: builtins.int = ...,
+        process_max_fds: builtins.int = ...,
+        process_virtual_memory_max_bytes: builtins.int = ...,
+        process_cpu_seconds_total: builtins.int = ...,
+        process_virtual_memory_bytes: builtins.int = ...,
+        process_resident_memory_bytes: builtins.int = ...,
+        process_start_time_seconds: builtins.int = ...,
+        process_open_fds: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["fivegs_pcffunction_pa_policyamassoreq", b"fivegs_pcffunction_pa_policyamassoreq", "fivegs_pcffunction_pa_policyamassosucc", b"fivegs_pcffunction_pa_policyamassosucc", "fivegs_pcffunction_pa_policysmassoreq", b"fivegs_pcffunction_pa_policysmassoreq", "fivegs_pcffunction_pa_policysmassosucc", b"fivegs_pcffunction_pa_policysmassosucc", "fivegs_pcffunction_pa_sessionnbr", b"fivegs_pcffunction_pa_sessionnbr", "ip", b"ip", "process_cpu_seconds_total", b"process_cpu_seconds_total", "process_max_fds", b"process_max_fds", "process_open_fds", b"process_open_fds", "process_resident_memory_bytes", b"process_resident_memory_bytes", "process_start_time_seconds", b"process_start_time_seconds", "process_virtual_memory_bytes", b"process_virtual_memory_bytes", "process_virtual_memory_max_bytes", b"process_virtual_memory_max_bytes", "ts", b"ts"]) -> None: ...
+
+global___FiveGCorePCFMetricsDTO = FiveGCorePCFMetricsDTO
+
+@typing_extensions.final
+class FiveGCorePCRFMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGCorePCRFMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCorePCRFMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGCorePCRFMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGCorePCRFMetricsDict = FiveGCorePCRFMetricsDict
+
+@typing_extensions.final
+class FiveGCorePCRFMetricsDTO(google.protobuf.message.Message):
+    """DTO with data about the PCRF service from the 5G core (Gx and Rx interfaces)"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    GX_RX_UNKNOWN_FIELD_NUMBER: builtins.int
+    GX_RX_CCR_FIELD_NUMBER: builtins.int
+    GX_RX_CCR_ERROR_FIELD_NUMBER: builtins.int
+    GX_RX_RAA_FIELD_NUMBER: builtins.int
+    GX_TX_CCA_FIELD_NUMBER: builtins.int
+    GX_TX_RAR_FIELD_NUMBER: builtins.int
+    GX_TX_RAR_ERROR_FIELD_NUMBER: builtins.int
+    RX_RX_UNKNOWN_FIELD_NUMBER: builtins.int
+    RX_RX_AAR_FIELD_NUMBER: builtins.int
+    RX_RX_AAR_ERROR_FIELD_NUMBER: builtins.int
+    RX_RX_ASA_FIELD_NUMBER: builtins.int
+    RX_RX_ASA_ERROR_FIELD_NUMBER: builtins.int
+    RX_RX_STR_ERROR_FIELD_NUMBER: builtins.int
+    RX_TX_AAA_FIELD_NUMBER: builtins.int
+    RX_TX_SAR_FIELD_NUMBER: builtins.int
+    RX_TX_STA_FIELD_NUMBER: builtins.int
+    PROCESS_MAX_FDS_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_MAX_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_CPU_SECONDS_TOTAL_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_RESIDENT_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_START_TIME_SECONDS_FIELD_NUMBER: builtins.int
+    PROCESS_OPEN_FDS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    gx_rx_unknown: builtins.int
+    gx_rx_ccr: builtins.int
+    gx_rx_ccr_error: builtins.int
+    gx_rx_raa: builtins.int
+    gx_tx_cca: builtins.int
+    gx_tx_rar: builtins.int
+    gx_tx_rar_error: builtins.int
+    rx_rx_unknown: builtins.int
+    rx_rx_aar: builtins.int
+    rx_rx_aar_error: builtins.int
+    rx_rx_asa: builtins.int
+    rx_rx_asa_error: builtins.int
+    rx_rx_str_error: builtins.int
+    rx_tx_aaa: builtins.int
+    rx_tx_sar: builtins.int
+    rx_tx_sta: builtins.int
+    process_max_fds: builtins.int
+    process_virtual_memory_max_bytes: builtins.int
+    process_cpu_seconds_total: builtins.int
+    process_virtual_memory_bytes: builtins.int
+    process_resident_memory_bytes: builtins.int
+    process_start_time_seconds: builtins.int
+    process_open_fds: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        gx_rx_unknown: builtins.int = ...,
+        gx_rx_ccr: builtins.int = ...,
+        gx_rx_ccr_error: builtins.int = ...,
+        gx_rx_raa: builtins.int = ...,
+        gx_tx_cca: builtins.int = ...,
+        gx_tx_rar: builtins.int = ...,
+        gx_tx_rar_error: builtins.int = ...,
+        rx_rx_unknown: builtins.int = ...,
+        rx_rx_aar: builtins.int = ...,
+        rx_rx_aar_error: builtins.int = ...,
+        rx_rx_asa: builtins.int = ...,
+        rx_rx_asa_error: builtins.int = ...,
+        rx_rx_str_error: builtins.int = ...,
+        rx_tx_aaa: builtins.int = ...,
+        rx_tx_sar: builtins.int = ...,
+        rx_tx_sta: builtins.int = ...,
+        process_max_fds: builtins.int = ...,
+        process_virtual_memory_max_bytes: builtins.int = ...,
+        process_cpu_seconds_total: builtins.int = ...,
+        process_virtual_memory_bytes: builtins.int = ...,
+        process_resident_memory_bytes: builtins.int = ...,
+        process_start_time_seconds: builtins.int = ...,
+        process_open_fds: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["gx_rx_ccr", b"gx_rx_ccr", "gx_rx_ccr_error", b"gx_rx_ccr_error", "gx_rx_raa", b"gx_rx_raa", "gx_rx_unknown", b"gx_rx_unknown", "gx_tx_cca", b"gx_tx_cca", "gx_tx_rar", b"gx_tx_rar", "gx_tx_rar_error", b"gx_tx_rar_error", "ip", b"ip", "process_cpu_seconds_total", b"process_cpu_seconds_total", "process_max_fds", b"process_max_fds", "process_open_fds", b"process_open_fds", "process_resident_memory_bytes", b"process_resident_memory_bytes", "process_start_time_seconds", b"process_start_time_seconds", "process_virtual_memory_bytes", b"process_virtual_memory_bytes", "process_virtual_memory_max_bytes", b"process_virtual_memory_max_bytes", "rx_rx_aar", b"rx_rx_aar", "rx_rx_aar_error", b"rx_rx_aar_error", "rx_rx_asa", b"rx_rx_asa", "rx_rx_asa_error", b"rx_rx_asa_error", "rx_rx_str_error", b"rx_rx_str_error", "rx_rx_unknown", b"rx_rx_unknown", "rx_tx_aaa", b"rx_tx_aaa", "rx_tx_sar", b"rx_tx_sar", "rx_tx_sta", b"rx_tx_sta", "ts", b"ts"]) -> None: ...
+
+global___FiveGCorePCRFMetricsDTO = FiveGCorePCRFMetricsDTO
+
+@typing_extensions.final
+class FiveGCoreSMFMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGCoreSMFMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreSMFMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGCoreSMFMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGCoreSMFMetricsDict = FiveGCoreSMFMetricsDict
+
+@typing_extensions.final
+class FiveGCoreSMFMetricsDTO(google.protobuf.message.Message):
+    """DTO with data about the SMF service from the 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    GN_RX_CREATEPDPCONTEXTREQ_FIELD_NUMBER: builtins.int
+    GN_RX_DELETEPDPCONTEXTREQ_FIELD_NUMBER: builtins.int
+    GTP1_PDPCTXS_ACTIVE_FIELD_NUMBER: builtins.int
+    PFCP_PEERS_ACTIVE_FIELD_NUMBER: builtins.int
+    FIVEGS_SMFFUNCTION_SM_N4SESSIONREPORT_FIELD_NUMBER: builtins.int
+    UES_ACTIVE_FIELD_NUMBER: builtins.int
+    GTP2_SESSIONS_ACTIVE_FIELD_NUMBER: builtins.int
+    PFCP_SESSIONS_ACTIVE_FIELD_NUMBER: builtins.int
+    S5C_RX_CREATESESSION_FIELD_NUMBER: builtins.int
+    S5C_RX_DELETESESSION_FIELD_NUMBER: builtins.int
+    GTP_NEW_NODE_FAILED_FIELD_NUMBER: builtins.int
+    S5C_RX_PARSE_FAILED_FIELD_NUMBER: builtins.int
+    FIVEGS_SMFFUNCTION_SM_N4SESSIONREPORTSUCC_FIELD_NUMBER: builtins.int
+    FIVEGS_SMFFUNCTION_SM_N4SESSIONESTABREQ_FIELD_NUMBER: builtins.int
+    BEARERS_ACTIVE_FIELD_NUMBER: builtins.int
+    GN_RX_PARSE_FAILED_FIELD_NUMBER: builtins.int
+    GTP_PEERS_ACTIVE_FIELD_NUMBER: builtins.int
+    FIVEGS_SMFFUNCTION_SM_SESSIONNBR_FIELD_NUMBER: builtins.int
+    FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONREQ_FIELD_NUMBER: builtins.int
+    FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONSUCC_FIELD_NUMBER: builtins.int
+    FIVEGS_SMFFUNCTION_SM_QOS_FLOW_NBR_FIELD_NUMBER: builtins.int
+    FIVEGS_SMFFUNCTION_SM_N4SESSIONESTABFAIL_FIELD_NUMBER: builtins.int
+    FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONFAIL_FIELD_NUMBER: builtins.int
+    PROCESS_MAX_FDS_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_MAX_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_CPU_SECONDS_TOTAL_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_RESIDENT_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_START_TIME_SECONDS_FIELD_NUMBER: builtins.int
+    PROCESS_OPEN_FDS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    gn_rx_createpdpcontextreq: builtins.int
+    gn_rx_deletepdpcontextreq: builtins.int
+    gtp1_pdpctxs_active: builtins.int
+    pfcp_peers_active: builtins.int
+    fivegs_smffunction_sm_n4sessionreport: builtins.int
+    ues_active: builtins.int
+    gtp2_sessions_active: builtins.int
+    pfcp_sessions_active: builtins.int
+    s5c_rx_createsession: builtins.int
+    s5c_rx_deletesession: builtins.int
+    gtp_new_node_failed: builtins.int
+    s5c_rx_parse_failed: builtins.int
+    fivegs_smffunction_sm_n4sessionreportsucc: builtins.int
+    fivegs_smffunction_sm_n4sessionestabreq: builtins.int
+    bearers_active: builtins.int
+    gn_rx_parse_failed: builtins.int
+    gtp_peers_active: builtins.int
+    fivegs_smffunction_sm_sessionnbr: builtins.int
+    fivegs_smffunction_sm_pdusessioncreationreq: builtins.int
+    fivegs_smffunction_sm_pdusessioncreationsucc: builtins.int
+    fivegs_smffunction_sm_qos_flow_nbr: builtins.int
+    fivegs_smffunction_sm_n4sessionestabfail: builtins.int
+    fivegs_smffunction_sm_pdusessioncreationfail: builtins.int
+    process_max_fds: builtins.int
+    process_virtual_memory_max_bytes: builtins.int
+    process_cpu_seconds_total: builtins.int
+    process_virtual_memory_bytes: builtins.int
+    process_resident_memory_bytes: builtins.int
+    process_start_time_seconds: builtins.int
+    process_open_fds: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        gn_rx_createpdpcontextreq: builtins.int = ...,
+        gn_rx_deletepdpcontextreq: builtins.int = ...,
+        gtp1_pdpctxs_active: builtins.int = ...,
+        pfcp_peers_active: builtins.int = ...,
+        fivegs_smffunction_sm_n4sessionreport: builtins.int = ...,
+        ues_active: builtins.int = ...,
+        gtp2_sessions_active: builtins.int = ...,
+        pfcp_sessions_active: builtins.int = ...,
+        s5c_rx_createsession: builtins.int = ...,
+        s5c_rx_deletesession: builtins.int = ...,
+        gtp_new_node_failed: builtins.int = ...,
+        s5c_rx_parse_failed: builtins.int = ...,
+        fivegs_smffunction_sm_n4sessionreportsucc: builtins.int = ...,
+        fivegs_smffunction_sm_n4sessionestabreq: builtins.int = ...,
+        bearers_active: builtins.int = ...,
+        gn_rx_parse_failed: builtins.int = ...,
+        gtp_peers_active: builtins.int = ...,
+        fivegs_smffunction_sm_sessionnbr: builtins.int = ...,
+        fivegs_smffunction_sm_pdusessioncreationreq: builtins.int = ...,
+        fivegs_smffunction_sm_pdusessioncreationsucc: builtins.int = ...,
+        fivegs_smffunction_sm_qos_flow_nbr: builtins.int = ...,
+        fivegs_smffunction_sm_n4sessionestabfail: builtins.int = ...,
+        fivegs_smffunction_sm_pdusessioncreationfail: builtins.int = ...,
+        process_max_fds: builtins.int = ...,
+        process_virtual_memory_max_bytes: builtins.int = ...,
+        process_cpu_seconds_total: builtins.int = ...,
+        process_virtual_memory_bytes: builtins.int = ...,
+        process_resident_memory_bytes: builtins.int = ...,
+        process_start_time_seconds: builtins.int = ...,
+        process_open_fds: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["bearers_active", b"bearers_active", "fivegs_smffunction_sm_n4sessionestabfail", b"fivegs_smffunction_sm_n4sessionestabfail", "fivegs_smffunction_sm_n4sessionestabreq", b"fivegs_smffunction_sm_n4sessionestabreq", "fivegs_smffunction_sm_n4sessionreport", b"fivegs_smffunction_sm_n4sessionreport", "fivegs_smffunction_sm_n4sessionreportsucc", b"fivegs_smffunction_sm_n4sessionreportsucc", "fivegs_smffunction_sm_pdusessioncreationfail", b"fivegs_smffunction_sm_pdusessioncreationfail", "fivegs_smffunction_sm_pdusessioncreationreq", b"fivegs_smffunction_sm_pdusessioncreationreq", "fivegs_smffunction_sm_pdusessioncreationsucc", b"fivegs_smffunction_sm_pdusessioncreationsucc", "fivegs_smffunction_sm_qos_flow_nbr", b"fivegs_smffunction_sm_qos_flow_nbr", "fivegs_smffunction_sm_sessionnbr", b"fivegs_smffunction_sm_sessionnbr", "gn_rx_createpdpcontextreq", b"gn_rx_createpdpcontextreq", "gn_rx_deletepdpcontextreq", b"gn_rx_deletepdpcontextreq", "gn_rx_parse_failed", b"gn_rx_parse_failed", "gtp1_pdpctxs_active", b"gtp1_pdpctxs_active", "gtp2_sessions_active", b"gtp2_sessions_active", "gtp_new_node_failed", b"gtp_new_node_failed", "gtp_peers_active", b"gtp_peers_active", "ip", b"ip", "pfcp_peers_active", b"pfcp_peers_active", "pfcp_sessions_active", b"pfcp_sessions_active", "process_cpu_seconds_total", b"process_cpu_seconds_total", "process_max_fds", b"process_max_fds", "process_open_fds", b"process_open_fds", "process_resident_memory_bytes", b"process_resident_memory_bytes", "process_start_time_seconds", b"process_start_time_seconds", "process_virtual_memory_bytes", b"process_virtual_memory_bytes", "process_virtual_memory_max_bytes", b"process_virtual_memory_max_bytes", "s5c_rx_createsession", b"s5c_rx_createsession", "s5c_rx_deletesession", b"s5c_rx_deletesession", "s5c_rx_parse_failed", b"s5c_rx_parse_failed", "ts", b"ts", "ues_active", b"ues_active"]) -> None: ...
+
+global___FiveGCoreSMFMetricsDTO = FiveGCoreSMFMetricsDTO
+
+@typing_extensions.final
+class FiveGCoreUPFMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGCoreUPFMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCoreUPFMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGCoreUPFMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGCoreUPFMetricsDict = FiveGCoreUPFMetricsDict
+
+@typing_extensions.final
+class FiveGCoreUPFMetricsDTO(google.protobuf.message.Message):
+    """DTO with data about the UPF service from the 5G core"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    FIVEGS_EP_N3_GTP_INDATAPKTN3UPF_FIELD_NUMBER: builtins.int
+    FIVEGS_EP_N3_GTP_OUTDATAPKTN3UPF_FIELD_NUMBER: builtins.int
+    FIVEGS_UPFFUNCTION_SM_N4SESSIONESTABREQ_FIELD_NUMBER: builtins.int
+    FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORT_FIELD_NUMBER: builtins.int
+    FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORTSUCC_FIELD_NUMBER: builtins.int
+    FIVEGS_UPFFUNCTION_UPF_SESSIONNBR_FIELD_NUMBER: builtins.int
+    PFCP_PEERS_ACTIVE_FIELD_NUMBER: builtins.int
+    PROCESS_MAX_FDS_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_MAX_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_CPU_SECONDS_TOTAL_FIELD_NUMBER: builtins.int
+    PROCESS_VIRTUAL_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_RESIDENT_MEMORY_BYTES_FIELD_NUMBER: builtins.int
+    PROCESS_START_TIME_SECONDS_FIELD_NUMBER: builtins.int
+    PROCESS_OPEN_FDS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    fivegs_ep_n3_gtp_indatapktn3upf: builtins.int
+    fivegs_ep_n3_gtp_outdatapktn3upf: builtins.int
+    fivegs_upffunction_sm_n4sessionestabreq: builtins.int
+    fivegs_upffunction_sm_n4sessionreport: builtins.int
+    fivegs_upffunction_sm_n4sessionreportsucc: builtins.int
+    fivegs_upffunction_upf_sessionnbr: builtins.int
+    pfcp_peers_active: builtins.int
+    process_max_fds: builtins.int
+    process_virtual_memory_max_bytes: builtins.int
+    process_cpu_seconds_total: builtins.int
+    process_virtual_memory_bytes: builtins.int
+    process_resident_memory_bytes: builtins.int
+    process_start_time_seconds: builtins.int
+    process_open_fds: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        fivegs_ep_n3_gtp_indatapktn3upf: builtins.int = ...,
+        fivegs_ep_n3_gtp_outdatapktn3upf: builtins.int = ...,
+        fivegs_upffunction_sm_n4sessionestabreq: builtins.int = ...,
+        fivegs_upffunction_sm_n4sessionreport: builtins.int = ...,
+        fivegs_upffunction_sm_n4sessionreportsucc: builtins.int = ...,
+        fivegs_upffunction_upf_sessionnbr: builtins.int = ...,
+        pfcp_peers_active: builtins.int = ...,
+        process_max_fds: builtins.int = ...,
+        process_virtual_memory_max_bytes: builtins.int = ...,
+        process_cpu_seconds_total: builtins.int = ...,
+        process_virtual_memory_bytes: builtins.int = ...,
+        process_resident_memory_bytes: builtins.int = ...,
+        process_start_time_seconds: builtins.int = ...,
+        process_open_fds: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["fivegs_ep_n3_gtp_indatapktn3upf", b"fivegs_ep_n3_gtp_indatapktn3upf", "fivegs_ep_n3_gtp_outdatapktn3upf", b"fivegs_ep_n3_gtp_outdatapktn3upf", "fivegs_upffunction_sm_n4sessionestabreq", b"fivegs_upffunction_sm_n4sessionestabreq", "fivegs_upffunction_sm_n4sessionreport", b"fivegs_upffunction_sm_n4sessionreport", "fivegs_upffunction_sm_n4sessionreportsucc", b"fivegs_upffunction_sm_n4sessionreportsucc", "fivegs_upffunction_upf_sessionnbr", b"fivegs_upffunction_upf_sessionnbr", "ip", b"ip", "pfcp_peers_active", b"pfcp_peers_active", "process_cpu_seconds_total", b"process_cpu_seconds_total", "process_max_fds", b"process_max_fds", "process_open_fds", b"process_open_fds", "process_resident_memory_bytes", b"process_resident_memory_bytes", "process_start_time_seconds", b"process_start_time_seconds", "process_virtual_memory_bytes", b"process_virtual_memory_bytes", "process_virtual_memory_max_bytes", b"process_virtual_memory_max_bytes", "ts", b"ts"]) -> None: ...
+
+global___FiveGCoreUPFMetricsDTO = FiveGCoreUPFMetricsDTO
+
+@typing_extensions.final
+class FiveGCUAppResourceUsageMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGCUAppResourceUsageMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCUAppResourceUsageMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGCUAppResourceUsageMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGCUAppResourceUsageMetricsDict = FiveGCUAppResourceUsageMetricsDict
+
+@typing_extensions.final
+class FiveGCUAppResourceUsageMetricsDTO(google.protobuf.message.Message):
+    """DTO class containing srsRAN CU (Central Unit) Application Resource Usage metrics."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CPU_USAGE_PERCENT_FIELD_NUMBER: builtins.int
+    MEMORY_USAGE_MB_FIELD_NUMBER: builtins.int
+    POWER_CONSUMPTION_WATTS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    cpu_usage_percent: builtins.float
+    memory_usage_mb: builtins.float
+    power_consumption_watts: builtins.float
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        cpu_usage_percent: builtins.float = ...,
+        memory_usage_mb: builtins.float = ...,
+        power_consumption_watts: builtins.float = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cpu_usage_percent", b"cpu_usage_percent", "ip", b"ip", "memory_usage_mb", b"memory_usage_mb", "power_consumption_watts", b"power_consumption_watts", "ts", b"ts"]) -> None: ...
+
+global___FiveGCUAppResourceUsageMetricsDTO = FiveGCUAppResourceUsageMetricsDTO
+
+@typing_extensions.final
+class FiveGCUBufferPoolMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGCUBufferPoolMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCUBufferPoolMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGCUBufferPoolMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGCUBufferPoolMetricsDict = FiveGCUBufferPoolMetricsDict
+
+@typing_extensions.final
+class FiveGCUBufferPoolMetricsDTO(google.protobuf.message.Message):
+    """DTO class containing srsRAN CU (Central Unit) Buffer Pool metrics"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CENTRAL_CACHE_SIZE_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    central_cache_size: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        central_cache_size: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["central_cache_size", b"central_cache_size", "ip", b"ip", "ts", b"ts"]) -> None: ...
+
+global___FiveGCUBufferPoolMetricsDTO = FiveGCUBufferPoolMetricsDTO
+
+@typing_extensions.final
+class FiveGCUCPMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGCUCPMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGCUCPMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGCUCPMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGCUCPMetricsDict = FiveGCUCPMetricsDict
+
+@typing_extensions.final
+class FiveGCUCPMetricsDTO(google.protobuf.message.Message):
+    """DTO class containing srsRAN CU-CP (Central Unit - Control Plane) metrics.
+    Captures NGAP (AMF interface) and RRC (UE/DU interface) statistics.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CU_CP_ID_FIELD_NUMBER: builtins.int
+    AMF_CONNECTED_FIELD_NUMBER: builtins.int
+    NOF_CN_INITIATED_PAGING_REQUESTS_FIELD_NUMBER: builtins.int
+    NOF_PDU_SESSIONS_REQUESTED_TO_SETUP_FIELD_NUMBER: builtins.int
+    NOF_PDU_SESSIONS_SUCCESSFULLY_SETUP_FIELD_NUMBER: builtins.int
+    NOF_PDU_SESSIONS_FAILED_TO_SETUP_TOTAL_FIELD_NUMBER: builtins.int
+    NOF_HANDOVER_PREPARATIONS_REQUESTED_FIELD_NUMBER: builtins.int
+    NOF_SUCCESSFUL_HANDOVER_PREPARATIONS_FIELD_NUMBER: builtins.int
+    RRC_ESTABLISHMENTS_ATTEMPTED_TOTAL_FIELD_NUMBER: builtins.int
+    RRC_ESTABLISHMENTS_SUCCESSFUL_TOTAL_FIELD_NUMBER: builtins.int
+    RRC_ESTABLISHMENTS_ATTEMPTED_MO_DATA_FIELD_NUMBER: builtins.int
+    RRC_ESTABLISHMENTS_SUCCESSFUL_MO_DATA_FIELD_NUMBER: builtins.int
+    RRC_ESTABLISHMENTS_ATTEMPTED_MO_SIG_FIELD_NUMBER: builtins.int
+    RRC_ESTABLISHMENTS_SUCCESSFUL_MO_SIG_FIELD_NUMBER: builtins.int
+    MAX_NOF_RRC_CONNECTIONS_FIELD_NUMBER: builtins.int
+    MEAN_NOF_RRC_CONNECTIONS_FIELD_NUMBER: builtins.int
+    RRC_REESTABLISHMENTS_ATTEMPTED_FIELD_NUMBER: builtins.int
+    RRC_REESTABLISHMENTS_SUCCESSFUL_FIELD_NUMBER: builtins.int
+    NOF_HANDOVER_EXECUTIONS_REQUESTED_FIELD_NUMBER: builtins.int
+    NOF_SUCCESSFUL_HANDOVER_EXECUTIONS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    cu_cp_id: builtins.str
+    amf_connected: builtins.bool
+    nof_cn_initiated_paging_requests: builtins.int
+    nof_pdu_sessions_requested_to_setup: builtins.int
+    nof_pdu_sessions_successfully_setup: builtins.int
+    nof_pdu_sessions_failed_to_setup_total: builtins.int
+    nof_handover_preparations_requested: builtins.int
+    nof_successful_handover_preparations: builtins.int
+    rrc_establishments_attempted_total: builtins.int
+    rrc_establishments_successful_total: builtins.int
+    rrc_establishments_attempted_mo_data: builtins.int
+    rrc_establishments_successful_mo_data: builtins.int
+    rrc_establishments_attempted_mo_sig: builtins.int
+    rrc_establishments_successful_mo_sig: builtins.int
+    max_nof_rrc_connections: builtins.int
+    mean_nof_rrc_connections: builtins.int
+    rrc_reestablishments_attempted: builtins.int
+    rrc_reestablishments_successful: builtins.int
+    nof_handover_executions_requested: builtins.int
+    nof_successful_handover_executions: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        cu_cp_id: builtins.str = ...,
+        amf_connected: builtins.bool = ...,
+        nof_cn_initiated_paging_requests: builtins.int = ...,
+        nof_pdu_sessions_requested_to_setup: builtins.int = ...,
+        nof_pdu_sessions_successfully_setup: builtins.int = ...,
+        nof_pdu_sessions_failed_to_setup_total: builtins.int = ...,
+        nof_handover_preparations_requested: builtins.int = ...,
+        nof_successful_handover_preparations: builtins.int = ...,
+        rrc_establishments_attempted_total: builtins.int = ...,
+        rrc_establishments_successful_total: builtins.int = ...,
+        rrc_establishments_attempted_mo_data: builtins.int = ...,
+        rrc_establishments_successful_mo_data: builtins.int = ...,
+        rrc_establishments_attempted_mo_sig: builtins.int = ...,
+        rrc_establishments_successful_mo_sig: builtins.int = ...,
+        max_nof_rrc_connections: builtins.int = ...,
+        mean_nof_rrc_connections: builtins.int = ...,
+        rrc_reestablishments_attempted: builtins.int = ...,
+        rrc_reestablishments_successful: builtins.int = ...,
+        nof_handover_executions_requested: builtins.int = ...,
+        nof_successful_handover_executions: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["amf_connected", b"amf_connected", "cu_cp_id", b"cu_cp_id", "ip", b"ip", "max_nof_rrc_connections", b"max_nof_rrc_connections", "mean_nof_rrc_connections", b"mean_nof_rrc_connections", "nof_cn_initiated_paging_requests", b"nof_cn_initiated_paging_requests", "nof_handover_executions_requested", b"nof_handover_executions_requested", "nof_handover_preparations_requested", b"nof_handover_preparations_requested", "nof_pdu_sessions_failed_to_setup_total", b"nof_pdu_sessions_failed_to_setup_total", "nof_pdu_sessions_requested_to_setup", b"nof_pdu_sessions_requested_to_setup", "nof_pdu_sessions_successfully_setup", b"nof_pdu_sessions_successfully_setup", "nof_successful_handover_executions", b"nof_successful_handover_executions", "nof_successful_handover_preparations", b"nof_successful_handover_preparations", "rrc_establishments_attempted_mo_data", b"rrc_establishments_attempted_mo_data", "rrc_establishments_attempted_mo_sig", b"rrc_establishments_attempted_mo_sig", "rrc_establishments_attempted_total", b"rrc_establishments_attempted_total", "rrc_establishments_successful_mo_data", b"rrc_establishments_successful_mo_data", "rrc_establishments_successful_mo_sig", b"rrc_establishments_successful_mo_sig", "rrc_establishments_successful_total", b"rrc_establishments_successful_total", "rrc_reestablishments_attempted", b"rrc_reestablishments_attempted", "rrc_reestablishments_successful", b"rrc_reestablishments_successful", "ts", b"ts"]) -> None: ...
+
+global___FiveGCUCPMetricsDTO = FiveGCUCPMetricsDTO
+
+@typing_extensions.final
+class FiveGDUAppResourceUsageMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGDUAppResourceUsageMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDUAppResourceUsageMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGDUAppResourceUsageMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGDUAppResourceUsageMetricsDict = FiveGDUAppResourceUsageMetricsDict
+
+@typing_extensions.final
+class FiveGDUAppResourceUsageMetricsDTO(google.protobuf.message.Message):
+    """DTO class containing srsRAN DU Application Resource Usage metrics."""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CPU_USAGE_PERCENT_FIELD_NUMBER: builtins.int
+    MEMORY_USAGE_MB_FIELD_NUMBER: builtins.int
+    POWER_CONSUMPTION_WATTS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    cpu_usage_percent: builtins.float
+    memory_usage_mb: builtins.float
+    power_consumption_watts: builtins.float
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        cpu_usage_percent: builtins.float = ...,
+        memory_usage_mb: builtins.float = ...,
+        power_consumption_watts: builtins.float = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["cpu_usage_percent", b"cpu_usage_percent", "ip", b"ip", "memory_usage_mb", b"memory_usage_mb", "power_consumption_watts", b"power_consumption_watts", "ts", b"ts"]) -> None: ...
+
+global___FiveGDUAppResourceUsageMetricsDTO = FiveGDUAppResourceUsageMetricsDTO
+
+@typing_extensions.final
+class FiveGDUBufferPoolMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGDUBufferPoolMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDUBufferPoolMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGDUBufferPoolMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGDUBufferPoolMetricsDict = FiveGDUBufferPoolMetricsDict
+
+@typing_extensions.final
+class FiveGDUBufferPoolMetricsDTO(google.protobuf.message.Message):
+    """DTO class containing srsRAN DU Buffer Pool metrics"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    CENTRAL_CACHE_SIZE_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    central_cache_size: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        central_cache_size: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["central_cache_size", b"central_cache_size", "ip", b"ip", "ts", b"ts"]) -> None: ...
+
+global___FiveGDUBufferPoolMetricsDTO = FiveGDUBufferPoolMetricsDTO
+
+@typing_extensions.final
+class FiveGDUCellMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGDUCellMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDUCellMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGDUCellMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGDUCellMetricsDict = FiveGDUCellMetricsDict
+
+@typing_extensions.final
+class FiveGDUCellMetricsDTO(google.protobuf.message.Message):
+    """DTO class containing srsRAN DU Cell metrics"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PCI_FIELD_NUMBER: builtins.int
+    AVERAGE_LATENCY_FIELD_NUMBER: builtins.int
+    MAX_LATENCY_FIELD_NUMBER: builtins.int
+    PUCCH_TOT_RB_USAGE_AVG_FIELD_NUMBER: builtins.int
+    ACTIVE_UES_FIELD_NUMBER: builtins.int
+    DL_BRATE_FIELD_NUMBER: builtins.int
+    UL_BRATE_FIELD_NUMBER: builtins.int
+    DL_MCS_FIELD_NUMBER: builtins.int
+    UL_MCS_FIELD_NUMBER: builtins.int
+    PUSCH_SNR_DB_FIELD_NUMBER: builtins.int
+    PUCCH_SNR_DB_FIELD_NUMBER: builtins.int
+    CQI_FIELD_NUMBER: builtins.int
+    DL_BLER_FIELD_NUMBER: builtins.int
+    UL_BLER_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    pci: builtins.int
+    average_latency: builtins.float
+    max_latency: builtins.float
+    pucch_tot_rb_usage_avg: builtins.float
+    active_ues: builtins.int
+    dl_brate: builtins.float
+    ul_brate: builtins.float
+    dl_mcs: builtins.float
+    ul_mcs: builtins.float
+    pusch_snr_db: builtins.float
+    pucch_snr_db: builtins.float
+    cqi: builtins.float
+    dl_bler: builtins.float
+    ul_bler: builtins.float
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        pci: builtins.int = ...,
+        average_latency: builtins.float = ...,
+        max_latency: builtins.float = ...,
+        pucch_tot_rb_usage_avg: builtins.float = ...,
+        active_ues: builtins.int = ...,
+        dl_brate: builtins.float = ...,
+        ul_brate: builtins.float = ...,
+        dl_mcs: builtins.float = ...,
+        ul_mcs: builtins.float = ...,
+        pusch_snr_db: builtins.float = ...,
+        pucch_snr_db: builtins.float = ...,
+        cqi: builtins.float = ...,
+        dl_bler: builtins.float = ...,
+        ul_bler: builtins.float = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["active_ues", b"active_ues", "average_latency", b"average_latency", "cqi", b"cqi", "dl_bler", b"dl_bler", "dl_brate", b"dl_brate", "dl_mcs", b"dl_mcs", "ip", b"ip", "max_latency", b"max_latency", "pci", b"pci", "pucch_snr_db", b"pucch_snr_db", "pucch_tot_rb_usage_avg", b"pucch_tot_rb_usage_avg", "pusch_snr_db", b"pusch_snr_db", "ts", b"ts", "ul_bler", b"ul_bler", "ul_brate", b"ul_brate", "ul_mcs", b"ul_mcs"]) -> None: ...
+
+global___FiveGDUCellMetricsDTO = FiveGDUCellMetricsDTO
+
+@typing_extensions.final
+class FiveGDULowMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGDULowMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDULowMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGDULowMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGDULowMetricsDict = FiveGDULowMetricsDict
+
+@typing_extensions.final
+class FiveGDULowMetricsDTO(google.protobuf.message.Message):
+    """DTO class containing srsRAN DU Low-PHY metrics.
+    Captures Downlink (DL) and Uplink (UL) performance at the physical layer.
+    """
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    DL_AVG_LATENCY_US_FIELD_NUMBER: builtins.int
+    DL_CPU_USAGE_PERCENT_FIELD_NUMBER: builtins.int
+    DL_MAX_LATENCY_US_FIELD_NUMBER: builtins.int
+    DL_FEC_TPUT_MBPS_FIELD_NUMBER: builtins.int
+    UL_AVG_LATENCY_US_FIELD_NUMBER: builtins.int
+    UL_CPU_USAGE_PERCENT_FIELD_NUMBER: builtins.int
+    UL_MAX_LATENCY_US_FIELD_NUMBER: builtins.int
+    UL_SINR_DB_FIELD_NUMBER: builtins.int
+    UL_CH_EST_LATENCY_US_FIELD_NUMBER: builtins.int
+    UL_LDPC_DEC_LATENCY_US_FIELD_NUMBER: builtins.int
+    UL_FEC_TPUT_MBPS_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    dl_avg_latency_us: builtins.float
+    dl_cpu_usage_percent: builtins.float
+    dl_max_latency_us: builtins.float
+    dl_fec_tput_mbps: builtins.float
+    ul_avg_latency_us: builtins.float
+    ul_cpu_usage_percent: builtins.float
+    ul_max_latency_us: builtins.float
+    ul_sinr_db: builtins.float
+    ul_ch_est_latency_us: builtins.float
+    ul_ldpc_dec_latency_us: builtins.float
+    ul_fec_tput_mbps: builtins.float
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        dl_avg_latency_us: builtins.float = ...,
+        dl_cpu_usage_percent: builtins.float = ...,
+        dl_max_latency_us: builtins.float = ...,
+        dl_fec_tput_mbps: builtins.float = ...,
+        ul_avg_latency_us: builtins.float = ...,
+        ul_cpu_usage_percent: builtins.float = ...,
+        ul_max_latency_us: builtins.float = ...,
+        ul_sinr_db: builtins.float = ...,
+        ul_ch_est_latency_us: builtins.float = ...,
+        ul_ldpc_dec_latency_us: builtins.float = ...,
+        ul_fec_tput_mbps: builtins.float = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dl_avg_latency_us", b"dl_avg_latency_us", "dl_cpu_usage_percent", b"dl_cpu_usage_percent", "dl_fec_tput_mbps", b"dl_fec_tput_mbps", "dl_max_latency_us", b"dl_max_latency_us", "ip", b"ip", "ts", b"ts", "ul_avg_latency_us", b"ul_avg_latency_us", "ul_ch_est_latency_us", b"ul_ch_est_latency_us", "ul_cpu_usage_percent", b"ul_cpu_usage_percent", "ul_fec_tput_mbps", b"ul_fec_tput_mbps", "ul_ldpc_dec_latency_us", b"ul_ldpc_dec_latency_us", "ul_max_latency_us", b"ul_max_latency_us", "ul_sinr_db", b"ul_sinr_db"]) -> None: ...
+
+global___FiveGDULowMetricsDTO = FiveGDULowMetricsDTO
+
+@typing_extensions.final
+class FiveGDUMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGDUMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDUMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGDUMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGDUMetricsDict = FiveGDUMetricsDict
+
+@typing_extensions.final
+class FiveGDUMetricsDTO(google.protobuf.message.Message):
+    """DTO class containing srsRAN DU High-MAC metrics"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    PCI_FIELD_NUMBER: builtins.int
+    AVERAGE_LATENCY_US_FIELD_NUMBER: builtins.int
+    CPU_USAGE_PERCENT_FIELD_NUMBER: builtins.int
+    MAX_LATENCY_US_FIELD_NUMBER: builtins.int
+    MIN_LATENCY_US_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    pci: builtins.int
+    average_latency_us: builtins.float
+    cpu_usage_percent: builtins.float
+    max_latency_us: builtins.float
+    min_latency_us: builtins.float
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        pci: builtins.int = ...,
+        average_latency_us: builtins.float = ...,
+        cpu_usage_percent: builtins.float = ...,
+        max_latency_us: builtins.float = ...,
+        min_latency_us: builtins.float = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["average_latency_us", b"average_latency_us", "cpu_usage_percent", b"cpu_usage_percent", "ip", b"ip", "max_latency_us", b"max_latency_us", "min_latency_us", b"min_latency_us", "pci", b"pci", "ts", b"ts"]) -> None: ...
+
+global___FiveGDUMetricsDTO = FiveGDUMetricsDTO
+
+@typing_extensions.final
+class FiveGDURLCMetricsDict(google.protobuf.message.Message):
+    """Dict which maps a string key to a FiveGDURLCMetricsDTO"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    KEY_FIELD_NUMBER: builtins.int
+    DTOS_FIELD_NUMBER: builtins.int
+    key: builtins.str
+    @property
+    def dtos(self) -> google.protobuf.internal.containers.RepeatedCompositeFieldContainer[global___FiveGDURLCMetricsDTO]: ...
+    def __init__(
+        self,
+        *,
+        key: builtins.str = ...,
+        dtos: collections.abc.Iterable[global___FiveGDURLCMetricsDTO] | None = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["dtos", b"dtos", "key", b"key"]) -> None: ...
+
+global___FiveGDURLCMetricsDict = FiveGDURLCMetricsDict
+
+@typing_extensions.final
+class FiveGDURLCMetricsDTO(google.protobuf.message.Message):
+    """DTO class containing srsRAN DU RLC layer metrics"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    UE_ID_FIELD_NUMBER: builtins.int
+    DRB_ID_FIELD_NUMBER: builtins.int
+    RX_NUM_PDUS_FIELD_NUMBER: builtins.int
+    RX_NUM_BYTES_FIELD_NUMBER: builtins.int
+    RX_NUM_LOST_PDUS_FIELD_NUMBER: builtins.int
+    RX_NUM_MALFORMED_PDUS_FIELD_NUMBER: builtins.int
+    TX_NUM_SDUS_FIELD_NUMBER: builtins.int
+    TX_NUM_BYTES_FIELD_NUMBER: builtins.int
+    TX_NUM_DROPPED_SDUS_FIELD_NUMBER: builtins.int
+    TX_NUM_DISCARDED_SDUS_FIELD_NUMBER: builtins.int
+    TX_MAX_PDU_LATENCY_NS_FIELD_NUMBER: builtins.int
+    TX_SUM_PDU_LATENCY_NS_FIELD_NUMBER: builtins.int
+    TX_SUM_SDU_LATENCY_US_FIELD_NUMBER: builtins.int
+    IP_FIELD_NUMBER: builtins.int
+    TS_FIELD_NUMBER: builtins.int
+    ue_id: builtins.int
+    drb_id: builtins.int
+    rx_num_pdus: builtins.int
+    rx_num_bytes: builtins.int
+    rx_num_lost_pdus: builtins.int
+    rx_num_malformed_pdus: builtins.int
+    tx_num_sdus: builtins.int
+    tx_num_bytes: builtins.int
+    tx_num_dropped_sdus: builtins.int
+    tx_num_discarded_sdus: builtins.int
+    tx_max_pdu_latency_ns: builtins.int
+    tx_sum_pdu_latency_ns: builtins.int
+    tx_sum_sdu_latency_us: builtins.int
+    ip: builtins.str
+    ts: builtins.float
+    def __init__(
+        self,
+        *,
+        ue_id: builtins.int = ...,
+        drb_id: builtins.int = ...,
+        rx_num_pdus: builtins.int = ...,
+        rx_num_bytes: builtins.int = ...,
+        rx_num_lost_pdus: builtins.int = ...,
+        rx_num_malformed_pdus: builtins.int = ...,
+        tx_num_sdus: builtins.int = ...,
+        tx_num_bytes: builtins.int = ...,
+        tx_num_dropped_sdus: builtins.int = ...,
+        tx_num_discarded_sdus: builtins.int = ...,
+        tx_max_pdu_latency_ns: builtins.int = ...,
+        tx_sum_pdu_latency_ns: builtins.int = ...,
+        tx_sum_sdu_latency_us: builtins.int = ...,
+        ip: builtins.str = ...,
+        ts: builtins.float = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["drb_id", b"drb_id", "ip", b"ip", "rx_num_bytes", b"rx_num_bytes", "rx_num_lost_pdus", b"rx_num_lost_pdus", "rx_num_malformed_pdus", b"rx_num_malformed_pdus", "rx_num_pdus", b"rx_num_pdus", "ts", b"ts", "tx_max_pdu_latency_ns", b"tx_max_pdu_latency_ns", "tx_num_bytes", b"tx_num_bytes", "tx_num_discarded_sdus", b"tx_num_discarded_sdus", "tx_num_dropped_sdus", b"tx_num_dropped_sdus", "tx_num_sdus", b"tx_num_sdus", "tx_sum_pdu_latency_ns", b"tx_sum_pdu_latency_ns", "tx_sum_sdu_latency_us", b"tx_sum_sdu_latency_us", "ue_id", b"ue_id"]) -> None: ...
+
+global___FiveGDURLCMetricsDTO = FiveGDURLCMetricsDTO

@@ -17,6 +17,22 @@ from csle_collector.ossec_ids_manager.dao.ossec_ids_alert_counters import OSSECI
 from csle_collector.client_manager.client_population_metrics import ClientPopulationMetrics
 from csle_collector.docker_stats_manager.dao.docker_stats import DockerStats
 from csle_collector.host_manager.dao.host_metrics import HostMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_amf_metrics import FiveGCoreAMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_hss_metrics import FiveGCoreHSSMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_mme_metrics import FiveGCoreMMEMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_upf_metrics import FiveGCoreUPFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcf_metrics import FiveGCorePCFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcrf_metrics import FiveGCorePCRFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics import FiveGCoreSMFMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_metrics import FiveGDUMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_low_metrics import FiveGDULowMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics import FiveGDURLCMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics import FiveGDUCellMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics import FiveGDUBufferPoolMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics import FiveGDUAppResourceUsageMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics import FiveGCUCPMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_buffer_pool_metrics import FiveGCUBufferPoolMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_app_resource_usage_metrics import FiveGCUAppResourceUsageMetrics
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
 from csle_common.dao.emulation_action.attacker.emulation_attacker_action import EmulationAttackerAction
 from csle_common.dao.emulation_action.defender.emulation_defender_action import EmulationDefenderAction
@@ -66,12 +82,26 @@ class ReadEmulationStatisticsUtil:
         openflow_port_avg_metrics_per_switch: Dict[str, List[AvgPortStatistic]] = {}
         agg_openflow_flow_stats: List[AggFlowStatistic] = []
         agg_openflow_flow_metrics_per_switch: Dict[str, List[AggFlowStatistic]] = {}
-
         num_ossec_containers = len(list(filter(lambda x: x.name in constants.CONTAINER_IMAGES.OSSEC_IDS_IMAGES,
                                                emulation_env_config.containers_config.containers)))
-
         num_snort_containers = len(list(filter(lambda x: x.name in constants.CONTAINER_IMAGES.SNORT_IDS_IMAGES,
                                                emulation_env_config.containers_config.containers)))
+        five_g_core_amf_metrics: Dict[str, List[FiveGCoreAMFMetrics]] = {}
+        five_g_core_hss_metrics: Dict[str, List[FiveGCoreHSSMetrics]] = {}
+        five_g_core_mme_metrics: Dict[str, List[FiveGCoreMMEMetrics]] = {}
+        five_g_core_upf_metrics: Dict[str, List[FiveGCoreUPFMetrics]] = {}
+        five_g_core_pcf_metrics: Dict[str, List[FiveGCorePCFMetrics]] = {}
+        five_g_core_pcrf_metrics: Dict[str, List[FiveGCorePCRFMetrics]] = {}
+        five_g_core_smf_metrics: Dict[str, List[FiveGCoreSMFMetrics]] = {}
+        five_g_du_metrics: Dict[str, List[FiveGDUMetrics]] = {}
+        five_g_du_low_metrics: Dict[str, List[FiveGDULowMetrics]] = {}
+        five_g_du_rlc_metrics: Dict[str, List[FiveGDURLCMetrics]] = {}
+        five_g_du_cell_metrics: Dict[str, List[FiveGDUCellMetrics]] = {}
+        five_g_du_buffer_pool_metrics: Dict[str, List[FiveGDUBufferPoolMetrics]] = {}
+        five_g_du_app_resource_usage_metrics: Dict[str, List[FiveGDUAppResourceUsageMetrics]] = {}
+        five_g_cu_cp_metrics: Dict[str, List[FiveGCUCPMetrics]] = {}
+        five_g_cu_buffer_pool_metrics: Dict[str, List[FiveGCUBufferPoolMetrics]] = {}
+        five_g_cu_app_resource_usage_metrics: Dict[str, List[FiveGCUAppResourceUsageMetrics]] = {}
 
         for c in emulation_env_config.containers_config.containers:
             docker_host_stats[c.get_full_name()] = []
@@ -82,6 +112,28 @@ class ReadEmulationStatisticsUtil:
                 if ids_image in c.name:
                     snort_alert_metrics_per_ids[c.get_full_name()] = []
                     snort_rule_metrics_per_ids[c.get_full_name()] = []
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES:
+                if ids_image in c.name:
+                    five_g_core_amf_metrics[c.get_full_name()] = []
+                    five_g_core_hss_metrics[c.get_full_name()] = []
+                    five_g_core_mme_metrics[c.get_full_name()] = []
+                    five_g_core_upf_metrics[c.get_full_name()] = []
+                    five_g_core_pcf_metrics[c.get_full_name()] = []
+                    five_g_core_pcrf_metrics[c.get_full_name()] = []
+                    five_g_core_smf_metrics[c.get_full_name()] = []
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_CU_IMAGES:
+                if ids_image in c.name:
+                    five_g_cu_cp_metrics[c.get_full_name()] = []
+                    five_g_cu_buffer_pool_metrics[c.get_full_name()] = []
+                    five_g_cu_app_resource_usage_metrics[c.get_full_name()] = []
+            for ids_image in constants.CONTAINER_IMAGES.FIVE_G_DU_IMAGES:
+                if ids_image in c.name:
+                    five_g_du_metrics[c.get_full_name()] = []
+                    five_g_du_low_metrics[c.get_full_name()] = []
+                    five_g_du_rlc_metrics[c.get_full_name()] = []
+                    five_g_du_cell_metrics[c.get_full_name()] = []
+                    five_g_du_buffer_pool_metrics[c.get_full_name()] = []
+                    five_g_du_app_resource_usage_metrics[c.get_full_name()] = []
 
         host_metrics[emulation_env_config.kafka_config.container.get_full_name()] = []
         docker_host_stats[emulation_env_config.kafka_config.container.get_full_name()] = []
@@ -91,6 +143,7 @@ class ReadEmulationStatisticsUtil:
         docker_host_stats[emulation_env_config.elk_config.container.get_full_name()] = []
         ossec_host_ids_metrics[emulation_env_config.elk_config.container.get_full_name()] = []
         snort_ids_ip_metrics[emulation_env_config.elk_config.container.get_full_name()] = []
+
         if emulation_env_config.sdn_controller_config is not None:
             host_metrics[emulation_env_config.sdn_controller_config.container.get_full_name()] = []
             docker_host_stats[emulation_env_config.sdn_controller_config.container.get_full_name()] = []
@@ -111,7 +164,24 @@ class ReadEmulationStatisticsUtil:
                        collector_constants.KAFKA_CONFIG.AVERAGE_OPENFLOW_PORT_STATS_PER_SWITCH_TOPIC_NAME,
                        collector_constants.KAFKA_CONFIG.OPENFLOW_AGG_FLOW_STATS_TOPIC_NAME,
                        collector_constants.KAFKA_CONFIG.SNORT_IDS_IP_LOG_TOPIC_NAME,
-                       collector_constants.KAFKA_CONFIG.SNORT_IDS_RULE_LOG_TOPIC_NAME]
+                       collector_constants.KAFKA_CONFIG.SNORT_IDS_RULE_LOG_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_CORE_AMF_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_CORE_UPF_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_CORE_MME_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_CORE_SMF_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_CORE_HSS_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCRF_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCF_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_DU_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_DU_CELL_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_DU_LOW_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_DU_RLC_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_DU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_DU_BUFFER_POOL_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_CU_CP_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
+                       collector_constants.KAFKA_CONFIG.FIVE_G_CU_BUFFER_POOL_METRICS_TOPIC_NAME
+                       ]
         logger.info(f"Reading time-series data for the last {time_window_minutes} minutes from topics: {topic_names}")
         start_consume_ts = time.time()
         kafka_conf = {
@@ -191,6 +261,86 @@ class ReadEmulationStatisticsUtil:
                             snort_rule_metrics_per_ids[c_1.get_full_name()].append(metrics)
                             snort_rule_metrics_counter += 1
                             total_snort_rule_metrics.append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_CORE_AMF_METRICS_TOPIC_NAME:
+                        metrics = FiveGCoreAMFMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_core_amf_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_CORE_HSS_METRICS_TOPIC_NAME:
+                        metrics = FiveGCoreHSSMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_core_hss_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_CORE_MME_METRICS_TOPIC_NAME:
+                        metrics = FiveGCoreMMEMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_core_mme_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_CORE_UPF_METRICS_TOPIC_NAME:
+                        metrics = FiveGCoreUPFMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_core_upf_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCF_METRICS_TOPIC_NAME:
+                        metrics = FiveGCorePCFMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_core_pcf_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCRF_METRICS_TOPIC_NAME:
+                        metrics = FiveGCorePCRFMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_core_pcrf_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_CORE_SMF_METRICS_TOPIC_NAME:
+                        metrics = FiveGCoreSMFMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_core_smf_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_DU_METRICS_TOPIC_NAME:
+                        metrics = FiveGDUMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_du_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_DU_LOW_METRICS_TOPIC_NAME:
+                        metrics = FiveGDULowMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_du_low_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_DU_RLC_METRICS_TOPIC_NAME:
+                        metrics = FiveGDURLCMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_du_rlc_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_DU_CELL_METRICS_TOPIC_NAME:
+                        metrics = FiveGDUCellMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_du_cell_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_DU_BUFFER_POOL_METRICS_TOPIC_NAME:
+                        metrics = FiveGDUBufferPoolMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_du_buffer_pool_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_DU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME:
+                        metrics = FiveGDUAppResourceUsageMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_du_app_resource_usage_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_CU_CP_METRICS_TOPIC_NAME:
+                        metrics = FiveGCUCPMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_cu_cp_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_CU_BUFFER_POOL_METRICS_TOPIC_NAME:
+                        metrics = FiveGCUBufferPoolMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_cu_buffer_pool_metrics[c_1.get_full_name()].append(metrics)
+                    elif topic == collector_constants.KAFKA_CONFIG.FIVE_G_CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME:
+                        metrics = FiveGCUAppResourceUsageMetrics.from_kafka_record(record=msg.value().decode())
+                        c_1 = emulation_env_config.get_container_from_ip(metrics.ip)
+                        if c_1 is not None:
+                            five_g_cu_app_resource_usage_metrics[c_1.get_full_name()].append(metrics)
                     elif topic == collector_constants.KAFKA_CONFIG.CLIENT_POPULATION_TOPIC_NAME:
                         client_metrics.append(ClientPopulationMetrics.from_kafka_record(record=msg.value().decode()))
                     elif topic == collector_constants.KAFKA_CONFIG.OPENFLOW_FLOW_STATS_TOPIC_NAME:
@@ -277,8 +427,16 @@ class ReadEmulationStatisticsUtil:
             agg_openflow_flow_metrics_per_switch=agg_openflow_flow_metrics_per_switch,
             agg_snort_ids_rule_metrics=snort_ids_rule_metrics, snort_ids_ip_metrics=snort_ids_ip_metrics,
             snort_rule_metrics_per_ids=snort_rule_metrics_per_ids,
-            snort_alert_metrics_per_ids=snort_alert_metrics_per_ids
-        )
+            snort_alert_metrics_per_ids=snort_alert_metrics_per_ids, five_g_core_amf_metrics=five_g_core_amf_metrics,
+            five_g_core_hss_metrics=five_g_core_hss_metrics, five_g_core_mme_metrics=five_g_core_mme_metrics,
+            five_g_core_upf_metrics=five_g_core_upf_metrics, five_g_core_pcf_metrics=five_g_core_pcf_metrics,
+            five_g_core_pcrf_metrics=five_g_core_pcrf_metrics, five_g_core_smf_metrics=five_g_core_smf_metrics,
+            five_g_du_metrics=five_g_du_metrics, five_g_du_low_metrics=five_g_du_low_metrics,
+            five_g_du_rlc_metrics=five_g_du_rlc_metrics, five_g_du_cell_metrics=five_g_du_cell_metrics,
+            five_g_du_buffer_pool_metrics=five_g_du_buffer_pool_metrics,
+            five_g_du_app_resource_usage_metrics=five_g_du_app_resource_usage_metrics,
+            five_g_cu_cp_metrics=five_g_cu_cp_metrics, five_g_cu_buffer_pool_metrics=five_g_cu_buffer_pool_metrics,
+            five_g_cu_app_resource_usage_metrics=five_g_cu_app_resource_usage_metrics)
         return dto
 
     @staticmethod

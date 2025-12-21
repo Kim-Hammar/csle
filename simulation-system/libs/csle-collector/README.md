@@ -22,6 +22,9 @@ python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --gr
 python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/ossec_ids_manager/. ./protos/ossec_ids_manager.proto --mypy_out=./src/csle_collector/ossec_ids_manager/.
 python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/traffic_manager/. ./protos/traffic_manager.proto --mypy_out=./src/csle_collector/traffic_manager/.
 python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/ryu_manager/. ./protos/ryu_manager.proto --mypy_out=./src/csle_collector/ryu_manager/.
+python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/five_g_core_manager/. ./protos/five_g_core_manager.proto --mypy_out=./src/csle_collector/five_g_core_manager/.
+python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/five_g_cu_manager/. ./protos/five_g_cu_manager.proto --mypy_out=./src/csle_collector/five_g_cu_manager/.
+python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --grpc_python_out=./src/csle_collector/five_g_du_manager/. ./protos/five_g_du_manager.proto --mypy_out=./src/csle_collector/five_g_du_manager/.
 ```
 
 ## Requirements
@@ -37,6 +40,8 @@ python -m grpc_tools.protoc -I./protos/ --python_out=./src/csle_collector/. --gr
 - `netifaces` (networking utility)
 - `PyYaml` (for parsing yaml files)
 - `pycryptodome` (for cryptographic functions)
+- `websockets` (for monitoring 5G networks)
+- `websocket-client` (for monitoring 5G networks)
 
 ## Development Requirements
 

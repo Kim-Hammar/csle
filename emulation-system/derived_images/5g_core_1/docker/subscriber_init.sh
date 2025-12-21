@@ -1,17 +1,28 @@
 #!/bin/bash
+
+# Check if all required arguments are provided
+if [ "$#" -ne 5 ]; then
+    echo "Usage: $0 <IMSI> <KEY> <OPC> <AMF> <SQN>"
+    exit 1
+fi
+
 MONGODB_DB="open5gs"
-IMSI="001010123456780"
-KEY="00112233445566778899aabbccddeeff"
-OPC="63BFA50EE6523365FF14C1F45F88737D"
-AMF="8000"
-SQN=10
+
+# Assign command line arguments to variables
+IMSI=$1
+KEY=$2
+OPC=$3
+AMF=$4
+SQN=$5
+
+# Default constants (Modify these if they need to be dynamic as well)
 AMBR_DL_VALUE=1
 AMBR_UL_VALUE=1
 AMBR_UNIT=3
 QCI_INDEX=9
 ARP_PRIORITY=8
 SST_VALUE=1
-PROFILE_TITLE="srsUe"
+PROFILE_TITLE="srsUe-${IMSI}" # Made title unique per IMSI to avoid conflicts
 
 SUBSCRIBER_DOC="{
     imsi: '${IMSI}',
@@ -82,5 +93,6 @@ PROFILE_DOC="{
     msisdn: [], imeisv: [], __v: 0
 }"
 
+# Execute MongoDB insertions
 mongosh "${MONGODB_DB}" --eval "db.subscribers.insertOne(${SUBSCRIBER_DOC})"
 mongosh "${MONGODB_DB}" --eval "db.profiles.insertOne(${PROFILE_DOC})"

@@ -1,6 +1,6 @@
-csle-base==0.9.11
-csle-collector==0.9.11
-csle-ryu==0.9.11
+csle-base==0.9.43
+csle-collector==0.9.43
+csle-ryu==0.9.43
 gymnasium==0.27.1
 pyglet==2.0.0
 numpy==1.23.5

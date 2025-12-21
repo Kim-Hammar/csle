@@ -812,3 +812,262 @@ def ryu_controller_logs() -> Tuple[Response, int]:
         response = jsonify({})
         response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
         return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+
+
+@logs_bp.route(f"{constants.COMMANDS.SLASH_DELIM}{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MANAGER_SUBRESOURCE}",
+               methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
+def five_g_core_manager_logs() -> Tuple[Response, int]:
+    """
+    The /logs/five-g-core-manager resource.
+
+    :return: The logs of a 5G core manager with a specific IP
+    """
+    # Check that token is valid
+    authorized = rest_api_util.check_if_user_is_authorized(request=request, requires_admin=True)
+    if authorized is not None:
+        return authorized
+    if api_constants.MGMT_WEBAPP.NAME_PROPERTY not in json.loads(request.data):
+        response = jsonify({})
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+    ip = json.loads(request.data)[api_constants.MGMT_WEBAPP.NAME_PROPERTY]
+    emulation = request.args.get(api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM)
+    execution_id = request.args.get(api_constants.MGMT_WEBAPP.EXECUTION_ID_QUERY_PARAM)
+    if emulation is not None and ip is not None and execution_id is not None:
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=int(execution_id), emulation_name=emulation)
+        container_config = execution.emulation_env_config.containers_config.get_container_from_ip(ip=ip)
+        if container_config is None:
+            response = jsonify({})
+            response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+            return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        data_dict = ClusterController.get_five_g_core_manager_logs(
+            ip=container_config.physical_host_ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, emulation=emulation,
+            ip_first_octet=int(execution_id), container_ip=ip)
+        response = jsonify(data_dict)
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.OK_STATUS_CODE
+    else:
+        response = jsonify({})
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+
+
+@logs_bp.route(f"{constants.COMMANDS.SLASH_DELIM}{api_constants.MGMT_WEBAPP.FIVE_G_CU_MANAGER_SUBRESOURCE}",
+               methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
+def five_g_cu_manager_logs() -> Tuple[Response, int]:
+    """
+    The /logs/five-g-cu-manager resource.
+
+    :return: The logs of a 5G CU manager with a specific IP
+    """
+    # Check that token is valid
+    authorized = rest_api_util.check_if_user_is_authorized(request=request, requires_admin=True)
+    if authorized is not None:
+        return authorized
+    if api_constants.MGMT_WEBAPP.NAME_PROPERTY not in json.loads(request.data):
+        response = jsonify({})
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+    ip = json.loads(request.data)[api_constants.MGMT_WEBAPP.NAME_PROPERTY]
+    emulation = request.args.get(api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM)
+    execution_id = request.args.get(api_constants.MGMT_WEBAPP.EXECUTION_ID_QUERY_PARAM)
+    if emulation is not None and ip is not None and execution_id is not None:
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=int(execution_id), emulation_name=emulation)
+        container_config = execution.emulation_env_config.containers_config.get_container_from_ip(ip=ip)
+        if container_config is None:
+            response = jsonify({})
+            response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+            return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        data_dict = ClusterController.get_five_g_cu_manager_logs(
+            ip=container_config.physical_host_ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, emulation=emulation,
+            ip_first_octet=int(execution_id), container_ip=ip)
+        response = jsonify(data_dict)
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.OK_STATUS_CODE
+    else:
+        response = jsonify({})
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+
+
+@logs_bp.route(f"{constants.COMMANDS.SLASH_DELIM}{api_constants.MGMT_WEBAPP.FIVE_G_DU_MANAGER_SUBRESOURCE}",
+               methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
+def five_g_du_manager_logs() -> Tuple[Response, int]:
+    """
+    The /logs/five-g-du-manager resource.
+
+    :return: The logs of a 5G DU manager with a specific IP
+    """
+    # Check that token is valid
+    authorized = rest_api_util.check_if_user_is_authorized(request=request, requires_admin=True)
+    if authorized is not None:
+        return authorized
+    if api_constants.MGMT_WEBAPP.NAME_PROPERTY not in json.loads(request.data):
+        response = jsonify({})
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+    ip = json.loads(request.data)[api_constants.MGMT_WEBAPP.NAME_PROPERTY]
+    emulation = request.args.get(api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM)
+    execution_id = request.args.get(api_constants.MGMT_WEBAPP.EXECUTION_ID_QUERY_PARAM)
+    if emulation is not None and ip is not None and execution_id is not None:
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=int(execution_id), emulation_name=emulation)
+        container_config = execution.emulation_env_config.containers_config.get_container_from_ip(ip=ip)
+        if container_config is None:
+            response = jsonify({})
+            response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+            return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        data_dict = ClusterController.get_five_g_du_manager_logs(
+            ip=container_config.physical_host_ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, emulation=emulation,
+            ip_first_octet=int(execution_id), container_ip=ip)
+        response = jsonify(data_dict)
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.OK_STATUS_CODE
+    else:
+        response = jsonify({})
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+
+
+@logs_bp.route(f"{constants.COMMANDS.SLASH_DELIM}{api_constants.MGMT_WEBAPP.FIVE_G_CORE_SUBRESOURCE}",
+               methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
+def five_g_core_logs() -> Tuple[Response, int]:
+    """
+    The /logs/five-g-core resource.
+
+    :return: The logs of a 5G core with a specific IP
+    """
+    # Check that token is valid
+    authorized = rest_api_util.check_if_user_is_authorized(request=request, requires_admin=True)
+    if authorized is not None:
+        return authorized
+    if api_constants.MGMT_WEBAPP.NAME_PROPERTY not in json.loads(request.data):
+        response = jsonify({})
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+    ip = json.loads(request.data)[api_constants.MGMT_WEBAPP.NAME_PROPERTY]
+    emulation = request.args.get(api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM)
+    execution_id = request.args.get(api_constants.MGMT_WEBAPP.EXECUTION_ID_QUERY_PARAM)
+    if emulation is not None and ip is not None and execution_id is not None:
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=int(execution_id), emulation_name=emulation)
+        container_config = execution.emulation_env_config.containers_config.get_container_from_ip(ip=ip)
+        if container_config is None:
+            response = jsonify({})
+            response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+            return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        data_dict = ClusterController.get_five_g_core_logs(
+            ip=container_config.physical_host_ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, emulation=emulation,
+            ip_first_octet=int(execution_id), container_ip=ip)
+        response = jsonify(data_dict)
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.OK_STATUS_CODE
+    else:
+        response = jsonify({})
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+
+
+@logs_bp.route(f"{constants.COMMANDS.SLASH_DELIM}{api_constants.MGMT_WEBAPP.FIVE_G_CU_SUBRESOURCE}",
+               methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
+def five_g_cu_logs() -> Tuple[Response, int]:
+    """
+    The /logs/five-g-cu resource.
+
+    :return: The logs of a 5G CU with a specific IP
+    """
+    # Check that token is valid
+    authorized = rest_api_util.check_if_user_is_authorized(request=request, requires_admin=True)
+    if authorized is not None:
+        return authorized
+    if api_constants.MGMT_WEBAPP.NAME_PROPERTY not in json.loads(request.data):
+        response = jsonify({})
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+    ip = json.loads(request.data)[api_constants.MGMT_WEBAPP.NAME_PROPERTY]
+    emulation = request.args.get(api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM)
+    execution_id = request.args.get(api_constants.MGMT_WEBAPP.EXECUTION_ID_QUERY_PARAM)
+    if emulation is not None and ip is not None and execution_id is not None:
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=int(execution_id), emulation_name=emulation)
+        container_config = execution.emulation_env_config.containers_config.get_container_from_ip(ip=ip)
+        if container_config is None:
+            response = jsonify({})
+            response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+            return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        data_dict = ClusterController.get_five_g_cu_logs(
+            ip=container_config.physical_host_ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, emulation=emulation,
+            ip_first_octet=int(execution_id), container_ip=ip)
+        response = jsonify(data_dict)
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.OK_STATUS_CODE
+    else:
+        response = jsonify({})
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+
+
+@logs_bp.route(f"{constants.COMMANDS.SLASH_DELIM}{api_constants.MGMT_WEBAPP.FIVE_G_DU_SUBRESOURCE}",
+               methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
+def five_g_du_logs() -> Tuple[Response, int]:
+    """
+    The /logs/five-g-du resource.
+
+    :return: The logs of a 5G DU with a specific IP
+    """
+    # Check that token is valid
+    authorized = rest_api_util.check_if_user_is_authorized(request=request, requires_admin=True)
+    if authorized is not None:
+        return authorized
+    if api_constants.MGMT_WEBAPP.NAME_PROPERTY not in json.loads(request.data):
+        response = jsonify({})
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+    ip = json.loads(request.data)[api_constants.MGMT_WEBAPP.NAME_PROPERTY]
+    emulation = request.args.get(api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM)
+    execution_id = request.args.get(api_constants.MGMT_WEBAPP.EXECUTION_ID_QUERY_PARAM)
+    if emulation is not None and ip is not None and execution_id is not None:
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=int(execution_id), emulation_name=emulation)
+        container_config = execution.emulation_env_config.containers_config.get_container_from_ip(ip=ip)
+        if container_config is None:
+            response = jsonify({})
+            response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+            return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        data_dict = ClusterController.get_five_g_du_logs(
+            ip=container_config.physical_host_ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, emulation=emulation,
+            ip_first_octet=int(execution_id), container_ip=ip)
+        response = jsonify(data_dict)
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.OK_STATUS_CODE
+    else:
+        response = jsonify({})
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+
+
+@logs_bp.route(f"{constants.COMMANDS.SLASH_DELIM}{api_constants.MGMT_WEBAPP.FIVE_G_UE_SUBRESOURCE}",
+               methods=[api_constants.MGMT_WEBAPP.HTTP_REST_POST])
+def five_g_ue_logs() -> Tuple[Response, int]:
+    """
+    The /logs/five-g-cu resource.
+
+    :return: The logs of a 5G CU with a specific IP
+    """
+    # Check that token is valid
+    authorized = rest_api_util.check_if_user_is_authorized(request=request, requires_admin=True)
+    if authorized is not None:
+        return authorized
+    if api_constants.MGMT_WEBAPP.NAME_PROPERTY not in json.loads(request.data):
+        response = jsonify({})
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+    ip = json.loads(request.data)[api_constants.MGMT_WEBAPP.NAME_PROPERTY]
+    emulation = request.args.get(api_constants.MGMT_WEBAPP.EMULATION_QUERY_PARAM)
+    execution_id = request.args.get(api_constants.MGMT_WEBAPP.EXECUTION_ID_QUERY_PARAM)
+    if emulation is not None and ip is not None and execution_id is not None:
+        execution = MetastoreFacade.get_emulation_execution(ip_first_octet=int(execution_id), emulation_name=emulation)
+        container_config = execution.emulation_env_config.containers_config.get_container_from_ip(ip=ip)
+        if container_config is None:
+            response = jsonify({})
+            response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+            return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE
+        data_dict = ClusterController.get_five_g_ue_logs(
+            ip=container_config.physical_host_ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, emulation=emulation,
+            ip_first_octet=int(execution_id), container_ip=ip)
+        response = jsonify(data_dict)
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.OK_STATUS_CODE
+    else:
+        response = jsonify({})
+        response.headers.add(api_constants.MGMT_WEBAPP.ACCESS_CONTROL_ALLOW_ORIGIN_HEADER, "*")
+        return response, constants.HTTPS.BAD_REQUEST_STATUS_CODE

@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+// Interface exported by the server
+service FiveGDUManager {
+  rpc getFiveGDUStatus(GetFiveGDUStatusMsg) returns (FiveGDUStatusDTO) {}
+  rpc stopFiveGDU(StopFiveGDUMsg) returns (FiveGDUStatusDTO) {}
+  rpc startFiveGDU(StartFiveGDUMsg) returns (FiveGDUStatusDTO) {}
+  rpc stopFiveGUE(StopFiveGUEMsg) returns (FiveGDUStatusDTO) {}
+  rpc startFiveGUE(StartFiveGUEMsg) returns (FiveGDUStatusDTO) {}
+  rpc initFiveGDUUE(InitFiveGDUUEMsg) returns (FiveGDUStatusDTO) {}
+  rpc startFiveGDUMonitor(StartFiveGDUMonitorMsg) returns (FiveGDUStatusDTO) {}
+  rpc stopFiveGDUMonitor(StopFiveGDUMonitorMsg) returns (FiveGDUStatusDTO) {}
+}
+
+// Message that the client sends to get the status of the 5G DU
+message GetFiveGDUStatusMsg {}
+
+//Message that the server returns when asked about the status of the 5G DU
+message FiveGDUStatusDTO {
+  bool du_running = 1;
+  bool ue_running = 2;
+  string ip = 3;
+  bool monitor_running = 4;
+}
+
+// Message that the client sends to stop the 5G DU
+message StopFiveGDUMsg {}
+
+// Message that the client sends to start the 5G DU
+message StartFiveGDUMsg {}
+
+// Message that the client sends to stop the 5G UE
+message StartFiveGUEMsg {}
+
+// Message that the client sends to start the 5G UE
+message StopFiveGUEMsg {}
+
+// Message that the client sends to initialize the 5G DU & UE
+message InitFiveGDUUEMsg {
+  string du_fronthaul_ip = 1;
+  string cu_fronthaul_ip = 2;
+  string imsi = 3;
+  string key = 4;
+  string opc = 5;
+  string imei = 6;
+}
+
+// Message that the client sends to start the 5G DUMonitor
+message StartFiveGDUMonitorMsg {
+  string kafka_ip = 1;
+  int32 kafka_port = 2;
+  int32 time_step_len_seconds = 3;
+}
+
+// Message that the client sends to stop the 5G DUMonitor
+message StopFiveGDUMonitorMsg {}

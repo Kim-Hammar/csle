@@ -30,10 +30,12 @@ const Emulation = (props) => {
     const [containersOpen, setContainersOpen] = useState(false);
     const [flagsOpen, setFlagsOpen] = useState(false);
     const [usersOpen, setUsersOpen] = useState(false);
+    const [subscribersOpen, setSubscribersOpen] = useState(false);
     const [servicesOpen, setServicesOpen] = useState(false);
     const [vulnerabilitiesOpen, setVulnerabilitiesOpen] = useState(false);
     const [resourcesOpen, setResourcesOpen] = useState(false);
     const [networkInterfacesOpen, setNetworkInterfacesOpen] = useState(false);
+    const [fiveGConfigOpen, setFiveGConfigOpen] = useState(false);
     const [clientPopulationOpen, setClientPopulationOpen] = useState(false);
     const [clientsOpen, setClientsOpen] = useState(false);
     const [trafficOpen, setTrafficOpen] = useState(false);
@@ -42,6 +44,9 @@ const Emulation = (props) => {
     const [kafkaOpen, setKafkaOpen] = useState(false);
     const [elkOpen, setElkOpen] = useState(false);
     const [hostManagerConfigOpen, setHostManagerConfigOpen] = useState(false);
+    const [fiveGCoreManagerConfigOpen, setFiveGCoreManagerConfigOpen] = useState(false);
+    const [fiveGCUManagerConfigOpen, setFiveGCUManagerConfigOpen] = useState(false);
+    const [fiveGDUManagerConfigOpen, setFiveGDUManagerConfigOpen] = useState(false);
     const [trafficManagersConfigOpen, setTrafficManagersConfigOpen] = useState(false);
     const [snortManagerConfigOpen, setSnortManagerConfigOpen] = useState(false);
     const [ossecManagerConfigOpen, setOSSECManagerConfigOpen] = useState(false);
@@ -633,6 +638,50 @@ const Emulation = (props) => {
                     <Card className="subCard">
                         <Card.Header>
                             <Button
+                              onClick={() => setSubscribersOpen(!subscribersOpen)}
+                              aria-controls="subscribersBody"
+                              aria-expanded={subscribersOpen}
+                              variant="link"
+                            >
+                                <h5 className="semiTitle">
+                                    5G subscribers <i className="fa fa-user headerIcon" aria-hidden="true"></i>
+                                </h5>
+                            </Button>
+                        </Card.Header>
+                        <Collapse in={subscribersOpen}>
+                            <div id="subscribersBody" className="cardBodyHidden">
+                                <div className="table-responsive">
+                                    <Table striped bordered hover>
+                                        <thead>
+                                        <tr>
+                                            <th>IMSI</th>
+                                            <th>IMEI</th>
+                                            <th>Private key</th>
+                                            <th>Operator key</th>
+                                            <th>AMF</th>
+                                            <th>SQN</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {emulation.five_g_config.subscribers.map((subscriber) =>
+                                            <tr key={subscriber.imsi}>
+                                                <td>{subscriber.imsi}</td>
+                                                <td>{subscriber.imei}</td>
+                                                <td>{subscriber.key}</td>
+                                                <td>{subscriber.opc}</td>
+                                                <td>{subscriber.amf}</td>
+                                                <td>{subscriber.sqn}</td>
+                                            </tr>)}
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </div>
+                        </Collapse>
+                    </Card>
+
+                    <Card className="subCard">
+                        <Card.Header>
+                            <Button
                                 onClick={() => setServicesOpen(!servicesOpen)}
                                 aria-controls="servicesBody"
                                 aria-expanded={servicesOpen}
@@ -825,6 +874,48 @@ const Emulation = (props) => {
                             </div>
                         </Collapse>
                     </Card>
+
+                    <Card className="subCard">
+                        <Card.Header>
+                            <Button
+                              onClick={() => setFiveGConfigOpen(!fiveGConfigOpen)}
+                              aria-controls="fiveGConfigOpenBody"
+                              aria-expanded={fiveGConfigOpen}
+                              variant="link"
+                            >
+                                <h5 className="semiTitle">
+                                    5G configuration <i className="fa fa-podcast headerIcon" aria-hidden="true"></i>
+                                </h5>
+                            </Button>
+                        </Card.Header>
+                        <Collapse in={fiveGConfigOpen}>
+                            <div id="fiveGConfigBody" className="cardBodyHidden">
+                                <div className="table-responsive">
+                                    <Table striped bordered hover>
+                                        <thead>
+                                        <tr>
+                                            <th>Core backhaul IP</th>
+                                            <th>CU backhaul IPs</th>
+                                            <th>CU fronthaul IPs</th>
+                                            <th>DU fronthaul IPs</th>
+                                            <th>DU CUs</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr key={emulation.five_g_config.core_backhaul_ip}>
+                                            <td>{emulation.five_g_config.core_backhaul_ip}</td>
+                                            <td>{emulation.five_g_config.cu_backhaul_ips}</td>
+                                            <td>{emulation.five_g_config.cu_fronthaul_ips}</td>
+                                            <td>{emulation.five_g_config.du_fronthaul_ips}</td>
+                                            <td>{emulation.five_g_config.du_cus}</td>
+                                        </tr>
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </div>
+                        </Collapse>
+                    </Card>
+
                     <Card className="subCard">
                         <Card.Header>
                             <Button
@@ -1213,6 +1304,126 @@ const Emulation = (props) => {
                                             <td>{emulation.host_manager_config.host_manager_log_dir}{emulation.host_manager_config.host_manager_log_file}</td>
                                             <td>{emulation.host_manager_config.host_manager_max_workers}</td>
                                             <td>{emulation.host_manager_config.time_step_len_seconds}</td>
+                                        </tr>
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </div>
+                        </Collapse>
+                    </Card>
+
+                    <Card className="subCard">
+                        <Card.Header>
+                            <Button
+                              onClick={() => setFiveGCoreManagerConfigOpen(!fiveGCoreManagerConfigOpen)}
+                              aria-controls="fiveGCoreManagerConfigBody"
+                              aria-expanded={fiveGCoreManagerConfigOpen}
+                              variant="link"
+                            >
+                                <h5 className="semiTitle">
+                                    5G core managers configuration
+                                    <i className="fa fa-linux headerIcon" aria-hidden="true"></i>
+                                </h5>
+                            </Button>
+                        </Card.Header>
+                        <Collapse in={fiveGCoreManagerConfigOpen}>
+                            <div id="fiveGCoreManagerConfigBody" className="cardBodyHidden">
+                                <div className="table-responsive">
+                                    <Table striped bordered hover>
+                                        <thead>
+                                        <tr>
+                                            <th>5G core managers GRPC API port</th>
+                                            <th>5G core managers log file</th>
+                                            <th>5G core managers GRPC max workers</th>
+                                            <th>Time-step length (s)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr key={emulation.five_g_config.five_g_core_manager_port}>
+                                            <td>{emulation.five_g_config.five_g_core_manager_port}</td>
+                                            <td>{emulation.five_g_config.five_g_core_manager_log_dir}{emulation.five_g_config.five_g_core_manager_log_file}</td>
+                                            <td>{emulation.five_g_config.five_g_core_manager_max_workers}</td>
+                                            <td>{emulation.five_g_config.time_step_len_seconds}</td>
+                                        </tr>
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </div>
+                        </Collapse>
+                    </Card>
+
+                    <Card className="subCard">
+                        <Card.Header>
+                            <Button
+                              onClick={() => setFiveGCUManagerConfigOpen(!fiveGCUManagerConfigOpen)}
+                              aria-controls="fiveGCUManagerConfigBody"
+                              aria-expanded={fiveGCUManagerConfigOpen}
+                              variant="link"
+                            >
+                                <h5 className="semiTitle">
+                                    5G CU managers configuration
+                                    <i className="fa fa-linux headerIcon" aria-hidden="true"></i>
+                                </h5>
+                            </Button>
+                        </Card.Header>
+                        <Collapse in={fiveGCUManagerConfigOpen}>
+                            <div id="fiveGCUManagerConfigBody" className="cardBodyHidden">
+                                <div className="table-responsive">
+                                    <Table striped bordered hover>
+                                        <thead>
+                                        <tr>
+                                            <th>5G CU managers GRPC API port</th>
+                                            <th>5G CU managers log file</th>
+                                            <th>5G CU managers GRPC max workers</th>
+                                            <th>Time-step length (s)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr key={emulation.five_g_config.five_g_cu_manager_port}>
+                                            <td>{emulation.five_g_config.five_g_cu_manager_port}</td>
+                                            <td>{emulation.five_g_config.five_g_cu_manager_log_dir}{emulation.five_g_config.five_g_cu_manager_log_file}</td>
+                                            <td>{emulation.five_g_config.five_g_cu_manager_max_workers}</td>
+                                            <td>{emulation.five_g_config.time_step_len_seconds}</td>
+                                        </tr>
+                                        </tbody>
+                                    </Table>
+                                </div>
+                            </div>
+                        </Collapse>
+                    </Card>
+
+                    <Card className="subCard">
+                        <Card.Header>
+                            <Button
+                              onClick={() => setFiveGDUManagerConfigOpen(!fiveGDUManagerConfigOpen)}
+                              aria-controls="fiveGDUManagerConfigBody"
+                              aria-expanded={fiveGDUManagerConfigOpen}
+                              variant="link"
+                            >
+                                <h5 className="semiTitle">
+                                    5G DU managers configuration
+                                    <i className="fa fa-linux headerIcon" aria-hidden="true"></i>
+                                </h5>
+                            </Button>
+                        </Card.Header>
+                        <Collapse in={fiveGDUManagerConfigOpen}>
+                            <div id="fiveGDUManagerConfigBody" className="cardBodyHidden">
+                                <div className="table-responsive">
+                                    <Table striped bordered hover>
+                                        <thead>
+                                        <tr>
+                                            <th>5G DU managers GRPC API port</th>
+                                            <th>5G DU managers log file</th>
+                                            <th>5G DU managers GRPC max workers</th>
+                                            <th>Time-step length (s)</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr key={emulation.five_g_config.five_g_du_manager_port}>
+                                            <td>{emulation.five_g_config.five_g_du_manager_port}</td>
+                                            <td>{emulation.five_g_config.five_g_du_manager_log_dir}{emulation.five_g_config.five_g_du_manager_log_file}</td>
+                                            <td>{emulation.five_g_config.five_g_du_manager_max_workers}</td>
+                                            <td>{emulation.five_g_config.time_step_len_seconds}</td>
                                         </tr>
                                         </tbody>
                                     </Table>

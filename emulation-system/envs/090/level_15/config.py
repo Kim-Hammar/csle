@@ -52,6 +52,7 @@ from csle_common.dao.emulation_config.docker_stats_manager_config import DockerS
 from csle_common.dao.emulation_config.elk_config import ElkConfig
 from csle_common.dao.emulation_config.beats_config import BeatsConfig
 from csle_common.dao.emulation_config.node_beats_config import NodeBeatsConfig
+from csle_common.dao.emulation_config.five_g_config import FiveGConfig
 
 
 def default_config(name: str, network_id: int = 15, level: int = 15, version: str = "0.9.0",
@@ -100,6 +101,8 @@ def default_config(name: str, network_id: int = 15, level: int = 15, version: st
     elk_cfg = default_elk_config(network_id=network_id, level=level, version=version,
                                  time_step_len_seconds=time_step_len_seconds)
     beats_cfg = default_beats_config(network_id=network_id)
+    five_g_config = default_five_g_config(network_id=network_id, level=level, version=version,
+                                          time_step_len_seconds=time_step_len_seconds)
     emulation_env_cfg = EmulationEnvConfig(
         name=name, containers_config=containers_cfg, users_config=users_cfg, flags_config=flags_cfg,
         vuln_config=vuln_cfg, topology_config=topology_cfg, traffic_config=traffic_cfg, resources_config=resources_cfg,
@@ -108,7 +111,7 @@ def default_config(name: str, network_id: int = 15, level: int = 15, version: st
         sdn_controller_config=sdn_controller_cfg, host_manager_config=host_manager_cfg,
         snort_ids_manager_config=snort_ids_manager_cfg, ossec_ids_manager_config=ossec_ids_manager_cfg,
         docker_stats_manager_config=docker_stats_manager_cfg, elk_config=elk_cfg,
-        level=level, execution_id=-1, version=version, beats_config=beats_cfg
+        level=level, execution_id=-1, version=version, beats_config=beats_cfg, five_g_config=five_g_config
     )
     return emulation_env_cfg
 
@@ -1038,6 +1041,118 @@ def default_kafka_config(network_id: int, level: int, version: str, time_step_le
             num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
             retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
             attributes=collector_constants.KAFKA_CONFIG.SNORT_IDS_IP_LOG_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_AMF_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_AMF_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_UPF_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_UPF_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_MME_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_MME_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_SMF_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_SMF_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_HSS_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_HSS_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCRF_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCRF_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCF_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CORE_PCF_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_CELL_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_CELL_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_LOW_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_LOW_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_RLC_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_RLC_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_APP_RESOURCE_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_DU_BUFFER_POOL_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_DU_BUFFER_POOL_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CU_CP_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CU_CP_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CU_APP_RESOURCE_TOPIC_ATTRIBUTES
+        ),
+        KafkaTopic(
+            name=collector_constants.KAFKA_CONFIG.FIVE_G_CU_BUFFER_POOL_METRICS_TOPIC_NAME,
+            num_replicas=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_REPLICAS,
+            num_partitions=collector_constants.KAFKA_CONFIG.DEFAULT_NUM_PARTITIONS,
+            retention_time_hours=collector_constants.KAFKA_CONFIG.DEFAULT_RETENTION_TIME_HOURS,
+            attributes=collector_constants.KAFKA_CONFIG.FIVE_G_CU_APP_RESOURCE_TOPIC_ATTRIBUTES
         )
     ]
 
@@ -1344,6 +1459,37 @@ def default_elk_config(network_id: int, level: int, version: str, time_step_len_
                        elk_manager_log_file=collector_constants.LOG_FILES.ELK_MANAGER_LOG_FILE,
                        elk_manager_log_dir=collector_constants.LOG_FILES.ELK_MANAGER_LOG_DIR,
                        elk_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS)
+    return config
+
+
+def default_five_g_config(network_id: int, level: int, version: str, time_step_len_seconds: int) \
+        -> FiveGConfig:
+    """
+    Generates the default 5G configuration
+
+    :param network_id: the id of the emulation network
+    :param level: the level of the emulation
+    :param version: the version of the emulation
+    :param time_step_len_seconds: default length of a time-step in the emulation
+    :return: the 5G configuration
+    """
+    config = FiveGConfig(
+        version=version, time_step_len_seconds=time_step_len_seconds,
+        five_g_core_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_CORE_MANAGER_DEFAULT_PORT,
+        five_g_core_manager_log_file=collector_constants.LOG_FILES.FIVE_G_CORE_MANAGER_LOG_FILE,
+        five_g_core_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_CORE_MANAGER_LOG_DIR,
+        five_g_core_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+        five_g_cu_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_CU_MANAGER_DEFAULT_PORT,
+        five_g_cu_manager_log_file=collector_constants.LOG_FILES.FIVE_G_CU_MANAGER_LOG_FILE,
+        five_g_cu_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_CU_MANAGER_LOG_DIR,
+        five_g_cu_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+        five_g_du_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_DU_MANAGER_DEFAULT_PORT,
+        five_g_du_manager_log_file=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_FILE,
+        five_g_du_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_DIR,
+        five_g_du_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+        subscribers=[], core_backhaul_ip="127.0.0.1", cu_backhaul_ips=["127.0.0.1"], cu_fronthaul_ips=["127.0.0.1"],
+        du_fronthaul_ips=["127.0.0.1"], du_cus=["127.0.0.1"]
+    )
     return config
 
 

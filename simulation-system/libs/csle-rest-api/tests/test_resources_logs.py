@@ -22,6 +22,8 @@ from csle_common.dao.emulation_config.credential import Credential
 from csle_common.dao.emulation_config.default_network_firewall_config import DefaultNetworkFirewallConfig
 from csle_common.dao.emulation_config.docker_stats_manager_config import DockerStatsManagerConfig
 from csle_common.dao.emulation_config.elk_config import ElkConfig
+from csle_common.dao.emulation_config.five_g_config import FiveGConfig
+from csle_common.dao.emulation_config.five_g_subscriber_config import FiveGSubscriberConfig
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
 from csle_common.dao.emulation_config.emulation_execution import EmulationExecution
 from csle_common.dao.emulation_config.flag import Flag
@@ -337,6 +339,118 @@ class TestResourcesLogsSuite:
         return get_host_manager_logs_mocker
 
     @pytest.fixture
+    def five_g_core_manager_logs(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the get_five_g_core_manager_logs function
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def get_five_g_core_manager_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+                -> Dict[str, Any]:
+            return {f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_MANAGER_SUBRESOURCE}": 654321}
+
+        get_five_g_core_manager_logs_mocker = mocker.MagicMock(side_effect=get_five_g_core_manager_logs)
+        return get_five_g_core_manager_logs_mocker
+
+    @pytest.fixture
+    def five_g_cu_manager_logs(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the get_five_g_cu_manager_logs function
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def get_five_g_cu_manager_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+                -> Dict[str, Any]:
+            return {f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_MANAGER_SUBRESOURCE}": 654321}
+
+        get_five_g_cu_manager_logs_mocker = mocker.MagicMock(side_effect=get_five_g_cu_manager_logs)
+        return get_five_g_cu_manager_logs_mocker
+
+    @pytest.fixture
+    def five_g_du_manager_logs(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the get_five_g_du_manager_logs function
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def get_five_g_du_manager_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+                -> Dict[str, Any]:
+            return {f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_MANAGER_SUBRESOURCE}": 654321}
+
+        get_five_g_du_manager_logs_mocker = mocker.MagicMock(side_effect=get_five_g_du_manager_logs)
+        return get_five_g_du_manager_logs_mocker
+
+    @pytest.fixture
+    def five_g_core_logs(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the get_five_g_core_logs function
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def get_five_g_core_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+                -> Dict[str, Any]:
+            return {f"{api_constants.MGMT_WEBAPP.FIVE_G_CORE_SUBRESOURCE}": 654321}
+
+        get_five_g_core_logs_mocker = mocker.MagicMock(side_effect=get_five_g_core_logs)
+        return get_five_g_core_logs_mocker
+
+    @pytest.fixture
+    def five_g_cu_logs(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the get_five_g_cu_logs function
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def get_five_g_cu_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+                -> Dict[str, Any]:
+            return {f"{api_constants.MGMT_WEBAPP.FIVE_G_CU_SUBRESOURCE}": 654321}
+
+        get_five_g_cu_logs_mocker = mocker.MagicMock(side_effect=get_five_g_cu_logs)
+        return get_five_g_cu_logs_mocker
+
+    @pytest.fixture
+    def five_g_du_logs(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the get_five_g_du_logs function
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def get_five_g_du_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+                -> Dict[str, Any]:
+            return {f"{api_constants.MGMT_WEBAPP.FIVE_G_DU_SUBRESOURCE}": 654321}
+
+        get_five_g_du_logs_mocker = mocker.MagicMock(side_effect=get_five_g_du_logs)
+        return get_five_g_du_logs_mocker
+
+    @pytest.fixture
+    def five_g_ue_logs(self, mocker: pytest_mock.MockFixture):
+        """
+        Pytest fixture for mocking the get_five_g_ue_logs function
+
+        :param mocker: the pytest mocker object
+        :return: the mocked function
+        """
+
+        def get_five_g_ue_logs(ip: str, port: int, emulation: str, ip_first_octet: int, container_ip: str) \
+                -> Dict[str, Any]:
+            return {f"{api_constants.MGMT_WEBAPP.FIVE_G_UE_SUBRESOURCE}": 654321}
+
+        get_five_g_ue_logs_mocker = mocker.MagicMock(side_effect=get_five_g_ue_logs)
+        return get_five_g_ue_logs_mocker
+
+    @pytest.fixture
     def traffic_manager_logs(self, mocker: pytest_mock.MockFixture):
         """
         Pytest fixture for mocking the get_traffic_manager_logs function
@@ -570,6 +684,29 @@ class TestResourcesLogsSuite:
                                         start_packetbeat_automatically=False, start_metricbeat_automatically=False,
                                         start_heartbeat_automatically=False)
             beats = BeatsConfig(node_beats_configs=[nb_config], num_elastic_shards=3, reload_enabled=True)
+            five_g_config = FiveGConfig(
+                version="0.0.1", time_step_len_seconds=30,
+                five_g_core_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_CORE_MANAGER_DEFAULT_PORT,
+                five_g_core_manager_log_file=collector_constants.LOG_FILES.FIVE_G_CORE_MANAGER_LOG_FILE,
+                five_g_core_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_CORE_MANAGER_LOG_DIR,
+                five_g_core_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+                five_g_cu_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_CU_MANAGER_DEFAULT_PORT,
+                five_g_cu_manager_log_file=collector_constants.LOG_FILES.FIVE_G_CU_MANAGER_LOG_FILE,
+                five_g_cu_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_CU_MANAGER_LOG_DIR,
+                five_g_cu_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+                five_g_du_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_DU_MANAGER_DEFAULT_PORT,
+                five_g_du_manager_log_file=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_FILE,
+                five_g_du_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_DIR,
+                five_g_du_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+                subscribers=[
+                    FiveGSubscriberConfig(
+                        imsi="001010123456780", key="00112233445566778899aabbccddeeff",
+                        opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10, imei="353490069873319"
+                    )
+                ], core_backhaul_ip="127.0.0.1",
+                cu_backhaul_ips=["127.0.0.1"], cu_fronthaul_ips=["127.0.0.1"],
+                du_fronthaul_ips=["127.0.0.1"], du_cus=["127.0.0.1"]
+            )
             em_env = EmulationEnvConfig(name=emulation_name, containers_config=c_config, users_config=u_config,
                                         flags_config=FlagsConfig(node_flag_configs=[nf_conf]),
                                         vuln_config=VulnerabilitiesConfig(node_vulnerability_configs=[nv_conf]),
@@ -582,7 +719,8 @@ class TestResourcesLogsSuite:
                                         docker_stats_manager_config=docker_mng, elk_config=elk, beats_config=beats,
                                         level=5, version="null", execution_id=10,
                                         csle_collector_version=collector_constants.LATEST_VERSION,
-                                        csle_ryu_version=collector_constants.LATEST_VERSION)
+                                        csle_ryu_version=collector_constants.LATEST_VERSION,
+                                        five_g_config=five_g_config)
             em_ex = EmulationExecution(emulation_name=emulation_name, timestamp=1.5, ip_first_octet=ip_first_octet,
                                        emulation_env_config=em_env, physical_servers=["JohnDoeServer"])
             return em_ex
@@ -747,7 +885,9 @@ class TestResourcesLogsSuite:
                                  get_em_ex, container_logs, client_manager_logs, kafka_manager_logs, kafka_logs,
                                  snort_ids_manager_logs, snort_ids_logs, ossec_ids_manager_logs,
                                  ossec_ids_logs, host_manager_logs, traffic_manager_logs, elk_manager_logs,
-                                 elk_logs, ryu_manager_logs, ryu_controller_logs, config) -> None:
+                                 elk_logs, ryu_manager_logs, ryu_controller_logs, five_g_core_manager_logs,
+                                 five_g_cu_manager_logs, five_g_du_manager_logs, five_g_core_logs,
+                                 five_g_cu_logs, five_g_du_logs, five_g_ue_logs, config) -> None:
         """
         Tests the POST HTTPS method for the /logs resource
 
@@ -767,7 +907,14 @@ class TestResourcesLogsSuite:
         :param elk_manager_logs: the elk_manager_logs fixture
         :param elk_logs: the elk_logs fixture
         :param ryu_manager_logs: the ryu_manager_logs fixture
-        :param tyu_controller_logs: the ryu_controller_logs fixture
+        :param ryu_controller_logs: the ryu_controller_logs fixture
+        :param five_g_core_manager_logs: the five_g_core_manager_logs fixture
+        :param five_g_cu_manager_logs: the five_g_cu_manager_logs fixture
+        :param five_g_du_manager_logs: the five_g_du_manager_logs fixture
+        :param five_g_core_logs: the five_g_core_logs fixture
+        :param five_g_cu_logs: the five_g_cu_logs fixture
+        :param five_g_du_logs: the five_g_du_logs fixture
+        :param five_g_ue_logs: the five_g_ue_logs fixture
         :return: None
         """
         mocker.patch("csle_cluster.cluster_manager.cluster_controller.ClusterController.get_csle_log_files",
@@ -776,11 +923,15 @@ class TestResourcesLogsSuite:
                      side_effect=get_em_ex)
         mocker_list = [container_logs, client_manager_logs, kafka_manager_logs, kafka_logs, snort_ids_manager_logs,
                        snort_ids_logs, ossec_ids_manager_logs, ossec_ids_logs, host_manager_logs,
-                       traffic_manager_logs, elk_manager_logs, elk_logs, ryu_manager_logs, ryu_controller_logs]
+                       traffic_manager_logs, elk_manager_logs, elk_logs, ryu_manager_logs, ryu_controller_logs,
+                       five_g_core_manager_logs, five_g_cu_manager_logs, five_g_du_manager_logs, five_g_core_logs,
+                       five_g_cu_logs, five_g_du_logs, five_g_ue_logs]
         corr_func_names = ["get_container_logs", "get_client_manager_logs", "get_kafka_manager_logs", "get_kafka_logs",
                            "get_snort_ids_manager_logs", "get_snort_ids_logs", "get_ossec_ids_manager_logs",
                            "get_ossec_ids_logs", "get_host_manager_logs", "get_traffic_manager_logs",
-                           "get_elk_manager_logs", "get_elk_logs", "get_ryu_manager_logs", "get_ryu_controller_logs"]
+                           "get_elk_manager_logs", "get_elk_logs", "get_ryu_manager_logs", "get_ryu_controller_logs",
+                           "get_five_g_core_manager_logs", "get_five_g_cu_manager_logs", "get_five_g_du_manager_logs",
+                           "get_five_g_core_logs", "get_five_g_cu_logs", "get_five_g_du_logs", "get_five_g_ue_logs"]
         constants_list = [api_constants.MGMT_WEBAPP.CONTAINER_SUBRESOURCE,
                           api_constants.MGMT_WEBAPP.CLIENT_MANAGER_SUBRESOURCE,
                           api_constants.MGMT_WEBAPP.KAFKA_MANAGER_SUBRESOURCE,
@@ -794,7 +945,14 @@ class TestResourcesLogsSuite:
                           api_constants.MGMT_WEBAPP.ELK_MANAGER_SUBRESOURCE,
                           api_constants.MGMT_WEBAPP.ELK_STACK_SUBRESOURCE,
                           api_constants.MGMT_WEBAPP.RYU_MANAGER_SUBRESOURCE,
-                          api_constants.MGMT_WEBAPP.RYU_CONTROLLER_SUBRESOURCE]
+                          api_constants.MGMT_WEBAPP.RYU_CONTROLLER_SUBRESOURCE,
+                          api_constants.MGMT_WEBAPP.FIVE_G_CORE_MANAGER_SUBRESOURCE,
+                          api_constants.MGMT_WEBAPP.FIVE_G_CU_MANAGER_SUBRESOURCE,
+                          api_constants.MGMT_WEBAPP.FIVE_G_DU_MANAGER_SUBRESOURCE,
+                          api_constants.MGMT_WEBAPP.FIVE_G_CORE_SUBRESOURCE,
+                          api_constants.MGMT_WEBAPP.FIVE_G_CU_SUBRESOURCE,
+                          api_constants.MGMT_WEBAPP.FIVE_G_DU_SUBRESOURCE,
+                          api_constants.MGMT_WEBAPP.FIVE_G_UE_SUBRESOURCE]
         mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=logged_in_as_admin)
         mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.get_config", side_effect=config)
         k = 0

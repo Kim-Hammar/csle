@@ -43,7 +43,7 @@ class TestSnortIdsControllerSuite:
         """
         Test utility function for starting the Snort IDSes
 
-        :param mock_start_snort_ides: mock_start_snort_ides
+        :param mock_start_snort_ids: mock_start_snort_ids
         :return: None
         """
         SnortIDSController.start_snort_idses(
@@ -61,11 +61,11 @@ class TestSnortIdsControllerSuite:
             logger=self.logger)
 
     @patch("csle_common.controllers.snort_ids_controller.SnortIDSController.stop_snort_ids")
-    def test_stop_snort_ides(self, mock_stop_snort_ids) -> None:
+    def test_stop_snort_idses(self, mock_stop_snort_ids) -> None:
         """
         Test utility function for stopping the Snort IDSes
 
-        :param mock_start_snort_ides: mock_start_snort_ides
+        :param mock_stop_snort_ids: mock_stop_snort_ids
         :return: None
         """
         SnortIDSController.stop_snort_idses(
@@ -128,7 +128,7 @@ class TestSnortIdsControllerSuite:
 
 
         :param mock_insecure_channel: mock_insecure_channel
-        :param mock_start_snort_ids: mock_start_snort_ids
+        :param mock_stop_snort_ids: mock_stop_snort_ids
         :param mock_get_statuses: mock_get_statuse
         :param mock_start_manager: mock_start_manager
         :return: None
@@ -208,7 +208,7 @@ class TestSnortIdsControllerSuite:
         """
         Test Utility function for stopping snort IDS managers
 
-        :param mock_start_manager: mock_start_manager
+        :param mock_stop_manager: mock_stop_manager
         :param mock_sleep: mock_sleep
         :return: None
         """
@@ -411,6 +411,8 @@ class TestSnortIdsControllerSuite:
     def test_get_snort_ids_managers_ips(self) -> None:
         """
         Test a method that extracts the IPs of the snort IDS managers in a given emulation
+
+        :return: None
         """
         ips = SnortIDSController.get_snort_ids_managers_ips(emulation_env_config=self.emulation_env_config)
         expected_ips = [self.emulation_env_config.containers_config.containers[0].docker_gw_bridge_ip,
@@ -420,6 +422,8 @@ class TestSnortIdsControllerSuite:
     def test_get_snort_idses_managers_ports(self) -> None:
         """
         Test a method that extracts the ports of the snort IDS managers in a given emulation
+
+        :return: None
         """
         ports = SnortIDSController.get_snort_idses_managers_ports(emulation_env_config=self.emulation_env_config)
         expected_ports = [50051, 50051]

@@ -74,6 +74,7 @@ def start_cluster_manager(host_ip: str) -> None:
                                                               collector_constants.LOG_FILES.CLUSTER_MANAGER_LOG_DIR,
                                                               collector_constants.LOG_FILES.CLUSTER_MANAGER_LOG_FILE,
                                                               10)
+        click.secho(f"Starting the cluster manager with command: {cmd}", bold=False)
         p = subprocess.Popen(cmd, stdout=subprocess.DEVNULL, shell=True)
         (output, err) = p.communicate()
 

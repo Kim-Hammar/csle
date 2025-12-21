@@ -254,6 +254,16 @@ class LOG_FILES:
     MINBFT_CLIENT_MANAGER_LOG_FILE = "minbft_manager.log"
     MINBFT_CLIENT_MANAGER_LOG_DIR = "/"
     DEFAULT_LOG_FILE_PATHS = ["/*.log", "/var/log/*.log", "/var/log/*/*.log", "/var/log/*/*/*.log"]
+    FIVE_G_CORE_MANAGER_LOG_FILE = "five_g_core_manager.log"
+    FIVE_G_CORE_MANAGER_LOG_DIR = "/"
+    FIVE_G_CU_MANAGER_LOG_FILE = "five_g_cu_manager.log"
+    FIVE_G_CU_MANAGER_LOG_DIR = "/"
+    FIVE_G_DU_MANAGER_LOG_FILE = "five_g_du_manager.log"
+    FIVE_G_DU_MANAGER_LOG_DIR = "/"
+    FIVE_G_CORE_LOG_FILE = "/var/log/open5gs/amf.log"
+    FIVE_G_DU_LOG_FILE = "/du.log"
+    FIVE_G_CU_LOG_FILE = "/cu.log"
+    FIVE_G_UE_LOG_FILE = "/ue.log"
 
 
 class MANAGER_PORTS:
@@ -269,6 +279,9 @@ class MANAGER_PORTS:
     DOCKER_STATS_MANAGER_DEFAULT_PORT = 50046
     ELK_MANAGER_DEFAULT_PORT = 50045
     KAFKA_MANAGER_DEFAULT_PORT = 50051
+    FIVE_G_CORE_MANAGER_DEFAULT_PORT = 50052
+    FIVE_G_CU_MANAGER_DEFAULT_PORT = 50053
+    FIVE_G_DU_MANAGER_DEFAULT_PORT = 50054
 
 
 class GRPC_WORKERS:
@@ -554,6 +567,22 @@ class KAFKA_CONFIG:
     SNORT_IDS_IP_LOG_TOPIC_NAME = "snort_ids_ip_log"
     OSSEC_IDS_LOG_TOPIC_NAME = "ossec_ids_log"
     HOST_METRICS_TOPIC_NAME = "host_metrics"
+    FIVE_G_CORE_AMF_METRICS_TOPIC_NAME = "five_g_core_amf_metrics"
+    FIVE_G_CORE_UPF_METRICS_TOPIC_NAME = "five_g_core_upf_metrics"
+    FIVE_G_CORE_MME_METRICS_TOPIC_NAME = "five_g_core_mme_metrics"
+    FIVE_G_CORE_SMF_METRICS_TOPIC_NAME = "five_g_core_smf_metrics"
+    FIVE_G_CORE_HSS_METRICS_TOPIC_NAME = "five_g_core_hss_metrics"
+    FIVE_G_CORE_PCRF_METRICS_TOPIC_NAME = "five_g_core_pcrf_metrics"
+    FIVE_G_CORE_PCF_METRICS_TOPIC_NAME = "five_g_core_pcf_metrics"
+    FIVE_G_DU_METRICS_TOPIC_NAME = "five_g_du_metrics"
+    FIVE_G_DU_CELL_METRICS_TOPIC_NAME = "five_g_du_cell_metrics"
+    FIVE_G_DU_LOW_METRICS_TOPIC_NAME = "five_g_du_low_metrics"
+    FIVE_G_DU_RLC_METRICS_TOPIC_NAME = "five_g_du_rlc_metrics"
+    FIVE_G_DU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME = "five_g_du_app_resource_usage_metrics"
+    FIVE_G_DU_BUFFER_POOL_METRICS_TOPIC_NAME = "five_g_du_buffer_pool_metrics"
+    FIVE_G_CU_CP_METRICS_TOPIC_NAME = "five_g_cu_cp_metrics"
+    FIVE_G_CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME = "five_g_cu_app_resource_usage_metrics"
+    FIVE_G_CU_BUFFER_POOL_METRICS_TOPIC_NAME = "five_g_cu_buffer_pool_metrics"
     DOCKER_STATS_TOPIC_NAME = "docker_stats"
     DOCKER_HOST_STATS_TOPIC_NAME = "docker_host_stats"
     OPENFLOW_FLOW_STATS_TOPIC_NAME = "openflow_flow_stats"
@@ -628,6 +657,217 @@ class KAFKA_CONFIG:
         "total_num_transmitted_errors", "total_num_received_dropped", "total_num_transmitted_dropped",
         "total_num_received_frame_errors", "total_num_received_overrun_errors",
         "total_num_received_crc_errors", "total_num_collisions", "avg_duration_nanoseconds", "avg_duration_seconds"]
+    FIVE_G_CORE_AMF_TOPIC_ATTRIBUTES = ["timestamp", "ip",
+                                        "fivegs_amffunction_mm_confupdate", "fivegs_amffunction_rm_reginitreq",
+                                        "fivegs_amffunction_rm_regemergreq", "fivegs_amffunction_mm_paging5greq",
+                                        "fivegs_amffunction_rm_regperiodreq", "fivegs_amffunction_mm_confupdatesucc",
+                                        "fivegs_amffunction_rm_reginitsucc", "fivegs_amffunction_amf_authreject",
+                                        "fivegs_amffunction_rm_regmobreq", "amf_session",
+                                        "fivegs_amffunction_rm_regmobsucc", "fivegs_amffunction_amf_authreq",
+                                        "fivegs_amffunction_rm_regemergsucc", "fivegs_amffunction_mm_paging5gsucc",
+                                        "ran_ue", "fivegs_amffunction_rm_regperiodsucc",
+                                        "process_max_fds", "process_virtual_memory_max_bytes",
+                                        "process_cpu_seconds_total", "process_virtual_memory_bytes",
+                                        "process_start_time_seconds",
+                                        "process_start_time_seconds", "process_open_fds"]
+    FIVE_G_CORE_UPF_TOPIC_ATTRIBUTES = ["timestamp", "ip",
+                                        "fivegs_ep_n3_gtp_indatapktn3upf", "fivegs_ep_n3_gtp_outdatapktn3upf",
+                                        "fivegs_upffunction_sm_n4sessionestabreq",
+                                        "fivegs_upffunction_sm_n4sessionreport",
+                                        "fivegs_upffunction_sm_n4sessionreportsucc",
+                                        "fivegs_upffunction_upf_sessionnbr",
+                                        "pfcp_peers_active", "process_max_fds", "process_virtual_memory_max_bytes",
+                                        "process_cpu_seconds_total", "process_virtual_memory_bytes",
+                                        "process_resident_memory_bytes", "process_start_time_seconds",
+                                        "process_open_fds"]
+    FIVE_G_CORE_MME_TOPIC_ATTRIBUTES = ["timestamp", "ip",
+                                        "enb_ue", "mme_session", "enb", "process_max_fds",
+                                        "process_virtual_memory_max_bytes", "process_cpu_seconds_total",
+                                        "process_virtual_memory_bytes", "process_resident_memory_bytes",
+                                        "process_start_time_seconds", "process_open_fds"]
+    FIVE_G_CORE_SMF_TOPIC_ATTRIBUTES = [
+        "timestamp",
+        "ip",
+        "gn_rx_createpdpcontextreq",
+        "gn_rx_deletepdpcontextreq",
+        "gtp1_pdpctxs_active",
+        "pfcp_peers_active",
+        "fivegs_smffunction_sm_n4sessionreport",
+        "ues_active",
+        "gtp2_sessions_active",
+        "pfcp_sessions_active",
+        "s5c_rx_createsession",
+        "s5c_rx_deletesession",
+        "gtp_new_node_failed",
+        "s5c_rx_parse_failed",
+        "fivegs_smffunction_sm_n4sessionreportsucc",
+        "fivegs_smffunction_sm_n4sessionestabreq",
+        "bearers_active",
+        "gn_rx_parse_failed",
+        "gtp_peers_active",
+        "fivegs_smffunction_sm_sessionnbr",
+        "fivegs_smffunction_sm_pdusessioncreationreq",
+        "fivegs_smffunction_sm_pdusessioncreationsucc",
+        "fivegs_smffunction_sm_qos_flow_nbr",
+        "fivegs_smffunction_sm_n4sessionestabfail",
+        "fivegs_smffunction_sm_pdusessioncreationfail",
+        "process_max_fds",
+        "process_virtual_memory_max_bytes",
+        "process_cpu_seconds_total",
+        "process_virtual_memory_bytes",
+        "process_resident_memory_bytes",
+        "process_start_time_seconds",
+        "process_open_fds"
+    ]
+
+    FIVE_G_CORE_HSS_TOPIC_ATTRIBUTES = [
+        "timestamp",
+        "ip",
+        "cx_rx_lir",
+        "cx_rx_uar",
+        "cx_tx_lia",
+        "cx_rx_unknown",
+        "cx_rx_sar",
+        "s6a_rx_pur",
+        "swx_rx_mar_error",
+        "cx_tx_uaa",
+        "s6a_rx_pur_error",
+        "s6a_tx_clr",
+        "cx_tx_saa",
+        "cx_rx_lir_error",
+        "s6a_rx_ulr",
+        "s6a_rx_cla",
+        "s6a_rx_cla_error",
+        "s6a_rx_air",
+        "cx_rx_mar",
+        "swx_rx_sar",
+        "s6a_rx_air_error",
+        "s6a_rx_ida_error",
+        "cx_tx_maa",
+        "swx_rx_mar",
+        "s6a_rx_unknown",
+        "s6a_tx_pua",
+        "swx_rx_unknown",
+        "cx_rx_mar_error",
+        "cx_rx_uar_error",
+        "s6a_tx_ula",
+        "s6a_rx_ulr_error",
+        "s6a_tx_aia",
+        "s6a_tx_idr",
+        "s6a_rx_ida",
+        "cx_rx_sar_error",
+        "swx_rx_sar_error",
+        "swx_tx_maa",
+        "swx_tx_saa",
+        "hss_imsi",
+        "hss_impi",
+        "hss_impu",
+        "process_max_fds",
+        "process_virtual_memory_max_bytes",
+        "process_cpu_seconds_total",
+        "process_virtual_memory_bytes",
+        "process_resident_memory_bytes",
+        "process_start_time_seconds",
+        "process_open_fds"
+    ]
+
+    FIVE_G_CORE_PCRF_TOPIC_ATTRIBUTES = [
+        "timestamp",
+        "ip",
+        "gx_rx_unknown",
+        "gx_rx_ccr",
+        "gx_rx_ccr_error",
+        "gx_rx_raa",
+        "gx_tx_cca",
+        "gx_tx_rar",
+        "gx_tx_rar_error",
+        "rx_rx_unknown",
+        "rx_rx_aar",
+        "rx_rx_aar_error",
+        "rx_rx_asa",
+        "rx_rx_asa_error",
+        "rx_rx_str_error",
+        "rx_tx_aaa",
+        "rx_tx_sar",
+        "rx_tx_sta",
+        "process_max_fds",
+        "process_virtual_memory_max_bytes",
+        "process_cpu_seconds_total",
+        "process_virtual_memory_bytes",
+        "process_resident_memory_bytes",
+        "process_start_time_seconds",
+        "process_open_fds"
+    ]
+
+    FIVE_G_CORE_PCF_TOPIC_ATTRIBUTES = [
+        "timestamp",
+        "ip",
+        "fivegs_pcffunction_pa_policyamassoreq",
+        "fivegs_pcffunction_pa_policyamassosucc",
+        "fivegs_pcffunction_pa_policysmassoreq",
+        "fivegs_pcffunction_pa_policysmassosucc",
+        "fivegs_pcffunction_pa_sessionnbr",
+        "process_max_fds",
+        "process_virtual_memory_max_bytes",
+        "process_cpu_seconds_total",
+        "process_virtual_memory_bytes",
+        "process_resident_memory_bytes",
+        "process_start_time_seconds",
+        "process_open_fds"
+    ]
+
+    FIVE_G_DU_TOPIC_ATTRIBUTES = ["timestamp", "ip", "pci", "average_latency_us", "cpu_usage_percent", "max_latency_us",
+                                  "min_latency_us"]
+
+    FIVE_G_DU_CELL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "pci", "average_latency",
+                                       "max_latency", "pucch_tot_rb_usage_avg", "active_ues",
+                                       "dl_brate", "ul_brate", "dl_mcs", "ul_mcs",
+                                       "pusch_snr_db", "pucch_snr_db", "cqi", "dl_bler",
+                                       "ul_bler"]
+
+    FIVE_G_DU_LOW_TOPIC_ATTRIBUTES = ["timestamp", "ip", "dl_avg_latency_us",
+                                      "dl_cpu_usage_percent", "dl_max_latency_us",
+                                      "dl_fec_tput_mbps", "ul_avg_latency_us",
+                                      "ul_cpu_usage_percent", "ul_max_latency_us",
+                                      "ul_sinr_db", "ul_ch_est_latency_us",
+                                      "ul_ldpc_dec_latency_us", "ul_fec_tput_mbps"]
+
+    FIVE_G_DU_RLC_TOPIC_ATTRIBUTES = ["timestamp", "ip", "ue_id", "drb_id", "rx_num_pdus",
+                                      "rx_num_bytes", "rx_num_lost_pdus",
+                                      "rx_num_malformed_pdus", "tx_num_sdus", "tx_num_bytes",
+                                      "tx_num_dropped_sdus", "tx_num_discarded_sdus",
+                                      "tx_max_pdu_latency_ns", "tx_sum_pdu_latency_ns",
+                                      "tx_sum_sdu_latency_us"]
+
+    FIVE_G_DU_APP_RESOURCE_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cpu_usage_percent",
+                                               "memory_usage_mb", "power_consumption_watts"]
+
+    FIVE_G_DU_BUFFER_POOL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "central_cache_size"]
+
+    FIVE_G_CU_CP_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cu_cp_id", "amf_connected",
+                                     "nof_cn_initiated_paging_requests",
+                                     "nof_pdu_sessions_requested_to_setup",
+                                     "nof_pdu_sessions_successfully_setup",
+                                     "nof_pdu_sessions_failed_to_setup_total",
+                                     "nof_handover_preparations_requested",
+                                     "nof_successful_handover_preparations",
+                                     "rrc_establishments_attempted_total",
+                                     "rrc_establishments_successful_total",
+                                     "rrc_establishments_attempted_mo_data",
+                                     "rrc_establishments_successful_mo_data",
+                                     "rrc_establishments_attempted_mo_sig",
+                                     "rrc_establishments_successful_mo_sig",
+                                     "max_nof_rrc_connections",
+                                     "mean_nof_rrc_connections",
+                                     "rrc_reestablishments_attempted",
+                                     "rrc_reestablishments_successful",
+                                     "nof_handover_executions_requested",
+                                     "nof_successful_handover_executions"]
+
+    FIVE_G_CU_APP_RESOURCE_TOPIC_ATTRIBUTES = ["timestamp", "ip", "cpu_usage_percent",
+                                               "memory_usage_mb", "power_consumption_watts"]
+
+    FIVE_G_CU_BUFFER_POOL_TOPIC_ATTRIBUTES = ["timestamp", "ip", "central_cache_size"]
 
     SNORT_IDS_ALERTS_LABELS = [
         "total_alerts", "warning_alerts", "severe_alerts", "alerts_weighted_by_priority",
@@ -763,3 +1003,73 @@ class SPARK:
     SPARK_WORKER_PID_FILE = "/tmp/spark--org.apache.spark.deploy.worker.Worker-1.pid"
     STOP_SPARK_WORKER = "sudo kill -9 {}"
     STOP_SPARK_MASTER = "sudo kill -9 {}"
+
+
+class FIVE_G_CORE:
+    """
+    Constants related to the 5G core
+    """
+    AMF_METRICS_URL = "http://127.0.0.5:9090/metrics"
+    UPF_METRICS_URL = "http://127.0.0.7:9090/metrics"
+    MME_METRICS_URL = "http://127.0.0.2:9090/metrics"
+    SMF_METRICS_URL = "http://127.0.0.4:9090/metrics"
+    HSS_METRICS_URL = "http://127.0.0.8:9090/metrics"
+    PCRF_METRICS_URL = "http://127.0.0.9:9090/metrics"
+    PCF_METRICS_URL = "http://127.0.0.13:9090/metrics"
+    CONTROL_SCRIPT_PATH = "/start_stop_5g.sh"
+    SUBSCRIBER_CONTROL_SCRIPT_PATH = "/subscriber_init.sh"
+    RUNNING = "RUNNING"
+    STOPPED = "STOPPED"
+    ALL = "all"
+    STATUS = "status"
+    START = "start"
+    STOP = "stop"
+    INIT = "init"
+    MONGO = "mongo"
+    MME = "mme"
+    SGWC = "sgwc"
+    SMF = "smf"
+    AMF = "amf"
+    SGWU = "sgwu"
+    UPF = "upf"
+    HSS = "hss"
+    PCRF = "pcrf"
+    NRF = "nrf"
+    SCP = "scp"
+    SEPP = "sepp"
+    AUSF = "ausf"
+    UDM = "udm"
+    PCF = "pcf"
+    NSSF = "nssf"
+    BSF = "bsf"
+    UDR = "udr"
+    WEBUI = "webui"
+
+
+class FIVE_G_CU:
+    """
+    Constants related to the 5G CU
+    """
+    CONTROL_SCRIPT_PATH = "/start_stop_cu.sh"
+    RUNNING = "RUNNING"
+    STOPPED = "STOPPED"
+    STATUS = "status"
+    START = "start"
+    STOP = "stop"
+    CU = "srscu"
+
+
+class FIVE_G_DU:
+    """
+    Constants related to the 5G DU
+    """
+    CONTROL_SCRIPT_PATH = "/start_stop_du.sh"
+    UE_CONTROL_SCRIPT_PATH = "/start_stop_ue.sh"
+    RUNNING = "RUNNING"
+    STOPPED = "STOPPED"
+    STATUS = "status"
+    START = "start"
+    STOP = "stop"
+    INIT = "init"
+    DU = "srsdu"
+    UE = "srsue"

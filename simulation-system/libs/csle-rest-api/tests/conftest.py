@@ -25,6 +25,8 @@ from csle_common.dao.emulation_config.credential import Credential
 from csle_common.dao.emulation_config.default_network_firewall_config import DefaultNetworkFirewallConfig
 from csle_common.dao.emulation_config.docker_stats_manager_config import DockerStatsManagerConfig
 from csle_common.dao.emulation_config.elk_config import ElkConfig
+from csle_common.dao.emulation_config.five_g_config import FiveGConfig
+from csle_common.dao.emulation_config.five_g_subscriber_config import FiveGSubscriberConfig
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
 from csle_common.dao.emulation_config.emulation_execution import EmulationExecution
 from csle_common.dao.emulation_config.flag import Flag
@@ -506,6 +508,29 @@ def get_ex_em_env() -> EmulationEnvConfig:
                                 start_packetbeat_automatically=False, start_metricbeat_automatically=False,
                                 start_heartbeat_automatically=False)
     beats = BeatsConfig(node_beats_configs=[nb_config], num_elastic_shards=3, reload_enabled=True)
+    five_g_config = FiveGConfig(
+        version="0.0.1", time_step_len_seconds=30,
+        five_g_core_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_CORE_MANAGER_DEFAULT_PORT,
+        five_g_core_manager_log_file=collector_constants.LOG_FILES.FIVE_G_CORE_MANAGER_LOG_FILE,
+        five_g_core_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_CORE_MANAGER_LOG_DIR,
+        five_g_core_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+        five_g_cu_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_CU_MANAGER_DEFAULT_PORT,
+        five_g_cu_manager_log_file=collector_constants.LOG_FILES.FIVE_G_CU_MANAGER_LOG_FILE,
+        five_g_cu_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_CU_MANAGER_LOG_DIR,
+        five_g_cu_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+        five_g_du_manager_port=collector_constants.MANAGER_PORTS.FIVE_G_DU_MANAGER_DEFAULT_PORT,
+        five_g_du_manager_log_file=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_FILE,
+        five_g_du_manager_log_dir=collector_constants.LOG_FILES.FIVE_G_DU_MANAGER_LOG_DIR,
+        five_g_du_manager_max_workers=collector_constants.GRPC_WORKERS.DEFAULT_MAX_NUM_WORKERS,
+        subscribers=[
+            FiveGSubscriberConfig(
+                imsi="001010123456780", key="00112233445566778899aabbccddeeff",
+                opc="63BFA50EE6523365FF14C1F45F88737D", amf="8000", sqn=10, imei="353490069873319"
+            )
+        ], core_backhaul_ip="127.0.0.1",
+        cu_backhaul_ips=["127.0.0.1"], cu_fronthaul_ips=["127.0.0.1"],
+        du_fronthaul_ips=["127.0.0.1"], du_cus=["127.0.0.1"]
+    )
     em_env = EmulationEnvConfig(name="Johndoe", containers_config=c_config, users_config=u_config,
                                 flags_config=FlagsConfig(node_flag_configs=[nf_conf]),
                                 vuln_config=VulnerabilitiesConfig(node_vulnerability_configs=[nv_conf]),
@@ -518,7 +543,8 @@ def get_ex_em_env() -> EmulationEnvConfig:
                                 docker_stats_manager_config=docker_mng, elk_config=elk, beats_config=beats,
                                 level=5, version="null", execution_id=10,
                                 csle_collector_version=collector_constants.LATEST_VERSION,
-                                csle_ryu_version=collector_constants.LATEST_VERSION)
+                                csle_ryu_version=collector_constants.LATEST_VERSION,
+                                five_g_config=five_g_config)
     return em_env
 
 

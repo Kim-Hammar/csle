@@ -11,7 +11,7 @@ def get_ossec_ids_monitor_status(
     Queries the IDS manager for the status of the IDS monitor thread
 
     :param stub: the stub to send the remote gRPC to the server
-    :return: an IdsMonitorDTO describing the status of the IDS monitor thread
+    :return: an OSSECIdsMonitorDTO describing the status of the IDS monitor thread
     """
     get_ids_monitor_status_msg = \
         csle_collector.ossec_ids_manager.ossec_ids_manager_pb2.GetOSSECIdsMonitorStatusMsg()
@@ -33,7 +33,7 @@ def start_ossec_ids_monitor(stub: csle_collector.ossec_ids_manager.ossec_ids_man
     :param time_step_len_seconds: the length of one time-step
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
-    :return: an IdsMonitorDTO describing the status of the IDS monitor thread
+    :return: an OSSECIdsMonitorDTO describing the status of the IDS monitor thread
     """
     start_ids_monitor_msg = csle_collector.ossec_ids_manager.ossec_ids_manager_pb2.StartOSSECIdsMonitorMsg(
         kafka_ip=kafka_ip, kafka_port=kafka_port, log_file_path=log_file_path,
@@ -53,7 +53,7 @@ def stop_ossec_ids_monitor(
 
     :param stub: the stub to send the remote gRPC to the server
     :param timeout: the GRPC timeout (seconds)
-    :return: an IdsMonitorDTO describing the status of the IDS monitor thread
+    :return: an OSSECIdsMonitorDTO describing the status of the IDS monitor thread
     """
     stop_ids_monitor_msg = \
         csle_collector.ossec_ids_manager.ossec_ids_manager_pb2.StopOSSECIdsMonitorMsg()
@@ -109,7 +109,7 @@ def get_ossec_ids_alerts(
     :param timestamp: the timtestamp to parse the log from
     :param log_file_path: path to the IDS log file to read
     :param timeout: the GRPC timeout (seconds)
-    :return: an IdsLogDTO with data of the IDS log
+    :return: an OSSECIdsLogDTO with data of the IDS log
     """
     get_ids_log_alerts_msg = \
         csle_collector.ossec_ids_manager.ossec_ids_manager_pb2.GetOSSECIdsAlertsMsg(

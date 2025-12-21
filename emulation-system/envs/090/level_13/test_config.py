@@ -32,3 +32,4 @@ class TestEmulationConfigSuite:
         assert config.docker_stats_manager_config is not None
         assert config.elk_config is not None
         assert config.beats_config is not None
+        assert config.five_g_config is not None

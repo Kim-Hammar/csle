@@ -31,6 +31,10 @@ class GRPC_SERVERS:
     OSSEC_IDS_MANAGER_PORT = 50047
     SNORT_IDS_MANAGER_PORT = 50048
     HOST_MANAGER_PORT = 50049
+    KAFKA_MANAGER_DEFAULT_PORT = 50051
+    FIVE_G_CORE_MANAGER_DEFAULT_PORT = 50052
+    FIVE_G_CU_MANAGER_DEFAULT_PORT = 50053
+    FIVE_G_DU_MANAGER_DEFAULT_PORT = 50054
     SERVICE_CONFIG_JSON = json.dumps({
         "methodConfig": [{
             # An empty "name" list means this policy applies to all methods.
@@ -113,6 +117,9 @@ class CONTAINER_IMAGES:
     CADVISOR = "cadvisor"
     PGADMIN = "pgadmin"
     GRAFANA = "grafana"
+    FIVE_G_CORE_IMAGES = [FIVE_G_CORE_1]
+    FIVE_G_CU_IMAGES = [CLOUD_RAN_CU_1]
+    FIVE_G_DU_IMAGES = [CLOUD_RAN_DU_1]
 
 
 class CONTAINER_OS:
@@ -916,6 +923,12 @@ class COMMANDS:
                          "--logfile {} --maxworkers {} &"
     START_TRAFFIC_MANAGER = "sudo nohup /root/miniconda3/bin/python3 /traffic_manager.py --port {} --logdir {} " \
                             "--logfile {} --maxworkers {} &"
+    START_FIVE_G_CORE_MANAGER = ("sudo nohup /root/miniconda3/bin/python3 /five_g_core_manager.py --port {} "
+                                 "--logdir {} --logfile {} --maxworkers {} &")
+    START_FIVE_G_CU_MANAGER = ("sudo nohup /root/miniconda3/bin/python3 /five_g_cu_manager.py --port {} "
+                               "--logdir {} --logfile {} --maxworkers {} &")
+    START_FIVE_G_DU_MANAGER = ("sudo nohup /root/miniconda3/bin/python3 /five_g_du_manager.py --port {} "
+                               "--logdir {} --logfile {} --maxworkers {} &")
     START_SDN_CONTROLLER = "sudo nohup /root/miniconda3/bin/python3 /ryu_controller.py --port {} --webport {} " \
                            "--controller {} &"
     SEARCH_KAFKA_MANAGER = "/root/miniconda3/bin/python3 /kafka_manager.py"
@@ -1175,6 +1188,9 @@ class TRAFFIC_COMMANDS:
     RYU_MANAGER_FILE_NAME = "ryu_manager.py"
     SNORT_IDS_MANAGER_FILE_NAME = "snort_ids_manager.py"
     OSSEC_IDS_MANAGER_FILE_NAME = "ossec_ids_manager.py"
+    FIVE_G_CORE_MANAGER_FILE_NAME = "five_g_core_manager.py"
+    FIVE_G_CU_MANAGER_FILE_NAME = "five_g_cu_manager.py"
+    FIVE_G_DU_MANAGER_FILE_NAME = "five_g_du_manager.py"
     HOST_MANAGER_FILE_NAME = "host_manager.py"
     TRAFFIC_MANAGER_FILE_NAME = "traffic_manager.py"
     SDN_CONTROLLER_FILE_NAME = "ryu_controller.py"

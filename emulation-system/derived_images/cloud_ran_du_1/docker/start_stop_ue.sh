@@ -4,7 +4,7 @@
 BASE_PATH="/srsRAN_4G/build/srsue/src"
 BINARY="srsue"
 CONF_FILE="ue.conf"
-LOG_FILE="ue.log"
+LOG_FILE="/ue.log"
 NETNS_NAME="ue1"
 PING_TARGET="10.45.0.1"
 
@@ -65,12 +65,12 @@ stop_ue() {
 }
 
 status_ue() {
-    local pid=$(get_pid)
+    local pid=$(get_pid | head -n1)
 
     if [ -n "$pid" ]; then
-        echo "$BINARY is RUNNING (PID: $pid)."
+        echo "$BINARY RUNNING (PID: $pid)"
     else
-        echo "$BINARY is STOPPED."
+        echo "$BINARY STOPPED"
     fi
 }
 

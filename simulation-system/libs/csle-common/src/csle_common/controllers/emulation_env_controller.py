@@ -17,6 +17,9 @@ from csle_common.controllers.kafka_controller import KafkaController
 from csle_common.controllers.elk_controller import ELKController
 from csle_common.controllers.sdn_controller_manager import SDNControllerManager
 from csle_common.controllers.traffic_controller import TrafficController
+from csle_common.controllers.five_g_core_controller import FiveGCoreController
+from csle_common.controllers.five_g_cu_controller import FiveGCUController
+from csle_common.controllers.five_g_du_controller import FiveGDUController
 from csle_common.util.emulation_util import EmulationUtil
 from csle_common.metastore.metastore_facade import MetastoreFacade
 from csle_common.util.experiment_util import ExperimentUtil
@@ -808,6 +811,21 @@ class EmulationEnvController:
             ELKController.get_elk_managers_info(emulation_env_config=execution.emulation_env_config,
                                                 active_ips=active_ips, logger=logger,
                                                 physical_host_ip=physical_server_ip)
+        logger.info("Getting the 5G Core Managers info")
+        five_g_core_managers_info = \
+            FiveGCoreController.get_five_g_core_managers_info(emulation_env_config=execution.emulation_env_config,
+                                                              active_ips=active_ips, logger=logger,
+                                                              physical_server_ip=physical_server_ip)
+        logger.info("Getting the 5G CU Managers info")
+        five_g_cu_managers_info = \
+            FiveGCUController.get_five_g_cu_managers_info(emulation_env_config=execution.emulation_env_config,
+                                                          active_ips=active_ips, logger=logger,
+                                                          physical_server_ip=physical_server_ip)
+        logger.info("Getting the 5G DU Managers info")
+        five_g_du_managers_info = \
+            FiveGDUController.get_five_g_du_managers_info(emulation_env_config=execution.emulation_env_config,
+                                                          active_ips=active_ips, logger=logger,
+                                                          physical_server_ip=physical_server_ip)
         active_networks, inactive_networks = ContainerController.list_all_active_networks_for_emulation(
             emulation_env_config=execution.emulation_env_config)
         ryu_managers_info = None
@@ -828,7 +846,10 @@ class EmulationEnvController:
                                                 inactive_networks=inactive_networks,
                                                 elk_managers_info=elk_managers_info,
                                                 traffic_managers_info=traffic_managers_info,
-                                                ryu_managers_info=ryu_managers_info)
+                                                ryu_managers_info=ryu_managers_info,
+                                                five_g_core_managers_info=five_g_core_managers_info,
+                                                five_g_cu_managers_info=five_g_cu_managers_info,
+                                                five_g_du_managers_info=five_g_du_managers_info)
         return execution_info
 
     @staticmethod

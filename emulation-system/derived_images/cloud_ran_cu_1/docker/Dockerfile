@@ -9,6 +9,9 @@ RUN chmod 777 /start.sh
 ADD start_stop_cu.sh /start_stop_cu.sh
 RUN chmod 777 /start_stop_cu.sh
 
+ADD five_g_cu_manager.py /five_g_cu_manager.py
+RUN chmod 777 /five_g_cu_manager.py
+
 # Add config
 ADD cu.yml /srsRAN_Project/build/apps/cu/cu.yml
 RUN chmod 666 /srsRAN_Project/build/apps/cu/cu.yml
