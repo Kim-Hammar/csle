@@ -23,6 +23,7 @@ import FiveGCUAppResourceUsageMetrics
 import FiveGCUBufferPoolMetrics
   from './FiveG/CU/BufferPoolMetrics/FiveGCUBufferPoolMetrics/FiveGCUBufferPoolMetrics.jsx'
 import FiveGCoreAMFMetrics from './FiveG/Core/AMFMetrics/FiveGCoreAMFMetrics/FiveGCoreAMFMetrics.jsx'
+import FiveGCoreHSSMetrics from './FiveG/Core/HSSMetrics/FiveGCoreHSSMetrics/FiveGCoreHSSMetrics.jsx'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import DataCollection from './MonitoringSetup.png'
@@ -414,6 +415,14 @@ const Monitoring = (props) => {
   const getSpecificFiveGCoreAMFMetrics = () => {
     if (monitoringData !== null && selectedFiveGCore !== null) {
       return monitoringData.five_g_core_amf_metrics[selectedFiveGCore.label]
+    } else {
+      return null
+    }
+  }
+
+  const getSpecificFiveGCoreHSSMetrics = () => {
+    if (monitoringData !== null && selectedFiveGCore !== null) {
+      return monitoringData.five_g_core_hss_metrics[selectedFiveGCore.label]
     } else {
       return null
     }
@@ -866,6 +875,14 @@ const Monitoring = (props) => {
                             animationDuration={props.animationDuration.value}
                             animationDurationFactor={props.animationDurationFactor}
                             fiveGCoreAMFMetrics={getSpecificFiveGCoreAMFMetrics()}
+          />
+
+          <FiveGCoreHSSMetrics key={`five-g-core-hss-${props.animationDuration.value}`}
+                               loading={props.loadingSelectedEmulationExecution}
+                               animation={props.animation}
+                               animationDuration={props.animationDuration.value}
+                               animationDurationFactor={props.animationDurationFactor}
+                               fiveGCoreAMFMetrics={getSpecificFiveGCoreAMFMetrics()}
           />
 
         </div>
