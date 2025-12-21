@@ -24,10 +24,10 @@ const FiveGCoreHSSResidentMemoryChart = React.memo((props) => {
     }
 
     if (props.stats !== undefined && props.stats.length > 0) {
-      const data = props.stats.map((amf_metrics, index) => {
+      const data = props.stats.map((hss_metrics, index) => {
         return {
           't': (index + 1),
-          'Resident memory size (bytes)': parseFloat(amf_metrics.process_resident_memory_bytes)
+          'Resident memory size (bytes)': parseFloat(hss_metrics.process_resident_memory_bytes)
         }
       })
       var domain = [0, Math.max(1, data.length)]

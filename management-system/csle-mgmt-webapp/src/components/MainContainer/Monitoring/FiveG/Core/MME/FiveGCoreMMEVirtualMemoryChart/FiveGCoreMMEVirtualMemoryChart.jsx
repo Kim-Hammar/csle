@@ -1,5 +1,5 @@
 import React from 'react'
-import './FiveGCoreHSSVirtualMemoryChart.css'
+import './FiveGCoreMMEVirtualMemoryChart.css'
 import {
   CartesianGrid,
   Label,
@@ -13,9 +13,9 @@ import {
 
 
 /**
- * Component containing a plot showing the virtual memory usage over time for the HSS service in the 5G Core
+ * Component containing a plot showing the virtual memory usage over time for the MME service in the 5G Core
  */
-const FiveGCoreHSSVirtualMemoryChart = React.memo((props) => {
+const FiveGCoreMMEVirtualMemoryChart = React.memo((props) => {
     const margin = {
       top: 10,
       right: 30,
@@ -24,10 +24,10 @@ const FiveGCoreHSSVirtualMemoryChart = React.memo((props) => {
     }
 
     if (props.stats !== undefined && props.stats.length > 0) {
-      const data = props.stats.map((amf_metrics, index) => {
+      const data = props.stats.map((mme_metrics, index) => {
         return {
           't': (index + 1),
-          'Virtual memory size (bytes)': parseFloat(amf_metrics.process_virtual_memory_bytes)
+          'Virtual memory size (bytes)': parseFloat(mme_metrics.process_virtual_memory_bytes)
         }
       })
       var domain = [0, Math.max(1, data.length)]
@@ -67,7 +67,7 @@ const FiveGCoreHSSVirtualMemoryChart = React.memo((props) => {
     }
   }
 )
-FiveGCoreHSSVirtualMemoryChart.displayName = 'FiveGCoreHSSVirtualMemoryChart'
-FiveGCoreHSSVirtualMemoryChart.propTypes = {}
-FiveGCoreHSSVirtualMemoryChart.defaultProps = {}
-export default FiveGCoreHSSVirtualMemoryChart
+FiveGCoreMMEVirtualMemoryChart.displayName = 'FiveGCoreMMEVirtualMemoryChart'
+FiveGCoreMMEVirtualMemoryChart.propTypes = {}
+FiveGCoreMMEVirtualMemoryChart.defaultProps = {}
+export default FiveGCoreMMEVirtualMemoryChart

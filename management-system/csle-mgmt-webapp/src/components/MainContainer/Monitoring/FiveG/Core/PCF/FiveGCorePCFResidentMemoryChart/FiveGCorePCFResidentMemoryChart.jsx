@@ -1,5 +1,5 @@
 import React from 'react'
-import './FiveGCoreHSSOpenFDChart.css'
+import './FiveGCorePCFResidentMemoryChart.css'
 import {
   CartesianGrid,
   Label,
@@ -13,9 +13,9 @@ import {
 
 
 /**
- * Component containing a plot showing the open file descriptors over time for the HSS service in the 5G Core
+ * Component containing a plot showing the resident memory usage over time for the PCF service in the 5G Core
  */
-const FiveGCoreHSSOpenFDChart = React.memo((props) => {
+const FiveGCorePCFResidentMemoryChart = React.memo((props) => {
     const margin = {
       top: 10,
       right: 30,
@@ -24,10 +24,10 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
     }
 
     if (props.stats !== undefined && props.stats.length > 0) {
-      const data = props.stats.map((hss_metrics, index) => {
+      const data = props.stats.map((pcf_metrics, index) => {
         return {
           't': (index + 1),
-          'Number of open file descriptors': parseInt(hss_metrics.process_open_fds)
+          'Resident memory size (bytes)': parseFloat(pcf_metrics.process_resident_memory_bytes)
         }
       })
       var domain = [0, Math.max(1, data.length)]
@@ -43,7 +43,7 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
                 <Label value="Time-step t" offset={-20} position="insideBottom" className="largeFont" />
               </XAxis>
               <YAxis type="number">
-                <Label angle={270} value="Number of open file descriptors" offset={0} position="insideLeft"
+                <Label angle={270} value="Resident memory size (bytes)" offset={0} position="insideLeft"
                        className="largeFont"
                        dy={50} />
               </YAxis>
@@ -51,7 +51,7 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
               <Legend verticalAlign="top" wrapperStyle={{ position: 'relative', fontSize: '15px' }}
                       className="largeFont" />
               <Line isAnimationActive={props.animation} animation={props.animation} type="monotone"
-                    dataKey="Number of open file descriptors"
+                    dataKey="Resident memory size (bytes)"
                     stroke="#8884d8" addDot={false} activeDot={{ r: 8 }}
                     animationEasing={'linear'}
                     animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)} />
@@ -67,7 +67,7 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
     }
   }
 )
-FiveGCoreHSSOpenFDChart.displayName = 'FiveGCoreHSSCPUUsageChart'
-FiveGCoreHSSOpenFDChart.propTypes = {}
-FiveGCoreHSSOpenFDChart.defaultProps = {}
-export default FiveGCoreHSSOpenFDChart
+FiveGCorePCFResidentMemoryChart.displayName = 'FiveGCorePCFResidentMemoryChart'
+FiveGCorePCFResidentMemoryChart.propTypes = {}
+FiveGCorePCFResidentMemoryChart.defaultProps = {}
+export default FiveGCorePCFResidentMemoryChart

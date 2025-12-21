@@ -1,5 +1,5 @@
 import React from 'react'
-import './FiveGCoreHSSOpenFDChart.css'
+import './FiveGCoreSMFVirtualMemoryChart.css'
 import {
   CartesianGrid,
   Label,
@@ -13,9 +13,9 @@ import {
 
 
 /**
- * Component containing a plot showing the open file descriptors over time for the HSS service in the 5G Core
+ * Component containing a plot showing the virtual memory usage over time for the SMF service in the 5G Core
  */
-const FiveGCoreHSSOpenFDChart = React.memo((props) => {
+const FiveGCoreSMFVirtualMemoryChart = React.memo((props) => {
     const margin = {
       top: 10,
       right: 30,
@@ -24,10 +24,10 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
     }
 
     if (props.stats !== undefined && props.stats.length > 0) {
-      const data = props.stats.map((hss_metrics, index) => {
+      const data = props.stats.map((smf_metrics, index) => {
         return {
           't': (index + 1),
-          'Number of open file descriptors': parseInt(hss_metrics.process_open_fds)
+          'Virtual memory size (bytes)': parseFloat(smf_metrics.process_virtual_memory_bytes)
         }
       })
       var domain = [0, Math.max(1, data.length)]
@@ -43,7 +43,7 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
                 <Label value="Time-step t" offset={-20} position="insideBottom" className="largeFont" />
               </XAxis>
               <YAxis type="number">
-                <Label angle={270} value="Number of open file descriptors" offset={0} position="insideLeft"
+                <Label angle={270} value="Virtual memory size (bytes)" offset={0} position="insideLeft"
                        className="largeFont"
                        dy={50} />
               </YAxis>
@@ -51,7 +51,7 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
               <Legend verticalAlign="top" wrapperStyle={{ position: 'relative', fontSize: '15px' }}
                       className="largeFont" />
               <Line isAnimationActive={props.animation} animation={props.animation} type="monotone"
-                    dataKey="Number of open file descriptors"
+                    dataKey="Virtual memory size (bytes)"
                     stroke="#8884d8" addDot={false} activeDot={{ r: 8 }}
                     animationEasing={'linear'}
                     animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)} />
@@ -67,7 +67,7 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
     }
   }
 )
-FiveGCoreHSSOpenFDChart.displayName = 'FiveGCoreHSSCPUUsageChart'
-FiveGCoreHSSOpenFDChart.propTypes = {}
-FiveGCoreHSSOpenFDChart.defaultProps = {}
-export default FiveGCoreHSSOpenFDChart
+FiveGCoreSMFVirtualMemoryChart.displayName = 'FiveGCoreSMFVirtualMemoryChart'
+FiveGCoreSMFVirtualMemoryChart.propTypes = {}
+FiveGCoreSMFVirtualMemoryChart.defaultProps = {}
+export default FiveGCoreSMFVirtualMemoryChart

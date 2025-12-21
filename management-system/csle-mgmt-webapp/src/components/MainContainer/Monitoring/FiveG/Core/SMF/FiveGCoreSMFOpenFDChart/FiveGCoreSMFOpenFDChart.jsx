@@ -1,5 +1,5 @@
 import React from 'react'
-import './FiveGCoreHSSOpenFDChart.css'
+import './FiveGCoreSMFOpenFDChart.css'
 import {
   CartesianGrid,
   Label,
@@ -13,9 +13,9 @@ import {
 
 
 /**
- * Component containing a plot showing the open file descriptors over time for the HSS service in the 5G Core
+ * Component containing a plot showing the open file descriptors over time for the SMF service in the 5G Core
  */
-const FiveGCoreHSSOpenFDChart = React.memo((props) => {
+const FiveGCoreSMFOpenFDChart = React.memo((props) => {
     const margin = {
       top: 10,
       right: 30,
@@ -24,10 +24,10 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
     }
 
     if (props.stats !== undefined && props.stats.length > 0) {
-      const data = props.stats.map((hss_metrics, index) => {
+      const data = props.stats.map((smf_metrics, index) => {
         return {
           't': (index + 1),
-          'Number of open file descriptors': parseInt(hss_metrics.process_open_fds)
+          'Number of open file descriptors': parseInt(smf_metrics.process_open_fds)
         }
       })
       var domain = [0, Math.max(1, data.length)]
@@ -67,7 +67,7 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
     }
   }
 )
-FiveGCoreHSSOpenFDChart.displayName = 'FiveGCoreHSSCPUUsageChart'
-FiveGCoreHSSOpenFDChart.propTypes = {}
-FiveGCoreHSSOpenFDChart.defaultProps = {}
-export default FiveGCoreHSSOpenFDChart
+FiveGCoreSMFOpenFDChart.displayName = 'FiveGCoreSMFCPUUsageChart'
+FiveGCoreSMFOpenFDChart.propTypes = {}
+FiveGCoreSMFOpenFDChart.defaultProps = {}
+export default FiveGCoreSMFOpenFDChart

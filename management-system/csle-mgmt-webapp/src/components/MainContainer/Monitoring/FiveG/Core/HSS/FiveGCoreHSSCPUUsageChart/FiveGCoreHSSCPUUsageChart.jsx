@@ -24,10 +24,10 @@ const FiveGCoreHSSCPUUsageChart = React.memo((props) => {
     }
 
     if (props.stats !== undefined && props.stats.length > 0) {
-      const data = props.stats.map((amf_metrics, index) => {
+      const data = props.stats.map((hss_metrics, index) => {
         return {
           't': (index + 1),
-          'CPU seconds': parseFloat(amf_metrics.process_cpu_seconds_total)
+          'CPU seconds': parseFloat(hss_metrics.process_cpu_seconds_total)
         }
       })
       var domain = [0, Math.max(1, data.length)]

@@ -28,14 +28,14 @@ const FiveGCoreAMFMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Virtual memory size (bytes)</h3>
+              <h3 className="chartsTitle">AMF virtual memory size (bytes)</h3>
               <FiveGCoreAMFVirtualMemoryChart stats={props.fiveGCoreAMFMetrics}
                                               animation={props.animation} animationDuration={props.animationDuration}
                                               animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Resident memory usage (bytes)</h3>
+              <h3 className="chartsTitle">AMF resident memory usage (bytes)</h3>
               <FiveGCoreAMFResidentMemoryChart stats={props.fiveGCoreAMFMetrics}
                                                animation={props.animation} animationDuration={props.animationDuration}
                                                animationDurationFactor={props.animationDurationFactor} />
@@ -44,14 +44,14 @@ const FiveGCoreAMFMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">CPU usage (seconds) </h3>
+              <h3 className="chartsTitle">AMF CPU usage (seconds) </h3>
               <FiveGCoreAMFCPUUsageChart stats={props.fiveGCoreAMFMetrics}
                                          animation={props.animation} animationDuration={props.animationDuration}
                                          animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Number of open file descriptors</h3>
+              <h3 className="chartsTitle">Number of open file descriptors by AMF</h3>
               <FiveGCoreAMFOpenFDChart stats={props.fiveGCoreAMFMetrics}
                                        animation={props.animation} animationDuration={props.animationDuration}
                                        animationDurationFactor={props.animationDurationFactor} />

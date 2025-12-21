@@ -1,5 +1,5 @@
 import React from 'react'
-import './FiveGCoreHSSOpenFDChart.css'
+import './FiveGCoreSMFSessionsChart.css'
 import {
   CartesianGrid,
   Label,
@@ -13,9 +13,9 @@ import {
 
 
 /**
- * Component containing a plot showing the open file descriptors over time for the HSS service in the 5G Core
+ * Component containing a plot showing the session statistics over time for the SMF service in the 5G Core
  */
-const FiveGCoreHSSOpenFDChart = React.memo((props) => {
+const FiveGCoreSMFSessionsChart = React.memo((props) => {
     const margin = {
       top: 10,
       right: 30,
@@ -24,10 +24,12 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
     }
 
     if (props.stats !== undefined && props.stats.length > 0) {
-      const data = props.stats.map((hss_metrics, index) => {
+      const data = props.stats.map((smf_metrics, index) => {
         return {
           't': (index + 1),
-          'Number of open file descriptors': parseInt(hss_metrics.process_open_fds)
+          'Number of GTP2 sessions': parseInt(smf_metrics.gtp2_sessions_active),
+          'Number of PFCP sessions': parseInt(smf_metrics.pfcp_sessions_active),
+          'Bearers active': parseInt(smf_metrics.bearers_active)
         }
       })
       var domain = [0, Math.max(1, data.length)]
@@ -43,7 +45,7 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
                 <Label value="Time-step t" offset={-20} position="insideBottom" className="largeFont" />
               </XAxis>
               <YAxis type="number">
-                <Label angle={270} value="Number of open file descriptors" offset={0} position="insideLeft"
+                <Label angle={270} value="Number of events" offset={0} position="insideLeft"
                        className="largeFont"
                        dy={50} />
               </YAxis>
@@ -51,10 +53,18 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
               <Legend verticalAlign="top" wrapperStyle={{ position: 'relative', fontSize: '15px' }}
                       className="largeFont" />
               <Line isAnimationActive={props.animation} animation={props.animation} type="monotone"
-                    dataKey="Number of open file descriptors"
+                    dataKey="Number of GTP2 sessions"
                     stroke="#8884d8" addDot={false} activeDot={{ r: 8 }}
                     animationEasing={'linear'}
                     animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)} />
+              <Line animation={props.animation} type="monotone" dataKey="Number of PFCP sessions"
+                    stroke="#8b0000" animationEasing={'linear'}
+                    animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)}
+                    isAnimationActive={props.animation} />
+              <Line animation={props.animation} type="monotone" dataKey="Bearers active"
+                    stroke="#82ca9d" animationEasing={'linear'}
+                    animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)}
+                    isAnimationActive={props.animation}/>
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -67,7 +77,7 @@ const FiveGCoreHSSOpenFDChart = React.memo((props) => {
     }
   }
 )
-FiveGCoreHSSOpenFDChart.displayName = 'FiveGCoreHSSCPUUsageChart'
-FiveGCoreHSSOpenFDChart.propTypes = {}
-FiveGCoreHSSOpenFDChart.defaultProps = {}
-export default FiveGCoreHSSOpenFDChart
+FiveGCoreSMFSessionsChart.displayName = 'FiveGCoreSMFSessionsChart'
+FiveGCoreSMFSessionsChart.propTypes = {}
+FiveGCoreSMFSessionsChart.defaultProps = {}
+export default FiveGCoreSMFSessionsChart

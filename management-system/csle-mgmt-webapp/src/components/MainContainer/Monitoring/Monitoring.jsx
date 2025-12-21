@@ -22,8 +22,13 @@ import FiveGCUAppResourceUsageMetrics
   from './FiveG/CU/AppResourceUsage/FiveGCUAppResourceUsageMetrics/FiveGCUAppResourceUsageMetrics.jsx'
 import FiveGCUBufferPoolMetrics
   from './FiveG/CU/BufferPoolMetrics/FiveGCUBufferPoolMetrics/FiveGCUBufferPoolMetrics.jsx'
-import FiveGCoreAMFMetrics from './FiveG/Core/AMFMetrics/FiveGCoreAMFMetrics/FiveGCoreAMFMetrics.jsx'
-import FiveGCoreHSSMetrics from './FiveG/Core/HSSMetrics/FiveGCoreHSSMetrics/FiveGCoreHSSMetrics.jsx'
+import FiveGCoreAMFMetrics from './FiveG/Core/AMF/FiveGCoreAMFMetrics/FiveGCoreAMFMetrics.jsx'
+import FiveGCoreHSSMetrics from './FiveG/Core/HSS/FiveGCoreHSSMetrics/FiveGCoreHSSMetrics.jsx'
+import FiveGCoreUPFMetrics from './FiveG/Core/UPF/FiveGCoreUPFMetrics/FiveGCoreUPFMetrics.jsx'
+import FiveGCoreMMEMetrics from './FiveG/Core/MME/FiveGCoreMMEMetrics/FiveGCoreMMEMetrics.jsx'
+import FiveGCorePCFMetrics from './FiveG/Core/PCF/FiveGCorePCFMetrics/FiveGCorePCFMetrics.jsx'
+import FiveGCorePCRFMetrics from './FiveG/Core/PCRF/FiveGCorePCRFMetrics/FiveGCorePCRFMetrics.jsx'
+import FiveGCoreSMFMetrics from './FiveG/Core/SMF/FiveGCoreSMFMetrics/FiveGCoreSMFMetrics.jsx'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import DataCollection from './MonitoringSetup.png'
@@ -423,6 +428,46 @@ const Monitoring = (props) => {
   const getSpecificFiveGCoreHSSMetrics = () => {
     if (monitoringData !== null && selectedFiveGCore !== null) {
       return monitoringData.five_g_core_hss_metrics[selectedFiveGCore.label]
+    } else {
+      return null
+    }
+  }
+
+  const getSpecificFiveGCoreSMFMetrics = () => {
+    if (monitoringData !== null && selectedFiveGCore !== null) {
+      return monitoringData.five_g_core_smf_metrics[selectedFiveGCore.label]
+    } else {
+      return null
+    }
+  }
+
+  const getSpecificFiveGCorePCRFMetrics = () => {
+    if (monitoringData !== null && selectedFiveGCore !== null) {
+      return monitoringData.five_g_core_pcrf_metrics[selectedFiveGCore.label]
+    } else {
+      return null
+    }
+  }
+
+  const getSpecificFiveGCorePCFMetrics = () => {
+    if (monitoringData !== null && selectedFiveGCore !== null) {
+      return monitoringData.five_g_core_pcf_metrics[selectedFiveGCore.label]
+    } else {
+      return null
+    }
+  }
+
+  const getSpecificFiveGCoreMMEMetrics = () => {
+    if (monitoringData !== null && selectedFiveGCore !== null) {
+      return monitoringData.five_g_core_mme_metrics[selectedFiveGCore.label]
+    } else {
+      return null
+    }
+  }
+
+  const getSpecificFiveGCoreUPFMetrics = () => {
+    if (monitoringData !== null && selectedFiveGCore !== null) {
+      return monitoringData.five_g_core_upf_metrics[selectedFiveGCore.label]
     } else {
       return null
     }
@@ -882,7 +927,47 @@ const Monitoring = (props) => {
                                animation={props.animation}
                                animationDuration={props.animationDuration.value}
                                animationDurationFactor={props.animationDurationFactor}
-                               fiveGCoreAMFMetrics={getSpecificFiveGCoreAMFMetrics()}
+                               fiveGCoreHSSMetrics={getSpecificFiveGCoreHSSMetrics()}
+          />
+
+          <FiveGCoreUPFMetrics key={`five-g-core-upf-${props.animationDuration.value}`}
+                               loading={props.loadingSelectedEmulationExecution}
+                               animation={props.animation}
+                               animationDuration={props.animationDuration.value}
+                               animationDurationFactor={props.animationDurationFactor}
+                               fiveGCoreUPFMetrics={getSpecificFiveGCoreUPFMetrics()}
+          />
+
+          <FiveGCoreMMEMetrics key={`five-g-core-mme-${props.animationDuration.value}`}
+                               loading={props.loadingSelectedEmulationExecution}
+                               animation={props.animation}
+                               animationDuration={props.animationDuration.value}
+                               animationDurationFactor={props.animationDurationFactor}
+                               fiveGCoreMMEMetrics={getSpecificFiveGCoreMMEMetrics()}
+          />
+
+          <FiveGCorePCFMetrics key={`five-g-core-pcf-${props.animationDuration.value}`}
+                               loading={props.loadingSelectedEmulationExecution}
+                               animation={props.animation}
+                               animationDuration={props.animationDuration.value}
+                               animationDurationFactor={props.animationDurationFactor}
+                               fiveGCorePCFMetrics={getSpecificFiveGCorePCFMetrics()}
+          />
+
+          <FiveGCorePCRFMetrics key={`five-g-core-pcrf-${props.animationDuration.value}`}
+                               loading={props.loadingSelectedEmulationExecution}
+                               animation={props.animation}
+                               animationDuration={props.animationDuration.value}
+                               animationDurationFactor={props.animationDurationFactor}
+                               fiveGCorePCRFMetrics={getSpecificFiveGCorePCRFMetrics()}
+          />
+
+          <FiveGCoreSMFMetrics key={`five-g-core-hss-${props.animationDuration.value}`}
+                               loading={props.loadingSelectedEmulationExecution}
+                               animation={props.animation}
+                               animationDuration={props.animationDuration.value}
+                               animationDurationFactor={props.animationDurationFactor}
+                               fiveGCoreSMFMetrics={getSpecificFiveGCoreSMFMetrics()}
           />
 
         </div>
