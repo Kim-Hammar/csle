@@ -13,9 +13,9 @@ import {
 
 
 /**
- * Component containing a plot showing the application CPU usage over time
+ * Component containing a plot showing the application CPU usage over time for the 5G CU
  */
-const FiveGDUAppResourceUsageCPUChart = React.memo((props) => {
+const FiveGCUAppResourceUsageCPUChart = React.memo((props) => {
     const margin = {
       top: 10,
       right: 30,
@@ -67,7 +67,7 @@ const FiveGDUAppResourceUsageCPUChart = React.memo((props) => {
     }
   }
 )
-FiveGDUAppResourceUsageCPUChart.displayName = 'FiveGDUAppResourceUsageCPUChart'
-FiveGDUAppResourceUsageCPUChart.propTypes = {}
-FiveGDUAppResourceUsageCPUChart.defaultProps = {}
-export default FiveGDUAppResourceUsageCPUChart
+FiveGCUAppResourceUsageCPUChart.displayName = 'FiveGDUAppResourceUsageCPUChart'
+FiveGCUAppResourceUsageCPUChart.propTypes = {}
+FiveGCUAppResourceUsageCPUChart.defaultProps = {}
+export default FiveGCUAppResourceUsageCPUChart

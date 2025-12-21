@@ -1,5 +1,5 @@
 import React from 'react'
-import './FiveGCUAppResourceUsagePowerConsumptionChart.css'
+import './FiveGDUAppResourceUsagePowerConsumptionChart.css'
 import {
   CartesianGrid,
   Label,
@@ -13,7 +13,7 @@ import {
 
 
 /**
- * Component containing a plot showing the application memory usage over time
+ * Component containing a plot showing the application power usage over time for the 5G DU
  */
 const FiveGDUAppResourceUsagePowerConsumptionChart = React.memo((props) => {
     const margin = {

@@ -13,6 +13,7 @@ import FiveGDUMetrics from "./FiveG/DU/DU/FiveGDUMetrics/FiveGDUMetrics.jsx";
 import FiveGDULowMetrics from "./FiveG/DU/Low/FiveGDULowMetrics/FiveGDULowMetrics.jsx";
 import FiveGDURLCMetrics from "./FiveG/DU/RLC/FiveGDURLCMetrics/FiveGDURLCMetrics.jsx";
 import FiveGDUCellMetrics from "./FiveG/DU/Cell/FiveGDUCellMetrics/FiveGDUCellMetrics.jsx";
+import FiveGDUAppResourceUsageMetrics from "./FiveG/DU/AppResourceUsage/FiveGDUAppResourceUsageMetrics/FiveGDUAppResourceUsageMetrics.jsx";
 import FiveGCUCPMetrics from "./FiveG/CU/CUCP/FiveGCUCPMetrics/FiveGCUCPMetrics.jsx";
 import FiveGCUAppResourceUsageMetrics from "./FiveG/CU/AppResourceUsage/FiveGCUAppResourceUsageMetrics/FiveGCUAppResourceUsageMetrics.jsx";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
@@ -344,6 +345,14 @@ const Monitoring = (props) => {
     const getSpecificFiveGDUCellMetrics = () => {
         if (monitoringData !== null && selectedFiveGDU !== null) {
             return monitoringData.five_g_du_cell_metrics[selectedFiveGDU.label]
+        } else {
+            return null
+        }
+    }
+
+    const getSpecificFiveGDUAppResourceUsageMetrics = () => {
+        if (monitoringData !== null && selectedFiveGDU !== null) {
+            return monitoringData.five_g_du_app_resource_usage_metrics[selectedFiveGDU.label]
         } else {
             return null
         }
@@ -738,6 +747,13 @@ const Monitoring = (props) => {
                                        animationDuration={props.animationDuration.value}
                                        animationDurationFactor={props.animationDurationFactor}
                                        fiveGDUCellMetrics={getSpecificFiveGDUCellMetrics()}
+                    />
+                    <FiveGDUAppResourceUsageMetrics key={`five-g-du-cell-${props.animationDuration.value}`}
+                                        loading={props.loadingSelectedEmulationExecution}
+                                        animation={props.animation}
+                                        animationDuration={props.animationDuration.value}
+                                        animationDurationFactor={props.animationDurationFactor}
+                                        fiveGDUCellMetrics={getSpecificFiveGDUAppResourceUsageMetrics()}
                     />
                     <div className="row hostMetricsDropdownRow">
                         <div className="col-sm-12">

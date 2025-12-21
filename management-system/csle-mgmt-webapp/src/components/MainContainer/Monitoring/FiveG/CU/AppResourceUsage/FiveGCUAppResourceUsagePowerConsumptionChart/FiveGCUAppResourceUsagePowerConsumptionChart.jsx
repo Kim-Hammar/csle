@@ -1,5 +1,5 @@
 import React from 'react'
-import './FiveGCUAppResourceUsageMemoryChart.css'
+import './FiveGCUAppResourceUsagePowerConsumptionChart.css'
 import {
   CartesianGrid,
   Label,
@@ -13,9 +13,9 @@ import {
 
 
 /**
- * Component containing a plot showing the application memory usage over time
+ * Component containing a plot showing the application memory usage over time for the 5G CU
  */
-const FiveGDUAppResourceUsageMemoryChart = React.memo((props) => {
+const FiveGCUAppResourceUsagePowerConsumptionChart = React.memo((props) => {
     const margin = {
       top: 10,
       right: 30,
@@ -27,7 +27,7 @@ const FiveGDUAppResourceUsageMemoryChart = React.memo((props) => {
       const data = props.stats.map((app_resource_usage_metrics, index) => {
         return {
           't': (index + 1),
-          'Memory usage (mb)': parseFloat(app_resource_usage_metrics.memory_usage_mb)
+          'Power consumption (watts)': parseFloat(app_resource_usage_metrics.power_consumption_watts)
         }
       })
       var domain = [0, Math.max(1, data.length)]
@@ -43,7 +43,7 @@ const FiveGDUAppResourceUsageMemoryChart = React.memo((props) => {
                 <Label value="Time-step t" offset={-20} position="insideBottom" className="largeFont" />
               </XAxis>
               <YAxis type="number">
-                <Label angle={270} value="Memory usage (mb)" offset={0} position="insideLeft"
+                <Label angle={270} value="Power consumption (watts)" offset={0} position="insideLeft"
                        className="largeFont"
                        dy={50} />
               </YAxis>
@@ -51,7 +51,7 @@ const FiveGDUAppResourceUsageMemoryChart = React.memo((props) => {
               <Legend verticalAlign="top" wrapperStyle={{ position: 'relative', fontSize: '15px' }}
                       className="largeFont" />
               <Line isAnimationActive={props.animation} animation={props.animation} type="monotone"
-                    dataKey="Memory usage (mb)"
+                    dataKey="Power consumption (watts)"
                     stroke="#8884d8" addDot={false} activeDot={{ r: 8 }}
                     animationEasing={'linear'}
                     animationDuration={((1 - (props.animationDuration / 100)) * props.animationDurationFactor)} />
@@ -67,7 +67,7 @@ const FiveGDUAppResourceUsageMemoryChart = React.memo((props) => {
     }
   }
 )
-FiveGDUAppResourceUsageMemoryChart.displayName = 'FiveGDUAppResourceUsageMemoryChart'
-FiveGDUAppResourceUsageMemoryChart.propTypes = {}
-FiveGDUAppResourceUsageMemoryChart.defaultProps = {}
-export default FiveGDUAppResourceUsageMemoryChart
+FiveGCUAppResourceUsagePowerConsumptionChart.displayName = 'FiveGCUAppResourceUsagePowerConsumptionChart'
+FiveGCUAppResourceUsagePowerConsumptionChart.propTypes = {}
+FiveGCUAppResourceUsagePowerConsumptionChart.defaultProps = {}
+export default FiveGCUAppResourceUsagePowerConsumptionChart
