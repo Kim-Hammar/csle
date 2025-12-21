@@ -22,6 +22,7 @@ import FiveGCUAppResourceUsageMetrics
   from './FiveG/CU/AppResourceUsage/FiveGCUAppResourceUsageMetrics/FiveGCUAppResourceUsageMetrics.jsx'
 import FiveGCUBufferPoolMetrics
   from './FiveG/CU/BufferPoolMetrics/FiveGCUBufferPoolMetrics/FiveGCUBufferPoolMetrics.jsx'
+import FiveGCoreAMFMetrics from './FiveG/Core/AMFMetrics/FiveGCoreAMFMetrics/FiveGCoreAMFMetrics.jsx'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import DataCollection from './MonitoringSetup.png'
@@ -132,6 +133,8 @@ const Monitoring = (props) => {
   const [selectedFiveGDU, setSelectedFiveGDU] = useState(null)
   const [fiveGCUOptions, setFiveGCUOptions] = useState([])
   const [selectedFiveGCU, setSelectedFiveGCU] = useState(null)
+  const [fiveGCoreOptions, setFiveGCoreOptions] = useState([])
+  const [selectedFiveGCore, setSelectedFiveGCore] = useState(null)
   const ip = serverIp
   const port = serverPort
   const navigate = useNavigate()
@@ -208,6 +211,18 @@ const Monitoring = (props) => {
         setFiveGCUOptions(fiveGCUOptions)
         if (fiveGCUOptions.length > 0) {
           setSelectedFiveGCU(fiveGCUOptions[0])
+        }
+
+        var fiveGCoreOptions = []
+        fiveGCoreOptions = Object.keys(response.five_g_core_amf_metrics).map((five_g_core_ip) => {
+          return {
+            value: five_g_core_ip,
+            label: five_g_core_ip
+          }
+        })
+        setFiveGCoreOptions(fiveGCoreOptions)
+        if (fiveGCoreOptions.length > 0) {
+          setSelectedFiveGCore(fiveGCoreOptions[0])
         }
       })
       .catch(error => console.log('error:' + error)),
@@ -396,6 +411,14 @@ const Monitoring = (props) => {
     }
   }
 
+  const getSpecificFiveGCoreAMFMetrics = () => {
+    if (monitoringData !== null && selectedFiveGCore !== null) {
+      return monitoringData.five_g_core_amf_metrics[selectedFiveGCore.label]
+    } else {
+      return null
+    }
+  }
+
   const getOSSECHostMetrics = () => {
     if (monitoringData !== null) {
       return monitoringData.ossec_host_alert_counters[selectedContainer.label]
@@ -483,6 +506,10 @@ const Monitoring = (props) => {
 
   const updateFiveGCU = (fiveGCU) => {
     setSelectedFiveGCU(fiveGCU)
+  }
+
+  const updateFiveGCore = (fiveGCore) => {
+    setSelectedFiveGCore(fiveGCore)
   }
 
   const refresh = () => {
@@ -770,14 +797,14 @@ const Monitoring = (props) => {
                               animationDurationFactor={props.animationDurationFactor}
                               fiveGDUCellMetrics={getSpecificFiveGDUCellMetrics()}
           />
-          <FiveGDUAppResourceUsageMetrics key={`five-g-du-cell-${props.animationDuration.value}`}
+          <FiveGDUAppResourceUsageMetrics key={`five-g-du-app-resource-usage-${props.animationDuration.value}`}
                                           loading={props.loadingSelectedEmulationExecution}
                                           animation={props.animation}
                                           animationDuration={props.animationDuration.value}
                                           animationDurationFactor={props.animationDurationFactor}
                                           fiveGDUAppResourceUsageMetrics={getSpecificFiveGDUAppResourceUsageMetrics()}
           />
-          <FiveGDUBufferPoolMetrics key={`five-g-du-cell-${props.animationDuration.value}`}
+          <FiveGDUBufferPoolMetrics key={`five-g-du-buffer-pool-${props.animationDuration.value}`}
                                     loading={props.loadingSelectedEmulationExecution}
                                     animation={props.animation}
                                     animationDuration={props.animationDuration.value}
@@ -812,12 +839,33 @@ const Monitoring = (props) => {
                                           fiveGCUMetrics={getSpecificFiveGCUAppResourceUsageMetrics()}
           />
 
-          <FiveGCUBufferPoolMetrics key={`five-g-cu-app-resource-usage-${props.animationDuration.value}`}
+          <FiveGCUBufferPoolMetrics key={`five-g-cu-buffer-pool-${props.animationDuration.value}`}
                                     loading={props.loadingSelectedEmulationExecution}
                                     animation={props.animation}
                                     animationDuration={props.animationDuration.value}
                                     animationDurationFactor={props.animationDurationFactor}
                                     fiveGCUBufferPoolMetrics={getSpecificFiveGCUBufferPoolMetrics()}
+          />
+
+          <div className="row hostMetricsDropdownRow">
+            <div className="col-sm-12">
+              <h5 className="text-center inline-block monitoringHeader">
+                <SelectFiveGCoreDropdownOrSpinner
+                  loading={props.loadingSelectedEmulationExecution}
+                  selectedEmulation={props.selectedEmulationExecution.emulation_env_config}
+                  selectedFiveGCore={props.selectedFiveGCore}
+                  fiveGCoreOptions={props.fiveGCoreOptions}
+                />
+              </h5>
+            </div>
+          </div>
+          <hr />
+          <FiveGCoreAMFMetrics key={`five-g-core-amf-${props.animationDuration.value}`}
+                            loading={props.loadingSelectedEmulationExecution}
+                            animation={props.animation}
+                            animationDuration={props.animationDuration.value}
+                            animationDurationFactor={props.animationDurationFactor}
+                            fiveGCoreAMFMetrics={getSpecificFiveGCoreAMFMetrics()}
           />
 
         </div>
@@ -1050,6 +1098,37 @@ const Monitoring = (props) => {
     }
   }
 
+  const SelectFiveGCoreDropdownOrSpinner = (props) => {
+    if (!props.loading && (props.selectedEmulation === null || props.selectedFiveGCore === null)) {
+      return (<></>)
+    }
+    if ((props.loading || props.selectedEmulation === null) || props.selectedFiveGCore === null) {
+      return (
+        <Spinner animation="border" role="status" className="dropdownSpinner">
+          <span className="visually-hidden"></span>
+        </Spinner>)
+    } else {
+      return (
+        <div>
+          <h4>
+            5G Core:
+            <div className="conditionalDist inline-block selectEmulation">
+              <div className="conditionalDist inline-block" style={{ width: '300px' }}>
+                <Select
+                  style={{ display: 'inline-block', width: '1000px' }}
+                  value={props.selectedFiveGCore}
+                  defaultValue={props.selectedFiveGCore}
+                  options={props.fiveGCoreOptions}
+                  onChange={updateFiveGCore}
+                  placeholder="Select a 5G Core"
+                />
+              </div>
+            </div>
+          </h4>
+        </div>
+      )
+    }
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -1107,6 +1186,8 @@ const Monitoring = (props) => {
                              selectedFiveGDU={selectedFiveGDU}
                              fiveGCUOptions={fiveGCUOptions}
                              selectedFiveGCU={selectedFiveGCU}
+                             fiveGCoreOptions={fiveGCoreOptions}
+                             selectedFiveGCore={selectedFiveGCore}
       />
     </div>
   )
