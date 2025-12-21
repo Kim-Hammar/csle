@@ -1,8 +1,8 @@
-# Cloud RAN emulation, level 16
+# Cloud RAN emulation, level 17
 
-An emulation of a distributed 5G deployment that comprises one virtualized baseband unit (vBBU), 
-which implements a split baseband stack with one distributed unit (DU) connected to a centralized unit (CU). 
-In our setup, the DU processes radio functions and forward network traffic from radio units (RUs) over fronthaul links to the CU, 
+An emulation of a distributed 5G deployment that comprises two virtualized baseband units (vBBUs), 
+where each vBBU implements a split baseband stack with multiple distributed units (DUs) connected to centralized units (CUs). 
+In our setup, four DUs process radio functions and forward network traffic from radio units (RUs) over fronthaul links to two CUs, 
 which aggregate and connect to the 5G core network via backhaul links. 
 This architecture allows network traffic to flow between the RUs and the internet through the N6 interface of 
 the core network.
