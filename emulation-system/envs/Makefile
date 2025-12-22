@@ -47,6 +47,9 @@ install_level_15:
 install_level_16:
 	cd 090/level_16/ && $(MAKE) install
 
+install_level_17:
+	cd 090/level_17/ && $(MAKE) install
+
 # Installs all emulations
 install:
 	cd 090/level_1/ && $(MAKE) install
@@ -65,6 +68,7 @@ install:
 	cd 090/level_14/ && $(MAKE) install
 	cd 090/level_15/ && $(MAKE) install
 	cd 090/level_16/ && $(MAKE) install
+	cd 090/level_17/ && $(MAKE) install
 
 # Targets for uninstalling each individual env
 uninstall_level_1:
@@ -115,6 +119,9 @@ uninstall_level_15:
 uninstall_level_16:
 	cd 090/level_16/ && $(MAKE) uninstall
 
+uninstall_level_17:
+	cd 090/level_17/ && $(MAKE) uninstall
+
 # Uninstalls all emulations
 uninstall:
 	cd 090/level_1/ && $(MAKE) uninstall
@@ -133,3 +140,4 @@ uninstall:
 	cd 090/level_14/ && $(MAKE) uninstall
 	cd 090/level_15/ && $(MAKE) uninstall
 	cd 090/level_16/ && $(MAKE) uninstall
+	cd 090/level_17/ && $(MAKE) uninstall

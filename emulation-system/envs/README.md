@@ -18,6 +18,8 @@ This folder contains emulation environments.
   - *Level 13* [./level_13](090/level_13): A complex infrastructure with 64 nodes and several vulnerabilities: SambaCry, Shellshock, CVE-2015-1427, CVE-2015-3306, CVE-2016-100033_1,and SQL injection., Pengine Server RCE Exploit, as well as SSH, FTP, Telnet servers that can be compromised using dictionary attacks
   - *Level 14* [./level_14](090/level_14): An infrastructure with a flat topology and 17 nodes and several vulnerabilities: SambaCry, Shellshock, CVE-2015-1427, CVE-2015-3306, CVE-2016-100033_1,and SQL injection., Pengine Server RCE Exploit, as well as SSH, FTP, Telnet servers that can be compromised using dictionary attacks
   - *Level 15* [./level_15](090/level_15): A infrastructure with 4 nodes and weak-password vulnerabilities.
+  - *Level 16* [./level_16](090/level_16): A distributed 5G deployment with 1 DU and 1 CU and 1 Core network.
+  - *Level 17* [./level_17](090/level_17): A distributed 5G deployment with 4 DUs and 2 CUs and 1 Core network.
 
 ## Useful commands:
 
