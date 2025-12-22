@@ -198,9 +198,12 @@ class TestFiveGDUManagerSuite:
         key = "key"
         opc = "opc"
         imei = "353490069873319"
+        gnb_du_id = 0
+        pci = 1
+        sector_id = 0
         response: FiveGDUStatusDTO = csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_du_ue(
             stub=grpc_stub, cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip, imsi=imsi, key=key,
-            opc=opc, imei=imei)
+            opc=opc, imei=imei, gnb_du_id=gnb_du_id, pci=pci, sector_id=sector_id)
         assert response.du_running == mock_status.du_running
         assert response.ue_running == mock_status.ue_running
         assert response.ip == mock_status.ip

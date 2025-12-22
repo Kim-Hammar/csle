@@ -144,8 +144,9 @@ class FiveGDUManagerServicer(csle_collector.five_g_du_manager.five_g_du_manager_
         """
         logging.info("Initializing the 5G DU & UE")
         FiveGDUManagerUtil.init_ue(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)
-        FiveGDUManagerUtil.init_du_config_file(cu_fronthaul_ip=request.cu_fronthaul_ip,
-                                               du_fronthaul_ip=request.du_fronthaul_ip)
+        FiveGDUManagerUtil.init_du_config_file(
+            cu_fronthaul_ip=request.cu_fronthaul_ip, du_fronthaul_ip=request.du_fronthaul_ip,
+            gnb_du_id=request.gnb_du_id, pci=request.pci, sector_id=request.sector_id)
         FiveGDUManagerUtil.init_ue_config_file(imsi=request.imsi, key=request.key, opc=request.opc, imei=request.imei)
         status_du = FiveGDUManagerUtil.get_du_status(control_script_path=constants.FIVE_G_DU.CONTROL_SCRIPT_PATH)
         status_ue = FiveGDUManagerUtil.get_ue_status(control_script_path=constants.FIVE_G_DU.UE_CONTROL_SCRIPT_PATH)

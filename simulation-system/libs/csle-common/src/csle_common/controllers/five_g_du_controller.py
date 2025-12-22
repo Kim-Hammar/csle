@@ -393,11 +393,17 @@ class FiveGDUController:
         du_fronthaul_ip = ""
         cu_fronthaul_ip = ""
         subscriber = None
-        for i, cu_ip in enumerate(emulation_env_config.five_g_config.du_fronthaul_ips):
-            if cu_ip in container.get_ips():
-                du_fronthaul_ip = cu_ip
+        gnb_du_id = 0
+        pci = 1
+        sector_id = 0
+        for i, du_ip in enumerate(emulation_env_config.five_g_config.du_fronthaul_ips):
+            if du_ip in container.get_ips():
+                du_fronthaul_ip = du_ip
                 cu_fronthaul_ip = emulation_env_config.five_g_config.du_cus[i]
                 subscriber = emulation_env_config.five_g_config.subscribers[i]
+                gnb_du_id = i
+                pci = i + 1
+                sector_id = i
         if du_fronthaul_ip == "" or cu_fronthaul_ip == "" or subscriber is None:
             return None
         port = emulation_env_config.five_g_config.five_g_du_manager_port
@@ -406,7 +412,8 @@ class FiveGDUController:
             stub = csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub(channel)
             status = csle_collector.five_g_du_manager.query_five_g_du_manager.init_five_g_du_ue(
                 stub=stub, cu_fronthaul_ip=cu_fronthaul_ip, du_fronthaul_ip=du_fronthaul_ip,
-                imsi=subscriber.imsi, key=subscriber.key, opc=subscriber.opc, imei=subscriber.imei)
+                imsi=subscriber.imsi, key=subscriber.key, opc=subscriber.opc, imei=subscriber.imei,
+                gnb_du_id=gnb_du_id, pci=pci, sector_id=sector_id)
             return status
 
     @staticmethod

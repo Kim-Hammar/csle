@@ -43,6 +43,9 @@ message InitFiveGDUUEMsg {
   string key = 4;
   string opc = 5;
   string imei = 6;
+  int32 gnb_du_id = 7;
+  int32 sector_id = 8;
+  int32 pci = 9;
 }
 
 // Message that the client sends to start the 5G DUMonitor

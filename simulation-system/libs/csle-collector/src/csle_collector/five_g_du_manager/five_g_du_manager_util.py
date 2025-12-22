@@ -269,10 +269,14 @@ class FiveGDUManagerUtil:
         return dto
 
     @staticmethod
-    def init_du_config_file(cu_fronthaul_ip: str, du_fronthaul_ip: str) -> bool:
+    def init_du_config_file(cu_fronthaul_ip: str, du_fronthaul_ip: str, pci: int,
+                            gnb_du_id: int, sector_id: int) -> bool:
         """
         Modifies the /srsRAN_Project/build/apps/du/du.yml configuration file.
 
+        :param gnb_du_id: The ID of the DU (each DU connected to the same CU must have a unique ID)
+        :param sector_id: Part of the cell ID of the DU
+        :param pci: Physical Cell ID of the DU
         :param cu_fronthaul_ip: The IP address of the CU (F1-C interface).
         :param du_fronthaul_ip: The IP address of the DU (F1-U interface).
         :return: True if the file was updated successfully, False otherwise.
@@ -281,10 +285,14 @@ class FiveGDUManagerUtil:
         logging.info(f"Attempting to update DU config at {config_path}")
         logging.info(f"Setting CU IP (cu_cp_addr) to: {cu_fronthaul_ip}")
         logging.info(f"Setting DU IP (bind_addr) to: {du_fronthaul_ip}")
+        logging.info(f"Setting DU gnb_du_id to: {gnb_du_id}")
+        logging.info(f"Setting DU pci to: {pci}")
+        logging.info(f"Setting DU sector_id to: {sector_id}")
         try:
             with open(config_path, 'r') as f:
                 config = yaml.safe_load(f)
             try:
+                config["gnb_du_id"] = gnb_du_id
                 if 'f1ap' in config:
                     config['f1ap']['cu_cp_addr'] = cu_fronthaul_ip
                     config['f1ap']['bind_addr'] = du_fronthaul_ip
@@ -299,6 +307,13 @@ class FiveGDUManagerUtil:
                         logging.warning(f"{config_path}: 'f1u.socket' list is empty. Skipping F1U update.")
                 else:
                     logging.warning(f"{config_path}: 'f1u' section missing. Skipping F1U update.")
+
+                if 'cell_cfg' in config:
+                    config['cell_cfg']['pci'] = pci
+                    config['cell_cfg']['sector_id'] = sector_id
+                else:
+                    logging.error(f"Invalid YAML structure in {config_path}: 'cell_cfg' section missing.")
+                    return False
 
             except (TypeError, KeyError, IndexError) as e:
                 logging.error(f"Error modifying DU YAML structure: {e}")
