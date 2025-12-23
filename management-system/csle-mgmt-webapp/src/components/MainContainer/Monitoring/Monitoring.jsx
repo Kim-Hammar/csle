@@ -406,9 +406,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCUCPMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null
-      && monitoringData.five_g_cu_cp_metrics !== null && monitoringData.five_g_cu_cp_metrics[selectedFiveGDU.label] !== null
-      && monitoringData.five_g_cu_cp_metrics[selectedFiveGDU.label].length > 0) {
+    if (monitoringData !== null && selectedFiveGCU !== null
+      && monitoringData.five_g_cu_cp_metrics !== null && monitoringData.five_g_cu_cp_metrics[selectedFiveGCU.label] !== null
+      && monitoringData.five_g_cu_cp_metrics[selectedFiveGCU.label].length > 0) {
       return monitoringData.five_g_cu_cp_metrics[selectedFiveGCU.label]
     } else {
       return null
@@ -416,9 +416,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCUAppResourceUsageMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null
-      && monitoringData.five_g_cu_app_resource_usage_metrics !== null && monitoringData.five_g_cu_app_resource_usage_metrics[selectedFiveGDU.label] !== null
-      && monitoringData.five_g_cu_app_resource_usage_metrics[selectedFiveGDU.label].length > 0) {
+    if (monitoringData !== null && selectedFiveGCU !== null
+      && monitoringData.five_g_cu_app_resource_usage_metrics !== null && monitoringData.five_g_cu_app_resource_usage_metrics[selectedFiveGCU.label] !== null
+      && monitoringData.five_g_cu_app_resource_usage_metrics[selectedFiveGCU.label].length > 0) {
       return monitoringData.five_g_cu_app_resource_usage_metrics[selectedFiveGCU.label]
     } else {
       return null
@@ -426,9 +426,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCUBufferPoolMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null
-      && monitoringData.five_g_cu_buffer_pool_metrics !== null && monitoringData.five_g_cu_buffer_pool_metrics[selectedFiveGDU.label] !== null
-      && monitoringData.five_g_cu_buffer_pool_metrics[selectedFiveGDU.label].length > 0) {
+    if (monitoringData !== null && selectedFiveGCU !== null
+      && monitoringData.five_g_cu_buffer_pool_metrics !== null && monitoringData.five_g_cu_buffer_pool_metrics[selectedFiveGCU.label] !== null
+      && monitoringData.five_g_cu_buffer_pool_metrics[selectedFiveGCU.label].length > 0) {
       return monitoringData.five_g_cu_buffer_pool_metrics[selectedFiveGCU.label]
     } else {
       return null
@@ -436,9 +436,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCoreAMFMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null
-      && monitoringData.five_g_core_amf_metrics !== null && monitoringData.five_g_core_amf_metrics[selectedFiveGDU.label] !== null
-      && monitoringData.five_g_core_amf_metrics[selectedFiveGDU.label].length > 0) {
+    if (monitoringData !== null && selectedFiveGCore !== null
+      && monitoringData.five_g_core_amf_metrics !== null && monitoringData.five_g_core_amf_metrics[selectedFiveGCore.label] !== null
+      && monitoringData.five_g_core_amf_metrics[selectedFiveGCore.label].length > 0) {
       return monitoringData.five_g_core_amf_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -446,9 +446,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCoreHSSMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null
-      && monitoringData.five_g_core_hss_metrics !== null && monitoringData.five_g_core_hss_metrics[selectedFiveGDU.label] !== null
-      && monitoringData.five_g_core_hss_metrics[selectedFiveGDU.label].length > 0) {
+    if (monitoringData !== null && selectedFiveGCore !== null
+      && monitoringData.five_g_core_hss_metrics !== null && monitoringData.five_g_core_hss_metrics[selectedFiveGCore.label] !== null
+      && monitoringData.five_g_core_hss_metrics[selectedFiveGCore.label].length > 0) {
       return monitoringData.five_g_core_hss_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -456,9 +456,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCoreSMFMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null
-      && monitoringData.five_g_core_smf_metrics !== null && monitoringData.five_g_core_smf_metrics[selectedFiveGDU.label] !== null
-      && monitoringData.five_g_core_smf_metrics[selectedFiveGDU.label].length > 0) {
+    if (monitoringData !== null && selectedFiveGCore !== null
+      && monitoringData.five_g_core_smf_metrics !== null && monitoringData.five_g_core_smf_metrics[selectedFiveGCore.label] !== null
+      && monitoringData.five_g_core_smf_metrics[selectedFiveGCore.label].length > 0) {
       return monitoringData.five_g_core_smf_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -466,9 +466,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCorePCRFMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null
-      && monitoringData.five_g_core_pcrf_metrics !== null && monitoringData.five_g_core_pcrf_metrics[selectedFiveGDU.label] !== null
-      && monitoringData.five_g_core_pcrf_metrics[selectedFiveGDU.label].length > 0) {
+    if (monitoringData !== null && selectedFiveGCore !== null
+      && monitoringData.five_g_core_pcrf_metrics !== null && monitoringData.five_g_core_pcrf_metrics[selectedFiveGCore.label] !== null
+      && monitoringData.five_g_core_pcrf_metrics[selectedFiveGCore.label].length > 0) {
       return monitoringData.five_g_core_pcrf_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -476,9 +476,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCorePCFMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null
-      && monitoringData.five_g_core_pcf_metrics !== null && monitoringData.five_g_core_pcf_metrics[selectedFiveGDU.label] !== null
-      && monitoringData.five_g_core_pcf_metrics[selectedFiveGDU.label].length > 0) {
+    if (monitoringData !== null && selectedFiveGCore !== null
+      && monitoringData.five_g_core_pcf_metrics !== null && monitoringData.five_g_core_pcf_metrics[selectedFiveGCore.label] !== null
+      && monitoringData.five_g_core_pcf_metrics[selectedFiveGCore.label].length > 0) {
       return monitoringData.five_g_core_pcf_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -486,9 +486,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCoreMMEMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null
-      && monitoringData.five_g_core_mme_metrics !== null && monitoringData.five_g_core_mme_metrics[selectedFiveGDU.label] !== null
-      && monitoringData.five_g_core_mme_metrics[selectedFiveGDU.label].length > 0) {
+    if (monitoringData !== null && selectedFiveGCore !== null
+      && monitoringData.five_g_core_mme_metrics !== null && monitoringData.five_g_core_mme_metrics[selectedFiveGCore.label] !== null
+      && monitoringData.five_g_core_mme_metrics[selectedFiveGCore.label].length > 0) {
       return monitoringData.five_g_core_mme_metrics[selectedFiveGCore.label]
     } else {
       return null
@@ -496,9 +496,9 @@ const Monitoring = (props) => {
   }
 
   const getSpecificFiveGCoreUPFMetrics = () => {
-    if (monitoringData !== null && selectedFiveGDU !== null
-      && monitoringData.five_g_core_upf_metrics !== null && monitoringData.five_g_core_upf_metrics[selectedFiveGDU.label] !== null
-      && monitoringData.five_g_core_upf_metrics[selectedFiveGDU.label].length > 0) {
+    if (monitoringData !== null && selectedFiveGCore !== null
+      && monitoringData.five_g_core_upf_metrics !== null && monitoringData.five_g_core_upf_metrics[selectedFiveGCore.label] !== null
+      && monitoringData.five_g_core_upf_metrics[selectedFiveGCore.label].length > 0) {
       return monitoringData.five_g_core_upf_metrics[selectedFiveGCore.label]
     } else {
       return null
