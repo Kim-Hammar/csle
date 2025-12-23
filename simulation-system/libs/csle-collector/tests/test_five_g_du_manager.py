@@ -1,10 +1,12 @@
 from typing import Any
 import pytest
 import pytest_mock
+from unittest.mock import MagicMock
 from csle_collector.five_g_du_manager.five_g_du_manager_pb2 import FiveGDUStatusDTO
 from csle_collector.five_g_du_manager.five_g_du_manager import FiveGDUManagerServicer
 import csle_collector.five_g_du_manager.query_five_g_du_manager
 import csle_collector.constants.constants as constants
+from csle_collector.five_g_du_manager.threads.five_g_du_monitor_thread import FiveGDUMonitorThread
 
 
 class TestFiveGDUManagerSuite:
@@ -263,6 +265,8 @@ class TestFiveGDUManagerSuite:
                      'FiveGDUMonitorThread.__init__', return_value=None)
         mocker.patch('csle_collector.five_g_du_manager.threads.five_g_du_monitor_thread.'
                      'FiveGDUMonitorThread.start', return_value=True)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.'
+                     '_get_monitor_thread', return_value=None)
         mock_status_dict_du = {constants.FIVE_G_DU.DU: True}
         mock_status_dict_ue = {constants.FIVE_G_DU.UE: False}
         mock_status = FiveGDUStatusDTO(du_running=True, ue_running=False, ip="0.0.0.0", monitor_running=True)
@@ -297,3 +301,55 @@ class TestFiveGDUManagerSuite:
         assert response_2.ue_running == mock_status.ue_running
         assert response_2.monitor_running
         assert response_2.ip == mock_status.ip
+
+    def test_setFiveGDUUESignalStrength(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
+        """
+        Tests the setFiveGDUUESignalStrength grpc
+
+        :param grpc_stub: the stub for the GRPC server to make the request to
+        :param mocker: the mocker object to mock functions with external dependencies
+        :return: None
+        """
+        mocker.patch('time.sleep', return_value=None)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'set_du_signal_strength', return_value=None)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'set_ue_signal_strength', return_value=None)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'stop_du', return_value=None)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'stop_ue', return_value=None)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'start_du', return_value=None)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'start_ue', return_value=None)
+        mocker.patch('csle_collector.five_g_du_manager.threads.five_g_du_monitor_thread.'
+                     'FiveGDUMonitorThread.run', return_value=True)
+        mocker.patch('csle_collector.five_g_du_manager.threads.five_g_du_monitor_thread.'
+                     'FiveGDUMonitorThread.__init__', return_value=None)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager.'
+                     'FiveGDUMonitorThread.start', return_value=True)
+        mock_thread = MagicMock(spec=FiveGDUMonitorThread)
+        mock_thread.kafka_ip = "127.0.0.1"
+        mock_thread.kafka_port = 9090
+        mock_thread.time_step_len_seconds = 15
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.'
+                     '_get_monitor_thread', return_value=mock_thread)
+        mock_status_dict_du = {constants.FIVE_G_DU.DU: True}
+        mock_status_dict_ue = {constants.FIVE_G_DU.UE: False}
+        mock_status = FiveGDUStatusDTO(du_running=True, ue_running=False, ip="0.0.0.0", monitor_running=False)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'get_du_status', return_value=mock_status_dict_du)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager_util.FiveGDUManagerUtil.'
+                     'get_ue_status', return_value=mock_status_dict_ue)
+        mocker.patch('csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.'
+                     '_is_monitor_running', return_value=mock_status.monitor_running)
+        tx_gain = 20
+        rx_gain = 20
+        response: FiveGDUStatusDTO = (csle_collector.five_g_du_manager.query_five_g_du_manager.
+                                      set_five_g_du_ue_signal_strength(stub=grpc_stub, tx_gain=tx_gain,
+                                                                       rx_gain=rx_gain))
+        assert response.du_running == mock_status.du_running
+        assert response.ue_running == mock_status.ue_running
+        assert response.ip == mock_status.ip
+        assert response.monitor_running == mock_status.monitor_running

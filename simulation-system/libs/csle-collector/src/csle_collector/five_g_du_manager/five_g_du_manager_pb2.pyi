@@ -175,3 +175,23 @@ class StopFiveGDUMonitorMsg(google.protobuf.message.Message):
     ) -> None: ...
 
 global___StopFiveGDUMonitorMsg = StopFiveGDUMonitorMsg
+
+@typing_extensions.final
+class SetFiveGDUUESignalStrengthMsg(google.protobuf.message.Message):
+    """Message that the client sends to set the signal strength of the 5G DU & UE"""
+
+    DESCRIPTOR: google.protobuf.descriptor.Descriptor
+
+    TX_GAIN_FIELD_NUMBER: builtins.int
+    RX_GAIN_FIELD_NUMBER: builtins.int
+    tx_gain: builtins.int
+    rx_gain: builtins.int
+    def __init__(
+        self,
+        *,
+        tx_gain: builtins.int = ...,
+        rx_gain: builtins.int = ...,
+    ) -> None: ...
+    def ClearField(self, field_name: typing_extensions.Literal["rx_gain", b"rx_gain", "tx_gain", b"tx_gain"]) -> None: ...
+
+global___SetFiveGDUUESignalStrengthMsg = SetFiveGDUUESignalStrengthMsg

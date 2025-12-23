@@ -10,6 +10,7 @@ service FiveGDUManager {
   rpc initFiveGDUUE(InitFiveGDUUEMsg) returns (FiveGDUStatusDTO) {}
   rpc startFiveGDUMonitor(StartFiveGDUMonitorMsg) returns (FiveGDUStatusDTO) {}
   rpc stopFiveGDUMonitor(StopFiveGDUMonitorMsg) returns (FiveGDUStatusDTO) {}
+  rpc setFiveGDUUESignalStrength(SetFiveGDUUESignalStrengthMsg) returns (FiveGDUStatusDTO) {}
 }
 
 // Message that the client sends to get the status of the 5G DU
@@ -57,3 +58,9 @@ message StartFiveGDUMonitorMsg {
 
 // Message that the client sends to stop the 5G DUMonitor
 message StopFiveGDUMonitorMsg {}
+
+// Message that the client sends to set the signal strength of the 5G DU & UE
+message SetFiveGDUUESignalStrengthMsg {
+  int32 tx_gain = 1;
+  int32 rx_gain = 2;
+}

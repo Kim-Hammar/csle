@@ -391,3 +391,103 @@ class FiveGDUManagerUtil:
         except Exception as e:
             logging.error(f"An unexpected error occurred processing {config_path}: {e}")
             return False
+
+    @staticmethod
+    def set_du_signal_strength(tx_gain: int, rx_gain: int) -> bool:
+        """
+        Sets the signal strength of the DU by changing the config file
+        /srsRAN_Project/build/apps/du/du.yml
+
+        :param tx_gain: The signal gain of the transmitter
+        :param rx_gain: The signal gain of the receiver
+        :return: True if the file was updated successfully, False otherwise.
+        """
+        config_path = "/srsRAN_Project/build/apps/du/du.yml"
+        logging.info(f"Attempting to update set the signal strength of the DU by changing the "
+                     f"configuration file at {config_path}")
+        logging.info(f"Setting the DU tx gain to: {tx_gain}")
+        logging.info(f"Setting the DU rx gain to: {rx_gain}")
+        try:
+            with open(config_path, 'r') as f:
+                config = yaml.safe_load(f)
+            try:
+                if 'ru_sdr' in config:
+                    config['ru_sdr']['tx_gain'] = tx_gain
+                    config['ru_sdr']['rx_gain'] = rx_gain
+                else:
+                    logging.error(f"Invalid YAML structure in {config_path}: 'ru_sdr' section missing.")
+                    return False
+            except (TypeError, KeyError, IndexError) as e:
+                logging.error(f"Error modifying DU YAML structure: {e}")
+                return False
+
+            with open(config_path, 'w') as f:
+                yaml.dump(config, f, default_flow_style=False, sort_keys=False)
+
+            logging.info(f"Successfully updated {config_path}")
+            return True
+
+        except FileNotFoundError:
+            logging.error(f"Configuration file not found at {config_path}")
+            return False
+        except PermissionError:
+            logging.error(f"Permission denied. Cannot write to {config_path}.")
+            return False
+        except Exception as e:
+            logging.error(f"An unexpected error occurred processing {config_path}: {e}")
+            return False
+
+    @staticmethod
+    def set_ue_signal_strength(tx_gain: int, rx_gain: int) -> bool:
+        """
+        Sets the signal strength of the UE by modifying the configuration file
+        /srsRAN_4G/build/srsue/src/ue.conf.
+
+        :param tx_gain: The transmitter gain.
+        :param rx_gain: The receiver gain.
+        :return: True if the file was updated successfully, False otherwise.
+        """
+        config_path = "/srsRAN_4G/build/srsue/src/ue.conf"
+        logging.info(f"Attempting to set the signal strength of the UE by changing the "
+                     f"configuration file at {config_path}")
+        logging.info(f"Setting the tx gain to: {tx_gain}")
+        logging.info(f"Setting the rx gain to: {rx_gain}")
+
+        # Define a helper class to handle case-sensitivity correctly
+        class CaseSensitiveConfigParser(configparser.ConfigParser):
+            def optionxform(self, optionstr: str) -> str:
+                return optionstr
+
+        try:
+            if not os.path.exists(config_path):
+                logging.error(f"Configuration file not found at {config_path}")
+                return False
+
+            # Use the custom class instead of patching the instance
+            config = CaseSensitiveConfigParser()
+
+            files_read = config.read(config_path)
+            if not files_read:
+                logging.error(f"Failed to read/parse configuration file at {config_path}")
+                return False
+
+            if 'rf' not in config:
+                logging.error(f"Invalid INI structure in {config_path}: '[rf]' section missing.")
+                return False
+
+            # Update the subscriber data
+            config['rf']['tx_gain'] = str(tx_gain)
+            config['rf']['rx_gain'] = str(rx_gain)
+
+            with open(config_path, 'w') as f:
+                config.write(f)
+
+            logging.info(f"Successfully updated {config_path}")
+            return True
+
+        except PermissionError:
+            logging.error(f"Permission denied. Cannot write to {config_path}.")
+            return False
+        except Exception as e:
+            logging.error(f"An unexpected error occurred processing {config_path}: {e}")
+            return False

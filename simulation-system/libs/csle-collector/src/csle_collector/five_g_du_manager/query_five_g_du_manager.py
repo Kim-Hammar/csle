@@ -162,3 +162,25 @@ def stop_five_g_du_monitor(
     du_dto: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO = \
         stub.stopFiveGDUMonitor(stop_du_monitor_msg, timeout=timeout)
     return du_dto
+
+
+def set_five_g_du_ue_signal_strength(
+        tx_gain: int, rx_gain: int,
+        stub: csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc.FiveGDUManagerStub,
+        timeout=constants.GRPC.TIMEOUT_SECONDS) \
+        -> csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO:
+    """
+    Sends a request to the 5G DU manager for setting the signal strength of the 5G DU and UE
+
+    :param tx_gain: the gain of the transmitter
+    :param rx_gain: the gain of the receiver
+    :param stub: the stub to send the remote gRPC to the server
+    :param timeout: the timeout for the gRRPC call
+    :return: a FiveGDUStatusDTO describing the status of the 5G du
+    """
+    set_5g_du_ue_signal_strength_msg = \
+        csle_collector.five_g_du_manager.five_g_du_manager_pb2.SetFiveGDUUESignalStrengthMsg(
+            tx_gain=tx_gain, rx_gain=rx_gain)
+    five_g_du_status: csle_collector.five_g_du_manager.five_g_du_manager_pb2.FiveGDUStatusDTO = \
+        stub.setFiveGDUUESignalStrength(set_5g_du_ue_signal_strength_msg, timeout=timeout)
+    return five_g_du_status

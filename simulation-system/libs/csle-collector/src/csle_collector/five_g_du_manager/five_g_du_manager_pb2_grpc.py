@@ -75,6 +75,11 @@ class FiveGDUManagerStub(object):
                 request_serializer=five__g__du__manager__pb2.StopFiveGDUMonitorMsg.SerializeToString,
                 response_deserializer=five__g__du__manager__pb2.FiveGDUStatusDTO.FromString,
                 _registered_method=True)
+        self.setFiveGDUUESignalStrength = channel.unary_unary(
+                '/FiveGDUManager/setFiveGDUUESignalStrength',
+                request_serializer=five__g__du__manager__pb2.SetFiveGDUUESignalStrengthMsg.SerializeToString,
+                response_deserializer=five__g__du__manager__pb2.FiveGDUStatusDTO.FromString,
+                _registered_method=True)
 
 
 class FiveGDUManagerServicer(object):
@@ -129,6 +134,12 @@ class FiveGDUManagerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def setFiveGDUUESignalStrength(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_FiveGDUManagerServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -170,6 +181,11 @@ def add_FiveGDUManagerServicer_to_server(servicer, server):
             'stopFiveGDUMonitor': grpc.unary_unary_rpc_method_handler(
                     servicer.stopFiveGDUMonitor,
                     request_deserializer=five__g__du__manager__pb2.StopFiveGDUMonitorMsg.FromString,
+                    response_serializer=five__g__du__manager__pb2.FiveGDUStatusDTO.SerializeToString,
+            ),
+            'setFiveGDUUESignalStrength': grpc.unary_unary_rpc_method_handler(
+                    servicer.setFiveGDUUESignalStrength,
+                    request_deserializer=five__g__du__manager__pb2.SetFiveGDUUESignalStrengthMsg.FromString,
                     response_serializer=five__g__du__manager__pb2.FiveGDUStatusDTO.SerializeToString,
             ),
     }
@@ -389,6 +405,33 @@ class FiveGDUManager(object):
             target,
             '/FiveGDUManager/stopFiveGDUMonitor',
             five__g__du__manager__pb2.StopFiveGDUMonitorMsg.SerializeToString,
+            five__g__du__manager__pb2.FiveGDUStatusDTO.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def setFiveGDUUESignalStrength(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/FiveGDUManager/setFiveGDUUESignalStrength',
+            five__g__du__manager__pb2.SetFiveGDUUESignalStrengthMsg.SerializeToString,
             five__g__du__manager__pb2.FiveGDUStatusDTO.FromString,
             options,
             channel_credentials,
