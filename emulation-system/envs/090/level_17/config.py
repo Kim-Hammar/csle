@@ -302,9 +302,9 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
                                  )),
                                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.56",
                                  ContainerNetwork(
-                                     name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_4",
+                                     name=f"{constants.CSLE.CSLE_NETWORK_PREFIX}{network_id}_7",
                                      subnet_mask=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}"
-                                                 f"{network_id}.4{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
+                                                 f"{network_id}.7{constants.CSLE.CSLE_EDGE_SUBNETMASK_SUFFIX}",
                                      subnet_prefix=f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}",
                                      interface=constants.NETWORKING.ETH2,
                                      bitmask=constants.CSLE.CSLE_EDGE_BITMASK
@@ -491,7 +491,6 @@ def default_containers_config(network_id: int, level: int, version: str) -> Cont
             f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.51",
             f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.52",
             f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.4.53",
-            f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.3.56",
             f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.56",
             f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.57",
             f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.58"
