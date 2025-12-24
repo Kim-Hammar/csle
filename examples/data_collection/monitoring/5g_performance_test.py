@@ -10,6 +10,7 @@ import csle_common.constants.constants as constants
 
 
 #  docker update --memory="20g" --cpus=1.0 csle_cloud_ran_cu_1_2-level17-15
+#  nohup iperf3 -s -p 5201 > /dev/null &
 
 def run_iperf(du_name: str, port: int, load: int):
     """
@@ -39,7 +40,7 @@ def run_iperf(du_name: str, port: int, load: int):
             "status": "Success"
         }
     except Exception as e:
-        print(f"Failed to run iperf: {e}, {process.stderr}")
+        print(f"Failed to run iperf: {e}")
         return {"du": du_name, "status": f"Error: {str(e)}"}
 
 
@@ -84,16 +85,16 @@ if __name__ == '__main__':
         statistics[du]["du_physical_layer_uplink_processing_latency_us"] = []
         statistics[du]["du_physical_layer_snr_uplink_db"] = []
         statistics[du]["du_physical_layer_channel_estimation_latency_us"] = []
-        statistics[du]["du_physical_layer_uplink_throughput"] = []
-        statistics[du]["du_physical_layer_downlink_throughput"] = []
+        statistics[du]["du_physical_layer_uplink_throughput_mbps"] = []
+        statistics[du]["du_physical_layer_downlink_throughput_mbps"] = []
         statistics[du]["du_rlc_creating_pdu_latency_ns"] = []
-        statistics[du]["du_rlc_scheduling_processing_latency_us"] = []
+        statistics[du]["du_cell_scheduling_processing_latency_ms"] = []
         statistics[du]["du_cell_downlink_bitrate_bps"] = []
         statistics[du]["du_cell_uplink_bitrate_bps"] = []
         statistics[du]["du_cell_modulation_and_coding_scheme_downlink"] = []
         statistics[du]["du_cell_modulation_and_coding_scheme_uplink"] = []
-        statistics[du]["du_cell_block_error_rate_downlink"] = []
-        statistics[du]["du_cell_block_error_rate_uplink"] = []
+        statistics[du]["du_cell_block_error_rate_percent_downlink"] = []
+        statistics[du]["du_cell_block_error_rate_percent_uplink"] = []
         statistics[du]["du_cpu_usage_percent"] = []
         statistics[du]["du_memory_usage_mb"] = []
         statistics[du]["du_power_consumption_watts"] = []
@@ -150,14 +151,11 @@ if __name__ == '__main__':
                 statistics[du]["du_physical_layer_channel_estimation_latency_us"].append(
                     np.mean(list(map(lambda x: x.ul_ch_est_latency_us, time_series.five_g_du_low_metrics[du])))
                 )
-                statistics[du]["du_physical_layer_uplink_throughput"].append(
+                statistics[du]["du_physical_layer_uplink_throughput_mbps"].append(
                     np.mean(list(map(lambda x: x.ul_fec_tput_mbps, time_series.five_g_du_low_metrics[du])))
                 )
-                statistics[du]["du_physical_layer_downlink_throughput"].append(
+                statistics[du]["du_physical_layer_downlink_throughput_mbps"].append(
                     np.mean(list(map(lambda x: x.dl_fec_tput_mbps, time_series.five_g_du_low_metrics[du])))
-                )
-                statistics[du]["du_rlc_scheduling_processing_latency_us"].append(
-                    np.mean(list(map(lambda x: x.average_latency_us, time_series.five_g_du_rlc_metrics[du])))
                 )
                 latencies = []
                 for i in range(len(time_series.five_g_du_rlc_metrics[du])):
@@ -169,6 +167,9 @@ if __name__ == '__main__':
                     statistics[du]["du_rlc_creating_pdu_latency_ns"].append(np.mean(latencies))
                 else:
                     statistics[du]["du_rlc_creating_pdu_latency_ns"].append(0.0)
+                statistics[du]["du_cell_scheduling_processing_latency_ms"].append(
+                    np.mean(list(map(lambda x: x.average_latency, time_series.five_g_du_cell_metrics[du])))
+                )
                 statistics[du]["du_cell_downlink_bitrate_bps"].append(
                     np.mean(list(map(lambda x: x.dl_brate, time_series.five_g_du_cell_metrics[du])))
                 )
@@ -181,10 +182,10 @@ if __name__ == '__main__':
                 statistics[du]["du_cell_modulation_and_coding_scheme_uplink"].append(
                     np.mean(list(map(lambda x: x.ul_mcs, time_series.five_g_du_cell_metrics[du])))
                 )
-                statistics[du]["du_cell_block_error_rate_downlink"].append(
+                statistics[du]["du_cell_block_error_rate_percent_downlink"].append(
                     np.mean(list(map(lambda x: x.dl_bler, time_series.five_g_du_cell_metrics[du])))
                 )
-                statistics[du]["du_cell_block_error_rate_uplink"].append(
+                statistics[du]["du_cell_block_error_rate_percent_uplink"].append(
                     np.mean(list(map(lambda x: x.ul_bler, time_series.five_g_du_cell_metrics[du])))
                 )
                 statistics[du]["du_cpu_usage_percent"].append(
