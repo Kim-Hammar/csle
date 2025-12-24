@@ -24,14 +24,14 @@ const FiveGDURLCMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Latency of creating the protocol data unit (PDU) (ns) </h3>
+              <h3 className="chartsTitle">DU latency of creating the protocol data unit (PDU) (ns) </h3>
               <FiveGDURLCPDULatencyChart stats={props.fiveGDURLCMetrics}
                                          animation={props.animation} animationDuration={props.animationDuration}
                                          animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Latency of creating the protocol data unit (PDU) (us)</h3>
+              <h3 className="chartsTitle">DU latency of creating the service data unit (SDU) (us)</h3>
               <FiveGDURLCSDULatencyChart stats={props.fiveGDURLCMetrics}
                                          animation={props.animation} animationDuration={props.animationDuration}
                                          animationDurationFactor={props.animationDurationFactor} />
@@ -40,14 +40,14 @@ const FiveGDURLCMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Percentage of lost/malformed protocol data units (PDUs) </h3>
+              <h3 className="chartsTitle">DU percentage of lost/malformed protocol data units (PDUs) </h3>
               <FiveGDURLCPDUErrorsChart stats={props.fiveGDURLCMetrics}
                                          animation={props.animation} animationDuration={props.animationDuration}
                                          animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Percentage of dropped/discarded service data units (SDUs)</h3>
+              <h3 className="chartsTitle">DU percentage of dropped/discarded service data units (SDUs)</h3>
               <FiveGDURLCSDUErrorsChart stats={props.fiveGDURLCMetrics}
                                          animation={props.animation} animationDuration={props.animationDuration}
                                          animationDurationFactor={props.animationDurationFactor} />

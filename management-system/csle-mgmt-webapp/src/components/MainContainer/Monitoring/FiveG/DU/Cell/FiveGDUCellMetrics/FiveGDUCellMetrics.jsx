@@ -27,14 +27,14 @@ const FiveGDUCellMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Cell scheduling processing latency (us)</h3>
+              <h3 className="chartsTitle">DU cell scheduling processing latency (us)</h3>
               <FiveGDUCellLatencyChart stats={props.fiveGDUCellMetrics}
                                        animation={props.animation} animationDuration={props.animationDuration}
                                        animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Number of active UEs</h3>
+              <h3 className="chartsTitle">DU number of active UEs</h3>
               <FiveGDUCellActiveUEsChart stats={props.fiveGDUCellMetrics}
                                          animation={props.animation} animationDuration={props.animationDuration}
                                          animationDurationFactor={props.animationDurationFactor} />
@@ -43,14 +43,14 @@ const FiveGDUCellMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Cell bitrate (bps)</h3>
+              <h3 className="chartsTitle">DU cell bitrate (bps)</h3>
               <FiveGDUCellBitrateChart stats={props.fiveGDUCellMetrics}
                                        animation={props.animation} animationDuration={props.animationDuration}
                                        animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Modulation and coding scheme (MCS)</h3>
+              <h3 className="chartsTitle">DU modulation and coding scheme (MCS)</h3>
               <FiveGDUCellMCSChart stats={props.fiveGDUCellMetrics}
                                    animation={props.animation} animationDuration={props.animationDuration}
                                    animationDurationFactor={props.animationDurationFactor} />
@@ -59,7 +59,7 @@ const FiveGDUCellMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Physical Uplink Shared Channel (PUSCH) and Physical Uplink Control Channel
+              <h3 className="chartsTitle">DU Physical Uplink Shared Channel (PUSCH) and Physical Uplink Control Channel
                 (PUCCH) SNR</h3>
               <FiveGDUCellPUSCHSNRChart stats={props.fiveGDUCellMetrics}
                                         animation={props.animation} animationDuration={props.animationDuration}
@@ -67,7 +67,7 @@ const FiveGDUCellMetrics = React.memo((props) => {
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Block error rate</h3>
+              <h3 className="chartsTitle">DU block error rate</h3>
               <FiveGDUCellBlockErrorRateChart stats={props.fiveGDUCellMetrics}
                                               animation={props.animation} animationDuration={props.animationDuration}
                                               animationDurationFactor={props.animationDurationFactor} />
@@ -76,7 +76,7 @@ const FiveGDUCellMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-12 chartsCol">
 
-              <h3 className="chartsTitle">Channel quality indicator (CQI)</h3>
+              <h3 className="chartsTitle">DU channel quality indicator (CQI)</h3>
               <FiveGDUCellChannelQualityIndicatorChart stats={props.fiveGDUCellMetrics}
                                         animation={props.animation} animationDuration={props.animationDuration}
                                         animationDurationFactor={props.animationDurationFactor} />

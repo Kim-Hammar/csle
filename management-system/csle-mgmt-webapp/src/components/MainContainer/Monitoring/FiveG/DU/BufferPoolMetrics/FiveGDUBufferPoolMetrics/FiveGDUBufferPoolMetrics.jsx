@@ -21,7 +21,7 @@ const FiveGDUBufferPoolMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-12 chartsCol">
 
-              <h3 className="chartsTitle">Central cache size</h3>
+              <h3 className="chartsTitle">DU central cache size</h3>
               <FiveGDUBufferPoolCacheSizeChart stats={props.fiveGDUBufferPoolMetrics}
                                                animation={props.animation} animationDuration={props.animationDuration}
                                                animationDurationFactor={props.animationDurationFactor} />

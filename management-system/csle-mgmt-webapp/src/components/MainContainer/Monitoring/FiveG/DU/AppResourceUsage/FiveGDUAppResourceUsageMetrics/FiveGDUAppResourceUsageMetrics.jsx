@@ -25,14 +25,14 @@ const FiveGDUAppResourceUsageMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Application CPU usage %</h3>
+              <h3 className="chartsTitle">DU application CPU usage %</h3>
               <FiveGDUAppResourceUsageCPUChart stats={props.fiveGDUAppResourceUsageMetrics}
                                                animation={props.animation} animationDuration={props.animationDuration}
                                                animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Application memory usage (mb)</h3>
+              <h3 className="chartsTitle">DU application memory usage (mb)</h3>
               <FiveGDUAppResourceUsageMemoryChart stats={props.fiveGDUAppResourceUsageMetrics}
                                                   animation={props.animation} animationDuration={props.animationDuration}
                                                   animationDurationFactor={props.animationDurationFactor} />
@@ -41,7 +41,7 @@ const FiveGDUAppResourceUsageMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-12 chartsCol">
 
-              <h3 className="chartsTitle">Application power consumption (watts)</h3>
+              <h3 className="chartsTitle">DU application power consumption (watts)</h3>
               <FiveGDUAppResourceUsagePowerConsumptionChart stats={props.fiveGDUAppResourceUsageMetrics}
                                                             animation={props.animation}
                                                             animationDuration={props.animationDuration}

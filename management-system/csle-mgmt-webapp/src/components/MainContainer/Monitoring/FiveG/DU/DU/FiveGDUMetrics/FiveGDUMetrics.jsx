@@ -22,14 +22,14 @@ const FiveGDUMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">MAC layer processing latency</h3>
+              <h3 className="chartsTitle">DU MAC layer processing latency</h3>
               <FiveGDULatencyChart stats={props.fiveGDUMetrics}
                                    animation={props.animation} animationDuration={props.animationDuration}
                                    animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">MAC layer CPU usage %</h3>
+              <h3 className="chartsTitle">DU MAC layer CPU usage %</h3>
               <FiveGDUCPUUsageChart stats={props.fiveGDUMetrics}
                                    animation={props.animation} animationDuration={props.animationDuration}
                                    animationDurationFactor={props.animationDurationFactor} />

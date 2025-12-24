@@ -25,14 +25,14 @@ const FiveGDULowMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Physical layer processing latency (us)</h3>
+              <h3 className="chartsTitle">DU physical layer processing latency (us)</h3>
               <FiveGDULowLatencyChart stats={props.fiveGDULowMetrics}
                                       animation={props.animation} animationDuration={props.animationDuration}
                                       animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Physical layer CPU usage %</h3>
+              <h3 className="chartsTitle">DU physical layer CPU usage %</h3>
               <FiveGDULowCPUUsageChart stats={props.fiveGDULowMetrics}
                                        animation={props.animation} animationDuration={props.animationDuration}
                                        animationDurationFactor={props.animationDurationFactor} />
@@ -41,14 +41,14 @@ const FiveGDULowMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Uplink signal to noise ratio (dB)</h3>
+              <h3 className="chartsTitle">DU uplink signal to noise ratio (dB)</h3>
               <FiveGDULowSINRChart stats={props.fiveGDULowMetrics}
                                    animation={props.animation} animationDuration={props.animationDuration}
                                    animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Channel estimation and decoding latency (us)</h3>
+              <h3 className="chartsTitle">DU channel estimation and decoding latency (us)</h3>
               <FiveGDULowDecodingLatencyChart stats={props.fiveGDULowMetrics}
                                               animation={props.animation} animationDuration={props.animationDuration}
                                               animationDurationFactor={props.animationDurationFactor} />
@@ -57,7 +57,7 @@ const FiveGDULowMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-12 chartsCol">
 
-              <h3 className="chartsTitle">Forward error correction throughput (mbps)</h3>
+              <h3 className="chartsTitle">DU forward error correction throughput (mbps)</h3>
               <FiveGDULowFECThroughputChart stats={props.fiveGDULowMetrics}
                                    animation={props.animation} animationDuration={props.animationDuration}
                                    animationDurationFactor={props.animationDurationFactor} />
@@ -68,7 +68,7 @@ const FiveGDULowMetrics = React.memo((props) => {
     }
   }
 )
-FiveGDULowMetrics.displayName = 'FiveGDUMetrics'
+FiveGDULowMetrics.displayName = 'FiveGDULowMetrics'
 FiveGDULowMetrics.propTypes = {}
 FiveGDULowMetrics.defaultProps = {}
 export default FiveGDULowMetrics

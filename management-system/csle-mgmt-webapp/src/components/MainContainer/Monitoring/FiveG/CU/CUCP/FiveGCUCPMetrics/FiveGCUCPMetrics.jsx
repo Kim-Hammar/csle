@@ -27,14 +27,14 @@ const FiveGCUCPMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Paging and handover events/requests</h3>
+              <h3 className="chartsTitle">CU paging and handover events/requests</h3>
               <FiveGCUCPRequestsChart stats={props.fiveGCUMetrics}
                                       animation={props.animation} animationDuration={props.animationDuration}
                                       animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">PDU Session events</h3>
+              <h3 className="chartsTitle">CU PDU Session events</h3>
               <FiveGCUCPPDUEventsChart stats={props.fiveGCUMetrics}
                                        animation={props.animation} animationDuration={props.animationDuration}
                                        animationDurationFactor={props.animationDurationFactor} />
@@ -43,14 +43,14 @@ const FiveGCUCPMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">RRC establishment attempts</h3>
+              <h3 className="chartsTitle">CU RRC establishment attempts</h3>
               <FiveGCUCPRRCEventsChart stats={props.fiveGCUMetrics}
                                        animation={props.animation} animationDuration={props.animationDuration}
                                        animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">RRC reestablishment attempts</h3>
+              <h3 className="chartsTitle">CU RRC reestablishment attempts</h3>
               <FiveGCUCPReestablishmentEventsChart stats={props.fiveGCUMetrics}
                                                    animation={props.animation} animationDuration={props.animationDuration}
                                                    animationDurationFactor={props.animationDurationFactor} />
@@ -59,14 +59,14 @@ const FiveGCUCPMetrics = React.memo((props) => {
           <div className="row chartsRow">
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Number of radio resource control (RRC) connections</h3>
+              <h3 className="chartsTitle">CU number of radio resource control (RRC) connections</h3>
               <FiveGCUCPRRCConnectionsChart stats={props.fiveGCUMetrics}
                                             animation={props.animation} animationDuration={props.animationDuration}
                                             animationDurationFactor={props.animationDurationFactor} />
             </div>
             <div className="col-sm-6 chartsCol">
 
-              <h3 className="chartsTitle">Number of handovers</h3>
+              <h3 className="chartsTitle">CU number of handovers</h3>
               <FiveGCUCPHandoversChart stats={props.fiveGCUMetrics}
                                        animation={props.animation} animationDuration={props.animationDuration}
                                        animationDurationFactor={props.animationDurationFactor} />
