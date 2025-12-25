@@ -50,7 +50,7 @@ if __name__ == '__main__':
     executions = MetastoreFacade.list_emulation_executions_for_a_given_emulation(emulation_name=emulation)
     execution = executions[0]
     signal_strength = 10
-    cpu_limit = 1.0
+    cpu_limit = 0.9
     memory_limit = 20.0
     num_samples = 5
     emulation_env_config = execution.emulation_env_config
@@ -108,7 +108,7 @@ if __name__ == '__main__':
     for load in [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10]:
         for j in range(num_samples):
             print(f"Starting experiment. Load: {load}MB. Signal strength: {signal_strength}dB, CPU limit: {cpu_limit}, "
-                  f"Memory limit: {memory_limit}GB. Sample: {j}.")
+                  f"Memory limit: {memory_limit}GB. Sample: {j+1}/{num_samples}.")
             sys.stdout.flush()
             loads = [load] * len(du_names)
             statistics["load"].append(load)
