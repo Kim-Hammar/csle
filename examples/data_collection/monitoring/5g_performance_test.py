@@ -50,7 +50,7 @@ if __name__ == '__main__':
     executions = MetastoreFacade.list_emulation_executions_for_a_given_emulation(emulation_name=emulation)
     execution = executions[0]
     signal_strength = 10
-    cpu_limit = 0.9
+    cpu_limit = 0.8
     memory_limit = 20.0
     num_samples = 5
     emulation_env_config = execution.emulation_env_config
@@ -216,7 +216,6 @@ if __name__ == '__main__':
                 statistics[cu]["cu_memory_usage_mb"].append(
                     np.mean(
                         list(map(lambda x: x.memory_usage_mb, time_series.five_g_cu_app_resource_usage_metrics[cu]))))
-            print(statistics)
             sys.stdout.flush()
             json_str = json.dumps(statistics, indent=4, sort_keys=True)
             with io.open("/home/kim/five_g_statistics.json", 'w', encoding='utf-8') as f:
