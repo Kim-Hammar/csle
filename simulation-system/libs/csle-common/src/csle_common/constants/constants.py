@@ -1006,6 +1006,9 @@ class COMMANDS:
     START_TRAINING_JOB = "nohup csle trainingjob {} &"
     START_SYSTEM_IDENTIFICATION_JOB = "nohup csle systemidentificationjob {} &"
     DOCKER_EXEC_COMMAND = "docker exec"
+    DOCKER_UPDATE_COMMAND = "docker update --memory={} --cpus={} {}"
+    IPERF_COMMAND = "iperf3 -c {} -u -b {}M -t {} -p {} --json"
+    IP_NETNS_EXEC_COMMAND = "ip netns exec {} {}"
     PING = "ping"
     NGINX_STATUS = "service nginx status"
     POSTGRESQL_STATUS = "service postgresql status"
@@ -1887,3 +1890,105 @@ class CUDA:
     String constants related to cuda
     """
     CUDA_VISIBLE_DEVICES = "CUDA_VISIBLE_DEVICES"
+
+
+class FIVE_G:
+    """
+    Constants related to 5G performance testing
+    """
+    NAME_MAPPING = {
+        "csle_cloud_ran_du_1_1-level17-15": "DU1",
+        "csle_cloud_ran_du_1_2-level17-15": "DU2",
+        "csle_cloud_ran_du_1_3-level17-15": "DU3",
+        "csle_cloud_ran_du_1_4-level17-15": "DU4",
+        "csle_cloud_ran_cu_1_1-level17-15": "CU1",
+        "csle_cloud_ran_cu_1_2-level17-15": "CU2"
+    }
+
+    DU_NAMES = [
+        "csle_cloud_ran_du_1_1-level17-15",
+        "csle_cloud_ran_du_1_2-level17-15",
+        "csle_cloud_ran_du_1_3-level17-15",
+        "csle_cloud_ran_du_1_4-level17-15"
+    ]
+
+    CU_NAMES = [
+        "csle_cloud_ran_cu_1_1-level17-15",
+        "csle_cloud_ran_cu_1_2-level17-15"
+    ]
+
+    DU_METRIC_KEYS = [
+        "du_mac_layer_processing_latency_us", "du_mac_layer_cpu_usage_percent",
+        "du_physical_layer_uplink_cpu_usage_percent", "du_physical_layer_downlink_cpu_usage_percent",
+        "du_physical_layer_downlink_processing_latency_us", "du_physical_layer_uplink_processing_latency_us",
+        "du_physical_layer_snr_uplink_db", "du_physical_layer_channel_estimation_latency_us",
+        "du_physical_layer_uplink_throughput_mbps", "du_physical_layer_downlink_throughput_mbps",
+        "du_rlc_creating_pdu_latency_ns",
+        "du_cell_scheduling_processing_latency_ms", "du_cell_downlink_bitrate_bps", "du_cell_uplink_bitrate_bps",
+        "du_cell_modulation_and_coding_scheme_downlink", "du_cell_modulation_and_coding_scheme_uplink",
+        "du_cell_block_error_rate_percent_downlink", "du_cell_block_error_rate_percent_uplink",
+        "du_cpu_usage_percent", "du_memory_usage_mb", "du_power_consumption_watts"
+    ]
+
+    CU_METRIC_KEYS = [
+        "cu_power_consumption_watts", "cu_cpu_usage_percent", "cu_memory_usage_mb"
+    ]
+
+    SIGNAL_STRENGTH = "signal_strength"
+    CPU_LIMIT = "cpu_limit"
+    MEMORY_LIMIT = "memory_limit"
+    LOAD_UPLINK = "load_uplink"
+    LOAD_DOWNLINK = "load_downlink"
+    BANDWIDTH = "bandwidth"
+    NUMBER_OF_ANTENNAS = "number_of_antennas"
+    UPLINK = "uplink"
+    DOWNLINK = "downlink"
+    JITTER_MS = "jitter_ms"
+    THROUGHPUT_BPS = "throughput_bps"
+    LOST_PERCENT = "lost_percent"
+    STATUS = "status"
+    SUCCESS = "Success"
+    E2E = "e2e"
+
+    IPERF_REVERSE_FLAG = "-R"
+
+    # Metric keys
+    MAC_LAYER_PROCESSING_LATENCY_US = "mac_layer_processing_latency_us"
+    MAC_LAYER_CPU_USAGE_PERCENT = "mac_layer_cpu_usage_percent"
+    PHYSICAL_LAYER_UPLINK_CPU_USAGE_PERCENT = "physical_layer_uplink_cpu_usage_percent"
+    PHYSICAL_LAYER_DOWNLINK_CPU_USAGE_PERCENT = "physical_layer_downlink_cpu_usage_percent"
+    PHYSICAL_LAYER_DOWNLINK_PROCESSING_LATENCY_US = "physical_layer_downlink_processing_latency_us"
+    PHYSICAL_LAYER_UPLINK_PROCESSING_LATENCY_US = "physical_layer_uplink_processing_latency_us"
+    PHYSICAL_LAYER_SNR_UPLINK_DB = "physical_layer_snr_uplink_db"
+    PHYSICAL_LAYER_CHANNEL_ESTIMATION_LATENCY_US = "physical_layer_channel_estimation_latency_us"
+    PHYSICAL_LAYER_UPLINK_THROUGHPUT_MBPS = "physical_layer_uplink_throughput_mbps"
+    PHYSICAL_LAYER_DOWNLINK_THROUGHPUT_MBPS = "physical_layer_downlink_throughput_mbps"
+    RLC_CREATING_PDU_LATENCY_NS = "rlc_creating_pdu_latency_ns"
+    CELL_SCHEDULING_PROCESSING_LATENCY_MS = "cell_scheduling_processing_latency_ms"
+    CELL_DOWNLINK_BITRATE_BPS = "cell_downlink_bitrate_bps"
+    CELL_UPLINK_BITRATE_BPS = "cell_uplink_bitrate_bps"
+    CELL_MODULATION_AND_CODING_SCHEME_DOWNLINK = "cell_modulation_and_coding_scheme_downlink"
+    CELL_MODULATION_AND_CODING_SCHEME_UPLINK = "cell_modulation_and_coding_scheme_uplink"
+    CELL_BLOCK_ERROR_RATE_PERCENT_DOWNLINK = "cell_block_error_rate_percent_downlink"
+    CELL_BLOCK_ERROR_RATE_PERCENT_UPLINK = "cell_block_error_rate_percent_uplink"
+    CPU_USAGE_PERCENT = "cpu_usage_percent"
+    MEMORY_USAGE_MB = "memory_usage_mb"
+    POWER_CONSUMPTION_WATTS = "power_consumption_watts"
+
+    # Other constants
+    ROUTING_CONFIG = "routing_config"
+    DU = "du"
+    DIRECTION = "direction"
+    CORE_IP = "10.45.0.1"
+    UE_NAME = "ue1"
+
+    # iperf JSON keys
+    JITTER_MS_KEY = "jitter_ms"
+    BITS_PER_SECOND_KEY = "bits_per_second"
+    LOST_PERCENT_KEY = "lost_percent"
+    SUM_KEY = "sum"
+    END_KEY = "end"
+
+    # Prefixes
+    DU_PREFIX = "du_"
+    CU_PREFIX = "cu_"
