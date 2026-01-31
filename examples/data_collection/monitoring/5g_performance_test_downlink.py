@@ -8,10 +8,6 @@ from csle_common.metastore.metastore_facade import MetastoreFacade
 from csle_cluster.cluster_manager.cluster_controller import ClusterController
 import csle_common.constants.constants as constants
 
-
-#  docker update --memory="20g" --cpus=1.0 csle_cloud_ran_cu_1_2-level17-15
-#  nohup iperf3 -s -p 5201 > /dev/null &
-
 def run_iperf(du_name: str, port: int, load: int):
     """
     Generates load with iperf from a 5G UE and measures the network performance
@@ -26,10 +22,8 @@ def run_iperf(du_name: str, port: int, load: int):
         "ip", "netns", "exec", "ue1",
         "iperf3", "-c", "10.45.0.1",
         "-u", "-b", f"{load}M", "-t", "180",
-        "-p", str(port), "--json"
+        "-p", str(port), "-R", "--json"
     ]
-    # iperf3 -c 10.45.0.1 -u -b 10M -t 180 --json
-    # Downlink: iperf3 -c 10.45.0.1 -u -b 10M -t 180 --json -R
     try:
         process = subprocess.run(cmd, capture_output=True, text=True, check=True)
         data = json.loads(process.stdout)
@@ -52,9 +46,9 @@ if __name__ == '__main__':
     executions = MetastoreFacade.list_emulation_executions_for_a_given_emulation(emulation_name=emulation)
     execution = executions[0]
     signal_strength = 10
-    cpu_limit = 3.0
+    cpu_limit = 0.3
     memory_limit = 20.0
-    num_samples = 3
+    num_samples = 2
     emulation_env_config = execution.emulation_env_config
     du_names = [
         "csle_cloud_ran_du_1_1-level17-15",
@@ -76,9 +70,9 @@ if __name__ == '__main__':
     statistics["memory_limit"] = []
     for du in du_names:
         statistics[du] = {}
-        statistics[du]["e2e_uplink_jitter_ms"] = []
-        statistics[du]["e2e_uplink_throughput_bps"] = []
-        statistics[du]["e2e_uplink_lost_percent"] = []
+        statistics[du]["e2e_downlink_jitter_ms"] = []
+        statistics[du]["e2e_downlink_throughput_bps"] = []
+        statistics[du]["e2e_downlink_lost_percent"] = []
         statistics[du]["du_mac_layer_processing_latency_us"] = []
         statistics[du]["du_mac_layer_cpu_usage_percent"] = []
         statistics[du]["du_physical_layer_uplink_cpu_usage_percent"] = []
@@ -107,7 +101,8 @@ if __name__ == '__main__':
         statistics[cu]["cu_memory_usage_mb"] = []
 
     # Running the performance test
-    for load in [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10]:
+    #[0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10]
+    for load in [6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10]:
         for j in range(num_samples):
             print(f"Starting experiment. Load: {load}MB. Signal strength: {signal_strength}dB, CPU limit: {cpu_limit}, "
                   f"Memory limit: {memory_limit}GB. Sample: {j + 1}/{num_samples}.")
@@ -126,9 +121,9 @@ if __name__ == '__main__':
                 ip_first_octet=execution.ip_first_octet, emulation=execution.emulation_env_config.name)
             du_rlc_creating_pdu_latency_ns = 0
             for i, du in enumerate(du_names):
-                statistics[du]["e2e_uplink_jitter_ms"].append(results[i]['jitter_ms'])
-                statistics[du]["e2e_uplink_throughput_bps"].append(results[i]['throughput_bps'])
-                statistics[du]["e2e_uplink_lost_percent"].append(results[i]['lost_percent'])
+                statistics[du]["e2e_downlink_jitter_ms"].append(results[i]['jitter_ms'])
+                statistics[du]["e2e_downlink_throughput_bps"].append(results[i]['throughput_bps'])
+                statistics[du]["e2e_downlink_lost_percent"].append(results[i]['lost_percent'])
                 statistics[du]["du_mac_layer_processing_latency_us"].append(
                     np.mean(list(map(lambda x: x.average_latency_us, time_series.five_g_du_metrics[du])))
                 )
@@ -220,5 +215,5 @@ if __name__ == '__main__':
                         list(map(lambda x: x.memory_usage_mb, time_series.five_g_cu_app_resource_usage_metrics[cu]))))
             sys.stdout.flush()
             json_str = json.dumps(statistics, indent=4, sort_keys=True)
-            with io.open("/home/kim/five_g_statistics_1.json", 'w', encoding='utf-8') as f:
+            with io.open("/home/kim/five_g_statistics_downlink_1.json", 'w', encoding='utf-8') as f:
                 f.write(json_str)

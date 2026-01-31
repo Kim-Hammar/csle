@@ -52,9 +52,9 @@ if __name__ == '__main__':
     executions = MetastoreFacade.list_emulation_executions_for_a_given_emulation(emulation_name=emulation)
     execution = executions[0]
     signal_strength = 10
-    cpu_limit = 3.0
+    cpu_limit = 2.5
     memory_limit = 20.0
-    num_samples = 3
+    num_samples = 2
     emulation_env_config = execution.emulation_env_config
     du_names = [
         "csle_cloud_ran_du_1_1-level17-15",
@@ -76,9 +76,9 @@ if __name__ == '__main__':
     statistics["memory_limit"] = []
     for du in du_names:
         statistics[du] = {}
-        statistics[du]["e2e_uplink_jitter_ms"] = []
-        statistics[du]["e2e_uplink_throughput_bps"] = []
-        statistics[du]["e2e_uplink_lost_percent"] = []
+        statistics[du]["e2e_jitter_ms"] = []
+        statistics[du]["e2e_throughput_bps"] = []
+        statistics[du]["e2e_lost_percent"] = []
         statistics[du]["du_mac_layer_processing_latency_us"] = []
         statistics[du]["du_mac_layer_cpu_usage_percent"] = []
         statistics[du]["du_physical_layer_uplink_cpu_usage_percent"] = []
@@ -126,9 +126,9 @@ if __name__ == '__main__':
                 ip_first_octet=execution.ip_first_octet, emulation=execution.emulation_env_config.name)
             du_rlc_creating_pdu_latency_ns = 0
             for i, du in enumerate(du_names):
-                statistics[du]["e2e_uplink_jitter_ms"].append(results[i]['jitter_ms'])
-                statistics[du]["e2e_uplink_throughput_bps"].append(results[i]['throughput_bps'])
-                statistics[du]["e2e_uplink_lost_percent"].append(results[i]['lost_percent'])
+                statistics[du]["e2e_jitter_ms"].append(results[i]['jitter_ms'])
+                statistics[du]["e2e_throughput_bps"].append(results[i]['throughput_bps'])
+                statistics[du]["e2e_lost_percent"].append(results[i]['lost_percent'])
                 statistics[du]["du_mac_layer_processing_latency_us"].append(
                     np.mean(list(map(lambda x: x.average_latency_us, time_series.five_g_du_metrics[du])))
                 )
@@ -220,5 +220,5 @@ if __name__ == '__main__':
                         list(map(lambda x: x.memory_usage_mb, time_series.five_g_cu_app_resource_usage_metrics[cu]))))
             sys.stdout.flush()
             json_str = json.dumps(statistics, indent=4, sort_keys=True)
-            with io.open("/home/kim/five_g_statistics_1.json", 'w', encoding='utf-8') as f:
+            with io.open("/home/kim/five_g_statistics_2.json", 'w', encoding='utf-8') as f:
                 f.write(json_str)
