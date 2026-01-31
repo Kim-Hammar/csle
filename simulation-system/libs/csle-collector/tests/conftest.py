@@ -19,6 +19,22 @@ from csle_collector.snort_ids_manager.dao.snort_ids_alert_counters import SnortI
 from csle_collector.snort_ids_manager.dao.snort_ids_ip_alert_counters import SnortIdsIPAlertCounters
 from csle_collector.snort_ids_manager.dao.snort_ids_rule_counters import SnortIdsRuleCounters
 from csle_collector.snort_ids_manager.dao.snort_ids_fast_log_alert import SnortIdsFastLogAlert
+from csle_collector.five_g_core_manager.dao.five_g_core_amf_metrics import FiveGCoreAMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_hss_metrics import FiveGCoreHSSMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_mme_metrics import FiveGCoreMMEMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcf_metrics import FiveGCorePCFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_pcrf_metrics import FiveGCorePCRFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics import FiveGCoreSMFMetrics
+from csle_collector.five_g_core_manager.dao.five_g_core_upf_metrics import FiveGCoreUPFMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics import FiveGCUCPMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_app_resource_usage_metrics import FiveGCUAppResourceUsageMetrics
+from csle_collector.five_g_cu_manager.dao.five_g_cu_buffer_pool_metrics import FiveGCUBufferPoolMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_metrics import FiveGDUMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics import FiveGDUCellMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics import FiveGDUAppResourceUsageMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics import FiveGDUBufferPoolMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics import FiveGDURLCMetrics
+from csle_collector.five_g_du_manager.dao.five_g_du_low_metrics import FiveGDULowMetrics
 
 
 @pytest.fixture
@@ -226,3 +242,163 @@ def example_snort_ids_fast_alert() -> SnortIdsFastLogAlert:
     """
     return SnortIdsFastLogAlert(timestamp=1234.4, priority=1, class_id=1, source_ip="1.2.3.4", target_ip="2.3.4.1",
                                 rule_id="1")
+
+
+@pytest.fixture
+def example_five_g_core_amf_metrics() -> FiveGCoreAMFMetrics:
+    """
+    Fixture that returns an example FiveGCoreAMFMetrics object
+
+    :return: an example FiveGCoreAMFMetrics object
+    """
+    return FiveGCoreAMFMetrics()
+
+
+@pytest.fixture
+def example_five_g_core_hss_metrics() -> FiveGCoreHSSMetrics:
+    """
+    Fixture that returns an example FiveGCoreHSSMetrics object
+
+    :return: an example FiveGCoreHSSMetrics object
+    """
+    return FiveGCoreHSSMetrics()
+
+
+@pytest.fixture
+def example_five_g_core_mme_metrics() -> FiveGCoreMMEMetrics:
+    """
+    Fixture that returns an example FiveGCoreMMEMetrics object
+
+    :return: an example FiveGCoreMMEMetrics object
+    """
+    return FiveGCoreMMEMetrics()
+
+
+@pytest.fixture
+def example_five_g_core_pcf_metrics() -> FiveGCorePCFMetrics:
+    """
+    Fixture that returns an example FiveGCorePCFMetrics object
+
+    :return: an example FiveGCorePCFMetrics object
+    """
+    return FiveGCorePCFMetrics()
+
+
+@pytest.fixture
+def example_five_g_core_pcrf_metrics() -> FiveGCorePCRFMetrics:
+    """
+    Fixture that returns an example FiveGCorePCRFMetrics object
+
+    :return: an example FiveGCorePCRFMetrics object
+    """
+    return FiveGCorePCRFMetrics()
+
+
+@pytest.fixture
+def example_five_g_core_smf_metrics() -> FiveGCoreSMFMetrics:
+    """
+    Fixture that returns an example FiveGCoreSMFMetrics object
+
+    :return: an example FiveGCoreSMFMetrics object
+    """
+    return FiveGCoreSMFMetrics()
+
+
+@pytest.fixture
+def example_five_g_core_upf_metrics() -> FiveGCoreUPFMetrics:
+    """
+    Fixture that returns an example FiveGCoreUPFMetrics object
+
+    :return: an example FiveGCoreUPFMetrics object
+    """
+    return FiveGCoreUPFMetrics()
+
+
+@pytest.fixture
+def example_five_g_cu_cp_metrics() -> FiveGCUCPMetrics:
+    """
+    Fixture that returns an example FiveGCUCPMetrics object
+
+    :return: an example FiveGCUCPMetrics object
+    """
+    return FiveGCUCPMetrics()
+
+
+@pytest.fixture
+def example_five_g_cu_app_resource_usage_metrics() -> FiveGCUAppResourceUsageMetrics:
+    """
+    Fixture that returns an example FiveGCUAppResourceUsageMetrics object
+
+    :return: an example FiveGCUAppResourceUsageMetrics object
+    """
+    return FiveGCUAppResourceUsageMetrics()
+
+
+@pytest.fixture
+def example_five_g_cu_buffer_pool_metrics() -> FiveGCUBufferPoolMetrics:
+    """
+    Fixture that returns an example FiveGCUBufferPoolMetrics object
+
+    :return: an example FiveGCUBufferPoolMetrics object
+    """
+    return FiveGCUBufferPoolMetrics()
+
+
+@pytest.fixture
+def example_five_g_du_metrics() -> FiveGDUMetrics:
+    """
+    Fixture that returns an example FiveGDUMetrics object
+
+    :return: an example FiveGDUMetrics object
+    """
+    return FiveGDUMetrics()
+
+
+@pytest.fixture
+def example_five_g_du_cell_metrics() -> FiveGDUCellMetrics:
+    """
+    Fixture that returns an example FiveGDUCellMetrics object
+
+    :return: an example FiveGDUCellMetrics object
+    """
+    return FiveGDUCellMetrics()
+
+
+@pytest.fixture
+def example_five_g_du_app_resource_usage_metrics() -> FiveGDUAppResourceUsageMetrics:
+    """
+    Fixture that returns an example FiveGDUAppResourceUsageMetrics object
+
+    :return: an example FiveGDUAppResourceUsageMetrics object
+    """
+    return FiveGDUAppResourceUsageMetrics()
+
+
+@pytest.fixture
+def example_five_g_du_buffer_pool_metrics() -> FiveGDUBufferPoolMetrics:
+    """
+    Fixture that returns an example FiveGDUBufferPoolMetrics object
+
+    :return: an example FiveGDUBufferPoolMetrics object
+    """
+    return FiveGDUBufferPoolMetrics()
+
+
+@pytest.fixture
+def example_five_g_du_rlc_metrics() -> FiveGDURLCMetrics:
+    """
+    Fixture that returns an example FiveGDURLCMetrics object
+
+    :return: an example FiveGDURLCMetrics object
+    """
+    return FiveGDURLCMetrics()
+
+
+@pytest.fixture
+def example_five_g_du_low_metrics() -> FiveGDULowMetrics:
+    """
+    Fixture that returns an example FiveGDULowMetrics object
+
+    :return: an example FiveGDULowMetrics object
+    """
+    return FiveGDULowMetrics()
