@@ -1,6 +1,7 @@
 from typing import Dict, Any, Union
 import time
 import datetime
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -129,7 +130,7 @@ class FiveGCUCPMetrics(JSONSerializable):
         """
         parts = record.split(",")
         # Handling boolean conversion from string
-        amf_conn = parts[3].lower() == 'true'
+        amf_conn = parts[3].lower() == constants.FIVE_G_CU.TRUE
 
         obj = FiveGCUCPMetrics(
             ts=float(parts[0]),
@@ -170,7 +171,7 @@ class FiveGCUCPMetrics(JSONSerializable):
             self.ts = float(parts[0])
             self.ip = parts[1]
             self.cu_cp_id = parts[2]
-            self.amf_connected = parts[3].lower() == 'true'
+            self.amf_connected = parts[3].lower() == constants.FIVE_G_CU.TRUE
             self.nof_cn_initiated_paging_requests = int(parts[4])
             self.nof_pdu_sessions_requested_to_setup = int(parts[5])
             self.nof_pdu_sessions_successfully_setup = int(parts[6])
@@ -208,30 +209,30 @@ class FiveGCUCPMetrics(JSONSerializable):
         :return: the created instance
         """
         obj = FiveGCUCPMetrics(
-            cu_cp_id=d.get("cu_cp_id", ""),
-            amf_connected=d.get("amf_connected", False),
-            nof_cn_initiated_paging_requests=d.get("nof_cn_initiated_paging_requests", 0),
-            nof_pdu_sessions_requested_to_setup=d.get("nof_pdu_sessions_requested_to_setup", 0),
-            nof_pdu_sessions_successfully_setup=d.get("nof_pdu_sessions_successfully_setup", 0),
-            nof_pdu_sessions_failed_to_setup_total=d.get("nof_pdu_sessions_failed_to_setup_total", 0),
-            nof_handover_preparations_requested=d.get("nof_handover_preparations_requested", 0),
-            nof_successful_handover_preparations=d.get("nof_successful_handover_preparations", 0),
+            cu_cp_id=d.get(constants.FIVE_G_CU.CU_CP_ID, ""),
+            amf_connected=d.get(constants.FIVE_G_CU.AMF_CONNECTED, False),
+            nof_cn_initiated_paging_requests=d.get(constants.FIVE_G_CU.NOF_CN_INITIATED_PAGING_REQUESTS, 0),
+            nof_pdu_sessions_requested_to_setup=d.get(constants.FIVE_G_CU.NOF_PDU_SESSIONS_REQUESTED_TO_SETUP, 0),
+            nof_pdu_sessions_successfully_setup=d.get(constants.FIVE_G_CU.NOF_PDU_SESSIONS_SUCCESSFULLY_SETUP, 0),
+            nof_pdu_sessions_failed_to_setup_total=d.get(constants.FIVE_G_CU.NOF_PDU_SESSIONS_FAILED_TO_SETUP_TOTAL, 0),
+            nof_handover_preparations_requested=d.get(constants.FIVE_G_CU.NOF_HANDOVER_PREPARATIONS_REQUESTED, 0),
+            nof_successful_handover_preparations=d.get(constants.FIVE_G_CU.NOF_SUCCESSFUL_HANDOVER_PREPARATIONS, 0),
 
-            rrc_establishments_attempted_total=d.get("rrc_establishments_attempted_total", 0),
-            rrc_establishments_successful_total=d.get("rrc_establishments_successful_total", 0),
-            rrc_establishments_attempted_mo_data=d.get("rrc_establishments_attempted_mo_data", 0),
-            rrc_establishments_successful_mo_data=d.get("rrc_establishments_successful_mo_data", 0),
-            rrc_establishments_attempted_mo_sig=d.get("rrc_establishments_attempted_mo_sig", 0),
-            rrc_establishments_successful_mo_sig=d.get("rrc_establishments_successful_mo_sig", 0),
-            max_nof_rrc_connections=d.get("max_nof_rrc_connections", 0),
-            mean_nof_rrc_connections=d.get("mean_nof_rrc_connections", 0),
-            rrc_reestablishments_attempted=d.get("rrc_reestablishments_attempted", 0),
-            rrc_reestablishments_successful=d.get("rrc_reestablishments_successful", 0),
-            nof_handover_executions_requested=d.get("nof_handover_executions_requested", 0),
-            nof_successful_handover_executions=d.get("nof_successful_handover_executions", 0),
+            rrc_establishments_attempted_total=d.get(constants.FIVE_G_CU.RRC_ESTABLISHMENTS_ATTEMPTED_TOTAL, 0),
+            rrc_establishments_successful_total=d.get(constants.FIVE_G_CU.RRC_ESTABLISHMENTS_SUCCESSFUL_TOTAL, 0),
+            rrc_establishments_attempted_mo_data=d.get(constants.FIVE_G_CU.RRC_ESTABLISHMENTS_ATTEMPTED_MO_DATA, 0),
+            rrc_establishments_successful_mo_data=d.get(constants.FIVE_G_CU.RRC_ESTABLISHMENTS_SUCCESSFUL_MO_DATA, 0),
+            rrc_establishments_attempted_mo_sig=d.get(constants.FIVE_G_CU.RRC_ESTABLISHMENTS_ATTEMPTED_MO_SIG, 0),
+            rrc_establishments_successful_mo_sig=d.get(constants.FIVE_G_CU.RRC_ESTABLISHMENTS_SUCCESSFUL_MO_SIG, 0),
+            max_nof_rrc_connections=d.get(constants.FIVE_G_CU.MAX_NOF_RRC_CONNECTIONS, 0),
+            mean_nof_rrc_connections=d.get(constants.FIVE_G_CU.MEAN_NOF_RRC_CONNECTIONS, 0),
+            rrc_reestablishments_attempted=d.get(constants.FIVE_G_CU.RRC_REESTABLISHMENTS_ATTEMPTED, 0),
+            rrc_reestablishments_successful=d.get(constants.FIVE_G_CU.RRC_REESTABLISHMENTS_SUCCESSFUL, 0),
+            nof_handover_executions_requested=d.get(constants.FIVE_G_CU.NOF_HANDOVER_EXECUTIONS_REQUESTED, 0),
+            nof_successful_handover_executions=d.get(constants.FIVE_G_CU.NOF_SUCCESSFUL_HANDOVER_EXECUTIONS, 0),
 
-            ip=d.get("ip"),
-            ts=d.get("ts")
+            ip=d.get(constants.FIVE_G_CU.IP),
+            ts=d.get(constants.FIVE_G_CU.TS)
         )
         return obj
 
@@ -246,19 +247,19 @@ class FiveGCUCPMetrics(JSONSerializable):
         :return: the created instance
         """
         ts = time.time()
-        if "timestamp" in d and d["timestamp"] is not None:
+        if constants.FIVE_G_CU.TIMESTAMP in d and d[constants.FIVE_G_CU.TIMESTAMP] is not None:
             try:
-                dt = datetime.datetime.fromisoformat(d["timestamp"])
+                dt = datetime.datetime.fromisoformat(d[constants.FIVE_G_CU.TIMESTAMP])
                 ts = dt.timestamp()
             except Exception:
                 pass
 
         # Navigation Safety
-        root = d.get("cu-cp", {})
+        root = d.get(constants.FIVE_G_CU.CU_CP, {})
 
         # --- 1. NGAP Parsing ---
-        ngaps = root.get("ngaps", {})
-        ngap_list = ngaps.get("ngap", [])
+        ngaps = root.get(constants.FIVE_G_CU.NGAPS, {})
+        ngap_list = ngaps.get(constants.FIVE_G_CU.NGAP, [])
 
         # Defaults
         amf_connected = False
@@ -270,27 +271,27 @@ class FiveGCUCPMetrics(JSONSerializable):
         # We aggregate stats if multiple AMFs exist, or just take the first one
         if ngap_list:
             for ngap in ngap_list:
-                if ngap.get("connected", False):
+                if ngap.get(constants.FIVE_G_CU.CONNECTED, False):
                     amf_connected = True
 
-                paging = ngap.get("paging_measurement", {})
-                paging_reqs += paging.get("nof_cn_initiated_paging_requests", 0)
+                paging = ngap.get(constants.FIVE_G_CU.PAGING_MEASUREMENT, {})
+                paging_reqs += paging.get(constants.FIVE_G_CU.NOF_CN_INITIATED_PAGING_REQUESTS, 0)
 
-                pdu_mgmt = ngap.get("pdu_session_management", {})
-                pdu_req += pdu_mgmt.get("nof_pdu_sessions_requested_to_setup", 0)
-                pdu_succ += pdu_mgmt.get("nof_pdu_sessions_successfully_setup", 0)
+                pdu_mgmt = ngap.get(constants.FIVE_G_CU.PDU_SESSION_MANAGEMENT, {})
+                pdu_req += pdu_mgmt.get(constants.FIVE_G_CU.NOF_PDU_SESSIONS_REQUESTED_TO_SETUP, 0)
+                pdu_succ += pdu_mgmt.get(constants.FIVE_G_CU.NOF_PDU_SESSIONS_SUCCESSFULLY_SETUP, 0)
 
                 # Sum up all failure causes in the failure dict
-                fail_dict = pdu_mgmt.get("nof_pdu_sessions_failed_to_setup", {})
+                fail_dict = pdu_mgmt.get(constants.FIVE_G_CU.NOF_PDU_SESSIONS_FAILED_TO_SETUP, {})
                 if fail_dict:
                     pdu_fail_total += sum(fail_dict.values())
 
-        ho_prep_req = ngaps.get("nof_handover_preparations_requested", 0)
-        ho_prep_succ = ngaps.get("nof_successful_handover_preparations", 0)
+        ho_prep_req = ngaps.get(constants.FIVE_G_CU.NOF_HANDOVER_PREPARATIONS_REQUESTED, 0)
+        ho_prep_succ = ngaps.get(constants.FIVE_G_CU.NOF_SUCCESSFUL_HANDOVER_PREPARATIONS, 0)
 
         # --- 2. RRC Parsing ---
-        rrcs = root.get("rrcs", {})
-        du_list = rrcs.get("du", [])
+        rrcs = root.get(constants.FIVE_G_CU.RRCS, {})
+        du_list = rrcs.get(constants.FIVE_G_CU.DU, [])
 
         # RRC Aggregators
         rrc_att_total = 0
@@ -307,39 +308,40 @@ class FiveGCUCPMetrics(JSONSerializable):
         if du_list:
             # Usually one DU context per entry, but could be multiple
             for du in du_list:
-                est = du.get("rrc_connection_establishment", {})
+                est = du.get(constants.FIVE_G_CU.RRC_CONNECTION_ESTABLISHMENT, {})
 
                 # Attempted
-                att = est.get("attempted_rrc_connection_establishments", {})
+                att = est.get(constants.FIVE_G_CU.ATTEMPTED_RRC_CONNECTION_ESTABLISHMENTS, {})
                 rrc_att_total += sum(att.values())
-                rrc_att_mo_data += att.get("mo_data", 0)
-                rrc_att_mo_sig += att.get("mo_sig", 0)
+                rrc_att_mo_data += att.get(constants.FIVE_G_CU.MO_DATA, 0)
+                rrc_att_mo_sig += att.get(constants.FIVE_G_CU.MO_SIG, 0)
 
                 # Successful
-                succ = est.get("successful_rrc_connection_establishments", {})
+                succ = est.get(constants.FIVE_G_CU.SUCCESSFUL_RRC_CONNECTION_ESTABLISHMENTS, {})
                 rrc_succ_total += sum(succ.values())
-                rrc_succ_mo_data += succ.get("mo_data", 0)
-                rrc_succ_mo_sig += succ.get("mo_sig", 0)
+                rrc_succ_mo_data += succ.get(constants.FIVE_G_CU.MO_DATA, 0)
+                rrc_succ_mo_sig += succ.get(constants.FIVE_G_CU.MO_SIG, 0)
 
                 # Numbers
-                nums = du.get("rrc_connection_number", {})
+                nums = du.get(constants.FIVE_G_CU.RRC_CONNECTION_NUMBER, {})
                 # We take the max of maxes, and maybe avg of means?
                 # For simplicity, let's take max of max
-                max_rrc = max(max_rrc, nums.get("max_nof_rrc_connections", 0))
+                max_rrc = max(max_rrc, nums.get(constants.FIVE_G_CU.MAX_NOF_RRC_CONNECTIONS, 0))
                 # For mean, just taking the value (assuming single DU for now is simpler)
-                mean_rrc = nums.get("mean_nof_rrc_connections", 0)
+                mean_rrc = nums.get(constants.FIVE_G_CU.MEAN_NOF_RRC_CONNECTIONS, 0)
 
                 # Re-establishment
-                reest = du.get("rrc_connection_reestablishment", {})
-                reest_att += reest.get("attempted_rrc_connection_reestablishments", 0)
-                reest_succ += reest.get("successful_rrc_connection_reestablishments_with_ue_context", 0)
+                reest = du.get(constants.FIVE_G_CU.RRC_CONNECTION_REESTABLISHMENT, {})
+                reest_att += reest.get(constants.FIVE_G_CU.ATTEMPTED_RRC_CONNECTION_REESTABLISHMENTS, 0)
+                reest_succ += reest.get(
+                    constants.FIVE_G_CU.SUCCESSFUL_RRC_CONNECTION_REESTABLISHMENTS_WITH_UE_CONTEXT, 0)
                 # Note: 'without_ue_context' is technically a success but usually implies a drop, ignoring for 'succ'
 
-        ho_exec_req = rrcs.get("nof_handover_executions_requested", 0)
-        ho_exec_succ = rrcs.get("nof_successful_handover_executions", 0)
+        ho_exec_req = rrcs.get(constants.FIVE_G_CU.NOF_HANDOVER_EXECUTIONS_REQUESTED, 0)
+        ho_exec_succ = rrcs.get(constants.FIVE_G_CU.NOF_SUCCESSFUL_HANDOVER_EXECUTIONS, 0)
 
         obj = FiveGCUCPMetrics(
-            cu_cp_id=root.get("id", ""),
+            cu_cp_id=root.get(constants.FIVE_G_CU.ID, ""),
             amf_connected=amf_connected,
             nof_cn_initiated_paging_requests=paging_reqs,
             nof_pdu_sessions_requested_to_setup=pdu_req,
@@ -371,29 +373,28 @@ class FiveGCUCPMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["cu_cp_id"] = self.cu_cp_id
-        d["amf_connected"] = self.amf_connected
-        d["nof_cn_initiated_paging_requests"] = self.nof_cn_initiated_paging_requests
-        d["nof_pdu_sessions_requested_to_setup"] = self.nof_pdu_sessions_requested_to_setup
-        d["nof_pdu_sessions_successfully_setup"] = self.nof_pdu_sessions_successfully_setup
-        d["nof_pdu_sessions_failed_to_setup_total"] = self.nof_pdu_sessions_failed_to_setup_total
-        d["nof_handover_preparations_requested"] = self.nof_handover_preparations_requested
-        d["nof_successful_handover_preparations"] = self.nof_successful_handover_preparations
-
-        d["rrc_establishments_attempted_total"] = self.rrc_establishments_attempted_total
-        d["rrc_establishments_successful_total"] = self.rrc_establishments_successful_total
-        d["rrc_establishments_attempted_mo_data"] = self.rrc_establishments_attempted_mo_data
-        d["rrc_establishments_successful_mo_data"] = self.rrc_establishments_successful_mo_data
-        d["rrc_establishments_attempted_mo_sig"] = self.rrc_establishments_attempted_mo_sig
-        d["rrc_establishments_successful_mo_sig"] = self.rrc_establishments_successful_mo_sig
-        d["max_nof_rrc_connections"] = self.max_nof_rrc_connections
-        d["mean_nof_rrc_connections"] = self.mean_nof_rrc_connections
-        d["rrc_reestablishments_attempted"] = self.rrc_reestablishments_attempted
-        d["rrc_reestablishments_successful"] = self.rrc_reestablishments_successful
-        d["nof_handover_executions_requested"] = self.nof_handover_executions_requested
-        d["nof_successful_handover_executions"] = self.nof_successful_handover_executions
+        d[constants.FIVE_G_CU.TS] = self.ts
+        d[constants.FIVE_G_CU.IP] = self.ip
+        d[constants.FIVE_G_CU.CU_CP_ID] = self.cu_cp_id
+        d[constants.FIVE_G_CU.AMF_CONNECTED] = self.amf_connected
+        d[constants.FIVE_G_CU.NOF_CN_INITIATED_PAGING_REQUESTS] = self.nof_cn_initiated_paging_requests
+        d[constants.FIVE_G_CU.NOF_PDU_SESSIONS_REQUESTED_TO_SETUP] = self.nof_pdu_sessions_requested_to_setup
+        d[constants.FIVE_G_CU.NOF_PDU_SESSIONS_SUCCESSFULLY_SETUP] = self.nof_pdu_sessions_successfully_setup
+        d[constants.FIVE_G_CU.NOF_PDU_SESSIONS_FAILED_TO_SETUP_TOTAL] = self.nof_pdu_sessions_failed_to_setup_total
+        d[constants.FIVE_G_CU.NOF_HANDOVER_PREPARATIONS_REQUESTED] = self.nof_handover_preparations_requested
+        d[constants.FIVE_G_CU.NOF_SUCCESSFUL_HANDOVER_PREPARATIONS] = self.nof_successful_handover_preparations
+        d[constants.FIVE_G_CU.RRC_ESTABLISHMENTS_ATTEMPTED_TOTAL] = self.rrc_establishments_attempted_total
+        d[constants.FIVE_G_CU.RRC_ESTABLISHMENTS_SUCCESSFUL_TOTAL] = self.rrc_establishments_successful_total
+        d[constants.FIVE_G_CU.RRC_ESTABLISHMENTS_ATTEMPTED_MO_DATA] = self.rrc_establishments_attempted_mo_data
+        d[constants.FIVE_G_CU.RRC_ESTABLISHMENTS_SUCCESSFUL_MO_DATA] = self.rrc_establishments_successful_mo_data
+        d[constants.FIVE_G_CU.RRC_ESTABLISHMENTS_ATTEMPTED_MO_SIG] = self.rrc_establishments_attempted_mo_sig
+        d[constants.FIVE_G_CU.RRC_ESTABLISHMENTS_SUCCESSFUL_MO_SIG] = self.rrc_establishments_successful_mo_sig
+        d[constants.FIVE_G_CU.MAX_NOF_RRC_CONNECTIONS] = self.max_nof_rrc_connections
+        d[constants.FIVE_G_CU.MEAN_NOF_RRC_CONNECTIONS] = self.mean_nof_rrc_connections
+        d[constants.FIVE_G_CU.RRC_REESTABLISHMENTS_ATTEMPTED] = self.rrc_reestablishments_attempted
+        d[constants.FIVE_G_CU.RRC_REESTABLISHMENTS_SUCCESSFUL] = self.rrc_reestablishments_successful
+        d[constants.FIVE_G_CU.NOF_HANDOVER_EXECUTIONS_REQUESTED] = self.nof_handover_executions_requested
+        d[constants.FIVE_G_CU.NOF_SUCCESSFUL_HANDOVER_EXECUTIONS] = self.nof_successful_handover_executions
         return d
 
     def copy(self) -> "FiveGCUCPMetrics":

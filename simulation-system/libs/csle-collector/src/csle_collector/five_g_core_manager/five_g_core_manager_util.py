@@ -18,7 +18,7 @@ from csle_collector.five_g_core_manager.dao.five_g_core_pcf_metrics import FiveG
 
 class FiveGCoreManagerUtil:
     """
-    Class with utility functions for the 5g core manager
+    Class with utility functions for the 5G core manager
     """
 
     @staticmethod
@@ -155,27 +155,27 @@ class FiveGCoreManagerUtil:
         :return: a dict representation of the DTO
         """
         d: Dict[str, Any] = {}
-        d["mongo_running"] = five_g_core_status_dto.mongo_running
-        d["mme_running"] = five_g_core_status_dto.mme_running
-        d["sgwc_running"] = five_g_core_status_dto.sgwc_running
-        d["smf_running"] = five_g_core_status_dto.smf_running
-        d["amf_running"] = five_g_core_status_dto.amf_running
-        d["sgwu_running"] = five_g_core_status_dto.sgwu_running
-        d["upf_running"] = five_g_core_status_dto.upf_running
-        d["hss_running"] = five_g_core_status_dto.hss_running
-        d["pcrf_running"] = five_g_core_status_dto.pcrf_running
-        d["nrf_running"] = five_g_core_status_dto.nrf_running
-        d["scp_running"] = five_g_core_status_dto.scp_running
-        d["sepp_running"] = five_g_core_status_dto.sepp_running
-        d["ausf_running"] = five_g_core_status_dto.ausf_running
-        d["udm_running"] = five_g_core_status_dto.udm_running
-        d["pcf_running"] = five_g_core_status_dto.pcf_running
-        d["nssf_running"] = five_g_core_status_dto.nssf_running
-        d["bsf_running"] = five_g_core_status_dto.bsf_running
-        d["udr_running"] = five_g_core_status_dto.udr_running
-        d["webui_running"] = five_g_core_status_dto.webui_running
-        d["monitor_running"] = five_g_core_status_dto.monitor_running
-        d["ip"] = five_g_core_status_dto.ip
+        d[constants.FIVE_G_CORE.MONGO_RUNNING] = five_g_core_status_dto.mongo_running
+        d[constants.FIVE_G_CORE.MME_RUNNING] = five_g_core_status_dto.mme_running
+        d[constants.FIVE_G_CORE.SGWC_RUNNING] = five_g_core_status_dto.sgwc_running
+        d[constants.FIVE_G_CORE.SMF_RUNNING] = five_g_core_status_dto.smf_running
+        d[constants.FIVE_G_CORE.AMF_RUNNING] = five_g_core_status_dto.amf_running
+        d[constants.FIVE_G_CORE.SGWU_RUNNING] = five_g_core_status_dto.sgwu_running
+        d[constants.FIVE_G_CORE.UPF_RUNNING] = five_g_core_status_dto.upf_running
+        d[constants.FIVE_G_CORE.HSS_RUNNING] = five_g_core_status_dto.hss_running
+        d[constants.FIVE_G_CORE.PCRF_RUNNING] = five_g_core_status_dto.pcrf_running
+        d[constants.FIVE_G_CORE.NRF_RUNNING] = five_g_core_status_dto.nrf_running
+        d[constants.FIVE_G_CORE.SCP_RUNNING] = five_g_core_status_dto.scp_running
+        d[constants.FIVE_G_CORE.SEPP_RUNNING] = five_g_core_status_dto.sepp_running
+        d[constants.FIVE_G_CORE.AUSF_RUNNING] = five_g_core_status_dto.ausf_running
+        d[constants.FIVE_G_CORE.UDM_RUNNING] = five_g_core_status_dto.udm_running
+        d[constants.FIVE_G_CORE.PCF_RUNNING] = five_g_core_status_dto.pcf_running
+        d[constants.FIVE_G_CORE.NSSF_RUNNING] = five_g_core_status_dto.nssf_running
+        d[constants.FIVE_G_CORE.BSF_RUNNING] = five_g_core_status_dto.bsf_running
+        d[constants.FIVE_G_CORE.UDR_RUNNING] = five_g_core_status_dto.udr_running
+        d[constants.FIVE_G_CORE.WEBUI_RUNNING] = five_g_core_status_dto.webui_running
+        d[constants.FIVE_G_CORE.MONITOR_RUNNING] = five_g_core_status_dto.monitor_running
+        d[constants.FIVE_G_CORE.IP] = five_g_core_status_dto.ip
         return d
 
     @staticmethod
@@ -188,26 +188,26 @@ class FiveGCoreManagerUtil:
         :return: the converted DTO
         """
         dto = csle_collector.five_g_core_manager.five_g_core_manager_pb2.FiveGCoreStatusDTO()
-        dto.mongo_running = d["mongo_running"]
-        dto.mme_running = d["mme_running"]
-        dto.sgwc_running = d["sgwc_running"]
-        dto.smf_running = d["smf_running"]
-        dto.amf_running = d["amf_running"]
-        dto.sgwu_running = d["sgwu_running"]
-        dto.upf_running = d["upf_running"]
-        dto.hss_running = d["hss_running"]
-        dto.pcrf_running = d["pcrf_running"]
-        dto.nrf_running = d["nrf_running"]
-        dto.scp_running = d["scp_running"]
-        dto.sepp_running = d["sepp_running"]
-        dto.ausf_running = d["ausf_running"]
-        dto.udm_running = d["udm_running"]
-        dto.pcf_running = d["pcf_running"]
-        dto.nssf_running = d["nssf_running"]
-        dto.bsf_running = d["bsf_running"]
-        dto.udr_running = d["udr_running"]
-        dto.webui_running = d["webui_running"]
-        dto.ip = d["ip"]
+        dto.mongo_running = d[constants.FIVE_G_CORE.MONGO_RUNNING]
+        dto.mme_running = d[constants.FIVE_G_CORE.MME_RUNNING]
+        dto.sgwc_running = d[constants.FIVE_G_CORE.SGWC_RUNNING]
+        dto.smf_running = d[constants.FIVE_G_CORE.SMF_RUNNING]
+        dto.amf_running = d[constants.FIVE_G_CORE.AMF_RUNNING]
+        dto.sgwu_running = d[constants.FIVE_G_CORE.SGWU_RUNNING]
+        dto.upf_running = d[constants.FIVE_G_CORE.UPF_RUNNING]
+        dto.hss_running = d[constants.FIVE_G_CORE.HSS_RUNNING]
+        dto.pcrf_running = d[constants.FIVE_G_CORE.PCRF_RUNNING]
+        dto.nrf_running = d[constants.FIVE_G_CORE.NRF_RUNNING]
+        dto.scp_running = d[constants.FIVE_G_CORE.SCP_RUNNING]
+        dto.sepp_running = d[constants.FIVE_G_CORE.SEPP_RUNNING]
+        dto.ausf_running = d[constants.FIVE_G_CORE.AUSF_RUNNING]
+        dto.udm_running = d[constants.FIVE_G_CORE.UDM_RUNNING]
+        dto.pcf_running = d[constants.FIVE_G_CORE.PCF_RUNNING]
+        dto.nssf_running = d[constants.FIVE_G_CORE.NSSF_RUNNING]
+        dto.bsf_running = d[constants.FIVE_G_CORE.BSF_RUNNING]
+        dto.udr_running = d[constants.FIVE_G_CORE.UDR_RUNNING]
+        dto.webui_running = d[constants.FIVE_G_CORE.WEBUI_RUNNING]
+        dto.ip = d[constants.FIVE_G_CORE.IP]
         return dto
 
     @staticmethod
@@ -235,7 +235,7 @@ class FiveGCoreManagerUtil:
         dto.bsf_running = False
         dto.udr_running = False
         dto.webui_running = False
-        dto.ip = "0.0.0.0"
+        dto.ip = constants.KAFKA.EMPTY_ADDR
         return dto
 
     @staticmethod
@@ -293,12 +293,12 @@ class FiveGCoreManagerUtil:
         """
         target_configs = [
             (
-                "/etc/open5gs/amf.yaml",
-                ["amf", "ngap", "server"]
+                constants.FIVE_G_CORE.AMF_YAML,
+                [constants.FIVE_G_CORE.AMF, constants.FIVE_G_CORE.NGAP, constants.FIVE_G_CORE.SERVER]
             ),
             (
-                "/etc/open5gs/upf.yaml",
-                ["upf", "gtpu", "server"]
+                constants.FIVE_G_CORE.UPF_YAML,
+                [constants.FIVE_G_CORE.UPF, constants.FIVE_G_CORE.GTPU, constants.FIVE_G_CORE.SERVER]
             )
         ]
 
@@ -323,7 +323,7 @@ class FiveGCoreManagerUtil:
                         break
 
                 if path_valid and isinstance(current_node, list) and len(current_node) > 0:
-                    current_node[0]['address'] = ip
+                    current_node[0][constants.FIVE_G_CORE.ADDRESS] = ip
                 elif path_valid:
                     logging.error(f"Invalid structure in {file_path}: Target key is not a list or is empty.")
                     success = False
@@ -383,8 +383,8 @@ class FiveGCoreManagerUtil:
         valid_args = FiveGCoreAMFMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
-        filtered_args['ip'] = str(ip)
-        filtered_args['ts'] = float(time.time())
+        filtered_args[constants.FIVE_G_CORE.IP] = str(ip)
+        filtered_args[constants.FIVE_G_CORE.TS] = float(time.time())
 
         return FiveGCoreAMFMetrics(**filtered_args)  # type: ignore
 
@@ -423,8 +423,8 @@ class FiveGCoreManagerUtil:
         valid_args = FiveGCoreUPFMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
-        filtered_args['ip'] = str(ip)
-        filtered_args['ts'] = float(time.time())
+        filtered_args[constants.FIVE_G_CORE.IP] = str(ip)
+        filtered_args[constants.FIVE_G_CORE.TS] = float(time.time())
 
         return FiveGCoreUPFMetrics(**filtered_args)  # type: ignore
 
@@ -463,8 +463,8 @@ class FiveGCoreManagerUtil:
         valid_args = FiveGCoreMMEMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
-        filtered_args['ip'] = str(ip)
-        filtered_args['ts'] = float(time.time())
+        filtered_args[constants.FIVE_G_CORE.IP] = str(ip)
+        filtered_args[constants.FIVE_G_CORE.TS] = float(time.time())
 
         return FiveGCoreMMEMetrics(**filtered_args)  # type: ignore
 
@@ -503,8 +503,8 @@ class FiveGCoreManagerUtil:
         valid_args = FiveGCoreSMFMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
-        filtered_args['ip'] = str(ip)
-        filtered_args['ts'] = float(time.time())
+        filtered_args[constants.FIVE_G_CORE.IP] = str(ip)
+        filtered_args[constants.FIVE_G_CORE.TS] = float(time.time())
 
         return FiveGCoreSMFMetrics(**filtered_args)  # type: ignore
 
@@ -543,8 +543,8 @@ class FiveGCoreManagerUtil:
         valid_args = FiveGCoreHSSMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
-        filtered_args['ip'] = str(ip)
-        filtered_args['ts'] = float(time.time())
+        filtered_args[constants.FIVE_G_CORE.IP] = str(ip)
+        filtered_args[constants.FIVE_G_CORE.TS] = float(time.time())
 
         return FiveGCoreHSSMetrics(**filtered_args)  # type: ignore
 
@@ -583,8 +583,8 @@ class FiveGCoreManagerUtil:
         valid_args = FiveGCorePCRFMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
-        filtered_args['ip'] = str(ip)
-        filtered_args['ts'] = float(time.time())
+        filtered_args[constants.FIVE_G_CORE.IP] = str(ip)
+        filtered_args[constants.FIVE_G_CORE.TS] = float(time.time())
 
         return FiveGCorePCRFMetrics(**filtered_args)  # type: ignore
 
@@ -623,7 +623,7 @@ class FiveGCoreManagerUtil:
         valid_args = FiveGCorePCFMetrics.__init__.__code__.co_varnames
         filtered_args: Dict[str, Union[int, str, float]]
         filtered_args = {k: v for k, v in parsed_data.items() if k in valid_args and k != 'self'}
-        filtered_args['ip'] = str(ip)
-        filtered_args['ts'] = float(time.time())
+        filtered_args[constants.FIVE_G_CORE.IP] = str(ip)
+        filtered_args[constants.FIVE_G_CORE.TS] = float(time.time())
 
         return FiveGCorePCFMetrics(**filtered_args)  # type: ignore

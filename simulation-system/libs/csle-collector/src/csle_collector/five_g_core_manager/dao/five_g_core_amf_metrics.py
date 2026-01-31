@@ -1,5 +1,6 @@
 from typing import Dict, Any, Union
 import time
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -204,31 +205,31 @@ class FiveGCoreAMFMetrics(JSONSerializable):
         :return: the created instance
         """
         obj = FiveGCoreAMFMetrics(
-            ip=d["ip"],
-            ts=d["ts"],
-            fivegs_amffunction_mm_confupdate=d["fivegs_amffunction_mm_confupdate"],
-            fivegs_amffunction_rm_reginitreq=d["fivegs_amffunction_rm_reginitreq"],
-            fivegs_amffunction_rm_regemergreq=d["fivegs_amffunction_rm_regemergreq"],
-            fivegs_amffunction_mm_paging5greq=d["fivegs_amffunction_mm_paging5greq"],
-            fivegs_amffunction_rm_regperiodreq=d["fivegs_amffunction_rm_regperiodreq"],
-            fivegs_amffunction_mm_confupdatesucc=d["fivegs_amffunction_mm_confupdatesucc"],
-            fivegs_amffunction_rm_reginitsucc=d["fivegs_amffunction_rm_reginitsucc"],
-            fivegs_amffunction_amf_authreject=d["fivegs_amffunction_amf_authreject"],
-            fivegs_amffunction_rm_regmobreq=d["fivegs_amffunction_rm_regmobreq"],
-            amf_session=d["amf_session"],
-            fivegs_amffunction_rm_regmobsucc=d["fivegs_amffunction_rm_regmobsucc"],
-            fivegs_amffunction_amf_authreq=d["fivegs_amffunction_amf_authreq"],
-            fivegs_amffunction_rm_regemergsucc=d["fivegs_amffunction_rm_regemergsucc"],
-            fivegs_amffunction_mm_paging5gsucc=d["fivegs_amffunction_mm_paging5gsucc"],
-            ran_ue=d["ran_ue"],
-            fivegs_amffunction_rm_regperiodsucc=d["fivegs_amffunction_rm_regperiodsucc"],
-            process_max_fds=d["process_max_fds"],
-            process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-            process_cpu_seconds_total=d["process_cpu_seconds_total"],
-            process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-            process_resident_memory_bytes=d["process_resident_memory_bytes"],
-            process_start_time_seconds=d["process_start_time_seconds"],
-            process_open_fds=d["process_open_fds"])
+            ip=d[constants.FIVE_G_CORE.IP],
+            ts=d[constants.FIVE_G_CORE.TS],
+            fivegs_amffunction_mm_confupdate=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_MM_CONFUPDATE],
+            fivegs_amffunction_rm_reginitreq=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGINITREQ],
+            fivegs_amffunction_rm_regemergreq=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGEMERGREQ],
+            fivegs_amffunction_mm_paging5greq=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_MM_PAGING5GREQ],
+            fivegs_amffunction_rm_regperiodreq=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGPERIODREQ],
+            fivegs_amffunction_mm_confupdatesucc=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_MM_CONFUPDATESUCC],
+            fivegs_amffunction_rm_reginitsucc=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGINITSUCC],
+            fivegs_amffunction_amf_authreject=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_AMF_AUTHREJECT],
+            fivegs_amffunction_rm_regmobreq=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGMOBREQ],
+            amf_session=d[constants.FIVE_G_CORE.AMF_SESSION],
+            fivegs_amffunction_rm_regmobsucc=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGMOBSUCC],
+            fivegs_amffunction_amf_authreq=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_AMF_AUTHREQ],
+            fivegs_amffunction_rm_regemergsucc=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGEMERGSUCC],
+            fivegs_amffunction_mm_paging5gsucc=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_MM_PAGING5GSUCC],
+            ran_ue=d[constants.FIVE_G_CORE.RAN_UE],
+            fivegs_amffunction_rm_regperiodsucc=d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGPERIODSUCC],
+            process_max_fds=d[constants.FIVE_G_CORE.PROCESS_MAX_FDS],
+            process_virtual_memory_max_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES],
+            process_cpu_seconds_total=d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL],
+            process_virtual_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES],
+            process_resident_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES],
+            process_start_time_seconds=d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS],
+            process_open_fds=d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -236,31 +237,31 @@ class FiveGCoreAMFMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["fivegs_amffunction_mm_confupdate"] = self.fivegs_amffunction_mm_confupdate
-        d["fivegs_amffunction_rm_reginitreq"] = self.fivegs_amffunction_rm_reginitreq
-        d["fivegs_amffunction_rm_regemergreq"] = self.fivegs_amffunction_rm_regemergreq
-        d["fivegs_amffunction_mm_paging5greq"] = self.fivegs_amffunction_mm_paging5greq
-        d["fivegs_amffunction_rm_regperiodreq"] = self.fivegs_amffunction_rm_regperiodreq
-        d["fivegs_amffunction_mm_confupdatesucc"] = self.fivegs_amffunction_mm_confupdatesucc
-        d["fivegs_amffunction_rm_reginitsucc"] = self.fivegs_amffunction_rm_reginitsucc
-        d["fivegs_amffunction_amf_authreject"] = self.fivegs_amffunction_amf_authreject
-        d["fivegs_amffunction_rm_regmobreq"] = self.fivegs_amffunction_rm_regmobreq
-        d["amf_session"] = self.amf_session
-        d["fivegs_amffunction_rm_regmobsucc"] = self.fivegs_amffunction_rm_regmobsucc
-        d["fivegs_amffunction_amf_authreq"] = self.fivegs_amffunction_amf_authreq
-        d["fivegs_amffunction_rm_regemergsucc"] = self.fivegs_amffunction_rm_regemergsucc
-        d["fivegs_amffunction_mm_paging5gsucc"] = self.fivegs_amffunction_mm_paging5gsucc
-        d["ran_ue"] = self.ran_ue
-        d["fivegs_amffunction_rm_regperiodsucc"] = self.fivegs_amffunction_rm_regperiodsucc
-        d["process_max_fds"] = self.process_max_fds
-        d["process_virtual_memory_max_bytes"] = self.process_virtual_memory_max_bytes
-        d["process_cpu_seconds_total"] = self.process_cpu_seconds_total
-        d["process_virtual_memory_bytes"] = self.process_virtual_memory_bytes
-        d["process_resident_memory_bytes"] = self.process_resident_memory_bytes
-        d["process_start_time_seconds"] = self.process_start_time_seconds
-        d["process_open_fds"] = self.process_open_fds
+        d[constants.FIVE_G_CORE.TS] = self.ts
+        d[constants.FIVE_G_CORE.IP] = self.ip
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_MM_CONFUPDATE] = self.fivegs_amffunction_mm_confupdate
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGINITREQ] = self.fivegs_amffunction_rm_reginitreq
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGEMERGREQ] = self.fivegs_amffunction_rm_regemergreq
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_MM_PAGING5GREQ] = self.fivegs_amffunction_mm_paging5greq
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGPERIODREQ] = self.fivegs_amffunction_rm_regperiodreq
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_MM_CONFUPDATESUCC] = self.fivegs_amffunction_mm_confupdatesucc
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGINITSUCC] = self.fivegs_amffunction_rm_reginitsucc
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_AMF_AUTHREJECT] = self.fivegs_amffunction_amf_authreject
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGMOBREQ] = self.fivegs_amffunction_rm_regmobreq
+        d[constants.FIVE_G_CORE.AMF_SESSION] = self.amf_session
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGMOBSUCC] = self.fivegs_amffunction_rm_regmobsucc
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_AMF_AUTHREQ] = self.fivegs_amffunction_amf_authreq
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGEMERGSUCC] = self.fivegs_amffunction_rm_regemergsucc
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_MM_PAGING5GSUCC] = self.fivegs_amffunction_mm_paging5gsucc
+        d[constants.FIVE_G_CORE.RAN_UE] = self.ran_ue
+        d[constants.FIVE_G_CORE.FIVEGS_AMFFUNCTION_RM_REGPERIODSUCC] = self.fivegs_amffunction_rm_regperiodsucc
+        d[constants.FIVE_G_CORE.PROCESS_MAX_FDS] = self.process_max_fds
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES] = self.process_virtual_memory_max_bytes
+        d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL] = self.process_cpu_seconds_total
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES] = self.process_virtual_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES] = self.process_resident_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS] = self.process_start_time_seconds
+        d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS] = self.process_open_fds
         return d
 
     def copy(self) -> "FiveGCoreAMFMetrics":

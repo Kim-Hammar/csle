@@ -1,5 +1,6 @@
 from typing import Dict, Any, Union
 import time
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -253,42 +254,42 @@ class FiveGCoreSMFMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = FiveGCoreSMFMetrics(ip=d["ip"], ts=d["ts"],
-                                  gn_rx_createpdpcontextreq=d["gn_rx_createpdpcontextreq"],
-                                  gn_rx_deletepdpcontextreq=d["gn_rx_deletepdpcontextreq"],
-                                  gtp1_pdpctxs_active=d["gtp1_pdpctxs_active"],
-                                  pfcp_peers_active=d["pfcp_peers_active"],
-                                  fivegs_smffunction_sm_n4sessionreport=d["fivegs_smffunction_sm_n4sessionreport"],
-                                  ues_active=d["ues_active"],
-                                  gtp2_sessions_active=d["gtp2_sessions_active"],
-                                  pfcp_sessions_active=d["pfcp_sessions_active"],
-                                  s5c_rx_createsession=d["s5c_rx_createsession"],
-                                  s5c_rx_deletesession=d["s5c_rx_deletesession"],
-                                  gtp_new_node_failed=d["gtp_new_node_failed"],
-                                  s5c_rx_parse_failed=d["s5c_rx_parse_failed"],
-                                  fivegs_smffunction_sm_n4sessionreportsucc=d[
-                                      "fivegs_smffunction_sm_n4sessionreportsucc"],
-                                  fivegs_smffunction_sm_n4sessionestabreq=d["fivegs_smffunction_sm_n4sessionestabreq"],
-                                  bearers_active=d["bearers_active"],
-                                  gn_rx_parse_failed=d["gn_rx_parse_failed"],
-                                  gtp_peers_active=d["gtp_peers_active"],
-                                  fivegs_smffunction_sm_sessionnbr=d["fivegs_smffunction_sm_sessionnbr"],
-                                  fivegs_smffunction_sm_pdusessioncreationreq=d[
-                                      "fivegs_smffunction_sm_pdusessioncreationreq"],
-                                  fivegs_smffunction_sm_pdusessioncreationsucc=d[
-                                      "fivegs_smffunction_sm_pdusessioncreationsucc"],
-                                  fivegs_smffunction_sm_qos_flow_nbr=d["fivegs_smffunction_sm_qos_flow_nbr"],
-                                  fivegs_smffunction_sm_n4sessionestabfail=d[
-                                      "fivegs_smffunction_sm_n4sessionestabfail"],
-                                  fivegs_smffunction_sm_pdusessioncreationfail=d[
-                                      "fivegs_smffunction_sm_pdusessioncreationfail"],
-                                  process_max_fds=d["process_max_fds"],
-                                  process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                                  process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                                  process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                                  process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                                  process_open_fds=d["process_open_fds"],
-                                  process_start_time_seconds=d["process_start_time_seconds"])
+        obj = FiveGCoreSMFMetrics(
+            ip=d[constants.FIVE_G_CORE.IP], ts=d[constants.FIVE_G_CORE.TS],
+            gn_rx_createpdpcontextreq=d[constants.FIVE_G_CORE.GN_RX_CREATEPDPCONTEXTREQ],
+            gn_rx_deletepdpcontextreq=d[constants.FIVE_G_CORE.GN_RX_DELETEPDPCONTEXTREQ],
+            gtp1_pdpctxs_active=d[constants.FIVE_G_CORE.GTP1_PDPCTXS_ACTIVE],
+            pfcp_peers_active=d[constants.FIVE_G_CORE.PFCP_PEERS_ACTIVE],
+            fivegs_smffunction_sm_n4sessionreport=d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORT],
+            ues_active=d[constants.FIVE_G_CORE.UES_ACTIVE],
+            gtp2_sessions_active=d[constants.FIVE_G_CORE.GTP2_SESSIONS_ACTIVE],
+            pfcp_sessions_active=d[constants.FIVE_G_CORE.PFCP_SESSIONS_ACTIVE],
+            s5c_rx_createsession=d[constants.FIVE_G_CORE.S5C_RX_CREATESESSION],
+            s5c_rx_deletesession=d[constants.FIVE_G_CORE.S5C_RX_DELETESESSION],
+            gtp_new_node_failed=d[constants.FIVE_G_CORE.GTP_NEW_NODE_FAILED],
+            s5c_rx_parse_failed=d[constants.FIVE_G_CORE.S5C_RX_PARSE_FAILED],
+            fivegs_smffunction_sm_n4sessionreportsucc=d[
+                constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORTSUCC],
+            fivegs_smffunction_sm_n4sessionestabreq=d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONESTABREQ],
+            bearers_active=d[constants.FIVE_G_CORE.BEARERS_ACTIVE],
+            gn_rx_parse_failed=d[constants.FIVE_G_CORE.GN_RX_PARSE_FAILED],
+            gtp_peers_active=d[constants.FIVE_G_CORE.GTP_PEERS_ACTIVE],
+            fivegs_smffunction_sm_sessionnbr=d[constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_SESSIONNBR],
+            fivegs_smffunction_sm_pdusessioncreationreq=d[
+                constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONREQ],
+            fivegs_smffunction_sm_pdusessioncreationsucc=d[
+                constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONSUCC],
+            fivegs_smffunction_sm_qos_flow_nbr=d[constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_QOS_FLOW_NBR],
+            fivegs_smffunction_sm_n4sessionestabfail=d[constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_N4SESSIONESTABFAIL],
+            fivegs_smffunction_sm_pdusessioncreationfail=d[
+                constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONFAIL],
+            process_max_fds=d[constants.FIVE_G_CORE.PROCESS_MAX_FDS],
+            process_virtual_memory_max_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES],
+            process_cpu_seconds_total=d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL],
+            process_virtual_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES],
+            process_resident_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES],
+            process_open_fds=d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS],
+            process_start_time_seconds=d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -296,51 +297,50 @@ class FiveGCoreSMFMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["gn_rx_createpdpcontextreq"] = self.gn_rx_createpdpcontextreq
-        d["gn_rx_deletepdpcontextreq"] = self.gn_rx_deletepdpcontextreq
-        d["gtp1_pdpctxs_active"] = self.gtp1_pdpctxs_active
-        d["pfcp_peers_active"] = self.pfcp_peers_active
-        d["fivegs_smffunction_sm_n4sessionreport"] = self.fivegs_smffunction_sm_n4sessionreport
-        d["ues_active"] = self.ues_active
-        d["gtp2_sessions_active"] = self.gtp2_sessions_active
-        d["pfcp_sessions_active"] = self.pfcp_sessions_active
-        d["s5c_rx_createsession"] = self.s5c_rx_createsession
-        d["s5c_rx_deletesession"] = self.s5c_rx_deletesession
-        d["gtp_new_node_failed"] = self.gtp_new_node_failed
-        d["s5c_rx_parse_failed"] = self.s5c_rx_parse_failed
-        d["fivegs_smffunction_sm_n4sessionreportsucc"] = self.fivegs_smffunction_sm_n4sessionreportsucc
-        d["fivegs_smffunction_sm_n4sessionestabreq"] = self.fivegs_smffunction_sm_n4sessionestabreq
-        d["bearers_active"] = self.bearers_active
-        d["gn_rx_parse_failed"] = self.gn_rx_parse_failed
-        d["gtp_peers_active"] = self.gtp_peers_active
-        d["fivegs_smffunction_sm_sessionnbr"] = self.fivegs_smffunction_sm_sessionnbr
-        d["fivegs_smffunction_sm_pdusessioncreationreq"] = self.fivegs_smffunction_sm_pdusessioncreationreq
-        d["fivegs_smffunction_sm_pdusessioncreationsucc"] = self.fivegs_smffunction_sm_pdusessioncreationsucc
-        d["fivegs_smffunction_sm_qos_flow_nbr"] = self.fivegs_smffunction_sm_qos_flow_nbr
-        d["fivegs_smffunction_sm_n4sessionestabfail"] = self.fivegs_smffunction_sm_n4sessionestabfail
-        d["fivegs_smffunction_sm_pdusessioncreationfail"] = self.fivegs_smffunction_sm_pdusessioncreationfail
-        d["process_max_fds"] = self.process_max_fds
-        d["process_virtual_memory_max_bytes"] = self.process_virtual_memory_max_bytes
-        d["process_cpu_seconds_total"] = self.process_cpu_seconds_total
-        d["process_virtual_memory_bytes"] = self.process_virtual_memory_bytes
-        d["process_resident_memory_bytes"] = self.process_resident_memory_bytes
-        d["process_start_time_seconds"] = self.process_start_time_seconds
-        d["process_open_fds"] = self.process_open_fds
+        d[constants.FIVE_G_CORE.TS] = self.ts
+        d[constants.FIVE_G_CORE.IP] = self.ip
+        d[constants.FIVE_G_CORE.GN_RX_CREATEPDPCONTEXTREQ] = self.gn_rx_createpdpcontextreq
+        d[constants.FIVE_G_CORE.GN_RX_DELETEPDPCONTEXTREQ] = self.gn_rx_deletepdpcontextreq
+        d[constants.FIVE_G_CORE.GTP1_PDPCTXS_ACTIVE] = self.gtp1_pdpctxs_active
+        d[constants.FIVE_G_CORE.PFCP_PEERS_ACTIVE] = self.pfcp_peers_active
+        d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORT] = self.fivegs_smffunction_sm_n4sessionreport
+        d[constants.FIVE_G_CORE.UES_ACTIVE] = self.ues_active
+        d[constants.FIVE_G_CORE.GTP2_SESSIONS_ACTIVE] = self.gtp2_sessions_active
+        d[constants.FIVE_G_CORE.PFCP_SESSIONS_ACTIVE] = self.pfcp_sessions_active
+        d[constants.FIVE_G_CORE.S5C_RX_CREATESESSION] = self.s5c_rx_createsession
+        d[constants.FIVE_G_CORE.S5C_RX_DELETESESSION] = self.s5c_rx_deletesession
+        d[constants.FIVE_G_CORE.GTP_NEW_NODE_FAILED] = self.gtp_new_node_failed
+        d[constants.FIVE_G_CORE.S5C_RX_PARSE_FAILED] = self.s5c_rx_parse_failed
+        d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORTSUCC] = \
+            self.fivegs_smffunction_sm_n4sessionreportsucc
+        d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONESTABREQ] = self.fivegs_smffunction_sm_n4sessionestabreq
+        d[constants.FIVE_G_CORE.BEARERS_ACTIVE] = self.bearers_active
+        d[constants.FIVE_G_CORE.GN_RX_PARSE_FAILED] = self.gn_rx_parse_failed
+        d[constants.FIVE_G_CORE.GTP_PEERS_ACTIVE] = self.gtp_peers_active
+        d[constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_SESSIONNBR] = self.fivegs_smffunction_sm_sessionnbr
+        d[constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONREQ] = \
+            self.fivegs_smffunction_sm_pdusessioncreationreq
+        d[constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONSUCC] = \
+            self.fivegs_smffunction_sm_pdusessioncreationsucc
+        d[constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_QOS_FLOW_NBR] = self.fivegs_smffunction_sm_qos_flow_nbr
+        d[constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_N4SESSIONESTABFAIL] = \
+            self.fivegs_smffunction_sm_n4sessionestabfail
+        d[constants.FIVE_G_CORE.FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONFAIL] = \
+            self.fivegs_smffunction_sm_pdusessioncreationfail
+        d[constants.FIVE_G_CORE.PROCESS_MAX_FDS] = self.process_max_fds
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES] = self.process_virtual_memory_max_bytes
+        d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL] = self.process_cpu_seconds_total
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES] = self.process_virtual_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES] = self.process_resident_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS] = self.process_start_time_seconds
+        d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS] = self.process_open_fds
         return d
 
     def copy(self) -> "FiveGCoreSMFMetrics":
         """
         :return: a copy of the object
         """
-        c = FiveGCoreSMFMetrics(ip=self.ip, ts=self.ts)
-        # We must copy all fields to be safe, but adhering to the original simplified pattern
-        # usually suggests the caller might rely on to_dict/from_dict for deep copies or
-        # just needs a shallow copy of the object shell.
-        # To be fully correct per the pattern:
-        c = FiveGCoreSMFMetrics.from_dict(self.to_dict())
-        return c
+        return FiveGCoreSMFMetrics(ip=self.ip, ts=self.ts)
 
     def num_attributes(self) -> int:
         """

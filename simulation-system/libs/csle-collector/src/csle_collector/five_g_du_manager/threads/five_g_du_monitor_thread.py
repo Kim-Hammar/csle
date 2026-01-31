@@ -65,7 +65,7 @@ class FiveGDUMonitorThread(threading.Thread):
         :return: None
         """
         logging.info(f"[5G DU Monitor] Connected to {self.ip}.")
-        ws.send(json.dumps({"cmd": "metrics_subscribe"}))
+        ws.send(json.dumps({constants.FIVE_G_DU.CMD: constants.FIVE_G_DU.METRICS_SUBSCRIBE}))
 
     def _on_message(self, ws, message):
         """
@@ -77,30 +77,30 @@ class FiveGDUMonitorThread(threading.Thread):
         try:
             data = json.loads(message)
 
-            if "cmd" in data:
+            if constants.FIVE_G_DU.CMD in data:
                 return
 
             dto = None
             key = None
 
-            if "cells" in data:
+            if constants.FIVE_G_DU.CELLS in data:
                 dto = FiveGDUCellMetrics.from_ws_dict(data, ip=self.ip)
-                key = "cell"
-            elif "du" in data:
+                key = constants.FIVE_G_DU.CELL_KEY
+            elif constants.FIVE_G_DU.DU in data:
                 dto = FiveGDUMetrics.from_ws_dict(data, ip=self.ip)
-                key = "du"
-            elif "du_low" in data:
+                key = constants.FIVE_G_DU.DU_KEY
+            elif constants.FIVE_G_DU.DU_LOW in data:
                 dto = FiveGDULowMetrics.from_ws_dict(data, ip=self.ip)
-                key = "du_low"
-            elif "rlc_metrics" in data:
+                key = constants.FIVE_G_DU.DU_LOW_KEY
+            elif constants.FIVE_G_DU.RLC_METRICS in data:
                 dto = FiveGDURLCMetrics.from_ws_dict(data, ip=self.ip)
-                key = "rlc"
-            elif "app_resource_usage" in data:
+                key = constants.FIVE_G_DU.RLC_KEY
+            elif constants.FIVE_G_DU.APP_RESOURCE_USAGE in data:
                 dto = FiveGDUAppResourceUsageMetrics.from_ws_dict(data, ip=self.ip)
-                key = "app"
-            elif "buffer_pool" in data:
+                key = constants.FIVE_G_DU.APP_KEY
+            elif constants.FIVE_G_DU.BUFFER_POOL in data:
                 dto = FiveGDUBufferPoolMetrics.from_ws_dict(data, ip=self.ip)
-                key = "buffer"
+                key = constants.FIVE_G_DU.BUFFER_KEY
 
             if dto and key:
                 with self.buffer_lock:
@@ -180,29 +180,29 @@ class FiveGDUMonitorThread(threading.Thread):
                         continue
                     snapshot = self.metrics_buffer.copy()
 
-                if "cell" in snapshot:
-                    record = snapshot["cell"].to_kafka_record(ip=self.ip)
+                if constants.FIVE_G_DU.CELL_KEY in snapshot:
+                    record = snapshot[constants.FIVE_G_DU.CELL_KEY].to_kafka_record(ip=self.ip)
                     self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_DU_CELL_METRICS_TOPIC_NAME, record)
 
-                if "du" in snapshot:
-                    record = snapshot["du"].to_kafka_record(ip=self.ip)
+                if constants.FIVE_G_DU.DU_KEY in snapshot:
+                    record = snapshot[constants.FIVE_G_DU.DU_KEY].to_kafka_record(ip=self.ip)
                     self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_DU_METRICS_TOPIC_NAME, record)
 
-                if "du_low" in snapshot:
-                    record = snapshot["du_low"].to_kafka_record(ip=self.ip)
+                if constants.FIVE_G_DU.DU_LOW_KEY in snapshot:
+                    record = snapshot[constants.FIVE_G_DU.DU_LOW_KEY].to_kafka_record(ip=self.ip)
                     self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_DU_LOW_METRICS_TOPIC_NAME, record)
 
-                if "rlc" in snapshot:
-                    record = snapshot["rlc"].to_kafka_record(ip=self.ip)
+                if constants.FIVE_G_DU.RLC_KEY in snapshot:
+                    record = snapshot[constants.FIVE_G_DU.RLC_KEY].to_kafka_record(ip=self.ip)
                     self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_DU_RLC_METRICS_TOPIC_NAME, record)
 
-                if "app" in snapshot:
-                    record = snapshot["app"].to_kafka_record(ip=self.ip)
+                if constants.FIVE_G_DU.APP_KEY in snapshot:
+                    record = snapshot[constants.FIVE_G_DU.APP_KEY].to_kafka_record(ip=self.ip)
                     self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_DU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
                                           record)
 
-                if "buffer" in snapshot:
-                    record = snapshot["buffer"].to_kafka_record(ip=self.ip)
+                if constants.FIVE_G_DU.BUFFER_KEY in snapshot:
+                    record = snapshot[constants.FIVE_G_DU.BUFFER_KEY].to_kafka_record(ip=self.ip)
                     self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_DU_BUFFER_POOL_METRICS_TOPIC_NAME, record)
 
                 self.producer.poll(0)

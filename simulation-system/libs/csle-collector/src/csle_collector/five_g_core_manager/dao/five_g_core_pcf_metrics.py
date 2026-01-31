@@ -1,5 +1,6 @@
 from typing import Dict, Any, Union
 import time
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -145,19 +146,20 @@ class FiveGCorePCFMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = FiveGCorePCFMetrics(ip=d["ip"], ts=d["ts"],
-                                  fivegs_pcffunction_pa_policyamassoreq=d["fivegs_pcffunction_pa_policyamassoreq"],
-                                  fivegs_pcffunction_pa_policyamassosucc=d["fivegs_pcffunction_pa_policyamassosucc"],
-                                  fivegs_pcffunction_pa_policysmassoreq=d["fivegs_pcffunction_pa_policysmassoreq"],
-                                  fivegs_pcffunction_pa_policysmassosucc=d["fivegs_pcffunction_pa_policysmassosucc"],
-                                  fivegs_pcffunction_pa_sessionnbr=d["fivegs_pcffunction_pa_sessionnbr"],
-                                  process_max_fds=d["process_max_fds"],
-                                  process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                                  process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                                  process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                                  process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                                  process_start_time_seconds=d["process_start_time_seconds"],
-                                  process_open_fds=d["process_open_fds"])
+        obj = FiveGCorePCFMetrics(
+            ip=d[constants.FIVE_G_CORE.IP], ts=d[constants.FIVE_G_CORE.TS],
+            fivegs_pcffunction_pa_policyamassoreq=d[constants.FIVE_G_CORE.FIVEGS_PCFFUNCTION_PA_POLICYAMASSOREQ],
+            fivegs_pcffunction_pa_policyamassosucc=d[constants.FIVE_G_CORE.FIVEGS_PCFFUNCTION_PA_POLICYAMASSOSUCC],
+            fivegs_pcffunction_pa_policysmassoreq=d[constants.FIVE_G_CORE.FIVEGS_PCFFUNCTION_PA_POLICYSMASSOREQ],
+            fivegs_pcffunction_pa_policysmassosucc=d[constants.FIVE_G_CORE.FIVEGS_PCFFUNCTION_PA_POLICYSMASSOSUCC],
+            fivegs_pcffunction_pa_sessionnbr=d[constants.FIVE_G_CORE.FIVEGS_PCFFUNCTION_PA_SESSIONNBR],
+            process_max_fds=d[constants.FIVE_G_CORE.PROCESS_MAX_FDS],
+            process_virtual_memory_max_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES],
+            process_cpu_seconds_total=d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL],
+            process_virtual_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES],
+            process_resident_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES],
+            process_start_time_seconds=d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS],
+            process_open_fds=d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -165,20 +167,20 @@ class FiveGCorePCFMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["fivegs_pcffunction_pa_policyamassoreq"] = self.fivegs_pcffunction_pa_policyamassoreq
-        d["fivegs_pcffunction_pa_policyamassosucc"] = self.fivegs_pcffunction_pa_policyamassosucc
-        d["fivegs_pcffunction_pa_policysmassoreq"] = self.fivegs_pcffunction_pa_policysmassoreq
-        d["fivegs_pcffunction_pa_policysmassosucc"] = self.fivegs_pcffunction_pa_policysmassosucc
-        d["fivegs_pcffunction_pa_sessionnbr"] = self.fivegs_pcffunction_pa_sessionnbr
-        d["process_max_fds"] = self.process_max_fds
-        d["process_virtual_memory_max_bytes"] = self.process_virtual_memory_max_bytes
-        d["process_cpu_seconds_total"] = self.process_cpu_seconds_total
-        d["process_virtual_memory_bytes"] = self.process_virtual_memory_bytes
-        d["process_resident_memory_bytes"] = self.process_resident_memory_bytes
-        d["process_start_time_seconds"] = self.process_start_time_seconds
-        d["process_open_fds"] = self.process_open_fds
+        d[constants.FIVE_G_CORE.TS] = self.ts
+        d[constants.FIVE_G_CORE.IP] = self.ip
+        d[constants.FIVE_G_CORE.FIVEGS_PCFFUNCTION_PA_POLICYAMASSOREQ] = self.fivegs_pcffunction_pa_policyamassoreq
+        d[constants.FIVE_G_CORE.FIVEGS_PCFFUNCTION_PA_POLICYAMASSOSUCC] = self.fivegs_pcffunction_pa_policyamassosucc
+        d[constants.FIVE_G_CORE.FIVEGS_PCFFUNCTION_PA_POLICYSMASSOREQ] = self.fivegs_pcffunction_pa_policysmassoreq
+        d[constants.FIVE_G_CORE.FIVEGS_PCFFUNCTION_PA_POLICYSMASSOSUCC] = self.fivegs_pcffunction_pa_policysmassosucc
+        d[constants.FIVE_G_CORE.FIVEGS_PCFFUNCTION_PA_SESSIONNBR] = self.fivegs_pcffunction_pa_sessionnbr
+        d[constants.FIVE_G_CORE.PROCESS_MAX_FDS] = self.process_max_fds
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES] = self.process_virtual_memory_max_bytes
+        d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL] = self.process_cpu_seconds_total
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES] = self.process_virtual_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES] = self.process_resident_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS] = self.process_start_time_seconds
+        d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS] = self.process_open_fds
         return d
 
     def copy(self) -> "FiveGCorePCFMetrics":

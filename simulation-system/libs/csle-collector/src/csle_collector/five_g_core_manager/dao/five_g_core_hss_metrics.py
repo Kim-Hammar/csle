@@ -1,5 +1,6 @@
 from typing import Dict, Any, Union
 import time
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -280,35 +281,54 @@ class FiveGCoreHSSMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = FiveGCoreHSSMetrics(ip=d["ip"], ts=d["ts"],
-                                  cx_rx_lir=d["cx_rx_lir"], cx_rx_uar=d["cx_rx_uar"], cx_tx_lia=d["cx_tx_lia"],
-                                  cx_rx_unknown=d["cx_rx_unknown"], cx_rx_sar=d["cx_rx_sar"],
-                                  s6a_rx_pur=d["s6a_rx_pur"],
-                                  swx_rx_mar_error=d["swx_rx_mar_error"], cx_tx_uaa=d["cx_tx_uaa"],
-                                  s6a_rx_pur_error=d["s6a_rx_pur_error"], s6a_tx_clr=d["s6a_tx_clr"],
-                                  cx_tx_saa=d["cx_tx_saa"],
-                                  cx_rx_lir_error=d["cx_rx_lir_error"], s6a_rx_ulr=d["s6a_rx_ulr"],
-                                  s6a_rx_cla=d["s6a_rx_cla"],
-                                  s6a_rx_cla_error=d["s6a_rx_cla_error"], s6a_rx_air=d["s6a_rx_air"],
-                                  cx_rx_mar=d["cx_rx_mar"],
-                                  swx_rx_sar=d["swx_rx_sar"], s6a_rx_air_error=d["s6a_rx_air_error"],
-                                  s6a_rx_ida_error=d["s6a_rx_ida_error"], cx_tx_maa=d["cx_tx_maa"],
-                                  swx_rx_mar=d["swx_rx_mar"],
-                                  s6a_rx_unknown=d["s6a_rx_unknown"], s6a_tx_pua=d["s6a_tx_pua"],
-                                  swx_rx_unknown=d["swx_rx_unknown"], cx_rx_mar_error=d["cx_rx_mar_error"],
-                                  cx_rx_uar_error=d["cx_rx_uar_error"], s6a_tx_ula=d["s6a_tx_ula"],
-                                  s6a_rx_ulr_error=d["s6a_rx_ulr_error"], s6a_tx_aia=d["s6a_tx_aia"],
-                                  s6a_tx_idr=d["s6a_tx_idr"],
-                                  s6a_rx_ida=d["s6a_rx_ida"], cx_rx_sar_error=d["cx_rx_sar_error"],
-                                  swx_rx_sar_error=d["swx_rx_sar_error"], swx_tx_maa=d["swx_tx_maa"],
-                                  swx_tx_saa=d["swx_tx_saa"], hss_imsi=d["hss_imsi"], hss_impi=d["hss_impi"],
-                                  hss_impu=d["hss_impu"], process_max_fds=d["process_max_fds"],
-                                  process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                                  process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                                  process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                                  process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                                  process_start_time_seconds=d["process_start_time_seconds"],
-                                  process_open_fds=d["process_open_fds"])
+        obj = FiveGCoreHSSMetrics(
+            ip=d[constants.FIVE_G_CORE.IP], ts=d[constants.FIVE_G_CORE.TS],
+            cx_rx_lir=d[constants.FIVE_G_CORE.CX_RX_LIR],
+            cx_rx_uar=d[constants.FIVE_G_CORE.CX_RX_UAR],
+            cx_tx_lia=d[constants.FIVE_G_CORE.CX_TX_LIA],
+            cx_rx_unknown=d[constants.FIVE_G_CORE.CX_RX_UNKNOWN],
+            cx_rx_sar=d[constants.FIVE_G_CORE.CX_RX_SAR],
+            s6a_rx_pur=d[constants.FIVE_G_CORE.S6A_RX_PUR],
+            swx_rx_mar_error=d[constants.FIVE_G_CORE.SWX_RX_MAR_ERROR],
+            cx_tx_uaa=d[constants.FIVE_G_CORE.CX_TX_UAA],
+            s6a_rx_pur_error=d[constants.FIVE_G_CORE.S6A_RX_PUR_ERROR],
+            s6a_tx_clr=d[constants.FIVE_G_CORE.S6A_TX_CLR],
+            cx_tx_saa=d[constants.FIVE_G_CORE.CX_TX_SAA],
+            cx_rx_lir_error=d[constants.FIVE_G_CORE.CX_RX_LIR_ERROR],
+            s6a_rx_ulr=d[constants.FIVE_G_CORE.S6A_RX_ULR],
+            s6a_rx_cla=d[constants.FIVE_G_CORE.S6A_RX_CLA],
+            s6a_rx_cla_error=d[constants.FIVE_G_CORE.S6A_RX_CLA_ERROR],
+            s6a_rx_air=d[constants.FIVE_G_CORE.S6A_RX_AIR],
+            cx_rx_mar=d[constants.FIVE_G_CORE.CX_RX_MAR],
+            swx_rx_sar=d[constants.FIVE_G_CORE.SWX_RX_SAR],
+            s6a_rx_air_error=d[constants.FIVE_G_CORE.S6A_RX_AIR_ERROR],
+            s6a_rx_ida_error=d[constants.FIVE_G_CORE.S6A_RX_IDA_ERROR],
+            cx_tx_maa=d[constants.FIVE_G_CORE.CX_TX_MAA],
+            swx_rx_mar=d[constants.FIVE_G_CORE.SWX_RX_MAR],
+            s6a_rx_unknown=d[constants.FIVE_G_CORE.S6A_RX_UNKNOWN],
+            s6a_tx_pua=d[constants.FIVE_G_CORE.S6A_TX_PUA],
+            swx_rx_unknown=d[constants.FIVE_G_CORE.SWX_RX_UNKNOWN],
+            cx_rx_mar_error=d[constants.FIVE_G_CORE.CX_RX_MAR_ERROR],
+            cx_rx_uar_error=d[constants.FIVE_G_CORE.CX_RX_UAR_ERROR],
+            s6a_tx_ula=d[constants.FIVE_G_CORE.S6A_TX_ULA],
+            s6a_rx_ulr_error=d[constants.FIVE_G_CORE.S6A_RX_ULR_ERROR],
+            s6a_tx_aia=d[constants.FIVE_G_CORE.S6A_TX_AIA],
+            s6a_tx_idr=d[constants.FIVE_G_CORE.S6A_TX_IDR],
+            s6a_rx_ida=d[constants.FIVE_G_CORE.S6A_RX_IDA],
+            cx_rx_sar_error=d[constants.FIVE_G_CORE.CX_RX_SAR_ERROR],
+            swx_rx_sar_error=d[constants.FIVE_G_CORE.SWX_RX_SAR_ERROR],
+            swx_tx_maa=d[constants.FIVE_G_CORE.SWX_TX_MAA],
+            swx_tx_saa=d[constants.FIVE_G_CORE.SWX_TX_SAA],
+            hss_imsi=d[constants.FIVE_G_CORE.HSS_IMSI],
+            hss_impi=d[constants.FIVE_G_CORE.HSS_IMPI],
+            hss_impu=d[constants.FIVE_G_CORE.HSS_IMPU],
+            process_max_fds=d[constants.FIVE_G_CORE.PROCESS_MAX_FDS],
+            process_virtual_memory_max_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES],
+            process_cpu_seconds_total=d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL],
+            process_virtual_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES],
+            process_resident_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES],
+            process_open_fds=d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS],
+            process_start_time_seconds=d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -316,54 +336,54 @@ class FiveGCoreHSSMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["cx_rx_lir"] = self.cx_rx_lir
-        d["cx_rx_uar"] = self.cx_rx_uar
-        d["cx_tx_lia"] = self.cx_tx_lia
-        d["cx_rx_unknown"] = self.cx_rx_unknown
-        d["cx_rx_sar"] = self.cx_rx_sar
-        d["s6a_rx_pur"] = self.s6a_rx_pur
-        d["swx_rx_mar_error"] = self.swx_rx_mar_error
-        d["cx_tx_uaa"] = self.cx_tx_uaa
-        d["s6a_rx_pur_error"] = self.s6a_rx_pur_error
-        d["s6a_tx_clr"] = self.s6a_tx_clr
-        d["cx_tx_saa"] = self.cx_tx_saa
-        d["cx_rx_lir_error"] = self.cx_rx_lir_error
-        d["s6a_rx_ulr"] = self.s6a_rx_ulr
-        d["s6a_rx_cla"] = self.s6a_rx_cla
-        d["s6a_rx_cla_error"] = self.s6a_rx_cla_error
-        d["s6a_rx_air"] = self.s6a_rx_air
-        d["cx_rx_mar"] = self.cx_rx_mar
-        d["swx_rx_sar"] = self.swx_rx_sar
-        d["s6a_rx_air_error"] = self.s6a_rx_air_error
-        d["s6a_rx_ida_error"] = self.s6a_rx_ida_error
-        d["cx_tx_maa"] = self.cx_tx_maa
-        d["swx_rx_mar"] = self.swx_rx_mar
-        d["s6a_rx_unknown"] = self.s6a_rx_unknown
-        d["s6a_tx_pua"] = self.s6a_tx_pua
-        d["swx_rx_unknown"] = self.swx_rx_unknown
-        d["cx_rx_mar_error"] = self.cx_rx_mar_error
-        d["cx_rx_uar_error"] = self.cx_rx_uar_error
-        d["s6a_tx_ula"] = self.s6a_tx_ula
-        d["s6a_rx_ulr_error"] = self.s6a_rx_ulr_error
-        d["s6a_tx_aia"] = self.s6a_tx_aia
-        d["s6a_tx_idr"] = self.s6a_tx_idr
-        d["s6a_rx_ida"] = self.s6a_rx_ida
-        d["cx_rx_sar_error"] = self.cx_rx_sar_error
-        d["swx_rx_sar_error"] = self.swx_rx_sar_error
-        d["swx_tx_maa"] = self.swx_tx_maa
-        d["swx_tx_saa"] = self.swx_tx_saa
-        d["hss_imsi"] = self.hss_imsi
-        d["hss_impi"] = self.hss_impi
-        d["hss_impu"] = self.hss_impu
-        d["process_max_fds"] = self.process_max_fds
-        d["process_virtual_memory_max_bytes"] = self.process_virtual_memory_max_bytes
-        d["process_cpu_seconds_total"] = self.process_cpu_seconds_total
-        d["process_virtual_memory_bytes"] = self.process_virtual_memory_bytes
-        d["process_resident_memory_bytes"] = self.process_resident_memory_bytes
-        d["process_start_time_seconds"] = self.process_start_time_seconds
-        d["process_open_fds"] = self.process_open_fds
+        d[constants.FIVE_G_CORE.TS] = self.ts
+        d[constants.FIVE_G_CORE.IP] = self.ip
+        d[constants.FIVE_G_CORE.CX_RX_LIR] = self.cx_rx_lir
+        d[constants.FIVE_G_CORE.CX_RX_UAR] = self.cx_rx_uar
+        d[constants.FIVE_G_CORE.CX_TX_LIA] = self.cx_tx_lia
+        d[constants.FIVE_G_CORE.CX_RX_UNKNOWN] = self.cx_rx_unknown
+        d[constants.FIVE_G_CORE.CX_RX_SAR] = self.cx_rx_sar
+        d[constants.FIVE_G_CORE.S6A_RX_PUR] = self.s6a_rx_pur
+        d[constants.FIVE_G_CORE.SWX_RX_MAR_ERROR] = self.swx_rx_mar_error
+        d[constants.FIVE_G_CORE.CX_TX_UAA] = self.cx_tx_uaa
+        d[constants.FIVE_G_CORE.S6A_RX_PUR_ERROR] = self.s6a_rx_pur_error
+        d[constants.FIVE_G_CORE.S6A_TX_CLR] = self.s6a_tx_clr
+        d[constants.FIVE_G_CORE.CX_TX_SAA] = self.cx_tx_saa
+        d[constants.FIVE_G_CORE.CX_RX_LIR_ERROR] = self.cx_rx_lir_error
+        d[constants.FIVE_G_CORE.S6A_RX_ULR] = self.s6a_rx_ulr
+        d[constants.FIVE_G_CORE.S6A_RX_CLA] = self.s6a_rx_cla
+        d[constants.FIVE_G_CORE.S6A_RX_CLA_ERROR] = self.s6a_rx_cla_error
+        d[constants.FIVE_G_CORE.S6A_RX_AIR] = self.s6a_rx_air
+        d[constants.FIVE_G_CORE.CX_RX_MAR] = self.cx_rx_mar
+        d[constants.FIVE_G_CORE.SWX_RX_SAR] = self.swx_rx_sar
+        d[constants.FIVE_G_CORE.S6A_RX_AIR_ERROR] = self.s6a_rx_air_error
+        d[constants.FIVE_G_CORE.S6A_RX_IDA_ERROR] = self.s6a_rx_ida_error
+        d[constants.FIVE_G_CORE.CX_TX_MAA] = self.cx_tx_maa
+        d[constants.FIVE_G_CORE.SWX_RX_MAR] = self.swx_rx_mar
+        d[constants.FIVE_G_CORE.S6A_RX_UNKNOWN] = self.s6a_rx_unknown
+        d[constants.FIVE_G_CORE.S6A_TX_PUA] = self.s6a_tx_pua
+        d[constants.FIVE_G_CORE.SWX_RX_UNKNOWN] = self.swx_rx_unknown
+        d[constants.FIVE_G_CORE.CX_RX_MAR_ERROR] = self.cx_rx_mar_error
+        d[constants.FIVE_G_CORE.CX_RX_UAR_ERROR] = self.cx_rx_uar_error
+        d[constants.FIVE_G_CORE.S6A_TX_ULA] = self.s6a_tx_ula
+        d[constants.FIVE_G_CORE.S6A_RX_ULR_ERROR] = self.s6a_rx_ulr_error
+        d[constants.FIVE_G_CORE.S6A_TX_AIA] = self.s6a_tx_aia
+        d[constants.FIVE_G_CORE.S6A_TX_IDR] = self.s6a_tx_idr
+        d[constants.FIVE_G_CORE.S6A_RX_IDA] = self.s6a_rx_ida
+        d[constants.FIVE_G_CORE.CX_RX_SAR_ERROR] = self.cx_rx_sar_error
+        d[constants.FIVE_G_CORE.SWX_RX_SAR_ERROR] = self.swx_rx_sar_error
+        d[constants.FIVE_G_CORE.SWX_TX_MAA] = self.swx_tx_maa
+        d[constants.FIVE_G_CORE.SWX_TX_SAA] = self.swx_tx_saa
+        d[constants.FIVE_G_CORE.HSS_IMSI] = self.hss_imsi
+        d[constants.FIVE_G_CORE.HSS_IMPI] = self.hss_impi
+        d[constants.FIVE_G_CORE.HSS_IMPU] = self.hss_impu
+        d[constants.FIVE_G_CORE.PROCESS_MAX_FDS] = self.process_max_fds
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES] = self.process_virtual_memory_max_bytes
+        d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL] = self.process_cpu_seconds_total
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES] = self.process_virtual_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES] = self.process_resident_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS] = self.process_start_time_seconds
+        d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS] = self.process_open_fds
         return d
 
     def copy(self) -> "FiveGCoreHSSMetrics":

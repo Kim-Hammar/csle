@@ -59,7 +59,7 @@ class FiveGCUMonitorThread(threading.Thread):
         :return: None
         """
         logging.info(f"[5G CU Monitor] Connected to {self.ip}.")
-        ws.send(json.dumps({"cmd": "metrics_subscribe"}))
+        ws.send(json.dumps({constants.FIVE_G_CU.CMD: constants.FIVE_G_CU.METRICS_SUBSCRIBE}))
 
     def _on_message(self, ws, message):
         """
@@ -70,19 +70,19 @@ class FiveGCUMonitorThread(threading.Thread):
         """
         try:
             data = json.loads(message)
-            if "cmd" in data:
+            if constants.FIVE_G_CU.CMD in data:
                 return
             dto = None
             key = None
-            if "cu-cp" in data:
+            if constants.FIVE_G_CU.CU_CP in data:
                 dto = FiveGCUCPMetrics.from_ws_dict(data, ip=self.ip)
-                key = "cu_cp"
-            elif "app_resource_usage" in data:
+                key = constants.FIVE_G_CU.CU_CP_KEY
+            elif constants.FIVE_G_CU.APP_RESOURCE_USAGE in data:
                 dto = FiveGCUAppResourceUsageMetrics.from_ws_dict(data, ip=self.ip)
-                key = "app"
-            elif "buffer_pool" in data:
+                key = constants.FIVE_G_CU.APP_KEY
+            elif constants.FIVE_G_CU.BUFFER_POOL in data:
                 dto = FiveGCUBufferPoolMetrics.from_ws_dict(data, ip=self.ip)
-                key = "buffer"
+                key = constants.FIVE_G_CU.BUFFER_KEY
             if dto and key:
                 with self.buffer_lock:
                     self.metrics_buffer[key] = dto
@@ -160,15 +160,15 @@ class FiveGCUMonitorThread(threading.Thread):
                     if not self.metrics_buffer:
                         continue
                     snapshot = self.metrics_buffer.copy()
-                if "cu_cp" in snapshot:
-                    record = snapshot["cu_cp"].to_kafka_record(ip=self.ip)
+                if constants.FIVE_G_CU.CU_CP_KEY in snapshot:
+                    record = snapshot[constants.FIVE_G_CU.CU_CP_KEY].to_kafka_record(ip=self.ip)
                     self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_CU_CP_METRICS_TOPIC_NAME, record)
-                if "app" in snapshot:
-                    record = snapshot["app"].to_kafka_record(ip=self.ip)
+                if constants.FIVE_G_CU.APP_KEY in snapshot:
+                    record = snapshot[constants.FIVE_G_CU.APP_KEY].to_kafka_record(ip=self.ip)
                     self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME,
                                           record)
-                if "buffer" in snapshot:
-                    record = snapshot["buffer"].to_kafka_record(ip=self.ip)
+                if constants.FIVE_G_CU.BUFFER_KEY in snapshot:
+                    record = snapshot[constants.FIVE_G_CU.BUFFER_KEY].to_kafka_record(ip=self.ip)
                     self.producer.produce(constants.KAFKA_CONFIG.FIVE_G_CU_BUFFER_POOL_METRICS_TOPIC_NAME, record)
                 self.producer.poll(0)
 

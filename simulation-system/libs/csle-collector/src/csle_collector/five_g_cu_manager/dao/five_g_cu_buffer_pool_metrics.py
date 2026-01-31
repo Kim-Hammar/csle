@@ -1,6 +1,7 @@
 from typing import Dict, Any, Union
 import time
 import datetime
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -81,9 +82,9 @@ class FiveGCUBufferPoolMetrics(JSONSerializable):
         :return: the created instance
         """
         obj = FiveGCUBufferPoolMetrics(
-            central_cache_size=d.get("central_cache_size", 0),
-            ip=d.get("ip"),
-            ts=d.get("ts")
+            central_cache_size=d.get(constants.FIVE_G_CU.CENTRAL_CACHE_SIZE, 0),
+            ip=d.get(constants.FIVE_G_CU.IP),
+            ts=d.get(constants.FIVE_G_CU.TS)
         )
         return obj
 
@@ -98,21 +99,21 @@ class FiveGCUBufferPoolMetrics(JSONSerializable):
         :return: the created instance
         """
         ts = time.time()
-        if "timestamp" in d and d["timestamp"] is not None:
+        if constants.FIVE_G_CU.TIMESTAMP in d and d[constants.FIVE_G_CU.TIMESTAMP] is not None:
             try:
-                dt = datetime.datetime.fromisoformat(d["timestamp"])
+                dt = datetime.datetime.fromisoformat(d[constants.FIVE_G_CU.TIMESTAMP])
                 ts = dt.timestamp()
             except Exception:
                 pass
 
         data = {}
-        if "buffer_pool" in d:
-            data = d["buffer_pool"]
+        if constants.FIVE_G_CU.BUFFER_POOL in d:
+            data = d[constants.FIVE_G_CU.BUFFER_POOL]
         else:
             data = d
 
         obj = FiveGCUBufferPoolMetrics(
-            central_cache_size=data.get("central_cache_size", 0),
+            central_cache_size=data.get(constants.FIVE_G_CU.CENTRAL_CACHE_SIZE, 0),
             ip=ip,
             ts=ts
         )
@@ -123,9 +124,9 @@ class FiveGCUBufferPoolMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["central_cache_size"] = self.central_cache_size
+        d[constants.FIVE_G_CU.TS] = self.ts
+        d[constants.FIVE_G_CU.IP] = self.ip
+        d[constants.FIVE_G_CU.CENTRAL_CACHE_SIZE] = self.central_cache_size
         return d
 
     def copy(self) -> "FiveGCUBufferPoolMetrics":

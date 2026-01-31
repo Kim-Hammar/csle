@@ -1,6 +1,7 @@
 from typing import Dict, Any, Union
 import time
 import datetime
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -92,11 +93,11 @@ class FiveGDUAppResourceUsageMetrics(JSONSerializable):
         :return: the created instance
         """
         obj = FiveGDUAppResourceUsageMetrics(
-            cpu_usage_percent=d.get("cpu_usage_percent", 0.0),
-            memory_usage_mb=d.get("memory_usage_mb", 0.0),
-            power_consumption_watts=d.get("power_consumption_watts", 0.0),
-            ip=d.get("ip"),
-            ts=d.get("ts")
+            cpu_usage_percent=d.get(constants.FIVE_G_DU.CPU_USAGE_PERCENT, 0.0),
+            memory_usage_mb=d.get(constants.FIVE_G_DU.MEMORY_USAGE_MB, 0.0),
+            power_consumption_watts=d.get(constants.FIVE_G_DU.POWER_CONSUMPTION_WATTS, 0.0),
+            ip=d.get(constants.FIVE_G_DU.IP),
+            ts=d.get(constants.FIVE_G_DU.TS)
         )
         return obj
 
@@ -111,23 +112,23 @@ class FiveGDUAppResourceUsageMetrics(JSONSerializable):
         :return: the created instance
         """
         ts = time.time()
-        if "timestamp" in d and d["timestamp"] is not None:
+        if constants.FIVE_G_DU.TIMESTAMP in d and d[constants.FIVE_G_DU.TIMESTAMP] is not None:
             try:
-                dt = datetime.datetime.fromisoformat(d["timestamp"])
+                dt = datetime.datetime.fromisoformat(d[constants.FIVE_G_DU.TIMESTAMP])
                 ts = dt.timestamp()
             except Exception:
                 pass
 
         data = {}
-        if "app_resource_usage" in d:
-            data = d["app_resource_usage"]
+        if constants.FIVE_G_DU.APP_RESOURCE_USAGE in d:
+            data = d[constants.FIVE_G_DU.APP_RESOURCE_USAGE]
         else:
             data = d
 
         obj = FiveGDUAppResourceUsageMetrics(
-            cpu_usage_percent=data.get("cpu_usage_percent", 0.0),
-            memory_usage_mb=data.get("memory_usage_mb", 0.0),
-            power_consumption_watts=data.get("power_consumption_watts", 0.0),
+            cpu_usage_percent=data.get(constants.FIVE_G_DU.CPU_USAGE_PERCENT, 0.0),
+            memory_usage_mb=data.get(constants.FIVE_G_DU.MEMORY_USAGE_MB, 0.0),
+            power_consumption_watts=data.get(constants.FIVE_G_DU.POWER_CONSUMPTION_WATTS, 0.0),
             ip=ip,
             ts=ts
         )
@@ -138,11 +139,11 @@ class FiveGDUAppResourceUsageMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["cpu_usage_percent"] = self.cpu_usage_percent
-        d["memory_usage_mb"] = self.memory_usage_mb
-        d["power_consumption_watts"] = self.power_consumption_watts
+        d[constants.FIVE_G_DU.TS] = self.ts
+        d[constants.FIVE_G_DU.IP] = self.ip
+        d[constants.FIVE_G_DU.CPU_USAGE_PERCENT] = self.cpu_usage_percent
+        d[constants.FIVE_G_DU.MEMORY_USAGE_MB] = self.memory_usage_mb
+        d[constants.FIVE_G_DU.POWER_CONSUMPTION_WATTS] = self.power_consumption_watts
         return d
 
     def copy(self) -> "FiveGDUAppResourceUsageMetrics":

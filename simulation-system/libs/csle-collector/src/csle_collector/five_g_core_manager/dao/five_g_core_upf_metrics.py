@@ -1,5 +1,6 @@
 from typing import Dict, Any, Union
 import time
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -149,21 +150,23 @@ class FiveGCoreUPFMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = FiveGCoreUPFMetrics(ip=d["ip"], ts=d["ts"],
-                                  fivegs_ep_n3_gtp_indatapktn3upf=d["fivegs_ep_n3_gtp_indatapktn3upf"],
-                                  fivegs_ep_n3_gtp_outdatapktn3upf=d["fivegs_ep_n3_gtp_outdatapktn3upf"],
-                                  fivegs_upffunction_sm_n4sessionestabreq=d["fivegs_upffunction_sm_n4sessionestabreq"],
-                                  fivegs_upffunction_sm_n4sessionreport=d["fivegs_upffunction_sm_n4sessionreport"],
-                                  fivegs_upffunction_sm_n4sessionreportsucc=d[
-                                      "fivegs_upffunction_sm_n4sessionreportsucc"],
-                                  fivegs_upffunction_upf_sessionnbr=d["fivegs_upffunction_upf_sessionnbr"],
-                                  pfcp_peers_active=d["pfcp_peers_active"],
-                                  process_max_fds=d["process_max_fds"],
-                                  process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                                  process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                                  process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                                  process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                                  process_open_fds=d["process_open_fds"])
+        obj = FiveGCoreUPFMetrics(
+            ip=d[constants.FIVE_G_CORE.IP],
+            ts=d[constants.FIVE_G_CORE.TS],
+            fivegs_ep_n3_gtp_indatapktn3upf=d[constants.FIVE_G_CORE.FIVEGS_EP_N3_GTP_INDATAPKTN3UPF],
+            fivegs_ep_n3_gtp_outdatapktn3upf=d[constants.FIVE_G_CORE.FIVEGS_EP_N3_GTP_OUTDATAPKTN3UPF],
+            fivegs_upffunction_sm_n4sessionestabreq=d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONESTABREQ],
+            fivegs_upffunction_sm_n4sessionreport=d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORT],
+            fivegs_upffunction_sm_n4sessionreportsucc=d[
+                constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORTSUCC],
+            fivegs_upffunction_upf_sessionnbr=d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_UPF_SESSIONNBR],
+            pfcp_peers_active=d[constants.FIVE_G_CORE.PFCP_PEERS_ACTIVE],
+            process_max_fds=d[constants.FIVE_G_CORE.PROCESS_MAX_FDS],
+            process_virtual_memory_max_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES],
+            process_cpu_seconds_total=d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL],
+            process_virtual_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES],
+            process_resident_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES],
+            process_open_fds=d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -171,22 +174,23 @@ class FiveGCoreUPFMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["fivegs_ep_n3_gtp_indatapktn3upf"] = self.fivegs_ep_n3_gtp_indatapktn3upf
-        d["fivegs_ep_n3_gtp_outdatapktn3upf"] = self.fivegs_ep_n3_gtp_outdatapktn3upf
-        d["fivegs_upffunction_sm_n4sessionestabreq"] = self.fivegs_upffunction_sm_n4sessionestabreq
-        d["fivegs_upffunction_sm_n4sessionreport"] = self.fivegs_upffunction_sm_n4sessionreport
-        d["fivegs_upffunction_sm_n4sessionreportsucc"] = self.fivegs_upffunction_sm_n4sessionreportsucc
-        d["fivegs_upffunction_upf_sessionnbr"] = self.fivegs_upffunction_upf_sessionnbr
-        d["pfcp_peers_active"] = self.pfcp_peers_active
-        d["process_max_fds"] = self.process_max_fds
-        d["process_virtual_memory_max_bytes"] = self.process_virtual_memory_max_bytes
-        d["process_cpu_seconds_total"] = self.process_cpu_seconds_total
-        d["process_virtual_memory_bytes"] = self.process_virtual_memory_bytes
-        d["process_resident_memory_bytes"] = self.process_resident_memory_bytes
-        d["process_start_time_seconds"] = self.process_start_time_seconds
-        d["process_open_fds"] = self.process_open_fds
+        d[constants.FIVE_G_CORE.TS] = self.ts
+        d[constants.FIVE_G_CORE.IP] = self.ip
+        d[constants.FIVE_G_CORE.FIVEGS_EP_N3_GTP_INDATAPKTN3UPF] = self.fivegs_ep_n3_gtp_indatapktn3upf
+        d[constants.FIVE_G_CORE.FIVEGS_EP_N3_GTP_OUTDATAPKTN3UPF] = self.fivegs_ep_n3_gtp_outdatapktn3upf
+        d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONESTABREQ] = self.fivegs_upffunction_sm_n4sessionestabreq
+        d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORT] = self.fivegs_upffunction_sm_n4sessionreport
+        d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORTSUCC] = \
+            self.fivegs_upffunction_sm_n4sessionreportsucc
+        d[constants.FIVE_G_CORE.FIVEGS_UPFFUNCTION_UPF_SESSIONNBR] = self.fivegs_upffunction_upf_sessionnbr
+        d[constants.FIVE_G_CORE.PFCP_PEERS_ACTIVE] = self.pfcp_peers_active
+        d[constants.FIVE_G_CORE.PROCESS_MAX_FDS] = self.process_max_fds
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES] = self.process_virtual_memory_max_bytes
+        d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL] = self.process_cpu_seconds_total
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES] = self.process_virtual_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES] = self.process_resident_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS] = self.process_start_time_seconds
+        d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS] = self.process_open_fds
         return d
 
     def copy(self) -> "FiveGCoreUPFMetrics":

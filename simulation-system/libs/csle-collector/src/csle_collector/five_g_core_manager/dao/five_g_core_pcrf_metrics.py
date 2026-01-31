@@ -1,5 +1,6 @@
 from typing import Dict, Any, Union
 import time
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -184,22 +185,31 @@ class FiveGCorePCRFMetrics(JSONSerializable):
         :param d: the dict to convert
         :return: the created instance
         """
-        obj = FiveGCorePCRFMetrics(ip=d["ip"], ts=d["ts"],
-                                   gx_rx_unknown=d["gx_rx_unknown"], gx_rx_ccr=d["gx_rx_ccr"],
-                                   gx_rx_ccr_error=d["gx_rx_ccr_error"], gx_rx_raa=d["gx_rx_raa"],
-                                   gx_tx_cca=d["gx_tx_cca"], gx_tx_rar=d["gx_tx_rar"],
-                                   gx_tx_rar_error=d["gx_tx_rar_error"], rx_rx_unknown=d["rx_rx_unknown"],
-                                   rx_rx_aar=d["rx_rx_aar"], rx_rx_aar_error=d["rx_rx_aar_error"],
-                                   rx_rx_asa=d["rx_rx_asa"], rx_rx_asa_error=d["rx_rx_asa_error"],
-                                   rx_rx_str_error=d["rx_rx_str_error"], rx_tx_aaa=d["rx_tx_aaa"],
-                                   rx_tx_sar=d["rx_tx_sar"], rx_tx_sta=d["rx_tx_sta"],
-                                   process_max_fds=d["process_max_fds"],
-                                   process_virtual_memory_max_bytes=d["process_virtual_memory_max_bytes"],
-                                   process_cpu_seconds_total=d["process_cpu_seconds_total"],
-                                   process_virtual_memory_bytes=d["process_virtual_memory_bytes"],
-                                   process_resident_memory_bytes=d["process_resident_memory_bytes"],
-                                   process_start_time_seconds=d["process_start_time_seconds"],
-                                   process_open_fds=d["process_open_fds"])
+        obj = FiveGCorePCRFMetrics(
+            ip=d[constants.FIVE_G_CORE.IP], ts=d[constants.FIVE_G_CORE.TS],
+            gx_rx_unknown=d[constants.FIVE_G_CORE.GX_RX_UNKNOWN],
+            gx_rx_ccr=d[constants.FIVE_G_CORE.GX_RX_CCR],
+            gx_rx_ccr_error=d[constants.FIVE_G_CORE.GX_RX_CCR_ERROR],
+            gx_rx_raa=d[constants.FIVE_G_CORE.GX_RX_RAA],
+            gx_tx_cca=d[constants.FIVE_G_CORE.GX_TX_CCA],
+            gx_tx_rar=d[constants.FIVE_G_CORE.GX_TX_RAR],
+            gx_tx_rar_error=d[constants.FIVE_G_CORE.GX_TX_RAR_ERROR],
+            rx_rx_unknown=d[constants.FIVE_G_CORE.RX_RX_UNKNOWN],
+            rx_rx_aar=d[constants.FIVE_G_CORE.RX_RX_AAR],
+            rx_rx_aar_error=d[constants.FIVE_G_CORE.RX_RX_AAR_ERROR],
+            rx_rx_asa=d[constants.FIVE_G_CORE.RX_RX_ASA],
+            rx_rx_asa_error=d[constants.FIVE_G_CORE.RX_RX_ASA_ERROR],
+            rx_rx_str_error=d[constants.FIVE_G_CORE.RX_RX_STR_ERROR],
+            rx_tx_aaa=d[constants.FIVE_G_CORE.RX_TX_AAA],
+            rx_tx_sar=d[constants.FIVE_G_CORE.RX_TX_SAR],
+            rx_tx_sta=d[constants.FIVE_G_CORE.RX_TX_STA],
+            process_max_fds=d[constants.FIVE_G_CORE.PROCESS_MAX_FDS],
+            process_virtual_memory_max_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES],
+            process_cpu_seconds_total=d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL],
+            process_virtual_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES],
+            process_resident_memory_bytes=d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES],
+            process_start_time_seconds=d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS],
+            process_open_fds=d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS])
         return obj
 
     def to_dict(self) -> Dict[str, Any]:
@@ -207,31 +217,31 @@ class FiveGCorePCRFMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["gx_rx_unknown"] = self.gx_rx_unknown
-        d["gx_rx_ccr"] = self.gx_rx_ccr
-        d["gx_rx_ccr_error"] = self.gx_rx_ccr_error
-        d["gx_rx_raa"] = self.gx_rx_raa
-        d["gx_tx_cca"] = self.gx_tx_cca
-        d["gx_tx_rar"] = self.gx_tx_rar
-        d["gx_tx_rar_error"] = self.gx_tx_rar_error
-        d["rx_rx_unknown"] = self.rx_rx_unknown
-        d["rx_rx_aar"] = self.rx_rx_aar
-        d["rx_rx_aar_error"] = self.rx_rx_aar_error
-        d["rx_rx_asa"] = self.rx_rx_asa
-        d["rx_rx_asa_error"] = self.rx_rx_asa_error
-        d["rx_rx_str_error"] = self.rx_rx_str_error
-        d["rx_tx_aaa"] = self.rx_tx_aaa
-        d["rx_tx_sar"] = self.rx_tx_sar
-        d["rx_tx_sta"] = self.rx_tx_sta
-        d["process_max_fds"] = self.process_max_fds
-        d["process_virtual_memory_max_bytes"] = self.process_virtual_memory_max_bytes
-        d["process_cpu_seconds_total"] = self.process_cpu_seconds_total
-        d["process_virtual_memory_bytes"] = self.process_virtual_memory_bytes
-        d["process_resident_memory_bytes"] = self.process_resident_memory_bytes
-        d["process_start_time_seconds"] = self.process_start_time_seconds
-        d["process_open_fds"] = self.process_open_fds
+        d[constants.FIVE_G_CORE.TS] = self.ts
+        d[constants.FIVE_G_CORE.IP] = self.ip
+        d[constants.FIVE_G_CORE.GX_RX_UNKNOWN] = self.gx_rx_unknown
+        d[constants.FIVE_G_CORE.GX_RX_CCR] = self.gx_rx_ccr
+        d[constants.FIVE_G_CORE.GX_RX_CCR_ERROR] = self.gx_rx_ccr_error
+        d[constants.FIVE_G_CORE.GX_RX_RAA] = self.gx_rx_raa
+        d[constants.FIVE_G_CORE.GX_TX_CCA] = self.gx_tx_cca
+        d[constants.FIVE_G_CORE.GX_TX_RAR] = self.gx_tx_rar
+        d[constants.FIVE_G_CORE.GX_TX_RAR_ERROR] = self.gx_tx_rar_error
+        d[constants.FIVE_G_CORE.RX_RX_UNKNOWN] = self.rx_rx_unknown
+        d[constants.FIVE_G_CORE.RX_RX_AAR] = self.rx_rx_aar
+        d[constants.FIVE_G_CORE.RX_RX_AAR_ERROR] = self.rx_rx_aar_error
+        d[constants.FIVE_G_CORE.RX_RX_ASA] = self.rx_rx_asa
+        d[constants.FIVE_G_CORE.RX_RX_ASA_ERROR] = self.rx_rx_asa_error
+        d[constants.FIVE_G_CORE.RX_RX_STR_ERROR] = self.rx_rx_str_error
+        d[constants.FIVE_G_CORE.RX_TX_AAA] = self.rx_tx_aaa
+        d[constants.FIVE_G_CORE.RX_TX_SAR] = self.rx_tx_sar
+        d[constants.FIVE_G_CORE.RX_TX_STA] = self.rx_tx_sta
+        d[constants.FIVE_G_CORE.PROCESS_MAX_FDS] = self.process_max_fds
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_MAX_BYTES] = self.process_virtual_memory_max_bytes
+        d[constants.FIVE_G_CORE.PROCESS_CPU_SECONDS_TOTAL] = self.process_cpu_seconds_total
+        d[constants.FIVE_G_CORE.PROCESS_VIRTUAL_MEMORY_BYTES] = self.process_virtual_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_RESIDENT_MEMORY_BYTES] = self.process_resident_memory_bytes
+        d[constants.FIVE_G_CORE.PROCESS_START_TIME_SECONDS] = self.process_start_time_seconds
+        d[constants.FIVE_G_CORE.PROCESS_OPEN_FDS] = self.process_open_fds
         return d
 
     def copy(self) -> "FiveGCorePCRFMetrics":

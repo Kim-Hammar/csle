@@ -1,6 +1,7 @@
 from typing import Dict, Any, Union
 import time
 import datetime
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -136,21 +137,21 @@ class FiveGDULowMetrics(JSONSerializable):
         :return: the created instance
         """
         obj = FiveGDULowMetrics(
-            dl_avg_latency_us=d.get("dl_avg_latency_us", 0.0),
-            dl_cpu_usage_percent=d.get("dl_cpu_usage_percent", 0.0),
-            dl_max_latency_us=d.get("dl_max_latency_us", 0.0),
-            dl_fec_tput_mbps=d.get("dl_fec_tput_mbps", 0.0),
+            dl_avg_latency_us=d.get(constants.FIVE_G_DU.DL_AVG_LATENCY_US, 0.0),
+            dl_cpu_usage_percent=d.get(constants.FIVE_G_DU.DL_CPU_USAGE_PERCENT, 0.0),
+            dl_max_latency_us=d.get(constants.FIVE_G_DU.DL_MAX_LATENCY_US, 0.0),
+            dl_fec_tput_mbps=d.get(constants.FIVE_G_DU.DL_FEC_TPUT_MBPS, 0.0),
 
-            ul_avg_latency_us=d.get("ul_avg_latency_us", 0.0),
-            ul_cpu_usage_percent=d.get("ul_cpu_usage_percent", 0.0),
-            ul_max_latency_us=d.get("ul_max_latency_us", 0.0),
-            ul_sinr_db=d.get("ul_sinr_db", 0.0),
-            ul_ch_est_latency_us=d.get("ul_ch_est_latency_us", 0.0),
-            ul_ldpc_dec_latency_us=d.get("ul_ldpc_dec_latency_us", 0.0),
-            ul_fec_tput_mbps=d.get("ul_fec_tput_mbps", 0.0),
+            ul_avg_latency_us=d.get(constants.FIVE_G_DU.UL_AVG_LATENCY_US, 0.0),
+            ul_cpu_usage_percent=d.get(constants.FIVE_G_DU.UL_CPU_USAGE_PERCENT, 0.0),
+            ul_max_latency_us=d.get(constants.FIVE_G_DU.UL_MAX_LATENCY_US, 0.0),
+            ul_sinr_db=d.get(constants.FIVE_G_DU.UL_SINR_DB, 0.0),
+            ul_ch_est_latency_us=d.get(constants.FIVE_G_DU.UL_CH_EST_LATENCY_US, 0.0),
+            ul_ldpc_dec_latency_us=d.get(constants.FIVE_G_DU.UL_LDPC_DEC_LATENCY_US, 0.0),
+            ul_fec_tput_mbps=d.get(constants.FIVE_G_DU.UL_FEC_TPUT_MBPS, 0.0),
 
-            ip=d.get("ip"),
-            ts=d.get("ts")
+            ip=d.get(constants.FIVE_G_DU.IP),
+            ts=d.get(constants.FIVE_G_DU.TS)
         )
         return obj
 
@@ -165,9 +166,9 @@ class FiveGDULowMetrics(JSONSerializable):
         :return: the created instance
         """
         ts = time.time()
-        if "timestamp" in d and d["timestamp"] is not None:
+        if constants.FIVE_G_DU.TIMESTAMP in d and d[constants.FIVE_G_DU.TIMESTAMP] is not None:
             try:
-                dt = datetime.datetime.fromisoformat(d["timestamp"])
+                dt = datetime.datetime.fromisoformat(d[constants.FIVE_G_DU.TIMESTAMP])
                 ts = dt.timestamp()
             except Exception:
                 pass
@@ -176,32 +177,32 @@ class FiveGDULowMetrics(JSONSerializable):
         dl_data = {}
         ul_data = {}
 
-        if "du_low" in d:
-            dl_data = d["du_low"].get("dl", {})
-            ul_data = d["du_low"].get("ul", {})
+        if constants.FIVE_G_DU.DU_LOW in d:
+            dl_data = d[constants.FIVE_G_DU.DU_LOW].get(constants.FIVE_G_DU.DL, {})
+            ul_data = d[constants.FIVE_G_DU.DU_LOW].get(constants.FIVE_G_DU.UL, {})
 
         # Downlink Sub-components
-        dl_fec = dl_data.get("fec", {})
+        dl_fec = dl_data.get(constants.FIVE_G_DU.FEC, {})
 
         # Uplink Sub-components
-        ul_algo = ul_data.get("algo_efficiency", {})
-        ul_ch_est = ul_data.get("channel_estimation", {})
-        ul_ldpc = ul_data.get("ldpc_decoder", {})
-        ul_fec = ul_data.get("fec", {})
+        ul_algo = ul_data.get(constants.FIVE_G_DU.ALGO_EFFICIENCY, {})
+        ul_ch_est = ul_data.get(constants.FIVE_G_DU.CHANNEL_ESTIMATION, {})
+        ul_ldpc = ul_data.get(constants.FIVE_G_DU.LDPC_DECODER, {})
+        ul_fec = ul_data.get(constants.FIVE_G_DU.FEC, {})
 
         obj = FiveGDULowMetrics(
-            dl_avg_latency_us=dl_data.get("average_latency_us", 0.0),
-            dl_cpu_usage_percent=dl_data.get("cpu_usage_percent", 0.0),
-            dl_max_latency_us=dl_data.get("max_latency_us", 0.0),
-            dl_fec_tput_mbps=dl_fec.get("average_throughput_mbps", 0.0),
+            dl_avg_latency_us=dl_data.get(constants.FIVE_G_DU.AVERAGE_LATENCY_US, 0.0),
+            dl_cpu_usage_percent=dl_data.get(constants.FIVE_G_DU.CPU_USAGE_PERCENT, 0.0),
+            dl_max_latency_us=dl_data.get(constants.FIVE_G_DU.MAX_LATENCY_US, 0.0),
+            dl_fec_tput_mbps=dl_fec.get(constants.FIVE_G_DU.AVERAGE_THROUGHPUT_MBPS, 0.0),
 
-            ul_avg_latency_us=ul_data.get("average_latency_us", 0.0),
-            ul_cpu_usage_percent=ul_data.get("cpu_usage_percent", 0.0),
-            ul_max_latency_us=ul_data.get("max_latency_us", 0.0),
-            ul_sinr_db=ul_algo.get("sinr_db", 0.0),
-            ul_ch_est_latency_us=ul_ch_est.get("average_latency_us", 0.0),
-            ul_ldpc_dec_latency_us=ul_ldpc.get("average_latency_us", 0.0),
-            ul_fec_tput_mbps=ul_fec.get("average_throughput_mbps", 0.0),
+            ul_avg_latency_us=ul_data.get(constants.FIVE_G_DU.AVERAGE_LATENCY_US, 0.0),
+            ul_cpu_usage_percent=ul_data.get(constants.FIVE_G_DU.CPU_USAGE_PERCENT, 0.0),
+            ul_max_latency_us=ul_data.get(constants.FIVE_G_DU.MAX_LATENCY_US, 0.0),
+            ul_sinr_db=ul_algo.get(constants.FIVE_G_DU.UL_SINR_DB, 0.0),
+            ul_ch_est_latency_us=ul_ch_est.get(constants.FIVE_G_DU.AVERAGE_LATENCY_US, 0.0),
+            ul_ldpc_dec_latency_us=ul_ldpc.get(constants.FIVE_G_DU.AVERAGE_LATENCY_US, 0.0),
+            ul_fec_tput_mbps=ul_fec.get(constants.FIVE_G_DU.AVERAGE_THROUGHPUT_MBPS, 0.0),
 
             ip=ip,
             ts=ts
@@ -213,19 +214,19 @@ class FiveGDULowMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["dl_avg_latency_us"] = self.dl_avg_latency_us
-        d["dl_cpu_usage_percent"] = self.dl_cpu_usage_percent
-        d["dl_max_latency_us"] = self.dl_max_latency_us
-        d["dl_fec_tput_mbps"] = self.dl_fec_tput_mbps
-        d["ul_avg_latency_us"] = self.ul_avg_latency_us
-        d["ul_cpu_usage_percent"] = self.ul_cpu_usage_percent
-        d["ul_max_latency_us"] = self.ul_max_latency_us
-        d["ul_sinr_db"] = self.ul_sinr_db
-        d["ul_ch_est_latency_us"] = self.ul_ch_est_latency_us
-        d["ul_ldpc_dec_latency_us"] = self.ul_ldpc_dec_latency_us
-        d["ul_fec_tput_mbps"] = self.ul_fec_tput_mbps
+        d[constants.FIVE_G_DU.TS] = self.ts
+        d[constants.FIVE_G_DU.IP] = self.ip
+        d[constants.FIVE_G_DU.DL_AVG_LATENCY_US] = self.dl_avg_latency_us
+        d[constants.FIVE_G_DU.DL_CPU_USAGE_PERCENT] = self.dl_cpu_usage_percent
+        d[constants.FIVE_G_DU.DL_MAX_LATENCY_US] = self.dl_max_latency_us
+        d[constants.FIVE_G_DU.DL_FEC_TPUT_MBPS] = self.dl_fec_tput_mbps
+        d[constants.FIVE_G_DU.UL_AVG_LATENCY_US] = self.ul_avg_latency_us
+        d[constants.FIVE_G_DU.UL_CPU_USAGE_PERCENT] = self.ul_cpu_usage_percent
+        d[constants.FIVE_G_DU.UL_MAX_LATENCY_US] = self.ul_max_latency_us
+        d[constants.FIVE_G_DU.UL_SINR_DB] = self.ul_sinr_db
+        d[constants.FIVE_G_DU.UL_CH_EST_LATENCY_US] = self.ul_ch_est_latency_us
+        d[constants.FIVE_G_DU.UL_LDPC_DEC_LATENCY_US] = self.ul_ldpc_dec_latency_us
+        d[constants.FIVE_G_DU.UL_FEC_TPUT_MBPS] = self.ul_fec_tput_mbps
         return d
 
     def copy(self) -> "FiveGDULowMetrics":

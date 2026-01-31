@@ -1,6 +1,7 @@
 from typing import Dict, Any, Union
 import time
 import datetime
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -143,22 +144,22 @@ class FiveGDUCellMetrics(JSONSerializable):
         :return: the created instance
         """
         obj = FiveGDUCellMetrics(
-            pci=d.get("pci", 0),
-            average_latency=d.get("average_latency", 0.0),
-            max_latency=d.get("max_latency", 0.0),
-            pucch_tot_rb_usage_avg=d.get("pucch_tot_rb_usage_avg", 0.0),
-            active_ues=d.get("active_ues", 0),
-            dl_brate=d.get("dl_brate", 0.0),
-            ul_brate=d.get("ul_brate", 0.0),
-            dl_mcs=d.get("dl_mcs", 0.0),
-            ul_mcs=d.get("ul_mcs", 0.0),
-            pusch_snr_db=d.get("pusch_snr_db", 0.0),
-            pucch_snr_db=d.get("pucch_snr_db", 0.0),
-            cqi=d.get("cqi", 0.0),
-            dl_bler=d.get("dl_bler", 0.0),
-            ul_bler=d.get("ul_bler", 0.0),
-            ip=d.get("ip"),
-            ts=d.get("ts")
+            pci=d.get(constants.FIVE_G_DU.PCI, 0),
+            average_latency=d.get(constants.FIVE_G_DU.AVERAGE_LATENCY, 0.0),
+            max_latency=d.get(constants.FIVE_G_DU.MAX_LATENCY, 0.0),
+            pucch_tot_rb_usage_avg=d.get(constants.FIVE_G_DU.PUCCH_TOT_RB_USAGE_AVG, 0.0),
+            active_ues=d.get(constants.FIVE_G_DU.ACTIVE_UES, 0),
+            dl_brate=d.get(constants.FIVE_G_DU.DL_BRATE, 0.0),
+            ul_brate=d.get(constants.FIVE_G_DU.UL_BRATE, 0.0),
+            dl_mcs=d.get(constants.FIVE_G_DU.DL_MCS, 0.0),
+            ul_mcs=d.get(constants.FIVE_G_DU.UL_MCS, 0.0),
+            pusch_snr_db=d.get(constants.FIVE_G_DU.PUSCH_SNR_DB, 0.0),
+            pucch_snr_db=d.get(constants.FIVE_G_DU.PUCCH_SNR_DB, 0.0),
+            cqi=d.get(constants.FIVE_G_DU.CQI, 0.0),
+            dl_bler=d.get(constants.FIVE_G_DU.DL_BLER, 0.0),
+            ul_bler=d.get(constants.FIVE_G_DU.UL_BLER, 0.0),
+            ip=d.get(constants.FIVE_G_DU.IP),
+            ts=d.get(constants.FIVE_G_DU.TS)
         )
         return obj
 
@@ -173,18 +174,18 @@ class FiveGDUCellMetrics(JSONSerializable):
         :return: the created instance
         """
         ts = time.time()
-        if "timestamp" in d and d["timestamp"] is not None:
+        if constants.FIVE_G_DU.TIMESTAMP in d and d[constants.FIVE_G_DU.TIMESTAMP] is not None:
             try:
-                dt = datetime.datetime.fromisoformat(d["timestamp"])
+                dt = datetime.datetime.fromisoformat(d[constants.FIVE_G_DU.TIMESTAMP])
                 ts = dt.timestamp()
             except Exception:
                 pass
 
         cell_data = {}
         ue_list = []
-        if "cells" in d and len(d["cells"]) > 0:
-            cell_data = d["cells"][0].get("cell_metrics", {})
-            ue_list = d["cells"][0].get("ue_list", [])
+        if constants.FIVE_G_DU.CELLS in d and len(d[constants.FIVE_G_DU.CELLS]) > 0:
+            cell_data = d[constants.FIVE_G_DU.CELLS][0].get(constants.FIVE_G_DU.CELL_METRICS, {})
+            ue_list = d[constants.FIVE_G_DU.CELLS][0].get(constants.FIVE_G_DU.UE_LIST, [])
 
         # Aggregation logic
         active_ues = len(ue_list)
@@ -201,17 +202,17 @@ class FiveGDUCellMetrics(JSONSerializable):
         total_ul_nok = 0
 
         for ue in ue_list:
-            total_dl_brate += ue.get("dl_brate", 0.0)
-            total_ul_brate += ue.get("ul_brate", 0.0)
-            sum_dl_mcs += ue.get("dl_mcs", 0)
-            sum_ul_mcs += ue.get("ul_mcs", 0)
-            sum_pusch_snr += ue.get("pusch_snr_db", 0.0)
-            sum_pucch_snr += ue.get("pucch_snr_db", 0.0)
-            sum_cqi += ue.get("cqi", 0)
-            total_dl_ok += ue.get("dl_nof_ok", 0)
-            total_dl_nok += ue.get("dl_nof_nok", 0)
-            total_ul_ok += ue.get("ul_nof_ok", 0)
-            total_ul_nok += ue.get("ul_nof_nok", 0)
+            total_dl_brate += ue.get(constants.FIVE_G_DU.DL_BRATE, 0.0)
+            total_ul_brate += ue.get(constants.FIVE_G_DU.UL_BRATE, 0.0)
+            sum_dl_mcs += ue.get(constants.FIVE_G_DU.DL_MCS, 0)
+            sum_ul_mcs += ue.get(constants.FIVE_G_DU.UL_MCS, 0)
+            sum_pusch_snr += ue.get(constants.FIVE_G_DU.PUSCH_SNR_DB, 0.0)
+            sum_pucch_snr += ue.get(constants.FIVE_G_DU.PUCCH_SNR_DB, 0.0)
+            sum_cqi += ue.get(constants.FIVE_G_DU.CQI, 0)
+            total_dl_ok += ue.get(constants.FIVE_G_DU.DL_NOF_OK, 0)
+            total_dl_nok += ue.get(constants.FIVE_G_DU.DL_NOF_NOK, 0)
+            total_ul_ok += ue.get(constants.FIVE_G_DU.UL_NOF_OK, 0)
+            total_ul_nok += ue.get(constants.FIVE_G_DU.UL_NOF_NOK, 0)
 
         avg_dl_mcs = sum_dl_mcs / active_ues if active_ues > 0 else 0.0
         avg_ul_mcs = sum_ul_mcs / active_ues if active_ues > 0 else 0.0
@@ -229,10 +230,10 @@ class FiveGDUCellMetrics(JSONSerializable):
             ul_bler = total_ul_nok / (total_ul_ok + total_ul_nok)
 
         obj = FiveGDUCellMetrics(
-            pci=cell_data.get("pci", 0),
-            average_latency=cell_data.get("average_latency", 0.0),
-            max_latency=cell_data.get("max_latency", 0.0),
-            pucch_tot_rb_usage_avg=cell_data.get("pucch_tot_rb_usage_avg", 0.0),
+            pci=cell_data.get(constants.FIVE_G_DU.PCI, 0),
+            average_latency=cell_data.get(constants.FIVE_G_DU.AVERAGE_LATENCY, 0.0),
+            max_latency=cell_data.get(constants.FIVE_G_DU.MAX_LATENCY, 0.0),
+            pucch_tot_rb_usage_avg=cell_data.get(constants.FIVE_G_DU.PUCCH_TOT_RB_USAGE_AVG, 0.0),
             active_ues=active_ues,
             dl_brate=total_dl_brate,
             ul_brate=total_ul_brate,
@@ -253,22 +254,22 @@ class FiveGDUCellMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["pci"] = self.pci
-        d["average_latency"] = self.average_latency
-        d["max_latency"] = self.max_latency
-        d["pucch_tot_rb_usage_avg"] = self.pucch_tot_rb_usage_avg
-        d["active_ues"] = self.active_ues
-        d["dl_brate"] = self.dl_brate
-        d["ul_brate"] = self.ul_brate
-        d["dl_mcs"] = self.dl_mcs
-        d["ul_mcs"] = self.ul_mcs
-        d["pusch_snr_db"] = self.pusch_snr_db
-        d["pucch_snr_db"] = self.pucch_snr_db
-        d["cqi"] = self.cqi
-        d["dl_bler"] = self.dl_bler
-        d["ul_bler"] = self.ul_bler
+        d[constants.FIVE_G_DU.TS] = self.ts
+        d[constants.FIVE_G_DU.IP] = self.ip
+        d[constants.FIVE_G_DU.PCI] = self.pci
+        d[constants.FIVE_G_DU.AVERAGE_LATENCY] = self.average_latency
+        d[constants.FIVE_G_DU.MAX_LATENCY] = self.max_latency
+        d[constants.FIVE_G_DU.PUCCH_TOT_RB_USAGE_AVG] = self.pucch_tot_rb_usage_avg
+        d[constants.FIVE_G_DU.ACTIVE_UES] = self.active_ues
+        d[constants.FIVE_G_DU.DL_BRATE] = self.dl_brate
+        d[constants.FIVE_G_DU.UL_BRATE] = self.ul_brate
+        d[constants.FIVE_G_DU.DL_MCS] = self.dl_mcs
+        d[constants.FIVE_G_DU.UL_MCS] = self.ul_mcs
+        d[constants.FIVE_G_DU.PUSCH_SNR_DB] = self.pusch_snr_db
+        d[constants.FIVE_G_DU.PUCCH_SNR_DB] = self.pucch_snr_db
+        d[constants.FIVE_G_DU.CQI] = self.cqi
+        d[constants.FIVE_G_DU.DL_BLER] = self.dl_bler
+        d[constants.FIVE_G_DU.UL_BLER] = self.ul_bler
         return d
 
     def copy(self) -> "FiveGDUCellMetrics":

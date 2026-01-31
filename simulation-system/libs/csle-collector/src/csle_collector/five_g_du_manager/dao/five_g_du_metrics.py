@@ -1,6 +1,7 @@
 from typing import Dict, Any, Union
 import time
 import datetime
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -104,13 +105,13 @@ class FiveGDUMetrics(JSONSerializable):
         :return: the created instance
         """
         obj = FiveGDUMetrics(
-            pci=d.get("pci", 0),
-            average_latency_us=d.get("average_latency_us", 0.0),
-            cpu_usage_percent=d.get("cpu_usage_percent", 0.0),
-            max_latency_us=d.get("max_latency_us", 0.0),
-            min_latency_us=d.get("min_latency_us", 0.0),
-            ip=d.get("ip"),
-            ts=d.get("ts")
+            pci=d.get(constants.FIVE_G_DU.PCI, 0),
+            average_latency_us=d.get(constants.FIVE_G_DU.AVERAGE_LATENCY_US, 0.0),
+            cpu_usage_percent=d.get(constants.FIVE_G_DU.CPU_USAGE_PERCENT, 0.0),
+            max_latency_us=d.get(constants.FIVE_G_DU.MAX_LATENCY_US, 0.0),
+            min_latency_us=d.get(constants.FIVE_G_DU.MIN_LATENCY_US, 0.0),
+            ip=d.get(constants.FIVE_G_DU.IP),
+            ts=d.get(constants.FIVE_G_DU.TS)
         )
         return obj
 
@@ -124,9 +125,9 @@ class FiveGDUMetrics(JSONSerializable):
         :return: the created instance
         """
         ts = time.time()
-        if "timestamp" in d and d["timestamp"] is not None:
+        if constants.FIVE_G_DU.TIMESTAMP in d and d[constants.FIVE_G_DU.TIMESTAMP] is not None:
             try:
-                dt = datetime.datetime.fromisoformat(d["timestamp"])
+                dt = datetime.datetime.fromisoformat(d[constants.FIVE_G_DU.TIMESTAMP])
                 ts = dt.timestamp()
             except Exception:
                 pass
@@ -134,16 +135,17 @@ class FiveGDUMetrics(JSONSerializable):
         data = {}
         try:
             # Navigate nested structure: du -> du_high -> mac -> dl -> [0]
-            data = d["du"]["du_high"]["mac"]["dl"][0]
+            data = d[constants.FIVE_G_DU.DU][constants.FIVE_G_DU.DU_HIGH][constants.FIVE_G_DU.MAC][
+                constants.FIVE_G_DU.DL][0]
         except (KeyError, IndexError, TypeError):
             pass
 
         obj = FiveGDUMetrics(
-            pci=data.get("pci", 0),
-            average_latency_us=data.get("average_latency_us", 0.0),
-            cpu_usage_percent=data.get("cpu_usage_percent", 0.0),
-            max_latency_us=data.get("max_latency_us", 0.0),
-            min_latency_us=data.get("min_latency_us", 0.0),
+            pci=data.get(constants.FIVE_G_DU.PCI, 0),
+            average_latency_us=data.get(constants.FIVE_G_DU.AVERAGE_LATENCY_US, 0.0),
+            cpu_usage_percent=data.get(constants.FIVE_G_DU.CPU_USAGE_PERCENT, 0.0),
+            max_latency_us=data.get(constants.FIVE_G_DU.MAX_LATENCY_US, 0.0),
+            min_latency_us=data.get(constants.FIVE_G_DU.MIN_LATENCY_US, 0.0),
             ip=ip,
             ts=ts
         )
@@ -154,13 +156,13 @@ class FiveGDUMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["pci"] = self.pci
-        d["average_latency_us"] = self.average_latency_us
-        d["cpu_usage_percent"] = self.cpu_usage_percent
-        d["max_latency_us"] = self.max_latency_us
-        d["min_latency_us"] = self.min_latency_us
+        d[constants.FIVE_G_DU.TS] = self.ts
+        d[constants.FIVE_G_DU.IP] = self.ip
+        d[constants.FIVE_G_DU.PCI] = self.pci
+        d[constants.FIVE_G_DU.AVERAGE_LATENCY_US] = self.average_latency_us
+        d[constants.FIVE_G_DU.CPU_USAGE_PERCENT] = self.cpu_usage_percent
+        d[constants.FIVE_G_DU.MAX_LATENCY_US] = self.max_latency_us
+        d[constants.FIVE_G_DU.MIN_LATENCY_US] = self.min_latency_us
         return d
 
     def copy(self) -> "FiveGDUMetrics":

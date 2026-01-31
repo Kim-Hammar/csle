@@ -1,6 +1,7 @@
 from typing import Dict, Any, Union
 import time
 import datetime
+import csle_collector.constants.constants as constants
 from csle_base.json_serializable import JSONSerializable
 
 
@@ -140,21 +141,21 @@ class FiveGDURLCMetrics(JSONSerializable):
         :return: the created instance
         """
         obj = FiveGDURLCMetrics(
-            ue_id=d.get("ue_id", 0),
-            drb_id=d.get("drb_id", 0),
-            rx_num_pdus=d.get("rx_num_pdus", 0),
-            rx_num_bytes=d.get("rx_num_bytes", 0),
-            rx_num_lost_pdus=d.get("rx_num_lost_pdus", 0),
-            rx_num_malformed_pdus=d.get("rx_num_malformed_pdus", 0),
-            tx_num_sdus=d.get("tx_num_sdus", 0),
-            tx_num_bytes=d.get("tx_num_bytes", 0),
-            tx_num_dropped_sdus=d.get("tx_num_dropped_sdus", 0),
-            tx_num_discarded_sdus=d.get("tx_num_discarded_sdus", 0),
-            tx_max_pdu_latency_ns=d.get("tx_max_pdu_latency_ns", 0),
-            tx_sum_pdu_latency_ns=d.get("tx_sum_pdu_latency_ns", 0),
-            tx_sum_sdu_latency_us=d.get("tx_sum_sdu_latency_us", 0),
-            ip=d.get("ip"),
-            ts=d.get("ts")
+            ue_id=d.get(constants.FIVE_G_DU.UE_ID, 0),
+            drb_id=d.get(constants.FIVE_G_DU.DRB_ID, 0),
+            rx_num_pdus=d.get(constants.FIVE_G_DU.RX_NUM_PDUS, 0),
+            rx_num_bytes=d.get(constants.FIVE_G_DU.RX_NUM_BYTES, 0),
+            rx_num_lost_pdus=d.get(constants.FIVE_G_DU.RX_NUM_LOST_PDUS, 0),
+            rx_num_malformed_pdus=d.get(constants.FIVE_G_DU.RX_NUM_MALFORMED_PDUS, 0),
+            tx_num_sdus=d.get(constants.FIVE_G_DU.TX_NUM_SDUS, 0),
+            tx_num_bytes=d.get(constants.FIVE_G_DU.TX_NUM_BYTES, 0),
+            tx_num_dropped_sdus=d.get(constants.FIVE_G_DU.TX_NUM_DROPPED_SDUS, 0),
+            tx_num_discarded_sdus=d.get(constants.FIVE_G_DU.TX_NUM_DISCARDED_SDUS, 0),
+            tx_max_pdu_latency_ns=d.get(constants.FIVE_G_DU.TX_MAX_PDU_LATENCY_NS, 0),
+            tx_sum_pdu_latency_ns=d.get(constants.FIVE_G_DU.TX_SUM_PDU_LATENCY_NS, 0),
+            tx_sum_sdu_latency_us=d.get(constants.FIVE_G_DU.TX_SUM_SDU_LATENCY_US, 0),
+            ip=d.get(constants.FIVE_G_DU.IP),
+            ts=d.get(constants.FIVE_G_DU.TS)
         )
         return obj
 
@@ -169,36 +170,36 @@ class FiveGDURLCMetrics(JSONSerializable):
         :return: the created instance
         """
         ts = time.time()
-        if "timestamp" in d and d["timestamp"] is not None:
+        if constants.FIVE_G_DU.TIMESTAMP in d and d[constants.FIVE_G_DU.TIMESTAMP] is not None:
             try:
-                dt = datetime.datetime.fromisoformat(d["timestamp"])
+                dt = datetime.datetime.fromisoformat(d[constants.FIVE_G_DU.TIMESTAMP])
                 ts = dt.timestamp()
             except Exception:
                 pass
 
         data = {}
-        if "rlc_metrics" in d:
-            data = d["rlc_metrics"]
+        if constants.FIVE_G_DU.RLC_METRICS in d:
+            data = d[constants.FIVE_G_DU.RLC_METRICS]
         else:
             data = d
 
-        rx = data.get("rx", {})
-        tx = data.get("tx", {})
+        rx = data.get(constants.FIVE_G_DU.RX, {})
+        tx = data.get(constants.FIVE_G_DU.TX, {})
 
         obj = FiveGDURLCMetrics(
-            ue_id=data.get("ue_id", 0),
-            drb_id=data.get("drb_id", 0),
-            rx_num_pdus=rx.get("num_pdus", 0),
-            rx_num_bytes=rx.get("num_pdu_bytes", 0),
-            rx_num_lost_pdus=rx.get("num_lost_pdus", 0),
-            rx_num_malformed_pdus=rx.get("num_malformed_pdus", 0),
-            tx_num_sdus=tx.get("num_sdus", 0),
-            tx_num_bytes=tx.get("num_sdu_bytes", 0),
-            tx_num_dropped_sdus=tx.get("num_dropped_sdus", 0),
-            tx_num_discarded_sdus=tx.get("num_discarded_sdus", 0),
-            tx_max_pdu_latency_ns=tx.get("max_pdu_latency_ns", 0),
-            tx_sum_pdu_latency_ns=tx.get("sum_pdu_latency_ns", 0),
-            tx_sum_sdu_latency_us=tx.get("sum_sdu_latency_us", 0),
+            ue_id=data.get(constants.FIVE_G_DU.UE_ID, 0),
+            drb_id=data.get(constants.FIVE_G_DU.DRB_ID, 0),
+            rx_num_pdus=rx.get(constants.FIVE_G_DU.NUM_PDUS, 0),
+            rx_num_bytes=rx.get(constants.FIVE_G_DU.NUM_PDU_BYTES, 0),
+            rx_num_lost_pdus=rx.get(constants.FIVE_G_DU.NUM_LOST_PDUS, 0),
+            rx_num_malformed_pdus=rx.get(constants.FIVE_G_DU.NUM_MALFORMED_PDUS, 0),
+            tx_num_sdus=tx.get(constants.FIVE_G_DU.NUM_SDUS, 0),
+            tx_num_bytes=tx.get(constants.FIVE_G_DU.NUM_SDU_BYTES, 0),
+            tx_num_dropped_sdus=tx.get(constants.FIVE_G_DU.NUM_DROPPED_SDUS, 0),
+            tx_num_discarded_sdus=tx.get(constants.FIVE_G_DU.NUM_DISCARDED_SDUS, 0),
+            tx_max_pdu_latency_ns=tx.get(constants.FIVE_G_DU.MAX_PDU_LATENCY_NS, 0),
+            tx_sum_pdu_latency_ns=tx.get(constants.FIVE_G_DU.SUM_PDU_LATENCY_NS, 0),
+            tx_sum_sdu_latency_us=tx.get(constants.FIVE_G_DU.SUM_SDU_LATENCY_US, 0),
             ip=ip,
             ts=ts
         )
@@ -209,21 +210,21 @@ class FiveGDURLCMetrics(JSONSerializable):
         :return: a dict representation of the instance
         """
         d: Dict[str, Any] = {}
-        d["ts"] = self.ts
-        d["ip"] = self.ip
-        d["ue_id"] = self.ue_id
-        d["drb_id"] = self.drb_id
-        d["rx_num_pdus"] = self.rx_num_pdus
-        d["rx_num_bytes"] = self.rx_num_bytes
-        d["rx_num_lost_pdus"] = self.rx_num_lost_pdus
-        d["rx_num_malformed_pdus"] = self.rx_num_malformed_pdus
-        d["tx_num_sdus"] = self.tx_num_sdus
-        d["tx_num_bytes"] = self.tx_num_bytes
-        d["tx_num_dropped_sdus"] = self.tx_num_dropped_sdus
-        d["tx_num_discarded_sdus"] = self.tx_num_discarded_sdus
-        d["tx_max_pdu_latency_ns"] = self.tx_max_pdu_latency_ns
-        d["tx_sum_pdu_latency_ns"] = self.tx_sum_pdu_latency_ns
-        d["tx_sum_sdu_latency_us"] = self.tx_sum_sdu_latency_us
+        d[constants.FIVE_G_DU.TS] = self.ts
+        d[constants.FIVE_G_DU.IP] = self.ip
+        d[constants.FIVE_G_DU.UE_ID] = self.ue_id
+        d[constants.FIVE_G_DU.DRB_ID] = self.drb_id
+        d[constants.FIVE_G_DU.RX_NUM_PDUS] = self.rx_num_pdus
+        d[constants.FIVE_G_DU.RX_NUM_BYTES] = self.rx_num_bytes
+        d[constants.FIVE_G_DU.RX_NUM_LOST_PDUS] = self.rx_num_lost_pdus
+        d[constants.FIVE_G_DU.RX_NUM_MALFORMED_PDUS] = self.rx_num_malformed_pdus
+        d[constants.FIVE_G_DU.TX_NUM_SDUS] = self.tx_num_sdus
+        d[constants.FIVE_G_DU.TX_NUM_BYTES] = self.tx_num_bytes
+        d[constants.FIVE_G_DU.TX_NUM_DROPPED_SDUS] = self.tx_num_dropped_sdus
+        d[constants.FIVE_G_DU.TX_NUM_DISCARDED_SDUS] = self.tx_num_discarded_sdus
+        d[constants.FIVE_G_DU.TX_MAX_PDU_LATENCY_NS] = self.tx_max_pdu_latency_ns
+        d[constants.FIVE_G_DU.TX_SUM_PDU_LATENCY_NS] = self.tx_sum_pdu_latency_ns
+        d[constants.FIVE_G_DU.TX_SUM_SDU_LATENCY_US] = self.tx_sum_sdu_latency_us
         return d
 
     def copy(self) -> "FiveGDURLCMetrics":
