@@ -30,6 +30,17 @@ from gym_csle_stopping_game.dao.stopping_game_defender_pomdp_config import Stopp
 from gym_csle_stopping_game.util.stopping_game_util import StoppingGameUtil
 from gym_csle_stopping_game.dao.stopping_game_config import StoppingGameConfig
 
+from emukit.core import ParameterSpace
+from csle_agents.agents.bayesian_optimization_emukit.bo.kernel.rbf_kernel_config import RBFKernelConfig
+from csle_agents.agents.bayesian_optimization_emukit.bo.gp.gp_config import GPConfig
+from csle_agents.agents.bayesian_optimization_emukit.bo.bo_config import BOConfig
+from csle_agents.agents.bayesian_optimization_emukit.bo.bo_results import BOResults
+from csle_agents.agents.bayesian_optimization_emukit.bo.acquisition.acquisition_function_type import \
+    AcquisitionFunctionType
+from csle_agents.agents.bayesian_optimization_emukit.bo.acquisition.acquisition_optimizer_type import \
+    AcquisitionOptimizerType
+from csle_agents.common.objective_type import ObjectiveType
+
 
 def default_config(name: str, version: str = "0.0.2", min_alerts_weighted_by_priority: int = 0,
                    max_alers_weighted_by_priority: int = 100) -> SimulationEnvConfig:
@@ -350,3 +361,48 @@ def example_defender_simulation_config() -> SimulationEnvConfig:
                                        stage_policy_tensor=list(attacker_stage_strategy)),
         env_name="csle-stopping-game-pomdp-defender-v1")
     return config
+
+
+@pytest.fixture
+def example_rbf_kernel_config() -> RBFKernelConfig:
+    """
+    :return: an example RBFKernelConfig object
+    """
+    return RBFKernelConfig(lengthscale_rbf_kernel=1.5, variance_rbf_kernel=0.5)
+
+
+@pytest.fixture
+def example_gp_config(example_rbf_kernel_config: RBFKernelConfig) -> GPConfig:
+    """
+    :return: an example GPConfig object
+    """
+    return GPConfig(kernel_config=example_rbf_kernel_config, obs_likelihood_variance=1e-8)
+
+
+@pytest.fixture
+def example_bo_config(example_gp_config: GPConfig) -> BOConfig:
+    """
+    :return: an example BOConfig object
+    """
+    return BOConfig(X_init=np.array([[1.0], [2.0]]), Y_init=np.array([[0.5], [1.5]]),
+                    input_space=ParameterSpace([]), evaluation_budget=10,
+                    gp_config=example_gp_config,
+                    acquisition_function_type=AcquisitionFunctionType.EXPECTED_IMPROVEMENT,
+                    acquisition_optimizer_type=AcquisitionOptimizerType.GRADIENT,
+                    objective_type=ObjectiveType.MAX, beta=1.0)
+
+
+@pytest.fixture
+def example_bo_results() -> BOResults:
+    """
+    :return: an example BOResults object
+    """
+    results = BOResults(remaining_budget=5.0)
+    results.X = np.array([[1.0], [2.0]])
+    results.Y = np.array([[0.5], [1.5]])
+    results.X_best = np.array([[2.0]])
+    results.Y_best = np.array([[1.5]])
+    results.cumulative_cost = 5.0
+    results.iteration = 2
+    results.total_time = 10.5
+    return results

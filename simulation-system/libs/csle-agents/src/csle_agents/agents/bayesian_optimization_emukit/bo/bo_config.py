@@ -108,8 +108,10 @@ class BOConfig:
         dto = BOConfig(
             X_init=np.array(d["X_init"]), Y_init=np.array(d["Y_init"]),
             input_space=ParameterSpace(parameters=[]), evaluation_budget=d["evaluation_budget"],
-            gp_config=GPConfig.from_dict(d["gp_config"]), acquisition_function_type=d["acquisition_function_type"],
-            acquisition_optimizer_type=d["acquisition_optimizer_type"], objective_type=d["objective_type"],
+            gp_config=GPConfig.from_dict(d["gp_config"]),
+            acquisition_function_type=AcquisitionFunctionType(d["acquisition_function_type"]),
+            acquisition_optimizer_type=AcquisitionOptimizerType(d["acquisition_optimizer_type"]),
+            objective_type=ObjectiveType(d["objective_type"]),
             beta=d["beta"])
         return dto
 
@@ -124,9 +126,9 @@ class BOConfig:
         d["Y_init"] = list(self.Y_init)
         d["evaluation_budget"] = self.evaluation_budget
         d["gp_config"] = self.gp_config.to_dict()
-        d["acquisition_function_type"] = self.acquisition_function_type.value
-        d["acquisition_optimizer_type"] = self.acquisition_optimizer_type.value
-        d["objective_type"] = self.objective_type.value
+        d["acquisition_function_type"] = int(self.acquisition_function_type)
+        d["acquisition_optimizer_type"] = int(self.acquisition_optimizer_type)
+        d["objective_type"] = int(self.objective_type)
         d["beta"] = self.beta
         return d
 
