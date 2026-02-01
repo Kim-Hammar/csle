@@ -121,6 +121,29 @@ vagrant ssh leader -c "/vagrant/scripts/run_installation.sh -v"
 vagrant ssh leader -c "/vagrant/scripts/run_installation.sh --skip-tags docker_images"
 ```
 
+## Starting CSLE Services
+
+CSLE services are automatically started after the Ansible installation completes. The services are started in the following order (as defined in `cluster_controller.py`):
+
+1. cAdvisor
+2. Grafana
+3. Node Exporter
+4. Prometheus
+5. pgAdmin
+6. Nginx
+7. Docker Engine
+8. Flask API
+
+To manually start services:
+
+```bash
+# Start all services
+vagrant ssh leader -c "/vagrant/scripts/start_services.sh vagrant"
+
+# Or start individual services
+vagrant ssh leader -c "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && conda activate base && export CSLE_HOME=/home/vagrant/csle && csle start flask"
+```
+
 ## Cleanup
 
 After testing, you can clean up to free disk space. The VMs and box images can consume 50-100GB+.
@@ -245,7 +268,8 @@ vagrant/
 │   └── two_node.yaml            # Leader + Worker config
 ├── scripts/
 │   ├── provision.sh             # VM provisioning script
-│   └── run_installation.sh      # Manual Ansible runner
+│   ├── run_installation.sh      # Manual Ansible runner
+│   └── start_services.sh        # Start CSLE services after installation
 ├── tests/
 │   ├── conftest.py              # pytest fixtures
 │   ├── test_services.py         # Service tests

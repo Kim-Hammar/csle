@@ -197,14 +197,14 @@ def check_python():
 
     # Conda
     passed, output = run_command(
-        "source ~/anaconda3/etc/profile.d/conda.sh && conda --version"
+        "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && conda --version"
     )
     print_check("Conda installation", passed, output if not passed else "")
     results.append(passed)
 
     # Python version
     passed, output = run_command(
-        "source ~/anaconda3/etc/profile.d/conda.sh && "
+        "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
         "conda activate base && python --version"
     )
     print_check(f"Python ({output})", passed and "Python 3" in output)
@@ -214,7 +214,7 @@ def check_python():
     packages = ["csle-common", "csle-agents", "csle-cli"]
     for pkg in packages:
         passed, _ = run_command(
-            f"source ~/anaconda3/etc/profile.d/conda.sh && "
+            f"source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
             f"conda activate base && pip show {pkg}"
         )
         print_check(f"Package: {pkg}", passed)
@@ -222,7 +222,7 @@ def check_python():
 
     # CSLE CLI
     passed, _ = run_command(
-        "source ~/anaconda3/etc/profile.d/conda.sh && "
+        "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
         "conda activate base && csle --help"
     )
     print_check("CSLE CLI available", passed)

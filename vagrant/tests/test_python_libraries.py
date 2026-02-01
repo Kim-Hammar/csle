@@ -33,7 +33,7 @@ class TestCondaEnvironment:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell(
-            "source ~/anaconda3/etc/profile.d/conda.sh && conda --version"
+            "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && conda --version"
         )
         assert returncode == 0, f"Conda not installed: {stderr}"
         assert "conda" in stdout.lower()
@@ -44,7 +44,7 @@ class TestCondaEnvironment:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell(
-            "source ~/anaconda3/etc/profile.d/conda.sh && conda env list"
+            "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && conda env list"
         )
         assert returncode == 0, f"Failed to list Conda environments: {stderr}"
         assert "base" in stdout
@@ -55,7 +55,7 @@ class TestCondaEnvironment:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell(
-            "source ~/anaconda3/etc/profile.d/conda.sh && "
+            "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
             "conda activate base && python --version"
         )
         assert returncode == 0, f"Failed to get Python version: {stderr}"
@@ -72,7 +72,7 @@ class TestCSLEPackages:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell(
-            f"source ~/anaconda3/etc/profile.d/conda.sh && "
+            f"source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
             f"conda activate base && pip show {package}"
         )
         assert returncode == 0, f"Package {package} not installed: {stderr}"
@@ -84,7 +84,7 @@ class TestCSLEPackages:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell(
-            "source ~/anaconda3/etc/profile.d/conda.sh && "
+            "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
             "conda activate base && csle --help"
         )
         assert returncode == 0, f"CSLE CLI not available: {stderr}"
@@ -100,7 +100,7 @@ class TestCSLEImports:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell(
-            "source ~/anaconda3/etc/profile.d/conda.sh && "
+            "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
             "conda activate base && "
             "python -c 'import csle_common; print(csle_common.__version__)'"
         )
@@ -112,7 +112,7 @@ class TestCSLEImports:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell(
-            "source ~/anaconda3/etc/profile.d/conda.sh && "
+            "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
             "conda activate base && "
             "python -c 'import csle_agents; print(csle_agents.__version__)'"
         )
@@ -124,7 +124,7 @@ class TestCSLEImports:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell(
-            "source ~/anaconda3/etc/profile.d/conda.sh && "
+            "source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
             "conda activate base && "
             "python -c 'import gymnasium; print(gymnasium.__version__)'"
         )
@@ -150,7 +150,7 @@ class TestDependencies:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell(
-            f"source ~/anaconda3/etc/profile.d/conda.sh && "
+            f"source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
             f"conda activate base && pip show {package}"
         )
         # Some packages might have different names
@@ -158,7 +158,7 @@ class TestDependencies:
             # Try import as fallback
             import_name = package.replace("-", "_").split("[")[0]
             returncode, stdout, stderr = run_shell(
-                f"source ~/anaconda3/etc/profile.d/conda.sh && "
+                f"source /home/vagrant/anaconda3/etc/profile.d/conda.sh && "
                 f"conda activate base && python -c 'import {import_name}'"
             )
         assert returncode == 0, f"Dependency {package} not available"

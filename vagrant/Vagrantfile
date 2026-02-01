@@ -85,7 +85,14 @@ Vagrant.configure("2") do |config|
         end
       end
 
-      # Test provisioner (optional, runs after Ansible)
+      # Start CSLE services after Ansible installation (leader only)
+      if node['leader']
+        vm_config.vm.provision "shell", path: "scripts/start_services.sh", args: [
+          settings['user'] || "vagrant"
+        ]
+      end
+
+      # Test provisioner (optional, runs after services are started)
       if settings['run_tests'] && node['leader']
         vm_config.vm.provision "shell", inline: <<-SHELL
           cd /vagrant/tests
