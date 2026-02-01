@@ -7,7 +7,8 @@ This directory contains Vagrant configurations and test suites for validating th
 - [Vagrant](https://www.vagrantup.com/downloads) >= 2.3.0
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) >= 7.0
 - At least 16GB RAM
-- At least 100GB free disk space
+- At least 200GB free disk space
+- [vagrant-disksize plugin](https://github.com/sprotheroe/vagrant-disksize) (install with `vagrant plugin install vagrant-disksize`)
 
 ## Quick Start
 
@@ -161,10 +162,10 @@ rm -rf .vagrant/
 | Component | Approximate Size |
 |-----------|-----------------|
 | Ubuntu box image | ~2 GB |
-| Single-node VM disk | ~20-60 GB |
-| Two-node VM disks | ~40-100 GB |
-| Total (single-node) | ~25-65 GB |
-| Total (two-node) | ~45-105 GB |
+| Single-node VM disk | ~100-150 GB |
+| Two-node VM disks | ~150-250 GB |
+| Total (single-node) | ~100-150 GB |
+| Total (two-node) | ~150-250 GB |
 
 ### Verify Cleanup
 
@@ -213,11 +214,15 @@ ssh -F ssh-config leader
 
 ### Out of Disk Space
 
-The default disk size is 100GB. Ensure you have sufficient free space:
+The default VM disk size is 200GB. CSLE Docker images require ~100GB of disk space. Ensure you have sufficient free space on your host:
 
 ```bash
 df -h
 ```
+
+If you see "no space left on device" errors during provisioning, you may need to:
+1. Install the vagrant-disksize plugin: `vagrant plugin install vagrant-disksize`
+2. Destroy and recreate the VM: `vagrant destroy -f && vagrant up`
 
 ### Services Not Starting
 

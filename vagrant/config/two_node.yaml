@@ -7,7 +7,7 @@ user: "vagrant"
 # Default resources
 default_memory: 8192  # 8GB RAM
 default_cpus: 4
-default_disk: "80GB"
+default_disk: "200GB"
 
 # Ansible settings
 ansible_verbose: false
@@ -21,14 +21,14 @@ nodes:
     leader: true
     memory: 12288  # 12GB for leader
     cpus: 4
-    disk: "80GB"
+    disk: "200GB"
 
   - name: worker
     ip: "192.168.56.11"
     leader: false
     memory: 8192  # 8GB for worker
     cpus: 4
-    disk: "80GB"
+    disk: "200GB"
 
 # Port forwarding configuration (leader only)
 port_forwards:
