@@ -3,7 +3,7 @@ title: Why CSLE?
 permalink: /docs/why-csle/
 ---
 
-## Why is CSLE?
+## Why CSLE?
 
 As the ubiquity and evolving nature of cyber attacks is of growing concern to society, 
 *automation* of security processes and functions has been recognized as an important 
@@ -23,7 +23,7 @@ CSLE was developed to address precisely the above limitations. By using high-fid
 it narrows the gap between the evaluation environment and a real system, 
 and by being open-source, it provides a foundation for further research to build on.
 
-Recently, efforts to build similar frameworks as CSLE has started (see
+Recently, efforts to build similar frameworks as CSLE have started (see
 <a href="https://github.com/Kim-Hammar/awesome-rl-for-cybersecurity">survey</a>). Most notably, there is
 <a href="https://github.com/microsoft/CyberBattleSim">CyberBattleSim</a> by Microsoft,
 <a href="https://github.com/cage-challenge/CybORG">CyBorg</a> by
@@ -36,7 +36,7 @@ simulation components and some of them include both simulation and emulation com
 
 In contrast to these frameworks, CSLE is fully open-source, 
 includes both a simulation component and an emulation component,
-and has demonstrated the capabilitiy to learn near-optimal defender strategies on specific use cases 
+and has demonstrated the capability to learn near-optimal defender strategies on specific use cases 
 (see <a href="publications">publications</a>).
 
   

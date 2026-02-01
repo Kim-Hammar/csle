@@ -34,4 +34,4 @@ Three benefits of this method are: (*i*)
 that the emulation system provides a realistic environment to evaluate strategies; 
 (*ii*) that the emulation system allows evaluating strategies without 
 affecting operational workflows on the target infrastructure; 
-and (*iii*}) that the simulation system enables efficient and rapid learning of strategies.
+and (*iii*) that the simulation system enables efficient and rapid learning of strategies.

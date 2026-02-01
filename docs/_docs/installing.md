@@ -121,7 +121,7 @@ my_user ALL = NOPASSWD: /usr/sbin/service docker stop, /usr/sbin/service docker 
 Listing 14: Line to add to the sudoers file.
 </p>
 
-By adding the above line to the `sudoers` file, CSLE will be able to view logs and start and stop management services without requiring a password to be entered. (Note that the exact paths used above may differ on your system, very the paths by running the command `whereis service`, `whereis journalctl`, etc.)
+By adding the above line to the `sudoers` file, CSLE will be able to view logs and start and stop management services without requiring a password to be entered. (Note that the exact paths used above may differ on your system, verify the paths by running the command `whereis service`, `whereis journalctl`, etc.)
 
 Next, setup SSH keys so that all servers (leader and workers) have SSH access to each other without requiring a password. 
 To do this, generate an SSH key pair with the command `ssh-keygen` on each server and copy the public key (e.g., `id_rsa.pub`) to the file `.ssh/authorized_keys`.
@@ -212,7 +212,7 @@ Listing 22: Commands to setup the Citus cluster and create tables.
 
 Next, update the variable called `HOST` in the class `METADATA\_STORE` in the file `csle/simulation-system/libs/csle-common/src/csle\_common/constants/constants.py`.
 
-Next, define ips of the cluster nodes and thet metastore leader by editing the file: `csle/config.json`.
+Next, define IPs of the cluster nodes and the metastore leader by editing the file: `csle/config.json`.
 
 Lastly, make the PostgreSQL log files readable by your user by running the commands:
 ```bash
@@ -440,7 +440,7 @@ Listing 41: Commands to install `gym-csle-stopping-game` from source.
 Next, install `csle-agents` from PyPi by running the command:
 
 ```bash
-Next, install `csle-agents` from PyPi by running the command:
+pip install csle-agents
 ```
 
 <p class="captionFig">
@@ -495,7 +495,7 @@ pip install -e .
 cd ../../../
 ```
 <p class="captionFig">
-Listing 47: {Commands to install `csle-cli` from source.
+Listing 47: Commands to install `csle-cli` from source.
 </p>
 
 Next, install `csle-cluster` from PyPi by running the command:
@@ -513,7 +513,7 @@ pip install -e .
 cd ../../../
 ```
 <p class="captionFig">
-Listing 49: {Commands to install `csle-cluster` from source.
+Listing 49: Commands to install `csle-cluster` from source.
 </p>
 
 Next, install `gym-csle-intrusion-response-game` from PyPi by running the command:
@@ -671,7 +671,7 @@ Listing 63: Command to initialize a Docker swarm.
 
 After running the above command, a secret token will be returned. Use this token to run the following command on each worker to add it to the swarm:
 ```bash
-docker swarm join --token <my_roken> leader_ip:2377
+docker swarm join --token <my_token> leader_ip:2377
 ```
 <p class="captionFig">
 Listing 64: Commands to add a worker node to the Docker swarm.

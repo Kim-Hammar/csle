@@ -75,18 +75,18 @@ CSLE CLI (lines 2-14).
 | `csle ls <entity> --all`                                              | List extended information of the given entity.         |
 | `csle ls <entity> --running`                                          | Only list information about running entities.          |
 | `csle ls <entity> --stopped`                                          | Only list information about stopped entities.          |
-| `csle ls hostmanagers <emulationame> --id <emulationid> --ip <ip>`    | Lists host managers on the specified ip sever.         |
-| `csle ls clientmanager <emulationame> --id <emulationid> --ip <ip>`   | Lists the client manager on the specified ip sever.    |
-| `csle ls snortmanagers <emulationame> --id <emulationid> --ip <ip>`   | Lists snort managers on the specified ip sever.        |
-| `csle ls elkmanager <emulationame> --id <emulationid> --ip <ip>`      | Lists the Elk manager on the specified ip sever.       |
-| `csle ls trafficmanagers <emulationame> --id <emulationid> --ip <ip>` | Lists traffic managers on the specified ip sever.      |
-| `csle ls kafkamanager <emulationame> --id <emulationid> --ip <ip>`    | Lists the Kafka manager on the specified ip sever.     |
-| `csle ls ossecmanagers <emulationame> --id <emulationid> --ip <ip>`   | Lists Ossec managers on the specified ip sever.        |
-| `csle ls ryumanager <emulationame> --id <emulationid> --ip <ip>`      | Lists the Ryu manager on the specified ip sever.       |
-| `csle ls filebeats <emulationame> --id <emulationid> --ip <ip>`       | Lists filebeats on the specified ip sever.             |
-| `csle ls metricbeats <emulationame> --id <emulationid> --ip <ip>`     | Lists metricbeats on the specified ip sever.           |
-| `csle ls heartbeats <emulationame> --id <emulationid> --ip <ip>`      | Lists heartbeats on the specified ip sever.            |
-| `csle ls packetbeats <emulationame> --id <emulationid> --ip <ip>`      | Lists packetbeats on the specified ip sever.                |
+| `csle ls hostmanagers <emulationame> --id <emulationid> --ip <ip>`    | Lists host managers on the specified IP server.         |
+| `csle ls clientmanager <emulationame> --id <emulationid> --ip <ip>`   | Lists the client manager on the specified IP server.    |
+| `csle ls snortmanagers <emulationame> --id <emulationid> --ip <ip>`   | Lists snort managers on the specified IP server.        |
+| `csle ls elkmanager <emulationame> --id <emulationid> --ip <ip>`      | Lists the Elk manager on the specified IP server.       |
+| `csle ls trafficmanagers <emulationame> --id <emulationid> --ip <ip>` | Lists traffic managers on the specified IP server.      |
+| `csle ls kafkamanager <emulationame> --id <emulationid> --ip <ip>`    | Lists the Kafka manager on the specified IP server.     |
+| `csle ls ossecmanagers <emulationame> --id <emulationid> --ip <ip>`   | Lists Ossec managers on the specified IP server.        |
+| `csle ls ryumanager <emulationame> --id <emulationid> --ip <ip>`      | Lists the Ryu manager on the specified IP server.       |
+| `csle ls filebeats <emulationame> --id <emulationid> --ip <ip>`       | Lists filebeats on the specified IP server.             |
+| `csle ls metricbeats <emulationame> --id <emulationid> --ip <ip>`     | Lists metricbeats on the specified IP server.           |
+| `csle ls heartbeats <emulationame> --id <emulationid> --ip <ip>`      | Lists heartbeats on the specified IP server.            |
+| `csle ls packetbeats <emulationame> --id <emulationid> --ip <ip>`      | Lists packetbeats on the specified IP server.                |
 | `csle rm <network>`                                                   | Removes the network with the given name.               |
 | `csle rm <container>`                                                 | Removes the container with the given name.             |
 | `csle rm <image>`                                                     | Removes the Docker image with the given name.          |
@@ -123,24 +123,24 @@ Table 24: Commands available in the CSLE command-line interface (1/2).
 | `csle start <image> <containername> `                           | Starts a container with a given image and name.                |
 | `csle start_traffic <emulationname> <executionid> `             | Starts the traffic and clients in execution.                   |
 | `csle statsmanager <port> <logdir> <logfile> <maxworkers>` | Starts the statsmanager.                                       |
-| `csle start hostmanagers <emulationname> --id <emulationid> --ip <ip>` | Starts host managers on the specified ip sever. |
+| `csle start hostmanagers <emulationname> --id <emulationid> --ip <ip>` | Starts host managers on the specified IP server. |
 | `csle start hostmanager <emulationname> --id <emulationid> --ip <ip> --container_ip <containerip>` | Starts a host manager on the specified container. |
-| `csle start clientmanager <emulationname> --id <emulationid> --ip <ip>` | Starts a client managers on the specified ip sever. |
-| `csle start snortmanagers <emulationname> --id <emulationid> --ip <ip>` | Starts snort managers on the specified ip sever. |
+| `csle start clientmanager <emulationname> --id <emulationid> --ip <ip>` | Starts a client managers on the specified IP server. |
+| `csle start snortmanagers <emulationname> --id <emulationid> --ip <ip>` | Starts snort managers on the specified IP server. |
 | `csle start snort manager <emulationname> --id <emulationid> --ip <ip> --container_ip <containerip>` | Starts a snort manager on the specified container. |
-| `csle start elkmanager <emulationname> --id <emulationid> --ip <ip>` | Starts an Elk managers on the specified ip sever. |
-| `csle start traffic managers <emulationname> --id <emulationid> --ip <ip>` | Starts traffic managers on the specified ip sever. |
+| `csle start elkmanager <emulationname> --id <emulationid> --ip <ip>` | Starts an Elk managers on the specified IP server. |
+| `csle start traffic managers <emulationname> --id <emulationid> --ip <ip>` | Starts traffic managers on the specified IP server. |
 | `csle start trafficmanager <emulationname> --id <emulationid> --ip <ip> --container_ip <containerip>` | Starts a traffic manager on the specified container. |
-| `csle start ossecmanagers <emulationname> --id <emulationid> --ip <ip>` | Starts Ossec managers on the specified ip sever. |
+| `csle start ossecmanagers <emulationname> --id <emulationid> --ip <ip>` | Starts Ossec managers on the specified IP server. |
 | `csle start ossecmanager <emulationname> --id <emulationid> --ip <ip> --container_ip <containerip>`      | Starts an Ossec manager on the specified container. |
-| `csle start ryumanager <emulationname> --id <emulationid> --ip <ip>` | Starts a Ryu managers on the specified ip sever. |
-| `csle start filebeats <emulationname> --id <emulationid> --ip <ip>` | Starts filebeats on the specified ip sever. |
+| `csle start ryumanager <emulationname> --id <emulationid> --ip <ip>` | Starts a Ryu managers on the specified IP server. |
+| `csle start filebeats <emulationname> --id <emulationid> --ip <ip>` | Starts filebeats on the specified IP server. |
 | `csle start filebeat <emulationname> --id <emulationid> --ip <ip> --container_ip <containerip>` | Starts the filebeat on the specified container. |
-| `csle start metricbeats <emulationname> --id <emulationid> --ip <ip>` | Starts metricbeats on the specified ip sever. |
+| `csle start metricbeats <emulationname> --id <emulationid> --ip <ip>` | Starts metricbeats on the specified IP server. |
 | `csle start metricbeat <emulationname> --id <emulationid> --ip <ip> --container_ip <containerip>` | Starts the metricbeat on the specified container. |
-| `csle start heartbeats <emulationname> --id <emulationid> --ip <ip>`  | Starts heartbeats on the specified ip sever. |
+| `csle start heartbeats <emulationname> --id <emulationid> --ip <ip>`  | Starts heartbeats on the specified IP server. |
 | `csle start heartbeat <emulationname> --id <emulationid> --ip <ip> --container_ip <containerip>` | Starts the heartbeat on the specified container. |
-| `csle start packetbeats <emulationname> --id <emulationid> --ip <ip>` | Starts packetbeats on the specified ip sever. |
+| `csle start packetbeats <emulationname> --id <emulationid> --ip <ip>` | Starts packetbeats on the specified IP server. |
 | `csle start packetbeat <emulationname> --id <emulationid> --ip <ip> --container_ip <containerip>` | Starts the packetbeat on the specified container. |
 | `csle stop <emulationname> <execid>`                            | Stops the emulation execution.                                 |
 | `csle stop <prometheus>`                                        | Stops prometheus.                                              |
@@ -152,24 +152,24 @@ Table 24: Commands available in the CSLE command-line interface (1/2).
 | `csle stop emulation_executions `                               | Stops all emulation executions.                                |
 | `csle stop all `                                                | Stops everything that runs.                                    |
 | `csle stop_traffic <emulationname> <execid>`                    | Stops client population and traffic in execution.              |
-| `csle stop hostmanagers <emulationname> <emulationid> --ip <ip>`      | Stops host managers on the specified ip sever. |
+| `csle stop hostmanagers <emulationname> <emulationid> --ip <ip>`      | Stops host managers on the specified IP server. |
 | `csle stop hostmanager <emulationname> <emulationid> --ip <ip> --container_ip <containerip>`      | Stops a host manager on the specified container. |
-| `csle stop clientmanager <emulationname> <emulationid> --ip <ip>`      | Stops a client managers on the specified ip sever. |
-| `csle stop snortmanagers <emulationname> <emulationid> --ip <ip>`      | Stops snort managers on the specified ip sever. |
+| `csle stop clientmanager <emulationname> <emulationid> --ip <ip>`      | Stops a client managers on the specified IP server. |
+| `csle stop snortmanagers <emulationname> <emulationid> --ip <ip>`      | Stops snort managers on the specified IP server. |
 | `csle stop snort manager <emulationname> <emulationid> --ip <ip> --container_ip <containerip>`     | Stops a snort manager on the specified container. |
-| `csle stop elkmanager <emulationname> <emulationid> --ip <ip>`      | Stops an Elk managers on the specified ip sever. |
-| `csle stop traffic managers <emulationname> <emulationid> --ip <ip>`      | Stops traffic managers on the specified ip sever. |
+| `csle stop elkmanager <emulationname> <emulationid> --ip <ip>`      | Stops an Elk managers on the specified IP server. |
+| `csle stop traffic managers <emulationname> <emulationid> --ip <ip>`      | Stops traffic managers on the specified IP server. |
 | `csle stop trafficmanager <emulationname> <emulationid> --ip <ip> --container_ip <containerip>`     | Stops a traffic manager on the specified container. |
-| `csle stop ossecmanagers <emulationname> <emulationid> --ip <ip>`      | Stops Ossec managers on the specified ip sever. |
+| `csle stop ossecmanagers <emulationname> <emulationid> --ip <ip>`      | Stops Ossec managers on the specified IP server. |
 | `csle stop ossecmanager <emulationname> <emulationid> --ip <ip> --container_ip <containerip>`       | Stops an Ossec manager on the specified container. |
-| `csle stop ryumanager <emulationname> <emulationid> --ip <ip>`      | Stops a Ryu managers on the specified ip sever. |
-| `csle stop filebeats <emulationname> <emulationid> --ip <ip>`       | Stops filebeats on the specified ip sever. |
+| `csle stop ryumanager <emulationname> <emulationid> --ip <ip>`      | Stops a Ryu managers on the specified IP server. |
+| `csle stop filebeats <emulationname> <emulationid> --ip <ip>`       | Stops filebeats on the specified IP server. |
 | `csle stop filebeat <emulationname> <emulationid> --ip <ip> --container_ip <containerip>`      | Stops the filebeat on the specified container. |
-| `csle stop metricbeats <emulationname> <emulationid> --ip <ip>`      | Stops metricbeats on the specified ip sever. |
+| `csle stop metricbeats <emulationname> <emulationid> --ip <ip>`      | Stops metricbeats on the specified IP server. |
 | `csle stop metricbeat <emulationname> <emulationid> --ip <ip> --container_ip <containerip>`      | Stops the metricbeat on the specified container. |
-| `csle stop heartbeats <emulationname> <emulationid> --ip <ip>`      | Stops heartbeats on the specified ip sever. |
+| `csle stop heartbeats <emulationname> <emulationid> --ip <ip>`      | Stops heartbeats on the specified IP server. |
 | `csle stop heartbeat <emulationname> <emulationid> --ip <ip> --container_ip <containerip>`      | Stops the heartbeat on the specified container. |
-| `csle stop packetbeats <emulationname> <emulationid> --ip <ip>`      | Stops packetbeats on the specified ip sever. |
+| `csle stop packetbeats <emulationname> <emulationid> --ip <ip>`      | Stops packetbeats on the specified IP server. |
 | `csle stop packetbeat <emulationname> <emulationid> --ip <ip> --container_ip <containerip>`      | Stops the packetbeat on the specified container. |
 | `csle systemidentificationjob <jobid>`                          | Starts job.                                                    |
 | `csle trainingjob <jobid>`                                      | Starts job.                                                    |

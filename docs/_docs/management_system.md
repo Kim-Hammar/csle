@@ -5,8 +5,8 @@ permalink: /docs/management-system/
 
 ## Management System
 
-The management system is the central component of CLSE and manages the overall execution of the framework. 
-It is a distributed system that consist of N >= 1 physical servers connected through an IP network. 
+The management system is the central component of CSLE and manages the overall execution of the framework. 
+It is a distributed system that consists of N >= 1 physical servers connected through an IP network. 
 One of the servers is designated to be the "leader" and the other servers are "workers". 
 Workers can perform local management actions but not actions that affect the overall system state. 
 These actions are routed to the leader, which applies them sequentially to ensure consistent 
