@@ -5,6 +5,15 @@ import csle_cluster.cluster_manager.query_cluster_manager
 
 
 def get_five_g_du_status(ip: str, port: int, emulation: str, ip_first_octet: int):
+    """
+    Gets the status of the 5G DU managers in the cluster
+
+    :param ip: the IP of the cluster manager
+    :param port: the port of the cluster manager
+    :param emulation: the name of the emulation
+    :param ip_first_octet: the first octet of the IP range of the emulation
+    :return: None
+    """
     with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
         stub = csle_cluster.cluster_manager.cluster_manager_pb2_grpc.ClusterManagerStub(channel)
         info = csle_cluster.cluster_manager.query_cluster_manager.get_five_g_du_managers_info(

@@ -7,6 +7,13 @@ import csle_collector.five_g_core_manager.query_five_g_core_manager
 
 
 def get_status(ip: str, port: int):
+    """
+    Gets the status of the 5G Core
+
+    :param ip: the IP of the 5G Core manager
+    :param port: the port of the 5G Core manager
+    :return: None
+    """
     with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
         stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
         status = csle_collector.five_g_core_manager.query_five_g_core_manager.get_five_g_core_status(stub=stub)
@@ -24,6 +31,13 @@ def get_status(ip: str, port: int):
 
 
 def start_5g_core(ip: str, port: int):
+    """
+    Starts the 5G Core
+
+    :param ip: the IP of the 5G Core manager
+    :param port: the port of the 5G Core manager
+    :return: None
+    """
     with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
         stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
         status = csle_collector.five_g_core_manager.query_five_g_core_manager.start_five_g_core(stub=stub)
@@ -41,6 +55,13 @@ def start_5g_core(ip: str, port: int):
 
 
 def stop_5g_core(ip: str, port: int):
+    """
+    Stops the 5G Core
+
+    :param ip: the IP of the 5G Core manager
+    :param port: the port of the 5G Core manager
+    :return: None
+    """
     with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
         stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
         status = csle_collector.five_g_core_manager.query_five_g_core_manager.stop_five_g_core(stub=stub)
@@ -61,6 +82,15 @@ def init_5g_core(
         ip: str, port: int,
         subscribers: List[csle_collector.five_g_core_manager.five_g_core_manager_pb2.SubscriberDTO],
         core_backhaul_ip: str):
+    """
+    Initializes the 5G Core
+
+    :param ip: the IP of the 5G Core manager
+    :param port: the port of the 5G Core manager
+    :param subscribers: list of subscribers to initialize
+    :param core_backhaul_ip: the backhaul IP of the 5G Core
+    :return: None
+    """
     with grpc.insecure_channel(f'{ip}:{port}', options=constants.GRPC_SERVERS.GRPC_OPTIONS) as channel:
         stub = csle_collector.five_g_core_manager.five_g_core_manager_pb2_grpc.FiveGCoreManagerStub(channel)
         status = csle_collector.five_g_core_manager.query_five_g_core_manager.init_five_g_core(

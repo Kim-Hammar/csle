@@ -2,6 +2,11 @@ import pickle
 
 
 def cves():
+    """
+    Parses the allitems.csv file and saves the CVEs to a new file and a pickle file
+
+    :return: None
+    """
     cves = []
     with open('/allitems.csv', 'rb') as f:
         for line in f:
