@@ -9,12 +9,6 @@ This directory contains Vagrant configurations and test suites for validating th
 - At least 16GB RAM
 - At least 100GB free disk space
 
-### Optional Plugins
-
-```bash
-vagrant plugin install vagrant-disksize
-```
-
 ## Quick Start
 
 ### Single Node (Full Installation)
