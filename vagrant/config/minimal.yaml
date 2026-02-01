@@ -1,0 +1,48 @@
+# Minimal CSLE configuration
+# Optimized for CI environments with reduced resources and faster execution
+
+box: "ubuntu/jammy64"
+user: "vagrant"
+
+# Reduced resources for CI
+default_memory: 8192  # 8GB RAM
+default_cpus: 4
+default_disk: "60GB"
+
+# Ansible settings
+ansible_verbose: false
+minimal_mode: true  # Skip docker images and emulation environments
+run_tests: true
+
+# Tags to skip in minimal mode
+skip_tags:
+  - docker_images
+  - emulation_envs
+  - docker_pull
+
+# Node definitions
+nodes:
+  - name: leader
+    ip: "192.168.56.10"
+    leader: true
+    memory: 8192
+    cpus: 4
+    disk: "60GB"
+
+# Port forwarding configuration
+port_forwards:
+  # Nginx reverse proxy
+  - guest: 80
+    host: 8080
+  # CSLE Flask API
+  - guest: 7777
+    host: 7777
+  # Grafana
+  - guest: 3000
+    host: 3000
+  # Prometheus
+  - guest: 9090
+    host: 9090
+  # PostgreSQL
+  - guest: 5432
+    host: 5432

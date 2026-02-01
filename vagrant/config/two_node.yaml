@@ -1,0 +1,55 @@
+# Two-node CSLE configuration
+# Leader + Worker topology for testing distributed setup
+
+box: "ubuntu/jammy64"
+user: "vagrant"
+
+# Default resources
+default_memory: 8192  # 8GB RAM
+default_cpus: 4
+default_disk: "80GB"
+
+# Ansible settings
+ansible_verbose: false
+minimal_mode: false
+run_tests: true
+
+# Node definitions
+nodes:
+  - name: leader
+    ip: "192.168.56.10"
+    leader: true
+    memory: 12288  # 12GB for leader
+    cpus: 4
+    disk: "80GB"
+
+  - name: worker
+    ip: "192.168.56.11"
+    leader: false
+    memory: 8192  # 8GB for worker
+    cpus: 4
+    disk: "80GB"
+
+# Port forwarding configuration (leader only)
+port_forwards:
+  # Nginx reverse proxy
+  - guest: 80
+    host: 8080
+  # CSLE Flask API
+  - guest: 7777
+    host: 7777
+  # Grafana
+  - guest: 3000
+    host: 3000
+  # Prometheus
+  - guest: 9090
+    host: 9090
+  # Node Exporter
+  - guest: 9100
+    host: 9100
+  # PostgreSQL
+  - guest: 5432
+    host: 5432
+  # pgAdmin
+  - guest: 7778
+    host: 7778

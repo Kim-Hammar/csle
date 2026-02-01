@@ -34,3 +34,5 @@ echo "Running type checker for csle-attack-profiler"
 cd simulation-system/libs/csle-attack-profiler; mypy src tests; cd ../../../
 echo "Running type checker for emulation-system tests"
 cd emulation-system/; mypy tests --ignore-missing-imports; cd ../
+echo "Running type checker for vagrant tests"
+cd vagrant/; mypy tests --ignore-missing-imports; cd ../

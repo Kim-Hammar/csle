@@ -1,0 +1,51 @@
+# Single-node CSLE configuration
+# Full installation with all components on a single VM
+
+box: "ubuntu/jammy64"
+user: "vagrant"
+
+# Default resources
+default_memory: 16384  # 16GB RAM
+default_cpus: 6
+default_disk: "100GB"
+
+# Ansible settings
+ansible_verbose: false
+minimal_mode: false
+run_tests: true
+
+# Node definitions
+nodes:
+  - name: leader
+    ip: "192.168.56.10"
+    leader: true
+    memory: 16384
+    cpus: 6
+    disk: "100GB"
+
+# Port forwarding configuration
+port_forwards:
+  # Nginx reverse proxy
+  - guest: 80
+    host: 8080
+  # CSLE Flask API
+  - guest: 7777
+    host: 7777
+  # Grafana
+  - guest: 3000
+    host: 3000
+  # Prometheus
+  - guest: 9090
+    host: 9090
+  # Node Exporter
+  - guest: 9100
+    host: 9100
+  # PostgreSQL
+  - guest: 5432
+    host: 5432
+  # pgAdmin
+  - guest: 7778
+    host: 7778
+  # cAdvisor
+  - guest: 8081
+    host: 8081
