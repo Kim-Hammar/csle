@@ -120,6 +120,65 @@ vagrant ssh leader -c "/vagrant/scripts/run_installation.sh -v"
 vagrant ssh leader -c "/vagrant/scripts/run_installation.sh --skip-tags docker_images"
 ```
 
+## Cleanup
+
+After testing, you can clean up to free disk space. The VMs and box images can consume 50-100GB+.
+
+### Quick Cleanup (Destroy VMs Only)
+
+This removes the VMs but keeps the downloaded box image for faster future runs:
+
+```bash
+cd vagrant
+vagrant destroy -f
+```
+
+### Full Cleanup (Free All Disk Space)
+
+To completely remove everything and reclaim all disk space:
+
+```bash
+cd vagrant
+
+# 1. Destroy all VMs
+vagrant destroy -f
+
+# 2. Remove the downloaded box image (~2GB)
+vagrant box remove ubuntu/jammy64 --all
+
+# 3. Clean up any orphaned VirtualBox VMs (if needed)
+VBoxManage list vms
+# If you see leftover "csle-leader" or "csle-worker" VMs:
+VBoxManage unregistervm "csle-leader" --delete
+VBoxManage unregistervm "csle-worker" --delete
+
+# 4. Remove Vagrant's local state
+rm -rf .vagrant/
+```
+
+### Disk Space Reference
+
+| Component | Approximate Size |
+|-----------|-----------------|
+| Ubuntu box image | ~2 GB |
+| Single-node VM disk | ~20-60 GB |
+| Two-node VM disks | ~40-100 GB |
+| Total (single-node) | ~25-65 GB |
+| Total (two-node) | ~45-105 GB |
+
+### Verify Cleanup
+
+```bash
+# Check no VMs are running
+vagrant global-status --prune
+
+# Check no boxes remain (if you want full cleanup)
+vagrant box list
+
+# Check VirtualBox has no leftover VMs
+VBoxManage list vms
+```
+
 ## Troubleshooting
 
 ### VirtualBox Kernel Extension (macOS)

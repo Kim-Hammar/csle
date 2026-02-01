@@ -39,7 +39,8 @@ apt-get install -y -qq \
     make \
     build-essential \
     openssh-server \
-    sshpass
+    sshpass \
+    acl
 
 # Install Ansible
 echo "[3/8] Installing Ansible..."
