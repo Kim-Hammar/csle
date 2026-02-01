@@ -160,3 +160,5 @@ static
 package-lock.json
 
 .output.txt
+
+test_dir_*
