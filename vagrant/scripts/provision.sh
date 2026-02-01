@@ -167,18 +167,18 @@ csle_config:
   postgresql_log_dir: "/var/log/postgresql/"
   nginx_log_dir: "/var/log/nginx/"
   default_log_dir: "/tmp/csle/"
-  metastore_ip: "${LEADER_IP}"
+  metastore_ip: "127.0.0.1"
   metastore_user: "csle"
   metastore_password: "csle192105Test"
   metastore_database_name: "csle"
-  localhost: false
+  localhost: true
   recovery_ai: false
   recovery_ai_output_dir: ""
   recovery_ai_examples_path: ""
   version: "0.8.0"
   cluster_config:
     cluster_nodes:
-      - ip: "${LEADER_IP}"
+      - ip: "127.0.0.1"
         leader: true
         cpus: 6
         gpus: 0
