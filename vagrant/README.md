@@ -6,7 +6,7 @@ This directory contains Vagrant configurations and test suites for validating th
 
 - [Vagrant](https://www.vagrantup.com/downloads) >= 2.3.0
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) >= 7.0
-- At least 16GB RAM (8GB for minimal configuration)
+- At least 16GB RAM
 - At least 100GB free disk space
 
 ### Optional Plugins
@@ -24,13 +24,6 @@ cd vagrant
 vagrant up
 ```
 
-### Minimal Mode (CI Optimized)
-
-```bash
-cd vagrant
-VAGRANT_CONFIG=config/minimal.yaml vagrant up
-```
-
 ### Two Node Cluster
 
 ```bash
@@ -43,7 +36,6 @@ VAGRANT_CONFIG=config/two_node.yaml vagrant up
 | Config File | RAM | CPUs | Description |
 |------------|-----|------|-------------|
 | `config/single_node.yaml` | 16GB | 6 | Full single-node installation |
-| `config/minimal.yaml` | 8GB | 4 | CI-optimized, skips Docker images |
 | `config/two_node.yaml` | 12GB + 8GB | 4 + 4 | Leader + Worker topology |
 
 ## Running Tests
@@ -155,7 +147,7 @@ vagrant ssh leader -c "cat /var/log/ansible.log"
 Re-run provisioning with verbose output:
 
 ```bash
-VAGRANT_CONFIG=config/minimal.yaml vagrant provision --debug
+vagrant provision --debug
 ```
 
 ### SSH Connection Issues
@@ -192,8 +184,7 @@ vagrant/
 ├── README.md                    # This file
 ├── config/
 │   ├── single_node.yaml         # Full single-node config
-│   ├── two_node.yaml            # Leader + Worker config
-│   └── minimal.yaml             # CI-optimized config
+│   └── two_node.yaml            # Leader + Worker config
 ├── scripts/
 │   ├── provision.sh             # VM provisioning script
 │   └── run_installation.sh      # Manual Ansible runner

@@ -82,10 +82,6 @@ Vagrant.configure("2") do |config|
           ansible.extra_vars = {
             ansible_python_interpreter: "/usr/bin/python3"
           }
-          # Skip certain tasks in minimal mode
-          if settings['minimal_mode']
-            ansible.skip_tags = settings['skip_tags'] || "docker_images,emulation_envs"
-          end
         end
       end
 
