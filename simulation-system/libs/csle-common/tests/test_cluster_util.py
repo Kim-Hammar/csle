@@ -1,4 +1,5 @@
 import os
+import pytest
 from unittest.mock import patch, MagicMock
 import csle_common.constants.constants as constants
 from csle_common.util.cluster_util import ClusterUtil
@@ -20,6 +21,38 @@ class TestClusterUtilSuite:
         config.cluster_config.cluster_nodes.gpus = 2
         config.cluster_config.cluster_nodes.RAM = 8
         assert not ClusterUtil.am_i_leader("192.168.1.1", config)
+
+    def test_get_leader_ip(self) -> None:
+        """
+        Test function that returns the IP of the leader node
+        """
+        node1 = MagicMock()
+        node1.ip = "192.168.1.1"
+        node1.leader = False
+
+        node2 = MagicMock()
+        node2.ip = "192.168.1.2"
+        node2.leader = True
+
+        config = MagicMock()
+        config.cluster_config.cluster_nodes = [node1, node2]
+
+        result = ClusterUtil.get_leader_ip(config)
+        assert result == "192.168.1.2"
+
+    def test_get_leader_ip_no_leader(self) -> None:
+        """
+        Test get_leader_ip raises ValueError when no leader exists
+        """
+        node1 = MagicMock()
+        node1.ip = "192.168.1.1"
+        node1.leader = False
+
+        config = MagicMock()
+        config.cluster_config.cluster_nodes = [node1]
+
+        with pytest.raises(ValueError, match="No leader node found"):
+            ClusterUtil.get_leader_ip(config)
 
     @patch("psycopg.connect")
     @patch("csle_common.util.cluster_util.ClusterUtil.get_config")
