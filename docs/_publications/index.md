@@ -8,6 +8,48 @@ permalink: /publications/
 
 The following publications are based on CSLE:
 
+##### **Incident Response Planning Using a Lightweight Large Language Model with Reduced Hallucination**
+**Conference paper** Network and Distributed System Security (NDSS) Symposium 2026.
+[Preprint.](https://arxiv.org/abs/2508.05188)
+
+**Bibtex**:
+```bash
+@inproceedings{hammar2025incidentresponseplanningusing,
+  author = 	 {Kim Hammar and Tansu Alpcan and Emil C. Lupu},
+      title={Incident Response Planning Using a Lightweight Large Language Model with Reduced Hallucination}, 
+  booktitle    = {33rd Annual Network and Distributed System Security Symposium, {NDSS}
+                  2026, San Diego, California, USA, February 23-27, 2026},
+  publisher    = {The Internet Society},		  
+  year = 	 2026
+}
+```
+
+##### **Online Incident Response Planning under Model Misspecification through Bayesian Learning and Belief Quantization**
+**Conference paper** ACM CCS AiSec 2025: 18th ACM Workshop on Artificial Intelligence and Security.
+[Preprint.](https://arxiv.org/abs/2508.05188)
+
+**Bibtex**:
+```bash
+@inproceedings{10.1145/3733799.3762965,
+author = {Hammar, Kim and Li, Tao},
+title = {Online Incident Response Planning under Model Misspecification through Bayesian Learning and Belief Quantization},
+year = {2026},
+isbn = {9798400718953},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3733799.3762965},
+doi = {10.1145/3733799.3762965},
+abstract = {Effective responses to cyberattacks require fast decisions, even when information about the attack is incomplete or inaccurate. However, most decision-support frameworks for incident response rely on a detailed system model that describes the incident, which restricts their practical utility. In this paper, we address this limitation and present an online method for incident response planning under model misspecification, which we call mobal: Misspecified Online Bayesian Learning. mobal iteratively refines a conjecture about the model through Bayesian learning as new information becomes available, which facilitates model adaptation as the incident unfolds. To determine effective responses online, we quantize the conjectured model into a finite Markov model, which enables efficient response planning through dynamic programming. We prove that Bayesian learning is asymptotically consistent with respect to the information feedback. Additionally, we establish bounds on misspecification and quantization errors. Experiments on the cage-2 benchmark show that mobal outperforms the state of the art in terms of adaptability and robustness to model misspecification.},
+booktitle = {Proceedings of the 18th ACM Workshop on Artificial Intelligence and Security},
+pages = {40–51},
+numpages = {12},
+keywords = {Cybersecurity, reinforcement learning, Bayesian learning, POMDP, misspecification, incident response, network security.},
+location = {
+},
+series = {AISec '25}
+}
+```
+
 ##### **Adaptive Network Security Policies via Belief Aggregation and Rollout**
 **Journal paper (under review)**
 [Preprint.](https://arxiv.org/abs/2502.02541)
