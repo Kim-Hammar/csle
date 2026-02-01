@@ -7,20 +7,36 @@
 
   tasks:
 
+    - name: Clear page cache and free memory
+      become: true
+      shell: "sync && echo 3 > /proc/sys/vm/drop_caches"
+      args:
+        executable: /bin/bash
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Clean up Docker build cache
+      become: true
+      shell: "docker system prune -f --volumes 2>/dev/null || true"
+      args:
+        executable: /bin/bash
+      ignore_errors: yes
+      changed_when: false
+
     - name: List installed emulation environments
       become: yes
       become_method: sudo
       become_user: postgres
-      community.postgresql.postgresql_query:
-        db: csle
-        login_user: postgres
-        login_password: "{{ postgres_password }}"
-        query: "SELECT id FROM emulations;"
-      register: emulations
+      shell: "psql -d csle -t -c 'SELECT COUNT(*) FROM emulations;' 2>/dev/null || echo '0'"
+      args:
+        executable: /bin/bash
+      register: emulations_count
+      changed_when: false
+      failed_when: false
 
     - name: Check if the emulation environments are installed
       set_fact:
-        emulation_environments_installed: "{{ emulations.rowcount > 0 }}"
+        emulation_environments_installed: "{{ (emulations_count.stdout | trim | int) > 0 }}"
 
     - name: Installing the emulation environments on the leader node
       shell: "source /home/{{ user }}/anaconda3/bin/activate {{ conda_environment_name }}; cd /home/{{ user }}/csle/emulation-system/envs && make install"
