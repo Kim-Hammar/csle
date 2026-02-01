@@ -34,7 +34,7 @@ See the latest documentation for installation here:
 - ([installation guide](https://docs.docker.com/engine/install/ubuntu/))
 - ([post-installation guide](https://docs.docker.com/engine/install/linux-postinstall/))
 
-It is recommended to enable swap limits in the kernel. To do that, follow these intructions:
+It is recommended to enable swap limits in the kernel. To do that, follow these instructions:
 1. Log into the Ubuntu or Debian host as a user with sudo privileges.
 2. Edit the `/etc/default/grub` file. Add or edit the `GRUB_CMDLINE_LINUX` line to add the following two key-value pairs:
 ```bash
@@ -48,9 +48,9 @@ sudo update-grub
 4. The changes take effect when the system is rebooted.
 
 ### Setup maximum file descriptors
-If have a large server and pĺan on running several emulations in paralell, it is recommended to to increase 
+If you have a large server and plan on running several emulations in parallel, it is recommended to increase 
 the limit on the number of open file descriptors since the Kafka cluster for each emulation will use quite 
-a lot of desciptors. To do this, follow the steps below:
+a lot of descriptors. To do this, follow the steps below:
 ```
 ulimit -Sn # check the soft limit
 ulimit -Hn # check the hard limit
@@ -71,7 +71,7 @@ sudo apt install -y openvswitch-switch
 ### Install Emulation System
 
 The emulation system consists of three parts: (1) base docker images; (2) derived docker images; 
-and (3) bemulation environment configurations.
+and (3) emulation environment configurations.
 
 To install everything with one command, run:
 ```bash

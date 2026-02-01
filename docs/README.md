@@ -1,6 +1,6 @@
 # CSLE Documentation Page
 
-This directory contains the code of the documentation page for CSLE. It is built on top on Jekyll.
+This directory contains the code of the documentation page for CSLE. It is built on top of Jekyll.
 
 The live documentation page is available [here](https://kim-hammar.github.io/csle/).
 
@@ -20,12 +20,12 @@ gem install bundler
 bundle config set --local path 'vendor/bundle'
 
 # Install dependencies
-bunde install
+bundle install
 
 # Run jekyll with dependencies
 bundle exec jekyll serve
 ```
-You can the nfind the page at [http://127.0.0.1:4000/csle/](http://127.0.0.1:4000/csle/)
+You can then find the page at [http://127.0.0.1:4000/csle/](http://127.0.0.1:4000/csle/)
 ## Author & Maintainer
 
 Kim Hammar <kimham@kth.se>

@@ -1,7 +1,7 @@
 # `csle-attack-profiler`
 
 Scripts and programs to profile attacks, attack sequences, and a probabilistic HMM profiler 
-using data from the csle platform, profiling attacks to MITRE ATT&CK techniques, and tactics.
+using data from the CSLE platform, profiling attacks to MITRE ATT&CK techniques, and tactics.
 
 [![PyPI version]] 0.5.1
 ![PyPI - Downloads] (https://pypi.org/project/csle-attack-profiler/)

@@ -38,8 +38,8 @@ Before starting the CSLE installation, do the following.
 
 1. Specify the leader and the worker hosts in [inventory](inventory).
 2. Specify the configuration in [ansible.cfg](ansible.cfg). 
-2. Configure installation variables (e.g., the user of the installation and the Python version) in [group_vars/all/variables.yml](group_vars/all/variables.yml).
-3. Specify the ports in [nginx_configuration_content.txt](nginx_configuration_content.txt) and [nginx_configuration_content_https.txt](nginx_configuration_content_https.txt)
+3. Configure installation variables (e.g., the user of the installation and the Python version) in [group_vars/all/variables.yml](group_vars/all/variables.yml).
+4. Specify the ports in [nginx_configuration_content.txt](nginx_configuration_content.txt) and [nginx_configuration_content_https.txt](nginx_configuration_content_https.txt)
 
 After completing the configuration you can verify that your host can reach the servers where CSLE will be installed 
 by running the commands:

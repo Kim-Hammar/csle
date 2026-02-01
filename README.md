@@ -49,7 +49,7 @@ computational game theory, evolutionary methods, causal inference, and general o
 
 ### 🖥️ **Emulation System**
 
-CLSE includes a system for emulating large scale IT infrastructures, cyber attacks, and client populations. It is based
+CSLE includes a system for emulating large scale IT infrastructures, cyber attacks, and client populations. It is based
 on Linux containers and can be used to collect traces and to evaluate security policies.
 
 ![](docs/img/cli.gif)
@@ -88,7 +88,7 @@ A video walkthrough of the installation process is available [here](https://www.
 
 | Release                                                       | Last date of support |
 |---------------------------------------------------------------|----------------------|
-| [v.0.9.0](https://github.com/Kim-Hammar/csle/releases/tag/v0.8.0) | 2026-04-23           |
+| [v.0.9.0](https://github.com/Kim-Hammar/csle/releases/tag/v0.9.0) | 2026-04-23           |
 | [v.0.8.0](https://github.com/Kim-Hammar/csle/releases/tag/v0.8.0) | ~~2025-08-09~~       |
 | [v.0.7.0](https://github.com/Kim-Hammar/csle/releases/tag/v0.7.0) | ~~2025-03-01~~       |
 | [v.0.6.0](https://github.com/Kim-Hammar/csle/releases/tag/v0.6.0) | ~~2024-12-24~~       |
@@ -139,7 +139,7 @@ A dataset of 6400 intrusion traces can be found [here](https://zenodo.org/record
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://kim-hammar.com"><img src="https://github.com/Kim-Hammar.png" width="100px;" alt="Kim Hammar"/><br /><sub><b>Kim Hammar</b></sub></a><br /><kimham@kth.se></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://kim-hammar.com"><img src="https://github.com/Kim-Hammar.png" width="100px;" alt="Kim Hammar"/><br /><sub><b>Kim Hammar</b></sub></a><br />&lt;kimham@kth.se&gt;</td>
     </tr>
   </tbody>
 </table>

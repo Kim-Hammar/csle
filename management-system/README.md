@@ -1,9 +1,9 @@
 # CSLE Management System
 
-The management system system builds on Grafana, Prometheus, Cadvisor, NodeExporter, the rest api, and the `csle-mgmt-webapp` applicaton 
+The management system system builds on Grafana, Prometheus, Cadvisor, NodeExporter, the rest api, and the `csle-mgmt-webapp` application 
 
 ## `csle-mgmt-webapp`
-A webapp for managing and monitoring emulation environments created with csle
+A webapp for managing and monitoring emulation environments created with CSLE
 
 ### Video demonstration
 
@@ -17,7 +17,7 @@ A webapp for managing and monitoring emulation environments created with csle
 This directory includes scripts for starting Grafana+Prometheus+Cadvisor+NodeExporter for monitoring running
 emulations as well as the host system. 
 
-The directory also includes a scripts for starting a custom web-app (`csle-mgmt-webapp`) 
+The directory also includes a script for starting a custom web-app (`csle-mgmt-webapp`) 
 for keeping track of the emulation configurations.
 
 ## Grafana
@@ -101,7 +101,7 @@ When everything is running, use the following command to setup tunnels:
 ```bash
 ssh -L 8080:localhost:8080 -L 3000:localhost:3000 -L 9090:localhost:9090 -L 9100:localhost:9100 -L 7777:localhost:7777 kim@<server-ip>
 ```
-then you can access Grafana at `localhost:2382`, Prometheus at `localhost:2383`, Node exporter at `localhost:2384`, and csle management system at `localhost:2385`
+then you can access Grafana at `localhost:2382`, Prometheus at `localhost:2383`, Node exporter at `localhost:2384`, and CSLE management system at `localhost:2385`
 
 ## Note
 

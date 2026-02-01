@@ -115,7 +115,7 @@ generate containers for emulating various network infrastructures.
      - OS: Ubuntu:20. 
      - Inherits from `pengine_exploit_base`.
      - Services: Pengine server, SSH.
-- `ovs_1` ([ovs_1](./ovs_1)): an image with a OVS virtual switch
+- `ovs_1` ([ovs_1](./ovs_1)): an image with an OVS virtual switch
     - OS: Ubuntu:20.
     - Inherits from `ovs_base`.
     - Services: OVS switch, SSH.

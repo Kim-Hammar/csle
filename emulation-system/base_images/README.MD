@@ -1,45 +1,45 @@
 # Base Images
 
 This directory contains the *base* Docker images used in `csle` when emulating computer infrastructures. 
-These images contains base configurations of different operating systems and services that are used as base to define 
+These images contain base configurations of different operating systems and services that are used as base to define 
 more specific Docker images.
 
 ## List of Base Images
 
-- `cve_2010_0426_base` ([cve_2010_0426_base](./docker_files/cve_2010_0426_base)): a base image for csle emulations with the CVE-2010-0426 vulnerability. 
+- `cve_2010_0426_base` ([cve_2010_0426_base](./docker_files/cve_2010_0426_base)): a base image for CSLE emulations with the CVE-2010-0426 vulnerability. 
      - OS: Debian:10.2. 
      - Inherits from `debian_10_base`.
-- `cve_2015_1427_base` ([cve_2015_1427_base](./docker_files/cve_2015_1427_base)): a base image for csle emulations with the CVE-2015-1427 vulnerability.
+- `cve_2015_1427_base` ([cve_2015_1427_base](./docker_files/cve_2015_1427_base)): a base image for CSLE emulations with the CVE-2015-1427 vulnerability.
      - OS: Debian:10.2. 
      - Inherits from `debian_10_base`.
-- `cve_2015_3306_base` ([cve_2015_3306_base](./docker_files/cve_2015_3306_base)): a base image for csle emulations with the CVE-2015-3306 vulnerability.
+- `cve_2015_3306_base` ([cve_2015_3306_base](./docker_files/cve_2015_3306_base)): a base image for CSLE emulations with the CVE-2015-3306 vulnerability.
      - OS: Debian:10.2. 
      - Inherits from `debian_10_base`.
-- `cve_2015_5602_base` ([cve_2015_5602_base](./docker_files/cve_2015_5602_base)): a base image for csle emulations with the CVE-2015-5602 vulnerability.
+- `cve_2015_5602_base` ([cve_2015_5602_base](./docker_files/cve_2015_5602_base)): a base image for CSLE emulations with the CVE-2015-5602 vulnerability.
      - OS: Debian:10.2. 
      - Inherits from `debian_10_base`.
-- `cve_2016_10033_base` ([cve_2016_10033_base](./docker_files/cve_2016_10033_base)): a base image for csle emulations with the CVE-2016-10033 vulnerability.
+- `cve_2016_10033_base` ([cve_2016_10033_base](./docker_files/cve_2016_10033_base)): a base image for CSLE emulations with the CVE-2016-10033 vulnerability.
      - OS: Debian:10.2. 
      - Inherits from `debian_10_base`.
-- `debian_10_base` ([debian_10_base](./docker_files/debian_10_base)): a base debian image for csle emulations.
+- `debian_10_base` ([debian_10_base](./docker_files/debian_10_base)): a base debian image for CSLE emulations.
      - OS: Debian:10.2.
-- `kali_base` ([kali_base](./docker_files/kali_base)): a base Kali image for csle emulations, used to generate containers with tools for penetration testing.
+- `kali_base` ([kali_base](./docker_files/kali_base)): a base Kali image for CSLE emulations, used to generate containers with tools for penetration testing.
      - OS: Kali (Latest).
-- `samba_base` ([samba_base](./docker_files/samba_base)): a base image for csle emulations with the SambaCry CVE-2017-7494 vulnerability.
+- `samba_base` ([samba_base](./docker_files/samba_base)): a base image for CSLE emulations with the SambaCry CVE-2017-7494 vulnerability.
      - OS: Debian:10.2.
-- `shellshock_base` ([shellshock_base](./docker_files/shellshock_base)): a base image for csle emulations with the ShellShock CVE-2014-6271 vulnerability.
+- `shellshock_base` ([shellshock_base](./docker_files/shellshock_base)): a base image for CSLE emulations with the ShellShock CVE-2014-6271 vulnerability.
      - OS: Ubuntu:14.
-- `shellshock_debian_wheezy_base` ([shellshock_base](./docker_files/shellshock_debian_wheezy_base)): a base image for csle emulations with the ShellShock CVE-2014-6271 vulnerability.
+- `shellshock_debian_wheezy_base` ([shellshock_base](./docker_files/shellshock_debian_wheezy_base)): a base image for CSLE emulations with the ShellShock CVE-2014-6271 vulnerability.
      - OS: Debian:Wheezy.
-- `sql_injection_base` ([sql_injection_base](./docker_files/sql_injection_base)): a base image for csle emulations with a webapp that is vulnerable to SQL injections.
+- `sql_injection_base` ([sql_injection_base](./docker_files/sql_injection_base)): a base image for CSLE emulations with a webapp that is vulnerable to SQL injections.
      - OS: Debian:9.2.
-- `ssh_base` ([ssh_base](./docker_files/ssh_base)): a base image for csle emulations with a SSH server that accepts arbitrary login attempts logins.
+- `ssh_base` ([ssh_base](./docker_files/ssh_base)): a base image for CSLE emulations with a SSH server that accepts arbitrary login attempts logins.
      - OS: Ubuntu:20.
-- `ubuntu_14_base` ([ubuntu_14_base](./docker_files/ubuntu_14_base)): a base image for csle emulations with Ubuntu 14.
+- `ubuntu_14_base` ([ubuntu_14_base](./docker_files/ubuntu_14_base)): a base image for CSLE emulations with Ubuntu 14.
      - OS: Ubuntu:14.
-- `ubuntu_20_base` ([ubuntu_20_base](./docker_files/ubuntu_20_base)): a base image for csle emulations with Ubuntu 20.
+- `ubuntu_20_base` ([ubuntu_20_base](./docker_files/ubuntu_20_base)): a base image for CSLE emulations with Ubuntu 20.
      - OS: Ubuntu:20.
-- `ubuntu_24_base` ([ubuntu_24_base](./docker_files/ubuntu_22_base)): a base image for csle emulations with Ubuntu 24.
+- `ubuntu_24_base` ([ubuntu_24_base](./docker_files/ubuntu_22_base)): a base image for CSLE emulations with Ubuntu 24.
     - OS: Ubuntu:24.
 - `blank_ubuntu_20` ([blank_ubuntu_20](./docker_files/blank_ubuntu_20)): a plain base image with Ubuntu 20.
      - OS: Ubuntu:20.
@@ -49,7 +49,7 @@ more specific Docker images.
     - OS: Ubuntu:24.  
 - `pengine_exploit_base` ([pengine_exploit_base](./docker_files/pengine_exploit_base)): a base image with a vulnerable prolog SLD pengine server
      - OS: Ubuntu:20.      
-- `ovs_base` ([ovs_base](./docker_files/ovs_base)): a base image with a Open virtual Switch (OVS)
+- `ovs_base` ([ovs_base](./docker_files/ovs_base)): a base image with an Open virtual Switch (OVS)
      - OS: Ubuntu:20.
      - Inherits from `ubuntu_20_base`
 - `ryu_base` ([ryu_base](./docker_files/ryu_base)): a base image with the Ryu SDN controller
