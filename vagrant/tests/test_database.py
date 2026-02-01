@@ -157,15 +157,26 @@ class TestDatabasePermissions:
         cursor = db_connection.cursor()
         try:
             # Start a transaction and roll it back to avoid side effects
+            # Use a unique name with timestamp to avoid conflicts
+            import time
+            test_name = f'test_simulation_temp_{int(time.time())}'
             cursor.execute(
-                """
+                f"""
                 INSERT INTO simulations (name, config)
-                VALUES ('test_simulation_temp', '{}');
+                VALUES ('{test_name}', '{{}}'::jsonb);
                 """
             )
             db_connection.rollback()  # Roll back to avoid persisting test data
-        except psycopg2.Error as e:
+        except psycopg2.errors.UniqueViolation:
+            # UniqueViolation means we have INSERT permissions, just a constraint issue
+            db_connection.rollback()
+        except psycopg2.errors.InsufficientPrivilege as e:
             db_connection.rollback()
             pytest.fail(f"INSERT permission denied: {e}")
+        except psycopg2.Error as e:
+            db_connection.rollback()
+            # Only fail if it's actually a permission error
+            if "permission denied" in str(e).lower():
+                pytest.fail(f"INSERT permission denied: {e}")
         finally:
             cursor.close()

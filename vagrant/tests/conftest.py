@@ -87,6 +87,7 @@ def run_command(cmd, timeout=30):
         result = subprocess.run(
             cmd,
             shell=True,
+            executable='/bin/bash',
             capture_output=True,
             text=True,
             timeout=timeout
