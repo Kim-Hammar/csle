@@ -42,12 +42,46 @@
       set_fact:
         swarm_initialized: "{{ docker_swarm_status.rc == 0 and active in docker_swarm_status.stdout }}"
 
+    - name: Wait for Docker service to be ready
+      become: true
+      shell: "docker info"
+      args:
+        executable: /bin/bash
+      register: docker_ready
+      until: docker_ready.rc == 0
+      retries: 5
+      delay: 5
+      when: not swarm_initialized
+
     - name: Initialize Docker Swarm
       become: true
       command: docker swarm init --advertise-addr "{{ leader_ip }}"
+      register: swarm_init_result
+      retries: 3
+      delay: 5
+      until: swarm_init_result.rc == 0
       ignore_errors: yes
       failed_when: false
       when: not swarm_initialized
+
+    - name: Debug swarm init result
+      debug:
+        msg: "Swarm init result: {{ swarm_init_result }}"
+      when: not swarm_initialized
+
+    - name: Verify Docker Swarm initialization
+      become: true
+      shell: "docker node ls"
+      args:
+        executable: /bin/bash
+      register: swarm_verify
+      changed_when: false
+      ignore_errors: yes
+      failed_when: false
+
+    - name: Set swarm active status
+      set_fact:
+        swarm_is_active: "{{ swarm_verify.rc == 0 }}"
 
     - name: List docker swarm join command
       become: true
@@ -56,9 +90,16 @@
         executable: /bin/bash
       register: docker_swarm_join_command_output
       changed_when: false
+      when: swarm_is_active
 
     - name: Extract join token
       set_fact:
         docker_swarm_join_command: "{{ docker_swarm_join_command_output.stdout | regex_search(stdout_regex, multiline=True)}}"
       vars:
         stdout_regex: 'docker swarm join --token (.*)'
+      when: swarm_is_active
+
+    - name: Set empty join command when swarm not active
+      set_fact:
+        docker_swarm_join_command: ""
+      when: not swarm_is_active
