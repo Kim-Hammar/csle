@@ -121,6 +121,24 @@ vagrant ssh leader -c "/vagrant/scripts/run_installation.sh -v"
 vagrant ssh leader -c "/vagrant/scripts/run_installation.sh --skip-tags docker_images"
 ```
 
+## Applying Vagrantfile Changes
+
+If you modify the Vagrantfile or provisioner scripts, you need to destroy and recreate the VM for changes to take effect:
+
+```bash
+cd vagrant
+vagrant destroy -f
+vagrant up
+```
+
+Alternatively, to re-run provisioners on an existing VM:
+
+```bash
+vagrant provision
+```
+
+Note: `vagrant provision` only re-runs provisioners, it does not apply changes to VM configuration (memory, CPUs, disk size).
+
 ## Starting CSLE Services
 
 CSLE services are automatically started after the Ansible installation completes. The services are started in the following order (as defined in `cluster_controller.py`):

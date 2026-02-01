@@ -1,8 +1,7 @@
 #!/bin/bash
 # Script to start CSLE services after installation
 # Service order follows cluster_controller.py
-
-set -e
+# Note: We intentionally don't use set -e here so all services are attempted
 
 CSLE_USER=${1:-"vagrant"}
 CSLE_HOME="/home/${CSLE_USER}/csle"

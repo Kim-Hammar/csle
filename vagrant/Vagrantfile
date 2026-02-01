@@ -87,17 +87,42 @@ Vagrant.configure("2") do |config|
 
       # Start CSLE services after Ansible installation (leader only)
       if node['leader']
-        vm_config.vm.provision "shell", path: "scripts/start_services.sh", args: [
-          settings['user'] || "vagrant"
-        ]
+        vm_config.vm.provision "shell", inline: <<-SHELL
+          echo "=============================================="
+          echo "Starting CSLE Services"
+          echo "=============================================="
+          /vagrant/scripts/start_services.sh #{settings['user'] || 'vagrant'}
+        SHELL
       end
 
       # Test provisioner (optional, runs after services are started)
       if settings['run_tests'] && node['leader']
         vm_config.vm.provision "shell", inline: <<-SHELL
-          cd /vagrant/tests
-          pip3 install pytest requests psycopg2-binary
-          python3 -m pytest -v --tb=short || true
+          echo "=============================================="
+          echo "Waiting for services to be ready..."
+          echo "=============================================="
+          # Wait for key services to be listening
+          for i in {1..30}; do
+            if ss -tlnp | grep -q ':7777 '; then
+              echo "Flask API is ready"
+              break
+            fi
+            echo "Waiting for Flask API... ($i/30)"
+            sleep 2
+          done
+          sleep 5  # Additional buffer for all services
+
+          echo "=============================================="
+          echo "Running CSLE Integration Tests"
+          echo "=============================================="
+          # Run tests as vagrant user to ensure correct paths
+          sudo -u vagrant bash -c '
+            cd /vagrant/tests
+            source /home/vagrant/anaconda3/etc/profile.d/conda.sh
+            conda activate base
+            pip install pytest requests psycopg2-binary
+            python -m pytest -v --tb=short || true
+          '
         SHELL
       end
     end
