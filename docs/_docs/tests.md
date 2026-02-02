@@ -25,6 +25,7 @@ The Python unit tests are available at:
 - `csle/simulation-system/libs/gym-csle-cyborg/tests`
 - `csle/simulation-system/libs/csle-tolerance/tests`
 - `csle/simulation-system/libs/csle-attack-profiler/tests`
+- `csle/simulation-system/libs/csle-cli/tests`
 
 To run the Python unit tests, execute the command:
 
