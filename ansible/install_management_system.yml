@@ -189,6 +189,14 @@
         line: "export PATH=/home/{{ user }}/csle/management-system/node_exporter/:$PATH"
       when: not node_exporter_path_configured
 
+    - name: Generate config.json from csle_config variable
+      copy:
+        content: "{{ csle_config | to_nice_json }}"
+        dest: "/home/{{ user }}/csle/config.json"
+        owner: "{{ user }}"
+        mode: '0644'
+      when: csle_config is defined
+
     - name: CSLE init
       shell: "source /home/{{ user }}/anaconda3/bin/activate {{ conda_environment_name }} && csle init"
       args:
