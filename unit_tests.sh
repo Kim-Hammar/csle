@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Running Python unit tests for csle-base"
+cd simulation-system/libs/csle-base; pytest; cd ../../../
 echo "Running Python unit tests for csle-agents"
 cd simulation-system/libs/csle-agents; pytest; cd ../../../
 echo "Running Python unit tests for csle-attacker"
