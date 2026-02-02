@@ -2,6 +2,8 @@
 Tests for verifying system services are running correctly.
 """
 import subprocess
+from typing import Any, Callable, Dict, Tuple
+
 import pytest
 
 
@@ -13,8 +15,14 @@ class TestSystemServices:
         "nginx",
         "docker",
     ])
-    def test_systemd_service_running(self, service, in_vagrant):
-        """Test that systemd services are active and running."""
+    def test_systemd_service_running(self, service: str, in_vagrant: bool) -> None:
+        """
+        Test that systemd services are active and running.
+
+        :param service: the service name to check
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -31,8 +39,14 @@ class TestSystemServices:
         "nginx",
         "docker",
     ])
-    def test_systemd_service_enabled(self, service, in_vagrant):
-        """Test that systemd services are enabled to start on boot."""
+    def test_systemd_service_enabled(self, service: str, in_vagrant: bool) -> None:
+        """
+        Test that systemd services are enabled to start on boot.
+
+        :param service: the service name to check
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -47,8 +61,16 @@ class TestSystemServices:
 class TestCSLEServices:
     """Test that CSLE-specific services are accessible."""
 
-    def test_flask_api_listening(self, run_shell, config, in_vagrant):
-        """Test that Flask API is listening on the expected port."""
+    def test_flask_api_listening(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                 config: Dict[str, Any], in_vagrant: bool) -> None:
+        """
+        Test that Flask API is listening on the expected port.
+
+        :param run_shell: fixture to run shell commands
+        :param config: the test configuration dictionary
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -56,8 +78,16 @@ class TestCSLEServices:
         returncode, stdout, stderr = run_shell(f"ss -tlnp | grep :{port}")
         assert returncode == 0, f"Flask API not listening on port {port}"
 
-    def test_prometheus_listening(self, run_shell, config, in_vagrant):
-        """Test that Prometheus is listening on the expected port (optional)."""
+    def test_prometheus_listening(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                  config: Dict[str, Any], in_vagrant: bool) -> None:
+        """
+        Test that Prometheus is listening on the expected port (optional).
+
+        :param run_shell: fixture to run shell commands
+        :param config: the test configuration dictionary
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -66,8 +96,16 @@ class TestCSLEServices:
         if returncode != 0:
             pytest.skip(f"Prometheus not listening on port {port} (service may not be installed)")
 
-    def test_grafana_listening(self, run_shell, config, in_vagrant):
-        """Test that Grafana is listening on the expected port (optional)."""
+    def test_grafana_listening(self, run_shell: Callable[..., Tuple[int, str, str]],
+                               config: Dict[str, Any], in_vagrant: bool) -> None:
+        """
+        Test that Grafana is listening on the expected port (optional).
+
+        :param run_shell: fixture to run shell commands
+        :param config: the test configuration dictionary
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -76,8 +114,16 @@ class TestCSLEServices:
         if returncode != 0:
             pytest.skip(f"Grafana not listening on port {port} (service may not be installed)")
 
-    def test_node_exporter_listening(self, run_shell, config, in_vagrant):
-        """Test that Node Exporter is listening on the expected port (optional)."""
+    def test_node_exporter_listening(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                     config: Dict[str, Any], in_vagrant: bool) -> None:
+        """
+        Test that Node Exporter is listening on the expected port (optional).
+
+        :param run_shell: fixture to run shell commands
+        :param config: the test configuration dictionary
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -90,24 +136,45 @@ class TestCSLEServices:
 class TestProcesses:
     """Test that expected processes are running."""
 
-    def test_postgres_process(self, run_shell, in_vagrant):
-        """Test that PostgreSQL process is running."""
+    def test_postgres_process(self, run_shell: Callable[..., Tuple[int, str, str]],
+                              in_vagrant: bool) -> None:
+        """
+        Test that PostgreSQL process is running.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell("pgrep -x postgres")
         assert returncode == 0, "PostgreSQL process not found"
 
-    def test_nginx_process(self, run_shell, in_vagrant):
-        """Test that Nginx process is running."""
+    def test_nginx_process(self, run_shell: Callable[..., Tuple[int, str, str]],
+                           in_vagrant: bool) -> None:
+        """
+        Test that Nginx process is running.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell("pgrep -x nginx")
         assert returncode == 0, "Nginx process not found"
 
-    def test_dockerd_process(self, run_shell, in_vagrant):
-        """Test that Docker daemon is running."""
+    def test_dockerd_process(self, run_shell: Callable[..., Tuple[int, str, str]],
+                             in_vagrant: bool) -> None:
+        """
+        Test that Docker daemon is running.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 

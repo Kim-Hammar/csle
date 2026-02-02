@@ -10,6 +10,7 @@ import argparse
 import subprocess
 import sys
 import os
+from typing import Any, Dict, List, Tuple
 
 try:
     import requests
@@ -25,7 +26,7 @@ except ImportError:
 
 
 # Configuration
-CONFIG = {
+CONFIG: Dict[str, Any] = {
     "leader_ip": os.environ.get("CSLE_LEADER_IP", "192.168.56.10"),
     "postgres_user": "csle",
     "postgres_password": "csle192105Test",
@@ -40,31 +41,49 @@ CONFIG = {
 
 class Colors:
     """ANSI color codes for terminal output."""
-    GREEN = "\033[92m"
-    RED = "\033[91m"
-    YELLOW = "\033[93m"
-    BLUE = "\033[94m"
-    RESET = "\033[0m"
-    BOLD = "\033[1m"
+
+    GREEN: str = "\033[92m"
+    RED: str = "\033[91m"
+    YELLOW: str = "\033[93m"
+    BLUE: str = "\033[94m"
+    RESET: str = "\033[0m"
+    BOLD: str = "\033[1m"
 
 
-def print_header(text):
-    """Print a section header."""
+def print_header(text: str) -> None:
+    """
+    Print a section header.
+
+    :param text: the header text to print
+    :return: None
+    """
     print(f"\n{Colors.BOLD}{Colors.BLUE}{'='*60}{Colors.RESET}")
     print(f"{Colors.BOLD}{Colors.BLUE}{text}{Colors.RESET}")
     print(f"{Colors.BOLD}{Colors.BLUE}{'='*60}{Colors.RESET}")
 
 
-def print_check(name, passed, details=""):
-    """Print a check result."""
+def print_check(name: str, passed: bool, details: str = "") -> None:
+    """
+    Print a check result.
+
+    :param name: the name of the check
+    :param passed: whether the check passed
+    :param details: optional details to print on failure
+    :return: None
+    """
     status = f"{Colors.GREEN}PASS{Colors.RESET}" if passed else f"{Colors.RED}FAIL{Colors.RESET}"
     print(f"  [{status}] {name}")
     if details and not passed:
         print(f"         {Colors.YELLOW}{details}{Colors.RESET}")
 
 
-def run_command(cmd):
-    """Run a shell command and return success status and output."""
+def run_command(cmd: str) -> Tuple[bool, str]:
+    """
+    Run a shell command and return success status and output.
+
+    :param cmd: the shell command to execute
+    :return: tuple of (success status, output string)
+    """
     try:
         result = subprocess.run(
             cmd, shell=True, capture_output=True, text=True, timeout=30
@@ -76,10 +95,14 @@ def run_command(cmd):
         return False, str(e)
 
 
-def check_services():
-    """Check system services."""
+def check_services() -> bool:
+    """
+    Check system services.
+
+    :return: True if all services are running, False otherwise
+    """
     print_header("System Services")
-    results = []
+    results: List[bool] = []
 
     services = ["postgresql", "nginx", "docker"]
     for service in services:
@@ -90,12 +113,16 @@ def check_services():
     return all(results)
 
 
-def check_ports():
-    """Check if expected ports are listening."""
-    print_header("Port Bindings")
-    results = []
+def check_ports() -> bool:
+    """
+    Check if expected ports are listening.
 
-    ports = [
+    :return: True if all ports are listening, False otherwise
+    """
+    print_header("Port Bindings")
+    results: List[bool] = []
+
+    ports: List[Tuple[int, str]] = [
         (CONFIG["flask_port"], "Flask API"),
         (CONFIG["prometheus_port"], "Prometheus"),
         (CONFIG["grafana_port"], "Grafana"),
@@ -111,10 +138,14 @@ def check_ports():
     return all(results)
 
 
-def check_database():
-    """Check database connectivity and schema."""
+def check_database() -> bool:
+    """
+    Check database connectivity and schema.
+
+    :return: True if all database checks pass, False otherwise
+    """
     print_header("Database")
-    results = []
+    results: List[bool] = []
 
     if not HAS_PSYCOPG2:
         print(f"  {Colors.YELLOW}[SKIP] psycopg2 not installed{Colors.RESET}")
@@ -165,10 +196,14 @@ def check_database():
     return all(results)
 
 
-def check_docker():
-    """Check Docker and Swarm setup."""
+def check_docker() -> bool:
+    """
+    Check Docker and Swarm setup.
+
+    :return: True if all Docker checks pass, False otherwise
+    """
     print_header("Docker")
-    results = []
+    results: List[bool] = []
 
     # Docker daemon
     passed, output = run_command("docker info --format '{{.ServerVersion}}'")
@@ -190,10 +225,14 @@ def check_docker():
     return all(results)
 
 
-def check_python():
-    """Check Python environment and CSLE packages."""
+def check_python() -> bool:
+    """
+    Check Python environment and CSLE packages.
+
+    :return: True if all Python checks pass, False otherwise
+    """
     print_header("Python Environment")
-    results = []
+    results: List[bool] = []
 
     # Conda
     passed, output = run_command(
@@ -231,16 +270,20 @@ def check_python():
     return all(results)
 
 
-def check_endpoints():
-    """Check API and monitoring endpoints."""
+def check_endpoints() -> bool:
+    """
+    Check API and monitoring endpoints.
+
+    :return: True if all endpoint checks pass, False otherwise
+    """
     print_header("Endpoints")
-    results = []
+    results: List[bool] = []
 
     if not HAS_REQUESTS:
         print(f"  {Colors.YELLOW}[SKIP] requests library not installed{Colors.RESET}")
         return True
 
-    endpoints = [
+    endpoints: List[Tuple[str, str]] = [
         (f"http://{CONFIG['leader_ip']}:{CONFIG['flask_port']}/", "Flask API"),
         (f"http://{CONFIG['leader_ip']}:{CONFIG['prometheus_port']}/api/v1/status/config", "Prometheus"),
         (f"http://{CONFIG['leader_ip']}:{CONFIG['grafana_port']}/api/health", "Grafana"),
@@ -263,8 +306,12 @@ def check_endpoints():
     return all(results)
 
 
-def main():
-    """Run all verification checks."""
+def main() -> int:
+    """
+    Run all verification checks.
+
+    :return: exit code (0 for success, 1 for failure)
+    """
     parser = argparse.ArgumentParser(description="Verify CSLE installation")
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
     parser.parse_args()  # Parse args but verbose mode is reserved for future use
@@ -272,7 +319,7 @@ def main():
     print(f"\n{Colors.BOLD}CSLE Installation Verification{Colors.RESET}")
     print(f"Leader IP: {CONFIG['leader_ip']}")
 
-    results = {
+    results: Dict[str, bool] = {
         "System Services": check_services(),
         "Port Bindings": check_ports(),
         "Database": check_database(),

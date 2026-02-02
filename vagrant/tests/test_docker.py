@@ -1,22 +1,38 @@
 """
 Tests for verifying Docker and Docker Swarm setup.
 """
+from typing import Callable, Tuple
+
 import pytest
 
 
 class TestDockerDaemon:
     """Test Docker daemon is running and configured correctly."""
 
-    def test_docker_daemon_running(self, run_shell, in_vagrant):
-        """Test that Docker daemon is running."""
+    def test_docker_daemon_running(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                   in_vagrant: bool) -> None:
+        """
+        Test that Docker daemon is running.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell("docker info")
         assert returncode == 0, f"Docker daemon not accessible: {stderr}"
 
-    def test_docker_version(self, run_shell, in_vagrant):
-        """Test Docker version is installed."""
+    def test_docker_version(self, run_shell: Callable[..., Tuple[int, str, str]],
+                            in_vagrant: bool) -> None:
+        """
+        Test Docker version is installed.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -24,8 +40,15 @@ class TestDockerDaemon:
         assert returncode == 0, "Failed to get Docker version"
         assert "Docker version" in stdout
 
-    def test_docker_compose_installed(self, run_shell, in_vagrant):
-        """Test that Docker Compose is available."""
+    def test_docker_compose_installed(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                      in_vagrant: bool) -> None:
+        """
+        Test that Docker Compose is available.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -36,8 +59,15 @@ class TestDockerDaemon:
 class TestDockerSwarm:
     """Test Docker Swarm is initialized and configured."""
 
-    def test_swarm_initialized(self, run_shell, in_vagrant):
-        """Test that Docker Swarm is initialized."""
+    def test_swarm_initialized(self, run_shell: Callable[..., Tuple[int, str, str]],
+                               in_vagrant: bool) -> None:
+        """
+        Test that Docker Swarm is initialized.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -45,8 +75,15 @@ class TestDockerSwarm:
         assert returncode == 0, f"Failed to get Swarm status: {stderr}"
         assert stdout.strip() == "active", f"Swarm not active, state: {stdout.strip()}"
 
-    def test_node_is_manager(self, run_shell, in_vagrant):
-        """Test that the leader node is a Swarm manager."""
+    def test_node_is_manager(self, run_shell: Callable[..., Tuple[int, str, str]],
+                             in_vagrant: bool) -> None:
+        """
+        Test that the leader node is a Swarm manager.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -56,8 +93,15 @@ class TestDockerSwarm:
         assert returncode == 0, f"Failed to get manager status: {stderr}"
         assert stdout.strip() == "true", "Node is not a Swarm manager"
 
-    def test_swarm_node_list(self, run_shell, in_vagrant):
-        """Test that we can list Swarm nodes."""
+    def test_swarm_node_list(self, run_shell: Callable[..., Tuple[int, str, str]],
+                             in_vagrant: bool) -> None:
+        """
+        Test that we can list Swarm nodes.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -69,8 +113,15 @@ class TestDockerSwarm:
 class TestDockerContainers:
     """Test expected Docker containers are running."""
 
-    def test_pgadmin_container_running(self, run_shell, in_vagrant):
-        """Test that pgAdmin container is running."""
+    def test_pgadmin_container_running(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                       in_vagrant: bool) -> None:
+        """
+        Test that pgAdmin container is running.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -82,8 +133,15 @@ class TestDockerContainers:
             pytest.skip("pgAdmin container not present (may be minimal mode)")
         assert "Up" in stdout, f"pgAdmin container not running: {stdout}"
 
-    def test_list_running_containers(self, run_shell, in_vagrant):
-        """Test that we can list running containers."""
+    def test_list_running_containers(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                     in_vagrant: bool) -> None:
+        """
+        Test that we can list running containers.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -94,8 +152,15 @@ class TestDockerContainers:
 class TestDockerNetwork:
     """Test Docker network configuration."""
 
-    def test_docker_networks_exist(self, run_shell, in_vagrant):
-        """Test that Docker networks are created."""
+    def test_docker_networks_exist(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                   in_vagrant: bool) -> None:
+        """
+        Test that Docker networks are created.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -108,16 +173,30 @@ class TestDockerNetwork:
 class TestDockerImages:
     """Test Docker images (may be skipped in minimal mode)."""
 
-    def test_docker_images_list(self, run_shell, in_vagrant):
-        """Test that we can list Docker images."""
+    def test_docker_images_list(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                in_vagrant: bool) -> None:
+        """
+        Test that we can list Docker images.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
         returncode, stdout, stderr = run_shell("docker images --format '{{.Repository}}'")
         assert returncode == 0, f"Failed to list images: {stderr}"
 
-    def test_pgadmin_image_exists(self, run_shell, in_vagrant):
-        """Test that pgAdmin image is pulled."""
+    def test_pgadmin_image_exists(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                  in_vagrant: bool) -> None:
+        """
+        Test that pgAdmin image is pulled.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 

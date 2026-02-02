@@ -1,11 +1,13 @@
 """
 Tests for verifying CSLE Python libraries are installed correctly.
 """
+from typing import Callable, List, Tuple
+
 import pytest
 
 
 # CSLE Python packages that should be installed
-CSLE_PACKAGES = [
+CSLE_PACKAGES: List[str] = [
     "csle-base",
     "csle-common",
     "csle-collector",
@@ -27,8 +29,15 @@ CSLE_PACKAGES = [
 class TestCondaEnvironment:
     """Test Conda environment setup."""
 
-    def test_conda_installed(self, run_shell, in_vagrant):
-        """Test that Conda is installed."""
+    def test_conda_installed(self, run_shell: Callable[..., Tuple[int, str, str]],
+                             in_vagrant: bool) -> None:
+        """
+        Test that Conda is installed.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -38,8 +47,15 @@ class TestCondaEnvironment:
         assert returncode == 0, f"Conda not installed: {stderr}"
         assert "conda" in stdout.lower()
 
-    def test_base_environment_exists(self, run_shell, in_vagrant):
-        """Test that base Conda environment exists."""
+    def test_base_environment_exists(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                     in_vagrant: bool) -> None:
+        """
+        Test that base Conda environment exists.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -49,8 +65,15 @@ class TestCondaEnvironment:
         assert returncode == 0, f"Failed to list Conda environments: {stderr}"
         assert "base" in stdout
 
-    def test_python_version(self, run_shell, in_vagrant):
-        """Test Python version in Conda environment."""
+    def test_python_version(self, run_shell: Callable[..., Tuple[int, str, str]],
+                            in_vagrant: bool) -> None:
+        """
+        Test Python version in Conda environment.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -66,8 +89,16 @@ class TestCSLEPackages:
     """Test CSLE Python packages are installed."""
 
     @pytest.mark.parametrize("package", CSLE_PACKAGES)
-    def test_package_installed(self, run_shell, in_vagrant, package):
-        """Test that CSLE package is installed."""
+    def test_package_installed(self, run_shell: Callable[..., Tuple[int, str, str]],
+                               in_vagrant: bool, package: str) -> None:
+        """
+        Test that CSLE package is installed.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :param package: the package name to check
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -78,8 +109,15 @@ class TestCSLEPackages:
         assert returncode == 0, f"Package {package} not installed: {stderr}"
         assert package.replace("-", "_") in stdout.lower() or package in stdout.lower()
 
-    def test_csle_cli_available(self, run_shell, in_vagrant):
-        """Test that CSLE CLI is available."""
+    def test_csle_cli_available(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                in_vagrant: bool) -> None:
+        """
+        Test that CSLE CLI is available.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -94,8 +132,15 @@ class TestCSLEPackages:
 class TestCSLEImports:
     """Test that CSLE packages can be imported."""
 
-    def test_import_csle_common(self, run_shell, in_vagrant):
-        """Test that csle_common can be imported."""
+    def test_import_csle_common(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                in_vagrant: bool) -> None:
+        """
+        Test that csle_common can be imported.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -106,8 +151,15 @@ class TestCSLEImports:
         )
         assert returncode == 0, f"Failed to import csle_common: {stderr}"
 
-    def test_import_csle_agents(self, run_shell, in_vagrant):
-        """Test that csle_agents can be imported."""
+    def test_import_csle_agents(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                in_vagrant: bool) -> None:
+        """
+        Test that csle_agents can be imported.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -118,8 +170,15 @@ class TestCSLEImports:
         )
         assert returncode == 0, f"Failed to import csle_agents: {stderr}"
 
-    def test_import_gymnasium(self, run_shell, in_vagrant):
-        """Test that gymnasium can be imported."""
+    def test_import_gymnasium(self, run_shell: Callable[..., Tuple[int, str, str]],
+                              in_vagrant: bool) -> None:
+        """
+        Test that gymnasium can be imported.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 
@@ -144,8 +203,16 @@ class TestDependencies:
         "psycopg2-binary",
         "docker",
     ])
-    def test_dependency_installed(self, run_shell, in_vagrant, package):
-        """Test that key dependencies are installed."""
+    def test_dependency_installed(self, run_shell: Callable[..., Tuple[int, str, str]],
+                                  in_vagrant: bool, package: str) -> None:
+        """
+        Test that key dependencies are installed.
+
+        :param run_shell: fixture to run shell commands
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :param package: the package name to check
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
 

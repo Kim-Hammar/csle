@@ -1,6 +1,8 @@
 """
 Tests for verifying PostgreSQL database setup and connectivity.
 """
+from typing import Any, Dict, Generator, List
+
 import pytest
 
 # Try to import psycopg2, mark tests as skipped if not available
@@ -12,7 +14,7 @@ except ImportError:
 
 
 # Expected tables from CSLE schema
-EXPECTED_TABLES = [
+EXPECTED_TABLES: List[str] = [
     "emulations",
     "emulation_traces",
     "emulation_statistics",
@@ -48,8 +50,14 @@ EXPECTED_TABLES = [
 
 
 @pytest.fixture(scope="module")
-def db_connection(db_connection_params, in_vagrant):
-    """Create a database connection for tests."""
+def db_connection(db_connection_params: Dict[str, Any], in_vagrant: bool) -> Generator[Any, None, None]:
+    """
+    Create a database connection for tests.
+
+    :param db_connection_params: dictionary with database connection parameters
+    :param in_vagrant: whether tests are running inside Vagrant VM
+    :return: database connection object
+    """
     if not in_vagrant:
         pytest.skip("Test requires running inside Vagrant VM")
     if not HAS_PSYCOPG2:
@@ -66,21 +74,36 @@ def db_connection(db_connection_params, in_vagrant):
 class TestDatabaseConnectivity:
     """Test database connectivity and configuration."""
 
-    def test_database_connection(self, db_connection):
-        """Test that we can connect to the CSLE database."""
+    def test_database_connection(self, db_connection: Any) -> None:
+        """
+        Test that we can connect to the CSLE database.
+
+        :param db_connection: the database connection fixture
+        :return: None
+        """
         assert db_connection is not None
         assert not db_connection.closed
 
-    def test_database_version(self, db_connection):
-        """Test PostgreSQL version is 15.x."""
+    def test_database_version(self, db_connection: Any) -> None:
+        """
+        Test PostgreSQL version is 15.x.
+
+        :param db_connection: the database connection fixture
+        :return: None
+        """
         cursor = db_connection.cursor()
         cursor.execute("SELECT version();")
         version = cursor.fetchone()[0]
         cursor.close()
         assert "PostgreSQL 15" in version, f"Expected PostgreSQL 15, got: {version}"
 
-    def test_citus_extension(self, db_connection):
-        """Test that Citus extension is installed."""
+    def test_citus_extension(self, db_connection: Any) -> None:
+        """
+        Test that Citus extension is installed.
+
+        :param db_connection: the database connection fixture
+        :return: None
+        """
         cursor = db_connection.cursor()
         cursor.execute(
             "SELECT extname FROM pg_extension WHERE extname = 'citus';"
@@ -94,8 +117,13 @@ class TestDatabaseConnectivity:
 class TestDatabaseSchema:
     """Test that database schema is correctly set up."""
 
-    def test_csle_user_exists(self, db_connection):
-        """Test that csle user exists in the database."""
+    def test_csle_user_exists(self, db_connection: Any) -> None:
+        """
+        Test that csle user exists in the database.
+
+        :param db_connection: the database connection fixture
+        :return: None
+        """
         cursor = db_connection.cursor()
         cursor.execute(
             "SELECT usename FROM pg_user WHERE usename = 'csle';"
@@ -105,8 +133,14 @@ class TestDatabaseSchema:
         assert result is not None, "User 'csle' not found"
 
     @pytest.mark.parametrize("table", EXPECTED_TABLES)
-    def test_table_exists(self, db_connection, table):
-        """Test that expected tables exist in the database."""
+    def test_table_exists(self, db_connection: Any, table: str) -> None:
+        """
+        Test that expected tables exist in the database.
+
+        :param db_connection: the database connection fixture
+        :param table: the table name to check
+        :return: None
+        """
         cursor = db_connection.cursor()
         cursor.execute(
             """
@@ -119,8 +153,13 @@ class TestDatabaseSchema:
         cursor.close()
         assert result is not None, f"Table '{table}' not found"
 
-    def test_management_users_table_has_admin(self, db_connection):
-        """Test that admin user is created in management_users table."""
+    def test_management_users_table_has_admin(self, db_connection: Any) -> None:
+        """
+        Test that admin user is created in management_users table.
+
+        :param db_connection: the database connection fixture
+        :return: None
+        """
         cursor = db_connection.cursor()
         cursor.execute(
             "SELECT username FROM management_users WHERE username = 'admin';"
@@ -129,8 +168,13 @@ class TestDatabaseSchema:
         cursor.close()
         assert result is not None, "Admin user not found in management_users"
 
-    def test_config_table_has_entry(self, db_connection):
-        """Test that config table has at least one entry."""
+    def test_config_table_has_entry(self, db_connection: Any) -> None:
+        """
+        Test that config table has at least one entry.
+
+        :param db_connection: the database connection fixture
+        :return: None
+        """
         cursor = db_connection.cursor()
         cursor.execute("SELECT COUNT(*) FROM config;")
         count = cursor.fetchone()[0]
@@ -141,8 +185,13 @@ class TestDatabaseSchema:
 class TestDatabasePermissions:
     """Test database permissions are correctly set."""
 
-    def test_csle_user_can_select(self, db_connection):
-        """Test that csle user has SELECT permissions."""
+    def test_csle_user_can_select(self, db_connection: Any) -> None:
+        """
+        Test that csle user has SELECT permissions.
+
+        :param db_connection: the database connection fixture
+        :return: None
+        """
         cursor = db_connection.cursor()
         try:
             cursor.execute("SELECT * FROM emulations LIMIT 1;")
@@ -152,8 +201,13 @@ class TestDatabasePermissions:
         finally:
             cursor.close()
 
-    def test_csle_user_can_insert(self, db_connection):
-        """Test that csle user has INSERT permissions (via transaction rollback)."""
+    def test_csle_user_can_insert(self, db_connection: Any) -> None:
+        """
+        Test that csle user has INSERT permissions (via transaction rollback).
+
+        :param db_connection: the database connection fixture
+        :return: None
+        """
         cursor = db_connection.cursor()
         try:
             # Start a transaction and roll it back to avoid side effects

@@ -1,6 +1,8 @@
 """
 Tests for verifying CSLE REST API endpoints are accessible.
 """
+from typing import Any, Dict, Optional
+
 import pytest
 
 try:
@@ -13,8 +15,14 @@ except ImportError:
 class TestAPIHealth:
     """Test basic API health and connectivity."""
 
-    def test_api_reachable(self, api_base_url, in_vagrant):
-        """Test that the API is reachable."""
+    def test_api_reachable(self, api_base_url: str, in_vagrant: bool) -> None:
+        """
+        Test that the API is reachable.
+
+        :param api_base_url: the Flask API base URL
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
         if not HAS_REQUESTS:
@@ -27,8 +35,16 @@ class TestAPIHealth:
         except requests.exceptions.ConnectionError:
             pytest.fail(f"Could not connect to API at {api_base_url}")
 
-    def test_api_login_endpoint(self, api_base_url, config, in_vagrant):
-        """Test the login endpoint responds."""
+    def test_api_login_endpoint(self, api_base_url: str, config: Dict[str, Any],
+                                in_vagrant: bool) -> None:
+        """
+        Test the login endpoint responds.
+
+        :param api_base_url: the Flask API base URL
+        :param config: the test configuration dictionary
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
         if not HAS_REQUESTS:
@@ -50,8 +66,16 @@ class TestAPIEndpoints:
     """Test specific API endpoints."""
 
     @pytest.fixture
-    def auth_token(self, api_base_url, config, in_vagrant):
-        """Get authentication token for API requests."""
+    def auth_token(self, api_base_url: str, config: Dict[str, Any],
+                   in_vagrant: bool) -> Optional[str]:
+        """
+        Get authentication token for API requests.
+
+        :param api_base_url: the Flask API base URL
+        :param config: the test configuration dictionary
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: authentication token or None if not available
+        """
         if not in_vagrant:
             return None
         if not HAS_REQUESTS:
@@ -73,8 +97,16 @@ class TestAPIEndpoints:
             pass
         return None
 
-    def test_emulations_endpoint(self, api_base_url, auth_token, in_vagrant):
-        """Test the emulations endpoint."""
+    def test_emulations_endpoint(self, api_base_url: str, auth_token: Optional[str],
+                                 in_vagrant: bool) -> None:
+        """
+        Test the emulations endpoint.
+
+        :param api_base_url: the Flask API base URL
+        :param auth_token: the authentication token
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
         if not HAS_REQUESTS:
@@ -91,8 +123,16 @@ class TestAPIEndpoints:
         # Accept 200, 401 (auth issue), or 404 (endpoint not available)
         assert response.status_code in [200, 401, 404], f"Emulations endpoint failed: {response.status_code}"
 
-    def test_simulations_endpoint(self, api_base_url, auth_token, in_vagrant):
-        """Test the simulations endpoint."""
+    def test_simulations_endpoint(self, api_base_url: str, auth_token: Optional[str],
+                                  in_vagrant: bool) -> None:
+        """
+        Test the simulations endpoint.
+
+        :param api_base_url: the Flask API base URL
+        :param auth_token: the authentication token
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
         if not HAS_REQUESTS:
@@ -109,8 +149,16 @@ class TestAPIEndpoints:
         # Accept 200, 401 (auth issue), or 404 (endpoint not available)
         assert response.status_code in [200, 401, 404], f"Simulations endpoint failed: {response.status_code}"
 
-    def test_cluster_status_endpoint(self, api_base_url, auth_token, in_vagrant):
-        """Test the cluster status endpoint."""
+    def test_cluster_status_endpoint(self, api_base_url: str, auth_token: Optional[str],
+                                     in_vagrant: bool) -> None:
+        """
+        Test the cluster status endpoint.
+
+        :param api_base_url: the Flask API base URL
+        :param auth_token: the authentication token
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
         if not HAS_REQUESTS:
@@ -131,8 +179,14 @@ class TestAPIEndpoints:
 class TestMonitoringEndpoints:
     """Test monitoring service endpoints (optional - may not be installed)."""
 
-    def test_prometheus_metrics(self, prometheus_url, in_vagrant):
-        """Test Prometheus metrics endpoint."""
+    def test_prometheus_metrics(self, prometheus_url: str, in_vagrant: bool) -> None:
+        """
+        Test Prometheus metrics endpoint.
+
+        :param prometheus_url: the Prometheus URL
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
         if not HAS_REQUESTS:
@@ -144,8 +198,14 @@ class TestMonitoringEndpoints:
         except requests.exceptions.ConnectionError:
             pytest.skip(f"Prometheus not running at {prometheus_url}")
 
-    def test_prometheus_targets(self, prometheus_url, in_vagrant):
-        """Test Prometheus targets endpoint."""
+    def test_prometheus_targets(self, prometheus_url: str, in_vagrant: bool) -> None:
+        """
+        Test Prometheus targets endpoint.
+
+        :param prometheus_url: the Prometheus URL
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
         if not HAS_REQUESTS:
@@ -159,8 +219,14 @@ class TestMonitoringEndpoints:
         except requests.exceptions.ConnectionError:
             pytest.skip(f"Prometheus not running at {prometheus_url}")
 
-    def test_grafana_health(self, grafana_url, in_vagrant):
-        """Test Grafana health endpoint."""
+    def test_grafana_health(self, grafana_url: str, in_vagrant: bool) -> None:
+        """
+        Test Grafana health endpoint.
+
+        :param grafana_url: the Grafana URL
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
         if not HAS_REQUESTS:
@@ -172,8 +238,14 @@ class TestMonitoringEndpoints:
         except requests.exceptions.ConnectionError:
             pytest.skip(f"Grafana not running at {grafana_url}")
 
-    def test_node_exporter_metrics(self, node_exporter_url, in_vagrant):
-        """Test Node Exporter metrics endpoint."""
+    def test_node_exporter_metrics(self, node_exporter_url: str, in_vagrant: bool) -> None:
+        """
+        Test Node Exporter metrics endpoint.
+
+        :param node_exporter_url: the Node Exporter URL
+        :param in_vagrant: whether tests are running inside Vagrant VM
+        :return: None
+        """
         if not in_vagrant:
             pytest.skip("Test requires running inside Vagrant VM")
         if not HAS_REQUESTS:
