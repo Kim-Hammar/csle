@@ -88,15 +88,15 @@ class IntrusionResponseGameStateLocal(JSONSerializable):
         :return: a dict representation of the object
         """
         d: Dict[str, Any] = {}
-        d["d_b1"] = list(self.d_b1)
-        d["a_b1"] = list(self.a_b1)
+        d["d_b1"] = list(self.d_b1.tolist())
+        d["a_b1"] = list(self.a_b1.tolist())
         d["s_1_idx"] = self.s_1_idx
         d["s_idx"] = self.s_idx
-        d["S"] = list(self.S)
-        d["S_A"] = list(self.S_A)
-        d["S_D"] = list(self.S_D)
-        d["d_b"] = list(self.d_b)
-        d["a_b"] = list(self.a_b)
+        d["S"] = list(self.S.tolist())
+        d["S_A"] = list(self.S_A.tolist())
+        d["S_D"] = list(self.S_D.tolist())
+        d["d_b"] = list(self.d_b.tolist())
+        d["a_b"] = list(self.a_b.tolist())
         d["t"] = self.t
         return d
 

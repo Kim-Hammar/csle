@@ -43,7 +43,7 @@ class IntrusionResponseGameUtil:
         :return: True if the node is in shutdown or redirect state, otherwise fasle
         """
         return bool(s[env_constants.STATES.D_STATE_INDEX] == env_constants.DEFENDER_STATES.SHUTDOWN
-                    and s[env_constants.STATES.D_STATE_INDEX] == env_constants.DEFENDER_STATES.REDIRECT)
+                    or s[env_constants.STATES.D_STATE_INDEX] == env_constants.DEFENDER_STATES.REDIRECT)
 
     @staticmethod
     def is_local_state_compromised(s: npt.NDArray[np.int32]) -> bool:
