@@ -22,7 +22,7 @@ def concatenate_csvs(file1_path: str, file2_path: str, output_path: str) -> None
 
 
 if __name__ == "__main__":
-    f1 = "/home/kim/csv_data_28_jan.csv"
-    f2 = "/home/kim/five_g_merged_dataset_simultaneous_2.csv"
-    out = "/home/kim/csv_data_31_jan.csv"
+    f1 = "/home/kim/csv_data_31_jan.csv"
+    f2 = "/home/kim/five_g_merged_dataset_simultaneous_3.csv"
+    out = "/home/kim/csv_data_2_feb.csv"
     concatenate_csvs(f1, f2, out)

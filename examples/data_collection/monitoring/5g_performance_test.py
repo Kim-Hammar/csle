@@ -148,9 +148,9 @@ def run() -> None:
     """
     run_uplink = True
     run_downlink = True
-    output_csv_path = "/home/kim/five_g_merged_dataset_simultaneous_3.csv"
+    output_csv_path = "/home/kim/five_g_merged_dataset_simultaneous_4.csv"
     emulation = "csle-level17-090"
-    signal_strength = 30
+    signal_strength = 40
     memory_limit_gb = 20.0
     memory_limit_docker = "20g"
     num_samples = 2

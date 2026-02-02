@@ -435,10 +435,10 @@ class ClusterManagerUtil:
         :return: a dict representation of the DTO
         """
         d: Dict[str, Any] = {}
-        d["repoTags"] = list(container_image_dto.repoTags)
-        d["created"] = list(container_image_dto.created)
-        d["os"] = list(container_image_dto.os)
-        d["architecture"] = list(container_image_dto.architecture)
+        d["repoTags"] = container_image_dto.repoTags
+        d["created"] = container_image_dto.created
+        d["os"] = container_image_dto.os
+        d["architecture"] = container_image_dto.architecture
         d["size"] = container_image_dto.size
         return d
 
