@@ -132,11 +132,11 @@ Vagrant.configure("2") do |config|
               postgresql_log_dir: "/var/log/postgresql/",
               nginx_log_dir: "/var/log/nginx/",
               default_log_dir: "/tmp/csle/",
-              metastore_ip: leader_ip,
+              metastore_ip: "127.0.0.1",
               metastore_user: "csle",
               metastore_password: "csle192105Test",
               metastore_database_name: "csle",
-              localhost: false,
+              localhost: true,
               recovery_ai: false,
               recovery_ai_output_dir: "",
               recovery_ai_examples_path: "",
@@ -144,7 +144,7 @@ Vagrant.configure("2") do |config|
               cluster_config: {
                 cluster_nodes: [
                   {
-                    ip: leader_ip,
+                    ip: "127.0.0.1",
                     leader: true,
                     cpus: leader_node['cpus'] || settings['default_cpus'] || 6,
                     gpus: 0,
