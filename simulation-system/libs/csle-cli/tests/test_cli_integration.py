@@ -1,10 +1,20 @@
+"""
+Integration tests for csle-cli.
+
+These tests require the full CSLE platform to be installed and running,
+including PostgreSQL database, Docker daemon, and cluster manager.
+For unit tests that can run independently, see test_cli_unit.py.
+"""
 from click.testing import CliRunner
 from csle_cli.cli import ls
 
 
-class TestCSLECliSuite:
+class TestCSLECliIntegrationSuite:
     """
-    Test suite for cli.py
+    Integration test suite for cli.py.
+
+    These tests interact with actual system components (database, Docker, etc.)
+    and require the full CSLE platform to be installed.
     """
 
     def test_ls_all(self) -> None:
