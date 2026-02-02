@@ -74,13 +74,86 @@ Vagrant.configure("2") do |config|
 
       # Ansible provisioner (only runs on the last node)
       if node == settings['nodes'].last
+        leader_node = settings['nodes'].select { |n| n['leader'] }.first
+        leader_ip = leader_node['ip']
+
         vm_config.vm.provision "ansible_local" do |ansible|
           ansible.playbook = "/home/vagrant/csle/ansible/install.yml"
           ansible.inventory_path = "/vagrant/ansible/inventory_vagrant"
           ansible.limit = "all"
           ansible.verbose = settings['ansible_verbose'] || false
           ansible.extra_vars = {
-            ansible_python_interpreter: "/usr/bin/python3"
+            ansible_python_interpreter: "/usr/bin/python3",
+            user: settings['user'] || "vagrant",
+            leader_ip: leader_ip,
+            leader_public_ip: leader_ip,
+            metastore_ip: leader_ip,
+            csle_config: {
+              management_admin_username_default: "admin",
+              management_admin_password_default: "csle192105Test",
+              management_admin_first_name_default: "admin",
+              management_admin_last_name_default: "admin",
+              management_admin_email_default: "admin",
+              management_admin_organization_default: "CSLE",
+              management_guest_username_default: "guest",
+              management_guest_password_default: "csle192105Test",
+              management_guest_first_name_default: "guest",
+              management_guest_last_name_default: "guestson",
+              management_guest_email_default: "guest@csle.com",
+              management_guest_organization_default: "CSLE",
+              ssh_admin_username: "csle_admin",
+              ssh_admin_password: "csle@admin-pw_191",
+              ssh_agent_username: "agent",
+              ssh_agent_password: "agent",
+              grafana_username: "admin",
+              grafana_password: "csle192105Test",
+              pgadmin_username: "csle@csle.com",
+              pgadmin_password: "csle192105Test",
+              node_exporter_port: 9100,
+              grafana_port: 3000,
+              management_system_port: 7777,
+              cadvisor_port: 8080,
+              prometheus_port: 9090,
+              pgadmin_port: 7778,
+              node_exporter_pid_file: "/var/log/csle/node_exporter.pid",
+              csle_mgmt_webapp_pid_file: "/var/log/csle/csle_mgmt_webapp.pid",
+              node_exporter_log_file: "/var/log/csle/node_exporter.log",
+              flask_log_file: "/var/log/csle/flask.log",
+              cluster_manager_log_file: "/var/log/csle/cluster_manager.log",
+              docker_stats_manager_log_file: "docker_stats_manager.log",
+              docker_stats_manager_log_dir: "/var/log/csle/",
+              docker_stats_manager_port: 50051,
+              docker_stats_manager_max_workers: 10,
+              docker_stats_manager_outfile: "/var/log/csle/statsmanager.out",
+              docker_stats_manager_pidfile: "/var/log/csle/statsmanager.pid",
+              prometheus_pid_file: "/var/log/csle/prometheus.pid",
+              prometheus_log_file: "/var/log/csle/prometheus.log",
+              prometheus_config_file: "$CSLE_HOME/management-system/prometheus.yml",
+              postgresql_log_dir: "/var/log/postgresql/",
+              nginx_log_dir: "/var/log/nginx/",
+              default_log_dir: "/tmp/csle/",
+              metastore_ip: leader_ip,
+              metastore_user: "csle",
+              metastore_password: "csle192105Test",
+              metastore_database_name: "csle",
+              localhost: false,
+              recovery_ai: false,
+              recovery_ai_output_dir: "",
+              recovery_ai_examples_path: "",
+              version: "0.8.0",
+              cluster_config: {
+                cluster_nodes: [
+                  {
+                    ip: leader_ip,
+                    leader: true,
+                    cpus: leader_node['cpus'] || settings['default_cpus'] || 6,
+                    gpus: 0,
+                    RAM: (leader_node['memory'] || settings['default_memory'] || 16384) / 1024
+                  }
+                ]
+              },
+              allow_registration: true
+            }
           }
         end
       end

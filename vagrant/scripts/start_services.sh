@@ -156,7 +156,10 @@ pkill -f 'csle_rest_api' 2>/dev/null || true
 sleep 1
 
 # Start Flask API using a custom server script
-# Create the Flask startup script first
+# Note: We use host='0.0.0.0' instead of the leader_ip because Vagrant's port
+# forwarding requires the service to listen on all interfaces. The Ansible
+# playbook sets leader_ip in the source server.py, but for Vagrant we override
+# to 0.0.0.0 for proper host access.
 cat > /tmp/flask_server.py << PYEOF
 import sys
 import os

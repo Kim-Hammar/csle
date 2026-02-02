@@ -77,7 +77,15 @@ if [ ! -f "${PLAYBOOK}" ]; then
     exit 1
 fi
 
-# Run Ansible playbook
+# Determine leader IP from inventory
+LEADER_IP=$(grep -E '^\d+\.\d+\.\d+\.\d+' "${INVENTORY}" | head -1 | awk '{print $1}')
+if [ -z "${LEADER_IP}" ]; then
+    LEADER_IP="192.168.56.10"
+fi
+
+echo "Leader IP: ${LEADER_IP}"
+
+# Run Ansible playbook with Vagrant-specific variables
 cd "${CSLE_HOME}/ansible"
 ansible-playbook \
     -i "${INVENTORY}" \
@@ -85,7 +93,11 @@ ansible-playbook \
     --limit "${LIMIT}" \
     ${VERBOSE} \
     ${SKIP_TAGS} \
-    -e "ansible_python_interpreter=/usr/bin/python3"
+    -e "ansible_python_interpreter=/usr/bin/python3" \
+    -e "user=vagrant" \
+    -e "leader_ip=${LEADER_IP}" \
+    -e "leader_public_ip=${LEADER_IP}" \
+    -e "metastore_ip=${LEADER_IP}"
 
 echo "=============================================="
 echo "Installation complete!"
