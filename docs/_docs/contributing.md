@@ -5,14 +5,14 @@ permalink: /docs/contributing/
 
 ## Contributing
 
-To anyone interested in making CSLE better, there are many improvements that needs to be done. 
+To anyone interested in making CSLE better, there are many improvements that need to be done. 
 A list of tasks is available at:
 <a href="https://github.com/Kim-Hammar/csle/issues">https://github.com/Kim-Hammar/csle/issues</a>. 
 Contributors are also welcome to report bugs and to request new features. 
 To report a bug or make a feature request, 
 use GitHub issues. 
 To submit a patch or a new feature, use GitHub pull requests. 
-Before you open a pull request, make sure that your code changes makes sense. 
+Before you open a pull request, make sure that your code changes make sense. 
 In particular, read the <a href="kim-hammar.github.io/csle//docs/developer-guide">developer guide</a>
 and make sure that your code changes follow the guidelines stated there.
 

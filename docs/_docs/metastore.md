@@ -23,7 +23,7 @@ scheme is used. This means that the metastore tolerates N/2-1 failing replicas.
 | `emulations`                        | Metadata about emulations.                       | `id`, `name`, `config`                                      |
 | `emulations_traces`                 | Attack and system traces.                        | `id`, `emulation_name`, `trace`                             |
 | `emulation_statistics`              | Count statistics of system metrics.              | `id`, `emulation_name`, `statistics`                        |
-| `simulation_traces`                 | Simulation traces-                               | `id`, `gym_env`, `trace`                                    |
+| `simulation_traces`                 | Simulation traces.                               | `id`, `gym_env`, `trace`                                    |
 | `emulation_simulation_traces`       | Mapping between emulation and simulation traces. | `id`, `emulation_trace`, `simulation_trace`                 |
 | `emulation_images`                  | Pictures of emulation topologies.                | `id`, `emulation_name`, `image`                             |
 | `simulations`                       | Metadata about simulations.                      | `id`, `name`, `config`                                      |

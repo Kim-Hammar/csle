@@ -155,6 +155,9 @@ static
 
 .DS_Store
 
+# Vagrant
+.vagrant/
+
 */videos*/
 
 package-lock.json

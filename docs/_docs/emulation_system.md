@@ -43,7 +43,7 @@ which defines the class of infrastructures that the emulation system can emulate
 | `version`                     | Version of the emulation.                                         |
 | `execution_id`                | ID of the execution that the emulation belongs to (if any).       |
 | `csle_collector_version`      | Version of the `csle-collector` library.                          |
-| `csle_ryu_version`            | Verion of the `csle-ryu` library.                                 |
+| `csle_ryu_version`            | Version of the `csle-ryu` library.                                |
 
 <p class="captionFig">
 Table 2: Properties of an emulation configuration.
@@ -235,14 +235,14 @@ a Software-Defined Networking (SDN) controller.
 ### Emulating Network Conditions
 
 Network conditions of virtual links are configured using the NetEm module in the Linux kernel, 
-which allows fine-gained configuration of bit rates, packet delays, packet loss probabilities, 
+which allows fine-grained configuration of bit rates, packet delays, packet loss probabilities, 
 jitter, and packet reordering probabilities (see Fig. 10).
 
 <p align="center">
 <img src="./../../img/netem.png" width="35%">
 <p class="captionFig">
 Figure 10: Method to emulate network conditions with the Netem module in the Linux kernel; 
-Netem uses a dedicted queueing discipline in the Linux networking stack and emulates bit rates, 
+Netem uses a dedicated queueing discipline in the Linux networking stack and emulates bit rates, 
 latencies, packet loss probabilities, packet reordering probabilities, 
 and jitter according to a predefined configuration.
 </p>

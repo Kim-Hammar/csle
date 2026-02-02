@@ -5,7 +5,7 @@ permalink: /docs/web-interface/
 
 ## Web Interface
 
-The web interface of CSLE can be used to view management information and to request management operations (see Fig. 17).****
+The web interface of CSLE can be used to view management information and to request management operations (see Fig. 17).
 It can also be used to monitor emulations in real-time
 (see Fig. 18 and Fig. 19), to start or stop services (see Fig. 20), to monitor reinforcement learning workloads (see
 Fig. 21), to access terminals of emulated components (see Fig. 22), and to examine security policies (see Fig. 23).
@@ -14,7 +14,7 @@ Fig. 21), to access terminals of emulated components (see Fig. 22), and to exami
 <img src="./../../img/management_dropdown.png" width="75%">
 <p class="captionFig">
 Figure 17: The web interface of CSLE; 
-this interface shows management information and and can be used to request management operations.
+this interface shows management information and can be used to request management operations.
 </p>
 </p>
 
@@ -45,7 +45,7 @@ request management operations, e.g., starting and stopping emulated components o
 <p align="center">
 <img src="./../../img/training_results.png" width="75%">
 <p class="captionFig">
-Figure 21 The training results page of the web interface; 
+Figure 21: The training results page of the web interface; 
 this page allows a user to view the results of reinforcement learning experiments.
 </p>
 </p>
@@ -61,7 +61,7 @@ this page allows a user to execute arbitrary bash commands inside a container of
 ### The Policy Examination System
 
 The policy examination system allows a user to traverse episodes of Markov decision processes in a controlled manner and
-to track the actions triggered by security policies. Similar to a software debugger, a user can continue or or halt an
+to track the actions triggered by security policies. Similar to a software debugger, a user can continue or halt an
 episode at any time-step and inspect parameters and probability distributions of interest. The system enables insight
 into the structure of a given policy and in the behavior of a policy in edge cases. It is integrated with the rest of
 the web interface and can be accessed as a regular web page (see Fig. 23).

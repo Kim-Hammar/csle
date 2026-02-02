@@ -1,0 +1,12 @@
+# Two-node Vagrant inventory for CSLE installation
+# Used with config/two_node.yaml
+
+[leader]
+192.168.56.10 ansible_user=vagrant ansible_ssh_private_key_file=/vagrant/.vagrant/machines/leader/virtualbox/private_key
+
+[worker]
+192.168.56.11 ansible_user=vagrant ansible_ssh_private_key_file=/vagrant/.vagrant/machines/worker/virtualbox/private_key
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_common_args='-o StrictHostKeyChecking=no'

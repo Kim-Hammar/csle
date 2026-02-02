@@ -62,4 +62,4 @@ cd simulation-system/envs/stopping_pomdp_defender; pytest; cd ../../../
 cd simulation-system/envs/workflow_intrusion_response_pomdp_attacker; pytest; cd ../../../
 cd simulation-system/envs/workflow_intrusion_response_pomdp_defender; pytest; cd ../../../
 echo "Running JavaScript unit tests for csle-mgmt-webapp"
-cd management-system/csle-mgmt-webapp; npm test -- --watchAll=false; cd ../../
+cd management-system/csle-mgmt-webapp; npm test -- --run; cd ../../

@@ -451,5 +451,5 @@ Creative Commons
 
 [LICENSE](../../LICENSE.md)
 
-(C) 2020-2025, Kim Hammar
+(C) 2020-2026, Kim Hammar
 

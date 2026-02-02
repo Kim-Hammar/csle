@@ -1,0 +1,203 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+require 'yaml'
+
+# Load configuration from YAML file
+config_file = ENV['VAGRANT_CONFIG'] || 'config/single_node.yaml'
+config_path = File.join(File.dirname(__FILE__), config_file)
+
+unless File.exist?(config_path)
+  abort("Configuration file not found: #{config_path}")
+end
+
+settings = YAML.load_file(config_path)
+
+Vagrant.configure("2") do |config|
+  # Common settings
+  config.vm.box = settings['box'] || "ubuntu/jammy64"
+  config.vm.box_check_update = false
+
+  # SSH configuration
+  config.ssh.insert_key = true
+  config.ssh.forward_agent = true
+
+  # Disable default synced folder
+  config.vm.synced_folder ".", "/vagrant", disabled: false
+
+  # Sync CSLE repository
+  config.vm.synced_folder "..", "/home/vagrant/csle", type: "virtualbox"
+
+  # Define VMs based on configuration
+  settings['nodes'].each do |node|
+    config.vm.define node['name'] do |vm_config|
+      vm_config.vm.hostname = node['name']
+      vm_config.vm.network "private_network", ip: node['ip']
+
+      # Port forwarding (only for leader node)
+      if node['leader']
+        port_forwards = settings['port_forwards'] || []
+        port_forwards.each do |pf|
+          vm_config.vm.network "forwarded_port",
+            guest: pf['guest'],
+            host: pf['host'],
+            auto_correct: true
+        end
+      end
+
+      # VirtualBox provider configuration
+      vm_config.vm.provider "virtualbox" do |vb|
+        vb.name = "csle-#{node['name']}"
+        vb.memory = node['memory'] || settings['default_memory'] || 16384
+        vb.cpus = node['cpus'] || settings['default_cpus'] || 6
+        vb.gui = false
+
+        # Performance optimizations
+        vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+        vb.customize ["modifyvm", :id, "--ioapic", "on"]
+
+        # Disk size (requires vagrant-disksize plugin)
+        if Vagrant.has_plugin?("vagrant-disksize")
+          vm_config.disksize.size = node['disk'] || settings['default_disk'] || "100GB"
+        end
+      end
+
+      # Shell provisioner for initial setup
+      vm_config.vm.provision "shell", path: "scripts/provision.sh", args: [
+        node['name'],
+        node['ip'],
+        node['leader'] ? "true" : "false",
+        settings['nodes'].select { |n| n['leader'] }.first['ip'],
+        settings['user'] || "vagrant"
+      ]
+
+      # Ansible provisioner (only runs on the last node)
+      if node == settings['nodes'].last
+        leader_node = settings['nodes'].select { |n| n['leader'] }.first
+        leader_ip = leader_node['ip']
+
+        vm_config.vm.provision "ansible_local" do |ansible|
+          ansible.playbook = "/home/vagrant/csle/ansible/install.yml"
+          ansible.inventory_path = "/vagrant/ansible/inventory_vagrant"
+          ansible.limit = "all"
+          ansible.verbose = settings['ansible_verbose'] || false
+          ansible.extra_vars = {
+            ansible_python_interpreter: "/usr/bin/python3",
+            user: settings['user'] || "vagrant",
+            leader_ip: leader_ip,
+            leader_public_ip: leader_ip,
+            metastore_ip: leader_ip,
+            csle_config: {
+              management_admin_username_default: "admin",
+              management_admin_password_default: "csle192105Test",
+              management_admin_first_name_default: "admin",
+              management_admin_last_name_default: "admin",
+              management_admin_email_default: "admin",
+              management_admin_organization_default: "CSLE",
+              management_guest_username_default: "guest",
+              management_guest_password_default: "csle192105Test",
+              management_guest_first_name_default: "guest",
+              management_guest_last_name_default: "guestson",
+              management_guest_email_default: "guest@csle.com",
+              management_guest_organization_default: "CSLE",
+              ssh_admin_username: "csle_admin",
+              ssh_admin_password: "csle@admin-pw_191",
+              ssh_agent_username: "agent",
+              ssh_agent_password: "agent",
+              grafana_username: "admin",
+              grafana_password: "csle192105Test",
+              pgadmin_username: "csle@csle.com",
+              pgadmin_password: "csle192105Test",
+              node_exporter_port: 9100,
+              grafana_port: 3000,
+              management_system_port: 7777,
+              cadvisor_port: 8080,
+              prometheus_port: 9090,
+              pgadmin_port: 7778,
+              node_exporter_pid_file: "/var/log/csle/node_exporter.pid",
+              csle_mgmt_webapp_pid_file: "/var/log/csle/csle_mgmt_webapp.pid",
+              node_exporter_log_file: "/var/log/csle/node_exporter.log",
+              flask_log_file: "/var/log/csle/flask.log",
+              cluster_manager_log_file: "/var/log/csle/cluster_manager.log",
+              docker_stats_manager_log_file: "docker_stats_manager.log",
+              docker_stats_manager_log_dir: "/var/log/csle/",
+              docker_stats_manager_port: 50051,
+              docker_stats_manager_max_workers: 10,
+              docker_stats_manager_outfile: "/var/log/csle/statsmanager.out",
+              docker_stats_manager_pidfile: "/var/log/csle/statsmanager.pid",
+              prometheus_pid_file: "/var/log/csle/prometheus.pid",
+              prometheus_log_file: "/var/log/csle/prometheus.log",
+              prometheus_config_file: "$CSLE_HOME/management-system/prometheus.yml",
+              postgresql_log_dir: "/var/log/postgresql/",
+              nginx_log_dir: "/var/log/nginx/",
+              default_log_dir: "/tmp/csle/",
+              metastore_ip: "127.0.0.1",
+              metastore_user: "csle",
+              metastore_password: "csle192105Test",
+              metastore_database_name: "csle",
+              localhost: true,
+              recovery_ai: false,
+              recovery_ai_output_dir: "",
+              recovery_ai_examples_path: "",
+              version: "0.8.0",
+              cluster_config: {
+                cluster_nodes: [
+                  {
+                    ip: "127.0.0.1",
+                    leader: true,
+                    cpus: leader_node['cpus'] || settings['default_cpus'] || 6,
+                    gpus: 0,
+                    RAM: (leader_node['memory'] || settings['default_memory'] || 16384) / 1024
+                  }
+                ]
+              },
+              allow_registration: true
+            }
+          }
+        end
+      end
+
+      # Start CSLE services after Ansible installation (leader only)
+      if node['leader']
+        vm_config.vm.provision "shell", inline: <<-SHELL
+          echo "=============================================="
+          echo "Starting CSLE Services"
+          echo "=============================================="
+          /vagrant/scripts/start_services.sh #{settings['user'] || 'vagrant'}
+        SHELL
+      end
+
+      # Test provisioner (optional, runs after services are started)
+      if settings['run_tests'] && node['leader']
+        vm_config.vm.provision "shell", inline: <<-SHELL
+          echo "=============================================="
+          echo "Waiting for services to be ready..."
+          echo "=============================================="
+          # Wait for key services to be listening
+          for i in {1..30}; do
+            if ss -tlnp | grep -q ':7777 '; then
+              echo "Flask API is ready"
+              break
+            fi
+            echo "Waiting for Flask API... ($i/30)"
+            sleep 2
+          done
+          sleep 5  # Additional buffer for all services
+
+          echo "=============================================="
+          echo "Running CSLE Integration Tests"
+          echo "=============================================="
+          # Run tests as vagrant user to ensure correct paths
+          sudo -u vagrant bash -c '
+            cd /vagrant/tests
+            source /home/vagrant/anaconda3/etc/profile.d/conda.sh
+            conda activate base
+            pip install pytest requests psycopg2-binary
+            python -m pytest -v --tb=short || true
+          '
+        SHELL
+      end
+    end
+  end
+end

@@ -46,3 +46,27 @@ class TestPlottingUtilSuite:
         expected = np.array([0.0, 0.25, 0.5, 0.75, 1.0])
         result = PlottingUtil.min_max_norm(vec, max_val, min_val)
         assert result.any() == expected.any()
+
+    def test_running_average_list(self) -> None:
+        """
+        Test running_average_list which computes the running average of the last N elements
+
+        :return: None
+        """
+        x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        N = 3
+        expected = np.array([1, 2, 3, 3, 4, 5, 6, 7, 8, 9])
+        result = PlottingUtil.running_average_list(x, N)
+        assert result.any() == expected.any()
+
+    def test_running_average_list_short_array(self) -> None:
+        """
+        Test running_average_list with array shorter than N
+
+        :return: None
+        """
+        x = np.array([1, 2])
+        N = 5
+        result = PlottingUtil.running_average_list(x, N)
+        expected = np.zeros_like(x)
+        assert np.array_equal(result, expected)

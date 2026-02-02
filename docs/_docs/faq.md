@@ -15,7 +15,7 @@ permalink: /docs/faq/
 
 **Q: Why does my reinforcement learning algorithm not converge?**
 
-**A:** Why does my reinforcement learning algorithm not converge?There are many possible reasons for this; it could be a hyperparameter problem, a bug in your training environment, or simply slow convergence. These issues are not related to CSLE's implementation.
+**A:** There are many possible reasons for this; it could be a hyperparameter problem, a bug in your training environment, or simply slow convergence. These issues are not related to CSLE's implementation.
 
 **Q: How can I use CSLE with my own custom code?**
 
