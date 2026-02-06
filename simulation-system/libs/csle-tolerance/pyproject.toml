@@ -4,7 +4,7 @@ description = "An intrusion-tolerant system: Tolerance: (T)w(o)-(l)ev(e)l (r)eco
 dynamic = ["version", "authors", "requires-python"]
 license = { file = "LICENSE.md" }
 readme = "README.md"
-keywords = ["Reinforcement-Learning", "Cyber-Security", "Markov-Games", "Markov-Decision-Processes"]
+keywords = ["Reinforcement-Learning", "Cyber-Security", "Markov-Games", "Markov-Decision-Processes", "Intrusion-tolerance"]
 maintainers = [
     { name = "Kim Hammar", email = "kimham@kth.se" },
 ]
