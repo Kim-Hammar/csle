@@ -28,3 +28,15 @@ Launches the test runner in the interactive watch mode.
 ### `npm run build`
 
 Builds the app for production to the `build` folder.
+
+## Author & Maintainer
+
+Kim Hammar <kimham@kth.se>
+
+## Copyright and license
+
+[LICENSE](../../LICENSE.md)
+
+Creative Commons
+
+(C) 2020-2026, Kim Hammar
