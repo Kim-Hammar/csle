@@ -8,6 +8,50 @@ permalink: /releases/
 
 The following is a list of official releases of the Cyber Security Learning Environment (CSLE).
 
+##### **CSLE 0.9.0**
+
+**Release Date:** 23/10 2025
+
+**Description:** The ninth beta release of CSLE. Notable features: (1) integration with large language models;
+(2) PEFT library addition; (3) storage optimization; and (4), documentation updates.
+
+**Download:** [https://github.com/Kim-Hammar/csle/releases/tag/v0.9.0](https://github.com/Kim-Hammar/csle/releases/tag/v0.9.0)
+
+**Documentation:** [https://github.com/Kim-Hammar/csle/blob/master/releases/CSLE_RELEASE_v0.9.0_DOCUMENTATION.pdf](https://github.com/Kim-Hammar/csle/blob/master/releases/CSLE_RELEASE_v0.9.0_DOCUMENTATION.pdf)
+
+##### **CSLE 0.8.0**
+
+**Release Date:** 9/2 2025
+
+**Description:** The eighth beta release of CSLE. Notable features: (1) CLI testing;
+(2) all ls entities that do not need input are added; and (3), bugfixes.
+
+**Download:** [https://github.com/Kim-Hammar/csle/releases/tag/v0.8.0](https://github.com/Kim-Hammar/csle/releases/tag/v0.8.0)
+
+**Documentation:** [https://github.com/Kim-Hammar/csle/blob/master/releases/CSLE_RELEASE_v0.8.0_DOCUMENTATION.pdf](https://github.com/Kim-Hammar/csle/blob/master/releases/CSLE_RELEASE_v0.8.0_DOCUMENTATION.pdf)
+
+##### **CSLE 0.7.0**
+
+**Release Date:** 1/9 2024
+
+**Description:** The seventh beta release of CSLE. Notable features: (1) test coverage expansion;
+(2) CLI commands for host, client, and service managers; (3) progress bar integration; and (4), bugfixes.
+
+**Download:** [https://github.com/Kim-Hammar/csle/releases/tag/v0.7.0](https://github.com/Kim-Hammar/csle/releases/tag/v0.7.0)
+
+**Documentation:** [https://github.com/Kim-Hammar/csle/blob/master/releases/CSLE_RELEASE_v0.7.0_DOCUMENTATION.pdf](https://github.com/Kim-Hammar/csle/blob/master/releases/CSLE_RELEASE_v0.7.0_DOCUMENTATION.pdf)
+
+##### **CSLE 0.6.0**
+
+**Release Date:** 23/5 2024
+
+**Description:** The sixth beta release of CSLE. Notable features: (1) MITRE attack profiler;
+(2) MCS agent; (3) C-POMCP agent; (4) unit tests; and (5), bugfixes.
+
+**Download:** [https://github.com/Kim-Hammar/csle/releases/tag/v0.6.0](https://github.com/Kim-Hammar/csle/releases/tag/v0.6.0)
+
+**Documentation:** [https://github.com/Kim-Hammar/csle/blob/master/releases/CSLE_RELEASE_v0.6.0_DOCUMENTATION.pdf](https://github.com/Kim-Hammar/csle/blob/master/releases/CSLE_RELEASE_v0.6.0_DOCUMENTATION.pdf)
+
 ##### **CSLE 0.5.0**
 
 **Release Date:** 2/3 2024

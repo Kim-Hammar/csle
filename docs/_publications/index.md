@@ -8,6 +8,21 @@ permalink: /publications/
 
 The following publications are based on CSLE:
 
+##### **Hallucination-Resistant Security Planning with a Large Language Model**
+**Conference paper** IEEE/IFIP Network Operations and Management Symposium (NOMS) 2026.
+[Preprint.](https://www.arxiv.org/abs/2602.05279)
+
+**Bibtex**:
+```bash
+@INPROCEEDINGS{hammar_alpcan_lupu_noms26,
+  author={Hammar, Kim and Alpcan, Tansu and Lupu, Emil},},
+  booktitle={NOMS 2026-2026 IEEE/IFIP Network Operations and Management Symposium},
+  title={Hallucination-Resistant Security Planning with a Large Language Model},
+  year={2026},
+  volume={},
+  number={}}
+```
+
 ##### **Incident Response Planning Using a Lightweight Large Language Model with Reduced Hallucination**
 **Conference paper** Network and Distributed System Security (NDSS) Symposium 2026.
 [Preprint.](https://arxiv.org/abs/2508.05188)
