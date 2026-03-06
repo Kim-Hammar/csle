@@ -4,7 +4,7 @@ import grpc
 import csle_collector.client_manager.client_manager_pb2_grpc
 import csle_collector.client_manager.client_manager_pb2
 import csle_collector.client_manager.query_clients
-from csle_collector.client_manager.dao.eptmp_arrival_config import EPTMPArrivalConfig
+from csle_collector.client_manager.dao.constant_arrival_config import ConstantArrivalConfig
 from csle_collector.client_manager.dao.workflows_config import WorkflowsConfig
 from csle_collector.client_manager.dao.workflow_markov_chain import WorkflowMarkovChain
 from csle_collector.client_manager.dao.client import Client
@@ -102,13 +102,13 @@ def start_client_producer(execution: EmulationExecution) -> csle_collector.clien
 
 
 if __name__ == '__main__':
-    emulation = "csle-level4-090"
+    emulation = "csle-level9-090"
     execution_id = 15
     execution = MetastoreFacade.get_emulation_execution(emulation_name=emulation, ip_first_octet=execution_id)
-    # clients = [
-    #     Client(id=0, workflow_distribution=[1],
-    #            arrival_config=ConstantArrivalConfig(lamb=40), mu=4, exponential_service_time=True)
-    # ]
+    clients = [
+        Client(id=0, workflow_distribution=[1],
+               arrival_config=ConstantArrivalConfig(lamb=40), mu=4, exponential_service_time=True)
+    ]
     # clients = [
     #     Client(id=0, workflow_distribution=[1],
     #            arrival_config=EPTMPArrivalConfig(thetas=[3.6269], gammas=[2.1, 1.1], omegas=[0.1731, 0.3264],
@@ -116,11 +116,11 @@ if __name__ == '__main__':
     #            mu=4, exponential_service_time=False)
     # ]
 
-    clients = [
-        Client(id=0, workflow_distribution=[1],
-               arrival_config=EPTMPArrivalConfig(thetas=[1, 0.003], gammas=[0], omegas=[0], phis=[0]),
-               mu=4, exponential_service_time=False)
-    ]
+    # clients = [
+    #     Client(id=0, workflow_distribution=[1],
+    #            arrival_config=EPTMPArrivalConfig(thetas=[1, 0.003], gammas=[0], omegas=[0], phis=[0]),
+    #            mu=4, exponential_service_time=False)
+    # ]
 
     workflows_config = WorkflowsConfig(
         workflow_services=(
