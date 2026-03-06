@@ -2565,7 +2565,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_4-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_3-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.29",
@@ -2601,7 +2601,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_5-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_4-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.30",
@@ -2637,7 +2637,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_6-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_5-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.31",
@@ -2673,7 +2673,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_7-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_6-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.7.32",
@@ -2709,7 +2709,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_8-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_7-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.33",
@@ -2745,7 +2745,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_9-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_8-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.10.34",
@@ -2781,7 +2781,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_10-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_9-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.8.35",
@@ -2817,7 +2817,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_11-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_10-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.10.36",
@@ -2853,7 +2853,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_12-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_11-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.9.37",
@@ -2889,7 +2889,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_13-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_12-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.11.38",
@@ -2925,7 +2925,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_14-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_13-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.9.39",
@@ -2961,7 +2961,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_15-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_14-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.11.40",
@@ -2997,7 +2997,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_16-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_15-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.12.41",
@@ -3033,7 +3033,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_17-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_16-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.13.42",
@@ -3069,7 +3069,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_18-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_17-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.14.43",
@@ -3105,7 +3105,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_19-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_18-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.15.44",
@@ -3141,7 +3141,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_20-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_19-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.16.45",
@@ -3177,7 +3177,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_21-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_20-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.17.46",
@@ -3213,7 +3213,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_22-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_21-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.18.47",
@@ -3249,7 +3249,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_23-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_22-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.19.48",
@@ -3321,7 +3321,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_24-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_23-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.28.3",
@@ -3357,7 +3357,7 @@ def default_resource_constraints_config(network_id: int, level: int) -> Resource
             ], disk_space_gb=10),
         NodeResourcesConfig(
             container_name=f"{constants.CSLE.NAME}-"
-                           f"{constants.CONTAINER_IMAGES.OVS_1}_25-{constants.CSLE.LEVEL}{level}",
+                           f"{constants.CONTAINER_IMAGES.OVS_1}_24-{constants.CSLE.LEVEL}{level}",
             num_cpus=1, available_memory_gb=4,
             ips_and_network_configs=[
                 (f"{constants.CSLE.CSLE_SUBNETMASK_PREFIX}{network_id}.28.12",
