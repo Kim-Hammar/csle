@@ -8,6 +8,38 @@ permalink: /publications/
 
 The following publications are based on CSLE:
 
+##### **CSLE: A Reinforcement Learning Platform for Autonomous Security Management**
+**Conference paper** Ninth Annual Conference on Machine Learning and Systems (MLSys) 2026.
+[Preprint.](https://arxiv.org/abs/2604.15590)
+
+**Bibtex**:
+```bash
+@INPROCEEDINGS{hammar_csle_mlsys_2026,
+  author={Hammar, Kim},
+  booktitle={Ninth Annual Conference on Machine Learning and Systems (MLSys) 2026},
+  title={CSLE: A Reinforcement Learning Platform for Autonomous Security Management},
+  year={2026},
+  volume={},
+  number={}}
+```
+
+##### **Causal Online Learning of Safe Regions in Cloud Radio Access Networks**
+**Journal paper (under review)**
+[Preprint.](https://arxiv.org/abs/2602.05280)
+
+**Bibtex**:
+```bash
+@misc{hammar2026causalonlinelearningsafe,
+      title={Causal Online Learning of Safe Regions in Cloud Radio Access Networks}, 
+      author={Kim Hammar and Tansu Alpcan and Emil Lupu},
+      year={2026},
+      eprint={2602.05280},
+      archivePrefix={arXiv},
+      primaryClass={cs.NI},
+      url={https://arxiv.org/abs/2602.05280}, 
+}
+```
+
 ##### **Hallucination-Resistant Security Planning with a Large Language Model**
 **Conference paper** IEEE/IFIP Network Operations and Management Symposium (NOMS) 2026.
 [Preprint.](https://www.arxiv.org/abs/2602.05279)
@@ -36,6 +68,23 @@ The following publications are based on CSLE:
                   2026, San Diego, California, USA, February 23-27, 2026},
   publisher    = {The Internet Society},		  
   year = 	 2026
+}
+```
+
+##### **Online Identification of IT Systems through Active Causal Learning**
+**Journal paper (under review)**
+[Preprint.](https://arxiv.org/abs/2509.02130)
+
+**Bibtex**:
+```bash
+@misc{hammar2025onlineidentificationsystemsactive,
+      title={Online Identification of IT Systems through Active Causal Learning}, 
+      author={Kim Hammar and Rolf Stadler},
+      year={2025},
+      eprint={2509.02130},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2509.02130}, 
 }
 ```
 

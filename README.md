@@ -15,7 +15,7 @@
         <img src="https://zenodo.org/badge/doi/10.1109/TNSM.2022.3176781.svg" /></a>
      <a href="https://www.youtube.com/watch?v=iE2KPmtIs2A&" alt="youtube"> 
         <img src="https://img.shields.io/badge/Youtube-red.svg?logo=Youtube" /></a>
-    <a href="https://arxiv.org/abs/2309.03292">
+    <a href="https://arxiv.org/abs/2604.15590">
         <img src="https://img.shields.io/badge/arxiv-2309.03292-silver" alt="Paper">
     </a> 
     <a href="https://github.com/kim-hammar/csle">
