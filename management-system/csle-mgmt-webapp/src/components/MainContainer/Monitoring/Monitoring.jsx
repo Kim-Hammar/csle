@@ -560,10 +560,10 @@ const Monitoring = (props) => {
   }
 
   const onChangeWindowLength = (windowLenSelection) => {
-    if (windowLenSelection.value !== windowLength) {
+    if (windowLenSelection.value !== windowLength.value) {
       setWindowLength(windowLenSelection)
       setLoadingMonitoringData(true)
-      fetchMonitoringData(windowLength.value, selectedEmulationExecution)
+      fetchMonitoringData(windowLenSelection.value, selectedEmulationExecution)
     }
   }
 
@@ -1301,28 +1301,29 @@ const Monitoring = (props) => {
         <div className="col-sm-1">
         </div>
       </div>
-      <SelectedExecutionView loadingSelectedEmulationExecution={loadingSelectedEmulationExecution}
-                             selectedEmulationExecution={selectedEmulationExecution}
-                             windowLength={windowLength}
-                             windowLengthOptions={windowLengthOptions}
-                             animationDuration={animationDuration}
-                             evolutionSpeedOptions={evolutionSpeedOptions}
-                             selectedContainer={selectedContainer}
-                             emulationExecutionContainerOptions={emulationExecutionContainerOptions}
-                             animationDurationFactor={animationDurationFactor}
-                             animation={animation}
-                             selectedSwitch={selectedOpenFlowSwitch}
-                             switchesOptions={openFlowSwitchesOptions}
-                             loadingMonitoringData={loadingMonitoringData}
-                             snortIdsOptions={snortIdsOptions}
-                             selectedIds={selectedSnortIds}
-                             fiveGDUOptions={fiveGDUOptions}
-                             selectedFiveGDU={selectedFiveGDU}
-                             fiveGCUOptions={fiveGCUOptions}
-                             selectedFiveGCU={selectedFiveGCU}
-                             fiveGCoreOptions={fiveGCoreOptions}
-                             selectedFiveGCore={selectedFiveGCore}
-      />
+      {SelectedExecutionView({
+        loadingSelectedEmulationExecution: loadingSelectedEmulationExecution,
+        selectedEmulationExecution: selectedEmulationExecution,
+        windowLength: windowLength,
+        windowLengthOptions: windowLengthOptions,
+        animationDuration: animationDuration,
+        evolutionSpeedOptions: evolutionSpeedOptions,
+        selectedContainer: selectedContainer,
+        emulationExecutionContainerOptions: emulationExecutionContainerOptions,
+        animationDurationFactor: animationDurationFactor,
+        animation: animation,
+        selectedSwitch: selectedOpenFlowSwitch,
+        switchesOptions: openFlowSwitchesOptions,
+        loadingMonitoringData: loadingMonitoringData,
+        snortIdsOptions: snortIdsOptions,
+        selectedIds: selectedSnortIds,
+        fiveGDUOptions: fiveGDUOptions,
+        selectedFiveGDU: selectedFiveGDU,
+        fiveGCUOptions: fiveGCUOptions,
+        selectedFiveGCU: selectedFiveGCU,
+        fiveGCoreOptions: fiveGCoreOptions,
+        selectedFiveGCore: selectedFiveGCore
+      })}
     </div>
   )
 }
