@@ -135,36 +135,24 @@ def compute_settling_time(per_l_means: Dict[int, float], delta: float,
     return tau, u_steady
 
 
-def get_latest_du_sample_ts(execution: Any, kafka_host_ip: str, du_name: str) -> float:
-    """
-    Fetches the most recent 5G DU low-metric sample timestamp for a DU from the metric stream.
-
-    The returned timestamp is in the same clock as the samples (the DU container clock), which is
-    used to anchor relative time so the experiment does not depend on host/container clock
-    agreement.
-
-    :param execution: the emulation execution
-    :param kafka_host_ip: the IP of the host running the Kafka/cluster manager
-    :param du_name: the name of the DU container
-    :return: the latest sample ts in seconds, or NaN if no sample is available
-    """
-    time_series = ClusterController.get_execution_time_series_data(
-        ip=kafka_host_ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, minutes=2,
-        ip_first_octet=execution.ip_first_octet, emulation=execution.emulation_env_config.name)
-    tss = [m.ts for m in time_series.five_g_du_low_metrics.get(du_name, []) if m.ts is not None]
-    return max(tss) if tss else float("nan")
-
-
 def collect_timeseries(execution: Any, du_name: str, output_csv: str, fieldnames: List[str],
                        metrics: List[Tuple[str, Callable[[Any], float]]], scenarios: List[Tuple[float, float]],
                        num_trials: int, memory_limit_docker: str, offered_load_mbps: int, ul_port: int, dl_port: int,
-                       warmup_seconds: int, pre_window_seconds: int, settle_window_seconds: int) -> None:
+                       warmup_seconds: int, pre_window_seconds: int, settle_window_seconds: int,
+                       sample_interval_seconds: int) -> None:
     """
     Runs the settling-time trials and writes the fine-grained metric time series to CSV.
 
     For each (from_cpu, to_cpu) scenario and trial, the DU is brought to from_cpu under constant
     load, the CPU limit is changed to to_cpu (the action), and the physical-layer metrics are
-    sampled around the action and written to CSV with a relative time unit l = ts - t0.
+    sampled around the action and written to CSV with a relative time unit l.
+
+    The relative time l is derived from the *sample order* and the known push cadence, NOT from the
+    sample timestamp: the gRPC transport stores the timestamp as a 32-bit float, which quantizes
+    epoch timestamps to ~128s and is therefore useless for sub-minute timing. Since the monitor
+    pushes at a fixed cadence and the samples are returned in time order, the last
+    settle_window/interval samples correspond to the post-action window (l >= 0) and the preceding
+    pre_window/interval samples to the baseline (l < 0).
 
     :param execution: the emulation execution
     :param du_name: the name of the DU container under test
@@ -180,11 +168,14 @@ def collect_timeseries(execution: Any, du_name: str, output_csv: str, fieldnames
     :param warmup_seconds: time to wait at from_cpu before recording the baseline
     :param pre_window_seconds: duration of the baseline window before the action (l < 0)
     :param settle_window_seconds: observation window after the action (l >= 0)
+    :param sample_interval_seconds: the metric push cadence in seconds (one sample per interval)
     :return: None
     """
     kafka_host_ip = execution.emulation_env_config.kafka_config.container.physical_host_ip
     load_duration = warmup_seconds + pre_window_seconds + settle_window_seconds + 10
     read_minutes = math.ceil((pre_window_seconds + settle_window_seconds + 30) / 60) + 1
+    n_pre = max(1, round(pre_window_seconds / sample_interval_seconds))
+    n_post = max(1, round(settle_window_seconds / sample_interval_seconds))
 
     for from_cpu, to_cpu in scenarios:
         for trial in range(num_trials):
@@ -199,11 +190,7 @@ def collect_timeseries(execution: Any, du_name: str, output_csv: str, fieldnames
                                     constants.FIVE_G.DOWNLINK, load_duration),
                 ]
                 time.sleep(warmup_seconds + pre_window_seconds)
-                # Anchor l=0 to the sample clock (latest sample at the action moment) so the
-                # measurement does not depend on host/DU-container clock agreement.
-                anchor_ts = get_latest_du_sample_ts(execution, kafka_host_ip, du_name)
-                print(f"Applying action: CPU limit {from_cpu} -> {to_cpu} on {du_name} "
-                      f"(anchor_ts={anchor_ts})")
+                print(f"Applying action: CPU limit {from_cpu} -> {to_cpu} on {du_name}")
                 set_docker_cpu_limit(to_cpu, memory_limit_docker, [du_name])
                 time.sleep(settle_window_seconds)
                 for f in futures:
@@ -213,24 +200,23 @@ def collect_timeseries(execution: Any, du_name: str, output_csv: str, fieldnames
                 ip=kafka_host_ip, port=constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT, minutes=read_minutes,
                 ip_first_octet=execution.ip_first_octet, emulation=execution.emulation_env_config.name)
 
-            samples = [m for m in time_series.five_g_du_low_metrics.get(du_name, []) if m.ts is not None]
-            if math.isnan(anchor_ts) or not samples:
-                all_ts = [m.ts for m in samples]
-                rng = f"[{min(all_ts):.1f}, {max(all_ts):.1f}]" if all_ts else "[]"
-                print(f"WARNING: no usable samples (total={len(samples)}, ts range={rng}, "
-                      f"anchor_ts={anchor_ts}); skipping trial")
+            # Samples are returned in time order; the fetch happens right at action + settle_window,
+            # so the last n_post samples are the post-action window and the preceding n_pre are the
+            # baseline. l = 0 is anchored at the action.
+            samples = list(time_series.five_g_du_low_metrics.get(du_name, []))
+            if not samples:
+                print("WARNING: no samples returned for the DU; skipping trial")
                 continue
-            window_samples = [m for m in samples
-                              if anchor_ts - pre_window_seconds <= m.ts <= anchor_ts + settle_window_seconds]
-            print(f"Collected {len(window_samples)} samples in the measurement window "
-                  f"(out of {len(samples)} total)")
-            for m in window_samples:
+            tail = samples[-(n_pre + n_post):]
+            action_idx = max(0, len(tail) - n_post)
+            print(f"Collected {len(tail)} samples in the measurement window (out of {len(samples)} total)")
+            for i, m in enumerate(tail):
                 row: Dict[str, Any] = {
                     constants.FIVE_G.DU: du_name,
                     "from_cpu": from_cpu,
                     "to_cpu": to_cpu,
                     "trial": trial,
-                    "l_seconds": int(round(m.ts - anchor_ts)),
+                    "l_seconds": int((i - action_idx) * sample_interval_seconds),
                     "ts": m.ts,
                 }
                 for col, accessor in metrics:
@@ -353,7 +339,8 @@ def run() -> None:
                            metrics=metrics, scenarios=scenarios, num_trials=num_trials,
                            memory_limit_docker=memory_limit_docker, offered_load_mbps=offered_load_mbps,
                            ul_port=ul_port, dl_port=dl_port, warmup_seconds=warmup_seconds,
-                           pre_window_seconds=pre_window_seconds, settle_window_seconds=settle_window_seconds)
+                           pre_window_seconds=pre_window_seconds, settle_window_seconds=settle_window_seconds,
+                           sample_interval_seconds=sample_interval_seconds)
     finally:
         print(f"Restoring DU monitor interval to {orig_interval}s")
         set_du_monitor_interval(execution, du_ip, orig_interval, logger)
