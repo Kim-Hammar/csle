@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics &mdash; csle-collector 0.8.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> csle-collector
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.client_manager.html">csle_collector.client_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.constants.html">csle_collector.constants package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.docker_stats_manager.html">csle_collector.docker_stats_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.elk_manager.html">csle_collector.elk_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.host_manager.html">csle_collector.host_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.kafka_manager.html">csle_collector.kafka_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.ossec_ids_manager.html">csle_collector.ossec_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.snort_ids_manager.html">csle_collector.snort_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.traffic_manager.html">csle_collector.traffic_manager package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">csle-collector</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.constants.constants</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">constants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_base.json_serializable</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONSerializable</span>
+
+
+<div class="viewcode-block" id="FiveGDUCellMetrics"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FiveGDUCellMetrics</span><span class="p">(</span><span class="n">JSONSerializable</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DTO class containing srsRAN DU Cell metrics</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pci</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">average_latency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">max_latency</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pucch_tot_rb_usage_avg</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">active_ues</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dl_brate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">ul_brate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">dl_mcs</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">ul_mcs</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">pusch_snr_db</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">pucch_snr_db</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">cqi</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dl_bler</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span>
+                 <span class="n">ul_bler</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the DTO</span>
+
+<span class="sd">        :param pci: Physical Cell ID</span>
+<span class="sd">        :param average_latency: Average processing latency of the cell</span>
+<span class="sd">        :param max_latency: Maximum processing latency of the cell</span>
+<span class="sd">        :param pucch_tot_rb_usage_avg: Average PUCCH Resource Block usage</span>
+<span class="sd">        :param active_ues: Number of active UEs connected</span>
+<span class="sd">        :param dl_brate: Total Downlink bitrate (bps)</span>
+<span class="sd">        :param ul_brate: Total Uplink bitrate (bps)</span>
+<span class="sd">        :param dl_mcs: Average Downlink MCS</span>
+<span class="sd">        :param ul_mcs: Average Uplink MCS</span>
+<span class="sd">        :param pusch_snr_db: Average PUSCH SNR (dB)</span>
+<span class="sd">        :param pucch_snr_db: Average PUCCH SNR (dB)</span>
+<span class="sd">        :param cqi: Average Channel Quality Indicator</span>
+<span class="sd">        :param dl_bler: Downlink Block Error Rate (derived from OK/NOK)</span>
+<span class="sd">        :param ul_bler: Uplink Block Error Rate (derived from OK/NOK)</span>
+<span class="sd">        :param ip: The IP of the DU</span>
+<span class="sd">        :param ts: The timestamp the metrics were measured</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pci</span> <span class="o">=</span> <span class="n">pci</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">average_latency</span> <span class="o">=</span> <span class="n">average_latency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_latency</span> <span class="o">=</span> <span class="n">max_latency</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pucch_tot_rb_usage_avg</span> <span class="o">=</span> <span class="n">pucch_tot_rb_usage_avg</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">active_ues</span> <span class="o">=</span> <span class="n">active_ues</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dl_brate</span> <span class="o">=</span> <span class="n">dl_brate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ul_brate</span> <span class="o">=</span> <span class="n">ul_brate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dl_mcs</span> <span class="o">=</span> <span class="n">dl_mcs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ul_mcs</span> <span class="o">=</span> <span class="n">ul_mcs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pusch_snr_db</span> <span class="o">=</span> <span class="n">pusch_snr_db</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pucch_snr_db</span> <span class="o">=</span> <span class="n">pucch_snr_db</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cqi</span> <span class="o">=</span> <span class="n">cqi</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dl_bler</span> <span class="o">=</span> <span class="n">dl_bler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ul_bler</span> <span class="o">=</span> <span class="n">ul_bler</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ts</span> <span class="o">=</span> <span class="n">ts</span>
+
+<div class="viewcode-block" id="FiveGDUCellMetrics.to_kafka_record"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.to_kafka_record">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_kafka_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the DTO into a Kafka record string</span>
+
+<span class="sd">        :param ip: the IP to add to the record in addition to the metrics</span>
+<span class="sd">        :return: a comma separated string representing the kafka record</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts</span> <span class="k">else</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">record_str</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pci</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">average_latency</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max_latency</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pucch_tot_rb_usage_avg</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">active_ues</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dl_brate</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ul_brate</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dl_mcs</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ul_mcs</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pusch_snr_db</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pucch_snr_db</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cqi</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dl_bler</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ul_bler</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">record_str</span></div>
+
+<div class="viewcode-block" id="FiveGDUCellMetrics.from_kafka_record"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_kafka_record">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_kafka_record</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGDUCellMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the Kafka record string to a DTO</span>
+
+<span class="sd">        :param record: the kafka record</span>
+<span class="sd">        :return: the created DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">FiveGDUCellMetrics</span><span class="p">(</span>
+            <span class="n">ts</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">pci</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+            <span class="n">average_latency</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+            <span class="n">max_latency</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
+            <span class="n">pucch_tot_rb_usage_avg</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span>
+            <span class="n">active_ues</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">6</span><span class="p">]),</span>
+            <span class="n">dl_brate</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">7</span><span class="p">]),</span>
+            <span class="n">ul_brate</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">8</span><span class="p">]),</span>
+            <span class="n">dl_mcs</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">9</span><span class="p">]),</span>
+            <span class="n">ul_mcs</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">10</span><span class="p">]),</span>
+            <span class="n">pusch_snr_db</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">11</span><span class="p">]),</span>
+            <span class="n">pucch_snr_db</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">12</span><span class="p">]),</span>
+            <span class="n">cqi</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">13</span><span class="p">]),</span>
+            <span class="n">dl_bler</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">14</span><span class="p">]),</span>
+            <span class="n">ul_bler</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+<div class="viewcode-block" id="FiveGDUCellMetrics.update_with_kafka_record"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.update_with_kafka_record">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">update_with_kafka_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the DTO based on a kafka record</span>
+
+<span class="sd">        :param record: the kafka record</span>
+<span class="sd">        :param ip: the host ip</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">ip</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ts</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pci</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">average_latency</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_latency</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pucch_tot_rb_usage_avg</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">active_ues</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dl_brate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ul_brate</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dl_mcs</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ul_mcs</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pusch_snr_db</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pucch_snr_db</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cqi</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">13</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dl_bler</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ul_bler</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span></div>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a string representation of the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ts: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ts</span><span class="si">}</span><span class="s2">, ip: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="si">}</span><span class="s2">, pci: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pci</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;active_ues: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">active_ues</span><span class="si">}</span><span class="s2">, dl_brate: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dl_brate</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;ul_brate: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ul_brate</span><span class="si">}</span><span class="s2">, pusch_snr: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pusch_snr_db</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FiveGDUCellMetrics.from_dict"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGDUCellMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a dict representation to an instance.</span>
+<span class="sd">        Expects the flat dictionary format produced by to_dict().</span>
+
+<span class="sd">        :param d: the dict to convert</span>
+<span class="sd">        :return: the created instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">FiveGDUCellMetrics</span><span class="p">(</span>
+            <span class="n">pci</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PCI</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">average_latency</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">AVERAGE_LATENCY</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">max_latency</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">MAX_LATENCY</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">pucch_tot_rb_usage_avg</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PUCCH_TOT_RB_USAGE_AVG</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">active_ues</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">ACTIVE_UES</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">dl_brate</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DL_BRATE</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">ul_brate</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UL_BRATE</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">dl_mcs</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DL_MCS</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">ul_mcs</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UL_MCS</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">pusch_snr_db</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PUSCH_SNR_DB</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">pucch_snr_db</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PUCCH_SNR_DB</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">cqi</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CQI</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">dl_bler</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DL_BLER</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">ul_bler</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UL_BLER</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">IP</span><span class="p">),</span>
+            <span class="n">ts</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">TS</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+<div class="viewcode-block" id="FiveGDUCellMetrics.from_ws_dict"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_ws_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_ws_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGDUCellMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the raw dictionary from the WebSocket JSON stream to an instance.</span>
+<span class="sd">        Handles the nested &quot;cells&quot; list and aggregates UE metrics.</span>
+
+<span class="sd">        :param d: the raw dictionary from srsRAN WebSocket</span>
+<span class="sd">        :param ip: the IP of the source DU</span>
+<span class="sd">        :return: the created instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">TIMESTAMP</span> <span class="ow">in</span> <span class="n">d</span> <span class="ow">and</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">TIMESTAMP</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">TIMESTAMP</span><span class="p">])</span>
+                <span class="n">ts</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="n">cell_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">ue_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CELLS</span> <span class="ow">in</span> <span class="n">d</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CELLS</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">cell_data</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CELLS</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CELL_METRICS</span><span class="p">,</span> <span class="p">{})</span>
+            <span class="n">ue_list</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CELLS</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_LIST</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="c1"># Aggregation logic</span>
+        <span class="n">active_ues</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ue_list</span><span class="p">)</span>
+        <span class="n">total_dl_brate</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">total_ul_brate</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">sum_dl_mcs</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">sum_ul_mcs</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">sum_pusch_snr</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">sum_pucch_snr</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">sum_cqi</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">total_dl_ok</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total_dl_nok</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total_ul_ok</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">total_ul_nok</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">ue</span> <span class="ow">in</span> <span class="n">ue_list</span><span class="p">:</span>
+            <span class="n">total_dl_brate</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DL_BRATE</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">total_ul_brate</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UL_BRATE</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">sum_dl_mcs</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DL_MCS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">sum_ul_mcs</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UL_MCS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">sum_pusch_snr</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PUSCH_SNR_DB</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">sum_pucch_snr</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PUCCH_SNR_DB</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+            <span class="n">sum_cqi</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CQI</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">total_dl_ok</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DL_NOF_OK</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">total_dl_nok</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DL_NOF_NOK</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">total_ul_ok</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UL_NOF_OK</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">total_ul_nok</span> <span class="o">+=</span> <span class="n">ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UL_NOF_NOK</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">avg_dl_mcs</span> <span class="o">=</span> <span class="n">sum_dl_mcs</span> <span class="o">/</span> <span class="n">active_ues</span> <span class="k">if</span> <span class="n">active_ues</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+        <span class="n">avg_ul_mcs</span> <span class="o">=</span> <span class="n">sum_ul_mcs</span> <span class="o">/</span> <span class="n">active_ues</span> <span class="k">if</span> <span class="n">active_ues</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+        <span class="n">avg_pusch_snr</span> <span class="o">=</span> <span class="n">sum_pusch_snr</span> <span class="o">/</span> <span class="n">active_ues</span> <span class="k">if</span> <span class="n">active_ues</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+        <span class="n">avg_pucch_snr</span> <span class="o">=</span> <span class="n">sum_pucch_snr</span> <span class="o">/</span> <span class="n">active_ues</span> <span class="k">if</span> <span class="n">active_ues</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+        <span class="n">avg_cqi</span> <span class="o">=</span> <span class="n">sum_cqi</span> <span class="o">/</span> <span class="n">active_ues</span> <span class="k">if</span> <span class="n">active_ues</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">0.0</span>
+
+        <span class="c1"># BLER Calculation</span>
+        <span class="n">dl_bler</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">total_dl_ok</span> <span class="o">+</span> <span class="n">total_dl_nok</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">dl_bler</span> <span class="o">=</span> <span class="n">total_dl_nok</span> <span class="o">/</span> <span class="p">(</span><span class="n">total_dl_ok</span> <span class="o">+</span> <span class="n">total_dl_nok</span><span class="p">)</span>
+
+        <span class="n">ul_bler</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">total_ul_ok</span> <span class="o">+</span> <span class="n">total_ul_nok</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">ul_bler</span> <span class="o">=</span> <span class="n">total_ul_nok</span> <span class="o">/</span> <span class="p">(</span><span class="n">total_ul_ok</span> <span class="o">+</span> <span class="n">total_ul_nok</span><span class="p">)</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">FiveGDUCellMetrics</span><span class="p">(</span>
+            <span class="n">pci</span><span class="o">=</span><span class="n">cell_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PCI</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">average_latency</span><span class="o">=</span><span class="n">cell_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">AVERAGE_LATENCY</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">max_latency</span><span class="o">=</span><span class="n">cell_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">MAX_LATENCY</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">pucch_tot_rb_usage_avg</span><span class="o">=</span><span class="n">cell_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PUCCH_TOT_RB_USAGE_AVG</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+            <span class="n">active_ues</span><span class="o">=</span><span class="n">active_ues</span><span class="p">,</span>
+            <span class="n">dl_brate</span><span class="o">=</span><span class="n">total_dl_brate</span><span class="p">,</span>
+            <span class="n">ul_brate</span><span class="o">=</span><span class="n">total_ul_brate</span><span class="p">,</span>
+            <span class="n">dl_mcs</span><span class="o">=</span><span class="n">avg_dl_mcs</span><span class="p">,</span>
+            <span class="n">ul_mcs</span><span class="o">=</span><span class="n">avg_ul_mcs</span><span class="p">,</span>
+            <span class="n">pusch_snr_db</span><span class="o">=</span><span class="n">avg_pusch_snr</span><span class="p">,</span>
+            <span class="n">pucch_snr_db</span><span class="o">=</span><span class="n">avg_pucch_snr</span><span class="p">,</span>
+            <span class="n">cqi</span><span class="o">=</span><span class="n">avg_cqi</span><span class="p">,</span>
+            <span class="n">dl_bler</span><span class="o">=</span><span class="n">dl_bler</span><span class="p">,</span>
+            <span class="n">ul_bler</span><span class="o">=</span><span class="n">ul_bler</span><span class="p">,</span>
+            <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span>
+            <span class="n">ts</span><span class="o">=</span><span class="n">ts</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+<div class="viewcode-block" id="FiveGDUCellMetrics.to_dict"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.to_dict">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a dict representation of the instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">TS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ip</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PCI</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pci</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">AVERAGE_LATENCY</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">average_latency</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">MAX_LATENCY</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_latency</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PUCCH_TOT_RB_USAGE_AVG</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pucch_tot_rb_usage_avg</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">ACTIVE_UES</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">active_ues</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DL_BRATE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dl_brate</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UL_BRATE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ul_brate</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DL_MCS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dl_mcs</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UL_MCS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ul_mcs</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PUSCH_SNR_DB</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pusch_snr_db</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">PUCCH_SNR_DB</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pucch_snr_db</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CQI</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cqi</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DL_BLER</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dl_bler</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UL_BLER</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ul_bler</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+
+<div class="viewcode-block" id="FiveGDUCellMetrics.copy"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.copy">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGDUCellMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a copy of the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">FiveGDUCellMetrics</span><span class="p">(</span>
+            <span class="n">pci</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pci</span><span class="p">,</span> <span class="n">average_latency</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">average_latency</span><span class="p">,</span>
+            <span class="n">max_latency</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_latency</span><span class="p">,</span>
+            <span class="n">pucch_tot_rb_usage_avg</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pucch_tot_rb_usage_avg</span><span class="p">,</span>
+            <span class="n">active_ues</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">active_ues</span><span class="p">,</span> <span class="n">dl_brate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dl_brate</span><span class="p">,</span>
+            <span class="n">ul_brate</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ul_brate</span><span class="p">,</span> <span class="n">dl_mcs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dl_mcs</span><span class="p">,</span> <span class="n">ul_mcs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ul_mcs</span><span class="p">,</span>
+            <span class="n">pusch_snr_db</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pusch_snr_db</span><span class="p">,</span> <span class="n">pucch_snr_db</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pucch_snr_db</span><span class="p">,</span>
+            <span class="n">cqi</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cqi</span><span class="p">,</span> <span class="n">dl_bler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dl_bler</span><span class="p">,</span> <span class="n">ul_bler</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ul_bler</span><span class="p">,</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">ts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ts</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">c</span></div>
+
+<div class="viewcode-block" id="FiveGDUCellMetrics.num_attributes"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.num_attributes">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">num_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: The number of attributes of the DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">16</span></div>
+
+<div class="viewcode-block" id="FiveGDUCellMetrics.schema"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.schema">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">schema</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGDUCellMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: get the schema of the DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">FiveGDUCellMetrics</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="FiveGDUCellMetrics.from_json_file"><a class="viewcode-back" href="../../../../csle_collector.five_g_du_manager.dao.html#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_json_file">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_json_file</span><span class="p">(</span><span class="n">json_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGDUCellMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads a json file and converts it to a DTO</span>
+
+<span class="sd">        :param json_file_path: the json file path</span>
+<span class="sd">        :return: the converted DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">json_file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json_str</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">FiveGDUCellMetrics</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_str</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2026, Kim Hammar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

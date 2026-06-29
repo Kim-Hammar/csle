@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>csle_cluster.constants package &mdash; csle-cluster 0.8.0 documentation</title>
+  <title>csle_cluster.constants package &mdash; csle-cluster 0.10.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -43,6 +43,13 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">csle_cluster.constants package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-csle_cluster.constants.constants">csle_cluster.constants.constants module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS"><code class="docutils literal notranslate"><span class="pre">FIVE_G_CORE_TUNNELS</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT"><code class="docutils literal notranslate"><span class="pre">FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNEL_BASE_PORT"><code class="docutils literal notranslate"><span class="pre">FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNEL_BASE_PORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_WEBUI_PORT"><code class="docutils literal notranslate"><span class="pre">FIVE_G_CORE_TUNNELS.FIVE_G_CORE_WEBUI_PORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.THREAD_PROPERTY"><code class="docutils literal notranslate"><span class="pre">FIVE_G_CORE_TUNNELS.THREAD_PROPERTY</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#csle_cluster.constants.constants.KIBANA_TUNNELS"><code class="docutils literal notranslate"><span class="pre">KIBANA_TUNNELS</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#csle_cluster.constants.constants.KIBANA_TUNNELS.KIBANA_TUNNELS_DICT"><code class="docutils literal notranslate"><span class="pre">KIBANA_TUNNELS.KIBANA_TUNNELS_DICT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_cluster.constants.constants.KIBANA_TUNNELS.KIBANA_TUNNEL_BASE_PORT"><code class="docutils literal notranslate"><span class="pre">KIBANA_TUNNELS.KIBANA_TUNNEL_BASE_PORT</span></code></a></li>
@@ -95,6 +102,33 @@
 <section id="module-csle_cluster.constants.constants">
 <span id="csle-cluster-constants-constants-module"></span><h2>csle_cluster.constants.constants module<a class="headerlink" href="#module-csle_cluster.constants.constants" title="Permalink to this heading"></a></h2>
 <p>Constants for csle-cluster</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csle_cluster.constants.constants.</span></span><span class="sig-name descname"><span class="pre">FIVE_G_CORE_TUNNELS</span></span><a class="reference internal" href="_modules/csle_cluster/constants/constants.html#FIVE_G_CORE_TUNNELS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Constants related to 5G core tunnels</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT">
+<span class="sig-name descname"><span class="pre">FIVE_G_CORE_TUNNELS_DICT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNELS_DICT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNEL_BASE_PORT">
+<span class="sig-name descname"><span class="pre">FIVE_G_CORE_TUNNEL_BASE_PORT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">19000</span></em><a class="headerlink" href="#csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_TUNNEL_BASE_PORT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_WEBUI_PORT">
+<span class="sig-name descname"><span class="pre">FIVE_G_CORE_WEBUI_PORT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">9999</span></em><a class="headerlink" href="#csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.FIVE_G_CORE_WEBUI_PORT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.THREAD_PROPERTY">
+<span class="sig-name descname"><span class="pre">THREAD_PROPERTY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'thread'</span></em><a class="headerlink" href="#csle_cluster.constants.constants.FIVE_G_CORE_TUNNELS.THREAD_PROPERTY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <dl class="py class">
 <dt class="sig sig-object py" id="csle_cluster.constants.constants.KIBANA_TUNNELS">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csle_cluster.constants.constants.</span></span><span class="sig-name descname"><span class="pre">KIBANA_TUNNELS</span></span><a class="reference internal" href="_modules/csle_cluster/constants/constants.html#KIBANA_TUNNELS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_cluster.constants.constants.KIBANA_TUNNELS" title="Permalink to this definition"></a></dt>

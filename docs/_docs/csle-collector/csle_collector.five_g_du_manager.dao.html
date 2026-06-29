@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>csle_collector.five_g_du_manager.dao package &mdash; csle-collector 0.10.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> csle-collector
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="csle_collector.client_manager.html">csle_collector.client_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csle_collector.constants.html">csle_collector.constants package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csle_collector.docker_stats_manager.html">csle_collector.docker_stats_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csle_collector.elk_manager.html">csle_collector.elk_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csle_collector.host_manager.html">csle_collector.host_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csle_collector.kafka_manager.html">csle_collector.kafka_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csle_collector.ossec_ids_manager.html">csle_collector.ossec_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csle_collector.snort_ids_manager.html">csle_collector.snort_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="csle_collector.traffic_manager.html">csle_collector.traffic_manager package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">csle-collector</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">csle_collector.five_g_du_manager.dao package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/csle_collector.five_g_du_manager.dao.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="csle-collector-five-g-du-manager-dao-package">
+<h1>csle_collector.five_g_du_manager.dao package<a class="headerlink" href="#csle-collector-five-g-du-manager-dao-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics">
+<span id="csle-collector-five-g-du-manager-dao-five-g-du-app-resource-usage-metrics-module"></span><h2>csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics module<a class="headerlink" href="#module-csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.</span></span><span class="sig-name descname"><span class="pre">FiveGDUAppResourceUsageMetrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cpu_usage_percent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">memory_usage_mb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">power_consumption_watts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">JSONSerializable</span></code></p>
+<p>DTO class containing srsRAN DU Application Resource Usage metrics.
+Captures system-level performance indicators for the application process.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics"><span class="pre">FiveGDUAppResourceUsageMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.copy" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a copy of the object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.from_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics"><span class="pre">FiveGDUAppResourceUsageMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.from_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts a dict representation to an instance.
+Expects the flat dictionary format produced by to_dict().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>d</strong> – the dict to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.from_json_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_json_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics"><span class="pre">FiveGDUAppResourceUsageMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics.from_json_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.from_json_file" title="Permalink to this definition"></a></dt>
+<dd><p>Reads a json file and converts it to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_file_path</strong> – the json file path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the converted DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.from_kafka_record">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics"><span class="pre">FiveGDUAppResourceUsageMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics.from_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.from_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the Kafka record string to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> – the kafka record</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.from_ws_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ws_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics"><span class="pre">FiveGDUAppResourceUsageMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics.from_ws_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.from_ws_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the raw dictionary from the WebSocket JSON stream to an instance.
+Handles the nested “app_resource_usage” structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> – the raw dictionary from srsRAN WebSocket</p></li>
+<li><p><strong>ip</strong> – the IP of the source DU</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.num_attributes">
+<span class="sig-name descname"><span class="pre">num_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics.num_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.num_attributes" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of attributes of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.schema">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics"><span class="pre">FiveGDUAppResourceUsageMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics.schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.schema" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>get the schema of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.to_dict" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dict representation of the instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.to_kafka_record">
+<span class="sig-name descname"><span class="pre">to_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics.to_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.to_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the DTO into a Kafka record string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ip</strong> – the IP to add to the record in addition to the metrics</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a comma separated string representing the kafka record</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.update_with_kafka_record">
+<span class="sig-name descname"><span class="pre">update_with_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_app_resource_usage_metrics.html#FiveGDUAppResourceUsageMetrics.update_with_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_app_resource_usage_metrics.FiveGDUAppResourceUsageMetrics.update_with_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the DTO based on a kafka record</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> – the kafka record</p></li>
+<li><p><strong>ip</strong> – the host ip</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics">
+<span id="csle-collector-five-g-du-manager-dao-five-g-du-buffer-pool-metrics-module"></span><h2>csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics module<a class="headerlink" href="#module-csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.</span></span><span class="sig-name descname"><span class="pre">FiveGDUBufferPoolMetrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">central_cache_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">JSONSerializable</span></code></p>
+<p>DTO class containing srsRAN DU Buffer Pool metrics</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics"><span class="pre">FiveGDUBufferPoolMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.copy" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a copy of the object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.from_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics"><span class="pre">FiveGDUBufferPoolMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.from_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts a dict representation to an instance.
+Expects the flat dictionary format produced by to_dict().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>d</strong> – the dict to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.from_json_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_json_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics"><span class="pre">FiveGDUBufferPoolMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics.from_json_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.from_json_file" title="Permalink to this definition"></a></dt>
+<dd><p>Reads a json file and converts it to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_file_path</strong> – the json file path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the converted DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.from_kafka_record">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics"><span class="pre">FiveGDUBufferPoolMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics.from_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.from_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the Kafka record string to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> – the kafka record</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.from_ws_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ws_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics"><span class="pre">FiveGDUBufferPoolMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics.from_ws_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.from_ws_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the raw dictionary from the WebSocket JSON stream to an instance.
+Handles the nested “buffer_pool” structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> – the raw dictionary from srsRAN WebSocket</p></li>
+<li><p><strong>ip</strong> – the IP of the source DU</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.num_attributes">
+<span class="sig-name descname"><span class="pre">num_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics.num_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.num_attributes" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of attributes of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.schema">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics"><span class="pre">FiveGDUBufferPoolMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics.schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.schema" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>get the schema of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.to_dict" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dict representation of the instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.to_kafka_record">
+<span class="sig-name descname"><span class="pre">to_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics.to_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.to_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the DTO into a Kafka record string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ip</strong> – the IP to add to the record in addition to the metrics</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a comma separated string representing the kafka record</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.update_with_kafka_record">
+<span class="sig-name descname"><span class="pre">update_with_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_buffer_pool_metrics.html#FiveGDUBufferPoolMetrics.update_with_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_buffer_pool_metrics.FiveGDUBufferPoolMetrics.update_with_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the DTO based on a kafka record</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> – the kafka record</p></li>
+<li><p><strong>ip</strong> – the host ip</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics">
+<span id="csle-collector-five-g-du-manager-dao-five-g-du-cell-metrics-module"></span><h2>csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics module<a class="headerlink" href="#module-csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.</span></span><span class="sig-name descname"><span class="pre">FiveGDUCellMetrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average_latency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_latency</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pucch_tot_rb_usage_avg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">active_ues</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dl_brate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ul_brate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dl_mcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ul_mcs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pusch_snr_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pucch_snr_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cqi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dl_bler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ul_bler</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">JSONSerializable</span></code></p>
+<p>DTO class containing srsRAN DU Cell metrics</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics"><span class="pre">FiveGDUCellMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.copy" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a copy of the object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics"><span class="pre">FiveGDUCellMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts a dict representation to an instance.
+Expects the flat dictionary format produced by to_dict().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>d</strong> – the dict to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_json_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_json_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics"><span class="pre">FiveGDUCellMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics.from_json_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_json_file" title="Permalink to this definition"></a></dt>
+<dd><p>Reads a json file and converts it to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_file_path</strong> – the json file path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the converted DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_kafka_record">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics"><span class="pre">FiveGDUCellMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics.from_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the Kafka record string to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> – the kafka record</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_ws_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ws_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics"><span class="pre">FiveGDUCellMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics.from_ws_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.from_ws_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the raw dictionary from the WebSocket JSON stream to an instance.
+Handles the nested “cells” list and aggregates UE metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> – the raw dictionary from srsRAN WebSocket</p></li>
+<li><p><strong>ip</strong> – the IP of the source DU</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.num_attributes">
+<span class="sig-name descname"><span class="pre">num_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics.num_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.num_attributes" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of attributes of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.schema">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics"><span class="pre">FiveGDUCellMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics.schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.schema" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>get the schema of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.to_dict" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dict representation of the instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.to_kafka_record">
+<span class="sig-name descname"><span class="pre">to_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics.to_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.to_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the DTO into a Kafka record string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ip</strong> – the IP to add to the record in addition to the metrics</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a comma separated string representing the kafka record</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.update_with_kafka_record">
+<span class="sig-name descname"><span class="pre">update_with_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_cell_metrics.html#FiveGDUCellMetrics.update_with_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_cell_metrics.FiveGDUCellMetrics.update_with_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the DTO based on a kafka record</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> – the kafka record</p></li>
+<li><p><strong>ip</strong> – the host ip</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-csle_collector.five_g_du_manager.dao.five_g_du_low_metrics">
+<span id="csle-collector-five-g-du-manager-dao-five-g-du-low-metrics-module"></span><h2>csle_collector.five_g_du_manager.dao.five_g_du_low_metrics module<a class="headerlink" href="#module-csle_collector.five_g_du_manager.dao.five_g_du_low_metrics" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.</span></span><span class="sig-name descname"><span class="pre">FiveGDULowMetrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dl_avg_latency_us</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dl_cpu_usage_percent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dl_max_latency_us</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dl_fec_tput_mbps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ul_avg_latency_us</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ul_cpu_usage_percent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ul_max_latency_us</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ul_sinr_db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ul_ch_est_latency_us</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ul_ldpc_dec_latency_us</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ul_fec_tput_mbps</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">JSONSerializable</span></code></p>
+<p>DTO class containing srsRAN DU Low-PHY metrics.
+Captures Downlink (DL) and Uplink (UL) performance at the physical layer.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics"><span class="pre">FiveGDULowMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.copy" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a copy of the object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.from_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics"><span class="pre">FiveGDULowMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.from_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts a dict representation to an instance.
+Expects the flat dictionary format produced by to_dict().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>d</strong> – the dict to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.from_json_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_json_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics"><span class="pre">FiveGDULowMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics.from_json_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.from_json_file" title="Permalink to this definition"></a></dt>
+<dd><p>Reads a json file and converts it to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_file_path</strong> – the json file path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the converted DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.from_kafka_record">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics"><span class="pre">FiveGDULowMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics.from_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.from_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the Kafka record string to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> – the kafka record</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.from_ws_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ws_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics"><span class="pre">FiveGDULowMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics.from_ws_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.from_ws_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the raw dictionary from the WebSocket JSON stream to an instance.
+Handles the nested “du_low” structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> – the raw dictionary from srsRAN WebSocket</p></li>
+<li><p><strong>ip</strong> – the IP of the source DU</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.num_attributes">
+<span class="sig-name descname"><span class="pre">num_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics.num_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.num_attributes" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of attributes of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.schema">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics"><span class="pre">FiveGDULowMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics.schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.schema" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>get the schema of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.to_dict" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dict representation of the instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.to_kafka_record">
+<span class="sig-name descname"><span class="pre">to_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics.to_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.to_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the DTO into a Kafka record string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ip</strong> – the IP to add to the record in addition to the metrics</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a comma separated string representing the kafka record</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.update_with_kafka_record">
+<span class="sig-name descname"><span class="pre">update_with_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_low_metrics.html#FiveGDULowMetrics.update_with_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_low_metrics.FiveGDULowMetrics.update_with_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the DTO based on a kafka record</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> – the kafka record</p></li>
+<li><p><strong>ip</strong> – the host ip</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-csle_collector.five_g_du_manager.dao.five_g_du_metrics">
+<span id="csle-collector-five-g-du-manager-dao-five-g-du-metrics-module"></span><h2>csle_collector.five_g_du_manager.dao.five_g_du_metrics module<a class="headerlink" href="#module-csle_collector.five_g_du_manager.dao.five_g_du_metrics" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csle_collector.five_g_du_manager.dao.five_g_du_metrics.</span></span><span class="sig-name descname"><span class="pre">FiveGDUMetrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pci</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">average_latency_us</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cpu_usage_percent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_latency_us</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_latency_us</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">JSONSerializable</span></code></p>
+<p>DTO class containing srsRAN DU High-MAC metrics</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics"><span class="pre">FiveGDUMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.copy" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a copy of the object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.from_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics"><span class="pre">FiveGDUMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.from_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts a dict representation to an instance.
+Expects the flat dictionary format produced by to_dict().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>d</strong> – the dict to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.from_json_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_json_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics"><span class="pre">FiveGDUMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics.from_json_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.from_json_file" title="Permalink to this definition"></a></dt>
+<dd><p>Reads a json file and converts it to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_file_path</strong> – the json file path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the converted DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.from_kafka_record">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics"><span class="pre">FiveGDUMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics.from_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.from_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the Kafka record string to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> – the kafka record</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.from_ws_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ws_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics"><span class="pre">FiveGDUMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics.from_ws_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.from_ws_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the raw dictionary from the WebSocket JSON stream to an instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> – the raw dictionary from srsRAN WebSocket</p></li>
+<li><p><strong>ip</strong> – the IP of the source DU</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.num_attributes">
+<span class="sig-name descname"><span class="pre">num_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics.num_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.num_attributes" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of attributes of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.schema">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics"><span class="pre">FiveGDUMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics.schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.schema" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>get the schema of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.to_dict" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dict representation of the instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.to_kafka_record">
+<span class="sig-name descname"><span class="pre">to_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics.to_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.to_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the DTO into a Kafka record string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ip</strong> – the IP to add to the record in addition to the metrics</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a comma separated string representing the kafka record</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.update_with_kafka_record">
+<span class="sig-name descname"><span class="pre">update_with_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_metrics.html#FiveGDUMetrics.update_with_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_metrics.FiveGDUMetrics.update_with_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the DTO based on a kafka record</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> – the kafka record</p></li>
+<li><p><strong>ip</strong> – the host ip</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics">
+<span id="csle-collector-five-g-du-manager-dao-five-g-du-rlc-metrics-module"></span><h2>csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics module<a class="headerlink" href="#module-csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.</span></span><span class="sig-name descname"><span class="pre">FiveGDURLCMetrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ue_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">drb_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_num_pdus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_num_bytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_num_lost_pdus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rx_num_malformed_pdus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx_num_sdus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx_num_bytes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx_num_dropped_sdus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx_num_discarded_sdus</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx_max_pdu_latency_ns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx_sum_pdu_latency_ns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tx_sum_sdu_latency_us</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">JSONSerializable</span></code></p>
+<p>DTO class containing srsRAN DU RLC layer metrics</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics"><span class="pre">FiveGDURLCMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.copy" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a copy of the object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.from_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics"><span class="pre">FiveGDURLCMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics.from_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.from_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts a dict representation to an instance.
+Expects the flat dictionary format produced by to_dict().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>d</strong> – the dict to convert</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.from_json_file">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_json_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_file_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics"><span class="pre">FiveGDURLCMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics.from_json_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.from_json_file" title="Permalink to this definition"></a></dt>
+<dd><p>Reads a json file and converts it to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>json_file_path</strong> – the json file path</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the converted DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.from_kafka_record">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics"><span class="pre">FiveGDURLCMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics.from_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.from_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the Kafka record string to a DTO</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>record</strong> – the kafka record</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.from_ws_dict">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ws_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics"><span class="pre">FiveGDURLCMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics.from_ws_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.from_ws_dict" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the raw dictionary from the WebSocket JSON stream to an instance.
+Handles the nested “rlc_metrics” -&gt; “rx”/”tx” structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> – the raw dictionary from srsRAN WebSocket</p></li>
+<li><p><strong>ip</strong> – the IP of the source DU</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the created instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.num_attributes">
+<span class="sig-name descname"><span class="pre">num_attributes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics.num_attributes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.num_attributes" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of attributes of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.schema">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">schema</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics" title="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics"><span class="pre">FiveGDURLCMetrics</span></a></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics.schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.schema" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>get the schema of the DTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.to_dict" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dict representation of the instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.to_kafka_record">
+<span class="sig-name descname"><span class="pre">to_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics.to_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.to_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the DTO into a Kafka record string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ip</strong> – the IP to add to the record in addition to the metrics</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a comma separated string representing the kafka record</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.update_with_kafka_record">
+<span class="sig-name descname"><span class="pre">update_with_kafka_record</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/csle_collector/five_g_du_manager/dao/five_g_du_rlc_metrics.html#FiveGDURLCMetrics.update_with_kafka_record"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_collector.five_g_du_manager.dao.five_g_du_rlc_metrics.FiveGDURLCMetrics.update_with_kafka_record" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the DTO based on a kafka record</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>record</strong> – the kafka record</p></li>
+<li><p><strong>ip</strong> – the host ip</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-csle_collector.five_g_du_manager.dao">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-csle_collector.five_g_du_manager.dao" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2026, Kim Hammar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

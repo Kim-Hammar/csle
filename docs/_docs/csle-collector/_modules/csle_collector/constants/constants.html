@@ -76,13 +76,13 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Constants for csle collector</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
 
 <span class="n">LATEST_VERSION</span> <span class="o">=</span> <span class="s2">&quot;latest&quot;</span>
 <span class="n">INSTALL</span> <span class="o">=</span> <span class="s2">&quot;sudo /root/miniconda3/bin/pip install -U --no-cache-dir csle-collector &quot;</span>
 
 
-<div class="viewcode-block" id="DICT_PROPERTIES"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.DICT_PROPERTIES">[docs]</a><span class="k">class</span> <span class="nc">DICT_PROPERTIES</span><span class="p">:</span>
+<div class="viewcode-block" id="DICT_PROPERTIES"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.DICT_PROPERTIES">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">DICT_PROPERTIES</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    String constants representing dict properties</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -90,7 +90,7 @@
     <span class="n">TOPICS</span> <span class="o">=</span> <span class="s2">&quot;topics&quot;</span></div>
 
 
-<div class="viewcode-block" id="HTTP"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.HTTP">[docs]</a><span class="k">class</span> <span class="nc">HTTP</span><span class="p">:</span>
+<div class="viewcode-block" id="HTTP"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.HTTP">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">HTTP</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to HTTP</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -106,7 +106,7 @@
     <span class="n">BAD_REQUEST_RESPONSE_CODE</span> <span class="o">=</span> <span class="mi">400</span></div>
 
 
-<div class="viewcode-block" id="BEATS"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.BEATS">[docs]</a><span class="k">class</span> <span class="nc">BEATS</span><span class="p">:</span>
+<div class="viewcode-block" id="BEATS"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.BEATS">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">BEATS</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to beats</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -145,7 +145,7 @@
     <span class="n">METRICSETS_PROPERTY</span> <span class="o">=</span> <span class="s2">&quot;metricsets&quot;</span></div>
 
 
-<div class="viewcode-block" id="FILEBEAT"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.FILEBEAT">[docs]</a><span class="k">class</span> <span class="nc">FILEBEAT</span><span class="p">:</span>
+<div class="viewcode-block" id="FILEBEAT"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.FILEBEAT">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FILEBEAT</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to Filebeat</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -174,11 +174,10 @@
     <span class="n">FILEBEAT_STOP</span> <span class="o">=</span> <span class="s2">&quot;sudo service filebeat stop&quot;</span></div>
 
 
-<div class="viewcode-block" id="PACKETBEAT"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.PACKETBEAT">[docs]</a><span class="k">class</span> <span class="nc">PACKETBEAT</span><span class="p">:</span>
+<div class="viewcode-block" id="PACKETBEAT"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.PACKETBEAT">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">PACKETBEAT</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to Packetbeat</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">FILEBEAT_GROUP_ID</span> <span class="o">=</span> <span class="s2">&quot;packetbeat&quot;</span>
     <span class="n">CONFIG_DIR</span> <span class="o">=</span> <span class="s2">&quot;/etc/packetbeat/&quot;</span>
     <span class="n">CONFIG_FILE</span> <span class="o">=</span> <span class="s2">&quot;/etc/packetbeat/packetbeat.yml&quot;</span>
     <span class="n">SETUP_CMD</span> <span class="o">=</span> <span class="s2">&quot;packetbeat setup -e&quot;</span>
@@ -224,7 +223,7 @@
     <span class="n">SIP_PORTS</span> <span class="o">=</span> <span class="p">[</span><span class="mi">9243</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="METRICBEAT"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.METRICBEAT">[docs]</a><span class="k">class</span> <span class="nc">METRICBEAT</span><span class="p">:</span>
+<div class="viewcode-block" id="METRICBEAT"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.METRICBEAT">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">METRICBEAT</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to Metricbeat</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -266,7 +265,7 @@
     <span class="n">SUMMARY_METRIC</span> <span class="o">=</span> <span class="s2">&quot;memory&quot;</span></div>
 
 
-<div class="viewcode-block" id="HEARTBEAT"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.HEARTBEAT">[docs]</a><span class="k">class</span> <span class="nc">HEARTBEAT</span><span class="p">:</span>
+<div class="viewcode-block" id="HEARTBEAT"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.HEARTBEAT">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">HEARTBEAT</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to heartbeat</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -283,7 +282,7 @@
     <span class="n">CSLE_MONITOR_SERVICE_ID</span> <span class="o">=</span> <span class="s2">&quot;csle-topology-connection-service-id&quot;</span></div>
 
 
-<div class="viewcode-block" id="GRPC"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.GRPC">[docs]</a><span class="k">class</span> <span class="nc">GRPC</span><span class="p">:</span>
+<div class="viewcode-block" id="GRPC"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.GRPC">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">GRPC</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to GRPC</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -292,7 +291,7 @@
     <span class="n">OPERATION_TIMEOUT_SECONDS</span> <span class="o">=</span> <span class="mi">30000</span></div>
 
 
-<div class="viewcode-block" id="SYSTEM"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.SYSTEM">[docs]</a><span class="k">class</span> <span class="nc">SYSTEM</span><span class="p">:</span>
+<div class="viewcode-block" id="SYSTEM"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.SYSTEM">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SYSTEM</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to system</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -300,7 +299,7 @@
     <span class="n">SYSLOG</span> <span class="o">=</span> <span class="s2">&quot;/var/log/syslog&quot;</span></div>
 
 
-<div class="viewcode-block" id="LOG_FILES"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.LOG_FILES">[docs]</a><span class="k">class</span> <span class="nc">LOG_FILES</span><span class="p">:</span>
+<div class="viewcode-block" id="LOG_FILES"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.LOG_FILES">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">LOG_FILES</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to the log files</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -329,10 +328,20 @@
     <span class="n">MINBFT_MANAGER_LOG_DIR</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
     <span class="n">MINBFT_CLIENT_MANAGER_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;minbft_manager.log&quot;</span>
     <span class="n">MINBFT_CLIENT_MANAGER_LOG_DIR</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
-    <span class="n">DEFAULT_LOG_FILE_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/*.log&quot;</span><span class="p">,</span> <span class="s2">&quot;/var/log/*.log&quot;</span><span class="p">,</span> <span class="s2">&quot;/var/log/*/*.log&quot;</span><span class="p">,</span> <span class="s2">&quot;/var/log/*/*/*.log&quot;</span><span class="p">]</span></div>
+    <span class="n">DEFAULT_LOG_FILE_PATHS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;/*.log&quot;</span><span class="p">,</span> <span class="s2">&quot;/var/log/*.log&quot;</span><span class="p">,</span> <span class="s2">&quot;/var/log/*/*.log&quot;</span><span class="p">,</span> <span class="s2">&quot;/var/log/*/*/*.log&quot;</span><span class="p">]</span>
+    <span class="n">FIVE_G_CORE_MANAGER_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;five_g_core_manager.log&quot;</span>
+    <span class="n">FIVE_G_CORE_MANAGER_LOG_DIR</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+    <span class="n">FIVE_G_CU_MANAGER_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;five_g_cu_manager.log&quot;</span>
+    <span class="n">FIVE_G_CU_MANAGER_LOG_DIR</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+    <span class="n">FIVE_G_DU_MANAGER_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;five_g_du_manager.log&quot;</span>
+    <span class="n">FIVE_G_DU_MANAGER_LOG_DIR</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span>
+    <span class="n">FIVE_G_CORE_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;/var/log/open5gs/amf.log&quot;</span>
+    <span class="n">FIVE_G_DU_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;/du.log&quot;</span>
+    <span class="n">FIVE_G_CU_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;/cu.log&quot;</span>
+    <span class="n">FIVE_G_UE_LOG_FILE</span> <span class="o">=</span> <span class="s2">&quot;/ue.log&quot;</span></div>
 
 
-<div class="viewcode-block" id="MANAGER_PORTS"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.MANAGER_PORTS">[docs]</a><span class="k">class</span> <span class="nc">MANAGER_PORTS</span><span class="p">:</span>
+<div class="viewcode-block" id="MANAGER_PORTS"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.MANAGER_PORTS">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">MANAGER_PORTS</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to the ports of managers</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -344,17 +353,20 @@
     <span class="n">OSSEC_IDS_MANAGER_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">50047</span>
     <span class="n">DOCKER_STATS_MANAGER_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">50046</span>
     <span class="n">ELK_MANAGER_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">50045</span>
-    <span class="n">KAFKA_MANAGER_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">50051</span></div>
+    <span class="n">KAFKA_MANAGER_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">50051</span>
+    <span class="n">FIVE_G_CORE_MANAGER_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">50052</span>
+    <span class="n">FIVE_G_CU_MANAGER_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">50053</span>
+    <span class="n">FIVE_G_DU_MANAGER_DEFAULT_PORT</span> <span class="o">=</span> <span class="mi">50054</span></div>
 
 
-<div class="viewcode-block" id="GRPC_WORKERS"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.GRPC_WORKERS">[docs]</a><span class="k">class</span> <span class="nc">GRPC_WORKERS</span><span class="p">:</span>
+<div class="viewcode-block" id="GRPC_WORKERS"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.GRPC_WORKERS">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">GRPC_WORKERS</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to the number of GRPC workers</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">DEFAULT_MAX_NUM_WORKERS</span> <span class="o">=</span> <span class="mi">10</span></div>
+    <span class="n">DEFAULT_MAX_NUM_WORKERS</span> <span class="o">=</span> <span class="mi">100</span></div>
 
 
-<div class="viewcode-block" id="TRAFFIC_GENERATOR"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.TRAFFIC_GENERATOR">[docs]</a><span class="k">class</span> <span class="nc">TRAFFIC_GENERATOR</span><span class="p">:</span>
+<div class="viewcode-block" id="TRAFFIC_GENERATOR"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.TRAFFIC_GENERATOR">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">TRAFFIC_GENERATOR</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to the traffic generator</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -367,7 +379,7 @@
     <span class="n">STOP_TRAFFIC_GENERATOR</span> <span class="o">=</span> <span class="s2">&quot;sudo pkill -f traffic_generator.sh&quot;</span></div>
 
 
-<div class="viewcode-block" id="DOCKER_STATS"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.DOCKER_STATS">[docs]</a><span class="k">class</span> <span class="nc">DOCKER_STATS</span><span class="p">:</span>
+<div class="viewcode-block" id="DOCKER_STATS"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.DOCKER_STATS">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">DOCKER_STATS</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to Docker stats</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -408,7 +420,7 @@
     <span class="n">UNIX_DOCKER_SOCK_URL</span> <span class="o">=</span> <span class="s2">&quot;unix://var/run/docker.sock&quot;</span></div>
 
 
-<div class="viewcode-block" id="OSSEC"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.OSSEC">[docs]</a><span class="k">class</span> <span class="nc">OSSEC</span><span class="p">:</span>
+<div class="viewcode-block" id="OSSEC"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.OSSEC">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">OSSEC</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to the OSSEC HIDS</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -490,7 +502,7 @@
     <span class="n">OSSEC_RUNNING_SEARCH</span> <span class="o">=</span> <span class="s2">&quot;ossec-execd is running&quot;</span></div>
 
 
-<div class="viewcode-block" id="SNORT_IDS_ROUTER"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.SNORT_IDS_ROUTER">[docs]</a><span class="k">class</span> <span class="nc">SNORT_IDS_ROUTER</span><span class="p">:</span>
+<div class="viewcode-block" id="SNORT_IDS_ROUTER"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.SNORT_IDS_ROUTER">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SNORT_IDS_ROUTER</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to the Snort IDS</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -586,7 +598,7 @@
     <span class="n">SEARCH_SNORT_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;/etc/snort/snort.conf&quot;</span></div>
 
 
-<div class="viewcode-block" id="HOST_METRICS"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.HOST_METRICS">[docs]</a><span class="k">class</span> <span class="nc">HOST_METRICS</span><span class="p">:</span>
+<div class="viewcode-block" id="HOST_METRICS"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.HOST_METRICS">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">HOST_METRICS</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to the defender&#39;s sensor commands</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -598,14 +610,14 @@
     <span class="n">LIST_NUMBER_OF_PROCESSES</span> <span class="o">=</span> <span class="s2">&quot;ps -e | wc -l&quot;</span></div>
 
 
-<div class="viewcode-block" id="EXTERNAL_NETWORK"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.EXTERNAL_NETWORK">[docs]</a><span class="k">class</span> <span class="nc">EXTERNAL_NETWORK</span><span class="p">:</span>
+<div class="viewcode-block" id="EXTERNAL_NETWORK"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.EXTERNAL_NETWORK">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">EXTERNAL_NETWORK</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to the external network</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">NETWORK_ID_THIRD_OCTET</span> <span class="o">=</span> <span class="mi">1</span></div>
 
 
-<div class="viewcode-block" id="ELK_CONFIG"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.ELK_CONFIG">[docs]</a><span class="k">class</span> <span class="nc">ELK_CONFIG</span><span class="p">:</span>
+<div class="viewcode-block" id="ELK_CONFIG"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.ELK_CONFIG">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ELK_CONFIG</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to the ELK container configuration</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -614,7 +626,7 @@
     <span class="n">SUFFIX</span> <span class="o">=</span> <span class="s2">&quot;_1&quot;</span></div>
 
 
-<div class="viewcode-block" id="KAFKA_CONFIG"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.KAFKA_CONFIG">[docs]</a><span class="k">class</span> <span class="nc">KAFKA_CONFIG</span><span class="p">:</span>
+<div class="viewcode-block" id="KAFKA_CONFIG"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.KAFKA_CONFIG">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">KAFKA_CONFIG</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to the kafka container configuration</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -630,6 +642,22 @@
     <span class="n">SNORT_IDS_IP_LOG_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;snort_ids_ip_log&quot;</span>
     <span class="n">OSSEC_IDS_LOG_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;ossec_ids_log&quot;</span>
     <span class="n">HOST_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;host_metrics&quot;</span>
+    <span class="n">FIVE_G_CORE_AMF_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_core_amf_metrics&quot;</span>
+    <span class="n">FIVE_G_CORE_UPF_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_core_upf_metrics&quot;</span>
+    <span class="n">FIVE_G_CORE_MME_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_core_mme_metrics&quot;</span>
+    <span class="n">FIVE_G_CORE_SMF_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_core_smf_metrics&quot;</span>
+    <span class="n">FIVE_G_CORE_HSS_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_core_hss_metrics&quot;</span>
+    <span class="n">FIVE_G_CORE_PCRF_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_core_pcrf_metrics&quot;</span>
+    <span class="n">FIVE_G_CORE_PCF_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_core_pcf_metrics&quot;</span>
+    <span class="n">FIVE_G_DU_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_du_metrics&quot;</span>
+    <span class="n">FIVE_G_DU_CELL_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_du_cell_metrics&quot;</span>
+    <span class="n">FIVE_G_DU_LOW_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_du_low_metrics&quot;</span>
+    <span class="n">FIVE_G_DU_RLC_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_du_rlc_metrics&quot;</span>
+    <span class="n">FIVE_G_DU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_du_app_resource_usage_metrics&quot;</span>
+    <span class="n">FIVE_G_DU_BUFFER_POOL_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_du_buffer_pool_metrics&quot;</span>
+    <span class="n">FIVE_G_CU_CP_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_cu_cp_metrics&quot;</span>
+    <span class="n">FIVE_G_CU_APP_RESOURCE_USAGE_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_cu_app_resource_usage_metrics&quot;</span>
+    <span class="n">FIVE_G_CU_BUFFER_POOL_METRICS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;five_g_cu_buffer_pool_metrics&quot;</span>
     <span class="n">DOCKER_STATS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;docker_stats&quot;</span>
     <span class="n">DOCKER_HOST_STATS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;docker_host_stats&quot;</span>
     <span class="n">OPENFLOW_FLOW_STATS_TOPIC_NAME</span> <span class="o">=</span> <span class="s2">&quot;openflow_flow_stats&quot;</span>
@@ -704,6 +732,217 @@
         <span class="s2">&quot;total_num_transmitted_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;total_num_received_dropped&quot;</span><span class="p">,</span> <span class="s2">&quot;total_num_transmitted_dropped&quot;</span><span class="p">,</span>
         <span class="s2">&quot;total_num_received_frame_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;total_num_received_overrun_errors&quot;</span><span class="p">,</span>
         <span class="s2">&quot;total_num_received_crc_errors&quot;</span><span class="p">,</span> <span class="s2">&quot;total_num_collisions&quot;</span><span class="p">,</span> <span class="s2">&quot;avg_duration_nanoseconds&quot;</span><span class="p">,</span> <span class="s2">&quot;avg_duration_seconds&quot;</span><span class="p">]</span>
+    <span class="n">FIVE_G_CORE_AMF_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_amffunction_mm_confupdate&quot;</span><span class="p">,</span> <span class="s2">&quot;fivegs_amffunction_rm_reginitreq&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_amffunction_rm_regemergreq&quot;</span><span class="p">,</span> <span class="s2">&quot;fivegs_amffunction_mm_paging5greq&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_amffunction_rm_regperiodreq&quot;</span><span class="p">,</span> <span class="s2">&quot;fivegs_amffunction_mm_confupdatesucc&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_amffunction_rm_reginitsucc&quot;</span><span class="p">,</span> <span class="s2">&quot;fivegs_amffunction_amf_authreject&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_amffunction_rm_regmobreq&quot;</span><span class="p">,</span> <span class="s2">&quot;amf_session&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_amffunction_rm_regmobsucc&quot;</span><span class="p">,</span> <span class="s2">&quot;fivegs_amffunction_amf_authreq&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_amffunction_rm_regemergsucc&quot;</span><span class="p">,</span> <span class="s2">&quot;fivegs_amffunction_mm_paging5gsucc&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;ran_ue&quot;</span><span class="p">,</span> <span class="s2">&quot;fivegs_amffunction_rm_regperiodsucc&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;process_max_fds&quot;</span><span class="p">,</span> <span class="s2">&quot;process_virtual_memory_max_bytes&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;process_cpu_seconds_total&quot;</span><span class="p">,</span> <span class="s2">&quot;process_virtual_memory_bytes&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;process_start_time_seconds&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;process_start_time_seconds&quot;</span><span class="p">,</span> <span class="s2">&quot;process_open_fds&quot;</span><span class="p">]</span>
+    <span class="n">FIVE_G_CORE_UPF_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_ep_n3_gtp_indatapktn3upf&quot;</span><span class="p">,</span> <span class="s2">&quot;fivegs_ep_n3_gtp_outdatapktn3upf&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_upffunction_sm_n4sessionestabreq&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_upffunction_sm_n4sessionreport&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_upffunction_sm_n4sessionreportsucc&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;fivegs_upffunction_upf_sessionnbr&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;pfcp_peers_active&quot;</span><span class="p">,</span> <span class="s2">&quot;process_max_fds&quot;</span><span class="p">,</span> <span class="s2">&quot;process_virtual_memory_max_bytes&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;process_cpu_seconds_total&quot;</span><span class="p">,</span> <span class="s2">&quot;process_virtual_memory_bytes&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;process_resident_memory_bytes&quot;</span><span class="p">,</span> <span class="s2">&quot;process_start_time_seconds&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;process_open_fds&quot;</span><span class="p">]</span>
+    <span class="n">FIVE_G_CORE_MME_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;enb_ue&quot;</span><span class="p">,</span> <span class="s2">&quot;mme_session&quot;</span><span class="p">,</span> <span class="s2">&quot;enb&quot;</span><span class="p">,</span> <span class="s2">&quot;process_max_fds&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;process_virtual_memory_max_bytes&quot;</span><span class="p">,</span> <span class="s2">&quot;process_cpu_seconds_total&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;process_virtual_memory_bytes&quot;</span><span class="p">,</span> <span class="s2">&quot;process_resident_memory_bytes&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;process_start_time_seconds&quot;</span><span class="p">,</span> <span class="s2">&quot;process_open_fds&quot;</span><span class="p">]</span>
+    <span class="n">FIVE_G_CORE_SMF_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ip&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gn_rx_createpdpcontextreq&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gn_rx_deletepdpcontextreq&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gtp1_pdpctxs_active&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pfcp_peers_active&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_smffunction_sm_n4sessionreport&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ues_active&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gtp2_sessions_active&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;pfcp_sessions_active&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s5c_rx_createsession&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s5c_rx_deletesession&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gtp_new_node_failed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s5c_rx_parse_failed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_smffunction_sm_n4sessionreportsucc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_smffunction_sm_n4sessionestabreq&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;bearers_active&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gn_rx_parse_failed&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gtp_peers_active&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_smffunction_sm_sessionnbr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_smffunction_sm_pdusessioncreationreq&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_smffunction_sm_pdusessioncreationsucc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_smffunction_sm_qos_flow_nbr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_smffunction_sm_n4sessionestabfail&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_smffunction_sm_pdusessioncreationfail&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_max_fds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_virtual_memory_max_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_cpu_seconds_total&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_virtual_memory_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_resident_memory_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_start_time_seconds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_open_fds&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">FIVE_G_CORE_HSS_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ip&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_rx_lir&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_rx_uar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_tx_lia&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_rx_unknown&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_rx_sar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_pur&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;swx_rx_mar_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_tx_uaa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_pur_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_tx_clr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_tx_saa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_rx_lir_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_ulr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_cla&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_cla_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_air&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_rx_mar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;swx_rx_sar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_air_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_ida_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_tx_maa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;swx_rx_mar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_unknown&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_tx_pua&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;swx_rx_unknown&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_rx_mar_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_rx_uar_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_tx_ula&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_ulr_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_tx_aia&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_tx_idr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;s6a_rx_ida&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cx_rx_sar_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;swx_rx_sar_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;swx_tx_maa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;swx_tx_saa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hss_imsi&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hss_impi&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;hss_impu&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_max_fds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_virtual_memory_max_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_cpu_seconds_total&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_virtual_memory_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_resident_memory_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_start_time_seconds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_open_fds&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">FIVE_G_CORE_PCRF_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ip&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gx_rx_unknown&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gx_rx_ccr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gx_rx_ccr_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gx_rx_raa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gx_tx_cca&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gx_tx_rar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;gx_tx_rar_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rx_rx_unknown&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rx_rx_aar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rx_rx_aar_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rx_rx_asa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rx_rx_asa_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rx_rx_str_error&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rx_tx_aaa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rx_tx_sar&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;rx_tx_sta&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_max_fds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_virtual_memory_max_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_cpu_seconds_total&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_virtual_memory_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_resident_memory_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_start_time_seconds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_open_fds&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">FIVE_G_CORE_PCF_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;timestamp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ip&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_pcffunction_pa_policyamassoreq&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_pcffunction_pa_policyamassosucc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_pcffunction_pa_policysmassoreq&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_pcffunction_pa_policysmassosucc&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;fivegs_pcffunction_pa_sessionnbr&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_max_fds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_virtual_memory_max_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_cpu_seconds_total&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_virtual_memory_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_resident_memory_bytes&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_start_time_seconds&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;process_open_fds&quot;</span>
+    <span class="p">]</span>
+
+    <span class="n">FIVE_G_DU_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;pci&quot;</span><span class="p">,</span> <span class="s2">&quot;average_latency_us&quot;</span><span class="p">,</span> <span class="s2">&quot;cpu_usage_percent&quot;</span><span class="p">,</span> <span class="s2">&quot;max_latency_us&quot;</span><span class="p">,</span>
+                                  <span class="s2">&quot;min_latency_us&quot;</span><span class="p">]</span>
+
+    <span class="n">FIVE_G_DU_CELL_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;pci&quot;</span><span class="p">,</span> <span class="s2">&quot;average_latency&quot;</span><span class="p">,</span>
+                                       <span class="s2">&quot;max_latency&quot;</span><span class="p">,</span> <span class="s2">&quot;pucch_tot_rb_usage_avg&quot;</span><span class="p">,</span> <span class="s2">&quot;active_ues&quot;</span><span class="p">,</span>
+                                       <span class="s2">&quot;dl_brate&quot;</span><span class="p">,</span> <span class="s2">&quot;ul_brate&quot;</span><span class="p">,</span> <span class="s2">&quot;dl_mcs&quot;</span><span class="p">,</span> <span class="s2">&quot;ul_mcs&quot;</span><span class="p">,</span>
+                                       <span class="s2">&quot;pusch_snr_db&quot;</span><span class="p">,</span> <span class="s2">&quot;pucch_snr_db&quot;</span><span class="p">,</span> <span class="s2">&quot;cqi&quot;</span><span class="p">,</span> <span class="s2">&quot;dl_bler&quot;</span><span class="p">,</span>
+                                       <span class="s2">&quot;ul_bler&quot;</span><span class="p">]</span>
+
+    <span class="n">FIVE_G_DU_LOW_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;dl_avg_latency_us&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;dl_cpu_usage_percent&quot;</span><span class="p">,</span> <span class="s2">&quot;dl_max_latency_us&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;dl_fec_tput_mbps&quot;</span><span class="p">,</span> <span class="s2">&quot;ul_avg_latency_us&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;ul_cpu_usage_percent&quot;</span><span class="p">,</span> <span class="s2">&quot;ul_max_latency_us&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;ul_sinr_db&quot;</span><span class="p">,</span> <span class="s2">&quot;ul_ch_est_latency_us&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;ul_ldpc_dec_latency_us&quot;</span><span class="p">,</span> <span class="s2">&quot;ul_fec_tput_mbps&quot;</span><span class="p">]</span>
+
+    <span class="n">FIVE_G_DU_RLC_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;ue_id&quot;</span><span class="p">,</span> <span class="s2">&quot;drb_id&quot;</span><span class="p">,</span> <span class="s2">&quot;rx_num_pdus&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;rx_num_bytes&quot;</span><span class="p">,</span> <span class="s2">&quot;rx_num_lost_pdus&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;rx_num_malformed_pdus&quot;</span><span class="p">,</span> <span class="s2">&quot;tx_num_sdus&quot;</span><span class="p">,</span> <span class="s2">&quot;tx_num_bytes&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;tx_num_dropped_sdus&quot;</span><span class="p">,</span> <span class="s2">&quot;tx_num_discarded_sdus&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;tx_max_pdu_latency_ns&quot;</span><span class="p">,</span> <span class="s2">&quot;tx_sum_pdu_latency_ns&quot;</span><span class="p">,</span>
+                                      <span class="s2">&quot;tx_sum_sdu_latency_us&quot;</span><span class="p">]</span>
+
+    <span class="n">FIVE_G_DU_APP_RESOURCE_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;cpu_usage_percent&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;memory_usage_mb&quot;</span><span class="p">,</span> <span class="s2">&quot;power_consumption_watts&quot;</span><span class="p">]</span>
+
+    <span class="n">FIVE_G_DU_BUFFER_POOL_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;central_cache_size&quot;</span><span class="p">]</span>
+
+    <span class="n">FIVE_G_CU_CP_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;cu_cp_id&quot;</span><span class="p">,</span> <span class="s2">&quot;amf_connected&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;nof_cn_initiated_paging_requests&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;nof_pdu_sessions_requested_to_setup&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;nof_pdu_sessions_successfully_setup&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;nof_pdu_sessions_failed_to_setup_total&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;nof_handover_preparations_requested&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;nof_successful_handover_preparations&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;rrc_establishments_attempted_total&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;rrc_establishments_successful_total&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;rrc_establishments_attempted_mo_data&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;rrc_establishments_successful_mo_data&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;rrc_establishments_attempted_mo_sig&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;rrc_establishments_successful_mo_sig&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;max_nof_rrc_connections&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;mean_nof_rrc_connections&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;rrc_reestablishments_attempted&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;rrc_reestablishments_successful&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;nof_handover_executions_requested&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;nof_successful_handover_executions&quot;</span><span class="p">]</span>
+
+    <span class="n">FIVE_G_CU_APP_RESOURCE_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;cpu_usage_percent&quot;</span><span class="p">,</span>
+                                               <span class="s2">&quot;memory_usage_mb&quot;</span><span class="p">,</span> <span class="s2">&quot;power_consumption_watts&quot;</span><span class="p">]</span>
+
+    <span class="n">FIVE_G_CU_BUFFER_POOL_TOPIC_ATTRIBUTES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="s2">&quot;ip&quot;</span><span class="p">,</span> <span class="s2">&quot;central_cache_size&quot;</span><span class="p">]</span>
 
     <span class="n">SNORT_IDS_ALERTS_LABELS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="s2">&quot;total_alerts&quot;</span><span class="p">,</span> <span class="s2">&quot;warning_alerts&quot;</span><span class="p">,</span> <span class="s2">&quot;severe_alerts&quot;</span><span class="p">,</span> <span class="s2">&quot;alerts_weighted_by_priority&quot;</span><span class="p">,</span>
@@ -756,7 +995,7 @@
                                   <span class="n">SNORT_IDS_ALERTS_LABELS</span> <span class="o">+</span> <span class="n">OSSEC_IDS_ALERTS_LABELS</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="KAFKA"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.KAFKA">[docs]</a><span class="k">class</span> <span class="nc">KAFKA</span><span class="p">:</span>
+<div class="viewcode-block" id="KAFKA"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.KAFKA">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">KAFKA</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    String constants for managing Kafka</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -774,10 +1013,11 @@
     <span class="n">INTERNAL_IP_PLACEHOLDER</span> <span class="o">=</span> <span class="s2">&quot;INTERNAL_IP&quot;</span>
     <span class="n">EXTERNAL_IP_PLACEHOLDER</span> <span class="o">=</span> <span class="s2">&quot;EXTERNAL_IP&quot;</span>
     <span class="n">DIR</span> <span class="o">=</span> <span class="s2">&quot;/usr/local/kafka/logs/&quot;</span>
-    <span class="n">KAFKA_CONFIG_FILE</span> <span class="o">=</span> <span class="s2">&quot;/usr/local/kafka/config/server.properties&quot;</span></div>
+    <span class="n">KAFKA_CONFIG_FILE</span> <span class="o">=</span> <span class="s2">&quot;/usr/local/kafka/config/server.properties&quot;</span>
+    <span class="n">EMPTY_ADDR</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0&quot;</span></div>
 
 
-<div class="viewcode-block" id="ELK"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.ELK">[docs]</a><span class="k">class</span> <span class="nc">ELK</span><span class="p">:</span>
+<div class="viewcode-block" id="ELK"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.ELK">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ELK</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    String constants for managing the ELK stack</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -800,7 +1040,7 @@
     <span class="n">LOGSTASH_PORT</span> <span class="o">=</span> <span class="mi">5044</span></div>
 
 
-<div class="viewcode-block" id="RYU"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.RYU">[docs]</a><span class="k">class</span> <span class="nc">RYU</span><span class="p">:</span>
+<div class="viewcode-block" id="RYU"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.RYU">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">RYU</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    String constants for managing Ryu</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -820,7 +1060,7 @@
     <span class="n">REQUEST_TIMEOUT_S</span> <span class="o">=</span> <span class="mi">5</span></div>
 
 
-<div class="viewcode-block" id="INTERFACES"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.INTERFACES">[docs]</a><span class="k">class</span> <span class="nc">INTERFACES</span><span class="p">:</span>
+<div class="viewcode-block" id="INTERFACES"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.INTERFACES">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">INTERFACES</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    String constrants related to networking interfaces</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -829,16 +1069,400 @@
     <span class="n">ADDR</span> <span class="o">=</span> <span class="s2">&quot;addr&quot;</span></div>
 
 
-<div class="viewcode-block" id="SPARK"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.SPARK">[docs]</a><span class="k">class</span> <span class="nc">SPARK</span><span class="p">:</span>
+<div class="viewcode-block" id="SPARK"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.SPARK">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SPARK</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Constants related to Spark</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">START_SPARK_MASTER</span> <span class="o">=</span> <span class="s2">&quot;/spark-3.3.3-bin-hadoop3/sbin/start-master.sh&quot;</span>
-    <span class="n">START_SPARK_WORKER</span> <span class="o">=</span> <span class="s2">&quot;/spark-3.3.3-bin-hadoop3/sbin/start-worker.sh spark://15.13.1.161:7077 -m 2G -c 1&quot;</span>
+    <span class="n">START_SPARK_MASTER</span> <span class="o">=</span> <span class="s2">&quot;/spark-3.5.7-bin-hadoop3/sbin/start-master.sh&quot;</span>
+    <span class="n">START_SPARK_WORKER</span> <span class="o">=</span> <span class="s2">&quot;/spark-3.5.7-bin-hadoop3/sbin/start-worker.sh spark://15.13.1.161:7077 -m 2G -c 1&quot;</span>
     <span class="n">SPARK_MASTER_PID_FILE</span> <span class="o">=</span> <span class="s2">&quot;/tmp/spark--org.apache.spark.deploy.master.Master-1.pid&quot;</span>
     <span class="n">SPARK_WORKER_PID_FILE</span> <span class="o">=</span> <span class="s2">&quot;/tmp/spark--org.apache.spark.deploy.worker.Worker-1.pid&quot;</span>
     <span class="n">STOP_SPARK_WORKER</span> <span class="o">=</span> <span class="s2">&quot;sudo kill -9 </span><span class="si">{}</span><span class="s2">&quot;</span>
     <span class="n">STOP_SPARK_MASTER</span> <span class="o">=</span> <span class="s2">&quot;sudo kill -9 </span><span class="si">{}</span><span class="s2">&quot;</span></div>
+
+
+<div class="viewcode-block" id="FIVE_G_CORE"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.FIVE_G_CORE">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FIVE_G_CORE</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constants related to the 5G core</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">AMF_METRICS_URL</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.5:9090/metrics&quot;</span>
+    <span class="n">UPF_METRICS_URL</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.7:9090/metrics&quot;</span>
+    <span class="n">MME_METRICS_URL</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.2:9090/metrics&quot;</span>
+    <span class="n">SMF_METRICS_URL</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.4:9090/metrics&quot;</span>
+    <span class="n">HSS_METRICS_URL</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.8:9090/metrics&quot;</span>
+    <span class="n">PCRF_METRICS_URL</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.9:9090/metrics&quot;</span>
+    <span class="n">PCF_METRICS_URL</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.13:9090/metrics&quot;</span>
+    <span class="n">CONTROL_SCRIPT_PATH</span> <span class="o">=</span> <span class="s2">&quot;/start_stop_5g.sh&quot;</span>
+    <span class="n">SUBSCRIBER_CONTROL_SCRIPT_PATH</span> <span class="o">=</span> <span class="s2">&quot;/subscriber_init.sh&quot;</span>
+    <span class="n">RUNNING</span> <span class="o">=</span> <span class="s2">&quot;RUNNING&quot;</span>
+    <span class="n">STOPPED</span> <span class="o">=</span> <span class="s2">&quot;STOPPED&quot;</span>
+    <span class="n">ALL</span> <span class="o">=</span> <span class="s2">&quot;all&quot;</span>
+    <span class="n">STATUS</span> <span class="o">=</span> <span class="s2">&quot;status&quot;</span>
+    <span class="n">START</span> <span class="o">=</span> <span class="s2">&quot;start&quot;</span>
+    <span class="n">STOP</span> <span class="o">=</span> <span class="s2">&quot;stop&quot;</span>
+    <span class="n">INIT</span> <span class="o">=</span> <span class="s2">&quot;init&quot;</span>
+    <span class="n">MONGO</span> <span class="o">=</span> <span class="s2">&quot;mongo&quot;</span>
+    <span class="n">MME</span> <span class="o">=</span> <span class="s2">&quot;mme&quot;</span>
+    <span class="n">SGWC</span> <span class="o">=</span> <span class="s2">&quot;sgwc&quot;</span>
+    <span class="n">SMF</span> <span class="o">=</span> <span class="s2">&quot;smf&quot;</span>
+    <span class="n">AMF</span> <span class="o">=</span> <span class="s2">&quot;amf&quot;</span>
+    <span class="n">SGWU</span> <span class="o">=</span> <span class="s2">&quot;sgwu&quot;</span>
+    <span class="n">UPF</span> <span class="o">=</span> <span class="s2">&quot;upf&quot;</span>
+    <span class="n">HSS</span> <span class="o">=</span> <span class="s2">&quot;hss&quot;</span>
+    <span class="n">PCRF</span> <span class="o">=</span> <span class="s2">&quot;pcrf&quot;</span>
+    <span class="n">NRF</span> <span class="o">=</span> <span class="s2">&quot;nrf&quot;</span>
+    <span class="n">SCP</span> <span class="o">=</span> <span class="s2">&quot;scp&quot;</span>
+    <span class="n">SEPP</span> <span class="o">=</span> <span class="s2">&quot;sepp&quot;</span>
+    <span class="n">AUSF</span> <span class="o">=</span> <span class="s2">&quot;ausf&quot;</span>
+    <span class="n">UDM</span> <span class="o">=</span> <span class="s2">&quot;udm&quot;</span>
+    <span class="n">PCF</span> <span class="o">=</span> <span class="s2">&quot;pcf&quot;</span>
+    <span class="n">NSSF</span> <span class="o">=</span> <span class="s2">&quot;nssf&quot;</span>
+    <span class="n">BSF</span> <span class="o">=</span> <span class="s2">&quot;bsf&quot;</span>
+    <span class="n">UDR</span> <span class="o">=</span> <span class="s2">&quot;udr&quot;</span>
+    <span class="n">WEBUI</span> <span class="o">=</span> <span class="s2">&quot;webui&quot;</span>
+    <span class="n">MONGO_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;mongo_running&quot;</span>
+    <span class="n">MME_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;mme_running&quot;</span>
+    <span class="n">SGWC_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;sgwc_running&quot;</span>
+    <span class="n">SMF_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;smf_running&quot;</span>
+    <span class="n">AMF_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;amf_running&quot;</span>
+    <span class="n">SGWU_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;sgwu_running&quot;</span>
+    <span class="n">UPF_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;upf_running&quot;</span>
+    <span class="n">HSS_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;hss_running&quot;</span>
+    <span class="n">PCRF_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;pcrf_running&quot;</span>
+    <span class="n">NRF_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;nrf_running&quot;</span>
+    <span class="n">SCP_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;scp_running&quot;</span>
+    <span class="n">SEPP_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;sepp_running&quot;</span>
+    <span class="n">AUSF_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;ausf_running&quot;</span>
+    <span class="n">UDM_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;udm_running&quot;</span>
+    <span class="n">PCF_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;pcf_running&quot;</span>
+    <span class="n">NSSF_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;nssf_running&quot;</span>
+    <span class="n">BSF_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;bsf_running&quot;</span>
+    <span class="n">UDR_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;udr_running&quot;</span>
+    <span class="n">WEBUI_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;webui_running&quot;</span>
+    <span class="n">MONITOR_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;monitor_running&quot;</span>
+    <span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;ip&quot;</span>
+    <span class="n">TS</span> <span class="o">=</span> <span class="s2">&quot;ts&quot;</span>
+    <span class="n">AMF_YAML</span> <span class="o">=</span> <span class="s2">&quot;/etc/open5gs/amf.yaml&quot;</span>
+    <span class="n">UPF_YAML</span> <span class="o">=</span> <span class="s2">&quot;/etc/open5gs/upf.yaml&quot;</span>
+    <span class="n">ADDRESS</span> <span class="o">=</span> <span class="s2">&quot;address&quot;</span>
+    <span class="n">GTPU</span> <span class="o">=</span> <span class="s2">&quot;gtpu&quot;</span>
+    <span class="n">NGAP</span> <span class="o">=</span> <span class="s2">&quot;ngap&quot;</span>
+    <span class="n">SERVER</span> <span class="o">=</span> <span class="s2">&quot;server&quot;</span>
+    <span class="n">GNB</span> <span class="o">=</span> <span class="s2">&quot;gnb&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_MM_CONFUPDATE</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_mm_confupdate&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_RM_REGINITREQ</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_rm_reginitreq&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_RM_REGEMERGREQ</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_rm_regemergreq&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_MM_PAGING5GREQ</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_mm_paging5greq&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_RM_REGPERIODREQ</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_rm_regperiodreq&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_MM_CONFUPDATESUCC</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_mm_confupdatesucc&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_RM_REGINITSUCC</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_rm_reginitsucc&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_AMF_AUTHREJECT</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_amf_authreject&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_RM_REGMOBREQ</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_rm_regmobreq&quot;</span>
+    <span class="n">AMF_SESSION</span> <span class="o">=</span> <span class="s2">&quot;amf_session&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_RM_REGMOBSUCC</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_rm_regmobsucc&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_AMF_AUTHREQ</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_amf_authreq&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_RM_REGEMERGSUCC</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_rm_regemergsucc&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_MM_PAGING5GSUCC</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_mm_paging5gsucc&quot;</span>
+    <span class="n">RAN_UE</span> <span class="o">=</span> <span class="s2">&quot;ran_ue&quot;</span>
+    <span class="n">FIVEGS_AMFFUNCTION_RM_REGPERIODSUCC</span> <span class="o">=</span> <span class="s2">&quot;fivegs_amffunction_rm_regperiodsucc&quot;</span>
+    <span class="n">PROCESS_MAX_FDS</span> <span class="o">=</span> <span class="s2">&quot;process_max_fds&quot;</span>
+    <span class="n">PROCESS_VIRTUAL_MEMORY_MAX_BYTES</span> <span class="o">=</span> <span class="s2">&quot;process_virtual_memory_max_bytes&quot;</span>
+    <span class="n">PROCESS_CPU_SECONDS_TOTAL</span> <span class="o">=</span> <span class="s2">&quot;process_cpu_seconds_total&quot;</span>
+    <span class="n">PROCESS_VIRTUAL_MEMORY_BYTES</span> <span class="o">=</span> <span class="s2">&quot;process_virtual_memory_bytes&quot;</span>
+    <span class="n">PROCESS_RESIDENT_MEMORY_BYTES</span> <span class="o">=</span> <span class="s2">&quot;process_resident_memory_bytes&quot;</span>
+    <span class="n">PROCESS_START_TIME_SECONDS</span> <span class="o">=</span> <span class="s2">&quot;process_start_time_seconds&quot;</span>
+    <span class="n">PROCESS_OPEN_FDS</span> <span class="o">=</span> <span class="s2">&quot;process_open_fds&quot;</span>
+    <span class="c1"># UPF specific</span>
+    <span class="n">FIVEGS_EP_N3_GTP_INDATAPKTN3UPF</span> <span class="o">=</span> <span class="s2">&quot;fivegs_ep_n3_gtp_indatapktn3upf&quot;</span>
+    <span class="n">FIVEGS_EP_N3_GTP_OUTDATAPKTN3UPF</span> <span class="o">=</span> <span class="s2">&quot;fivegs_ep_n3_gtp_outdatapktn3upf&quot;</span>
+    <span class="n">FIVEGS_UPFFUNCTION_SM_N4SESSIONESTABREQ</span> <span class="o">=</span> <span class="s2">&quot;fivegs_upffunction_sm_n4sessionestabreq&quot;</span>
+    <span class="n">FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORT</span> <span class="o">=</span> <span class="s2">&quot;fivegs_upffunction_sm_n4sessionreport&quot;</span>
+    <span class="n">FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORTSUCC</span> <span class="o">=</span> <span class="s2">&quot;fivegs_upffunction_sm_n4sessionreportsucc&quot;</span>
+    <span class="n">FIVEGS_UPFFUNCTION_UPF_SESSIONNBR</span> <span class="o">=</span> <span class="s2">&quot;fivegs_upffunction_upf_sessionnbr&quot;</span>
+    <span class="n">PFCP_PEERS_ACTIVE</span> <span class="o">=</span> <span class="s2">&quot;pfcp_peers_active&quot;</span>
+    <span class="c1"># MME specific</span>
+    <span class="n">ENB_UE</span> <span class="o">=</span> <span class="s2">&quot;enb_ue&quot;</span>
+    <span class="n">MME_SESSION</span> <span class="o">=</span> <span class="s2">&quot;mme_session&quot;</span>
+    <span class="n">ENB</span> <span class="o">=</span> <span class="s2">&quot;enb&quot;</span>
+    <span class="c1"># SMF specific</span>
+    <span class="n">GN_RX_CREATEPDPCONTEXTREQ</span> <span class="o">=</span> <span class="s2">&quot;gn_rx_createpdpcontextreq&quot;</span>
+    <span class="n">GN_RX_DELETEPDPCONTEXTREQ</span> <span class="o">=</span> <span class="s2">&quot;gn_rx_deletepdpcontextreq&quot;</span>
+    <span class="n">GTP1_PDPCTXS_ACTIVE</span> <span class="o">=</span> <span class="s2">&quot;gtp1_pdpctxs_active&quot;</span>
+    <span class="n">UES_ACTIVE</span> <span class="o">=</span> <span class="s2">&quot;ues_active&quot;</span>
+    <span class="n">GTP2_SESSIONS_ACTIVE</span> <span class="o">=</span> <span class="s2">&quot;gtp2_sessions_active&quot;</span>
+    <span class="n">PFCP_SESSIONS_ACTIVE</span> <span class="o">=</span> <span class="s2">&quot;pfcp_sessions_active&quot;</span>
+    <span class="n">S5C_RX_CREATESESSION</span> <span class="o">=</span> <span class="s2">&quot;s5c_rx_createsession&quot;</span>
+    <span class="n">S5C_RX_DELETESESSION</span> <span class="o">=</span> <span class="s2">&quot;s5c_rx_deletesession&quot;</span>
+    <span class="n">GTP_NEW_NODE_FAILED</span> <span class="o">=</span> <span class="s2">&quot;gtp_new_node_failed&quot;</span>
+    <span class="n">S5C_RX_PARSE_FAILED</span> <span class="o">=</span> <span class="s2">&quot;s5c_rx_parse_failed&quot;</span>
+    <span class="n">FIVEGS_SMFFUNCTION_SM_SESSIONNBR</span> <span class="o">=</span> <span class="s2">&quot;fivegs_smffunction_sm_sessionnbr&quot;</span>
+    <span class="n">FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONREQ</span> <span class="o">=</span> <span class="s2">&quot;fivegs_smffunction_sm_pdusessioncreationreq&quot;</span>
+    <span class="n">FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONSUCC</span> <span class="o">=</span> <span class="s2">&quot;fivegs_smffunction_sm_pdusessioncreationsucc&quot;</span>
+    <span class="n">FIVEGS_SMFFUNCTION_SM_QOS_FLOW_NBR</span> <span class="o">=</span> <span class="s2">&quot;fivegs_smffunction_sm_qos_flow_nbr&quot;</span>
+    <span class="n">FIVEGS_SMFFUNCTION_SM_N4SESSIONESTABFAIL</span> <span class="o">=</span> <span class="s2">&quot;fivegs_smffunction_sm_n4sessionestabfail&quot;</span>
+    <span class="n">FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONFAIL</span> <span class="o">=</span> <span class="s2">&quot;fivegs_smffunction_sm_pdusessioncreationfail&quot;</span>
+    <span class="n">BEARERS_ACTIVE</span> <span class="o">=</span> <span class="s2">&quot;bearers_active&quot;</span>
+    <span class="n">GN_RX_PARSE_FAILED</span> <span class="o">=</span> <span class="s2">&quot;gn_rx_parse_failed&quot;</span>
+    <span class="n">GTP_PEERS_ACTIVE</span> <span class="o">=</span> <span class="s2">&quot;gtp_peers_active&quot;</span>
+    <span class="c1"># HSS specific</span>
+    <span class="n">CX_RX_LIR</span> <span class="o">=</span> <span class="s2">&quot;cx_rx_lir&quot;</span>
+    <span class="n">CX_RX_UAR</span> <span class="o">=</span> <span class="s2">&quot;cx_rx_uar&quot;</span>
+    <span class="n">CX_TX_LIA</span> <span class="o">=</span> <span class="s2">&quot;cx_tx_lia&quot;</span>
+    <span class="n">CX_RX_UNKNOWN</span> <span class="o">=</span> <span class="s2">&quot;cx_rx_unknown&quot;</span>
+    <span class="n">CX_RX_SAR</span> <span class="o">=</span> <span class="s2">&quot;cx_rx_sar&quot;</span>
+    <span class="n">S6A_RX_PUR</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_pur&quot;</span>
+    <span class="n">SWX_RX_MAR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;swx_rx_mar_error&quot;</span>
+    <span class="n">CX_TX_UAA</span> <span class="o">=</span> <span class="s2">&quot;cx_tx_uaa&quot;</span>
+    <span class="n">S6A_RX_PUR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_pur_error&quot;</span>
+    <span class="n">S6A_TX_CLR</span> <span class="o">=</span> <span class="s2">&quot;s6a_tx_clr&quot;</span>
+    <span class="n">CX_TX_SAA</span> <span class="o">=</span> <span class="s2">&quot;cx_tx_saa&quot;</span>
+    <span class="n">CX_RX_LIR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;cx_rx_lir_error&quot;</span>
+    <span class="n">S6A_RX_ULR</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_ulr&quot;</span>
+    <span class="n">S6A_RX_CLA</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_cla&quot;</span>
+    <span class="n">S6A_RX_CLA_ERROR</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_cla_error&quot;</span>
+    <span class="n">S6A_RX_AIR</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_air&quot;</span>
+    <span class="n">CX_RX_MAR</span> <span class="o">=</span> <span class="s2">&quot;cx_rx_mar&quot;</span>
+    <span class="n">SWX_RX_SAR</span> <span class="o">=</span> <span class="s2">&quot;swx_rx_sar&quot;</span>
+    <span class="n">S6A_RX_AIR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_air_error&quot;</span>
+    <span class="n">S6A_RX_IDA_ERROR</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_ida_error&quot;</span>
+    <span class="n">CX_TX_MAA</span> <span class="o">=</span> <span class="s2">&quot;cx_tx_maa&quot;</span>
+    <span class="n">SWX_RX_MAR</span> <span class="o">=</span> <span class="s2">&quot;swx_rx_mar&quot;</span>
+    <span class="n">S6A_RX_UNKNOWN</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_unknown&quot;</span>
+    <span class="n">S6A_TX_PUA</span> <span class="o">=</span> <span class="s2">&quot;s6a_tx_pua&quot;</span>
+    <span class="n">SWX_RX_UNKNOWN</span> <span class="o">=</span> <span class="s2">&quot;swx_rx_unknown&quot;</span>
+    <span class="n">CX_RX_MAR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;cx_rx_mar_error&quot;</span>
+    <span class="n">CX_RX_UAR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;cx_rx_uar_error&quot;</span>
+    <span class="n">S6A_TX_ULA</span> <span class="o">=</span> <span class="s2">&quot;s6a_tx_ula&quot;</span>
+    <span class="n">S6A_RX_ULR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_ulr_error&quot;</span>
+    <span class="n">S6A_TX_AIA</span> <span class="o">=</span> <span class="s2">&quot;s6a_tx_aia&quot;</span>
+    <span class="n">S6A_TX_IDR</span> <span class="o">=</span> <span class="s2">&quot;s6a_tx_idr&quot;</span>
+    <span class="n">S6A_RX_IDA</span> <span class="o">=</span> <span class="s2">&quot;s6a_rx_ida&quot;</span>
+    <span class="n">CX_RX_SAR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;cx_rx_sar_error&quot;</span>
+    <span class="n">SWX_RX_SAR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;swx_rx_sar_error&quot;</span>
+    <span class="n">SWX_TX_MAA</span> <span class="o">=</span> <span class="s2">&quot;swx_tx_maa&quot;</span>
+    <span class="n">SWX_TX_SAA</span> <span class="o">=</span> <span class="s2">&quot;swx_tx_saa&quot;</span>
+    <span class="n">HSS_IMSI</span> <span class="o">=</span> <span class="s2">&quot;hss_imsi&quot;</span>
+    <span class="n">HSS_IMPI</span> <span class="o">=</span> <span class="s2">&quot;hss_impi&quot;</span>
+    <span class="n">HSS_IMPU</span> <span class="o">=</span> <span class="s2">&quot;hss_impu&quot;</span>
+    <span class="c1"># PCRF specific</span>
+    <span class="n">GX_RX_UNKNOWN</span> <span class="o">=</span> <span class="s2">&quot;gx_rx_unknown&quot;</span>
+    <span class="n">GX_RX_CCR</span> <span class="o">=</span> <span class="s2">&quot;gx_rx_ccr&quot;</span>
+    <span class="n">GX_RX_CCR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;gx_rx_ccr_error&quot;</span>
+    <span class="n">GX_RX_RAA</span> <span class="o">=</span> <span class="s2">&quot;gx_rx_raa&quot;</span>
+    <span class="n">GX_TX_CCA</span> <span class="o">=</span> <span class="s2">&quot;gx_tx_cca&quot;</span>
+    <span class="n">GX_TX_RAR</span> <span class="o">=</span> <span class="s2">&quot;gx_tx_rar&quot;</span>
+    <span class="n">GX_TX_RAR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;gx_tx_rar_error&quot;</span>
+    <span class="n">RX_RX_UNKNOWN</span> <span class="o">=</span> <span class="s2">&quot;rx_rx_unknown&quot;</span>
+    <span class="n">RX_RX_AAR</span> <span class="o">=</span> <span class="s2">&quot;rx_rx_aar&quot;</span>
+    <span class="n">RX_RX_AAR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;rx_rx_aar_error&quot;</span>
+    <span class="n">RX_RX_ASA</span> <span class="o">=</span> <span class="s2">&quot;rx_rx_asa&quot;</span>
+    <span class="n">RX_RX_ASA_ERROR</span> <span class="o">=</span> <span class="s2">&quot;rx_rx_asa_error&quot;</span>
+    <span class="n">RX_RX_STR_ERROR</span> <span class="o">=</span> <span class="s2">&quot;rx_rx_str_error&quot;</span>
+    <span class="n">RX_TX_AAA</span> <span class="o">=</span> <span class="s2">&quot;rx_tx_aaa&quot;</span>
+    <span class="n">RX_TX_SAR</span> <span class="o">=</span> <span class="s2">&quot;rx_tx_sar&quot;</span>
+    <span class="n">RX_TX_STA</span> <span class="o">=</span> <span class="s2">&quot;rx_tx_sta&quot;</span>
+    <span class="c1"># PCF specific</span>
+    <span class="n">FIVEGS_PCFFUNCTION_PA_POLICYAMASSOREQ</span> <span class="o">=</span> <span class="s2">&quot;fivegs_pcffunction_pa_policyamassoreq&quot;</span>
+    <span class="n">FIVEGS_PCFFUNCTION_PA_POLICYAMASSOSUCC</span> <span class="o">=</span> <span class="s2">&quot;fivegs_pcffunction_pa_policyamassosucc&quot;</span>
+    <span class="n">FIVEGS_PCFFUNCTION_PA_POLICYSMASSOREQ</span> <span class="o">=</span> <span class="s2">&quot;fivegs_pcffunction_pa_policysmassoreq&quot;</span>
+    <span class="n">FIVEGS_PCFFUNCTION_PA_POLICYSMASSOSUCC</span> <span class="o">=</span> <span class="s2">&quot;fivegs_pcffunction_pa_policysmassosucc&quot;</span>
+    <span class="n">FIVEGS_PCFFUNCTION_PA_SESSIONNBR</span> <span class="o">=</span> <span class="s2">&quot;fivegs_pcffunction_pa_sessionnbr&quot;</span></div>
+
+
+<div class="viewcode-block" id="FIVE_G_CU"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.FIVE_G_CU">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FIVE_G_CU</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constants related to the 5G CU</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CONTROL_SCRIPT_PATH</span> <span class="o">=</span> <span class="s2">&quot;/start_stop_cu.sh&quot;</span>
+    <span class="n">RUNNING</span> <span class="o">=</span> <span class="s2">&quot;RUNNING&quot;</span>
+    <span class="n">STOPPED</span> <span class="o">=</span> <span class="s2">&quot;STOPPED&quot;</span>
+    <span class="n">STATUS</span> <span class="o">=</span> <span class="s2">&quot;status&quot;</span>
+    <span class="n">START</span> <span class="o">=</span> <span class="s2">&quot;start&quot;</span>
+    <span class="n">STOP</span> <span class="o">=</span> <span class="s2">&quot;stop&quot;</span>
+    <span class="n">CU</span> <span class="o">=</span> <span class="s2">&quot;srscu&quot;</span>
+    <span class="c1"># Metric keys</span>
+    <span class="n">CU_CP_ID</span> <span class="o">=</span> <span class="s2">&quot;cu_cp_id&quot;</span>
+    <span class="n">AMF_CONNECTED</span> <span class="o">=</span> <span class="s2">&quot;amf_connected&quot;</span>
+    <span class="n">NOF_CN_INITIATED_PAGING_REQUESTS</span> <span class="o">=</span> <span class="s2">&quot;nof_cn_initiated_paging_requests&quot;</span>
+    <span class="n">NOF_PDU_SESSIONS_REQUESTED_TO_SETUP</span> <span class="o">=</span> <span class="s2">&quot;nof_pdu_sessions_requested_to_setup&quot;</span>
+    <span class="n">NOF_PDU_SESSIONS_SUCCESSFULLY_SETUP</span> <span class="o">=</span> <span class="s2">&quot;nof_pdu_sessions_successfully_setup&quot;</span>
+    <span class="n">NOF_PDU_SESSIONS_FAILED_TO_SETUP_TOTAL</span> <span class="o">=</span> <span class="s2">&quot;nof_pdu_sessions_failed_to_setup_total&quot;</span>
+    <span class="n">NOF_HANDOVER_PREPARATIONS_REQUESTED</span> <span class="o">=</span> <span class="s2">&quot;nof_handover_preparations_requested&quot;</span>
+    <span class="n">NOF_SUCCESSFUL_HANDOVER_PREPARATIONS</span> <span class="o">=</span> <span class="s2">&quot;nof_successful_handover_preparations&quot;</span>
+    <span class="n">RRC_ESTABLISHMENTS_ATTEMPTED_TOTAL</span> <span class="o">=</span> <span class="s2">&quot;rrc_establishments_attempted_total&quot;</span>
+    <span class="n">RRC_ESTABLISHMENTS_SUCCESSFUL_TOTAL</span> <span class="o">=</span> <span class="s2">&quot;rrc_establishments_successful_total&quot;</span>
+    <span class="n">RRC_ESTABLISHMENTS_ATTEMPTED_MO_DATA</span> <span class="o">=</span> <span class="s2">&quot;rrc_establishments_attempted_mo_data&quot;</span>
+    <span class="n">RRC_ESTABLISHMENTS_SUCCESSFUL_MO_DATA</span> <span class="o">=</span> <span class="s2">&quot;rrc_establishments_successful_mo_data&quot;</span>
+    <span class="n">RRC_ESTABLISHMENTS_ATTEMPTED_MO_SIG</span> <span class="o">=</span> <span class="s2">&quot;rrc_establishments_attempted_mo_sig&quot;</span>
+    <span class="n">RRC_ESTABLISHMENTS_SUCCESSFUL_MO_SIG</span> <span class="o">=</span> <span class="s2">&quot;rrc_establishments_successful_mo_sig&quot;</span>
+    <span class="n">MAX_NOF_RRC_CONNECTIONS</span> <span class="o">=</span> <span class="s2">&quot;max_nof_rrc_connections&quot;</span>
+    <span class="n">MEAN_NOF_RRC_CONNECTIONS</span> <span class="o">=</span> <span class="s2">&quot;mean_nof_rrc_connections&quot;</span>
+    <span class="n">RRC_REESTABLISHMENTS_ATTEMPTED</span> <span class="o">=</span> <span class="s2">&quot;rrc_reestablishments_attempted&quot;</span>
+    <span class="n">RRC_REESTABLISHMENTS_SUCCESSFUL</span> <span class="o">=</span> <span class="s2">&quot;rrc_reestablishments_successful&quot;</span>
+    <span class="n">NOF_HANDOVER_EXECUTIONS_REQUESTED</span> <span class="o">=</span> <span class="s2">&quot;nof_handover_executions_requested&quot;</span>
+    <span class="n">NOF_SUCCESSFUL_HANDOVER_EXECUTIONS</span> <span class="o">=</span> <span class="s2">&quot;nof_successful_handover_executions&quot;</span>
+    <span class="c1"># App Resource Usage metrics</span>
+    <span class="n">CPU_USAGE_PERCENT</span> <span class="o">=</span> <span class="s2">&quot;cpu_usage_percent&quot;</span>
+    <span class="n">MEMORY_USAGE_MB</span> <span class="o">=</span> <span class="s2">&quot;memory_usage_mb&quot;</span>
+    <span class="n">POWER_CONSUMPTION_WATTS</span> <span class="o">=</span> <span class="s2">&quot;power_consumption_watts&quot;</span>
+    <span class="c1"># Buffer Pool metrics</span>
+    <span class="n">CENTRAL_CACHE_SIZE</span> <span class="o">=</span> <span class="s2">&quot;central_cache_size&quot;</span>
+    <span class="c1"># Keys for WebSocket parsing</span>
+    <span class="n">TIMESTAMP</span> <span class="o">=</span> <span class="s2">&quot;timestamp&quot;</span>
+    <span class="n">CU_CP</span> <span class="o">=</span> <span class="s2">&quot;cu-cp&quot;</span>
+    <span class="n">APP_RESOURCE_USAGE</span> <span class="o">=</span> <span class="s2">&quot;app_resource_usage&quot;</span>
+    <span class="n">BUFFER_POOL</span> <span class="o">=</span> <span class="s2">&quot;buffer_pool&quot;</span>
+    <span class="n">NGAPS</span> <span class="o">=</span> <span class="s2">&quot;ngaps&quot;</span>
+    <span class="n">NGAP</span> <span class="o">=</span> <span class="s2">&quot;ngap&quot;</span>
+    <span class="n">CONNECTED</span> <span class="o">=</span> <span class="s2">&quot;connected&quot;</span>
+    <span class="n">PAGING_MEASUREMENT</span> <span class="o">=</span> <span class="s2">&quot;paging_measurement&quot;</span>
+    <span class="n">NOF_CN_INITIATED_PAGING_REQUESTS</span> <span class="o">=</span> <span class="s2">&quot;nof_cn_initiated_paging_requests&quot;</span>
+    <span class="n">PDU_SESSION_MANAGEMENT</span> <span class="o">=</span> <span class="s2">&quot;pdu_session_management&quot;</span>
+    <span class="n">NOF_PDU_SESSIONS_REQUESTED_TO_SETUP</span> <span class="o">=</span> <span class="s2">&quot;nof_pdu_sessions_requested_to_setup&quot;</span>
+    <span class="n">NOF_PDU_SESSIONS_SUCCESSFULLY_SETUP</span> <span class="o">=</span> <span class="s2">&quot;nof_pdu_sessions_successfully_setup&quot;</span>
+    <span class="n">NOF_PDU_SESSIONS_FAILED_TO_SETUP</span> <span class="o">=</span> <span class="s2">&quot;nof_pdu_sessions_failed_to_setup&quot;</span>
+    <span class="n">NOF_HANDOVER_PREPARATIONS_REQUESTED</span> <span class="o">=</span> <span class="s2">&quot;nof_handover_preparations_requested&quot;</span>
+    <span class="n">NOF_SUCCESSFUL_HANDOVER_PREPARATIONS</span> <span class="o">=</span> <span class="s2">&quot;nof_successful_handover_preparations&quot;</span>
+    <span class="n">RRCS</span> <span class="o">=</span> <span class="s2">&quot;rrcs&quot;</span>
+    <span class="n">DU</span> <span class="o">=</span> <span class="s2">&quot;du&quot;</span>
+    <span class="n">RRC_CONNECTION_ESTABLISHMENT</span> <span class="o">=</span> <span class="s2">&quot;rrc_connection_establishment&quot;</span>
+    <span class="n">ATTEMPTED_RRC_CONNECTION_ESTABLISHMENTS</span> <span class="o">=</span> <span class="s2">&quot;attempted_rrc_connection_establishments&quot;</span>
+    <span class="n">MO_DATA</span> <span class="o">=</span> <span class="s2">&quot;mo_data&quot;</span>
+    <span class="n">MO_SIG</span> <span class="o">=</span> <span class="s2">&quot;mo_sig&quot;</span>
+    <span class="n">SUCCESSFUL_RRC_CONNECTION_ESTABLISHMENTS</span> <span class="o">=</span> <span class="s2">&quot;successful_rrc_connection_establishments&quot;</span>
+    <span class="n">RRC_CONNECTION_NUMBER</span> <span class="o">=</span> <span class="s2">&quot;rrc_connection_number&quot;</span>
+    <span class="n">MAX_NOF_RRC_CONNECTIONS</span> <span class="o">=</span> <span class="s2">&quot;max_nof_rrc_connections&quot;</span>
+    <span class="n">MEAN_NOF_RRC_CONNECTIONS</span> <span class="o">=</span> <span class="s2">&quot;mean_nof_rrc_connections&quot;</span>
+    <span class="n">RRC_CONNECTION_REESTABLISHMENT</span> <span class="o">=</span> <span class="s2">&quot;rrc_connection_reestablishment&quot;</span>
+    <span class="n">ATTEMPTED_RRC_CONNECTION_REESTABLISHMENTS</span> <span class="o">=</span> <span class="s2">&quot;attempted_rrc_connection_reestablishments&quot;</span>
+    <span class="n">SUCCESSFUL_RRC_CONNECTION_REESTABLISHMENTS_WITH_UE_CONTEXT</span> <span class="o">=</span> \
+        <span class="s2">&quot;successful_rrc_connection_reestablishments_with_ue_context&quot;</span>
+    <span class="n">NOF_HANDOVER_EXECUTIONS_REQUESTED</span> <span class="o">=</span> <span class="s2">&quot;nof_handover_executions_requested&quot;</span>
+    <span class="n">NOF_SUCCESSFUL_HANDOVER_EXECUTIONS</span> <span class="o">=</span> <span class="s2">&quot;nof_successful_handover_executions&quot;</span>
+    <span class="n">ID</span> <span class="o">=</span> <span class="s2">&quot;id&quot;</span>
+    <span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;ip&quot;</span>
+    <span class="n">TS</span> <span class="o">=</span> <span class="s2">&quot;ts&quot;</span>
+    <span class="n">TRUE</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span>
+    <span class="n">CMD</span> <span class="o">=</span> <span class="s2">&quot;cmd&quot;</span>
+    <span class="n">METRICS_SUBSCRIBE</span> <span class="o">=</span> <span class="s2">&quot;metrics_subscribe&quot;</span>
+    <span class="n">CU_CP_KEY</span> <span class="o">=</span> <span class="s2">&quot;cu_cp&quot;</span>
+    <span class="n">APP_KEY</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span>
+    <span class="n">BUFFER_KEY</span> <span class="o">=</span> <span class="s2">&quot;buffer&quot;</span></div>
+
+
+<div class="viewcode-block" id="FIVE_G_DU"><a class="viewcode-back" href="../../../csle_collector.constants.html#csle_collector.constants.constants.FIVE_G_DU">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FIVE_G_DU</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Constants related to the 5G DU</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">CONTROL_SCRIPT_PATH</span> <span class="o">=</span> <span class="s2">&quot;/start_stop_du.sh&quot;</span>
+    <span class="n">UE_CONTROL_SCRIPT_PATH</span> <span class="o">=</span> <span class="s2">&quot;/start_stop_ue.sh&quot;</span>
+    <span class="n">RUNNING</span> <span class="o">=</span> <span class="s2">&quot;RUNNING&quot;</span>
+    <span class="n">STOPPED</span> <span class="o">=</span> <span class="s2">&quot;STOPPED&quot;</span>
+    <span class="n">STATUS</span> <span class="o">=</span> <span class="s2">&quot;status&quot;</span>
+    <span class="n">START</span> <span class="o">=</span> <span class="s2">&quot;start&quot;</span>
+    <span class="n">STOP</span> <span class="o">=</span> <span class="s2">&quot;stop&quot;</span>
+    <span class="n">INIT</span> <span class="o">=</span> <span class="s2">&quot;init&quot;</span>
+    <span class="n">DU</span> <span class="o">=</span> <span class="s2">&quot;srsdu&quot;</span>
+    <span class="n">UE</span> <span class="o">=</span> <span class="s2">&quot;srsue&quot;</span>
+    <span class="c1"># Metric keys</span>
+    <span class="n">PCI</span> <span class="o">=</span> <span class="s2">&quot;pci&quot;</span>
+    <span class="n">AVERAGE_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;average_latency_us&quot;</span>
+    <span class="n">CPU_USAGE_PERCENT</span> <span class="o">=</span> <span class="s2">&quot;cpu_usage_percent&quot;</span>
+    <span class="n">MAX_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;max_latency_us&quot;</span>
+    <span class="n">MIN_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;min_latency_us&quot;</span>
+    <span class="c1"># Cell metrics</span>
+    <span class="n">AVERAGE_LATENCY</span> <span class="o">=</span> <span class="s2">&quot;average_latency&quot;</span>
+    <span class="n">MAX_LATENCY</span> <span class="o">=</span> <span class="s2">&quot;max_latency&quot;</span>
+    <span class="n">PUCCH_TOT_RB_USAGE_AVG</span> <span class="o">=</span> <span class="s2">&quot;pucch_tot_rb_usage_avg&quot;</span>
+    <span class="n">ACTIVE_UES</span> <span class="o">=</span> <span class="s2">&quot;active_ues&quot;</span>
+    <span class="n">DL_BRATE</span> <span class="o">=</span> <span class="s2">&quot;dl_brate&quot;</span>
+    <span class="n">UL_BRATE</span> <span class="o">=</span> <span class="s2">&quot;ul_brate&quot;</span>
+    <span class="n">DL_MCS</span> <span class="o">=</span> <span class="s2">&quot;dl_mcs&quot;</span>
+    <span class="n">UL_MCS</span> <span class="o">=</span> <span class="s2">&quot;ul_mcs&quot;</span>
+    <span class="n">PUSCH_SNR_DB</span> <span class="o">=</span> <span class="s2">&quot;pusch_snr_db&quot;</span>
+    <span class="n">PUCCH_SNR_DB</span> <span class="o">=</span> <span class="s2">&quot;pucch_snr_db&quot;</span>
+    <span class="n">CQI</span> <span class="o">=</span> <span class="s2">&quot;cqi&quot;</span>
+    <span class="n">DL_BLER</span> <span class="o">=</span> <span class="s2">&quot;dl_bler&quot;</span>
+    <span class="n">UL_BLER</span> <span class="o">=</span> <span class="s2">&quot;ul_bler&quot;</span>
+    <span class="c1"># Low metrics</span>
+    <span class="n">DL_AVG_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;dl_avg_latency_us&quot;</span>
+    <span class="n">DL_CPU_USAGE_PERCENT</span> <span class="o">=</span> <span class="s2">&quot;dl_cpu_usage_percent&quot;</span>
+    <span class="n">DL_MAX_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;dl_max_latency_us&quot;</span>
+    <span class="n">DL_FEC_TPUT_MBPS</span> <span class="o">=</span> <span class="s2">&quot;dl_fec_tput_mbps&quot;</span>
+    <span class="n">UL_AVG_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;ul_avg_latency_us&quot;</span>
+    <span class="n">UL_CPU_USAGE_PERCENT</span> <span class="o">=</span> <span class="s2">&quot;ul_cpu_usage_percent&quot;</span>
+    <span class="n">UL_MAX_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;ul_max_latency_us&quot;</span>
+    <span class="n">UL_SINR_DB</span> <span class="o">=</span> <span class="s2">&quot;ul_sinr_db&quot;</span>
+    <span class="n">UL_CH_EST_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;ul_ch_est_latency_us&quot;</span>
+    <span class="n">UL_LDPC_DEC_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;ul_ldpc_dec_latency_us&quot;</span>
+    <span class="n">UL_FEC_TPUT_MBPS</span> <span class="o">=</span> <span class="s2">&quot;ul_fec_tput_mbps&quot;</span>
+    <span class="c1"># RLC metrics</span>
+    <span class="n">UE_ID</span> <span class="o">=</span> <span class="s2">&quot;ue_id&quot;</span>
+    <span class="n">DRB_ID</span> <span class="o">=</span> <span class="s2">&quot;drb_id&quot;</span>
+    <span class="n">RX_NUM_PDUS</span> <span class="o">=</span> <span class="s2">&quot;rx_num_pdus&quot;</span>
+    <span class="n">RX_NUM_BYTES</span> <span class="o">=</span> <span class="s2">&quot;rx_num_bytes&quot;</span>
+    <span class="n">RX_NUM_LOST_PDUS</span> <span class="o">=</span> <span class="s2">&quot;rx_num_lost_pdus&quot;</span>
+    <span class="n">RX_NUM_MALFORMED_PDUS</span> <span class="o">=</span> <span class="s2">&quot;rx_num_malformed_pdus&quot;</span>
+    <span class="n">TX_NUM_SDUS</span> <span class="o">=</span> <span class="s2">&quot;tx_num_sdus&quot;</span>
+    <span class="n">TX_NUM_BYTES</span> <span class="o">=</span> <span class="s2">&quot;tx_num_bytes&quot;</span>
+    <span class="n">TX_NUM_DROPPED_SDUS</span> <span class="o">=</span> <span class="s2">&quot;tx_num_dropped_sdus&quot;</span>
+    <span class="n">TX_NUM_DISCARDED_SDUS</span> <span class="o">=</span> <span class="s2">&quot;tx_num_discarded_sdus&quot;</span>
+    <span class="n">TX_MAX_PDU_LATENCY_NS</span> <span class="o">=</span> <span class="s2">&quot;tx_max_pdu_latency_ns&quot;</span>
+    <span class="n">TX_SUM_PDU_LATENCY_NS</span> <span class="o">=</span> <span class="s2">&quot;tx_sum_pdu_latency_ns&quot;</span>
+    <span class="n">TX_SUM_SDU_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;tx_sum_sdu_latency_us&quot;</span>
+    <span class="c1"># App Resource Usage metrics</span>
+    <span class="n">MEMORY_USAGE_MB</span> <span class="o">=</span> <span class="s2">&quot;memory_usage_mb&quot;</span>
+    <span class="n">POWER_CONSUMPTION_WATTS</span> <span class="o">=</span> <span class="s2">&quot;power_consumption_watts&quot;</span>
+    <span class="c1"># Buffer Pool metrics</span>
+    <span class="n">CENTRAL_CACHE_SIZE</span> <span class="o">=</span> <span class="s2">&quot;central_cache_size&quot;</span>
+    <span class="c1"># Keys for WebSocket parsing</span>
+    <span class="n">TIMESTAMP</span> <span class="o">=</span> <span class="s2">&quot;timestamp&quot;</span>
+    <span class="n">DU_HIGH</span> <span class="o">=</span> <span class="s2">&quot;du_high&quot;</span>
+    <span class="n">MAC</span> <span class="o">=</span> <span class="s2">&quot;mac&quot;</span>
+    <span class="n">DL</span> <span class="o">=</span> <span class="s2">&quot;dl&quot;</span>
+    <span class="n">APP_RESOURCE_USAGE</span> <span class="o">=</span> <span class="s2">&quot;app_resource_usage&quot;</span>
+    <span class="n">BUFFER_POOL</span> <span class="o">=</span> <span class="s2">&quot;buffer_pool&quot;</span>
+    <span class="n">CELLS</span> <span class="o">=</span> <span class="s2">&quot;cells&quot;</span>
+    <span class="n">LOW</span> <span class="o">=</span> <span class="s2">&quot;low&quot;</span>
+    <span class="n">RLC</span> <span class="o">=</span> <span class="s2">&quot;rlc&quot;</span>
+    <span class="n">ENTITIES</span> <span class="o">=</span> <span class="s2">&quot;entities&quot;</span>
+    <span class="n">UL</span> <span class="o">=</span> <span class="s2">&quot;ul&quot;</span>
+    <span class="n">DU_LOW</span> <span class="o">=</span> <span class="s2">&quot;du_low&quot;</span>
+    <span class="n">FEC</span> <span class="o">=</span> <span class="s2">&quot;fec&quot;</span>
+    <span class="n">ALGO_EFFICIENCY</span> <span class="o">=</span> <span class="s2">&quot;algo_efficiency&quot;</span>
+    <span class="n">CHANNEL_ESTIMATION</span> <span class="o">=</span> <span class="s2">&quot;channel_estimation&quot;</span>
+    <span class="n">LDPC_DECODER</span> <span class="o">=</span> <span class="s2">&quot;ldpc_decoder&quot;</span>
+    <span class="n">AVERAGE_THROUGHPUT_MBPS</span> <span class="o">=</span> <span class="s2">&quot;average_throughput_mbps&quot;</span>
+    <span class="n">CELL_METRICS</span> <span class="o">=</span> <span class="s2">&quot;cell_metrics&quot;</span>
+    <span class="n">UE_LIST</span> <span class="o">=</span> <span class="s2">&quot;ue_list&quot;</span>
+    <span class="n">DL_NOF_OK</span> <span class="o">=</span> <span class="s2">&quot;dl_nof_ok&quot;</span>
+    <span class="n">DL_NOF_NOK</span> <span class="o">=</span> <span class="s2">&quot;dl_nof_nok&quot;</span>
+    <span class="n">UL_NOF_OK</span> <span class="o">=</span> <span class="s2">&quot;ul_nof_ok&quot;</span>
+    <span class="n">UL_NOF_NOK</span> <span class="o">=</span> <span class="s2">&quot;ul_nof_nok&quot;</span>
+    <span class="n">RX</span> <span class="o">=</span> <span class="s2">&quot;rx&quot;</span>
+    <span class="n">TX</span> <span class="o">=</span> <span class="s2">&quot;tx&quot;</span>
+    <span class="n">SUM_PDU_LATENCY_NS</span> <span class="o">=</span> <span class="s2">&quot;sum_pdu_latency_ns&quot;</span>
+    <span class="n">SUM_SDU_LATENCY_US</span> <span class="o">=</span> <span class="s2">&quot;sum_sdu_latency_us&quot;</span>
+    <span class="n">RLC_METRICS</span> <span class="o">=</span> <span class="s2">&quot;rlc_metrics&quot;</span>
+    <span class="n">NUM_PDUS</span> <span class="o">=</span> <span class="s2">&quot;num_pdus&quot;</span>
+    <span class="n">NUM_PDU_BYTES</span> <span class="o">=</span> <span class="s2">&quot;num_pdu_bytes&quot;</span>
+    <span class="n">NUM_LOST_PDUS</span> <span class="o">=</span> <span class="s2">&quot;num_lost_pdus&quot;</span>
+    <span class="n">NUM_MALFORMED_PDUS</span> <span class="o">=</span> <span class="s2">&quot;num_malformed_pdus&quot;</span>
+    <span class="n">NUM_SDUS</span> <span class="o">=</span> <span class="s2">&quot;num_sdus&quot;</span>
+    <span class="n">NUM_SDU_BYTES</span> <span class="o">=</span> <span class="s2">&quot;num_sdu_bytes&quot;</span>
+    <span class="n">NUM_DROPPED_SDUS</span> <span class="o">=</span> <span class="s2">&quot;num_dropped_sdus&quot;</span>
+    <span class="n">NUM_DISCARDED_SDUS</span> <span class="o">=</span> <span class="s2">&quot;num_discarded_sdus&quot;</span>
+    <span class="n">MAX_PDU_LATENCY_NS</span> <span class="o">=</span> <span class="s2">&quot;max_pdu_latency_ns&quot;</span>
+    <span class="n">CMD</span> <span class="o">=</span> <span class="s2">&quot;cmd&quot;</span>
+    <span class="n">METRICS_SUBSCRIBE</span> <span class="o">=</span> <span class="s2">&quot;metrics_subscribe&quot;</span>
+    <span class="n">CELL_KEY</span> <span class="o">=</span> <span class="s2">&quot;cell&quot;</span>
+    <span class="n">DU_KEY</span> <span class="o">=</span> <span class="s2">&quot;du&quot;</span>
+    <span class="n">DU_LOW_KEY</span> <span class="o">=</span> <span class="s2">&quot;du_low&quot;</span>
+    <span class="n">RLC_KEY</span> <span class="o">=</span> <span class="s2">&quot;rlc&quot;</span>
+    <span class="n">APP_KEY</span> <span class="o">=</span> <span class="s2">&quot;app&quot;</span>
+    <span class="n">BUFFER_KEY</span> <span class="o">=</span> <span class="s2">&quot;buffer&quot;</span>
+    <span class="n">IP</span> <span class="o">=</span> <span class="s2">&quot;ip&quot;</span>
+    <span class="n">TS</span> <span class="o">=</span> <span class="s2">&quot;ts&quot;</span></div>
 </pre></div>
 
            </div>

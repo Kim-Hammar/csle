@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>csle_collector.five_g_core_manager.five_g_core_manager_util &mdash; csle-collector 0.8.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> csle-collector
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.client_manager.html">csle_collector.client_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.constants.html">csle_collector.constants package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.docker_stats_manager.html">csle_collector.docker_stats_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.elk_manager.html">csle_collector.elk_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.host_manager.html">csle_collector.host_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.kafka_manager.html">csle_collector.kafka_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.ossec_ids_manager.html">csle_collector.ossec_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.snort_ids_manager.html">csle_collector.snort_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.traffic_manager.html">csle_collector.traffic_manager package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">csle-collector</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">csle_collector.five_g_core_manager.five_g_core_manager_util</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for csle_collector.five_g_core_manager.five_g_core_manager_util</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.five_g_core_manager.five_g_core_manager_pb2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.constants.constants</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">constants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_collector.five_g_core_manager.dao.five_g_core_amf_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">FiveGCoreAMFMetrics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_collector.five_g_core_manager.dao.five_g_core_upf_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">FiveGCoreUPFMetrics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_collector.five_g_core_manager.dao.five_g_core_mme_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">FiveGCoreMMEMetrics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">FiveGCoreSMFMetrics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_collector.five_g_core_manager.dao.five_g_core_hss_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">FiveGCoreHSSMetrics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_collector.five_g_core_manager.dao.five_g_core_pcrf_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">FiveGCorePCRFMetrics</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_collector.five_g_core_manager.dao.five_g_core_pcf_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">FiveGCorePCFMetrics</span>
+
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FiveGCoreManagerUtil</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class with utility functions for the 5G core manager</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.get_core_status"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.get_core_status">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_core_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes the control script, parses the output, and return the statuses of the 5G core services</span>
+
+<span class="sd">        :param control_script_path: the path to the control script</span>
+<span class="sd">        :return: A dict with the names of the statuses and boolean values indicating if the services are running</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">status_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">control_script_path</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">STATUS</span><span class="p">],</span>
+                <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+            <span class="n">output_lines</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Regex to capture the service name and its status</span>
+            <span class="n">status_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+                <span class="sa">rf</span><span class="s1">&#39;^(\w+)\s+&#39;</span>
+                <span class="sa">rf</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">)</span><span class="si">}</span><span class="s1">|</span><span class="si">{</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">STOPPED</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
+                <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span>
+            <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output_lines</span><span class="p">:</span>
+                <span class="n">match</span> <span class="o">=</span> <span class="n">status_pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+                    <span class="n">service_name</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="n">status</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="n">status_map</span><span class="p">[</span><span class="n">service_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">status</span> <span class="o">==</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G Core control script not found at </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Script execution failed: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An unexpected error occurred during status retrieval: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">status_map</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.start_all_core_services"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.start_all_core_services">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_all_core_services</span><span class="p">(</span><span class="n">control_script_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts all 5G core services using the control script with the &#39;all start&#39; command.</span>
+
+<span class="sd">        :param control_script_path: the path to the control script</span>
+<span class="sd">        :return: True if the script execution completed successfully, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempting to start all 5G core services using: </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2"> all start&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">control_script_path</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">START</span><span class="p">],</span>
+                <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All services started command output: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G Core control script not found at </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Script execution failed to start all services. Stderr: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stdout: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An unexpected error occurred during service start: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.stop_all_core_services"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.stop_all_core_services">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_all_core_services</span><span class="p">(</span><span class="n">control_script_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stops all 5G core services using the control script with the &#39;all stop&#39; command.</span>
+
+<span class="sd">        :param control_script_path: the path to the control script</span>
+<span class="sd">        :return: True if the script execution completed successfully, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempting to stop all 5G core services using: </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2"> all stop&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">control_script_path</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">STOP</span><span class="p">],</span>
+                <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All services stopped command output: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G Core control script not found at </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Script execution failed to stop all services. Stderr: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stdout: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An unexpected error occurred during service stopping: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.init_all_core_services"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.init_all_core_services">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_all_core_services</span><span class="p">(</span><span class="n">control_script_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes all 5G core services using the control script with the &#39;all init&#39; command.</span>
+
+<span class="sd">        :param control_script_path: the path to the control script</span>
+<span class="sd">        :return: True if the script execution completed successfully, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempting to initialize all 5G core services using: </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2"> all init&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+                <span class="p">[</span><span class="n">control_script_path</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">ALL</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">INIT</span><span class="p">],</span>
+                <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;All services initialized command output: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G Core control script not found at </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Script execution failed to initialize all services. Stderr: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stdout: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An unexpected error occurred during service initialization: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.five_g_core_status_dto_to_dict"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.five_g_core_status_dto_to_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">five_g_core_status_dto_to_dict</span><span class="p">(</span>
+            <span class="n">five_g_core_status_dto</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_core_manager</span><span class="o">.</span><span class="n">five_g_core_manager_pb2</span><span class="o">.</span><span class="n">FiveGCoreStatusDTO</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a FiveGCoreStatusDTO to a dict</span>
+
+<span class="sd">        :param five_g_core_status_dto: the DTO to convert</span>
+<span class="sd">        :return: a dict representation of the DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">MONGO_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">mongo_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">MME_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">mme_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SGWC_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">sgwc_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SMF_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">smf_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">AMF_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">amf_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SGWU_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">sgwu_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UPF_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">upf_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">HSS_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">hss_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PCRF_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">pcrf_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">NRF_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">nrf_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SCP_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">scp_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SEPP_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">sepp_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">AUSF_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">ausf_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UDM_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">udm_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PCF_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">pcf_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">NSSF_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">nssf_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">BSF_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">bsf_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UDR_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">udr_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">WEBUI_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">webui_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">MONITOR_RUNNING</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">monitor_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_core_status_dto</span><span class="o">.</span><span class="n">ip</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.five_g_core_status_dto_from_dict"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.five_g_core_status_dto_from_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">five_g_core_status_dto_from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_core_manager</span><span class="o">.</span><span class="n">five_g_core_manager_pb2</span><span class="o">.</span><span class="n">FiveGCoreStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a FiveGCoreStatusDTO to a dict</span>
+
+<span class="sd">        :param d: the dict to convert</span>
+<span class="sd">        :return: the converted DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dto</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_core_manager</span><span class="o">.</span><span class="n">five_g_core_manager_pb2</span><span class="o">.</span><span class="n">FiveGCoreStatusDTO</span><span class="p">()</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">mongo_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">MONGO_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">mme_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">MME_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">sgwc_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SGWC_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">smf_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SMF_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">amf_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">AMF_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">sgwu_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SGWU_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">upf_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UPF_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">hss_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">HSS_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">pcrf_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PCRF_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">nrf_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">NRF_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">scp_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SCP_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">sepp_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SEPP_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">ausf_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">AUSF_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">udm_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UDM_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">pcf_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PCF_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">nssf_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">NSSF_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">bsf_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">BSF_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">udr_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UDR_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">webui_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">WEBUI_RUNNING</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">dto</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.five_g_core_status_dto_empty"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.five_g_core_status_dto_empty">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">five_g_core_status_dto_empty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_core_manager</span><span class="o">.</span><span class="n">five_g_core_manager_pb2</span><span class="o">.</span><span class="n">FiveGCoreStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: An empty FiveGCoreStatusDTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dto</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_core_manager</span><span class="o">.</span><span class="n">five_g_core_manager_pb2</span><span class="o">.</span><span class="n">FiveGCoreStatusDTO</span><span class="p">()</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">mongo_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">mme_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">sgwc_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">smf_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">amf_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">sgwu_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">upf_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">hss_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">pcrf_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">nrf_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">scp_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">sepp_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">ausf_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">udm_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">pcf_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">nssf_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">bsf_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">udr_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">webui_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">KAFKA</span><span class="o">.</span><span class="n">EMPTY_ADDR</span>
+        <span class="k">return</span> <span class="n">dto</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.init_subscriber_data"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.init_subscriber_data">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_subscriber_data</span><span class="p">(</span>
+            <span class="n">control_script_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+            <span class="n">subscribers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_core_manager</span><span class="o">.</span><span class="n">five_g_core_manager_pb2</span><span class="o">.</span><span class="n">FiveGSubscriberDTO</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the subscriber data for the 5G core.</span>
+
+<span class="sd">        :param control_script_path: the path to the control script</span>
+<span class="sd">        :param subscribers: list of subscribers</span>
+<span class="sd">        :return: True if the script execution completed successfully, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempting to initialize </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">subscribers</span><span class="p">)</span><span class="si">}</span><span class="s2"> subscribers using: </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">subscribers</span><span class="p">:</span>
+            <span class="n">cmd_args</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">control_script_path</span><span class="p">,</span>
+                <span class="n">sub</span><span class="o">.</span><span class="n">imsi</span><span class="p">,</span>
+                <span class="n">sub</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+                <span class="n">sub</span><span class="o">.</span><span class="n">opc</span><span class="p">,</span>
+                <span class="n">sub</span><span class="o">.</span><span class="n">amf</span><span class="p">,</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">sub</span><span class="o">.</span><span class="n">sqn</span><span class="p">)</span>
+            <span class="p">]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding subscriber IMSI: </span><span class="si">{</span><span class="n">sub</span><span class="o">.</span><span class="n">imsi</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">cmd_args</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Subscriber </span><span class="si">{</span><span class="n">sub</span><span class="o">.</span><span class="n">imsi</span><span class="si">}</span><span class="s2"> initialized.&quot;</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G Core control script not found at </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Failed to initialize subscriber </span><span class="si">{</span><span class="n">sub</span><span class="o">.</span><span class="n">imsi</span><span class="si">}</span><span class="s2">. Stderr: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stdout: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An unexpected error occurred during initialization of subscriber </span><span class="si">{</span><span class="n">sub</span><span class="o">.</span><span class="n">imsi</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;All subscriber data initialized successfully.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.init_config_files"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.init_config_files">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_config_files</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modifies the Open5GS configuration files to set the bind IP addresses.</span>
+<span class="sd">        Specifically updates:</span>
+<span class="sd">        1. /etc/open5gs/amf.yaml (amf -&gt; ngap -&gt; server -&gt; address)</span>
+<span class="sd">        2. /etc/open5gs/upf.yaml (upf -&gt; pfcp -&gt; server -&gt; address)</span>
+
+<span class="sd">        :param ip: The new IP address to set.</span>
+<span class="sd">        :return: True if all files were updated successfully, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">target_configs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span>
+                <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">AMF_YAML</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">AMF</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">NGAP</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SERVER</span><span class="p">]</span>
+            <span class="p">),</span>
+            <span class="p">(</span>
+                <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UPF_YAML</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UPF</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GTPU</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SERVER</span><span class="p">]</span>
+            <span class="p">)</span>
+        <span class="p">]</span>
+
+        <span class="n">success</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">for</span> <span class="n">file_path</span><span class="p">,</span> <span class="n">key_path</span> <span class="ow">in</span> <span class="n">target_configs</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempting to update IP to </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2"> in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+                <span class="n">current_node</span> <span class="o">=</span> <span class="n">config</span>
+                <span class="n">path_valid</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">key_path</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current_node</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">current_node</span><span class="p">:</span>
+                        <span class="n">current_node</span> <span class="o">=</span> <span class="n">current_node</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid structure in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: Key &#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&#39; not found.&quot;</span><span class="p">)</span>
+                        <span class="n">path_valid</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="k">break</span>
+
+                <span class="k">if</span> <span class="n">path_valid</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current_node</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">current_node</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">current_node</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">ADDRESS</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip</span>
+                <span class="k">elif</span> <span class="n">path_valid</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid structure in </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: Target key is not a list or is empty.&quot;</span><span class="p">)</span>
+                    <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">continue</span>
+
+                <span class="k">if</span> <span class="n">path_valid</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                        <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully updated </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
+
+            <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Configuration file not found at </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Permission denied. Cannot write to </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">. (Run as root?)&quot;</span><span class="p">)</span>
+                <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An unexpected error occurred processing </span><span class="si">{</span><span class="n">file_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">success</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="n">success</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.fetch_amf_metrics"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.fetch_amf_metrics">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch_amf_metrics</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FiveGCoreAMFMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetches AMF metrics from the given URL and parses them into an AMFMetrics DTO.</span>
+
+<span class="sd">        :param ip: The IP address string to populate the &#39;ip&#39; field of the DTO</span>
+<span class="sd">        :return: A populated AMFMetrics object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">AMF_METRICS_URL</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching metrics from </span><span class="si">{</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">AMF_METRICS_URL</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">FiveGCoreAMFMetrics</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">ts</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="n">parsed_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">raw_key</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">raw_value</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">metric_name</span> <span class="o">=</span> <span class="n">raw_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">raw_value</span><span class="p">))</span>
+                <span class="n">parsed_data</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">valid_args</span> <span class="o">=</span> <span class="n">FiveGCoreAMFMetrics</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+        <span class="n">filtered_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+        <span class="n">filtered_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parsed_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid_args</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">}</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">TS</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">FiveGCoreAMFMetrics</span><span class="p">(</span><span class="o">**</span><span class="n">filtered_args</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.fetch_upf_metrics"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.fetch_upf_metrics">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch_upf_metrics</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FiveGCoreUPFMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetches UPF metrics from the given URL and parses them into an UPFMetrics DTO.</span>
+
+<span class="sd">        :param ip: The IP address string to populate the &#39;ip&#39; field of the DTO</span>
+<span class="sd">        :return: A populated UPFMetrics object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UPF_METRICS_URL</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching metrics from </span><span class="si">{</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UPF_METRICS_URL</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">FiveGCoreUPFMetrics</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">ts</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="n">parsed_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">raw_key</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">raw_value</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">metric_name</span> <span class="o">=</span> <span class="n">raw_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">raw_value</span><span class="p">))</span>
+                <span class="n">parsed_data</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">valid_args</span> <span class="o">=</span> <span class="n">FiveGCoreUPFMetrics</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+        <span class="n">filtered_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+        <span class="n">filtered_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parsed_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid_args</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">}</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">TS</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">FiveGCoreUPFMetrics</span><span class="p">(</span><span class="o">**</span><span class="n">filtered_args</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.fetch_mme_metrics"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.fetch_mme_metrics">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch_mme_metrics</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FiveGCoreMMEMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetches MME metrics from the given URL and parses them into an MMEMetrics DTO.</span>
+
+<span class="sd">        :param ip: The IP address string to populate the &#39;ip&#39; field of the DTO</span>
+<span class="sd">        :return: A populated MMEMetrics object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">MME_METRICS_URL</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching metrics from </span><span class="si">{</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">MME_METRICS_URL</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">FiveGCoreMMEMetrics</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">ts</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="n">parsed_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">raw_key</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">raw_value</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">metric_name</span> <span class="o">=</span> <span class="n">raw_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">raw_value</span><span class="p">))</span>
+                <span class="n">parsed_data</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">valid_args</span> <span class="o">=</span> <span class="n">FiveGCoreMMEMetrics</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+        <span class="n">filtered_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+        <span class="n">filtered_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parsed_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid_args</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">}</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">TS</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">FiveGCoreMMEMetrics</span><span class="p">(</span><span class="o">**</span><span class="n">filtered_args</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.fetch_smf_metrics"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.fetch_smf_metrics">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch_smf_metrics</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FiveGCoreSMFMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetches SMF metrics from the given URL and parses them into an SMFMetrics DTO.</span>
+
+<span class="sd">        :param ip: The IP address string to populate the &#39;ip&#39; field of the DTO</span>
+<span class="sd">        :return: A populated SMFMetrics object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SMF_METRICS_URL</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching metrics from </span><span class="si">{</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">SMF_METRICS_URL</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">FiveGCoreSMFMetrics</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">ts</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="n">parsed_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">raw_key</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">raw_value</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">metric_name</span> <span class="o">=</span> <span class="n">raw_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">raw_value</span><span class="p">))</span>
+                <span class="n">parsed_data</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">valid_args</span> <span class="o">=</span> <span class="n">FiveGCoreSMFMetrics</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+        <span class="n">filtered_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+        <span class="n">filtered_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parsed_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid_args</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">}</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">TS</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">FiveGCoreSMFMetrics</span><span class="p">(</span><span class="o">**</span><span class="n">filtered_args</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.fetch_hss_metrics"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.fetch_hss_metrics">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch_hss_metrics</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FiveGCoreHSSMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetches HSS metrics from the given URL and parses them into an HSSMetrics DTO.</span>
+
+<span class="sd">        :param ip: The IP address string to populate the &#39;ip&#39; field of the DTO</span>
+<span class="sd">        :return: A populated HSSMetrics object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">HSS_METRICS_URL</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching metrics from </span><span class="si">{</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">HSS_METRICS_URL</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">FiveGCoreHSSMetrics</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">ts</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="n">parsed_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">raw_key</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">raw_value</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">metric_name</span> <span class="o">=</span> <span class="n">raw_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">raw_value</span><span class="p">))</span>
+                <span class="n">parsed_data</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">valid_args</span> <span class="o">=</span> <span class="n">FiveGCoreHSSMetrics</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+        <span class="n">filtered_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+        <span class="n">filtered_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parsed_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid_args</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">}</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">TS</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">FiveGCoreHSSMetrics</span><span class="p">(</span><span class="o">**</span><span class="n">filtered_args</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.fetch_pcrf_metrics"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.fetch_pcrf_metrics">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch_pcrf_metrics</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FiveGCorePCRFMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetches PCRF metrics from the given URL and parses them into an PCRFMetrics DTO.</span>
+
+<span class="sd">        :param ip: The IP address string to populate the &#39;ip&#39; field of the DTO</span>
+<span class="sd">        :return: A populated PCRFMetrics object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PCRF_METRICS_URL</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching metrics from </span><span class="si">{</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PCRF_METRICS_URL</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">FiveGCorePCRFMetrics</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">ts</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="n">parsed_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">raw_key</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">raw_value</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">metric_name</span> <span class="o">=</span> <span class="n">raw_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">raw_value</span><span class="p">))</span>
+                <span class="n">parsed_data</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">valid_args</span> <span class="o">=</span> <span class="n">FiveGCorePCRFMetrics</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+        <span class="n">filtered_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+        <span class="n">filtered_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parsed_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid_args</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">}</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">TS</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">FiveGCorePCRFMetrics</span><span class="p">(</span><span class="o">**</span><span class="n">filtered_args</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
+
+<div class="viewcode-block" id="FiveGCoreManagerUtil.fetch_pcf_metrics"><a class="viewcode-back" href="../../../csle_collector.five_g_core_manager.html#csle_collector.five_g_core_manager.five_g_core_manager_util.FiveGCoreManagerUtil.fetch_pcf_metrics">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fetch_pcf_metrics</span><span class="p">(</span><span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FiveGCorePCFMetrics</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fetches PCF metrics from the given URL and parses them into an PCFMetrics DTO.</span>
+
+<span class="sd">        :param ip: The IP address string to populate the &#39;ip&#39; field of the DTO</span>
+<span class="sd">        :return: A populated PCFMetrics object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PCF_METRICS_URL</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error fetching metrics from </span><span class="si">{</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PCF_METRICS_URL</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">FiveGCorePCFMetrics</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">ts</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="n">parsed_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">line</span> <span class="ow">or</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">parts</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">raw_key</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">raw_value</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">metric_name</span> <span class="o">=</span> <span class="n">raw_key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;{&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">raw_value</span><span class="p">))</span>
+                <span class="n">parsed_data</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="k">continue</span>
+        <span class="n">valid_args</span> <span class="o">=</span> <span class="n">FiveGCorePCFMetrics</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span>
+        <span class="n">filtered_args</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+        <span class="n">filtered_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parsed_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">valid_args</span> <span class="ow">and</span> <span class="n">k</span> <span class="o">!=</span> <span class="s1">&#39;self&#39;</span><span class="p">}</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+        <span class="n">filtered_args</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">TS</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">FiveGCorePCFMetrics</span><span class="p">(</span><span class="o">**</span><span class="n">filtered_args</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2026, Kim Hammar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

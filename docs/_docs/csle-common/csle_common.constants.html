@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>csle_common.constants package &mdash; csle-common 0.8.0 documentation</title>
+  <title>csle_common.constants package &mdash; csle-common 0.10.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -107,6 +107,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.DOCKER_EXEC_COMMAND"><code class="docutils literal notranslate"><span class="pre">COMMANDS.DOCKER_EXEC_COMMAND</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.DOCKER_STATS_MANAGER_OUTFILE"><code class="docutils literal notranslate"><span class="pre">COMMANDS.DOCKER_STATS_MANAGER_OUTFILE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.DOCKER_STATS_MANAGER_PIDFILE"><code class="docutils literal notranslate"><span class="pre">COMMANDS.DOCKER_STATS_MANAGER_PIDFILE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.DOCKER_UPDATE_COMMAND"><code class="docutils literal notranslate"><span class="pre">COMMANDS.DOCKER_UPDATE_COMMAND</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.DOT_DELIM"><code class="docutils literal notranslate"><span class="pre">COMMANDS.DOT_DELIM</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.ECHO"><code class="docutils literal notranslate"><span class="pre">COMMANDS.ECHO</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.FLASK_LOG_FILE"><code class="docutils literal notranslate"><span class="pre">COMMANDS.FLASK_LOG_FILE</span></code></a></li>
@@ -118,9 +119,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.GRAFANA_USERNAME"><code class="docutils literal notranslate"><span class="pre">COMMANDS.GRAFANA_USERNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.GREP"><code class="docutils literal notranslate"><span class="pre">COMMANDS.GREP</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.HOME_DIR"><code class="docutils literal notranslate"><span class="pre">COMMANDS.HOME_DIR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.IPERF_COMMAND"><code class="docutils literal notranslate"><span class="pre">COMMANDS.IPERF_COMMAND</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.IPTABLES_APPEND_FORWARD"><code class="docutils literal notranslate"><span class="pre">COMMANDS.IPTABLES_APPEND_FORWARD</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.IPTABLES_APPEND_INPUT"><code class="docutils literal notranslate"><span class="pre">COMMANDS.IPTABLES_APPEND_INPUT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.IPTABLES_APPEND_OUTPUT"><code class="docutils literal notranslate"><span class="pre">COMMANDS.IPTABLES_APPEND_OUTPUT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.IP_NETNS_EXEC_COMMAND"><code class="docutils literal notranslate"><span class="pre">COMMANDS.IP_NETNS_EXEC_COMMAND</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.KILL_PROCESS"><code class="docutils literal notranslate"><span class="pre">COMMANDS.KILL_PROCESS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.LIST_CACHE"><code class="docutils literal notranslate"><span class="pre">COMMANDS.LIST_CACHE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.LS"><code class="docutils literal notranslate"><span class="pre">COMMANDS.LS</span></code></a></li>
@@ -182,6 +185,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.START_CSLE_MGMT_WEBAPP"><code class="docutils literal notranslate"><span class="pre">COMMANDS.START_CSLE_MGMT_WEBAPP</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.START_DOCKER_STATS_MANAGER"><code class="docutils literal notranslate"><span class="pre">COMMANDS.START_DOCKER_STATS_MANAGER</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.START_ELK_MANAGER"><code class="docutils literal notranslate"><span class="pre">COMMANDS.START_ELK_MANAGER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.START_FIVE_G_CORE_MANAGER"><code class="docutils literal notranslate"><span class="pre">COMMANDS.START_FIVE_G_CORE_MANAGER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.START_FIVE_G_CU_MANAGER"><code class="docutils literal notranslate"><span class="pre">COMMANDS.START_FIVE_G_CU_MANAGER</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.START_FIVE_G_DU_MANAGER"><code class="docutils literal notranslate"><span class="pre">COMMANDS.START_FIVE_G_DU_MANAGER</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.START_GRAFANA"><code class="docutils literal notranslate"><span class="pre">COMMANDS.START_GRAFANA</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.START_HOST_MANAGER"><code class="docutils literal notranslate"><span class="pre">COMMANDS.START_HOST_MANAGER</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.COMMANDS.START_KAFKA_MANAGER"><code class="docutils literal notranslate"><span class="pre">COMMANDS.START_KAFKA_MANAGER</span></code></a></li>
@@ -231,6 +237,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.CADVISOR"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.CADVISOR</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.CLIENT_1"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.CLIENT_1</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.CLIENT_IMAGES"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.CLIENT_IMAGES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.CLOUD_RAN_CU_1"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.CLOUD_RAN_CU_1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.CLOUD_RAN_DU_1"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.CLOUD_RAN_DU_1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.CLOUD_RAN_UE_1"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.CLOUD_RAN_UE_1</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.CSLE_PREFIX"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.CSLE_PREFIX</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.CVE_2010_0426_1"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.CVE_2010_0426_1</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.CVE_2014_0160_1"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.CVE_2014_0160_1</span></code></a></li>
@@ -241,6 +250,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.DERIVED"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.DERIVED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.DOCKERHUB_USERNAME"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.DOCKERHUB_USERNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.ELK_1"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.ELK_1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_CORE_1"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.FIVE_G_CORE_1</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.FIVE_G_CORE_IMAGES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_CU_IMAGES"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.FIVE_G_CU_IMAGES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_DU_IMAGES"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.FIVE_G_DU_IMAGES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.FTP_1"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.FTP_1</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.FTP_2"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.FTP_2</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_IMAGES.GRAFANA"><code class="docutils literal notranslate"><span class="pre">CONTAINER_IMAGES.GRAFANA</span></code></a></li>
@@ -275,6 +288,9 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.CLIENT_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.CLIENT_1_OS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.CLOUD_RAN_CU_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.CLOUD_RAN_CU_1_OS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.CLOUD_RAN_DU_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.CLOUD_RAN_DU_1_OS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.CLOUD_RAN_UE_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.CLOUD_RAN_UE_1_OS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.CVE_2010_0426_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.CVE_2010_0426_1_OS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.CVE_2014_0160_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.CVE_2014_0160_1_OS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.CVE_2015_1427_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.CVE_2015_1427_1_OS</span></code></a></li>
@@ -282,6 +298,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.CVE_2015_5602_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.CVE_2015_5602_1_OS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.CVE_2016_10033_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.CVE_2016_10033_1_OS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.ELK_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.ELK_1_OS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.FIVE_G_CORE_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.FIVE_G_CORE_1_OS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.FTP_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.FTP_1_OS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.FTP_2_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.FTP_2_OS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.CONTAINER_OS.HACKER_KALI_1_OS"><code class="docutils literal notranslate"><span class="pre">CONTAINER_OS.HACKER_KALI_1_OS</span></code></a></li>
@@ -612,6 +629,63 @@
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIREWALL.DROP"><code class="docutils literal notranslate"><span class="pre">FIREWALL.DROP</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G"><code class="docutils literal notranslate"><span class="pre">FIVE_G</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.BANDWIDTH"><code class="docutils literal notranslate"><span class="pre">FIVE_G.BANDWIDTH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.BITS_PER_SECOND_KEY"><code class="docutils literal notranslate"><span class="pre">FIVE_G.BITS_PER_SECOND_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CELL_BLOCK_ERROR_RATE_PERCENT_DOWNLINK"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CELL_BLOCK_ERROR_RATE_PERCENT_DOWNLINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CELL_BLOCK_ERROR_RATE_PERCENT_UPLINK"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CELL_BLOCK_ERROR_RATE_PERCENT_UPLINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CELL_DOWNLINK_BITRATE_BPS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CELL_DOWNLINK_BITRATE_BPS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CELL_MODULATION_AND_CODING_SCHEME_DOWNLINK"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CELL_MODULATION_AND_CODING_SCHEME_DOWNLINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CELL_MODULATION_AND_CODING_SCHEME_UPLINK"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CELL_MODULATION_AND_CODING_SCHEME_UPLINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CELL_SCHEDULING_PROCESSING_LATENCY_MS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CELL_SCHEDULING_PROCESSING_LATENCY_MS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CELL_UPLINK_BITRATE_BPS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CELL_UPLINK_BITRATE_BPS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CORE_IP"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CORE_IP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CPU_LIMIT"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CPU_LIMIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CPU_USAGE_PERCENT"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CPU_USAGE_PERCENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CU_METRIC_KEYS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CU_METRIC_KEYS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CU_NAMES"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CU_NAMES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.CU_PREFIX"><code class="docutils literal notranslate"><span class="pre">FIVE_G.CU_PREFIX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.DIRECTION"><code class="docutils literal notranslate"><span class="pre">FIVE_G.DIRECTION</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.DOWNLINK"><code class="docutils literal notranslate"><span class="pre">FIVE_G.DOWNLINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.DU"><code class="docutils literal notranslate"><span class="pre">FIVE_G.DU</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.DU_METRIC_KEYS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.DU_METRIC_KEYS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.DU_NAMES"><code class="docutils literal notranslate"><span class="pre">FIVE_G.DU_NAMES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.DU_PREFIX"><code class="docutils literal notranslate"><span class="pre">FIVE_G.DU_PREFIX</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.E2E"><code class="docutils literal notranslate"><span class="pre">FIVE_G.E2E</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.END_KEY"><code class="docutils literal notranslate"><span class="pre">FIVE_G.END_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.IPERF_REVERSE_FLAG"><code class="docutils literal notranslate"><span class="pre">FIVE_G.IPERF_REVERSE_FLAG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.JITTER_MS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.JITTER_MS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.JITTER_MS_KEY"><code class="docutils literal notranslate"><span class="pre">FIVE_G.JITTER_MS_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.LOAD_DOWNLINK"><code class="docutils literal notranslate"><span class="pre">FIVE_G.LOAD_DOWNLINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.LOAD_UPLINK"><code class="docutils literal notranslate"><span class="pre">FIVE_G.LOAD_UPLINK</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.LOST_PERCENT"><code class="docutils literal notranslate"><span class="pre">FIVE_G.LOST_PERCENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.LOST_PERCENT_KEY"><code class="docutils literal notranslate"><span class="pre">FIVE_G.LOST_PERCENT_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.MAC_LAYER_CPU_USAGE_PERCENT"><code class="docutils literal notranslate"><span class="pre">FIVE_G.MAC_LAYER_CPU_USAGE_PERCENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.MAC_LAYER_PROCESSING_LATENCY_US"><code class="docutils literal notranslate"><span class="pre">FIVE_G.MAC_LAYER_PROCESSING_LATENCY_US</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.MEMORY_LIMIT"><code class="docutils literal notranslate"><span class="pre">FIVE_G.MEMORY_LIMIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.MEMORY_USAGE_MB"><code class="docutils literal notranslate"><span class="pre">FIVE_G.MEMORY_USAGE_MB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.NAME_MAPPING"><code class="docutils literal notranslate"><span class="pre">FIVE_G.NAME_MAPPING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.NUMBER_OF_ANTENNAS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.NUMBER_OF_ANTENNAS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_CHANNEL_ESTIMATION_LATENCY_US"><code class="docutils literal notranslate"><span class="pre">FIVE_G.PHYSICAL_LAYER_CHANNEL_ESTIMATION_LATENCY_US</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_DOWNLINK_CPU_USAGE_PERCENT"><code class="docutils literal notranslate"><span class="pre">FIVE_G.PHYSICAL_LAYER_DOWNLINK_CPU_USAGE_PERCENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_DOWNLINK_PROCESSING_LATENCY_US"><code class="docutils literal notranslate"><span class="pre">FIVE_G.PHYSICAL_LAYER_DOWNLINK_PROCESSING_LATENCY_US</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_DOWNLINK_THROUGHPUT_MBPS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.PHYSICAL_LAYER_DOWNLINK_THROUGHPUT_MBPS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_SNR_UPLINK_DB"><code class="docutils literal notranslate"><span class="pre">FIVE_G.PHYSICAL_LAYER_SNR_UPLINK_DB</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_UPLINK_CPU_USAGE_PERCENT"><code class="docutils literal notranslate"><span class="pre">FIVE_G.PHYSICAL_LAYER_UPLINK_CPU_USAGE_PERCENT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_UPLINK_PROCESSING_LATENCY_US"><code class="docutils literal notranslate"><span class="pre">FIVE_G.PHYSICAL_LAYER_UPLINK_PROCESSING_LATENCY_US</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_UPLINK_THROUGHPUT_MBPS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.PHYSICAL_LAYER_UPLINK_THROUGHPUT_MBPS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.POWER_CONSUMPTION_WATTS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.POWER_CONSUMPTION_WATTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.RLC_CREATING_PDU_LATENCY_NS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.RLC_CREATING_PDU_LATENCY_NS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.ROUTING_CONFIG"><code class="docutils literal notranslate"><span class="pre">FIVE_G.ROUTING_CONFIG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.SIGNAL_STRENGTH"><code class="docutils literal notranslate"><span class="pre">FIVE_G.SIGNAL_STRENGTH</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.STATUS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.STATUS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.SUCCESS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.SUCCESS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.SUM_KEY"><code class="docutils literal notranslate"><span class="pre">FIVE_G.SUM_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.THROUGHPUT_BPS"><code class="docutils literal notranslate"><span class="pre">FIVE_G.THROUGHPUT_BPS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.UE_NAME"><code class="docutils literal notranslate"><span class="pre">FIVE_G.UE_NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FIVE_G.UPLINK"><code class="docutils literal notranslate"><span class="pre">FIVE_G.UPLINK</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#csle_common.constants.constants.FTP"><code class="docutils literal notranslate"><span class="pre">FTP</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FTP.ACCESS_FAILED"><code class="docutils literal notranslate"><span class="pre">FTP.ACCESS_FAILED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.FTP.DEFAULT_PORT"><code class="docutils literal notranslate"><span class="pre">FTP.DEFAULT_PORT</span></code></a></li>
@@ -636,10 +710,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.CLUSTER_MANAGER_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.CLUSTER_MANAGER_PORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.DOCKER_STATS_MANAGER_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.DOCKER_STATS_MANAGER_PORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.ELK_MANAGER_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.ELK_MANAGER_PORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.FIVE_G_CORE_MANAGER_DEFAULT_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.FIVE_G_CORE_MANAGER_DEFAULT_PORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.FIVE_G_CU_MANAGER_DEFAULT_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.FIVE_G_CU_MANAGER_DEFAULT_PORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.FIVE_G_DU_MANAGER_DEFAULT_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.FIVE_G_DU_MANAGER_DEFAULT_PORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.GRPC_OPTIONS"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.GRPC_OPTIONS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.HOST_MANAGER_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.HOST_MANAGER_PORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.KAFKA_MANAGER_DEFAULT_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.KAFKA_MANAGER_DEFAULT_PORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.OSSEC_IDS_MANAGER_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.OSSEC_IDS_MANAGER_PORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.RYU_MANAGER_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.RYU_MANAGER_PORT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.SERVICE_CONFIG_JSON"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.SERVICE_CONFIG_JSON</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.SNORT_IDS_MANAGER_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.SNORT_IDS_MANAGER_PORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.GRPC_SERVERS.TRAFFIC_MANAGER_PORT"><code class="docutils literal notranslate"><span class="pre">GRPC_SERVERS.TRAFFIC_MANAGER_PORT</span></code></a></li>
 </ul>
@@ -1190,6 +1269,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.CLIENT_MANAGER_FILE_NAME"><code class="docutils literal notranslate"><span class="pre">TRAFFIC_COMMANDS.CLIENT_MANAGER_FILE_NAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.DEFAULT_COMMANDS"><code class="docutils literal notranslate"><span class="pre">TRAFFIC_COMMANDS.DEFAULT_COMMANDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.ELK_MANAGER_FILE_NAME"><code class="docutils literal notranslate"><span class="pre">TRAFFIC_COMMANDS.ELK_MANAGER_FILE_NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.FIVE_G_CORE_MANAGER_FILE_NAME"><code class="docutils literal notranslate"><span class="pre">TRAFFIC_COMMANDS.FIVE_G_CORE_MANAGER_FILE_NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.FIVE_G_CU_MANAGER_FILE_NAME"><code class="docutils literal notranslate"><span class="pre">TRAFFIC_COMMANDS.FIVE_G_CU_MANAGER_FILE_NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.FIVE_G_DU_MANAGER_FILE_NAME"><code class="docutils literal notranslate"><span class="pre">TRAFFIC_COMMANDS.FIVE_G_DU_MANAGER_FILE_NAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.GENERIC_COMMANDS"><code class="docutils literal notranslate"><span class="pre">TRAFFIC_COMMANDS.GENERIC_COMMANDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.HOST_MANAGER_FILE_NAME"><code class="docutils literal notranslate"><span class="pre">TRAFFIC_COMMANDS.HOST_MANAGER_FILE_NAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.KAFKA_MANAGER_FILE_NAME"><code class="docutils literal notranslate"><span class="pre">TRAFFIC_COMMANDS.KAFKA_MANAGER_FILE_NAME</span></code></a></li>
@@ -1541,6 +1623,11 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.COMMANDS.DOCKER_UPDATE_COMMAND">
+<span class="sig-name descname"><span class="pre">DOCKER_UPDATE_COMMAND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'docker</span> <span class="pre">update</span> <span class="pre">--memory={}</span> <span class="pre">--cpus={}</span> <span class="pre">{}'</span></em><a class="headerlink" href="#csle_common.constants.constants.COMMANDS.DOCKER_UPDATE_COMMAND" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.COMMANDS.DOT_DELIM">
 <span class="sig-name descname"><span class="pre">DOT_DELIM</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'.'</span></em><a class="headerlink" href="#csle_common.constants.constants.COMMANDS.DOT_DELIM" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -1596,6 +1683,11 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.COMMANDS.IPERF_COMMAND">
+<span class="sig-name descname"><span class="pre">IPERF_COMMAND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'iperf3</span> <span class="pre">-c</span> <span class="pre">{}</span> <span class="pre">-u</span> <span class="pre">-b</span> <span class="pre">{}M</span> <span class="pre">-t</span> <span class="pre">{}</span> <span class="pre">-p</span> <span class="pre">{}</span> <span class="pre">--json'</span></em><a class="headerlink" href="#csle_common.constants.constants.COMMANDS.IPERF_COMMAND" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.COMMANDS.IPTABLES_APPEND_FORWARD">
 <span class="sig-name descname"><span class="pre">IPTABLES_APPEND_FORWARD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sudo</span> <span class="pre">iptables</span> <span class="pre">-A</span> <span class="pre">FORWARD'</span></em><a class="headerlink" href="#csle_common.constants.constants.COMMANDS.IPTABLES_APPEND_FORWARD" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -1608,6 +1700,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.COMMANDS.IPTABLES_APPEND_OUTPUT">
 <span class="sig-name descname"><span class="pre">IPTABLES_APPEND_OUTPUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sudo</span> <span class="pre">iptables</span> <span class="pre">-A</span> <span class="pre">OUTPUT'</span></em><a class="headerlink" href="#csle_common.constants.constants.COMMANDS.IPTABLES_APPEND_OUTPUT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.COMMANDS.IP_NETNS_EXEC_COMMAND">
+<span class="sig-name descname"><span class="pre">IP_NETNS_EXEC_COMMAND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ip</span> <span class="pre">netns</span> <span class="pre">exec</span> <span class="pre">{}</span> <span class="pre">{}'</span></em><a class="headerlink" href="#csle_common.constants.constants.COMMANDS.IP_NETNS_EXEC_COMMAND" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -1916,6 +2013,21 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.COMMANDS.START_FIVE_G_CORE_MANAGER">
+<span class="sig-name descname"><span class="pre">START_FIVE_G_CORE_MANAGER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sudo</span> <span class="pre">nohup</span> <span class="pre">/root/miniconda3/bin/python3</span> <span class="pre">/five_g_core_manager.py</span> <span class="pre">--port</span> <span class="pre">{}</span> <span class="pre">--logdir</span> <span class="pre">{}</span> <span class="pre">--logfile</span> <span class="pre">{}</span> <span class="pre">--maxworkers</span> <span class="pre">{}</span> <span class="pre">&amp;'</span></em><a class="headerlink" href="#csle_common.constants.constants.COMMANDS.START_FIVE_G_CORE_MANAGER" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.COMMANDS.START_FIVE_G_CU_MANAGER">
+<span class="sig-name descname"><span class="pre">START_FIVE_G_CU_MANAGER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sudo</span> <span class="pre">nohup</span> <span class="pre">/root/miniconda3/bin/python3</span> <span class="pre">/five_g_cu_manager.py</span> <span class="pre">--port</span> <span class="pre">{}</span> <span class="pre">--logdir</span> <span class="pre">{}</span> <span class="pre">--logfile</span> <span class="pre">{}</span> <span class="pre">--maxworkers</span> <span class="pre">{}</span> <span class="pre">&amp;'</span></em><a class="headerlink" href="#csle_common.constants.constants.COMMANDS.START_FIVE_G_CU_MANAGER" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.COMMANDS.START_FIVE_G_DU_MANAGER">
+<span class="sig-name descname"><span class="pre">START_FIVE_G_DU_MANAGER</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sudo</span> <span class="pre">nohup</span> <span class="pre">/root/miniconda3/bin/python3</span> <span class="pre">/five_g_du_manager.py</span> <span class="pre">--port</span> <span class="pre">{}</span> <span class="pre">--logdir</span> <span class="pre">{}</span> <span class="pre">--logfile</span> <span class="pre">{}</span> <span class="pre">--maxworkers</span> <span class="pre">{}</span> <span class="pre">&amp;'</span></em><a class="headerlink" href="#csle_common.constants.constants.COMMANDS.START_FIVE_G_DU_MANAGER" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.COMMANDS.START_GRAFANA">
 <span class="sig-name descname"><span class="pre">START_GRAFANA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'docker</span> <span class="pre">run</span> <span class="pre">-d</span> <span class="pre">-p</span> <span class="pre">3000:3000</span> <span class="pre">--name</span> <span class="pre">grafana</span> <span class="pre">grafana/grafana'</span></em><a class="headerlink" href="#csle_common.constants.constants.COMMANDS.START_GRAFANA" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -2137,6 +2249,21 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_IMAGES.CLOUD_RAN_CU_1">
+<span class="sig-name descname"><span class="pre">CLOUD_RAN_CU_1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'csle_cloud_ran_cu_1'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_IMAGES.CLOUD_RAN_CU_1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_IMAGES.CLOUD_RAN_DU_1">
+<span class="sig-name descname"><span class="pre">CLOUD_RAN_DU_1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'csle_cloud_ran_du_1'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_IMAGES.CLOUD_RAN_DU_1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_IMAGES.CLOUD_RAN_UE_1">
+<span class="sig-name descname"><span class="pre">CLOUD_RAN_UE_1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'csle_cloud_ran_ue_1'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_IMAGES.CLOUD_RAN_UE_1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_IMAGES.CSLE_PREFIX">
 <span class="sig-name descname"><span class="pre">CSLE_PREFIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'csle_'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_IMAGES.CSLE_PREFIX" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -2184,6 +2311,26 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_IMAGES.ELK_1">
 <span class="sig-name descname"><span class="pre">ELK_1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'csle_elk_1'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_IMAGES.ELK_1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_CORE_1">
+<span class="sig-name descname"><span class="pre">FIVE_G_CORE_1</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'csle_5g_core_1'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_CORE_1" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES">
+<span class="sig-name descname"><span class="pre">FIVE_G_CORE_IMAGES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['csle_5g_core_1']</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_CORE_IMAGES" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_CU_IMAGES">
+<span class="sig-name descname"><span class="pre">FIVE_G_CU_IMAGES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['csle_cloud_ran_cu_1']</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_CU_IMAGES" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_DU_IMAGES">
+<span class="sig-name descname"><span class="pre">FIVE_G_DU_IMAGES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['csle_cloud_ran_du_1']</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_IMAGES.FIVE_G_DU_IMAGES" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2349,6 +2496,21 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_OS.CLOUD_RAN_CU_1_OS">
+<span class="sig-name descname"><span class="pre">CLOUD_RAN_CU_1_OS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ubuntu'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_OS.CLOUD_RAN_CU_1_OS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_OS.CLOUD_RAN_DU_1_OS">
+<span class="sig-name descname"><span class="pre">CLOUD_RAN_DU_1_OS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ubuntu'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_OS.CLOUD_RAN_DU_1_OS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_OS.CLOUD_RAN_UE_1_OS">
+<span class="sig-name descname"><span class="pre">CLOUD_RAN_UE_1_OS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ubuntu'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_OS.CLOUD_RAN_UE_1_OS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_OS.CVE_2010_0426_1_OS">
 <span class="sig-name descname"><span class="pre">CVE_2010_0426_1_OS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'debian'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_OS.CVE_2010_0426_1_OS" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
@@ -2381,6 +2543,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_OS.ELK_1_OS">
 <span class="sig-name descname"><span class="pre">ELK_1_OS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ubuntu'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_OS.ELK_1_OS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_OS.FIVE_G_CORE_1_OS">
+<span class="sig-name descname"><span class="pre">FIVE_G_CORE_1_OS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ubuntu'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_OS.FIVE_G_CORE_1_OS" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -2455,7 +2622,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.CONTAINER_OS.SPARK_1_OS">
-<span class="sig-name descname"><span class="pre">SPARK_1_OS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'spark'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_OS.SPARK_1_OS" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">SPARK_1_OS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ubuntu'</span></em><a class="headerlink" href="#csle_common.constants.constants.CONTAINER_OS.SPARK_1_OS" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3858,6 +4025,283 @@
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csle_common.constants.constants.</span></span><span class="sig-name descname"><span class="pre">FIVE_G</span></span><a class="reference internal" href="_modules/csle_common/constants/constants.html#FIVE_G"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_common.constants.constants.FIVE_G" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Constants related to 5G performance testing</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.BANDWIDTH">
+<span class="sig-name descname"><span class="pre">BANDWIDTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bandwidth'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.BANDWIDTH" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.BITS_PER_SECOND_KEY">
+<span class="sig-name descname"><span class="pre">BITS_PER_SECOND_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'bits_per_second'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.BITS_PER_SECOND_KEY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CELL_BLOCK_ERROR_RATE_PERCENT_DOWNLINK">
+<span class="sig-name descname"><span class="pre">CELL_BLOCK_ERROR_RATE_PERCENT_DOWNLINK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cell_block_error_rate_percent_downlink'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CELL_BLOCK_ERROR_RATE_PERCENT_DOWNLINK" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CELL_BLOCK_ERROR_RATE_PERCENT_UPLINK">
+<span class="sig-name descname"><span class="pre">CELL_BLOCK_ERROR_RATE_PERCENT_UPLINK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cell_block_error_rate_percent_uplink'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CELL_BLOCK_ERROR_RATE_PERCENT_UPLINK" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CELL_DOWNLINK_BITRATE_BPS">
+<span class="sig-name descname"><span class="pre">CELL_DOWNLINK_BITRATE_BPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cell_downlink_bitrate_bps'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CELL_DOWNLINK_BITRATE_BPS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CELL_MODULATION_AND_CODING_SCHEME_DOWNLINK">
+<span class="sig-name descname"><span class="pre">CELL_MODULATION_AND_CODING_SCHEME_DOWNLINK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cell_modulation_and_coding_scheme_downlink'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CELL_MODULATION_AND_CODING_SCHEME_DOWNLINK" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CELL_MODULATION_AND_CODING_SCHEME_UPLINK">
+<span class="sig-name descname"><span class="pre">CELL_MODULATION_AND_CODING_SCHEME_UPLINK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cell_modulation_and_coding_scheme_uplink'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CELL_MODULATION_AND_CODING_SCHEME_UPLINK" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CELL_SCHEDULING_PROCESSING_LATENCY_MS">
+<span class="sig-name descname"><span class="pre">CELL_SCHEDULING_PROCESSING_LATENCY_MS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cell_scheduling_processing_latency_ms'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CELL_SCHEDULING_PROCESSING_LATENCY_MS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CELL_UPLINK_BITRATE_BPS">
+<span class="sig-name descname"><span class="pre">CELL_UPLINK_BITRATE_BPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cell_uplink_bitrate_bps'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CELL_UPLINK_BITRATE_BPS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CORE_IP">
+<span class="sig-name descname"><span class="pre">CORE_IP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'10.45.0.1'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CORE_IP" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CPU_LIMIT">
+<span class="sig-name descname"><span class="pre">CPU_LIMIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cpu_limit'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CPU_LIMIT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CPU_USAGE_PERCENT">
+<span class="sig-name descname"><span class="pre">CPU_USAGE_PERCENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cpu_usage_percent'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CPU_USAGE_PERCENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CU_METRIC_KEYS">
+<span class="sig-name descname"><span class="pre">CU_METRIC_KEYS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['cu_power_consumption_watts',</span> <span class="pre">'cu_cpu_usage_percent',</span> <span class="pre">'cu_memory_usage_mb']</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CU_METRIC_KEYS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CU_NAMES">
+<span class="sig-name descname"><span class="pre">CU_NAMES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['csle_cloud_ran_cu_1_1-level17-15',</span> <span class="pre">'csle_cloud_ran_cu_1_2-level17-15']</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CU_NAMES" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.CU_PREFIX">
+<span class="sig-name descname"><span class="pre">CU_PREFIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cu_'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.CU_PREFIX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.DIRECTION">
+<span class="sig-name descname"><span class="pre">DIRECTION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'direction'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.DIRECTION" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.DOWNLINK">
+<span class="sig-name descname"><span class="pre">DOWNLINK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'downlink'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.DOWNLINK" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.DU">
+<span class="sig-name descname"><span class="pre">DU</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'du'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.DU" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.DU_METRIC_KEYS">
+<span class="sig-name descname"><span class="pre">DU_METRIC_KEYS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['du_mac_layer_processing_latency_us',</span> <span class="pre">'du_mac_layer_cpu_usage_percent',</span> <span class="pre">'du_physical_layer_uplink_cpu_usage_percent',</span> <span class="pre">'du_physical_layer_downlink_cpu_usage_percent',</span> <span class="pre">'du_physical_layer_downlink_processing_latency_us',</span> <span class="pre">'du_physical_layer_uplink_processing_latency_us',</span> <span class="pre">'du_physical_layer_snr_uplink_db',</span> <span class="pre">'du_physical_layer_channel_estimation_latency_us',</span> <span class="pre">'du_physical_layer_uplink_throughput_mbps',</span> <span class="pre">'du_physical_layer_downlink_throughput_mbps',</span> <span class="pre">'du_rlc_creating_pdu_latency_ns',</span> <span class="pre">'du_cell_scheduling_processing_latency_ms',</span> <span class="pre">'du_cell_downlink_bitrate_bps',</span> <span class="pre">'du_cell_uplink_bitrate_bps',</span> <span class="pre">'du_cell_modulation_and_coding_scheme_downlink',</span> <span class="pre">'du_cell_modulation_and_coding_scheme_uplink',</span> <span class="pre">'du_cell_block_error_rate_percent_downlink',</span> <span class="pre">'du_cell_block_error_rate_percent_uplink',</span> <span class="pre">'du_cpu_usage_percent',</span> <span class="pre">'du_memory_usage_mb',</span> <span class="pre">'du_power_consumption_watts']</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.DU_METRIC_KEYS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.DU_NAMES">
+<span class="sig-name descname"><span class="pre">DU_NAMES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['csle_cloud_ran_du_1_1-level17-15',</span> <span class="pre">'csle_cloud_ran_du_1_2-level17-15',</span> <span class="pre">'csle_cloud_ran_du_1_3-level17-15',</span> <span class="pre">'csle_cloud_ran_du_1_4-level17-15']</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.DU_NAMES" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.DU_PREFIX">
+<span class="sig-name descname"><span class="pre">DU_PREFIX</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'du_'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.DU_PREFIX" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.E2E">
+<span class="sig-name descname"><span class="pre">E2E</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'e2e'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.E2E" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.END_KEY">
+<span class="sig-name descname"><span class="pre">END_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'end'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.END_KEY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.IPERF_REVERSE_FLAG">
+<span class="sig-name descname"><span class="pre">IPERF_REVERSE_FLAG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'-R'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.IPERF_REVERSE_FLAG" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.JITTER_MS">
+<span class="sig-name descname"><span class="pre">JITTER_MS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'jitter_ms'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.JITTER_MS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.JITTER_MS_KEY">
+<span class="sig-name descname"><span class="pre">JITTER_MS_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'jitter_ms'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.JITTER_MS_KEY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.LOAD_DOWNLINK">
+<span class="sig-name descname"><span class="pre">LOAD_DOWNLINK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'load_downlink'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.LOAD_DOWNLINK" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.LOAD_UPLINK">
+<span class="sig-name descname"><span class="pre">LOAD_UPLINK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'load_uplink'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.LOAD_UPLINK" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.LOST_PERCENT">
+<span class="sig-name descname"><span class="pre">LOST_PERCENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lost_percent'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.LOST_PERCENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.LOST_PERCENT_KEY">
+<span class="sig-name descname"><span class="pre">LOST_PERCENT_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'lost_percent'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.LOST_PERCENT_KEY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.MAC_LAYER_CPU_USAGE_PERCENT">
+<span class="sig-name descname"><span class="pre">MAC_LAYER_CPU_USAGE_PERCENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mac_layer_cpu_usage_percent'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.MAC_LAYER_CPU_USAGE_PERCENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.MAC_LAYER_PROCESSING_LATENCY_US">
+<span class="sig-name descname"><span class="pre">MAC_LAYER_PROCESSING_LATENCY_US</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'mac_layer_processing_latency_us'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.MAC_LAYER_PROCESSING_LATENCY_US" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.MEMORY_LIMIT">
+<span class="sig-name descname"><span class="pre">MEMORY_LIMIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'memory_limit'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.MEMORY_LIMIT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.MEMORY_USAGE_MB">
+<span class="sig-name descname"><span class="pre">MEMORY_USAGE_MB</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'memory_usage_mb'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.MEMORY_USAGE_MB" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.NAME_MAPPING">
+<span class="sig-name descname"><span class="pre">NAME_MAPPING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'csle_cloud_ran_cu_1_1-level17-15':</span> <span class="pre">'CU1',</span> <span class="pre">'csle_cloud_ran_cu_1_2-level17-15':</span> <span class="pre">'CU2',</span> <span class="pre">'csle_cloud_ran_du_1_1-level17-15':</span> <span class="pre">'DU1',</span> <span class="pre">'csle_cloud_ran_du_1_2-level17-15':</span> <span class="pre">'DU2',</span> <span class="pre">'csle_cloud_ran_du_1_3-level17-15':</span> <span class="pre">'DU3',</span> <span class="pre">'csle_cloud_ran_du_1_4-level17-15':</span> <span class="pre">'DU4'}</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.NAME_MAPPING" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.NUMBER_OF_ANTENNAS">
+<span class="sig-name descname"><span class="pre">NUMBER_OF_ANTENNAS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'number_of_antennas'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.NUMBER_OF_ANTENNAS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_CHANNEL_ESTIMATION_LATENCY_US">
+<span class="sig-name descname"><span class="pre">PHYSICAL_LAYER_CHANNEL_ESTIMATION_LATENCY_US</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'physical_layer_channel_estimation_latency_us'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_CHANNEL_ESTIMATION_LATENCY_US" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_DOWNLINK_CPU_USAGE_PERCENT">
+<span class="sig-name descname"><span class="pre">PHYSICAL_LAYER_DOWNLINK_CPU_USAGE_PERCENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'physical_layer_downlink_cpu_usage_percent'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_DOWNLINK_CPU_USAGE_PERCENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_DOWNLINK_PROCESSING_LATENCY_US">
+<span class="sig-name descname"><span class="pre">PHYSICAL_LAYER_DOWNLINK_PROCESSING_LATENCY_US</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'physical_layer_downlink_processing_latency_us'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_DOWNLINK_PROCESSING_LATENCY_US" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_DOWNLINK_THROUGHPUT_MBPS">
+<span class="sig-name descname"><span class="pre">PHYSICAL_LAYER_DOWNLINK_THROUGHPUT_MBPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'physical_layer_downlink_throughput_mbps'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_DOWNLINK_THROUGHPUT_MBPS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_SNR_UPLINK_DB">
+<span class="sig-name descname"><span class="pre">PHYSICAL_LAYER_SNR_UPLINK_DB</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'physical_layer_snr_uplink_db'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_SNR_UPLINK_DB" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_UPLINK_CPU_USAGE_PERCENT">
+<span class="sig-name descname"><span class="pre">PHYSICAL_LAYER_UPLINK_CPU_USAGE_PERCENT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'physical_layer_uplink_cpu_usage_percent'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_UPLINK_CPU_USAGE_PERCENT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_UPLINK_PROCESSING_LATENCY_US">
+<span class="sig-name descname"><span class="pre">PHYSICAL_LAYER_UPLINK_PROCESSING_LATENCY_US</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'physical_layer_uplink_processing_latency_us'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_UPLINK_PROCESSING_LATENCY_US" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_UPLINK_THROUGHPUT_MBPS">
+<span class="sig-name descname"><span class="pre">PHYSICAL_LAYER_UPLINK_THROUGHPUT_MBPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'physical_layer_uplink_throughput_mbps'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.PHYSICAL_LAYER_UPLINK_THROUGHPUT_MBPS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.POWER_CONSUMPTION_WATTS">
+<span class="sig-name descname"><span class="pre">POWER_CONSUMPTION_WATTS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'power_consumption_watts'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.POWER_CONSUMPTION_WATTS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.RLC_CREATING_PDU_LATENCY_NS">
+<span class="sig-name descname"><span class="pre">RLC_CREATING_PDU_LATENCY_NS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'rlc_creating_pdu_latency_ns'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.RLC_CREATING_PDU_LATENCY_NS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.ROUTING_CONFIG">
+<span class="sig-name descname"><span class="pre">ROUTING_CONFIG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'routing_config'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.ROUTING_CONFIG" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.SIGNAL_STRENGTH">
+<span class="sig-name descname"><span class="pre">SIGNAL_STRENGTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'signal_strength'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.SIGNAL_STRENGTH" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.STATUS">
+<span class="sig-name descname"><span class="pre">STATUS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'status'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.STATUS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.SUCCESS">
+<span class="sig-name descname"><span class="pre">SUCCESS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Success'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.SUCCESS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.SUM_KEY">
+<span class="sig-name descname"><span class="pre">SUM_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sum'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.SUM_KEY" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.THROUGHPUT_BPS">
+<span class="sig-name descname"><span class="pre">THROUGHPUT_BPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'throughput_bps'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.THROUGHPUT_BPS" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.UE_NAME">
+<span class="sig-name descname"><span class="pre">UE_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ue1'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.UE_NAME" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.FIVE_G.UPLINK">
+<span class="sig-name descname"><span class="pre">UPLINK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'uplink'</span></em><a class="headerlink" href="#csle_common.constants.constants.FIVE_G.UPLINK" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="csle_common.constants.constants.FTP">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csle_common.constants.constants.</span></span><span class="sig-name descname"><span class="pre">FTP</span></span><a class="reference internal" href="_modules/csle_common/constants/constants.html#FTP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#csle_common.constants.constants.FTP" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -3962,13 +4406,33 @@
 <dd></dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.GRPC_SERVERS.FIVE_G_CORE_MANAGER_DEFAULT_PORT">
+<span class="sig-name descname"><span class="pre">FIVE_G_CORE_MANAGER_DEFAULT_PORT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50052</span></em><a class="headerlink" href="#csle_common.constants.constants.GRPC_SERVERS.FIVE_G_CORE_MANAGER_DEFAULT_PORT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.GRPC_SERVERS.FIVE_G_CU_MANAGER_DEFAULT_PORT">
+<span class="sig-name descname"><span class="pre">FIVE_G_CU_MANAGER_DEFAULT_PORT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50053</span></em><a class="headerlink" href="#csle_common.constants.constants.GRPC_SERVERS.FIVE_G_CU_MANAGER_DEFAULT_PORT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.GRPC_SERVERS.FIVE_G_DU_MANAGER_DEFAULT_PORT">
+<span class="sig-name descname"><span class="pre">FIVE_G_DU_MANAGER_DEFAULT_PORT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50054</span></em><a class="headerlink" href="#csle_common.constants.constants.GRPC_SERVERS.FIVE_G_DU_MANAGER_DEFAULT_PORT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.GRPC_SERVERS.GRPC_OPTIONS">
-<span class="sig-name descname"><span class="pre">GRPC_OPTIONS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('grpc.max_message_length',</span> <span class="pre">100000000),</span> <span class="pre">('grpc.max_send_message_length',</span> <span class="pre">100000000),</span> <span class="pre">('grpc.max_receive_message_length',</span> <span class="pre">100000000)]</span></em><a class="headerlink" href="#csle_common.constants.constants.GRPC_SERVERS.GRPC_OPTIONS" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">GRPC_OPTIONS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('grpc.max_message_length',</span> <span class="pre">100000000),</span> <span class="pre">('grpc.max_send_message_length',</span> <span class="pre">100000000),</span> <span class="pre">('grpc.max_receive_message_length',</span> <span class="pre">100000000),</span> <span class="pre">('grpc.enable_retries',</span> <span class="pre">1),</span> <span class="pre">('grpc.service_config',</span> <span class="pre">'{&quot;methodConfig&quot;:</span> <span class="pre">[{&quot;name&quot;:</span> <span class="pre">[{}],</span> <span class="pre">&quot;retryPolicy&quot;:</span> <span class="pre">{&quot;maxAttempts&quot;:</span> <span class="pre">5,</span> <span class="pre">&quot;initialBackoff&quot;:</span> <span class="pre">&quot;0.1s&quot;,</span> <span class="pre">&quot;maxBackoff&quot;:</span> <span class="pre">&quot;10s&quot;,</span> <span class="pre">&quot;backoffMultiplier&quot;:</span> <span class="pre">2,</span> <span class="pre">&quot;retryableStatusCodes&quot;:</span> <span class="pre">[&quot;UNAVAILABLE&quot;]}}]}')]</span></em><a class="headerlink" href="#csle_common.constants.constants.GRPC_SERVERS.GRPC_OPTIONS" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.GRPC_SERVERS.HOST_MANAGER_PORT">
 <span class="sig-name descname"><span class="pre">HOST_MANAGER_PORT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50049</span></em><a class="headerlink" href="#csle_common.constants.constants.GRPC_SERVERS.HOST_MANAGER_PORT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.GRPC_SERVERS.KAFKA_MANAGER_DEFAULT_PORT">
+<span class="sig-name descname"><span class="pre">KAFKA_MANAGER_DEFAULT_PORT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50051</span></em><a class="headerlink" href="#csle_common.constants.constants.GRPC_SERVERS.KAFKA_MANAGER_DEFAULT_PORT" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -3979,6 +4443,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.GRPC_SERVERS.RYU_MANAGER_PORT">
 <span class="sig-name descname"><span class="pre">RYU_MANAGER_PORT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">50042</span></em><a class="headerlink" href="#csle_common.constants.constants.GRPC_SERVERS.RYU_MANAGER_PORT" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.GRPC_SERVERS.SERVICE_CONFIG_JSON">
+<span class="sig-name descname"><span class="pre">SERVICE_CONFIG_JSON</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'{&quot;methodConfig&quot;:</span> <span class="pre">[{&quot;name&quot;:</span> <span class="pre">[{}],</span> <span class="pre">&quot;retryPolicy&quot;:</span> <span class="pre">{&quot;maxAttempts&quot;:</span> <span class="pre">5,</span> <span class="pre">&quot;initialBackoff&quot;:</span> <span class="pre">&quot;0.1s&quot;,</span> <span class="pre">&quot;maxBackoff&quot;:</span> <span class="pre">&quot;10s&quot;,</span> <span class="pre">&quot;backoffMultiplier&quot;:</span> <span class="pre">2,</span> <span class="pre">&quot;retryableStatusCodes&quot;:</span> <span class="pre">[&quot;UNAVAILABLE&quot;]}}]}'</span></em><a class="headerlink" href="#csle_common.constants.constants.GRPC_SERVERS.SERVICE_CONFIG_JSON" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
@@ -6385,6 +6854,21 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="csle_common.constants.constants.TRAFFIC_COMMANDS.ELK_MANAGER_FILE_NAME">
 <span class="sig-name descname"><span class="pre">ELK_MANAGER_FILE_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'elk_manager.py'</span></em><a class="headerlink" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.ELK_MANAGER_FILE_NAME" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.TRAFFIC_COMMANDS.FIVE_G_CORE_MANAGER_FILE_NAME">
+<span class="sig-name descname"><span class="pre">FIVE_G_CORE_MANAGER_FILE_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'five_g_core_manager.py'</span></em><a class="headerlink" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.FIVE_G_CORE_MANAGER_FILE_NAME" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.TRAFFIC_COMMANDS.FIVE_G_CU_MANAGER_FILE_NAME">
+<span class="sig-name descname"><span class="pre">FIVE_G_CU_MANAGER_FILE_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'five_g_cu_manager.py'</span></em><a class="headerlink" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.FIVE_G_CU_MANAGER_FILE_NAME" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csle_common.constants.constants.TRAFFIC_COMMANDS.FIVE_G_DU_MANAGER_FILE_NAME">
+<span class="sig-name descname"><span class="pre">FIVE_G_DU_MANAGER_FILE_NAME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'five_g_du_manager.py'</span></em><a class="headerlink" href="#csle_common.constants.constants.TRAFFIC_COMMANDS.FIVE_G_DU_MANAGER_FILE_NAME" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">

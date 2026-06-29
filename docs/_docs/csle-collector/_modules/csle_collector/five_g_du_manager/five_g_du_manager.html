@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>csle_collector.five_g_du_manager.five_g_du_manager &mdash; csle-collector 0.8.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> csle-collector
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.client_manager.html">csle_collector.client_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.constants.html">csle_collector.constants package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.docker_stats_manager.html">csle_collector.docker_stats_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.elk_manager.html">csle_collector.elk_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.host_manager.html">csle_collector.host_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.kafka_manager.html">csle_collector.kafka_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.ossec_ids_manager.html">csle_collector.ossec_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.snort_ids_manager.html">csle_collector.snort_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.traffic_manager.html">csle_collector.traffic_manager package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">csle-collector</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">csle_collector.five_g_du_manager.five_g_du_manager</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for csle_collector.five_g_du_manager.five_g_du_manager</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">socket</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">netifaces</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">grpc</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">concurrent</span><span class="w"> </span><span class="kn">import</span> <span class="n">futures</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.five_g_du_manager.five_g_du_manager_pb2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.constants.constants</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">constants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_collector.five_g_du_manager.five_g_du_manager_util</span><span class="w"> </span><span class="kn">import</span> <span class="n">FiveGDUManagerUtil</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_collector.five_g_du_manager.threads.five_g_du_monitor_thread</span><span class="w"> </span><span class="kn">import</span> <span class="n">FiveGDUMonitorThread</span>
+
+
+<div class="viewcode-block" id="FiveGDUManagerServicer"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FiveGDUManagerServicer</span><span class="p">(</span><span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2_grpc</span><span class="o">.</span><span class="n">FiveGDUManagerServicer</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    gRPC server for managing the 5G DU</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the server</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">constants</span><span class="o">.</span><span class="n">LOG_FILES</span><span class="o">.</span><span class="n">FIVE_G_DU_MANAGER_LOG_DIR</span><span class="si">}</span><span class="s2">&quot;</span>
+                                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">constants</span><span class="o">.</span><span class="n">LOG_FILES</span><span class="o">.</span><span class="n">FIVE_G_DU_MANAGER_LOG_FILE</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">netifaces</span><span class="o">.</span><span class="n">ifaddresses</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">INTERFACES</span><span class="o">.</span><span class="n">ETH0</span><span class="p">)[</span><span class="n">netifaces</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="n">constants</span><span class="o">.</span><span class="n">INTERFACES</span><span class="o">.</span><span class="n">ADDR</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">gethostbyname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf</span> <span class="o">=</span> <span class="p">{</span><span class="n">constants</span><span class="o">.</span><span class="n">KAFKA</span><span class="o">.</span><span class="n">BOOTSTRAP_SERVERS_PROPERTY</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">constants</span><span class="o">.</span><span class="n">KAFKA</span><span class="o">.</span><span class="n">PORT</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                     <span class="n">constants</span><span class="o">.</span><span class="n">KAFKA</span><span class="o">.</span><span class="n">CLIENT_ID_PROPERTY</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">FiveGDUMonitorThread</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting the 5G DU manager hostname: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="si">}</span><span class="s2"> ip: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FiveGDUManagerServicer.getFiveGDUStatus"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.getFiveGDUStatus">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">getFiveGDUStatus</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">GetFiveGDUStatusMsg</span><span class="p">,</span>
+            <span class="n">context</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ServicerContext</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the status of the 5G DU</span>
+
+<span class="sd">        :param request: the gRPC request</span>
+<span class="sd">        :param context: the gRPC context</span>
+<span class="sd">        :return: a DTO with the status of the 5g du</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Getting the status of the 5G DU&quot;</span><span class="p">)</span>
+        <span class="n">status_du</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_du_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_ue</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_ue_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">(</span>
+            <span class="n">du_running</span><span class="o">=</span><span class="n">status_du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DU</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ue_running</span><span class="o">=</span><span class="n">status_ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">monitor_running</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_monitor_running</span><span class="p">()</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUManagerServicer.startFiveGDU"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.startFiveGDU">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">startFiveGDU</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">StartFiveGDUMsg</span><span class="p">,</span>
+                     <span class="n">context</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ServicerContext</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts the 5G DU</span>
+
+<span class="sd">        :param request: the gRPC request</span>
+<span class="sd">        :param context: the gRPC context</span>
+<span class="sd">        :return: a DTO with the status of the 5g du</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting the 5G DU&quot;</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">start_du</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_du</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_du_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_ue</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_ue_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">(</span>
+            <span class="n">du_running</span><span class="o">=</span><span class="n">status_du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DU</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ue_running</span><span class="o">=</span><span class="n">status_ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">monitor_running</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_monitor_running</span><span class="p">()</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUManagerServicer.stopFiveGDU"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.stopFiveGDU">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">stopFiveGDU</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">StopFiveGDUMsg</span><span class="p">,</span>
+                    <span class="n">context</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ServicerContext</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stops the 5G DU</span>
+
+<span class="sd">        :param request: the gRPC request</span>
+<span class="sd">        :param context: the gRPC context</span>
+<span class="sd">        :return: a DTO with the status of the 5g du</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Stopping the 5G DU&quot;</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">stop_du</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_du</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_du_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_ue</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_ue_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">(</span>
+            <span class="n">du_running</span><span class="o">=</span><span class="n">status_du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DU</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ue_running</span><span class="o">=</span><span class="n">status_ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">monitor_running</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_monitor_running</span><span class="p">()</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUManagerServicer.stopFiveGUE"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.stopFiveGUE">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">stopFiveGUE</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">StopFiveGUEMsg</span><span class="p">,</span>
+                    <span class="n">context</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ServicerContext</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stops the 5G UE</span>
+
+<span class="sd">        :param request: the gRPC request</span>
+<span class="sd">        :param context: the gRPC context</span>
+<span class="sd">        :return: a DTO with the status of the 5g DU</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Stopping the 5G UE&quot;</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">stop_ue</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_du</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_du_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_ue</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_ue_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">(</span>
+            <span class="n">du_running</span><span class="o">=</span><span class="n">status_du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DU</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ue_running</span><span class="o">=</span><span class="n">status_ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">monitor_running</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_monitor_running</span><span class="p">()</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUManagerServicer.startFiveGUE"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.startFiveGUE">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">startFiveGUE</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">StartFiveGUEMsg</span><span class="p">,</span>
+                     <span class="n">context</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ServicerContext</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts the 5G UE</span>
+
+<span class="sd">        :param request: the gRPC request</span>
+<span class="sd">        :param context: the gRPC context</span>
+<span class="sd">        :return: a DTO with the status of the 5g DU</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Starting the 5G UE&quot;</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">start_ue</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_du</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_du_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_ue</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_ue_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">(</span>
+            <span class="n">du_running</span><span class="o">=</span><span class="n">status_du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DU</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ue_running</span><span class="o">=</span><span class="n">status_ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">monitor_running</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_monitor_running</span><span class="p">()</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUManagerServicer.initFiveGDUUE"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.initFiveGDUUE">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">initFiveGDUUE</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">InitFiveGDUUEMsg</span><span class="p">,</span>
+                      <span class="n">context</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ServicerContext</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the 5G UE and the 5G DU</span>
+
+<span class="sd">        :param request: the gRPC request</span>
+<span class="sd">        :param context: the gRPC context</span>
+<span class="sd">        :return: a DTO with the status of the 5g DU and UE</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Initializing the 5G DU &amp; UE&quot;</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">init_ue</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">init_du_config_file</span><span class="p">(</span>
+            <span class="n">cu_fronthaul_ip</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">cu_fronthaul_ip</span><span class="p">,</span> <span class="n">du_fronthaul_ip</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">du_fronthaul_ip</span><span class="p">,</span>
+            <span class="n">gnb_du_id</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">gnb_du_id</span><span class="p">,</span> <span class="n">pci</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">pci</span><span class="p">,</span> <span class="n">sector_id</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">sector_id</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">init_ue_config_file</span><span class="p">(</span><span class="n">imsi</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">imsi</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">opc</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">opc</span><span class="p">,</span> <span class="n">imei</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">imei</span><span class="p">)</span>
+        <span class="n">status_du</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_du_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_ue</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_ue_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">(</span>
+            <span class="n">du_running</span><span class="o">=</span><span class="n">status_du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DU</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ue_running</span><span class="o">=</span><span class="n">status_ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">monitor_running</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_monitor_running</span><span class="p">()</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUManagerServicer.startFiveGDUMonitor"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.startFiveGDUMonitor">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">startFiveGDUMonitor</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">StartFiveGDUMonitorMsg</span><span class="p">,</span>
+            <span class="n">context</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ServicerContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts the 5G DU monitor thread</span>
+
+<span class="sd">        :param request: the gRPC request</span>
+<span class="sd">        :param context: the gRPC context</span>
+<span class="sd">        :return: a DTO with the status of the DU monitor thread</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting the 5G DUMonitor thread, timestep length: </span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">time_step_len_seconds</span><span class="si">}</span><span class="s2">, &quot;</span>
+                     <span class="sa">f</span><span class="s2">&quot;kafka ip: </span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">kafka_ip</span><span class="si">}</span><span class="s2">, &quot;</span>
+                     <span class="sa">f</span><span class="s2">&quot;kafka port: </span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">kafka_port</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span> <span class="o">=</span> <span class="n">FiveGDUMonitorThread</span><span class="p">(</span><span class="n">kafka_ip</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">kafka_ip</span><span class="p">,</span> <span class="n">kafka_port</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">kafka_port</span><span class="p">,</span>
+                                                      <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">hostname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span>
+                                                      <span class="n">time_step_len_seconds</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">time_step_len_seconds</span><span class="p">,</span> <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Started the 5G DU Monitor thread&quot;</span><span class="p">)</span>
+
+        <span class="n">status_du</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_du_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_ue</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_ue_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">(</span>
+            <span class="n">du_running</span><span class="o">=</span><span class="n">status_du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DU</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ue_running</span><span class="o">=</span><span class="n">status_ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">monitor_running</span><span class="o">=</span><span class="kc">True</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUManagerServicer.stopFiveGDUMonitor"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.stopFiveGDUMonitor">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">stopFiveGDUMonitor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">StopFiveGDUMonitorMsg</span><span class="p">,</span>
+                           <span class="n">context</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ServicerContext</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stops the 5G DU monitor thread if it is running</span>
+
+<span class="sd">        :param request: the gRPC request</span>
+<span class="sd">        :param context: the gRPC context</span>
+<span class="sd">        :return: a DTO with the status of the DU monitor thread</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Stopping the 5G DU monitor&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;5G DU monitor stopped&quot;</span><span class="p">)</span>
+        <span class="n">status_du</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_du_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_ue</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_ue_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">(</span>
+            <span class="n">du_running</span><span class="o">=</span><span class="n">status_du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DU</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ue_running</span><span class="o">=</span><span class="n">status_ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">monitor_running</span><span class="o">=</span><span class="kc">False</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUManagerServicer.setFiveGDUUESignalStrength"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.FiveGDUManagerServicer.setFiveGDUUESignalStrength">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">setFiveGDUUESignalStrength</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">SetFiveGDUUESignalStrengthMsg</span><span class="p">,</span>
+            <span class="n">context</span><span class="p">:</span> <span class="n">grpc</span><span class="o">.</span><span class="n">ServicerContext</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the signal strength of the 5G UE and the 5G DU</span>
+
+<span class="sd">        :param request: the gRPC request</span>
+<span class="sd">        :param context: the gRPC context</span>
+<span class="sd">        :return: a DTO with the status of the 5g DU and UE</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting the signal strength of the the 5G DU &amp; UE. Tx gain: </span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">tx_gain</span><span class="si">}</span><span class="s2">, &quot;</span>
+                     <span class="sa">f</span><span class="s2">&quot;Rx gain: </span><span class="si">{</span><span class="n">request</span><span class="o">.</span><span class="n">rx_gain</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">set_du_signal_strength</span><span class="p">(</span><span class="n">tx_gain</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">tx_gain</span><span class="p">,</span> <span class="n">rx_gain</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">rx_gain</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">set_ue_signal_strength</span><span class="p">(</span><span class="n">tx_gain</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">tx_gain</span><span class="p">,</span> <span class="n">rx_gain</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">rx_gain</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">stop_du</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">stop_ue</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">start_du</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">start_ue</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">current_thread</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_monitor_thread</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">current_thread</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span> <span class="o">=</span> <span class="n">FiveGDUMonitorThread</span><span class="p">(</span><span class="n">kafka_ip</span><span class="o">=</span><span class="n">current_thread</span><span class="o">.</span><span class="n">kafka_ip</span><span class="p">,</span>
+                                                          <span class="n">kafka_port</span><span class="o">=</span><span class="n">current_thread</span><span class="o">.</span><span class="n">kafka_port</span><span class="p">,</span>
+                                                          <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">hostname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span>
+                                                          <span class="n">time_step_len_seconds</span><span class="o">=</span><span class="n">current_thread</span><span class="o">.</span><span class="n">time_step_len_seconds</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">status_du</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_du_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="n">status_ue</span> <span class="o">=</span> <span class="n">FiveGDUManagerUtil</span><span class="o">.</span><span class="n">get_ue_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE_CONTROL_SCRIPT_PATH</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">(</span>
+            <span class="n">du_running</span><span class="o">=</span><span class="n">status_du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">DU</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ue_running</span><span class="o">=</span><span class="n">status_ue</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_DU</span><span class="o">.</span><span class="n">UE</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">monitor_running</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_is_monitor_running</span><span class="p">()</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_is_monitor_running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method to check if the monitor is running</span>
+
+<span class="sd">        :return: True if running else false</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span><span class="o">.</span><span class="n">running</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_monitor_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">FiveGDUMonitorThread</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method to get the monitor thread</span>
+
+<span class="sd">        :return: the monitor thread</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">du_monitor_thread</span></div>
+
+
+<div class="viewcode-block" id="serve"><a class="viewcode-back" href="../../../csle_collector.five_g_du_manager.html#csle_collector.five_g_du_manager.five_g_du_manager.serve">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">serve</span><span class="p">(</span><span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50054</span><span class="p">,</span> <span class="n">log_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">max_workers</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+          <span class="n">log_file_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;five_g_du_manager.log&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Starts the gRPC server for managing clients</span>
+
+<span class="sd">    :param port: the port that the server will listen to</span>
+<span class="sd">    :param log_dir: the directory to write the log file</span>
+<span class="sd">    :param log_file_name: the file name of the log</span>
+<span class="sd">    :param max_workers: the maximum number of GRPC workers</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">constants</span><span class="o">.</span><span class="n">LOG_FILES</span><span class="o">.</span><span class="n">FIVE_G_DU_MANAGER_LOG_DIR</span> <span class="o">=</span> <span class="n">log_dir</span>
+    <span class="n">constants</span><span class="o">.</span><span class="n">LOG_FILES</span><span class="o">.</span><span class="n">FIVE_G_DU_MANAGER_LOG_FILE</span> <span class="o">=</span> <span class="n">log_file_name</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">grpc</span><span class="o">.</span><span class="n">server</span><span class="p">(</span><span class="n">futures</span><span class="o">.</span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="n">max_workers</span><span class="p">))</span>
+    <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2_grpc</span><span class="o">.</span><span class="n">add_FiveGDUManagerServicer_to_server</span><span class="p">(</span>
+        <span class="n">FiveGDUManagerServicer</span><span class="p">(),</span> <span class="n">server</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">add_insecure_port</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[::]:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G DU Manager Server Started, Listening on port: </span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">, num workers: </span><span class="si">{</span><span class="n">max_workers</span><span class="si">}</span><span class="s2">, &quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;log file: </span><span class="si">{</span><span class="n">log_file_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">wait_for_termination</span><span class="p">()</span></div>
+
+
+<span class="c1"># Program entrypoint</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">serve</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2026, Kim Hammar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

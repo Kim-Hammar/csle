@@ -11,6 +11,9 @@ Subpackages
    csle_collector.constants
    csle_collector.docker_stats_manager
    csle_collector.elk_manager
+   csle_collector.five_g_core_manager
+   csle_collector.five_g_cu_manager
+   csle_collector.five_g_du_manager
    csle_collector.host_manager
    csle_collector.kafka_manager
    csle_collector.ossec_ids_manager

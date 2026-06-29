@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics &mdash; csle-collector 0.8.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> csle-collector
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.client_manager.html">csle_collector.client_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.constants.html">csle_collector.constants package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.docker_stats_manager.html">csle_collector.docker_stats_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.elk_manager.html">csle_collector.elk_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.host_manager.html">csle_collector.host_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.kafka_manager.html">csle_collector.kafka_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.ossec_ids_manager.html">csle_collector.ossec_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.snort_ids_manager.html">csle_collector.snort_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.traffic_manager.html">csle_collector.traffic_manager package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">csle-collector</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.constants.constants</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">constants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_base.json_serializable</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONSerializable</span>
+
+
+<div class="viewcode-block" id="FiveGCoreSMFMetrics"><a class="viewcode-back" href="../../../../csle_collector.five_g_core_manager.dao.html#csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics.FiveGCoreSMFMetrics">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FiveGCoreSMFMetrics</span><span class="p">(</span><span class="n">JSONSerializable</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DTO class containing 5G Core SMF metrics</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">gn_rx_createpdpcontextreq</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">gn_rx_deletepdpcontextreq</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">gtp1_pdpctxs_active</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pfcp_peers_active</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">fivegs_smffunction_sm_n4sessionreport</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ues_active</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">gtp2_sessions_active</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pfcp_sessions_active</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">s5c_rx_createsession</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s5c_rx_deletesession</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">gtp_new_node_failed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">s5c_rx_parse_failed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">fivegs_smffunction_sm_n4sessionreportsucc</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">fivegs_smffunction_sm_n4sessionestabreq</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">bearers_active</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">gn_rx_parse_failed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">gtp_peers_active</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">fivegs_smffunction_sm_sessionnbr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">fivegs_smffunction_sm_pdusessioncreationreq</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">fivegs_smffunction_sm_pdusessioncreationsucc</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">fivegs_smffunction_sm_qos_flow_nbr</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">fivegs_smffunction_sm_n4sessionestabfail</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">fivegs_smffunction_sm_pdusessioncreationfail</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">process_max_fds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">process_virtual_memory_max_bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">process_cpu_seconds_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">process_virtual_memory_bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">process_resident_memory_bytes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">process_start_time_seconds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">process_open_fds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the DTO</span>
+
+<span class="sd">        :param ip: The IP of the core</span>
+<span class="sd">        :param ts: The timestamp the metrics were measured</span>
+<span class="sd">        :param gn_rx_createpdpcontextreq: Received GTPv1C CreatePDPContextRequest messages</span>
+<span class="sd">        :param gn_rx_deletepdpcontextreq: Received GTPv1C DeletePDPContextRequest messages</span>
+<span class="sd">        :param gtp1_pdpctxs_active: Active GTPv1 PDP Contexts (GGSN)</span>
+<span class="sd">        :param pfcp_peers_active: Active PFCP peers</span>
+<span class="sd">        :param fivegs_smffunction_sm_n4sessionreport: Number of requested N4 session reports evidented by SMF</span>
+<span class="sd">        :param ues_active: Active User Equipments</span>
+<span class="sd">        :param gtp2_sessions_active: Active GTPv2 Sessions (PGW)</span>
+<span class="sd">        :param pfcp_sessions_active: Active PFCP Sessions</span>
+<span class="sd">        :param s5c_rx_createsession: Received GTPv2C CreateSessionRequest messages</span>
+<span class="sd">        :param s5c_rx_deletesession: Received GTPv2C DeleteSessionRequest messages</span>
+<span class="sd">        :param gtp_new_node_failed: Unable to allocate new GTP (peer) Node</span>
+<span class="sd">        :param s5c_rx_parse_failed: Received GTPv2C messages discarded due to parsing failure</span>
+<span class="sd">        :param fivegs_smffunction_sm_n4sessionreportsucc: Number of successful N4 session reports evidented by SMF</span>
+<span class="sd">        :param fivegs_smffunction_sm_n4sessionestabreq: Number of requested N4 session establishments evidented by SMF</span>
+<span class="sd">        :param bearers_active: Active Bearers</span>
+<span class="sd">        :param gn_rx_parse_failed: Received GTPv1C messages discarded due to parsing failure</span>
+<span class="sd">        :param gtp_peers_active: Active GTP peers</span>
+<span class="sd">        :param fivegs_smffunction_sm_sessionnbr: Active Sessions</span>
+<span class="sd">        :param fivegs_smffunction_sm_pdusessioncreationreq: Number of PDU sessions requested to be created by the SMF</span>
+<span class="sd">        :param fivegs_smffunction_sm_pdusessioncreationsucc: Number of PDU sessions successfully created by the SMF</span>
+<span class="sd">        :param fivegs_smffunction_sm_qos_flow_nbr: Number of QoS flows at the SMF</span>
+<span class="sd">        :param fivegs_smffunction_sm_n4sessionestabfail: Number of failed N4 session establishments</span>
+<span class="sd">        :param fivegs_smffunction_sm_pdusessioncreationfail: Number of PDU sessions failed to be created</span>
+<span class="sd">        :param process_max_fds: Maximum number of open file descriptors.</span>
+<span class="sd">        :param process_virtual_memory_max_bytes: Maximum amount of virtual memory available in bytes.</span>
+<span class="sd">        :param process_cpu_seconds_total: Total user and system CPU time spent in seconds.</span>
+<span class="sd">        :param process_virtual_memory_bytes: Virtual memory size in bytes.</span>
+<span class="sd">        :param process_resident_memory_bytes: Resident memory size in bytes.</span>
+<span class="sd">        :param process_start_time_seconds: Start time of the process since unix epoch in seconds</span>
+<span class="sd">        :param process_open_fds: Number of open file descriptors.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ts</span> <span class="o">=</span> <span class="n">ts</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_createpdpcontextreq</span> <span class="o">=</span> <span class="n">gn_rx_createpdpcontextreq</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_deletepdpcontextreq</span> <span class="o">=</span> <span class="n">gn_rx_deletepdpcontextreq</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gtp1_pdpctxs_active</span> <span class="o">=</span> <span class="n">gtp1_pdpctxs_active</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pfcp_peers_active</span> <span class="o">=</span> <span class="n">pfcp_peers_active</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionreport</span> <span class="o">=</span> <span class="n">fivegs_smffunction_sm_n4sessionreport</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ues_active</span> <span class="o">=</span> <span class="n">ues_active</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gtp2_sessions_active</span> <span class="o">=</span> <span class="n">gtp2_sessions_active</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pfcp_sessions_active</span> <span class="o">=</span> <span class="n">pfcp_sessions_active</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_createsession</span> <span class="o">=</span> <span class="n">s5c_rx_createsession</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_deletesession</span> <span class="o">=</span> <span class="n">s5c_rx_deletesession</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gtp_new_node_failed</span> <span class="o">=</span> <span class="n">gtp_new_node_failed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_parse_failed</span> <span class="o">=</span> <span class="n">s5c_rx_parse_failed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionreportsucc</span> <span class="o">=</span> <span class="n">fivegs_smffunction_sm_n4sessionreportsucc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionestabreq</span> <span class="o">=</span> <span class="n">fivegs_smffunction_sm_n4sessionestabreq</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bearers_active</span> <span class="o">=</span> <span class="n">bearers_active</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_parse_failed</span> <span class="o">=</span> <span class="n">gn_rx_parse_failed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gtp_peers_active</span> <span class="o">=</span> <span class="n">gtp_peers_active</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_sessionnbr</span> <span class="o">=</span> <span class="n">fivegs_smffunction_sm_sessionnbr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationreq</span> <span class="o">=</span> <span class="n">fivegs_smffunction_sm_pdusessioncreationreq</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationsucc</span> <span class="o">=</span> <span class="n">fivegs_smffunction_sm_pdusessioncreationsucc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_qos_flow_nbr</span> <span class="o">=</span> <span class="n">fivegs_smffunction_sm_qos_flow_nbr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionestabfail</span> <span class="o">=</span> <span class="n">fivegs_smffunction_sm_n4sessionestabfail</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationfail</span> <span class="o">=</span> <span class="n">fivegs_smffunction_sm_pdusessioncreationfail</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_max_fds</span> <span class="o">=</span> <span class="n">process_max_fds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_virtual_memory_max_bytes</span> <span class="o">=</span> <span class="n">process_virtual_memory_max_bytes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_cpu_seconds_total</span> <span class="o">=</span> <span class="n">process_cpu_seconds_total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_virtual_memory_bytes</span> <span class="o">=</span> <span class="n">process_virtual_memory_bytes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_resident_memory_bytes</span> <span class="o">=</span> <span class="n">process_resident_memory_bytes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_start_time_seconds</span> <span class="o">=</span> <span class="n">process_start_time_seconds</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_open_fds</span> <span class="o">=</span> <span class="n">process_open_fds</span>
+
+<div class="viewcode-block" id="FiveGCoreSMFMetrics.to_kafka_record"><a class="viewcode-back" href="../../../../csle_collector.five_g_core_manager.dao.html#csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics.FiveGCoreSMFMetrics.to_kafka_record">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_kafka_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the DTO into a Kafka record string</span>
+
+<span class="sd">        :param ip: the IP to add to the record in addition to the metrics</span>
+<span class="sd">        :return: a comma separated string representing the kafka record</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">record_str</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_createpdpcontextreq</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_deletepdpcontextreq</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gtp1_pdpctxs_active</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pfcp_peers_active</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionreport</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ues_active</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gtp2_sessions_active</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pfcp_sessions_active</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_createsession</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_deletesession</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gtp_new_node_failed</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_parse_failed</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionreportsucc</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionestabreq</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bearers_active</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_parse_failed</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gtp_peers_active</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_sessionnbr</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationreq</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationsucc</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_qos_flow_nbr</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionestabfail</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationfail</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_max_fds</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_virtual_memory_max_bytes</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_cpu_seconds_total</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_virtual_memory_bytes</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_resident_memory_bytes</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_start_time_seconds</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_open_fds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">record_str</span></div>
+
+<div class="viewcode-block" id="FiveGCoreSMFMetrics.from_kafka_record"><a class="viewcode-back" href="../../../../csle_collector.five_g_core_manager.dao.html#csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics.FiveGCoreSMFMetrics.from_kafka_record">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_kafka_record</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCoreSMFMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the Kafka record string to a DTO</span>
+
+<span class="sd">        :param record: the kafka record</span>
+<span class="sd">        :return: the created DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">FiveGCoreSMFMetrics</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">ts</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+                                  <span class="n">gn_rx_createpdpcontextreq</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
+                                  <span class="n">gn_rx_deletepdpcontextreq</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span>
+                                  <span class="n">gtp1_pdpctxs_active</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
+                                  <span class="n">pfcp_peers_active</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span>
+                                  <span class="n">fivegs_smffunction_sm_n4sessionreport</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">6</span><span class="p">]),</span>
+                                  <span class="n">ues_active</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">7</span><span class="p">]),</span>
+                                  <span class="n">gtp2_sessions_active</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">8</span><span class="p">]),</span>
+                                  <span class="n">pfcp_sessions_active</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">9</span><span class="p">]),</span>
+                                  <span class="n">s5c_rx_createsession</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">10</span><span class="p">]),</span>
+                                  <span class="n">s5c_rx_deletesession</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">11</span><span class="p">]),</span>
+                                  <span class="n">gtp_new_node_failed</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">12</span><span class="p">]),</span>
+                                  <span class="n">s5c_rx_parse_failed</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">13</span><span class="p">]),</span>
+                                  <span class="n">fivegs_smffunction_sm_n4sessionreportsucc</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">14</span><span class="p">]),</span>
+                                  <span class="n">fivegs_smffunction_sm_n4sessionestabreq</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">15</span><span class="p">]),</span>
+                                  <span class="n">bearers_active</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">16</span><span class="p">]),</span>
+                                  <span class="n">gn_rx_parse_failed</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">17</span><span class="p">]),</span>
+                                  <span class="n">gtp_peers_active</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">18</span><span class="p">]),</span>
+                                  <span class="n">fivegs_smffunction_sm_sessionnbr</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">19</span><span class="p">]),</span>
+                                  <span class="n">fivegs_smffunction_sm_pdusessioncreationreq</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">20</span><span class="p">]),</span>
+                                  <span class="n">fivegs_smffunction_sm_pdusessioncreationsucc</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">21</span><span class="p">]),</span>
+                                  <span class="n">fivegs_smffunction_sm_qos_flow_nbr</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">22</span><span class="p">]),</span>
+                                  <span class="n">fivegs_smffunction_sm_n4sessionestabfail</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">23</span><span class="p">]),</span>
+                                  <span class="n">fivegs_smffunction_sm_pdusessioncreationfail</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">24</span><span class="p">]),</span>
+                                  <span class="n">process_max_fds</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">25</span><span class="p">]),</span>
+                                  <span class="n">process_virtual_memory_max_bytes</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">26</span><span class="p">]),</span>
+                                  <span class="n">process_cpu_seconds_total</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">27</span><span class="p">]),</span>
+                                  <span class="n">process_virtual_memory_bytes</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">28</span><span class="p">]),</span>
+                                  <span class="n">process_resident_memory_bytes</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">29</span><span class="p">]),</span>
+                                  <span class="n">process_start_time_seconds</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">30</span><span class="p">]),</span>
+                                  <span class="n">process_open_fds</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">31</span><span class="p">]))</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+<div class="viewcode-block" id="FiveGCoreSMFMetrics.update_with_kafka_record"><a class="viewcode-back" href="../../../../csle_collector.five_g_core_manager.dao.html#csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics.FiveGCoreSMFMetrics.update_with_kafka_record">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">update_with_kafka_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the DTO based on a kafka record</span>
+
+<span class="sd">        :param record: the kafka record</span>
+<span class="sd">        :param ip: the host ip</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">ip</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ts</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_createpdpcontextreq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_deletepdpcontextreq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gtp1_pdpctxs_active</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pfcp_peers_active</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionreport</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ues_active</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gtp2_sessions_active</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pfcp_sessions_active</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_createsession</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_deletesession</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gtp_new_node_failed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_parse_failed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">13</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionreportsucc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionestabreq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bearers_active</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">16</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_parse_failed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">17</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">gtp_peers_active</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">18</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_sessionnbr</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationreq</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">20</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationsucc</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">21</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_qos_flow_nbr</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">22</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionestabfail</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">23</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationfail</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">24</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_max_fds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">25</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_virtual_memory_max_bytes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">26</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_cpu_seconds_total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">27</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_virtual_memory_bytes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">28</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_resident_memory_bytes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">29</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_start_time_seconds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">30</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">process_open_fds</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">31</span><span class="p">])</span></div>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a string representation of the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ts: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ts</span><span class="si">}</span><span class="s2">, ip: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;gn_rx_createpdpcontextreq: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_createpdpcontextreq</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;gn_rx_deletepdpcontextreq: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_deletepdpcontextreq</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;gtp1_pdpctxs_active: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gtp1_pdpctxs_active</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;pfcp_peers_active: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pfcp_peers_active</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;fivegs_smffunction_sm_n4sessionreport: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionreport</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;ues_active: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ues_active</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;gtp2_sessions_active: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gtp2_sessions_active</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;pfcp_sessions_active: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pfcp_sessions_active</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;s5c_rx_createsession: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_createsession</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;s5c_rx_deletesession: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_deletesession</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;gtp_new_node_failed: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gtp_new_node_failed</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;s5c_rx_parse_failed: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_parse_failed</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;fivegs_smffunction_sm_n4sessionreportsucc: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionreportsucc</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;fivegs_smffunction_sm_n4sessionestabreq: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionestabreq</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;bearers_active: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">bearers_active</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;gn_rx_parse_failed: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_parse_failed</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;gtp_peers_active: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gtp_peers_active</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;fivegs_smffunction_sm_sessionnbr: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_sessionnbr</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;fivegs_smffunction_sm_pdusessioncreationreq: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationreq</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;fivegs_smffunction_sm_pdusessioncreationsucc: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationsucc</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;fivegs_smffunction_sm_qos_flow_nbr: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_qos_flow_nbr</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;fivegs_smffunction_sm_n4sessionestabfail: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionestabfail</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;fivegs_smffunction_sm_pdusessioncreationfail: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationfail</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;process_max_fds: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_max_fds</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;process_virtual_memory_max_bytes: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_virtual_memory_max_bytes</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;process_cpu_seconds_total: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_cpu_seconds_total</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;process_virtual_memory_bytes: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_virtual_memory_bytes</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;process_resident_memory_bytes: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_resident_memory_bytes</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;process_start_time_seconds: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_start_time_seconds</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;process_open_fds: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">process_open_fds</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FiveGCoreSMFMetrics.from_dict"><a class="viewcode-back" href="../../../../csle_collector.five_g_core_manager.dao.html#csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics.FiveGCoreSMFMetrics.from_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCoreSMFMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a dict representation to an instance</span>
+
+<span class="sd">        :param d: the dict to convert</span>
+<span class="sd">        :return: the created instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">FiveGCoreSMFMetrics</span><span class="p">(</span>
+            <span class="n">ip</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">],</span> <span class="n">ts</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">TS</span><span class="p">],</span>
+            <span class="n">gn_rx_createpdpcontextreq</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GN_RX_CREATEPDPCONTEXTREQ</span><span class="p">],</span>
+            <span class="n">gn_rx_deletepdpcontextreq</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GN_RX_DELETEPDPCONTEXTREQ</span><span class="p">],</span>
+            <span class="n">gtp1_pdpctxs_active</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GTP1_PDPCTXS_ACTIVE</span><span class="p">],</span>
+            <span class="n">pfcp_peers_active</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PFCP_PEERS_ACTIVE</span><span class="p">],</span>
+            <span class="n">fivegs_smffunction_sm_n4sessionreport</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORT</span><span class="p">],</span>
+            <span class="n">ues_active</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UES_ACTIVE</span><span class="p">],</span>
+            <span class="n">gtp2_sessions_active</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GTP2_SESSIONS_ACTIVE</span><span class="p">],</span>
+            <span class="n">pfcp_sessions_active</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PFCP_SESSIONS_ACTIVE</span><span class="p">],</span>
+            <span class="n">s5c_rx_createsession</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">S5C_RX_CREATESESSION</span><span class="p">],</span>
+            <span class="n">s5c_rx_deletesession</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">S5C_RX_DELETESESSION</span><span class="p">],</span>
+            <span class="n">gtp_new_node_failed</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GTP_NEW_NODE_FAILED</span><span class="p">],</span>
+            <span class="n">s5c_rx_parse_failed</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">S5C_RX_PARSE_FAILED</span><span class="p">],</span>
+            <span class="n">fivegs_smffunction_sm_n4sessionreportsucc</span><span class="o">=</span><span class="n">d</span><span class="p">[</span>
+                <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORTSUCC</span><span class="p">],</span>
+            <span class="n">fivegs_smffunction_sm_n4sessionestabreq</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_UPFFUNCTION_SM_N4SESSIONESTABREQ</span><span class="p">],</span>
+            <span class="n">bearers_active</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">BEARERS_ACTIVE</span><span class="p">],</span>
+            <span class="n">gn_rx_parse_failed</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GN_RX_PARSE_FAILED</span><span class="p">],</span>
+            <span class="n">gtp_peers_active</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GTP_PEERS_ACTIVE</span><span class="p">],</span>
+            <span class="n">fivegs_smffunction_sm_sessionnbr</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_SESSIONNBR</span><span class="p">],</span>
+            <span class="n">fivegs_smffunction_sm_pdusessioncreationreq</span><span class="o">=</span><span class="n">d</span><span class="p">[</span>
+                <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONREQ</span><span class="p">],</span>
+            <span class="n">fivegs_smffunction_sm_pdusessioncreationsucc</span><span class="o">=</span><span class="n">d</span><span class="p">[</span>
+                <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONSUCC</span><span class="p">],</span>
+            <span class="n">fivegs_smffunction_sm_qos_flow_nbr</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_QOS_FLOW_NBR</span><span class="p">],</span>
+            <span class="n">fivegs_smffunction_sm_n4sessionestabfail</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_N4SESSIONESTABFAIL</span><span class="p">],</span>
+            <span class="n">fivegs_smffunction_sm_pdusessioncreationfail</span><span class="o">=</span><span class="n">d</span><span class="p">[</span>
+                <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONFAIL</span><span class="p">],</span>
+            <span class="n">process_max_fds</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_MAX_FDS</span><span class="p">],</span>
+            <span class="n">process_virtual_memory_max_bytes</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_VIRTUAL_MEMORY_MAX_BYTES</span><span class="p">],</span>
+            <span class="n">process_cpu_seconds_total</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_CPU_SECONDS_TOTAL</span><span class="p">],</span>
+            <span class="n">process_virtual_memory_bytes</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_VIRTUAL_MEMORY_BYTES</span><span class="p">],</span>
+            <span class="n">process_resident_memory_bytes</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_RESIDENT_MEMORY_BYTES</span><span class="p">],</span>
+            <span class="n">process_open_fds</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_OPEN_FDS</span><span class="p">],</span>
+            <span class="n">process_start_time_seconds</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_START_TIME_SECONDS</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+<div class="viewcode-block" id="FiveGCoreSMFMetrics.to_dict"><a class="viewcode-back" href="../../../../csle_collector.five_g_core_manager.dao.html#csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics.FiveGCoreSMFMetrics.to_dict">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a dict representation of the instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">TS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ip</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GN_RX_CREATEPDPCONTEXTREQ</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_createpdpcontextreq</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GN_RX_DELETEPDPCONTEXTREQ</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_deletepdpcontextreq</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GTP1_PDPCTXS_ACTIVE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gtp1_pdpctxs_active</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PFCP_PEERS_ACTIVE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pfcp_peers_active</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORT</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionreport</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">UES_ACTIVE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ues_active</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GTP2_SESSIONS_ACTIVE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gtp2_sessions_active</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PFCP_SESSIONS_ACTIVE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pfcp_sessions_active</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">S5C_RX_CREATESESSION</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_createsession</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">S5C_RX_DELETESESSION</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_deletesession</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GTP_NEW_NODE_FAILED</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gtp_new_node_failed</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">S5C_RX_PARSE_FAILED</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s5c_rx_parse_failed</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_UPFFUNCTION_SM_N4SESSIONREPORTSUCC</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionreportsucc</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_UPFFUNCTION_SM_N4SESSIONESTABREQ</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionestabreq</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">BEARERS_ACTIVE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bearers_active</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GN_RX_PARSE_FAILED</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gn_rx_parse_failed</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">GTP_PEERS_ACTIVE</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">gtp_peers_active</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_SESSIONNBR</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_sessionnbr</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONREQ</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationreq</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONSUCC</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationsucc</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_QOS_FLOW_NBR</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_qos_flow_nbr</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_N4SESSIONESTABFAIL</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_n4sessionestabfail</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">FIVEGS_SMFFUNCTION_SM_PDUSESSIONCREATIONFAIL</span><span class="p">]</span> <span class="o">=</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">fivegs_smffunction_sm_pdusessioncreationfail</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_MAX_FDS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_max_fds</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_VIRTUAL_MEMORY_MAX_BYTES</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_virtual_memory_max_bytes</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_CPU_SECONDS_TOTAL</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_cpu_seconds_total</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_VIRTUAL_MEMORY_BYTES</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_virtual_memory_bytes</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_RESIDENT_MEMORY_BYTES</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_resident_memory_bytes</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_START_TIME_SECONDS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_start_time_seconds</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CORE</span><span class="o">.</span><span class="n">PROCESS_OPEN_FDS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_open_fds</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+
+<div class="viewcode-block" id="FiveGCoreSMFMetrics.copy"><a class="viewcode-back" href="../../../../csle_collector.five_g_core_manager.dao.html#csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics.FiveGCoreSMFMetrics.copy">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCoreSMFMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a copy of the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">FiveGCoreSMFMetrics</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">ts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ts</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGCoreSMFMetrics.num_attributes"><a class="viewcode-back" href="../../../../csle_collector.five_g_core_manager.dao.html#csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics.FiveGCoreSMFMetrics.num_attributes">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">num_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: The number of attributes of the DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">32</span></div>
+
+<div class="viewcode-block" id="FiveGCoreSMFMetrics.schema"><a class="viewcode-back" href="../../../../csle_collector.five_g_core_manager.dao.html#csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics.FiveGCoreSMFMetrics.schema">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">schema</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCoreSMFMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: get the schema of the DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">FiveGCoreSMFMetrics</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="FiveGCoreSMFMetrics.from_json_file"><a class="viewcode-back" href="../../../../csle_collector.five_g_core_manager.dao.html#csle_collector.five_g_core_manager.dao.five_g_core_smf_metrics.FiveGCoreSMFMetrics.from_json_file">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_json_file</span><span class="p">(</span><span class="n">json_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCoreSMFMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads a json file and converts it to a DTO</span>
+
+<span class="sd">        :param json_file_path: the json file path</span>
+<span class="sd">        :return: the converted DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">json_file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json_str</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">FiveGCoreSMFMetrics</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_str</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2026, Kim Hammar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

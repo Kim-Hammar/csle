@@ -28,6 +28,30 @@ csle\_common.controllers.emulation\_env\_controller module
    :undoc-members:
    :show-inheritance:
 
+csle\_common.controllers.five\_g\_core\_controller module
+---------------------------------------------------------
+
+.. automodule:: csle_common.controllers.five_g_core_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+csle\_common.controllers.five\_g\_cu\_controller module
+-------------------------------------------------------
+
+.. automodule:: csle_common.controllers.five_g_cu_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+csle\_common.controllers.five\_g\_du\_controller module
+-------------------------------------------------------
+
+.. automodule:: csle_common.controllers.five_g_du_controller
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 csle\_common.controllers.flags\_controller module
 -------------------------------------------------
 

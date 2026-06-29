@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>csle_common.controllers.five_g_du_controller &mdash; csle-common 0.8.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> csle-common
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_common.constants.html">csle_common.constants package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_common.consumer_threads.html">csle_common.consumer_threads package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_common.controllers.html">csle_common.controllers package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_common.dao.html">csle_common.dao package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_common.logging.html">csle_common.logging package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_common.metastore.html">csle_common.metastore package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_common.tunneling.html">csle_common.tunneling package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_common.util.html">csle_common.util package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">csle-common</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">csle_common.controllers.five_g_du_controller</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for csle_common.controllers.five_g_du_controller</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">grpc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_common.dao.emulation_config.emulation_env_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmulationEnvConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_common.dao.emulation_config.node_container_config</span><span class="w"> </span><span class="kn">import</span> <span class="n">NodeContainerConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_common.dao.emulation_config.five_g_du_managers_info</span><span class="w"> </span><span class="kn">import</span> <span class="n">FiveGDUManagersInfo</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_common.constants.constants</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">constants</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.constants.constants</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">csle_collector_constants</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.five_g_du_manager.five_g_du_manager_pb2_grpc</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.five_g_du_manager.five_g_du_manager_pb2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.five_g_du_manager.five_g_du_manager_util</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.five_g_du_manager.query_five_g_du_manager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_common.util.emulation_util</span><span class="w"> </span><span class="kn">import</span> <span class="n">EmulationUtil</span>
+
+
+<div class="viewcode-block" id="FiveGDUController"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FiveGDUController</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class controlling 5G dus running on nodes in the emulations, as well as 5G DU managers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FiveGDUController.start_five_g_du_managers"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.start_five_g_du_managers">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_five_g_du_managers</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">physical_server_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                                 <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for starting 5G DU managers</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param physical_server_ip: the ip of the physical server</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">physical_host_ip</span> <span class="o">!=</span> <span class="n">physical_server_ip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">start_five_g_du_manager</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span>
+                                                              <span class="n">ip</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.start_five_g_du_manager"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.start_five_g_du_manager">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_five_g_du_manager</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for starting the 5G DU manager on a specific container</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param ip: the ip of the container</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Check if the manager is already running</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">not_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">get_five_g_du_status_by_ip_and_port</span><span class="p">(</span>
+                <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">not_running</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">status_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">not_running</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">status_str</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;du_running: </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">du_running</span><span class="si">}</span><span class="s2">, ip: </span><span class="si">{</span><span class="n">status</span><span class="o">.</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">if</span> <span class="n">not_running</span><span class="p">:</span>
+            <span class="c1"># Connect</span>
+            <span class="n">EmulationUtil</span><span class="o">.</span><span class="n">connect_admin</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">)</span>
+
+            <span class="c1"># Stop old background job if running</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">COMMANDS</span><span class="o">.</span><span class="n">SUDO</span> <span class="o">+</span> <span class="n">constants</span><span class="o">.</span><span class="n">COMMANDS</span><span class="o">.</span><span class="n">SPACE_DELIM</span> <span class="o">+</span> <span class="n">constants</span><span class="o">.</span><span class="n">COMMANDS</span><span class="o">.</span><span class="n">PKILL</span> <span class="o">+</span>
+                   <span class="n">constants</span><span class="o">.</span><span class="n">COMMANDS</span><span class="o">.</span><span class="n">SPACE_DELIM</span> <span class="o">+</span> <span class="n">constants</span><span class="o">.</span><span class="n">TRAFFIC_COMMANDS</span><span class="o">.</span><span class="n">FIVE_G_DU_MANAGER_FILE_NAME</span><span class="p">)</span>
+            <span class="n">o</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">EmulationUtil</span><span class="o">.</span><span class="n">execute_ssh_cmd</span><span class="p">(</span>
+                <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">))</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting 5G DU manager on node </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="c1"># Start the 5G DU manager</span>
+            <span class="n">cmd</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">COMMANDS</span><span class="o">.</span><span class="n">START_FIVE_G_DU_MANAGER</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span><span class="p">,</span>
+                <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_log_dir</span><span class="p">,</span>
+                <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_log_file</span><span class="p">,</span>
+                <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_max_workers</span><span class="p">)</span>
+            <span class="n">o</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">EmulationUtil</span><span class="o">.</span><span class="n">execute_ssh_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">))</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G du manager was already running on node </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">. Status: </span><span class="si">{</span><span class="n">status_str</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.stop_five_g_du_managers"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.stop_five_g_du_managers">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_five_g_du_managers</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">physical_server_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                                <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for stopping 5G DU managers</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param physical_server_ip: the IP of the physical host</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">physical_host_ip</span> <span class="o">!=</span> <span class="n">physical_server_ip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">stop_five_g_du_manager</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span>
+                                                             <span class="n">ip</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.stop_five_g_du_manager"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.stop_five_g_du_manager">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_five_g_du_manager</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for stopping a 5G DU manager with a specific IP</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param ip: the ip of the container</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Connect</span>
+        <span class="n">EmulationUtil</span><span class="o">.</span><span class="n">connect_admin</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stopping 5G DU manager on node </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="n">cmd</span> <span class="o">=</span> <span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">COMMANDS</span><span class="o">.</span><span class="n">SUDO</span> <span class="o">+</span> <span class="n">constants</span><span class="o">.</span><span class="n">COMMANDS</span><span class="o">.</span><span class="n">SPACE_DELIM</span> <span class="o">+</span> <span class="n">constants</span><span class="o">.</span><span class="n">COMMANDS</span><span class="o">.</span><span class="n">PKILL</span> <span class="o">+</span>
+               <span class="n">constants</span><span class="o">.</span><span class="n">COMMANDS</span><span class="o">.</span><span class="n">SPACE_DELIM</span> <span class="o">+</span> <span class="n">constants</span><span class="o">.</span><span class="n">TRAFFIC_COMMANDS</span><span class="o">.</span><span class="n">FIVE_G_DU_MANAGER_FILE_NAME</span><span class="p">)</span>
+        <span class="n">o</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">EmulationUtil</span><span class="o">.</span><span class="n">execute_ssh_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="p">,</span> <span class="n">conn</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">get_connection</span><span class="p">(</span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">))</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.get_five_g_du_manager_statuses"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.get_five_g_du_manager_statuses">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_five_g_du_manager_statuses</span><span class="p">(</span>
+            <span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">physical_server_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method that sends a request to the 5G DU manager on every container to get the status of the</span>
+<span class="sd">        5G du</span>
+
+<span class="sd">        :param emulation_env_config: the emulation config</span>
+<span class="sd">        :param physical_server_ip: the IP of the physical server</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: List of monitor thread statuses</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">statuses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">start_five_g_du_managers</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span>
+                                                   <span class="n">physical_server_ip</span><span class="o">=</span><span class="n">physical_server_ip</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">physical_host_ip</span> <span class="o">!=</span> <span class="n">physical_server_ip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">status</span> <span class="o">=</span> <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">get_five_g_du_status_by_ip_and_port</span><span class="p">(</span>
+                        <span class="n">port</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span><span class="p">,</span>
+                        <span class="n">ip</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="p">)</span>
+                    <span class="n">statuses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">statuses</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.get_five_g_du_managers_ips"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.get_five_g_du_managers_ips">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_five_g_du_managers_ips</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method that extracts the IPs of the 5G DU managers in a given emulation</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :return: the list of IP addresses</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ips</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">ips</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ips</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.get_five_g_du_managers_ports"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.get_five_g_du_managers_ports">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_five_g_du_managers_ports</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method that extracts the ports of the FiveGDUManagers in a given emulation</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :return: the list of ports</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ports</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">ports</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ports</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.get_five_g_du_status_by_ip_and_port"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.get_five_g_du_status_by_ip_and_port">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_five_g_du_status_by_ip_and_port</span><span class="p">(</span>
+            <span class="n">port</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">csle_collector_constants</span><span class="o">.</span><span class="n">GRPC</span><span class="o">.</span><span class="n">TIMEOUT_SECONDS</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method that sends a request to the 5G DU manager with a specific port and ip</span>
+<span class="sd">        to get the status of the 5G DU</span>
+
+<span class="sd">        :param port: the port of the FiveGDUManager</span>
+<span class="sd">        :param ip: the ip of the FiveGDUManager</span>
+<span class="sd">        :param timeout: the timeout of the GRPC query</span>
+<span class="sd">        :return: the status of the FiveGDUManager</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">GRPC_SERVERS</span><span class="o">.</span><span class="n">GRPC_OPTIONS</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+            <span class="n">stub</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2_grpc</span><span class="o">.</span><span class="n">FiveGDUManagerStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> \
+                <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">query_five_g_du_manager</span><span class="o">.</span><span class="n">get_five_g_du_status</span><span class="p">(</span>
+                    <span class="n">stub</span><span class="o">=</span><span class="n">stub</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.start_five_g_dus"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.start_five_g_dus">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_five_g_dus</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">physical_server_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                         <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for starting the 5G DUs of a specific execution</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param physical_server_ip: the ip of the physical server</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">physical_host_ip</span> <span class="o">!=</span> <span class="n">physical_server_ip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">start_five_g_du</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span>
+                                                      <span class="n">ip</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.start_five_g_du"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.start_five_g_du">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_five_g_du</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for starting the 5G DU on a specific container</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param ip: the ip of the container</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting the 5G DU on container with ip </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2"> in execution </span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">execution_id</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;of emulation: </span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span>
+        <span class="k">with</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">GRPC_SERVERS</span><span class="o">.</span><span class="n">GRPC_OPTIONS</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+            <span class="n">stub</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2_grpc</span><span class="o">.</span><span class="n">FiveGDUManagerStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">query_five_g_du_manager</span><span class="o">.</span><span class="n">start_five_g_du</span><span class="p">(</span><span class="n">stub</span><span class="o">=</span><span class="n">stub</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.stop_five_g_dus"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.stop_five_g_dus">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_five_g_dus</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">physical_server_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                        <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for stopping the 5G DUs of a specific execution</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param physical_server_ip: the ip of the physical server</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">physical_host_ip</span> <span class="o">!=</span> <span class="n">physical_server_ip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">stop_five_g_du</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span>
+                                                     <span class="n">ip</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.stop_five_g_du"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.stop_five_g_du">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_five_g_du</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for stopping the 5G DU on a specific container</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param ip: the ip of the container</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stopping the 5G DU on container with ip </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2"> in execution </span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">execution_id</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;of emulation: </span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span>
+        <span class="k">with</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">GRPC_SERVERS</span><span class="o">.</span><span class="n">GRPC_OPTIONS</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+            <span class="n">stub</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2_grpc</span><span class="o">.</span><span class="n">FiveGDUManagerStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">query_five_g_du_manager</span><span class="o">.</span><span class="n">stop_five_g_du</span><span class="p">(</span><span class="n">stub</span><span class="o">=</span><span class="n">stub</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">status</span></div>
+
+    <span class="c1"># UE</span>
+<div class="viewcode-block" id="FiveGDUController.start_five_g_ues"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.start_five_g_ues">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_five_g_ues</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">physical_server_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                         <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for starting the 5G UEs of a specific execution</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param physical_server_ip: the ip of the physical server</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">physical_host_ip</span> <span class="o">!=</span> <span class="n">physical_server_ip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">start_five_g_ue</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span>
+                                                      <span class="n">ip</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.start_five_g_ue"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.start_five_g_ue">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_five_g_ue</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for starting the 5G UE on a specific container</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param ip: the ip of the container</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting the 5G UE on container with ip </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2"> in execution </span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">execution_id</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;of emulation: </span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span>
+        <span class="k">with</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">GRPC_SERVERS</span><span class="o">.</span><span class="n">GRPC_OPTIONS</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+            <span class="n">stub</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2_grpc</span><span class="o">.</span><span class="n">FiveGDUManagerStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">query_five_g_du_manager</span><span class="o">.</span><span class="n">start_five_g_ue</span><span class="p">(</span><span class="n">stub</span><span class="o">=</span><span class="n">stub</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.stop_five_g_ues"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.stop_five_g_ues">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_five_g_ues</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">physical_server_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                        <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for stopping the 5G UEs of a specific execution</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param physical_server_ip: the ip of the physical server</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">physical_host_ip</span> <span class="o">!=</span> <span class="n">physical_server_ip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">stop_five_g_ue</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span>
+                                                     <span class="n">ip</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.stop_five_g_ue"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.stop_five_g_ue">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_five_g_ue</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for stopping the 5G UE on a specific container</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param ip: the ip of the container</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stopping the 5G UE on container with ip </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2"> in execution </span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">execution_id</span><span class="si">}</span><span class="s2"> &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;of emulation: </span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span>
+        <span class="k">with</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">GRPC_SERVERS</span><span class="o">.</span><span class="n">GRPC_OPTIONS</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+            <span class="n">stub</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2_grpc</span><span class="o">.</span><span class="n">FiveGDUManagerStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">query_five_g_du_manager</span><span class="o">.</span><span class="n">stop_five_g_ue</span><span class="p">(</span><span class="n">stub</span><span class="o">=</span><span class="n">stub</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.init_five_g_dus_ues"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.init_five_g_dus_ues">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_five_g_dus_ues</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">physical_server_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                            <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for initializing the 5G DUs and UEs of a specific execution</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param physical_server_ip: the ip of the physical server</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">physical_host_ip</span> <span class="o">!=</span> <span class="n">physical_server_ip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ids_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">init_five_g_du_ue</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span>
+                                                        <span class="n">container</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.init_five_g_du_ue"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.init_five_g_du_ue">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_five_g_du_ue</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="n">NodeContainerConfig</span><span class="p">,</span>
+                          <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2</span><span class="o">.</span><span class="n">FiveGDUStatusDTO</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Utility method for initializing the 5G UE on a specific container</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param container: the container env config</span>
+<span class="sd">        :param ip: the ip of the container</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Initializing the 5G UE and DU on container with ip </span><span class="si">{</span><span class="n">container</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="si">}</span><span class="s2"> &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;in execution </span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">execution_id</span><span class="si">}</span><span class="s2"> &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;of emulation: </span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">du_fronthaul_ip</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">cu_fronthaul_ip</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">subscriber</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">gnb_du_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pci</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">sector_id</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">du_ip</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">du_fronthaul_ips</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">du_ip</span> <span class="ow">in</span> <span class="n">container</span><span class="o">.</span><span class="n">get_ips</span><span class="p">():</span>
+                <span class="n">du_fronthaul_ip</span> <span class="o">=</span> <span class="n">du_ip</span>
+                <span class="n">cu_fronthaul_ip</span> <span class="o">=</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">du_cus</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">subscriber</span> <span class="o">=</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">subscribers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">gnb_du_id</span> <span class="o">=</span> <span class="n">i</span>
+                <span class="n">pci</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">sector_id</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">if</span> <span class="n">du_fronthaul_ip</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">cu_fronthaul_ip</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span> <span class="ow">or</span> <span class="n">subscriber</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span>
+        <span class="k">with</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">container</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                   <span class="n">options</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">GRPC_SERVERS</span><span class="o">.</span><span class="n">GRPC_OPTIONS</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+            <span class="n">stub</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2_grpc</span><span class="o">.</span><span class="n">FiveGDUManagerStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">query_five_g_du_manager</span><span class="o">.</span><span class="n">init_five_g_du_ue</span><span class="p">(</span>
+                <span class="n">stub</span><span class="o">=</span><span class="n">stub</span><span class="p">,</span> <span class="n">cu_fronthaul_ip</span><span class="o">=</span><span class="n">cu_fronthaul_ip</span><span class="p">,</span> <span class="n">du_fronthaul_ip</span><span class="o">=</span><span class="n">du_fronthaul_ip</span><span class="p">,</span>
+                <span class="n">imsi</span><span class="o">=</span><span class="n">subscriber</span><span class="o">.</span><span class="n">imsi</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">subscriber</span><span class="o">.</span><span class="n">key</span><span class="p">,</span> <span class="n">opc</span><span class="o">=</span><span class="n">subscriber</span><span class="o">.</span><span class="n">opc</span><span class="p">,</span> <span class="n">imei</span><span class="o">=</span><span class="n">subscriber</span><span class="o">.</span><span class="n">imei</span><span class="p">,</span>
+                <span class="n">gnb_du_id</span><span class="o">=</span><span class="n">gnb_du_id</span><span class="p">,</span> <span class="n">pci</span><span class="o">=</span><span class="n">pci</span><span class="p">,</span> <span class="n">sector_id</span><span class="o">=</span><span class="n">sector_id</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.get_five_g_du_managers_info"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.get_five_g_du_managers_info">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_five_g_du_managers_info</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">active_ips</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+                                    <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span> <span class="n">physical_server_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FiveGDUManagersInfo</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Extracts the information of the 5G DU managers for a given emulation</span>
+
+<span class="sd">        :param emulation_env_config: the configuration of the emulation</span>
+<span class="sd">        :param active_ips: list of active IPs</span>
+<span class="sd">        :param physical_server_ip: the IP of the physical server</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: a DTO with the status of the 5G DU managers</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">five_g_du_managers_ips</span> <span class="o">=</span> <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">get_five_g_du_managers_ips</span><span class="p">(</span>
+            <span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">)</span>
+        <span class="n">five_g_du_managers_ports</span> <span class="o">=</span> <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">get_five_g_du_managers_ports</span><span class="p">(</span>
+            <span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">)</span>
+        <span class="n">five_g_du_managers_statuses</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">five_g_du_managers_running</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="n">five_g_du_managers_ips</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">active_ips</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">EmulationUtil</span><span class="o">.</span><span class="n">physical_ip_match</span><span class="p">(</span>
+                    <span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">physical_host_ip</span><span class="o">=</span><span class="n">physical_server_ip</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="n">running</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">status</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">get_five_g_du_status_by_ip_and_port</span><span class="p">(</span>
+                    <span class="n">port</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">)</span>
+                <span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Could not fetch 5G DU manager status on IP:</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">, error: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">five_g_du_managers_statuses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">util</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_util</span><span class="o">.</span><span class="n">FiveGDUManagerUtil</span>
+                <span class="n">five_g_du_managers_statuses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">util</span><span class="o">.</span><span class="n">five_g_du_status_dto_empty</span><span class="p">())</span>
+            <span class="n">five_g_du_managers_running</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">running</span><span class="p">)</span>
+        <span class="n">execution_id</span> <span class="o">=</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">execution_id</span>
+        <span class="n">emulation_name</span> <span class="o">=</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">five_g_du_manager_info_dto</span> <span class="o">=</span> <span class="n">FiveGDUManagersInfo</span><span class="p">(</span>
+            <span class="n">five_g_du_managers_running</span><span class="o">=</span><span class="n">five_g_du_managers_running</span><span class="p">,</span> <span class="n">ips</span><span class="o">=</span><span class="n">five_g_du_managers_ips</span><span class="p">,</span>
+            <span class="n">ports</span><span class="o">=</span><span class="n">five_g_du_managers_ports</span><span class="p">,</span> <span class="n">execution_id</span><span class="o">=</span><span class="n">execution_id</span><span class="p">,</span> <span class="n">emulation_name</span><span class="o">=</span><span class="n">emulation_name</span><span class="p">,</span>
+            <span class="n">five_g_du_managers_statuses</span><span class="o">=</span><span class="n">five_g_du_managers_statuses</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">five_g_du_manager_info_dto</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.start_five_g_du_monitor_threads"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.start_five_g_du_monitor_threads">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_five_g_du_monitor_threads</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">physical_server_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                                        <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method that sends a request to the 5G DUManager on every container</span>
+<span class="sd">        to start the DU manager and the monitor thread</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param physical_server_ip: the ip of the physical server</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">physical_host_ip</span> <span class="o">!=</span> <span class="n">physical_server_ip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">container_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">container_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">start_five_g_du_monitor_thread</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span>
+                                                                     <span class="n">ip</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.start_five_g_du_monitor_thread"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.start_five_g_du_monitor_thread">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_five_g_du_monitor_thread</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method that sends a request to the 5G FiveGDUManager on a specific IP</span>
+<span class="sd">        to start the 5G DU monitor thread</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param ip: IP of the container</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">du_status_dto</span> <span class="o">=</span> <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">get_five_g_du_status_by_ip_and_port</span><span class="p">(</span>
+            <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">du_status_dto</span><span class="o">.</span><span class="n">monitor_running</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G DU monitor thread is not running on </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">, starting it.&quot;</span><span class="p">)</span>
+            <span class="c1"># Open a gRPC session</span>
+            <span class="k">with</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                    <span class="n">options</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">GRPC_SERVERS</span><span class="o">.</span><span class="n">GRPC_OPTIONS</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+                <span class="n">stub</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2_grpc</span><span class="o">.</span><span class="n">FiveGDUManagerStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+                <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">query_five_g_du_manager</span><span class="o">.</span><span class="n">start_five_g_du_monitor</span><span class="p">(</span>
+                    <span class="n">stub</span><span class="o">=</span><span class="n">stub</span><span class="p">,</span> <span class="n">kafka_ip</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">kafka_config</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">get_ips</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">kafka_port</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">kafka_config</span><span class="o">.</span><span class="n">kafka_port</span><span class="p">,</span>
+                    <span class="n">time_step_len_seconds</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">kafka_config</span><span class="o">.</span><span class="n">time_step_len_seconds</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.stop_five_g_du_monitor_threads"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.stop_five_g_du_monitor_threads">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_five_g_du_monitor_threads</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">,</span>
+                                       <span class="n">physical_host_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method that sends a request to the 5G DU on every container to stop the monitor threads</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param physical_host_ip: the IP of the physical host</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">emulation_env_config</span><span class="o">.</span><span class="n">containers_config</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">physical_host_ip</span> <span class="o">!=</span> <span class="n">physical_host_ip</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">for</span> <span class="n">container_image</span> <span class="ow">in</span> <span class="n">constants</span><span class="o">.</span><span class="n">CONTAINER_IMAGES</span><span class="o">.</span><span class="n">FIVE_G_DU_IMAGES</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">container_image</span> <span class="ow">in</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+                    <span class="n">FiveGDUController</span><span class="o">.</span><span class="n">stop_five_g_du_monitor_thread</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="o">=</span><span class="n">emulation_env_config</span><span class="p">,</span>
+                                                                    <span class="n">ip</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">docker_gw_bridge_ip</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="FiveGDUController.stop_five_g_du_monitor_thread"><a class="viewcode-back" href="../../../csle_common.controllers.html#csle_common.controllers.five_g_du_controller.FiveGDUController.stop_five_g_du_monitor_thread">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_five_g_du_monitor_thread</span><span class="p">(</span><span class="n">emulation_env_config</span><span class="p">:</span> <span class="n">EmulationEnvConfig</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">logging</span><span class="o">.</span><span class="n">Logger</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A method that sends a request to the 5G DU Manager on a specific container to stop the 5G DU monitor thread</span>
+
+<span class="sd">        :param emulation_env_config: the emulation env config</span>
+<span class="sd">        :param ip: the IP of the container</span>
+<span class="sd">        :param logger: the logger to use for logging</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Open a gRPC session</span>
+        <span class="k">with</span> <span class="n">grpc</span><span class="o">.</span><span class="n">insecure_channel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s1">:</span><span class="si">{</span><span class="n">emulation_env_config</span><span class="o">.</span><span class="n">five_g_config</span><span class="o">.</span><span class="n">five_g_du_manager_port</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                                   <span class="n">options</span><span class="o">=</span><span class="n">constants</span><span class="o">.</span><span class="n">GRPC_SERVERS</span><span class="o">.</span><span class="n">GRPC_OPTIONS</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+            <span class="n">stub</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">five_g_du_manager_pb2_grpc</span><span class="o">.</span><span class="n">FiveGDUManagerStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stopping the 5G DU monitor thread on </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_du_manager</span><span class="o">.</span><span class="n">query_five_g_du_manager</span><span class="o">.</span><span class="n">stop_five_g_du_monitor</span><span class="p">(</span><span class="n">stub</span><span class="o">=</span><span class="n">stub</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2026, Kim Hammar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

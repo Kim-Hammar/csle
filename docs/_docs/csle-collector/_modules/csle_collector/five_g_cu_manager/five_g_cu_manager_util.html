@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>csle_collector.five_g_cu_manager.five_g_cu_manager_util &mdash; csle-collector 0.8.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> csle-collector
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.client_manager.html">csle_collector.client_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.constants.html">csle_collector.constants package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.docker_stats_manager.html">csle_collector.docker_stats_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.elk_manager.html">csle_collector.elk_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.host_manager.html">csle_collector.host_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.kafka_manager.html">csle_collector.kafka_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.ossec_ids_manager.html">csle_collector.ossec_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.snort_ids_manager.html">csle_collector.snort_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../csle_collector.traffic_manager.html">csle_collector.traffic_manager package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">csle-collector</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">csle_collector.five_g_cu_manager.five_g_cu_manager_util</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for csle_collector.five_g_cu_manager.five_g_cu_manager_util</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.five_g_cu_manager.five_g_cu_manager_pb2</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.constants.constants</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">constants</span>
+
+
+<div class="viewcode-block" id="FiveGCUManagerUtil"><a class="viewcode-back" href="../../../csle_collector.five_g_cu_manager.html#csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FiveGCUManagerUtil</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class with utility functions for the 5G CU manager</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="FiveGCUManagerUtil.get_cu_status"><a class="viewcode-back" href="../../../csle_collector.five_g_cu_manager.html#csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.get_cu_status">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_cu_status</span><span class="p">(</span><span class="n">control_script_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Executes the control script, parses the output, and return the statuses of the 5G CU services</span>
+
+<span class="sd">        :param control_script_path: the path to the control script</span>
+<span class="sd">        :return: A dict with the names of the statuses and boolean values indicating if the services are running</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">status_map</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">control_script_path</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">STATUS</span><span class="p">],</span>
+                                    <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+            <span class="n">output_lines</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Regex to capture the service name and its status</span>
+            <span class="n">status_pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span>
+                <span class="sa">rf</span><span class="s1">&#39;^(\w+)\s+&#39;</span>
+                <span class="sa">rf</span><span class="s1">&#39;(</span><span class="si">{</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">)</span><span class="si">}</span><span class="s1">|</span><span class="si">{</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">STOPPED</span><span class="p">)</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">,</span>
+                <span class="n">re</span><span class="o">.</span><span class="n">IGNORECASE</span>
+            <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">output_lines</span><span class="p">:</span>
+                <span class="n">match</span> <span class="o">=</span> <span class="n">status_pattern</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+                    <span class="n">service_name</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="n">status</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                    <span class="n">status_map</span><span class="p">[</span><span class="n">service_name</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">status</span> <span class="o">==</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RUNNING</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G CU control script not found at </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Script execution failed: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An unexpected error occurred during status retrieval: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">status_map</span></div>
+
+<div class="viewcode-block" id="FiveGCUManagerUtil.start_cu"><a class="viewcode-back" href="../../../csle_collector.five_g_cu_manager.html#csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.start_cu">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_cu</span><span class="p">(</span><span class="n">control_script_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts the 5G CU using the control script with the &#39;start&#39; command.</span>
+
+<span class="sd">        :param control_script_path: the path to the control script</span>
+<span class="sd">        :return: True if the script execution completed successfully, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempting to start the 5G CU using: </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2"> start&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">control_script_path</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">START</span><span class="p">],</span>
+                                    <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CU start command output: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G CU control script not found at </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Script execution failed to start the CU. Stderr: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stdout: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An unexpected error occurred during starting the CU: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="FiveGCUManagerUtil.stop_cu"><a class="viewcode-back" href="../../../csle_collector.five_g_cu_manager.html#csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.stop_cu">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop_cu</span><span class="p">(</span><span class="n">control_script_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stops the 5G CU using the control script with the &#39;stop&#39; command.</span>
+
+<span class="sd">        :param control_script_path: the path to the control script</span>
+<span class="sd">        :return: True if the script execution completed successfully, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempting to stop the 5G CU using: </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2"> stop&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">control_script_path</span><span class="p">,</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">STOP</span><span class="p">],</span>
+                                    <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CU stop command output: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;5G CU control script not found at </span><span class="si">{</span><span class="n">control_script_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Script execution failed to stop the CU. Stderr: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stderr</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Stdout: </span><span class="si">{</span><span class="n">e</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An unexpected error occurred during stopping the CU: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+<div class="viewcode-block" id="FiveGCUManagerUtil.five_g_cu_status_dto_to_dict"><a class="viewcode-back" href="../../../csle_collector.five_g_cu_manager.html#csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.five_g_cu_status_dto_to_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">five_g_cu_status_dto_to_dict</span><span class="p">(</span>
+            <span class="n">five_g_cu_status_dto</span><span class="p">:</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_cu_manager</span><span class="o">.</span><span class="n">five_g_cu_manager_pb2</span><span class="o">.</span><span class="n">FiveGCUStatusDTO</span><span class="p">)</span> \
+            <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a FiveGCUStatusDTO to a dict</span>
+
+<span class="sd">        :param five_g_cu_status_dto: the DTO to convert</span>
+<span class="sd">        :return: a dict representation of the DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cu_running&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_cu_status_dto</span><span class="o">.</span><span class="n">cu_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;monitor_running&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_cu_status_dto</span><span class="o">.</span><span class="n">monitor_running</span>
+        <span class="n">d</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">five_g_cu_status_dto</span><span class="o">.</span><span class="n">ip</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+
+<div class="viewcode-block" id="FiveGCUManagerUtil.five_g_cu_status_dto_from_dict"><a class="viewcode-back" href="../../../csle_collector.five_g_cu_manager.html#csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.five_g_cu_status_dto_from_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">five_g_cu_status_dto_from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> \
+            <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_cu_manager</span><span class="o">.</span><span class="n">five_g_cu_manager_pb2</span><span class="o">.</span><span class="n">FiveGCUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a FiveGCUStatusDTO to a dict</span>
+
+<span class="sd">        :param d: the dict to convert</span>
+<span class="sd">        :return: the converted DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dto</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_cu_manager</span><span class="o">.</span><span class="n">five_g_cu_manager_pb2</span><span class="o">.</span><span class="n">FiveGCUStatusDTO</span><span class="p">()</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">cu_running</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;cu_running&quot;</span><span class="p">]</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s2">&quot;ip&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">dto</span></div>
+
+<div class="viewcode-block" id="FiveGCUManagerUtil.five_g_cu_status_dto_empty"><a class="viewcode-back" href="../../../csle_collector.five_g_cu_manager.html#csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.five_g_cu_status_dto_empty">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">five_g_cu_status_dto_empty</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_cu_manager</span><span class="o">.</span><span class="n">five_g_cu_manager_pb2</span><span class="o">.</span><span class="n">FiveGCUStatusDTO</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: An empty FiveGCUStatusDTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dto</span> <span class="o">=</span> <span class="n">csle_collector</span><span class="o">.</span><span class="n">five_g_cu_manager</span><span class="o">.</span><span class="n">five_g_cu_manager_pb2</span><span class="o">.</span><span class="n">FiveGCUStatusDTO</span><span class="p">()</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">cu_running</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">dto</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="s2">&quot;0.0.0.0&quot;</span>
+        <span class="k">return</span> <span class="n">dto</span></div>
+
+<div class="viewcode-block" id="FiveGCUManagerUtil.init_config_file"><a class="viewcode-back" href="../../../csle_collector.five_g_cu_manager.html#csle_collector.five_g_cu_manager.five_g_cu_manager_util.FiveGCUManagerUtil.init_config_file">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">init_config_file</span><span class="p">(</span><span class="n">core_backhaul_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cu_backhaul_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cu_fronthaul_ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the /srsRAN_Project/build/apps/cu/cu.yml configuration file.</span>
+
+<span class="sd">        :param core_backhaul_ip: The backhaul IP address of the 5G Core (AMF).</span>
+<span class="sd">        :param cu_backhaul_ip: The backhaul IP address of the CU (Central Unit).</span>
+<span class="sd">        :param cu_fronthaul_ip: The fronthaul IP address of the CU (Central Unit).</span>
+<span class="sd">        :return: True if the file was updated successfully, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">config_path</span> <span class="o">=</span> <span class="s2">&quot;/srsRAN_Project/build/apps/cu/cu.yml&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Attempting to update CU config at </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting Core IP (AMF addr) to: </span><span class="si">{</span><span class="n">core_backhaul_ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting CU backhaul IP (AMF bind_addr) to: </span><span class="si">{</span><span class="n">cu_backhaul_ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting CU fronthaul IP (cu_up and  f1ap bind_addr) to: </span><span class="si">{</span><span class="n">cu_fronthaul_ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s1">&#39;cu_cp&#39;</span> <span class="ow">in</span> <span class="n">config</span> <span class="ow">and</span> <span class="s1">&#39;amf&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;cu_cp&#39;</span><span class="p">]:</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;cu_cp&#39;</span><span class="p">][</span><span class="s1">&#39;amf&#39;</span><span class="p">][</span><span class="s1">&#39;addr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">core_backhaul_ip</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;cu_cp&#39;</span><span class="p">][</span><span class="s1">&#39;amf&#39;</span><span class="p">][</span><span class="s1">&#39;bind_addr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cu_backhaul_ip</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid YAML structure in </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">: &#39;cu_cp.amf&#39; section missing.&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+
+                <span class="k">if</span> <span class="s1">&#39;cu_cp&#39;</span> <span class="ow">in</span> <span class="n">config</span> <span class="ow">and</span> <span class="s1">&#39;f1ap&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;cu_cp&#39;</span><span class="p">]:</span>
+                    <span class="n">config</span><span class="p">[</span><span class="s1">&#39;cu_cp&#39;</span><span class="p">][</span><span class="s1">&#39;f1ap&#39;</span><span class="p">][</span><span class="s1">&#39;bind_addr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cu_fronthaul_ip</span>
+                <span class="k">if</span> <span class="s1">&#39;cu_up&#39;</span> <span class="ow">in</span> <span class="n">config</span> <span class="ow">and</span> <span class="s1">&#39;f1u&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;cu_up&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="s1">&#39;socket&#39;</span> <span class="ow">in</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;cu_up&#39;</span><span class="p">][</span><span class="s1">&#39;f1u&#39;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;cu_up&#39;</span><span class="p">][</span><span class="s1">&#39;f1u&#39;</span><span class="p">][</span><span class="s1">&#39;socket&#39;</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                        <span class="n">config</span><span class="p">[</span><span class="s1">&#39;cu_up&#39;</span><span class="p">][</span><span class="s1">&#39;f1u&#39;</span><span class="p">][</span><span class="s1">&#39;socket&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;bind_addr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cu_fronthaul_ip</span>
+
+            <span class="k">except</span> <span class="p">(</span><span class="ne">TypeError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error modifying YAML structure: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">default_flow_style</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully updated </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Configuration file not found at </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">PermissionError</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Permission denied. Cannot write to </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An unexpected error occurred processing </span><span class="si">{</span><span class="n">config_path</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2026, Kim Hammar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

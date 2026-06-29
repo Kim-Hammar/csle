@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics &mdash; csle-collector 0.8.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> csle-collector
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.client_manager.html">csle_collector.client_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.constants.html">csle_collector.constants package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.docker_stats_manager.html">csle_collector.docker_stats_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.elk_manager.html">csle_collector.elk_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.host_manager.html">csle_collector.host_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.kafka_manager.html">csle_collector.kafka_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.ossec_ids_manager.html">csle_collector.ossec_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.snort_ids_manager.html">csle_collector.snort_ids_manager package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../csle_collector.traffic_manager.html">csle_collector.traffic_manager package</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">csle-collector</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csle_collector.constants.constants</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">constants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">csle_base.json_serializable</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSONSerializable</span>
+
+
+<div class="viewcode-block" id="FiveGCUCPMetrics"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">FiveGCUCPMetrics</span><span class="p">(</span><span class="n">JSONSerializable</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    DTO class containing srsRAN CU-CP (Central Unit - Control Plane) metrics.</span>
+<span class="sd">    Captures NGAP (AMF interface) and RRC (UE/DU interface) statistics.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="c1"># --- Metadata ---</span>
+                 <span class="n">cu_cp_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+
+                 <span class="c1"># --- NGAP (AMF Interface) ---</span>
+                 <span class="n">amf_connected</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                 <span class="n">nof_cn_initiated_paging_requests</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">nof_pdu_sessions_requested_to_setup</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">nof_pdu_sessions_successfully_setup</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">nof_pdu_sessions_failed_to_setup_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># Aggregated sum of failure reasons</span>
+                 <span class="n">nof_handover_preparations_requested</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">nof_successful_handover_preparations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+
+                 <span class="c1"># --- RRC (Radio Interface) ---</span>
+                 <span class="n">rrc_establishments_attempted_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">rrc_establishments_successful_total</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">rrc_establishments_attempted_mo_data</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># Mobile Originated Data</span>
+                 <span class="n">rrc_establishments_successful_mo_data</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">rrc_establishments_attempted_mo_sig</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>  <span class="c1"># Mobile Originated Signaling</span>
+                 <span class="n">rrc_establishments_successful_mo_sig</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">max_nof_rrc_connections</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">mean_nof_rrc_connections</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">rrc_reestablishments_attempted</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">rrc_reestablishments_successful</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">nof_handover_executions_requested</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">nof_successful_handover_executions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+
+                 <span class="n">ip</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">ts</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the DTO</span>
+
+<span class="sd">        :param cu_cp_id: Identifier of the CU-CP instance</span>
+<span class="sd">        :param amf_connected: Boolean status if connected to AMF</span>
+<span class="sd">        :param nof_cn_initiated_paging_requests: Number of paging requests from Core Network</span>
+<span class="sd">        :param nof_pdu_sessions_requested_to_setup: Total PDU session setup requests</span>
+<span class="sd">        :param nof_pdu_sessions_successfully_setup: Total successful PDU sessions</span>
+<span class="sd">        :param nof_pdu_sessions_failed_to_setup_total: Total failed PDU sessions (sum of all failure causes)</span>
+<span class="sd">        :param nof_handover_preparations_requested: Handover preparation requests (NGAP)</span>
+<span class="sd">        :param nof_successful_handover_preparations: Successful handover preparations (NGAP)</span>
+<span class="sd">        :param rrc_establishments_attempted_total: Total RRC connection attempts (all causes)</span>
+<span class="sd">        :param rrc_establishments_successful_total: Total successful RRC connections (all causes)</span>
+<span class="sd">        :param rrc_establishments_attempted_mo_data: RRC attempts for MO Data</span>
+<span class="sd">        :param rrc_establishments_successful_mo_data: Successful RRC connections for MO Data</span>
+<span class="sd">        :param rrc_establishments_attempted_mo_sig: RRC attempts for MO Signaling</span>
+<span class="sd">        :param rrc_establishments_successful_mo_sig: Successful RRC connections for MO Signaling</span>
+<span class="sd">        :param max_nof_rrc_connections: Maximum concurrent RRC connections observed</span>
+<span class="sd">        :param mean_nof_rrc_connections: Mean concurrent RRC connections observed</span>
+<span class="sd">        :param rrc_reestablishments_attempted: Total RRC re-establishment attempts</span>
+<span class="sd">        :param rrc_reestablishments_successful: Total successful RRC re-establishments</span>
+<span class="sd">        :param nof_handover_executions_requested: Handover execution requests (RRC)</span>
+<span class="sd">        :param nof_successful_handover_executions: Successful handover executions (RRC)</span>
+<span class="sd">        :param ip: The IP of the CU-CP</span>
+<span class="sd">        :param ts: The timestamp the metrics were measured</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cu_cp_id</span> <span class="o">=</span> <span class="n">cu_cp_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">amf_connected</span> <span class="o">=</span> <span class="n">amf_connected</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nof_cn_initiated_paging_requests</span> <span class="o">=</span> <span class="n">nof_cn_initiated_paging_requests</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_requested_to_setup</span> <span class="o">=</span> <span class="n">nof_pdu_sessions_requested_to_setup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_successfully_setup</span> <span class="o">=</span> <span class="n">nof_pdu_sessions_successfully_setup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_failed_to_setup_total</span> <span class="o">=</span> <span class="n">nof_pdu_sessions_failed_to_setup_total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nof_handover_preparations_requested</span> <span class="o">=</span> <span class="n">nof_handover_preparations_requested</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nof_successful_handover_preparations</span> <span class="o">=</span> <span class="n">nof_successful_handover_preparations</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_total</span> <span class="o">=</span> <span class="n">rrc_establishments_attempted_total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_total</span> <span class="o">=</span> <span class="n">rrc_establishments_successful_total</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_mo_data</span> <span class="o">=</span> <span class="n">rrc_establishments_attempted_mo_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_mo_data</span> <span class="o">=</span> <span class="n">rrc_establishments_successful_mo_data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_mo_sig</span> <span class="o">=</span> <span class="n">rrc_establishments_attempted_mo_sig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_mo_sig</span> <span class="o">=</span> <span class="n">rrc_establishments_successful_mo_sig</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_nof_rrc_connections</span> <span class="o">=</span> <span class="n">max_nof_rrc_connections</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mean_nof_rrc_connections</span> <span class="o">=</span> <span class="n">mean_nof_rrc_connections</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrc_reestablishments_attempted</span> <span class="o">=</span> <span class="n">rrc_reestablishments_attempted</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rrc_reestablishments_successful</span> <span class="o">=</span> <span class="n">rrc_reestablishments_successful</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nof_handover_executions_requested</span> <span class="o">=</span> <span class="n">nof_handover_executions_requested</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nof_successful_handover_executions</span> <span class="o">=</span> <span class="n">nof_successful_handover_executions</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">ip</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ts</span> <span class="o">=</span> <span class="n">ts</span>
+
+<div class="viewcode-block" id="FiveGCUCPMetrics.to_kafka_record"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics.to_kafka_record">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_kafka_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the DTO into a Kafka record string</span>
+
+<span class="sd">        :param ip: the IP to add to the record in addition to the metrics</span>
+<span class="sd">        :return: a comma separated string representing the kafka record</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts</span> <span class="k">else</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">record_str</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ts</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cu_cp_id</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">amf_connected</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_cn_initiated_paging_requests</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_requested_to_setup</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_successfully_setup</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_failed_to_setup_total</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_handover_preparations_requested</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_successful_handover_preparations</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_total</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_total</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_mo_data</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_mo_data</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_mo_sig</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_mo_sig</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max_nof_rrc_connections</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_nof_rrc_connections</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_reestablishments_attempted</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_reestablishments_successful</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_handover_executions_requested</span><span class="si">}</span><span class="s2">,&quot;</span>
+                      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_successful_handover_executions</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">record_str</span></div>
+
+<div class="viewcode-block" id="FiveGCUCPMetrics.from_kafka_record"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics.from_kafka_record">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_kafka_record</span><span class="p">(</span><span class="n">record</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCUCPMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the Kafka record string to a DTO</span>
+
+<span class="sd">        :param record: the kafka record</span>
+<span class="sd">        :return: the created DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="c1"># Handling boolean conversion from string</span>
+        <span class="n">amf_conn</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">TRUE</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">FiveGCUCPMetrics</span><span class="p">(</span>
+            <span class="n">ts</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="n">ip</span><span class="o">=</span><span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">cu_cp_id</span><span class="o">=</span><span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">amf_connected</span><span class="o">=</span><span class="n">amf_conn</span><span class="p">,</span>
+            <span class="n">nof_cn_initiated_paging_requests</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span>
+            <span class="n">nof_pdu_sessions_requested_to_setup</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">5</span><span class="p">]),</span>
+            <span class="n">nof_pdu_sessions_successfully_setup</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">6</span><span class="p">]),</span>
+            <span class="n">nof_pdu_sessions_failed_to_setup_total</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">7</span><span class="p">]),</span>
+            <span class="n">nof_handover_preparations_requested</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">8</span><span class="p">]),</span>
+            <span class="n">nof_successful_handover_preparations</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">9</span><span class="p">]),</span>
+            <span class="n">rrc_establishments_attempted_total</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">10</span><span class="p">]),</span>
+            <span class="n">rrc_establishments_successful_total</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">11</span><span class="p">]),</span>
+            <span class="n">rrc_establishments_attempted_mo_data</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">12</span><span class="p">]),</span>
+            <span class="n">rrc_establishments_successful_mo_data</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">13</span><span class="p">]),</span>
+            <span class="n">rrc_establishments_attempted_mo_sig</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">14</span><span class="p">]),</span>
+            <span class="n">rrc_establishments_successful_mo_sig</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">15</span><span class="p">]),</span>
+            <span class="n">max_nof_rrc_connections</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">16</span><span class="p">]),</span>
+            <span class="n">mean_nof_rrc_connections</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">17</span><span class="p">]),</span>
+            <span class="n">rrc_reestablishments_attempted</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">18</span><span class="p">]),</span>
+            <span class="n">rrc_reestablishments_successful</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">19</span><span class="p">]),</span>
+            <span class="n">nof_handover_executions_requested</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">20</span><span class="p">]),</span>
+            <span class="n">nof_successful_handover_executions</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">21</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+<div class="viewcode-block" id="FiveGCUCPMetrics.update_with_kafka_record"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics.update_with_kafka_record">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">update_with_kafka_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">record</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Updates the DTO based on a kafka record</span>
+
+<span class="sd">        :param record: the kafka record</span>
+<span class="sd">        :param ip: the host ip</span>
+<span class="sd">        :return: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="n">record</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">ip</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ts</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ip</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cu_cp_id</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">amf_connected</span> <span class="o">=</span> <span class="n">parts</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">TRUE</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nof_cn_initiated_paging_requests</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_requested_to_setup</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_successfully_setup</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">6</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_failed_to_setup_total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">7</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nof_handover_preparations_requested</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">8</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nof_successful_handover_preparations</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">9</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">10</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_total</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">11</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_mo_data</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">12</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_mo_data</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">13</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_mo_sig</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">14</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_mo_sig</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">max_nof_rrc_connections</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">16</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mean_nof_rrc_connections</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">17</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rrc_reestablishments_attempted</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">18</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">rrc_reestablishments_successful</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">19</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nof_handover_executions_requested</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">20</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nof_successful_handover_executions</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">parts</span><span class="p">[</span><span class="mi">21</span><span class="p">])</span></div>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a string representation of the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ts: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ts</span><span class="si">}</span><span class="s2">, ip: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="si">}</span><span class="s2">, connected: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">amf_connected</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;rrc_conns (max/mean): </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">max_nof_rrc_connections</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_nof_rrc_connections</span><span class="si">}</span><span class="s2">, &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;pdu_success: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_successfully_setup</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FiveGCUCPMetrics.from_dict"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics.from_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCUCPMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a dict representation to an instance.</span>
+<span class="sd">        Expects the flat dictionary format produced by to_dict().</span>
+
+<span class="sd">        :param d: the dict to convert</span>
+<span class="sd">        :return: the created instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">FiveGCUCPMetrics</span><span class="p">(</span>
+            <span class="n">cu_cp_id</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">CU_CP_ID</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="n">amf_connected</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">AMF_CONNECTED</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+            <span class="n">nof_cn_initiated_paging_requests</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_CN_INITIATED_PAGING_REQUESTS</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">nof_pdu_sessions_requested_to_setup</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_PDU_SESSIONS_REQUESTED_TO_SETUP</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">nof_pdu_sessions_successfully_setup</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_PDU_SESSIONS_SUCCESSFULLY_SETUP</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">nof_pdu_sessions_failed_to_setup_total</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_PDU_SESSIONS_FAILED_TO_SETUP_TOTAL</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">nof_handover_preparations_requested</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_HANDOVER_PREPARATIONS_REQUESTED</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">nof_successful_handover_preparations</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_SUCCESSFUL_HANDOVER_PREPARATIONS</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+
+            <span class="n">rrc_establishments_attempted_total</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_ATTEMPTED_TOTAL</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">rrc_establishments_successful_total</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_SUCCESSFUL_TOTAL</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">rrc_establishments_attempted_mo_data</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_ATTEMPTED_MO_DATA</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">rrc_establishments_successful_mo_data</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_SUCCESSFUL_MO_DATA</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">rrc_establishments_attempted_mo_sig</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_ATTEMPTED_MO_SIG</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">rrc_establishments_successful_mo_sig</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_SUCCESSFUL_MO_SIG</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">max_nof_rrc_connections</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">MAX_NOF_RRC_CONNECTIONS</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">mean_nof_rrc_connections</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">MEAN_NOF_RRC_CONNECTIONS</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">rrc_reestablishments_attempted</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_REESTABLISHMENTS_ATTEMPTED</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">rrc_reestablishments_successful</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_REESTABLISHMENTS_SUCCESSFUL</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">nof_handover_executions_requested</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_HANDOVER_EXECUTIONS_REQUESTED</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+            <span class="n">nof_successful_handover_executions</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_SUCCESSFUL_HANDOVER_EXECUTIONS</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+
+            <span class="n">ip</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">IP</span><span class="p">),</span>
+            <span class="n">ts</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">TS</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+<div class="viewcode-block" id="FiveGCUCPMetrics.from_ws_dict"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics.from_ws_dict">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_ws_dict</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCUCPMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the raw dictionary from the WebSocket JSON stream to an instance.</span>
+<span class="sd">        Handles the nested &quot;cu-cp&quot; structure.</span>
+
+<span class="sd">        :param d: the raw dictionary from srsRAN WebSocket</span>
+<span class="sd">        :param ip: the IP of the source CU-CP</span>
+<span class="sd">        :return: the created instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ts</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">TIMESTAMP</span> <span class="ow">in</span> <span class="n">d</span> <span class="ow">and</span> <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">TIMESTAMP</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">TIMESTAMP</span><span class="p">])</span>
+                <span class="n">ts</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">timestamp</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="c1"># Navigation Safety</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">CU_CP</span><span class="p">,</span> <span class="p">{})</span>
+
+        <span class="c1"># --- 1. NGAP Parsing ---</span>
+        <span class="n">ngaps</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NGAPS</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">ngap_list</span> <span class="o">=</span> <span class="n">ngaps</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NGAP</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="c1"># Defaults</span>
+        <span class="n">amf_connected</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">paging_reqs</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pdu_req</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pdu_succ</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">pdu_fail_total</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># We aggregate stats if multiple AMFs exist, or just take the first one</span>
+        <span class="k">if</span> <span class="n">ngap_list</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ngap</span> <span class="ow">in</span> <span class="n">ngap_list</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">ngap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">CONNECTED</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                    <span class="n">amf_connected</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="n">paging</span> <span class="o">=</span> <span class="n">ngap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">PAGING_MEASUREMENT</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">paging_reqs</span> <span class="o">+=</span> <span class="n">paging</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_CN_INITIATED_PAGING_REQUESTS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+                <span class="n">pdu_mgmt</span> <span class="o">=</span> <span class="n">ngap</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">PDU_SESSION_MANAGEMENT</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">pdu_req</span> <span class="o">+=</span> <span class="n">pdu_mgmt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_PDU_SESSIONS_REQUESTED_TO_SETUP</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">pdu_succ</span> <span class="o">+=</span> <span class="n">pdu_mgmt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_PDU_SESSIONS_SUCCESSFULLY_SETUP</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+                <span class="c1"># Sum up all failure causes in the failure dict</span>
+                <span class="n">fail_dict</span> <span class="o">=</span> <span class="n">pdu_mgmt</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_PDU_SESSIONS_FAILED_TO_SETUP</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="k">if</span> <span class="n">fail_dict</span><span class="p">:</span>
+                    <span class="n">pdu_fail_total</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">fail_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+        <span class="n">ho_prep_req</span> <span class="o">=</span> <span class="n">ngaps</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_HANDOVER_PREPARATIONS_REQUESTED</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">ho_prep_succ</span> <span class="o">=</span> <span class="n">ngaps</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_SUCCESSFUL_HANDOVER_PREPARATIONS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># --- 2. RRC Parsing ---</span>
+        <span class="n">rrcs</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRCS</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">du_list</span> <span class="o">=</span> <span class="n">rrcs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">DU</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="c1"># RRC Aggregators</span>
+        <span class="n">rrc_att_total</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">rrc_succ_total</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">rrc_att_mo_data</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">rrc_succ_mo_data</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">rrc_att_mo_sig</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">rrc_succ_mo_sig</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">max_rrc</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">mean_rrc</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">reest_att</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">reest_succ</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">if</span> <span class="n">du_list</span><span class="p">:</span>
+            <span class="c1"># Usually one DU context per entry, but could be multiple</span>
+            <span class="k">for</span> <span class="n">du</span> <span class="ow">in</span> <span class="n">du_list</span><span class="p">:</span>
+                <span class="n">est</span> <span class="o">=</span> <span class="n">du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_CONNECTION_ESTABLISHMENT</span><span class="p">,</span> <span class="p">{})</span>
+
+                <span class="c1"># Attempted</span>
+                <span class="n">att</span> <span class="o">=</span> <span class="n">est</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">ATTEMPTED_RRC_CONNECTION_ESTABLISHMENTS</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">rrc_att_total</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">att</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="n">rrc_att_mo_data</span> <span class="o">+=</span> <span class="n">att</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">MO_DATA</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">rrc_att_mo_sig</span> <span class="o">+=</span> <span class="n">att</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">MO_SIG</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+                <span class="c1"># Successful</span>
+                <span class="n">succ</span> <span class="o">=</span> <span class="n">est</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">SUCCESSFUL_RRC_CONNECTION_ESTABLISHMENTS</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">rrc_succ_total</span> <span class="o">+=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">succ</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+                <span class="n">rrc_succ_mo_data</span> <span class="o">+=</span> <span class="n">succ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">MO_DATA</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">rrc_succ_mo_sig</span> <span class="o">+=</span> <span class="n">succ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">MO_SIG</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+                <span class="c1"># Numbers</span>
+                <span class="n">nums</span> <span class="o">=</span> <span class="n">du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_CONNECTION_NUMBER</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="c1"># We take the max of maxes, and maybe avg of means?</span>
+                <span class="c1"># For simplicity, let&#39;s take max of max</span>
+                <span class="n">max_rrc</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">max_rrc</span><span class="p">,</span> <span class="n">nums</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">MAX_NOF_RRC_CONNECTIONS</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+                <span class="c1"># For mean, just taking the value (assuming single DU for now is simpler)</span>
+                <span class="n">mean_rrc</span> <span class="o">=</span> <span class="n">nums</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">MEAN_NOF_RRC_CONNECTIONS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+                <span class="c1"># Re-establishment</span>
+                <span class="n">reest</span> <span class="o">=</span> <span class="n">du</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_CONNECTION_REESTABLISHMENT</span><span class="p">,</span> <span class="p">{})</span>
+                <span class="n">reest_att</span> <span class="o">+=</span> <span class="n">reest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">ATTEMPTED_RRC_CONNECTION_REESTABLISHMENTS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">reest_succ</span> <span class="o">+=</span> <span class="n">reest</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                    <span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">SUCCESSFUL_RRC_CONNECTION_REESTABLISHMENTS_WITH_UE_CONTEXT</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="c1"># Note: &#39;without_ue_context&#39; is technically a success but usually implies a drop, ignoring for &#39;succ&#39;</span>
+
+        <span class="n">ho_exec_req</span> <span class="o">=</span> <span class="n">rrcs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_HANDOVER_EXECUTIONS_REQUESTED</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">ho_exec_succ</span> <span class="o">=</span> <span class="n">rrcs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_SUCCESSFUL_HANDOVER_EXECUTIONS</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">FiveGCUCPMetrics</span><span class="p">(</span>
+            <span class="n">cu_cp_id</span><span class="o">=</span><span class="n">root</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="n">amf_connected</span><span class="o">=</span><span class="n">amf_connected</span><span class="p">,</span>
+            <span class="n">nof_cn_initiated_paging_requests</span><span class="o">=</span><span class="n">paging_reqs</span><span class="p">,</span>
+            <span class="n">nof_pdu_sessions_requested_to_setup</span><span class="o">=</span><span class="n">pdu_req</span><span class="p">,</span>
+            <span class="n">nof_pdu_sessions_successfully_setup</span><span class="o">=</span><span class="n">pdu_succ</span><span class="p">,</span>
+            <span class="n">nof_pdu_sessions_failed_to_setup_total</span><span class="o">=</span><span class="n">pdu_fail_total</span><span class="p">,</span>
+            <span class="n">nof_handover_preparations_requested</span><span class="o">=</span><span class="n">ho_prep_req</span><span class="p">,</span>
+            <span class="n">nof_successful_handover_preparations</span><span class="o">=</span><span class="n">ho_prep_succ</span><span class="p">,</span>
+
+            <span class="n">rrc_establishments_attempted_total</span><span class="o">=</span><span class="n">rrc_att_total</span><span class="p">,</span>
+            <span class="n">rrc_establishments_successful_total</span><span class="o">=</span><span class="n">rrc_succ_total</span><span class="p">,</span>
+            <span class="n">rrc_establishments_attempted_mo_data</span><span class="o">=</span><span class="n">rrc_att_mo_data</span><span class="p">,</span>
+            <span class="n">rrc_establishments_successful_mo_data</span><span class="o">=</span><span class="n">rrc_succ_mo_data</span><span class="p">,</span>
+            <span class="n">rrc_establishments_attempted_mo_sig</span><span class="o">=</span><span class="n">rrc_att_mo_sig</span><span class="p">,</span>
+            <span class="n">rrc_establishments_successful_mo_sig</span><span class="o">=</span><span class="n">rrc_succ_mo_sig</span><span class="p">,</span>
+            <span class="n">max_nof_rrc_connections</span><span class="o">=</span><span class="n">max_rrc</span><span class="p">,</span>
+            <span class="n">mean_nof_rrc_connections</span><span class="o">=</span><span class="n">mean_rrc</span><span class="p">,</span>
+            <span class="n">rrc_reestablishments_attempted</span><span class="o">=</span><span class="n">reest_att</span><span class="p">,</span>
+            <span class="n">rrc_reestablishments_successful</span><span class="o">=</span><span class="n">reest_succ</span><span class="p">,</span>
+            <span class="n">nof_handover_executions_requested</span><span class="o">=</span><span class="n">ho_exec_req</span><span class="p">,</span>
+            <span class="n">nof_successful_handover_executions</span><span class="o">=</span><span class="n">ho_exec_succ</span><span class="p">,</span>
+
+            <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span>
+            <span class="n">ts</span><span class="o">=</span><span class="n">ts</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">obj</span></div>
+
+<div class="viewcode-block" id="FiveGCUCPMetrics.to_dict"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics.to_dict">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a dict representation of the instance</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">d</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">TS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ts</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">IP</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ip</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">CU_CP_ID</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cu_cp_id</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">AMF_CONNECTED</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">amf_connected</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_CN_INITIATED_PAGING_REQUESTS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nof_cn_initiated_paging_requests</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_PDU_SESSIONS_REQUESTED_TO_SETUP</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_requested_to_setup</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_PDU_SESSIONS_SUCCESSFULLY_SETUP</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_successfully_setup</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_PDU_SESSIONS_FAILED_TO_SETUP_TOTAL</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_failed_to_setup_total</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_HANDOVER_PREPARATIONS_REQUESTED</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nof_handover_preparations_requested</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_SUCCESSFUL_HANDOVER_PREPARATIONS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nof_successful_handover_preparations</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_ATTEMPTED_TOTAL</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_total</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_SUCCESSFUL_TOTAL</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_total</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_ATTEMPTED_MO_DATA</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_mo_data</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_SUCCESSFUL_MO_DATA</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_mo_data</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_ATTEMPTED_MO_SIG</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_mo_sig</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_ESTABLISHMENTS_SUCCESSFUL_MO_SIG</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_mo_sig</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">MAX_NOF_RRC_CONNECTIONS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_nof_rrc_connections</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">MEAN_NOF_RRC_CONNECTIONS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_nof_rrc_connections</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_REESTABLISHMENTS_ATTEMPTED</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rrc_reestablishments_attempted</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">RRC_REESTABLISHMENTS_SUCCESSFUL</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rrc_reestablishments_successful</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_HANDOVER_EXECUTIONS_REQUESTED</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nof_handover_executions_requested</span>
+        <span class="n">d</span><span class="p">[</span><span class="n">constants</span><span class="o">.</span><span class="n">FIVE_G_CU</span><span class="o">.</span><span class="n">NOF_SUCCESSFUL_HANDOVER_EXECUTIONS</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nof_successful_handover_executions</span>
+        <span class="k">return</span> <span class="n">d</span></div>
+
+<div class="viewcode-block" id="FiveGCUCPMetrics.copy"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics.copy">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCUCPMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a copy of the object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">FiveGCUCPMetrics</span><span class="p">(</span>
+            <span class="n">cu_cp_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cu_cp_id</span><span class="p">,</span> <span class="n">amf_connected</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">amf_connected</span><span class="p">,</span>
+            <span class="n">nof_cn_initiated_paging_requests</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_cn_initiated_paging_requests</span><span class="p">,</span>
+            <span class="n">nof_pdu_sessions_requested_to_setup</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_requested_to_setup</span><span class="p">,</span>
+            <span class="n">nof_pdu_sessions_successfully_setup</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_successfully_setup</span><span class="p">,</span>
+            <span class="n">nof_pdu_sessions_failed_to_setup_total</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_pdu_sessions_failed_to_setup_total</span><span class="p">,</span>
+            <span class="n">nof_handover_preparations_requested</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_handover_preparations_requested</span><span class="p">,</span>
+            <span class="n">nof_successful_handover_preparations</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_successful_handover_preparations</span><span class="p">,</span>
+            <span class="n">rrc_establishments_attempted_total</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_total</span><span class="p">,</span>
+            <span class="n">rrc_establishments_successful_total</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_total</span><span class="p">,</span>
+            <span class="n">rrc_establishments_attempted_mo_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_mo_data</span><span class="p">,</span>
+            <span class="n">rrc_establishments_successful_mo_data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_mo_data</span><span class="p">,</span>
+            <span class="n">rrc_establishments_attempted_mo_sig</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_attempted_mo_sig</span><span class="p">,</span>
+            <span class="n">rrc_establishments_successful_mo_sig</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_establishments_successful_mo_sig</span><span class="p">,</span>
+            <span class="n">max_nof_rrc_connections</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_nof_rrc_connections</span><span class="p">,</span>
+            <span class="n">mean_nof_rrc_connections</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_nof_rrc_connections</span><span class="p">,</span>
+            <span class="n">rrc_reestablishments_attempted</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_reestablishments_attempted</span><span class="p">,</span>
+            <span class="n">rrc_reestablishments_successful</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rrc_reestablishments_successful</span><span class="p">,</span>
+            <span class="n">nof_handover_executions_requested</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_handover_executions_requested</span><span class="p">,</span>
+            <span class="n">nof_successful_handover_executions</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">nof_successful_handover_executions</span><span class="p">,</span>
+            <span class="n">ip</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ip</span><span class="p">,</span> <span class="n">ts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ts</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">c</span></div>
+
+<div class="viewcode-block" id="FiveGCUCPMetrics.num_attributes"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics.num_attributes">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">num_attributes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: The number of attributes of the DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">22</span></div>
+
+<div class="viewcode-block" id="FiveGCUCPMetrics.schema"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics.schema">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">schema</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCUCPMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: get the schema of the DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">FiveGCUCPMetrics</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="FiveGCUCPMetrics.from_json_file"><a class="viewcode-back" href="../../../../csle_collector.five_g_cu_manager.dao.html#csle_collector.five_g_cu_manager.dao.five_g_cu_cp_metrics.FiveGCUCPMetrics.from_json_file">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">from_json_file</span><span class="p">(</span><span class="n">json_file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;FiveGCUCPMetrics&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reads a json file and converts it to a DTO</span>
+
+<span class="sd">        :param json_file_path: the json file path</span>
+<span class="sd">        :return: the converted DTO</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">io</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+        <span class="k">with</span> <span class="n">io</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">json_file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json_str</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">FiveGCUCPMetrics</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_str</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2020-2026, Kim Hammar.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

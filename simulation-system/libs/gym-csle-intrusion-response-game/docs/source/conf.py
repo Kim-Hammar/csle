@@ -22,7 +22,7 @@ copyright = '2020-2026, Kim Hammar'
 author = 'Kim Hammar'
 
 # The full version, including alpha/beta/rc tags
-release = '0.8.0'
+release = '0.10.0'
 
 
 # -- General configuration ---------------------------------------------------

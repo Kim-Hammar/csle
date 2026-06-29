@@ -188,6 +188,46 @@ csle\_common.dao.emulation\_config.emulation\_trace module
    :undoc-members:
    :show-inheritance:
 
+csle\_common.dao.emulation\_config.five\_g\_config module
+---------------------------------------------------------
+
+.. automodule:: csle_common.dao.emulation_config.five_g_config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+csle\_common.dao.emulation\_config.five\_g\_core\_managers\_info module
+-----------------------------------------------------------------------
+
+.. automodule:: csle_common.dao.emulation_config.five_g_core_managers_info
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+csle\_common.dao.emulation\_config.five\_g\_cu\_managers\_info module
+---------------------------------------------------------------------
+
+.. automodule:: csle_common.dao.emulation_config.five_g_cu_managers_info
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+csle\_common.dao.emulation\_config.five\_g\_du\_managers\_info module
+---------------------------------------------------------------------
+
+.. automodule:: csle_common.dao.emulation_config.five_g_du_managers_info
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+csle\_common.dao.emulation\_config.five\_g\_subscriber\_config module
+---------------------------------------------------------------------
+
+.. automodule:: csle_common.dao.emulation_config.five_g_subscriber_config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 csle\_common.dao.emulation\_config.flag module
 ----------------------------------------------
 
