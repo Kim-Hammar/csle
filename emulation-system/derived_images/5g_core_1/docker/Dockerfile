@@ -1,5 +1,5 @@
 # OS
-FROM kimham/csle_5g_core_base:0.9.0
+FROM kimham/csle_5g_core_base:0.10.0
 USER root
 
 # 1. Add all scripts to the root directory

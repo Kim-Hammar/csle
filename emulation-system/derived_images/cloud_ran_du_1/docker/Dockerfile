@@ -1,5 +1,5 @@
 # OS
-FROM kimham/csle_cloud_ran_base:0.9.0
+FROM kimham/csle_cloud_ran_base:0.10.0
 USER root
 
 # Add start scripts

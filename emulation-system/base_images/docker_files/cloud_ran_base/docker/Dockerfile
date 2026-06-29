@@ -1,9 +1,5 @@
 # OS
-FROM kimham/csle_ubuntu_22_base:0.9.0
-USER root
-
-# OS
-FROM kimham/csle_ubuntu_22_base:0.9.0
+FROM kimham/csle_ubuntu_22_base:0.10.0
 USER root
 
 RUN apt-get update && \

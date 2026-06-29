@@ -1,5 +1,5 @@
 # OS
-FROM kimham/csle_blank_ubuntu_20:0.9.0
+FROM kimham/csle_blank_ubuntu_20:0.10.0
 USER root
 
 # Add start script
