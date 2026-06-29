@@ -1,2 +1,2 @@
-csle-base==0.9.46
-csle-common==0.9.46
+csle-base==0.10.0
+csle-common==0.10.0

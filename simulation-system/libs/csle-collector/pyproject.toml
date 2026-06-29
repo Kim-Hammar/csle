@@ -19,7 +19,7 @@ classifiers = [
     "Intended Audience :: Science/Research"
 ]
 dependencies = [
-    "csle-base>=0.9.46",
+    "csle-base>=0.10.0",
     "grpcio>=1.69.0",
     "grpcio-tools>=1.69.0",
     "scipy>=1.0.0",
