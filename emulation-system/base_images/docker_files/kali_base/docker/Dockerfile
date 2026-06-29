@@ -87,6 +87,9 @@ RUN gcc -c -fpic bindshell-samba.c &&\
     conda create --name samba python=2.7 -y
 
 
+## Install libcrypt-dev needed for pycrypto build
+RUN apt-get update && apt-get install -y libcrypt-dev
+
 ## Make subsequent RUN commands use the samba env
 SHELL ["conda", "run", "-n", "samba", "/bin/bash", "-c"]
 
