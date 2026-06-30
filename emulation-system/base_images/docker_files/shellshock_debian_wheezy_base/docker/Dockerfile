@@ -133,7 +133,7 @@ SHELL ["conda", "run", "-n", "samba", "/bin/bash", "-c"]
 
 ## Install pycrypto, pyasn and impacket
 RUN pip install pycrypto==2.6 &&\
-    pip install git+https://github.com/Kim-Hammar/impacket.git &&\
+    CFLAGS="-std=gnu99" pip install git+https://github.com/Kim-Hammar/impacket.git &&\
     pip install pyasn1==0.4.8
 
 # Setup base environment with csle-collector
