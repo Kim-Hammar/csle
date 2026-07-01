@@ -57,20 +57,20 @@ in Fig. 6 and whose configuration is listed in Table 4.
 
 | *Emulation configuration* | *Description*                                                                   |
 |---------------------------|---------------------------------------------------------------------------------|
-| `csle-level1-090`         | Emulation with 7 components, 3 flags, password vulnerabilities, no IDS.         |
-| `csle-level2-090`         | Emulation with 13 components, 6 flags, password vulnerabilities, no IDS.        |
-| `csle-level3-090`         | Emulation with 34 components, 6 flags, password vulnerabilities, no IDS.        |
-| `csle-level4-090`         | Emulation with 7 components, 3 flags, password vulnerabilities, IDS.            |
-| `csle-level5-090`         | Emulation with 13 components, 6 flags, password vulnerabilities, IDS.           |
-| `csle-level6-090`         | Emulation with 34 components, 6 flags, password vulnerabilities, IDS.           |
-| `csle-level7-090`         | Emulation with 7 components, 3 flags, password & RCE vulnerabilities, IDS.      |
-| `csle-level8-090`         | Emulation with 13 components, 6 flags, password & RCE vulnerabilities, IDS.     |
-| `csle-level9-090`         | Emulation with 34 components, 6 flags, password & RCE vulnerabilities, IDS.     |
-| `csle-level10-090`        | Emulation with 16 components, 12 flags, password & RCE vulnerabilities, IDS.    |
-| `csle-level11-090`        | Emulation with 36 components, 6 flags, password & RCE vulnerabilities, IDS.     |
-| `csle-level12-090`        | Emulation with 7 components, 3 flags, password RCE vulnerabilities, IDS, SDN.   |
-| `csle-level13-090`        | Emulation with 64 components, 6 flags, password RCE vulnerabilities, IDS, SDN.  |
-| `csle-level14-090`        | Emulation with 17 components, 12 flags, password RCE vulnerabilities, IDS, SDN. |
+| `csle-level1-0.10.0`         | Emulation with 7 components, 3 flags, password vulnerabilities, no IDS.         |
+| `csle-level2-0.10.0`         | Emulation with 13 components, 6 flags, password vulnerabilities, no IDS.        |
+| `csle-level3-0.10.0`         | Emulation with 34 components, 6 flags, password vulnerabilities, no IDS.        |
+| `csle-level4-0.10.0`         | Emulation with 7 components, 3 flags, password vulnerabilities, IDS.            |
+| `csle-level5-0.10.0`         | Emulation with 13 components, 6 flags, password vulnerabilities, IDS.           |
+| `csle-level6-0.10.0`         | Emulation with 34 components, 6 flags, password vulnerabilities, IDS.           |
+| `csle-level7-0.10.0`         | Emulation with 7 components, 3 flags, password & RCE vulnerabilities, IDS.      |
+| `csle-level8-0.10.0`         | Emulation with 13 components, 6 flags, password & RCE vulnerabilities, IDS.     |
+| `csle-level9-0.10.0`         | Emulation with 34 components, 6 flags, password & RCE vulnerabilities, IDS.     |
+| `csle-level10-0.10.0`        | Emulation with 16 components, 12 flags, password & RCE vulnerabilities, IDS.    |
+| `csle-level11-0.10.0`        | Emulation with 36 components, 6 flags, password & RCE vulnerabilities, IDS.     |
+| `csle-level12-0.10.0`        | Emulation with 7 components, 3 flags, password RCE vulnerabilities, IDS, SDN.   |
+| `csle-level13-0.10.0`        | Emulation with 64 components, 6 flags, password RCE vulnerabilities, IDS, SDN.  |
+| `csle-level14-0.10.0`        | Emulation with 17 components, 12 flags, password RCE vulnerabilities, IDS, SDN. |
 
 
 <p class="captionFig">
@@ -80,7 +80,7 @@ Table 3: Pre-installed emulation configurations.
 <p align="center">
 <img src="./../../img/example_topology.png" width="30%">
 <p class="captionFig">
-Figure 6: Topology of the emulation configuration `csle-level9-090`
+Figure 6: Topology of the emulation configuration `csle-level9-0.10.0`
 </p>
 </p>
 
@@ -103,7 +103,7 @@ Figure 6: Topology of the emulation configuration `csle-level9-090`
 
 <p class="captionFig">
 Table 4: Configuration of the emulation configuration 
-`csle-level9-090`, whose topology is shown in Fig. 6.
+`csle-level9-0.10.0`, whose topology is shown in Fig. 6.
 </p>
 
 An *emulation execution* consists of a set of running containers and virtual networks, 
