@@ -11,7 +11,9 @@ RUN git clone https://github.com/zeromq/czmq.git && \
     cd czmq && ./autogen.sh && ./configure && \
     make && make install && ldconfig
 
-RUN git clone https://github.com/srsran/srsRAN_Project.git && \
+# The srsRAN Project transitioned to OCUDU in Dec 2025 and the repo's main branch was emptied
+# down to a README, so pin to the last tagged release which still contains the source tree.
+RUN git clone --depth 1 --branch release_25_10 https://github.com/srsran/srsRAN_Project.git && \
     cd srsRAN_Project && mkdir build && cd build && \
     cmake ../ -DENABLE_EXPORT=ON -DENABLE_ZEROMQ=ON && \
     make -j $(nproc)
