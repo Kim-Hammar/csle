@@ -47,6 +47,12 @@ RUN echo "alias ll='ls -al'" >> /root.bashrc &&\
 # Setup root SSH
 RUN mv /etc/ssh/sshd_config /etc/ssh/sshd_config.bak
 ADD docker_files/common/sshd_config /etc/ssh/sshd_config
+# The rolling kali-last-release base ships OpenSSH >= 10, whose sshd delegates
+# password authentication to PAM and no longer verifies /etc/shadow directly.
+# The shared sshd_config sets "UsePAM no" (which is fine on the pinned Debian/Ubuntu
+# bases that still do their own shadow check), so csle_admin password logins would
+# be rejected here. Enable PAM so password authentication works on this base.
+RUN sed -i 's/^UsePAM no/UsePAM yes/' /etc/ssh/sshd_config
 
 # Setup password-less sudo
 RUN mv /etc/sudoers /etc/sudoers.bak
