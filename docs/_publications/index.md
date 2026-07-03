@@ -115,20 +115,21 @@ series = {AISec '25}
 ```
 
 ##### **Adaptive Network Security Policies via Belief Aggregation and Rollout**
-**Journal paper (under review)**
+**Journal paper** IEEE Transactions on Information Forensics and Security
 [Preprint.](https://arxiv.org/abs/2502.02541)
 
 **Bibtex**:
 ```bash
-@misc{hammar2025adaptivenetworksecuritypolicies,
-      title={Adaptive Network Security Policies via Belief Aggregation and Rollout}, 
-      author={Kim Hammar and Yuchao Li and Tansu Alpcan and Emil C. Lupu and Dimitri Bertsekas},
-      year={2025},
-      eprint={2507.15163},
-      archivePrefix={arXiv},
-      primaryClass={eess.SY},
-      url={https://arxiv.org/abs/2507.15163}, 
-}
+@ARTICLE{11592598,
+  author={Hammar, Kim and Li, Yuchao and Alpcan, Tansu and Lupu, Emil C. and Bertsekas, Dimitri},
+  journal={IEEE Transactions on Information Forensics and Security}, 
+  title={Adaptive Network Security Policies via Belief Aggregation and Rollout}, 
+  year={2026},
+  volume={},
+  number={},
+  pages={1-1},
+  keywords={Security;Modeling;Costing;Costs;Optimization;Cost function;Elementary particles;Filtering;Particle filters;Timing;Cybersecurity;aggregation;rollout;decision theory;dynamic programming;POMDP;reinforcement learning},
+  doi={10.1109/TIFS.2026.3709131}}
 ```
 
 ##### **Optimal Security Response to Network Intrusions in IT Systems**
@@ -172,7 +173,7 @@ series = {AISec '25}
 ```
 
 ##### **Adaptive Security Response Strategies Through Conjectural Online Learning**
-**Journal**: Under review, IEEE Transactions on Information Forensics and Security.
+**Journal**: IEEE Transactions on Information Forensics and Security.
 [Proceedings.](https://ieeexplore.ieee.org/document/10955193)
 
 **Bibtex**:

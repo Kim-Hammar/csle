@@ -67,7 +67,13 @@ class KafkaController:
                 cmd=cmd,
                 conn=emulation_env_config.get_connection(
                     ip=emulation_env_config.kafka_config.container.docker_gw_bridge_ip))
-            time.sleep(2)
+            # Wait for the Kafka manager to become ready before returning
+            EmulationUtil.wait_for_running_manager(
+                status_query=lambda: KafkaController.get_kafka_status_by_port_and_ip(
+                    ip=emulation_env_config.kafka_config.container.docker_gw_bridge_ip,
+                    port=emulation_env_config.kafka_config.kafka_manager_port, timeout=5),
+                ip=emulation_env_config.kafka_config.container.docker_gw_bridge_ip,
+                manager_name="Kafka manager", logger=Logger.__call__().get_logger())
         else:
             Logger.__call__().get_logger().info(f"The Kafka manager is already running on node "
                                                 f"{emulation_env_config.kafka_config.container.docker_gw_bridge_ip}. "

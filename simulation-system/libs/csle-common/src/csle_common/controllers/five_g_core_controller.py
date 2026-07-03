@@ -88,7 +88,11 @@ class FiveGCoreController:
                 emulation_env_config.five_g_config.five_g_core_manager_log_file,
                 emulation_env_config.five_g_config.five_g_core_manager_max_workers)
             o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd, conn=emulation_env_config.get_connection(ip=ip))
-            time.sleep(2)
+            # Wait for the 5G core manager to become ready before returning
+            EmulationUtil.wait_for_running_manager(
+                status_query=lambda: FiveGCoreController.get_five_g_core_status_by_ip_and_port(
+                    ip=ip, port=emulation_env_config.five_g_config.five_g_core_manager_port, timeout=5),
+                ip=ip, manager_name="5G core manager", logger=logger)
         else:
             logger.info(f"5G core manager was already running on node {ip}. Status: {status_str}")
 

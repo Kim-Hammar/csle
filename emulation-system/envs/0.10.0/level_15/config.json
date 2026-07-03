@@ -357,7 +357,7 @@
     "docker_stats_manager_config": {
         "docker_stats_manager_log_dir": "/var/log/csle/",
         "docker_stats_manager_log_file": "docker_stats_manager.log",
-        "docker_stats_manager_max_workers": 10,
+        "docker_stats_manager_max_workers": 100,
         "docker_stats_manager_port": 50046,
         "time_step_len_seconds": 30,
         "version": "0.10.0"
@@ -390,7 +390,7 @@
         "elastic_port": 9200,
         "elk_manager_log_dir": "/",
         "elk_manager_log_file": "elk_manager.log",
-        "elk_manager_max_workers": 10,
+        "elk_manager_max_workers": 100,
         "elk_manager_port": 50045,
         "firewall_config": {
             "docker_gw_bridge_ip": "",
@@ -425,6 +425,7 @@
         "resources": {
             "available_memory_gb": 16,
             "container_name": "csle-csle_elk_1_1-level15",
+            "disk_space_gb": 10,
             "docker_gw_bridge_ip": "",
             "ips_and_network_configs": [
                 [
@@ -439,6 +440,36 @@
         "version": "0.10.0"
     },
     "execution_id": -1,
+    "five_g_config": {
+        "core_backhaul_ip": "127.0.0.1",
+        "cu_backhaul_ips": [
+            "127.0.0.1"
+        ],
+        "cu_fronthaul_ips": [
+            "127.0.0.1"
+        ],
+        "du_cus": [
+            "127.0.0.1"
+        ],
+        "du_fronthaul_ips": [
+            "127.0.0.1"
+        ],
+        "five_g_core_manager_log_dir": "/",
+        "five_g_core_manager_log_file": "five_g_core_manager.log",
+        "five_g_core_manager_max_workers": 100,
+        "five_g_core_manager_port": 50052,
+        "five_g_cu_manager_log_dir": "/",
+        "five_g_cu_manager_log_file": "five_g_cu_manager.log",
+        "five_g_cu_manager_max_workers": 100,
+        "five_g_cu_manager_port": 50053,
+        "five_g_du_manager_log_dir": "/",
+        "five_g_du_manager_log_file": "five_g_du_manager.log",
+        "five_g_du_manager_max_workers": 100,
+        "five_g_du_manager_port": 50054,
+        "subscribers": [],
+        "time_step_len_seconds": 30,
+        "version": "0.10.0"
+    },
     "flags_config": {
         "node_flag_configs": [
             {
@@ -461,12 +492,12 @@
     "host_manager_config": {
         "host_manager_log_dir": "/",
         "host_manager_log_file": "host_manager.log",
-        "host_manager_max_workers": 10,
+        "host_manager_max_workers": 100,
         "host_manager_port": 50049,
         "time_step_len_seconds": 30,
         "version": "0.10.0"
     },
-    "hostname": "p120-n6.kthopen.kth.se",
+    "hostname": "gpu2",
     "id": -1,
     "image": null,
     "kafka_config": {
@@ -524,13 +555,14 @@
         },
         "kafka_manager_log_dir": "/",
         "kafka_manager_log_file": "kafka_manager.log",
-        "kafka_manager_max_workers": 10,
+        "kafka_manager_max_workers": 100,
         "kafka_manager_port": 50051,
         "kafka_port": 9092,
         "kafka_port_external": 9292,
         "resources": {
             "available_memory_gb": 4,
             "container_name": "csle-csle_kafka_1_1-level15",
+            "disk_space_gb": 10,
             "docker_gw_bridge_ip": "",
             "ips_and_network_configs": [
                 [
@@ -900,16 +932,407 @@
                 "num_partitions": 1,
                 "num_replicas": 1,
                 "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "fivegs_amffunction_mm_confupdate",
+                    "fivegs_amffunction_rm_reginitreq",
+                    "fivegs_amffunction_rm_regemergreq",
+                    "fivegs_amffunction_mm_paging5greq",
+                    "fivegs_amffunction_rm_regperiodreq",
+                    "fivegs_amffunction_mm_confupdatesucc",
+                    "fivegs_amffunction_rm_reginitsucc",
+                    "fivegs_amffunction_amf_authreject",
+                    "fivegs_amffunction_rm_regmobreq",
+                    "amf_session",
+                    "fivegs_amffunction_rm_regmobsucc",
+                    "fivegs_amffunction_amf_authreq",
+                    "fivegs_amffunction_rm_regemergsucc",
+                    "fivegs_amffunction_mm_paging5gsucc",
+                    "ran_ue",
+                    "fivegs_amffunction_rm_regperiodsucc",
+                    "process_max_fds",
+                    "process_virtual_memory_max_bytes",
+                    "process_cpu_seconds_total",
+                    "process_virtual_memory_bytes",
+                    "process_start_time_seconds",
+                    "process_start_time_seconds",
+                    "process_open_fds"
+                ],
+                "name": "five_g_core_amf_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "fivegs_ep_n3_gtp_indatapktn3upf",
+                    "fivegs_ep_n3_gtp_outdatapktn3upf",
+                    "fivegs_upffunction_sm_n4sessionestabreq",
+                    "fivegs_upffunction_sm_n4sessionreport",
+                    "fivegs_upffunction_sm_n4sessionreportsucc",
+                    "fivegs_upffunction_upf_sessionnbr",
+                    "pfcp_peers_active",
+                    "process_max_fds",
+                    "process_virtual_memory_max_bytes",
+                    "process_cpu_seconds_total",
+                    "process_virtual_memory_bytes",
+                    "process_resident_memory_bytes",
+                    "process_start_time_seconds",
+                    "process_open_fds"
+                ],
+                "name": "five_g_core_upf_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "enb_ue",
+                    "mme_session",
+                    "enb",
+                    "process_max_fds",
+                    "process_virtual_memory_max_bytes",
+                    "process_cpu_seconds_total",
+                    "process_virtual_memory_bytes",
+                    "process_resident_memory_bytes",
+                    "process_start_time_seconds",
+                    "process_open_fds"
+                ],
+                "name": "five_g_core_mme_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "gn_rx_createpdpcontextreq",
+                    "gn_rx_deletepdpcontextreq",
+                    "gtp1_pdpctxs_active",
+                    "pfcp_peers_active",
+                    "fivegs_smffunction_sm_n4sessionreport",
+                    "ues_active",
+                    "gtp2_sessions_active",
+                    "pfcp_sessions_active",
+                    "s5c_rx_createsession",
+                    "s5c_rx_deletesession",
+                    "gtp_new_node_failed",
+                    "s5c_rx_parse_failed",
+                    "fivegs_smffunction_sm_n4sessionreportsucc",
+                    "fivegs_smffunction_sm_n4sessionestabreq",
+                    "bearers_active",
+                    "gn_rx_parse_failed",
+                    "gtp_peers_active",
+                    "fivegs_smffunction_sm_sessionnbr",
+                    "fivegs_smffunction_sm_pdusessioncreationreq",
+                    "fivegs_smffunction_sm_pdusessioncreationsucc",
+                    "fivegs_smffunction_sm_qos_flow_nbr",
+                    "fivegs_smffunction_sm_n4sessionestabfail",
+                    "fivegs_smffunction_sm_pdusessioncreationfail",
+                    "process_max_fds",
+                    "process_virtual_memory_max_bytes",
+                    "process_cpu_seconds_total",
+                    "process_virtual_memory_bytes",
+                    "process_resident_memory_bytes",
+                    "process_start_time_seconds",
+                    "process_open_fds"
+                ],
+                "name": "five_g_core_smf_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "cx_rx_lir",
+                    "cx_rx_uar",
+                    "cx_tx_lia",
+                    "cx_rx_unknown",
+                    "cx_rx_sar",
+                    "s6a_rx_pur",
+                    "swx_rx_mar_error",
+                    "cx_tx_uaa",
+                    "s6a_rx_pur_error",
+                    "s6a_tx_clr",
+                    "cx_tx_saa",
+                    "cx_rx_lir_error",
+                    "s6a_rx_ulr",
+                    "s6a_rx_cla",
+                    "s6a_rx_cla_error",
+                    "s6a_rx_air",
+                    "cx_rx_mar",
+                    "swx_rx_sar",
+                    "s6a_rx_air_error",
+                    "s6a_rx_ida_error",
+                    "cx_tx_maa",
+                    "swx_rx_mar",
+                    "s6a_rx_unknown",
+                    "s6a_tx_pua",
+                    "swx_rx_unknown",
+                    "cx_rx_mar_error",
+                    "cx_rx_uar_error",
+                    "s6a_tx_ula",
+                    "s6a_rx_ulr_error",
+                    "s6a_tx_aia",
+                    "s6a_tx_idr",
+                    "s6a_rx_ida",
+                    "cx_rx_sar_error",
+                    "swx_rx_sar_error",
+                    "swx_tx_maa",
+                    "swx_tx_saa",
+                    "hss_imsi",
+                    "hss_impi",
+                    "hss_impu",
+                    "process_max_fds",
+                    "process_virtual_memory_max_bytes",
+                    "process_cpu_seconds_total",
+                    "process_virtual_memory_bytes",
+                    "process_resident_memory_bytes",
+                    "process_start_time_seconds",
+                    "process_open_fds"
+                ],
+                "name": "five_g_core_hss_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "gx_rx_unknown",
+                    "gx_rx_ccr",
+                    "gx_rx_ccr_error",
+                    "gx_rx_raa",
+                    "gx_tx_cca",
+                    "gx_tx_rar",
+                    "gx_tx_rar_error",
+                    "rx_rx_unknown",
+                    "rx_rx_aar",
+                    "rx_rx_aar_error",
+                    "rx_rx_asa",
+                    "rx_rx_asa_error",
+                    "rx_rx_str_error",
+                    "rx_tx_aaa",
+                    "rx_tx_sar",
+                    "rx_tx_sta",
+                    "process_max_fds",
+                    "process_virtual_memory_max_bytes",
+                    "process_cpu_seconds_total",
+                    "process_virtual_memory_bytes",
+                    "process_resident_memory_bytes",
+                    "process_start_time_seconds",
+                    "process_open_fds"
+                ],
+                "name": "five_g_core_pcrf_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "fivegs_pcffunction_pa_policyamassoreq",
+                    "fivegs_pcffunction_pa_policyamassosucc",
+                    "fivegs_pcffunction_pa_policysmassoreq",
+                    "fivegs_pcffunction_pa_policysmassosucc",
+                    "fivegs_pcffunction_pa_sessionnbr",
+                    "process_max_fds",
+                    "process_virtual_memory_max_bytes",
+                    "process_cpu_seconds_total",
+                    "process_virtual_memory_bytes",
+                    "process_resident_memory_bytes",
+                    "process_start_time_seconds",
+                    "process_open_fds"
+                ],
+                "name": "five_g_core_pcf_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "pci",
+                    "average_latency_us",
+                    "cpu_usage_percent",
+                    "max_latency_us",
+                    "min_latency_us"
+                ],
+                "name": "five_g_du_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "pci",
+                    "average_latency",
+                    "max_latency",
+                    "pucch_tot_rb_usage_avg",
+                    "active_ues",
+                    "dl_brate",
+                    "ul_brate",
+                    "dl_mcs",
+                    "ul_mcs",
+                    "pusch_snr_db",
+                    "pucch_snr_db",
+                    "cqi",
+                    "dl_bler",
+                    "ul_bler"
+                ],
+                "name": "five_g_du_cell_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "dl_avg_latency_us",
+                    "dl_cpu_usage_percent",
+                    "dl_max_latency_us",
+                    "dl_fec_tput_mbps",
+                    "ul_avg_latency_us",
+                    "ul_cpu_usage_percent",
+                    "ul_max_latency_us",
+                    "ul_sinr_db",
+                    "ul_ch_est_latency_us",
+                    "ul_ldpc_dec_latency_us",
+                    "ul_fec_tput_mbps"
+                ],
+                "name": "five_g_du_low_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "ue_id",
+                    "drb_id",
+                    "rx_num_pdus",
+                    "rx_num_bytes",
+                    "rx_num_lost_pdus",
+                    "rx_num_malformed_pdus",
+                    "tx_num_sdus",
+                    "tx_num_bytes",
+                    "tx_num_dropped_sdus",
+                    "tx_num_discarded_sdus",
+                    "tx_max_pdu_latency_ns",
+                    "tx_sum_pdu_latency_ns",
+                    "tx_sum_sdu_latency_us"
+                ],
+                "name": "five_g_du_rlc_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "cpu_usage_percent",
+                    "memory_usage_mb",
+                    "power_consumption_watts"
+                ],
+                "name": "five_g_du_app_resource_usage_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "central_cache_size"
+                ],
+                "name": "five_g_du_buffer_pool_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "cu_cp_id",
+                    "amf_connected",
+                    "nof_cn_initiated_paging_requests",
+                    "nof_pdu_sessions_requested_to_setup",
+                    "nof_pdu_sessions_successfully_setup",
+                    "nof_pdu_sessions_failed_to_setup_total",
+                    "nof_handover_preparations_requested",
+                    "nof_successful_handover_preparations",
+                    "rrc_establishments_attempted_total",
+                    "rrc_establishments_successful_total",
+                    "rrc_establishments_attempted_mo_data",
+                    "rrc_establishments_successful_mo_data",
+                    "rrc_establishments_attempted_mo_sig",
+                    "rrc_establishments_successful_mo_sig",
+                    "max_nof_rrc_connections",
+                    "mean_nof_rrc_connections",
+                    "rrc_reestablishments_attempted",
+                    "rrc_reestablishments_successful",
+                    "nof_handover_executions_requested",
+                    "nof_successful_handover_executions"
+                ],
+                "name": "five_g_cu_cp_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "cpu_usage_percent",
+                    "memory_usage_mb",
+                    "power_consumption_watts"
+                ],
+                "name": "five_g_cu_app_resource_usage_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
+            },
+            {
+                "attributes": [
+                    "timestamp",
+                    "ip",
+                    "cpu_usage_percent",
+                    "memory_usage_mb",
+                    "power_consumption_watts"
+                ],
+                "name": "five_g_cu_buffer_pool_metrics",
+                "num_partitions": 1,
+                "num_replicas": 1,
+                "retention_time_hours": 240
             }
         ],
         "version": "0.10.0"
     },
     "level": 15,
-    "name": "csle-level15-070",
+    "name": "csle-level15-0.10.0",
     "ossec_ids_manager_config": {
         "ossec_ids_manager_log_dir": "/",
         "ossec_ids_manager_log_file": "ossec_ids_manager.log",
-        "ossec_ids_manager_max_workers": 10,
+        "ossec_ids_manager_max_workers": 100,
         "ossec_ids_manager_port": 50047,
         "time_step_len_seconds": 30,
         "version": "0.10.0"
@@ -922,6 +1345,7 @@
             {
                 "available_memory_gb": 4,
                 "container_name": "csle-csle_hacker_kali_1_1-level15",
+                "disk_space_gb": 10,
                 "docker_gw_bridge_ip": "",
                 "ips_and_network_configs": [
                     [
@@ -964,6 +1388,7 @@
             {
                 "available_memory_gb": 4,
                 "container_name": "csle-csle_client_1_1-level15",
+                "disk_space_gb": 10,
                 "docker_gw_bridge_ip": "",
                 "ips_and_network_configs": [
                     [
@@ -1006,6 +1431,7 @@
             {
                 "available_memory_gb": 4,
                 "container_name": "csle-csle_router_2_1-level15",
+                "disk_space_gb": 10,
                 "docker_gw_bridge_ip": "",
                 "ips_and_network_configs": [
                     [
@@ -1081,6 +1507,7 @@
             {
                 "available_memory_gb": 4,
                 "container_name": "csle-csle_ssh_1_1-level15",
+                "disk_space_gb": 10,
                 "docker_gw_bridge_ip": "",
                 "ips_and_network_configs": [
                     [
@@ -1187,7 +1614,7 @@
     "snort_ids_manager_config": {
         "snort_ids_manager_log_dir": "/",
         "snort_ids_manager_log_file": "snort_ids_manager.log",
-        "snort_ids_manager_max_workers": 10,
+        "snort_ids_manager_max_workers": 100,
         "snort_ids_manager_port": 50048,
         "time_step_len_seconds": 30,
         "version": "0.10.0"
@@ -1429,7 +1856,7 @@
         "client_population_config": {
             "client_manager_log_dir": "/",
             "client_manager_log_file": "client_manager.log",
-            "client_manager_max_workers": 10,
+            "client_manager_max_workers": 100,
             "client_manager_port": 50044,
             "client_time_step_len_seconds": 30,
             "clients": [
@@ -1515,7 +1942,7 @@
                 "physical_host_ip": "",
                 "traffic_manager_log_dir": "/",
                 "traffic_manager_log_file": "traffic_manager.log",
-                "traffic_manager_max_workers": 10,
+                "traffic_manager_max_workers": 100,
                 "traffic_manager_port": 50043
             },
             {
@@ -1530,7 +1957,7 @@
                 "physical_host_ip": "",
                 "traffic_manager_log_dir": "/",
                 "traffic_manager_log_file": "traffic_manager.log",
-                "traffic_manager_max_workers": 10,
+                "traffic_manager_max_workers": 100,
                 "traffic_manager_port": 50043
             }
         ]

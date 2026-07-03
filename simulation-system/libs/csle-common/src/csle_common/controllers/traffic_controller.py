@@ -90,7 +90,12 @@ class TrafficController:
                         f"{node_traffic_config.docker_gw_bridge_ip} ({node_traffic_config.ip}), with cmd:{cmd}")
             o, e, _ = EmulationUtil.execute_ssh_cmd(
                 cmd=cmd, conn=emulation_env_config.get_connection(ip=node_traffic_config.docker_gw_bridge_ip))
-            time.sleep(10)
+            # Wait for the traffic manager to become ready before returning
+            EmulationUtil.wait_for_running_manager(
+                status_query=lambda: TrafficController.get_traffic_manager_status_by_port_and_ip(
+                    ip=node_traffic_config.docker_gw_bridge_ip,
+                    port=node_traffic_config.traffic_manager_port, timeout=5),
+                ip=node_traffic_config.docker_gw_bridge_ip, manager_name="Traffic manager", logger=logger)
         else:
             logger.info(f"Traffic manager on node "
                         f"{node_traffic_config.docker_gw_bridge_ip} ({node_traffic_config.ip}) was already running."
@@ -193,7 +198,14 @@ class TrafficController:
                 f"with cmd: {cmd}")
             o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd, conn=emulation_env_config.get_connection(
                 ip=emulation_env_config.traffic_config.client_population_config.docker_gw_bridge_ip))
-            time.sleep(10)
+            # Wait for the client manager to become ready before returning
+            EmulationUtil.wait_for_running_manager(
+                status_query=lambda: TrafficController.get_clients_dto_by_ip_and_port(
+                    ip=emulation_env_config.traffic_config.client_population_config.docker_gw_bridge_ip,
+                    port=emulation_env_config.traffic_config.client_population_config.client_manager_port,
+                    logger=logger, timeout=5),
+                ip=emulation_env_config.traffic_config.client_population_config.docker_gw_bridge_ip,
+                manager_name="Client manager", logger=logger)
             return True
         else:
             logger.info(

@@ -68,7 +68,13 @@ class ELKController:
                 cmd=cmd,
                 conn=emulation_env_config.get_connection(
                     ip=emulation_env_config.elk_config.container.docker_gw_bridge_ip))
-            time.sleep(2)
+            # Wait for the ELK manager to become ready before returning
+            EmulationUtil.wait_for_running_manager(
+                status_query=lambda: ELKController.get_elk_status_by_port_and_ip(
+                    ip=emulation_env_config.elk_config.container.docker_gw_bridge_ip,
+                    port=emulation_env_config.elk_config.elk_manager_port, timeout=5),
+                ip=emulation_env_config.elk_config.container.docker_gw_bridge_ip,
+                manager_name="ELK manager", logger=logger)
         else:
             logger.info(f"ELK manager already running on node: "
                         f"{emulation_env_config.elk_config.container.docker_gw_bridge_ip}. Status: {status_str}")

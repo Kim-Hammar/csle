@@ -176,7 +176,11 @@ class SnortIDSController:
                 emulation_env_config.snort_ids_manager_config.snort_ids_manager_max_workers)
             o, e, _ = EmulationUtil.execute_ssh_cmd(
                 cmd=cmd, conn=emulation_env_config.get_connection(ip=ip))
-            time.sleep(2)
+            # Wait for the Snort IDS manager to become ready before returning
+            EmulationUtil.wait_for_running_manager(
+                status_query=lambda: SnortIDSController.get_snort_idses_monitor_threads_statuses_by_ip_and_port(
+                    ip=ip, port=emulation_env_config.snort_ids_manager_config.snort_ids_manager_port, timeout=5),
+                ip=ip, manager_name="Snort IDS manager", logger=logger)
         else:
             logger.info(f"The Snort IDS manager was already running on node {ip}. Status: {status_str}")
 

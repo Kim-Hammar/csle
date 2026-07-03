@@ -1,7 +1,6 @@
 import logging
 from typing import List
 import grpc
-import time
 from csle_common.dao.emulation_config.emulation_env_config import EmulationEnvConfig
 from csle_common.dao.emulation_config.host_managers_info import HostManagersInfo
 from csle_common.dao.emulation_config.node_container_config import NodeContainerConfig
@@ -104,7 +103,11 @@ class HostController:
                 emulation_env_config.host_manager_config.host_manager_max_workers)
             o, e, _ = EmulationUtil.execute_ssh_cmd(cmd=cmd,
                                                     conn=emulation_env_config.get_connection(ip=ip))
-            time.sleep(2)
+            # Wait for the host manager to become ready before returning
+            EmulationUtil.wait_for_running_manager(
+                status_query=lambda: HostController.get_host_monitor_thread_status_by_port_and_ip(
+                    ip=ip, port=emulation_env_config.host_manager_config.host_manager_port, timeout=5),
+                ip=ip, manager_name="Host manager", logger=logger)
         else:
             logger.info(f"Host manager is already running on: {ip} ({alt_str}). Status: {status_str}")
 

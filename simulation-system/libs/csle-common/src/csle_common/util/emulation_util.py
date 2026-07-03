@@ -1,4 +1,5 @@
-from typing import Tuple, List, Union
+from typing import Tuple, List, Union, Callable, Any
+import logging
 import time
 import paramiko
 import psutil
@@ -23,6 +24,34 @@ class EmulationUtil:
     """
     Class containing utility functions for the emulation-middleware
     """
+
+    @staticmethod
+    def wait_for_running_manager(status_query: Callable[[], Any], ip: str, manager_name: str,
+                                 logger: logging.Logger, max_attempts: int = 10, sleep_seconds: int = 2) -> None:
+        """
+        Waits for a gRPC manager server on a container to become ready by polling its status. Binding the port can
+        take longer than a fixed sleep on heavily loaded containers (e.g. the ELK node), which previously caused a
+        hard "Connection refused" failure in the caller.
+
+        :param status_query: a zero-argument callable that queries the manager status (raises if not ready)
+        :param ip: the ip of the container running the manager
+        :param manager_name: the name of the manager (used for logging)
+        :param logger: the logger to use for logging
+        :param max_attempts: the maximum number of poll attempts before giving up
+        :param sleep_seconds: the number of seconds to wait between attempts
+        :return: None
+        """
+        for attempt in range(max_attempts):
+            time.sleep(sleep_seconds)
+            try:
+                status_query()
+                return
+            except Exception as e:
+                if attempt == max_attempts - 1:
+                    logger.warning(f"{manager_name} on {ip} did not become ready after {max_attempts} attempts: {e}")
+                else:
+                    logger.info(f"Waiting for {manager_name} on {ip} to become ready "
+                                f"(attempt {attempt + 1}/{max_attempts})")
 
     @staticmethod
     def execute_ssh_cmds(cmds: List[str], conn, wait_for_completion: bool = True) -> List[Tuple[bytes, bytes, float]]:
