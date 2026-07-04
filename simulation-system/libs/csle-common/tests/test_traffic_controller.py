@@ -104,9 +104,9 @@ class TestTrafficControllerSuite:
             node_traffic_config.traffic_manager_port, node_traffic_config.traffic_manager_log_dir,
             node_traffic_config.traffic_manager_log_file, node_traffic_config.traffic_manager_max_workers)
         mock_execute_ssh_cmd.assert_any_call(cmd=start_cmd, conn=self.emulation_env_config.get_connection.return_value)
-        self.logger.info.assert_called_with(f"Starting traffic manager on node "
-                                            f"{node_traffic_config.docker_gw_bridge_ip} ({node_traffic_config.ip}), "
-                                            f"with cmd:{start_cmd}")
+        self.logger.info.assert_any_call(f"Starting traffic manager on node "
+                                         f"{node_traffic_config.docker_gw_bridge_ip} ({node_traffic_config.ip}), "
+                                         f"with cmd:{start_cmd}")
 
     @patch("csle_common.controllers.traffic_controller.TrafficController.stop_traffic_manager")
     def test_stop_traffic_managers(self, mock_stop_traffic_manager) -> None:

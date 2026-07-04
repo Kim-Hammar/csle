@@ -80,10 +80,11 @@ class SDNControllerManager:
                     ip=emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip))
             logger.info(f"Starting the Ryu manager, cmd: {cmd}, out:{o.decode()}, err: {e.decode()}")
             # Wait for the Ryu manager to become ready before returning
+            manager_ip = emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip
+            manager_port = emulation_env_config.sdn_controller_config.manager_port
             EmulationUtil.wait_for_running_manager(
                 status_query=lambda: SDNControllerManager.get_ryu_status_by_port_and_ip(
-                    ip=emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip,
-                    port=emulation_env_config.sdn_controller_config.manager_port, timeout=5),
+                    ip=manager_ip, port=manager_port, timeout=5),
                 ip=emulation_env_config.sdn_controller_config.container.docker_gw_bridge_ip,
                 manager_name="Ryu manager", logger=logger)
         else:
