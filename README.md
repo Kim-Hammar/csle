@@ -45,6 +45,23 @@ computational game theory, evolutionary methods, causal inference, and general o
 <img src="docs/img/arch.png" width="600">
 </p>
 
+### Citation
+
+To cite this software package, please use the following BibTeX entry:
+```bibtex
+@inproceedings{csle_docs,
+ author = {Hammar, Kim},
+ booktitle = {Proceedings of Machine Learning and Systems},
+ editor = {A. Chowdhery and Z. Jia},
+ pages = {716--730},
+ publisher = {MLSys},
+ title = {{CSLE}: A Reinforcement Learning Platform for Autonomous Security Management},
+ url = {https://proceedings.mlsys.org/paper_files/paper/2026/file/87eaaa8605a1a472d9a9756e7500517b-Paper-Conference.pdf},
+ volume = {8},
+ year = {2026}
+}
+```
+
 # Main Features
 
 ### 🖥️ **Emulation System**
