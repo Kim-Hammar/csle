@@ -14,13 +14,18 @@ The following publications are based on CSLE:
 
 **Bibtex**:
 ```bash
-@INPROCEEDINGS{hammar_csle_mlsys_2026,
-  author={Hammar, Kim},
-  booktitle={Ninth Annual Conference on Machine Learning and Systems (MLSys) 2026},
-  title={CSLE: A Reinforcement Learning Platform for Autonomous Security Management},
-  year={2026},
-  volume={},
-  number={}}
+@inproceedings{MLSYS2026_87eaaa86,
+ author = {Hammar, Kim},
+ booktitle = {Proceedings of Machine Learning and Systems},
+ editor = {A. Chowdhery and Z. Jia},
+ pages = {716--730},
+ publisher = {MLSys},
+ title = {CSLE: A Reinforcement Learning Platform for Autonomous Security Management},
+ url = {https://proceedings.mlsys.org/paper_files/paper/2026/file/87eaaa8605a1a472d9a9756e7500517b-Paper-Conference.pdf},
+ volume = {8},
+ year = {2026}
+}
+
 ```
 
 ##### **Causal Online Learning of Safe Regions in Cloud Radio Access Networks**
@@ -29,15 +34,16 @@ The following publications are based on CSLE:
 
 **Bibtex**:
 ```bash
-@misc{hammar2026causalonlinelearningsafe,
-      title={Causal Online Learning of Safe Regions in Cloud Radio Access Networks}, 
-      author={Kim Hammar and Tansu Alpcan and Emil Lupu},
-      year={2026},
-      eprint={2602.05280},
-      archivePrefix={arXiv},
-      primaryClass={cs.NI},
-      url={https://arxiv.org/abs/2602.05280}, 
-}
+@ARTICLE{11659119,
+  author={Hammar, Kim and Alpcan, Tansu and Lupu, Emil C.},
+  journal={IEEE Transactions on Mobile Computing}, 
+  title={Causal Online Learning of Safe Regions in Cloud Radio Access Networks}, 
+  year={2026},
+  volume={},
+  number={},
+  pages={1-18},
+  keywords={Radio access networks;Regional area networks;Learning (artificial intelligence);Timing;Modeling;Optimization;Resource management;Central Processing Unit;Measurement;Safety;Active learning;causality;networking;safety},
+  doi={10.1109/TMC.2026.3725352}}
 ```
 
 ##### **Hallucination-Resistant Security Planning with a Large Language Model**
@@ -46,13 +52,16 @@ The following publications are based on CSLE:
 
 **Bibtex**:
 ```bash
-@INPROCEEDINGS{hammar_alpcan_lupu_noms26,
-  author={Hammar, Kim and Alpcan, Tansu and Lupu, Emil},},
-  booktitle={NOMS 2026-2026 IEEE/IFIP Network Operations and Management Symposium},
-  title={Hallucination-Resistant Security Planning with a Large Language Model},
+@INPROCEEDINGS{11668410,
+  author={Hammar, Kim and Alpcan, Tansu and Lupu, Emil C.},
+  booktitle={NOMS 2026-2026 IEEE Network Operations and Management Symposium}, 
+  title={Hallucination-Resistant Security Planning with a Large Language Model}, 
   year={2026},
   volume={},
-  number={}}
+  number={},
+  pages={1-12},
+  keywords={Large language models;Modeling;Printing;Security;Conferences;Timing;Feedback;Context;Equations;Planning;Security management;LLM;incident response},
+  doi={10.1109/NOMS69089.2026.11668410}}
 ```
 
 ##### **Incident Response Planning Using a Lightweight Large Language Model with Reduced Hallucination**
