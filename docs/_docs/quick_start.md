@@ -36,7 +36,7 @@ system by executing the commands:
 csle start grafana
 csle start cadvisor
 csle start prometheus
-csle start nodeexporter
+csle start node_exporter
 csle start flask
 ```
 
