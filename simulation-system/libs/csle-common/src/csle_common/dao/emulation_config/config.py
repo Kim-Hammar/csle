@@ -539,7 +539,7 @@ class Config(JSONSerializable):
             recovery_ai=d["recovery_ai"],
             recovery_ai_output_dir=d["recovery_ai_output_dir"],
             recovery_ai_examples_path=d["recovery_ai_examples_path"],
-            cluster_manager_token=d["cluster_manager_token"]
+            cluster_manager_token=d.get("cluster_manager_token", "")
         )
         if "id" in d:
             dto.id = d["id"]
@@ -558,7 +558,7 @@ class Config(JSONSerializable):
         d["recovery_ai"] = d2["recovery_ai"]
         d["recovery_ai_output_dir"] = d2["recovery_ai_output_dir"]
         d["recovery_ai_examples_path"] = d2["recovery_ai_examples_path"]
-        d["cluster_manager_token"] = d2["cluster_manager_token"]
+        d["cluster_manager_token"] = d2.get("cluster_manager_token", "")
         d["cluster_config"] = d2["cluster_config"]
         for param_value in d2["parameters"]:
             d[param_value["param"]] = param_value["value"]
@@ -618,7 +618,7 @@ class Config(JSONSerializable):
             recovery_ai=d["recovery_ai"],
             recovery_ai_output_dir=d["recovery_ai_output_dir"],
             recovery_ai_examples_path=d["recovery_ai_examples_path"],
-            cluster_manager_token=d["cluster_manager_token"]
+            cluster_manager_token=d.get("cluster_manager_token", "")
         )
         if "id" in d:
             dto.id = d["id"]

@@ -148,6 +148,15 @@ class TestEmulationConfigDaoSuite:
         assert isinstance(Config.from_dict(example_config.to_dict()), Config)
         assert Config.from_dict(example_config.to_dict()).to_dict() == example_config.to_dict()
         assert Config.from_dict(example_config.to_dict()) == example_config
+        assert Config.from_param_dict(example_config.to_param_dict()).cluster_manager_token == \
+            example_config.cluster_manager_token
+        # Configs stored before the cluster manager token was introduced must still parse (empty token)
+        legacy_dict = example_config.to_dict()
+        del legacy_dict["cluster_manager_token"]
+        assert Config.from_dict(legacy_dict).cluster_manager_token == ""
+        legacy_param_dict = example_config.to_param_dict()
+        del legacy_param_dict["cluster_manager_token"]
+        assert Config.from_param_dict(legacy_param_dict).cluster_manager_token == ""
 
     def test_credential(self, example_credential: Credential) -> None:
         """
