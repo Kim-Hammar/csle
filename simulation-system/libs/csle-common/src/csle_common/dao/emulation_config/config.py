@@ -67,7 +67,8 @@ class Config(JSONSerializable):
             localhost: bool,
             recovery_ai: bool,
             recovery_ai_output_dir: str,
-            recovery_ai_examples_path: str
+            recovery_ai_examples_path: str,
+            cluster_manager_token: str
     ):
         """
         Initializes the DTO
@@ -127,6 +128,7 @@ class Config(JSONSerializable):
         :param recovery_ai: whether to use recovery AI or not
         :param recovery_ai_output_dir: the directory to load the LLM from for recovery AI
         :param recovery_ai_examples_path: the directory to load the recovery AI examples from
+        :param cluster_manager_token: the shared secret that clients must present to the cluster manager gRPC API
         """
         self.management_admin_username_default = management_admin_username_default
         self.management_admin_password_default = management_admin_password_default
@@ -183,6 +185,7 @@ class Config(JSONSerializable):
         self.recovery_ai = recovery_ai
         self.recovery_ai_output_dir = recovery_ai_output_dir
         self.recovery_ai_examples_path = recovery_ai_examples_path
+        self.cluster_manager_token = cluster_manager_token
 
     def to_dict(self) -> Dict[str, Any]:
         """
@@ -246,6 +249,7 @@ class Config(JSONSerializable):
         d["recovery_ai"] = self.recovery_ai
         d["recovery_ai_output_dir"] = self.recovery_ai_output_dir
         d["recovery_ai_examples_path"] = self.recovery_ai_examples_path
+        d["cluster_manager_token"] = self.cluster_manager_token
         return d
 
     def to_param_dict(self) -> Dict[str, Any]:
@@ -470,6 +474,7 @@ class Config(JSONSerializable):
         d["recovery_ai"] = self.recovery_ai
         d["recovery_ai_output_dir"] = self.recovery_ai_output_dir
         d["recovery_ai_examples_path"] = self.recovery_ai_examples_path
+        d["cluster_manager_token"] = self.cluster_manager_token
         return d
 
     @staticmethod
@@ -533,7 +538,8 @@ class Config(JSONSerializable):
             localhost=d["localhost"],
             recovery_ai=d["recovery_ai"],
             recovery_ai_output_dir=d["recovery_ai_output_dir"],
-            recovery_ai_examples_path=d["recovery_ai_examples_path"]
+            recovery_ai_examples_path=d["recovery_ai_examples_path"],
+            cluster_manager_token=d["cluster_manager_token"]
         )
         if "id" in d:
             dto.id = d["id"]
@@ -552,6 +558,7 @@ class Config(JSONSerializable):
         d["recovery_ai"] = d2["recovery_ai"]
         d["recovery_ai_output_dir"] = d2["recovery_ai_output_dir"]
         d["recovery_ai_examples_path"] = d2["recovery_ai_examples_path"]
+        d["cluster_manager_token"] = d2["cluster_manager_token"]
         d["cluster_config"] = d2["cluster_config"]
         for param_value in d2["parameters"]:
             d[param_value["param"]] = param_value["value"]
@@ -610,7 +617,8 @@ class Config(JSONSerializable):
             localhost=d["localhost"],
             recovery_ai=d["recovery_ai"],
             recovery_ai_output_dir=d["recovery_ai_output_dir"],
-            recovery_ai_examples_path=d["recovery_ai_examples_path"]
+            recovery_ai_examples_path=d["recovery_ai_examples_path"],
+            cluster_manager_token=d["cluster_manager_token"]
         )
         if "id" in d:
             dto.id = d["id"]
@@ -661,7 +669,8 @@ class Config(JSONSerializable):
             f"flask_log_file: {self.flask_log_file}, cluster_manager_log_file: {self.cluster_manager_log_file},"
             f"version: {self.version}, localhost: {self.localhost}, recovery_ai: {self.recovery_ai}, "
             f"recovery_ai_output_dir: {self.recovery_ai_output_dir}, "
-            f"recovery_ai_examples_path: {self.recovery_ai_examples_path},"
+            f"recovery_ai_examples_path: {self.recovery_ai_examples_path}, "
+            f"cluster_manager_token: {self.cluster_manager_token}"
         )
 
     @staticmethod

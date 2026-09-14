@@ -4,6 +4,7 @@ import pytest_mock
 import csle_rest_api.constants.constants as api_constants
 from csle_rest_api.rest_api import create_app
 import csle_common.constants.constants as constants
+from csle_common.dao.emulation_config.config import Config
 
 
 class TestResourcesFileSuite:
@@ -94,7 +95,7 @@ class TestResourcesFileSuite:
         return exists_mocker
 
     def test_file_post(self, mocker: pytest_mock.MockFixture, flask_app, not_logged_in, logged_in, logged_in_as_admin,
-                       true_path, false_path, op) -> None:
+                       true_path, false_path, op, example_config: Config) -> None:
         """
         Testing the POST HTTPS method for the /file resource
         
@@ -106,6 +107,7 @@ class TestResourcesFileSuite:
         :param true_path: the true_path fixture
         :param false_path: the false_path fixture
         :param op: the op fixture
+        :param example_config: the example_config fixture
         :return: None
         """
         mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=not_logged_in)
@@ -123,9 +125,20 @@ class TestResourcesFileSuite:
         assert response.status_code == constants.HTTPS.UNAUTHORIZED_STATUS_CODE
         assert response_data_dict == {}
         mocker.patch("csle_rest_api.util.rest_api_util.check_if_user_is_authorized", side_effect=logged_in_as_admin)
+        mocker.patch("csle_common.dao.emulation_config.config.Config.get_current_config",
+                     return_value=example_config)
         mocker.patch("os.path.exists", side_effect=true_path)
         mocker.patch("builtins.open", side_effect=op)
-        test_data = json.dumps({api_constants.MGMT_WEBAPP.PATH_PROPERTY: "/home/nils/csle/examples/examples.txt"})
+        for path in ["/etc/passwd", f"{example_config.default_log_dir}/../etc/passwd"]:
+            test_data = json.dumps({api_constants.MGMT_WEBAPP.PATH_PROPERTY: path})
+            response = flask_app.test_client().post(api_constants.MGMT_WEBAPP.FILE_RESOURCE, data=test_data)
+            response_data = response.data.decode("utf-8")
+            response_data_dict = json.loads(response_data)
+            assert response.status_code == constants.HTTPS.BAD_REQUEST_STATUS_CODE
+            assert api_constants.MGMT_WEBAPP.REASON_PROPERTY in response_data_dict
+            assert api_constants.MGMT_WEBAPP.LOGS_PROPERTY not in response_data_dict
+        test_data = json.dumps(
+            {api_constants.MGMT_WEBAPP.PATH_PROPERTY: f"{example_config.default_log_dir}/examples.txt"})
         response = flask_app.test_client().post(
             api_constants.MGMT_WEBAPP.FILE_RESOURCE, data=test_data)
         response_data = response.data.decode("utf-8")
@@ -134,7 +147,8 @@ class TestResourcesFileSuite:
         assert response_data_dict == {api_constants.MGMT_WEBAPP.LOGS_PROPERTY: "DataSet"}
         assert response.status_code == constants.HTTPS.OK_STATUS_CODE
         mocker.patch("os.path.exists", side_effect=false_path)
-        test_data = json.dumps({api_constants.MGMT_WEBAPP.PATH_PROPERTY: "/home/nils/csle/examples/examples.txt"})
+        test_data = json.dumps(
+            {api_constants.MGMT_WEBAPP.PATH_PROPERTY: f"{example_config.default_log_dir}/examples.txt"})
         response = flask_app.test_client().post(api_constants.MGMT_WEBAPP.FILE_RESOURCE, data=test_data)
         response_data = response.data.decode("utf-8")
         response_data_dict = json.loads(response_data)

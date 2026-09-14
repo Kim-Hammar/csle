@@ -8,6 +8,7 @@ from csle_common.dao.emulation_config.config import Config
 import csle_common.constants.constants as constants
 from csle_common.controllers.management_system_controller import ManagementSystemController
 from csle_common.util.general_util import GeneralUtil
+from csle_common.util.grpc_auth_util import GrpcAuthServerInterceptor
 from csle_common.util.cluster_util import ClusterUtil
 from csle_common.metastore.metastore_facade import MetastoreFacade
 from csle_common.controllers.emulation_env_controller import EmulationEnvController
@@ -390,15 +391,19 @@ class ClusterManagerServicer(csle_cluster.cluster_manager.cluster_manager_pb2_gr
         """
         logging.info(f"Getting log file: {request.name}")
         data = []
-        try:
-            if os.path.exists(request.name):
-                try:
-                    with open(request.name, 'r') as fp:
-                        data = ClusterManagerUtil.tail(fp, window=100).split("\n")
-                except Exception as e:
-                    logging.info(f"Exception reading log file: {request.name}. Stacktrace: {str(e)}, {repr(e)}")
-        except Exception as e:
-            logging.info(f"Exception finding log file: {request.name}. Stacktrace: {str(e)}, {repr(e)}")
+        config = Config.get_current_config()
+        if config is None or not GeneralUtil.is_path_in_dir(path=request.name, directory=config.default_log_dir):
+            logging.warning(f"Refusing to read a file outside of the CSLE log directory: {request.name}")
+        else:
+            try:
+                if os.path.exists(request.name):
+                    try:
+                        with open(request.name, 'r') as fp:
+                            data = ClusterManagerUtil.tail(fp, window=100).split("\n")
+                    except Exception as e:
+                        logging.info(f"Exception reading log file: {request.name}. Stacktrace: {str(e)}, {repr(e)}")
+            except Exception as e:
+                logging.info(f"Exception finding log file: {request.name}. Stacktrace: {str(e)}, {repr(e)}")
         logs = data
         return csle_cluster.cluster_manager.cluster_manager_pb2.LogsDTO(logs=logs)
 
@@ -6251,7 +6256,10 @@ def serve(port: int = 50041, log_dir: str = "/var/log/csle/", max_workers: int =
     """
     collector_constants.LOG_FILES.CLUSTER_MANAGER_LOG_DIR = log_dir
     collector_constants.LOG_FILES.CLUSTER_MANAGER_LOG_FILE = log_file_name
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers))
+    config = Config.get_current_config()
+    token = "" if config is None else config.cluster_manager_token
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=max_workers),
+                         interceptors=[GrpcAuthServerInterceptor(token=token)])
     csle_cluster.cluster_manager.cluster_manager_pb2_grpc.add_ClusterManagerServicer_to_server(
         ClusterManagerServicer(), server)
     server.add_insecure_port(f'[::]:{port}')

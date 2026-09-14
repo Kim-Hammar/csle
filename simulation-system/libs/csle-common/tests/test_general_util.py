@@ -82,3 +82,20 @@ class TestGeneralUtilSuite:
         ip = GeneralUtil.get_host_ip()
         assert isinstance(ip, str)
         assert len(ip.split(".")) == 4
+
+    def test_is_path_in_dir(self) -> None:
+        """
+        Tests the is_path_in_dir function
+
+        :return: None
+        """
+        assert GeneralUtil.is_path_in_dir(path="/var/log/csle/cluster_manager.log", directory="/var/log/csle/")
+        assert GeneralUtil.is_path_in_dir(path="/var/log/csle/cluster_manager.log", directory="/var/log/csle")
+        assert GeneralUtil.is_path_in_dir(path="/var/log/csle/sub/x.log", directory="/var/log/csle/")
+        assert GeneralUtil.is_path_in_dir(path="/var/log/csle/", directory="/var/log/csle/")
+        assert not GeneralUtil.is_path_in_dir(path="/etc/passwd", directory="/var/log/csle/")
+        assert not GeneralUtil.is_path_in_dir(path="/var/log/csle/../../../etc/passwd", directory="/var/log/csle/")
+        assert not GeneralUtil.is_path_in_dir(path="/var/log/csle_other/x.log", directory="/var/log/csle")
+        assert not GeneralUtil.is_path_in_dir(path="/var/log/", directory="/var/log/csle/")
+        assert GeneralUtil.is_path_in_dir(path="null/x.log", directory="null")
+        assert not GeneralUtil.is_path_in_dir(path="null/../x.log", directory="null")

@@ -497,7 +497,8 @@ class TestResourcesUsersSuite:
             localhost=False,
             recovery_ai=False,
             recovery_ai_output_dir="",
-            recovery_ai_examples_path=""
+            recovery_ai_examples_path="",
+            cluster_manager_token="test_token"
         )
         mocker.patch("csle_common.metastore.metastore_facade.MetastoreFacade.list_management_users",
                      side_effect=management_users)

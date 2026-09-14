@@ -35,6 +35,8 @@ class GRPC_SERVERS:
     FIVE_G_CORE_MANAGER_DEFAULT_PORT = 50052
     FIVE_G_CU_MANAGER_DEFAULT_PORT = 50053
     FIVE_G_DU_MANAGER_DEFAULT_PORT = 50054
+    AUTH_TOKEN_METADATA_KEY = "token"
+    UNAUTHENTICATED_MSG = "Missing or invalid cluster manager token"
     SERVICE_CONFIG_JSON = json.dumps({
         "methodConfig": [{
             # An empty "name" list means this policy applies to all methods.

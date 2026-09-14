@@ -1,4 +1,5 @@
 from typing import Tuple, List
+import os
 import socket
 import numpy as np
 import numpy.typing as npt
@@ -106,3 +107,17 @@ class GeneralUtil:
         one_hot = np.eye(max_value + 1)[np_vector]  # Identity matrix of size (max_value + 1)
 
         return np.array(one_hot.flatten())
+
+    @staticmethod
+    def is_path_in_dir(path: str, directory: str) -> bool:
+        """
+        Checks whether a given path resolves to a location inside a given directory
+        (symlinks and '..' components are resolved before the comparison)
+
+        :param path: the path to check
+        :param directory: the directory that the path must be inside
+        :return: True if the resolved path is inside the resolved directory, otherwise False
+        """
+        real_path = os.path.realpath(path)
+        real_dir = os.path.realpath(directory)
+        return os.path.commonpath([real_path, real_dir]) == real_dir

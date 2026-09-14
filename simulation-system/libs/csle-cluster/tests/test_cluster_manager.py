@@ -1089,24 +1089,34 @@ class TestClusterManagerSuite:
             stub=grpc_stub)
         assert not response.running
 
-    def test_getLogFile(self, grpc_stub, mocker: pytest_mock.MockFixture) -> None:
+    def test_getLogFile(self, grpc_stub, mocker: pytest_mock.MockFixture, example_config: Config) -> None:
         """
         Tests the getLogFile grpc
         
         :param grpc_stub: the stub for the GRPC server to make the request to
         :param mocker: the mocker object to mock functions with external dependencies
+        :param example_config: fixture that creates an example config
         :return: None
         """
+        mocker.patch('csle_common.dao.emulation_config.config.Config.get_current_config',
+                     return_value=example_config)
         mocker.patch('csle_cluster.cluster_manager.cluster_manager_util.ClusterManagerUtil.tail',
                      return_value="abcdef")
         mocker.patch("os.path.exists", return_value=True)
         mocker.patch('builtins.open', return_value=TestClusterManagerSuite.with_class())
-        response: LogsDTO = query_cluster_manager.get_log_file(stub=grpc_stub,
-                                                               log_file_name="abcdef")
+        log_file_name = f"{example_config.default_log_dir}/abcdef"
+        response: LogsDTO = query_cluster_manager.get_log_file(stub=grpc_stub, log_file_name=log_file_name)
         assert response.logs == ['abcdef']
+        # Files outside of the CSLE log directory must not be readable
+        for path in ["/etc/passwd", f"{example_config.default_log_dir}/../etc/passwd", "abcdef"]:
+            response = query_cluster_manager.get_log_file(stub=grpc_stub, log_file_name=path)
+            assert response.logs == []
         mocker.patch('builtins.open', return_value=None)
-        response: LogsDTO = query_cluster_manager.get_log_file(stub=grpc_stub,
-                                                               log_file_name="abcdef")
+        response = query_cluster_manager.get_log_file(stub=grpc_stub, log_file_name=log_file_name)
+        assert response.logs == []
+        mocker.patch('csle_common.dao.emulation_config.config.Config.get_current_config', return_value=None)
+        mocker.patch('builtins.open', return_value=TestClusterManagerSuite.with_class())
+        response = query_cluster_manager.get_log_file(stub=grpc_stub, log_file_name=log_file_name)
         assert response.logs == []
 
     def test_getFlaskLogs(self, grpc_stub, mocker: pytest_mock.MockFixture, example_config: Config) -> None:

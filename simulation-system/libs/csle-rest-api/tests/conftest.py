@@ -174,7 +174,8 @@ def example_config() -> Config:
         localhost=False,
         recovery_ai=False,
         recovery_ai_examples_path="",
-        recovery_ai_output_dir=""
+        recovery_ai_output_dir="",
+        cluster_manager_token="test_token"
     )
     return config
 

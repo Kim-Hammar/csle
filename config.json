@@ -47,6 +47,7 @@
   "recovery_ai": false,
   "recovery_ai_output_dir": "",
   "recovery_ai_examples_path": "",
+  "cluster_manager_token": "28b1579e2e1b12e07adc9eb60c619103d22da9c9fb30438156b74a4018fc174f",
   "metastore_user": "csle",
   "metastore_password": "csle",
   "metastore_database_name": "csle",

@@ -6,6 +6,8 @@ import json
 import os
 from flask import Blueprint, jsonify, request, Response
 import csle_common.constants.constants as constants
+from csle_common.dao.emulation_config.config import Config
+from csle_common.util.general_util import GeneralUtil
 import csle_rest_api.constants.constants as api_constants
 import csle_rest_api.util.rest_api_util as rest_api_util
 
@@ -30,6 +32,11 @@ def read_file() -> Tuple[Response, int]:
         return authorized
 
     path = json.loads(request.data)[api_constants.MGMT_WEBAPP.PATH_PROPERTY]
+    config = Config.get_current_config()
+    if config is None or not GeneralUtil.is_path_in_dir(path=path, directory=config.default_log_dir):
+        response_str = f"{path} is not inside the CSLE log directory"
+        return (jsonify({api_constants.MGMT_WEBAPP.REASON_PROPERTY: response_str}),
+                constants.HTTPS.BAD_REQUEST_STATUS_CODE)
     data = ""
     if os.path.exists(path):
         with open(path, 'r') as fp:
