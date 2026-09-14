@@ -74,7 +74,7 @@ const UserAdmin = ({ setSessionData, sessionData }) => {
               headers: new Headers({
                   Accept: "application/vnd.github.cloak-preview"
               }),
-              body: JSON.stringify({ user: user })
+              body: JSON.stringify(user)
           }
         )
           .then(res => {

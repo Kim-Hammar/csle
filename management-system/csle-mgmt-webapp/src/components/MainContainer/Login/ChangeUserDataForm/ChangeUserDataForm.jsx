@@ -38,7 +38,7 @@ const ChangeUserDataForm = (props) => {
                 headers: new Headers({
                     Accept: "application/vnd.github.cloak-preview"
                 }),
-                body: JSON.stringify({user: user})
+                body: JSON.stringify(user)
             }
         ).then(res => {
                 if (res.status === 401) {
@@ -59,7 +59,7 @@ const ChangeUserDataForm = (props) => {
                     "username": username,
                     "email": email,
                     "first_name": firstName,
-                    "last-name": lastName,
+                    "last_name": lastName,
                     "organization": organization,
                     "id": userId,
                     "admin": admin
