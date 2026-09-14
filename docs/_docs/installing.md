@@ -126,7 +126,7 @@ By adding the above line to the `sudoers` file, CSLE will be able to view logs a
 Next, setup SSH keys so that all servers (leader and workers) have SSH access to each other without requiring a password. 
 To do this, generate an SSH key pair with the command `ssh-keygen` on each server and copy the public key (e.g., `id_rsa.pub`) to the file `.ssh/authorized_keys`.
 
-Lastly, define default username and password to the management system by editing the file: `csle/config.json`.
+Lastly, create the deployment configuration file by copying the template `csle/config.json.template` to `csle/config.json` (the file is git-ignored since it contains secrets) and define the default username and password to the management system as well as the `cluster_manager_token` in it. The token is a secret string of your choice that clients must present to the cluster manager gRPC API; it must be the same on all nodes.
 
 ### Installing the Metastore
 The metastore is based on PostgreSQL and Citus. Installing the metastore thus corresponds to installing and configuring PostgreSQL and Citus.
@@ -212,7 +212,7 @@ Listing 22: Commands to setup the Citus cluster and create tables.
 
 Next, update the variable called `HOST` in the class `METADATA\_STORE` in the file `csle/simulation-system/libs/csle-common/src/csle\_common/constants/constants.py`.
 
-Next, define IPs of the cluster nodes and the metastore leader by editing the file: `csle/config.json`.
+Next, define IPs of the cluster nodes and the metastore leader by editing the file: `csle/config.json` (copy it from `csle/config.json.template` if it does not exist yet).
 
 Lastly, make the PostgreSQL log files readable by your user by running the commands:
 ```bash

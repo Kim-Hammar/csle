@@ -6,7 +6,7 @@ permalink: /docs/how-to-config-param/
 ## How-to: Add Configuration Parameters
 To add a new configuration parameter, perform the following steps:
 
-1. Add the configuration parameter to the file: `csle/config.json`.
+1. Add the configuration parameter to the template file `csle/config.json.template` (and to your local, git-ignored `csle/config.json`).
 2. Add the new configuration parameter to the file:
     ```bash
      csle/simulation-system/libs/csle-common/src/csle_common/dao/emulation_config/config.py
