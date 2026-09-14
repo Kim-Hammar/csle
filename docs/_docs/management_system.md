@@ -38,3 +38,5 @@ cAdvisor and Node exporter are used to push system metrics to Prometheus,
 which stores the metrics in a time-series database, whose data is visualized with Grafana dashboards.
 </p>
 </p>
+
+Management actions on a server (e.g., starting containers, stopping emulations, or reading log files) are executed by a *cluster manager*, a gRPC server that runs on each server of the management system. The cluster manager is only reachable with a shared secret: every request from the REST API or the CLI must carry the `cluster_manager_token` defined in the configuration (`config.json`) as gRPC metadata, and requests without a valid token are rejected. Users authenticate towards the REST API with session tokens, so the cluster manager token is a service-to-service credential that is never exposed to end users. See the installation guide for how to configure the token.

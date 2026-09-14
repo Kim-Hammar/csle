@@ -126,7 +126,17 @@ By adding the above line to the `sudoers` file, CSLE will be able to view logs a
 Next, setup SSH keys so that all servers (leader and workers) have SSH access to each other without requiring a password. 
 To do this, generate an SSH key pair with the command `ssh-keygen` on each server and copy the public key (e.g., `id_rsa.pub`) to the file `.ssh/authorized_keys`.
 
-Lastly, create the deployment configuration file by copying the template `csle/config.json.template` to `csle/config.json` (the file is git-ignored since it contains secrets) and define the default username and password to the management system as well as the `cluster_manager_token` in it. The token is a secret string of your choice that clients must present to the cluster manager gRPC API; it must be the same on all nodes.
+Lastly, create the deployment configuration file by copying the template `csle/config.json.template` to `csle/config.json` (the file is git-ignored since it contains secrets) and define the default username and password to the management system in it.
+
+#### Cluster Manager Token
+
+Each server of the management system runs a *cluster manager*, a gRPC server (port 50041) through which the REST API and the CLI manage emulations, containers, and log files on that server. The cluster manager only accepts requests that carry the shared secret `cluster_manager_token` defined in `csle/config.json`; requests without a valid token are rejected with the gRPC status `UNAUTHENTICATED`. Generate a token, e.g., with the command:
+
+```bash
+python -c "import secrets; print(secrets.token_hex(32))"
+```
+
+and set it as the value of `cluster_manager_token` in `csle/config.json` **on the leader**. The configuration in `config.json` on the leader is synchronized to the metastore whenever a `csle` command is executed on the leader (e.g., `csle init`), and the workers read the configuration, including the token, from the metastore. Hence, the token only has to be defined on the leader. If the token is empty, the cluster manager rejects all requests. To rotate the token: update `csle/config.json` on the leader, run `csle init` on the leader, and then restart the cluster managers on all servers (`csle stop clustermanager`, `csle start clustermanager`) and the REST API on the leader (`csle stop flask`, `csle start flask`).
 
 ### Installing the Metastore
 The metastore is based on PostgreSQL and Citus. Installing the metastore thus corresponds to installing and configuring PostgreSQL and Citus.

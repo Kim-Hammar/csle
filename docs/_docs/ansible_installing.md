@@ -76,6 +76,11 @@ In most cases the default parameters can be used. However, you must always confi
 IP addresses of the servers in your cluster in `csle/ansible/inventory`
 as well as configure the variables `leader_ip`, `leader_public_ip`, `metastore_ip`,
 and cluster_nodes in the file `csle/ansible/groups_vars/all/variables.yml`.
+You should also replace the placeholder value of `cluster_manager_token` under `csle_config` in 
+`csle/ansible/groups_vars/all/variables.yml` with a secret of your own 
+(e.g., generated with `python -c "import secrets; print(secrets.token_hex(32))"`). 
+This token authenticates the REST API and the CLI towards the cluster managers of the servers; 
+Ansible writes it to `config.json` on all servers.
 
 After configuring the installation, install Ansible on the user host by running the command:
 
